@@ -223,9 +223,9 @@ Si usas Java en el backend, puedes utilizar JDBC (Java Database Connectivity) pa
 <div align="center">
     <table>
         <tr>
-            <th style="text-align: center;">Componente</th>
-            <th style="text-align: center;">Lenguaje Recomendado</th>
-            <th style="text-align: center;">Alternativas</th>
+            <th>Componente</th>
+            <th>Lenguaje Recomendado</th>
+            <th>Alternativas</th>
         </tr>
         <tr>
             <td>Aplicación de Escritorio</td>
@@ -254,6 +254,7 @@ Si usas Java en el backend, puedes utilizar JDBC (Java Database Connectivity) pa
         </tr>
     </table>
 </div>
+
 <!--
 | Componente                         | Lenguaje Recomendado                              | Alternativas                                               |
 | ---------------------------------- | ------------------------------------------------- | ---------------------------------------------------------- |
