@@ -1,3 +1,17 @@
+<style>
+    table {
+        border-collapse: collapse; /* Elimina espacios entre bordes de celdas */
+        width: auto; /* Opcional: hace que la tabla ocupe el ancho completo del contenedor */
+        table-layout: auto;
+    }
+    th, td {
+        border: 1px solid black; /* Añade un borde negro alrededor de las celdas */
+        padding: 8px; /* Espacio interno en las celdas */
+        text-align: center; /* Alinea el texto al centro */
+    }
+</style>
+
+
 ## Descripcion del Proyecto
 
 Para desarrollar un proyecto de gestión de almacenes completo, es esencial incluir un conjunto de características y funcionalidades que cubran tanto las necesidades operativas de los empleados en el almacén como las de los administradores y gestores. Además de la visualización en 3D con JavaFX que has implementado, te sugiero considerar las siguientes funcionalidades clave para tu TFG:
