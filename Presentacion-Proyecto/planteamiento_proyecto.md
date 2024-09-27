@@ -120,7 +120,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
             <td>Documentos API</td>
         </tr>
         <tr>
-            <td>Soporte de aplicaciones IOS</td>
+            <td><del>Soporte de aplicaciones IOS</del></td>
         </tr>
         <tr>
             <td>Soporte de aplicaciones Android</td>
@@ -176,14 +176,14 @@ Si prefieres un enfoque más flexible o con alto volumen de datos, puedes optar 
 
 **3. Aplicación Móvil (para Operarios)**
 
-    **Opción 1:** Aplicación nativa para Android
+- Opción 1: Aplicación nativa para Android
 
-    **Lenguaje: Kotlin o Java (Android).** _Kotlin_ es el lenguaje oficial para el desarrollo de aplicaciones Android, pero también puedes usar Java si prefieres mantener la coherencia con la aplicación de escritorio. Esto permitirá desarrollar una aplicación nativa específica para Android, que puede interactuar con la base de datos centralizada a través de una API REST.
+    Lenguaje: Kotlin o Java (Android).** _Kotlin_ es el lenguaje oficial para el desarrollo de aplicaciones Android, pero también puedes usar Java si prefieres mantener la coherencia con la aplicación de escritorio. Esto permitirá desarrollar una aplicación nativa específica para Android, que puede interactuar con la base de datos centralizada a través de una API REST.
 
-    ~~**Opción 2:** Aplicación Multiplataforma~~
-            ~~Flutter (que usa Dart) es una opción multiplataforma que te permite crear aplicaciones tanto para Android como iOS desde un solo código base.~~
-            ~~React Native (con JavaScript o TypeScript) también permite el desarrollo multiplataforma, especialmente si estás más cómodo con el ecosistema JavaScript.~~
-            ~~Ambas opciones son excelentes si deseas tener una única base de código para las aplicaciones móviles de operarios en Android y iOS.~~
+- ~~**Opción 2:** Aplicación Multiplataforma~~
+    ~~Flutter (que usa Dart) es una opción multiplataforma que te permite crear aplicaciones tanto para Android como iOS desde un solo código base.~~
+    ~~React Native (con JavaScript o TypeScript) también permite el desarrollo multiplataforma, especialmente si estás más cómodo con el ecosistema JavaScript.~~
+    ~~Ambas opciones son excelentes si deseas tener una única base de código para las aplicaciones móviles de operarios en Android y iOS.~~
 
 **4. Back-End** (API REST para comunicación entre escritorio y móvil)
 
