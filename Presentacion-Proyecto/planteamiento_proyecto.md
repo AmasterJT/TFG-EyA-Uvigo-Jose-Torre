@@ -24,9 +24,9 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-    <img src="imagenes/almacenes_reales/almacen_real_1.jpg" alt="almacen real 1" style="max-width: 50%; height: auto; margin-bottom: 10px;">
-     <img src="imagenes/almacenes_reales/almacen_real_2.jpg" alt="almacen real 1" style="max-width: 50%; height: auto; margin-bottom: 10px;">
-      <img src="imagenes/almacenes_reales/almacen_real_3.jpg" alt="almacen real 1" style="max-width: 50%; height: auto; margin-bottom: 10px;">
+    <img src="imagenes/almacenes_reales/almacen_real_1.jpg" alt="almacen real 1" style="max-width: 400px; height: auto; margin-bottom: 10px;">
+     <img src="imagenes/almacenes_reales/almacen_real_2.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
+      <img src="imagenes/almacenes_reales/almacen_real_3.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
     <p style="margin: 0; font-style: italic; color:white"> Ejemplos de almacenes reales a gestionar</p>
 </div>
 
@@ -202,7 +202,7 @@ Entidades clave a considerar:
 - **Movimientos de stock** (Entrada y salida de productos)
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-    <img src="imagenes/BDD_schema.jpg" alt="BDD" style="max-width: 90%; height: auto; border-radius: 10px; margin :0">
+    <img src="imagenes/BDD_schema.jpg" alt="BDD" style="max-width: 700px; height: auto; border-radius: 10px; margin :0">
     <p style="margin: 10px 0 0 0; font-style: italic; color:white"> Diagrama de la base de datos (<a href="https://drawsql.app/" style="color: #3498db" >https://drawsql.app/</a>)</p>
 </div>
 
@@ -659,7 +659,7 @@ Para que una persona pueda acceder a la aplicación, se requiere que tenga un us
 cuando el usuario desea hacer una determida acción en la aplicación, se debe verificar que el usuario tenga los permisos necesarios para realizar dicha acción. Esto se logra verificando que el usuario tenga el rol correspondiente y que el rol tenga los permisos necesarios para realizar dicha acción. Si el usuario no tiene los permisos necesarios, entonces se le debe notificar al usuario que no tiene los permisos necesarios para realizar dicha acción.
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <img src="imagenes/diagrama_gestion_base_datos.jpg" alt="diagrama_gestion_bases_de_datos" style="width: 60%; height: auto; border-radius:10px">
+    <img src="imagenes/diagrama_gestion_base_datos.jpg" alt="diagrama_gestion_bases_de_datos" style="width: 500px; height: auto; border-radius:10px">
 </div>
 
 
