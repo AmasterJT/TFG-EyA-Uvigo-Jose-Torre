@@ -24,7 +24,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-    <img src="imagenes/almacenes_reales/almacen_real_1.jpg" alt="almacen real 1" style="max-width: 400px; height: auto; margin-bottom: 10px;">
+    <img src="imagenes/almacenes_reales/almacen_real_1.jpg" alt="almacen real 1" style="max-width: 100px; height: auto; margin-bottom: 10px;">
      <img src="imagenes/almacenes_reales/almacen_real_2.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
       <img src="imagenes/almacenes_reales/almacen_real_3.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
     <p style="margin: 0; font-style: italic; color:white"> Ejemplos de almacenes reales a gestionar</p>
