@@ -1,0 +1,179 @@
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Habilita scroll horizontal si es necesario */
+}
+
+table {
+    width: 100%;
+    max-width: 100%; /* Garantiza que la tabla no exceda el ancho de la pantalla */
+    border-collapse: collapse;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 10px; /* Cambia el tamaño de la letra aquí */;
+}
+
+thead th {
+    background-color: #4caf4fa6;
+    border: 1px solid #003602;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap; /* Evita que el contenido de los encabezados se divida en varias líneas */
+}
+
+tbody td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #868484;
+    word-wrap: break-word; /* Permite que el contenido de las celdas se ajuste a varias líneas si es necesario */
+    white-space: normal; /* Asegura que las celdas hagan wrap */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #383838;
+}
+
+tbody tr:hover {
+    background-color: #686868;
+}
+
+th, td {
+    border: 1px solid #868484;
+    padding: 10px;
+}
+
+td {
+    word-break: break-all; /* Fuerza que el contenido largo en celdas haga wrap si es necesario */
+}
+
+#tabla_funciones_a_realizar {
+    width: auto; /* Ajusta el ancho de la tabla al contenido */
+    table-layout: auto; /* Permite que la tabla se ajuste según el contenido */
+    border-collapse: collapse; /* Para un estilo de tabla más compacto */
+    margin: 0 auto; /* Centra la tabla (opcional) */
+}
+
+#tabla_funciones_a_realizar th, #tabla_funciones_a_realizar td {
+    padding: 10px; /* Espaciado interno de las celdas */
+    text-align: center; /* Alineación del texto */
+    white-space: nowrap; /* Evita que el contenido en celdas se divida en varias líneas */
+}
+
+
+
+
+/* Estilos para las tablas con la clase 'bddd' */
+table.bdd {
+    width: auto;
+    border-collapse: separate; /* Cambia a 'separate' para permitir el border-radius */
+    border-spacing: 0; /* Elimina los espacios entre las celdas */
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Añade bordes redondeados a la tabla */
+    overflow: hidden; /* Asegura que las esquinas de las celdas también se redondeen */
+}
+
+
+/* Esquinas redondeadas para los encabezados y la primera/última fila */
+table.bdd thead th:first-child {
+    border-top-left-radius: 10px;
+}
+
+table.bdd thead th:last-child {
+    border-top-right-radius: 10px;
+}
+
+table.bdd tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+table.bdd tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+
+table.bdd th, table.bdd td {
+    padding: 10px;
+    border: 1px solid #707070;
+    text-align: left;
+    color: white;
+    white-space: nowrap; /* Evita que el contenido de las celdas se ajuste a varias líneas */
+}
+
+table.bdd thead th {
+    background-color: #252525;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+
+table.bdd tbody tr:nth-child(even) {
+    color: white;
+    background-color: #464646; /* Color alterno en las filas pares */
+}
+
+table.bdd tbody tr:hover {
+    background-color: #7e7e7e; /* Efecto hover para filas */
+}
+
+/* Centrado del título (aplicable si quieres que los títulos también tengan la clase) */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+
+
+/* Configuración básica para listas */
+ul, ol {
+    padding-left: 40px; /* Sangría inicial para el primer nivel de la lista */
+    margin-left: 0; /* Elimina cualquier margen adicional */
+}
+
+/* Configuración para sublistas (anidadas) */
+ul ul, ol ul,
+ul ol, ol ol {
+    padding-left: 60px; /* Mayor sangría para las sublistas del segundo nivel */
+}
+
+/* Sublistas de tercer nivel */
+ul ul ul, ol ul ul,
+ul ol ul, ol ol ul {
+    padding-left: 80px; /* Aumenta la sangría para sublistas de tercer nivel */
+}
+
+/* Sublistas de cuarto nivel */
+ul ul ul ul, ol ul ul ul,
+ul ol ul ul, ol ol ul ul {
+    padding-left: 100px; /* Más sangría para el cuarto nivel */
+}
+
+
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+
+    thead th, tbody td {
+        padding: 8px;
+    }
+}
