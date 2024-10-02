@@ -158,7 +158,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 La aplicación de escritorio es la versión más simple de la aplicación, que se encarga de gestionar el almacén en el equipo de operarios. Para su uso será necesario que el empleado se identifique con su usuario y contraseña para asi gestionar los permisos que los diferentes persona tienen, y que esté conectado a internet. Los diferentes usuarios estan descritos en la sección "<a href="#seccion2" style="font-style:italic">Usuarios, Roles y Permisos</a>"
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-    <img src="imagenes/ventanas_app.jpg" alt="ventanas de la aplicacion" style="max-width: 70%; height: auto; margin-bottom: 10px;">
+    <img src="imagenes/ventanas_app.jpg" alt="ventanas de la aplicacion" style="max-width: 90%; height: auto; margin-bottom: 10px;">
     <p style="margin: 0; font-style: italic; color:white"> Jerarquía de las ventanas principales </p>
 </div>
 
