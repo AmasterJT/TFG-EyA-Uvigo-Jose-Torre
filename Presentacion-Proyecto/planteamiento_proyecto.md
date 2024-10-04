@@ -16,9 +16,8 @@
 <h1 align="center" style="margin: 20px 0 30px 0; font-size:30px; border-bottom: none; text-decoration: underline;">Aplicación de Gestión de Almacén: Presentación del Proyecto</h1>
 
 
-Este software pretende ser una aplicación de gestión de un almacen que permita a los operarios realizar los diferentes procesos de almacenamiento y mantenimiento de productos, así como a los administradores y gestores de gestionar el almacén y sus productos.
-
-Para desarrollar un proyecto de gestión de almacenes completo, es esencial incluir un conjunto de características y funcionalidades que cubran tanto las necesidades operativas de los empleados en el almacén (como el movimiento de los palets dentro del almacen, la gestion de los pedidos, etc.) como las de los administradores y gestores (como la gestión de inventario, pedidos, reportes, etc.).
+Este software pretende ser una aplicación de gestión de un almacén que permita a los operarios realizar los diferentes procesos de almacenamiento y mantenimiento de productos, así como a los administradores y gestores de gestionar el almacén y sus productos.
+Para desarrollar un proyecto de gestión de almacenes completo, es esencial incluir un conjunto de características y funcionalidades que cubran tanto las necesidades operativas de los empleados en el almacén (como el movimiento de los palets dentro del almacén, la gestión de los pedidos, etc.) como las de los administradores y gestores (como la gestión de inventario, pedidos, reportes, etc.).
 
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
@@ -197,9 +196,9 @@ Para cubrir las funciones del almacen el software debe tener en cuenta las sigui
 
 ## Esquema de la aplicación de escritorio (Desktop app)
 
-La aplicación de escritorio es la versión más importante del sistema, se encarga de gestionar el almacén y el equipo de operarios. Para su uso será necesario que el empleado se identifique con su usuario y contraseña para asi gestionar los permisos que los diferentes persona tienen, y que esté conectado a la base de datos. Los diferentes usuarios estan descritos en la sección "<a href="#seccion2" style="font-style:italic; color:#3498db">Usuarios, Roles y Permisos</a>"
+La aplicación de escritorio es la versión más importante del sistema, se encarga de gestionar el almacén y el equipo de operarios. Para su uso será necesario que el empleado se identifique con su usuario y contraseña para asi gestionar los permisos que las diferentes personas tienen, y que esté conectado a la base de datos. Los diferentes usuarios están descritos en la sección "<a href="#seccion2" style="font-style:italic; color:#3498db">Usuarios, Roles y Permisos</a>"
 
-al aplicacion de escritorio debe tener los siguientes componentes:
+al aplicación de escritorio debe tener los siguientes componentes:
 1. Pantalla de Inicio de Sesión
 
     - Características:
@@ -261,30 +260,30 @@ al aplicacion de escritorio debe tener los siguientes componentes:
         - Opción para gestionar la configuración de la aplicación (por ejemplo, parámetros del sistema, opciones de notificación).
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-    <img src="imagenes/ventanas_app.jpg" alt="ventanas de la aplicacion" style="max-width: 90%; height: auto; margin-bottom: 10px;">
+    <img src="imagenes/ventanas_app.jpg" alt="ventanas de la aplicación" style="max-width: 90%; height: auto; margin-bottom: 10px;">
     <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 4:</a> Jerarquía de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 Las ventanas principales que componen la aplicación se muestran son:
 
-- Inicio de sesion
+- Inicio de sesión
 - Ventana principal: elegimos la accion principàl que queremos realizar (gestión del almacen, pedidos, etc.)
 - Infomacion del usuario: muestra información sobre el usuario actual asi como los permisos que tiene
-- Administracion del almacen: muestra los palets que hay en él con los diferentes productos que hay en cada palet
-- Pedidios:
+- Administración del almacen: muestra los palets que hay en él con los diferentes productos que hay en cada palet
+- Pedidos:
     - Pedidos pendientes: muestra todos los pedidos que se deben realizar pero que ningun operario está ejecutando
-    - Pedidos en curso: muestra todos los pedidios que estan ejecutando los operarios
+    - Pedidos en curso: muestra todos los pedidos que están ejecutando los operarios
 
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-    <img src="imagenes/detalle_ventanas.jpg" alt="ventanas de la aplicacion" style="max-width: 100%; height: auto; margin-bottom: 10px;">
+    <img src="imagenes/detalle_ventanas.jpg" alt="ventanas de la aplicación" style="max-width: 100%; height: auto; margin-bottom: 10px;">
     <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 5:</a> Bocetos de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
-La visulización de los almacenes en la ventana de _GESTIÓN ALMACEN_ se puede hacer en 3D o 2D, dependiendo de las necesidades del usuario. La opción 3D permite visualizar los productos en un entorno más realista, mientras que la opción 2D se enfoca en una visualización más simple y rápida.
+La visualización de los almacenes en la ventana de _GESTIÓN ALMACEN_ se puede hacer en 3D o 2D, dependiendo de las necesidades del usuario. La opción 3D permite visualizar los productos en un entorno más realista, mientras que la opción 2D se enfoca en una visualización más simple y rápida.
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-    <img src="imagenes/modos_de_visualizacion.jpg" alt="modos de la aplicacion" style="max-width: 100%; height: auto; margin-bottom: 10px;">
+    <img src="imagenes/modos_de_visualizacion.jpg" alt="modos de la aplicación" style="max-width: 100%; height: auto; margin-bottom: 10px;">
     <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 6:</a> Visualización de los almacenes en 3D y 2D </p>
 </div>
 
@@ -347,9 +346,9 @@ Entidades clave a considerar:
     <p style="margin: 10px 0 0 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 7:</a>  Diagrama de la base de datos (<a href="https://drawsql.app/" style="color: #3498db" >https://drawsql.app/</a>)</p>
 </div>
 
-**leyenda de los simbolos de las tablas:**
+**leyenda de los símbolos de las tablas:**
 
-![leyenda de los simbolos de las tablas](imagenes/leyenda_caracteristicas_campos_BDD.png)
+![leyenda de los símbolos de las tablas](imagenes/leyenda_caracteristicas_campos_BDD.png)
 
 
 **1. Tabla `Roles`**
@@ -358,7 +357,7 @@ Esta tabla define los diferentes roles que pueden tener los usuarios en el siste
 
 - `id_rol`: Identificador único para cada rol.
 - `nombre_rol`: Nombre del rol, como sysAdmin, Gestor, Operario, etc.
-- `descripcion`: Descripción detallada del rol y sus permisos dentro del sistema.
+- `descripción`: Descripción detallada del rol y sus permisos dentro del sistema.
 
 
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
@@ -376,7 +375,7 @@ Esta tabla define los diferentes roles que pueden tener los usuarios en el siste
     <tbody>
         <tr><td>id_rol</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del rol.</td></tr>
         <tr><td>nombre_rol</td><td>VARCHAR(50)</td><td>Nombre del rol en el sistema.</td></tr>
-        <tr><td>descripcion</td><td>TEXT</td><td>Descripción del rol y sus permisos.</td></tr>
+        <tr><td>descripción</td><td>TEXT</td><td>Descripción del rol y sus permisos.</td></tr>
     </tbody>
 </table>
 </div>
@@ -423,7 +422,7 @@ Esta tabla almacena información sobre los productos gestionados en el almacén.
 
 - `id_producto`: Identificador único para cada producto.
 - `nombre_producto`: Nombre del producto.
-- `descripcion`: Descripción detallada del producto.
+- `descripción`: Descripción detallada del producto.
 - `precio`: Precio unitario del producto.
 - `fecha_registro`: Fecha de registro del producto en el sistema.
 
@@ -442,7 +441,7 @@ Esta tabla almacena información sobre los productos gestionados en el almacén.
     <tbody>
         <tr><td>id_producto</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del producto.</td></tr>
         <tr><td>nombre_producto</td><td>VARCHAR(100)</td><td>Nombre del producto.</td></tr>
-        <tr><td>descripcion</td><td>TEXT</td><td>Descripción del producto.</td></tr>
+        <tr><td>descripción</td><td>TEXT</td><td>Descripción del producto.</td></tr>
         <tr><td>precio</td><td>DECIMAL(10, 2)</td><td>Precio unitario del producto.</td></tr>
         <tr><td>fecha_registro</td><td>TIMESTAMP</td><td>Fecha de registro del producto.</td></tr>
     </tbody>
@@ -654,7 +653,7 @@ _**Conexión entre aplicaciones:**_ Para sincronizar datos entre la app móvil y
 
 _**Seguridad:**_ Usa JWT para la autenticación de usuarios y controla los permisos con base en los roles.
 
-## Legunajes de programacion
+## Lenguajes de programación
 
 Para desarrollar la aplicación de gestión de almacenes con las características anteriores, podemos usar las siguientes tecnologías. Cada una de ellas tiene sus propias ventajas y desventajas, por lo que es importante evaluar cuál es la mejor opción para tu proyecto.
 
@@ -781,7 +780,7 @@ Para la base de datos, te recomiendo usar MySQL o PostgreSQL, que son muy robust
 
 Para que una persona pueda acceder a la aplicación, se requiere que tenga un usuario y contraseña. Estos usuarios y contraseñas se encuentran en la tabla "Usuarios" de la base de datos. Para cada usuario, se puede definir los diferentes roles que tiene, y los permisos que tiene para cada uno de ellos. 
 
-cuando el usuario desea hacer una determida acción en la aplicación, se debe verificar que el usuario tenga los permisos necesarios para realizar dicha acción. Esto se logra verificando que el usuario tenga el rol correspondiente y que el rol tenga los permisos necesarios para realizar dicha acción. Si el usuario no tiene los permisos necesarios, entonces se le debe notificar al usuario que no tiene los permisos necesarios para realizar dicha acción.
+cuando el usuario desea hacer una determinada acción en la aplicación, se debe verificar que el usuario tenga los permisos necesarios para realizar dicha acción. Esto se logra verificando que el usuario tenga el rol correspondiente y que el rol tenga los permisos necesarios para realizar dicha acción. Si el usuario no tiene los permisos necesarios, entonces se le debe notificar al usuario que no tiene los permisos necesarios para realizar dicha acción.
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/diagrama_gestion_base_datos.jpg" alt="diagrama_gestion_bases_de_datos" style="width: 500px; height: auto; border-radius:10px;  margin-bottom: 10px;">
