@@ -25,7 +25,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
     <!-- <img src="imagenes/almacenes_reales/almacen_real_1.jpg" alt="almacen real 1" style="max-width: 400px; height: auto; margin-bottom: 10px;"> -->
     <img src="imagenes/almacenes_reales/almacen_real_2.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
     <img src="imagenes/almacenes_reales/almacen_real_3.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 1:</a> Ejemplos de almacenes reales a gestionar</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a  style="color: #af7ac5" >Figura 1:</a> Ejemplos de almacenes reales a gestionar</p>
 </div>
 
 
@@ -39,7 +39,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 
   <img src="imagenes/Funcionamiento-de-un-almacén- de-consolidación.png" alt="almacen consolidación" style="max-width:  350px; height: auto; margin-bottom: 10px;">
 
-  <p style="margin: 0; font-style: italic; color: white; text-align: center;"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 2:</a> Funcionamiento de un almacén de consolidación.</p>
+  <p style="margin: 0; font-style: italic; color: white; text-align: center;"> <a  style="color: #af7ac5" >Figura 2:</a> Funcionamiento de un almacén de consolidación.</p>
 
  </div>
 
@@ -47,7 +47,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 
   <img src="imagenes/Funcionamiento-de-un-almacén- de-divisón-de-envios.png" alt="almacen consolidación" style="max-width:  350px; height: auto; margin-bottom: 10px;">
 
-  <p style="margin: 0; font-style: italic; color: white; text-align: center;"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 3:</a> Funcionamiento de un almacén de división de envíos.
+  <p style="margin: 0; font-style: italic; color: white; text-align: center;"> <a  style="color: #af7ac5" >Figura 3:</a> Funcionamiento de un almacén de división de envíos.
   </p>
 
  </div>
@@ -153,7 +153,7 @@ Para cubrir las funciones del almacen el software debe tener en cuenta las sigui
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 50px; margin-top: 50px; width: 100%;">
 
-  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 1. </a> funcionalidades del software</p>
+  <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Tabla 1. </a> funcionalidades del software</p>
   <table id="tabla_funciones_a_realizar" style="margin-top: 10px">
       <thead>
           <tr>
@@ -262,7 +262,7 @@ al aplicacion de escritorio debe tener los siguientes componentes:
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/ventanas_app.jpg" alt="ventanas de la aplicacion" style="max-width: 90%; height: auto; margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 4:</a> Jerarquía de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 4:</a> Jerarquía de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 Las ventanas principales que componen la aplicación se muestran son:
@@ -278,14 +278,14 @@ Las ventanas principales que componen la aplicación se muestran son:
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/detalle_ventanas.jpg" alt="ventanas de la aplicacion" style="max-width: 100%; height: auto; margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 5:</a> Bocetos de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 5:</a> Bocetos de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 La visulización de los almacenes en la ventana de _GESTIÓN ALMACEN_ se puede hacer en 3D o 2D, dependiendo de las necesidades del usuario. La opción 3D permite visualizar los productos en un entorno más realista, mientras que la opción 2D se enfoca en una visualización más simple y rápida.
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/modos_de_visualizacion.jpg" alt="modos de la aplicacion" style="max-width: 100%; height: auto; margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 6:</a> Visualización de los almacenes en 3D y 2D </p>
+    <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 6:</a> Visualización de los almacenes en 3D y 2D </p>
 </div>
 
 
@@ -344,7 +344,7 @@ Entidades clave a considerar:
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/BDD_schema.jpg" alt="BDD" style="max-width: 700px; height: auto; border-radius: 10px; margin :0">
-    <p style="margin: 10px 0 0 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 7:</a>  Diagrama de la base de datos (<a href="https://drawsql.app/" style="color: #3498db" >https://drawsql.app/</a>)</p>
+    <p style="margin: 10px 0 0 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 7:</a>  Diagrama de la base de datos (<a href="https://drawsql.app/" style="color: #3498db" >https://drawsql.app/</a>)</p>
 </div>
 
 **leyenda de los simbolos de las tablas:**
@@ -363,7 +363,7 @@ Esta tabla define los diferentes roles que pueden tener los usuarios en el siste
 
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
 
-  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 2. </a> Tabla roles BDD</p>
+  <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Tabla 2. </a> Tabla roles BDD</p>
 
   <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
@@ -396,7 +396,7 @@ Esta tabla almacena la información de todos los usuarios que interactúan con l
 
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
 
-  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 3. </a> Tabla usuarios BDD</p>
+  <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Tabla 3. </a> Tabla usuarios BDD</p>
 
   <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
@@ -429,7 +429,7 @@ Esta tabla almacena información sobre los productos gestionados en el almacén.
 
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
 
-  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 4. </a> Tabla productos BDD</p>
+  <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Tabla 4. </a> Tabla productos BDD</p>
 
   <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
@@ -461,7 +461,7 @@ Esta tabla almacena información sobre cada palet en el almacén. Cada palet con
 
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
 
-  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 5. </a> Tabla palets BDD</p>
+  <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Tabla 5. </a> Tabla palets BDD</p>
 
   <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
@@ -495,7 +495,7 @@ Esta tabla registra la entrada y salida de palets en el almacén. Cada movimient
 
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
 
-  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 6. </a> Tabla movimientos BDD</p>
+  <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Tabla 6. </a> Tabla movimientos BDD</p>
 
   <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
@@ -528,7 +528,7 @@ Esta tabla almacena los pedidos realizados en el almacén, especificando el usua
 
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
 
-  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 7. </a> Tabla pedidos BDD</p>
+  <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Tabla 7. </a> Tabla pedidos BDD</p>
 
   <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
@@ -558,7 +558,7 @@ Esta tabla almacena los detalles de cada pedido realizado, especificando qué pa
 
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
 
-  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 8. </a> Tabla detallesPedido BDD</p>
+  <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Tabla 8. </a> Tabla detallesPedido BDD</p>
 
   <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
@@ -685,7 +685,7 @@ Si prefieres un enfoque más flexible o con alto volumen de datos, puedes optar 
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/what-is-api-rest.png" alt="diagrama_gestion_bases_de_datos" style="width: 500px; height: auto; border-radius:10px;  margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 8:</a> Descripción api rest</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 8:</a> Descripción api rest</p>
 </div>
 
 Tu aplicación de escritorio y móvil necesitarán conectarse a una base de datos central. Para ello, puedes construir una API REST que exponga los datos del almacén a ambas aplicaciones.
@@ -719,7 +719,7 @@ Si usas Java en el backend, puedes utilizar JDBC (Java Database Connectivity) pa
 
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
 
-  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 9. </a> lenguajes de programación y tecnologias </p>
+  <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Tabla 9. </a> lenguajes de programación y tecnologias </p>
 
   <table style="margin: 10px 0 0 0;">
   <thead>
@@ -785,7 +785,7 @@ cuando el usuario desea hacer una determida acción en la aplicación, se debe v
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/diagrama_gestion_base_datos.jpg" alt="diagrama_gestion_bases_de_datos" style="width: 500px; height: auto; border-radius:10px;  margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 9:</a> Gestión de roles de usuario (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 9:</a> Gestión de roles de usuario (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 
@@ -895,7 +895,7 @@ cuando el usuario desea hacer una determida acción en la aplicación, se debe v
 
 <div class="table-container" style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 40px 0 20px 0; ">
 
-  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 10. </a> roles de usuarios y permisos </p>
+  <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Tabla 10. </a> roles de usuarios y permisos </p>
 
   <table style="margin: 10px 0 0 0;">
 
