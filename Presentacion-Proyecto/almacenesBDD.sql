@@ -1,94 +1,81 @@
--- Crear la base de datos
-CREATE DATABASE gestion_almacenes;
+-- Creación de la tabla Roles, donde se definen los distintos roles del sistema
+CREATE TABLE Roles (
+    id_rol INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_rol VARCHAR(50) NOT NULL,
+    descripcion TEXT
+);
 
--- Usar la base de datos creada
-USE gestion_almacenes;
+-- Inserción de algunos roles por defecto
+INSERT INTO Roles (nombre_rol, descripcion) VALUES
+('sysAdmin', 'Superusuario con control total del sistema'),
+('Gestor Almacén', 'Responsable de la operativa del almacén'),
+('Supervisor', 'Encargado de supervisar las operaciones del almacén'),
+('Operario', 'Trabajador que realiza tareas diarias en el almacén'),
+('Mantenimiento', 'Encargado del mantenimiento de maquinaria e instalaciones'),
+('Administración', 'Encargado de tareas administrativas del almacén');
 
--- Crear tabla Usuarios
+-- Creación de la tabla Usuarios, que almacena la información de los usuarios del sistema
 CREATE TABLE Usuarios (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
-    correo VARCHAR(150) UNIQUE NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
     contraseña VARCHAR(255) NOT NULL,
-    rol ENUM('Admin', 'Operario', 'Cliente') NOT NULL,
-    estado ENUM('Activo', 'Inactivo') NOT NULL
+    id_rol INT,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_rol) REFERENCES Roles(id_rol)
 );
 
--- Crear tabla Almacenes
-CREATE TABLE Almacenes (
-    id_almacen INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL,
-    ubicacion VARCHAR(150) NOT NULL,
-    capacidad INT NOT NULL
-);
-
--- Crear tabla Productos
+-- Creación de la tabla Productos, donde se almacenan los productos del almacén
 CREATE TABLE Productos (
     id_producto INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL,
+    nombre_producto VARCHAR(100) NOT NULL,
     descripcion TEXT,
-    codigo_barras VARCHAR(50) UNIQUE,
-    stock_actual INT NOT NULL,
-    stock_minimo INT NOT NULL,
-    precio_compra DECIMAL(10, 2) NOT NULL,
-    id_proveedor INT,
-    id_almacen INT,
-    FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor),  -- Relación con Proveedores
-    FOREIGN KEY (id_almacen) REFERENCES Almacenes(id_almacen)      -- Relación con Almacenes
+    precio DECIMAL(10, 2),  -- Precio unitario del producto
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Crear tabla Proveedores
-CREATE TABLE Proveedores (
-    id_proveedor INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL,
-    contacto VARCHAR(100),
-    telefono VARCHAR(50),
-    email VARCHAR(150) UNIQUE
-);
-
--- Crear tabla Clientes
-CREATE TABLE Clientes (
-    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL,
-    direccion VARCHAR(150),
-    telefono VARCHAR(50),
-    email VARCHAR(150) UNIQUE
-);
-
--- Crear tabla Pedidos
-CREATE TABLE Pedidos (
-    id_pedido INT PRIMARY KEY AUTO_INCREMENT,
-    fecha_pedido DATE NOT NULL,
-    id_cliente INT,    -- Puede ser nulo si es un pedido de proveedor
-    id_proveedor INT,  -- Puede ser nulo si es un pedido de cliente
-    id_usuario INT,
-    estado ENUM('Pendiente', 'Enviado', 'Completado', 'Cancelado') NOT NULL,
-    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente),
-    FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor),
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
-);
-
--- Crear tabla Detalle_Pedidos
-CREATE TABLE Detalle_Pedidos (
-    id_detalle INT PRIMARY KEY AUTO_INCREMENT,
-    id_pedido INT,
-    id_producto INT,
-    cantidad INT NOT NULL,
-    precio_unitario DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (id_pedido) REFERENCES Pedidos(id_pedido),
+-- Creación de la tabla Palets, donde se almacenan los palets que contienen productos
+CREATE TABLE Palets (
+    id_palet INT PRIMARY KEY AUTO_INCREMENT,
+    id_producto INT,  -- Hace referencia al tipo de producto que contiene el palet
+    cantidad INT NOT NULL,  -- Cantidad de productos que contiene el palet
+    ubicacion VARCHAR(100) NOT NULL,  -- Ubicación del palet dentro del almacén
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
 );
 
--- Crear tabla Movimientos_Stock
-CREATE TABLE Movimientos_Stock (
+-- Creación de la tabla Movimientos, que almacena la entrada y salida de palets en el almacén
+CREATE TABLE Movimientos (
     id_movimiento INT PRIMARY KEY AUTO_INCREMENT,
-    id_producto INT,
-    cantidad INT NOT NULL,
+    id_usuario INT,  -- Usuario que realizó el movimiento
+    id_palet INT,  -- Palet afectado por el movimiento
     tipo_movimiento ENUM('Entrada', 'Salida') NOT NULL,
-    fecha_movimiento DATETIME NOT NULL,
-    id_almacen INT,
-    id_usuario INT,
-    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
+    cantidad INT NOT NULL,  -- Cantidad de productos movidos en el movimiento
+    fecha_movimiento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    observaciones TEXT,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
-    FOREIGN KEY (id_almacen) REFERENCES Almacenes(id_almacen)
+    FOREIGN KEY (id_palet) REFERENCES Palets(id_palet)
 );
+
+-- Creación de la tabla Pedidos, donde se almacenan los pedidos realizados
+CREATE TABLE Pedidos (
+    id_pedido INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT,  -- Usuario que realizó el pedido
+    fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    estado ENUM('Pendiente', 'Completado', 'Cancelado') NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+);
+
+-- Creación de la tabla DetallesPedido, que almacena los productos incluidos en cada pedido
+CREATE TABLE DetallesPedido (
+    id_detalle INT PRIMARY KEY AUTO_INCREMENT,
+    id_pedido INT,  -- Pedido al que pertenece este detalle
+    id_palet INT,  -- Palet de productos solicitado en el pedido
+    cantidad INT NOT NULL,  -- Cantidad de productos solicitados
+    FOREIGN KEY (id_pedido) REFERENCES Pedidos(id_pedido),
+    FOREIGN KEY (id_palet) REFERENCES Palets(id_palet)
+);
+
+-- Ejemplo de inserción de un usuario (SysAdmin) en la tabla Usuarios
+INSERT INTO Usuarios (nombre, email, contraseña, id_rol) VALUES
+('Admin', 'admin@almacen.com', 'hashed_password', 1);  -- sysAdmin

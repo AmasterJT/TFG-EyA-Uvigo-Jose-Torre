@@ -23,11 +23,47 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <!-- <img src="imagenes/almacenes_reales/almacen_real_1.jpg" alt="almacen real 1" style="max-width: 400px; height: auto; margin-bottom: 10px;"> -->
-     <img src="imagenes/almacenes_reales/almacen_real_2.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
-      <img src="imagenes/almacenes_reales/almacen_real_3.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
+    <img src="imagenes/almacenes_reales/almacen_real_2.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
+    <img src="imagenes/almacenes_reales/almacen_real_3.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
     <p style="margin: 0; font-style: italic; color:white"> Ejemplos de almacenes reales a gestionar</p>
 </div>
 
+
+
+## Funcionamiento de los almacenes a gestionar
+
+<div style="display: flex; flex-direction: raw; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
+
+
+ <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
+
+  <img src="imagenes/Funcionamiento-de-un-almacén- de-consolidación.png" alt="almacen consolidación" style="max-width:  350px; height: auto; margin-bottom: 10px;">
+
+  <p style="margin: 0; font-style: italic; color:white"> Funcionamiento de un almacén de consolidación.</p>
+
+ </div>
+
+ <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
+
+  <img src="imagenes/Funcionamiento-de-un-almacén- de-divisón-de-envios.png" alt="almacen consolidación" style="max-width:  350px; height: auto; margin-bottom: 10px;">
+
+  <p style="margin: 0; font-style: italic; color:white"> Funcionamiento de un almacén de división de envíos.
+  </p>
+
+ </div>
+</div>
+
+NOTA: Para informacion sobre estos modos de funcionamiento ver la pagina 13 de `/Documentacion_complementaria/'El almacén en la cadena logística.pdf'`
+
+### Funciones del almancen
+1. Recepción de productos
+2. Almacenaje y manutención
+3. Preparación de pedidos
+4. Organización y control de las existencias
+
+## Funcionalidades del software
+
+Para cubrir las funciones del almacen el software debe tener en cuenta las siguiente funcionalidades 
 
 **1. Gestión de Inventario:**
 
@@ -115,25 +151,31 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 - Considera el desarrollo de una API para permitir la integración de la aplicación con otros sistemas externos.
 
 
-<table id="tabla_funciones_a_realizar" style="margin-bottom: 50px;">
-    <thead>
-        <tr>
-            <th>Funcionalidades</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr><td>Gestión de proveedores</td></tr>
-        <tr><td>Gestión de clientes</td></tr>
-        <tr><td>Gestión de pedidos</td></tr>
-        <tr><td>Control de existencias</td></tr>
-        <tr><td>Documentos API</td></tr>
-        <tr><td>Soporte de aplicaciones Android</td></tr>
-        <tr><td><del>Múltiples almacenes</del></td></tr>
-        <tr><td><del>Exposición de existencias de seguridad</del></td></tr>
-        <tr><td><del>Escáner PDA</del></td></tr>
-        <tr><td><del>Soporte de aplicaciones IOS</del></td></tr>
-    </tbody>
-</table>
+<div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 50px; margin-top: 50px; width: 100%;">
+
+  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 1. </a> funcionalidades del software</p>
+  <table id="tabla_funciones_a_realizar" style="margin-top: 10px">
+      <thead>
+          <tr>
+              <th>Funcionalidades del software</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr><td>Gestión de proveedores</td></tr>
+          <tr><td>Gestión de clientes</td></tr>
+          <tr><td>Gestión de pedidos</td></tr>
+          <tr><td>Control de existencias</td></tr>
+          <tr><td>Documentos API</td></tr>
+          <tr><td>Soporte de aplicaciones Android</td></tr>
+          <tr><td><del>Múltiples almacenes</del></td></tr>
+          <tr><td><del>Exposición de existencias de seguridad</del></td></tr>
+          <tr><td><del>Escáner PDA</del></td></tr>
+          <tr><td><del>Soporte de aplicaciones IOS</del></td></tr>
+      </tbody>
+  </table>
+</div>
+
+
 
 <!--
 |           IMPLEMENTACIONES             |
@@ -155,11 +197,72 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 
 ## Esquema de la aplicación de escritorio (Desktop app)
 
-La aplicación de escritorio es la versión más simple de la aplicación, que se encarga de gestionar el almacén en el equipo de operarios. Para su uso será necesario que el empleado se identifique con su usuario y contraseña para asi gestionar los permisos que los diferentes persona tienen, y que esté conectado a internet. Los diferentes usuarios estan descritos en la sección "<a href="#seccion2" style="font-style:italic">Usuarios, Roles y Permisos</a>"
+La aplicación de escritorio es la versión más importante del sistema, se encarga de gestionar el almacén y el equipo de operarios. Para su uso será necesario que el empleado se identifique con su usuario y contraseña para asi gestionar los permisos que los diferentes persona tienen, y que esté conectado a la base de datos. Los diferentes usuarios estan descritos en la sección "<a href="#seccion2" style="font-style:italic; color:#3498db">Usuarios, Roles y Permisos</a>"
+
+al aplicacion de escritorio debe tener los siguientes componentes:
+1. Pantalla de Inicio de Sesión
+
+    - Características:
+      - Campos para ingresar el correo y la contraseña.
+      - Opción para recordar la sesión.
+      - Botón de "Iniciar Sesión".
+      - Enlace para recuperar la contraseña.
+
+2. Panel de Control
+
+    - Características:
+        - Visión general del estado del almacén (productos disponibles, movimientos recientes, etc.).
+        - Acceso rápido a las funcionalidades principales (gestionar productos, palets, movimientos, pedidos, etc.).
+
+3. Gestión de Usuarios
+
+    - Ventanas:
+        - Lista de Usuarios: Mostrar todos los usuarios con opciones para editar o eliminar.
+        - Formulario de Usuario: Para agregar o editar usuarios (nombre, email, rol, estado).
+
+4. Gestión de Roles
+
+    - Ventanas:
+        - Lista de Roles: Mostrar todos los roles disponibles con opciones para agregar, editar o eliminar.
+        - Formulario de Rol: Para agregar o editar roles (nombre y descripción).
+
+5. Gestión de Productos
+
+    - Ventanas:
+        - Lista de Productos: Mostrar todos los productos con opciones para agregar, editar o eliminar.
+        - Formulario de Producto: Para agregar o editar productos (nombre, descripción, precio).
+
+6. Gestión de Palets
+
+    - Ventanas:
+        - Lista de Palets: Mostrar todos los palets con información sobre ubicación y cantidad.
+        - Formulario de Palet: Para agregar o editar palets (tipo de producto, cantidad, ubicación).
+
+7. Registro de Movimientos
+
+    - Ventanas:
+        - Lista de Movimientos: Mostrar todos los movimientos de palets (entrada/salida).
+        - Formulario de Movimiento: Para registrar un nuevo movimiento (tipo, cantidad, observaciones).
+
+8. Gestión de Pedidos
+
+    - Ventanas:
+        - Lista de Pedidos: Mostrar todos los pedidos realizados con su estado.
+        - Formulario de Pedido: Para agregar o editar pedidos (productos, cantidades).
+
+9. Informes y Estadísticas
+
+    - Ventanas:
+        - Gráficos y tablas que muestren el rendimiento del almacén (productos más vendidos, estado de inventarios, etc.).
+
+10. Configuración
+
+    - Ventanas:
+        - Opción para gestionar la configuración de la aplicación (por ejemplo, parámetros del sistema, opciones de notificación).
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/ventanas_app.jpg" alt="ventanas de la aplicacion" style="max-width: 90%; height: auto; margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> Jerarquía de las ventanas principales </p>
+    <p style="margin: 0; font-style: italic; color:white"> Jerarquía de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 Las ventanas principales que componen la aplicación se muestran son:
@@ -175,15 +278,55 @@ Las ventanas principales que componen la aplicación se muestran son:
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/detalle_ventanas.jpg" alt="ventanas de la aplicacion" style="max-width: 100%; height: auto; margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> Bocetos de las ventanas principales </p>
+    <p style="margin: 0; font-style: italic; color:white"> Bocetos de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
-La visulización de los almacenes se podrá hacer de dos formas: en `3D` o `2D` según sea necesario.
+La visulización de los almacenes en la ventana de _GESTIÓN ALMACEN_ se puede hacer en 3D o 2D, dependiendo de las necesidades del usuario. La opción 3D permite visualizar los productos en un entorno más realista, mientras que la opción 2D se enfoca en una visualización más simple y rápida.
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/modos_de_visualizacion.jpg" alt="modos de la aplicacion" style="max-width: 100%; height: auto; margin-bottom: 10px;">
     <p style="margin: 0; font-style: italic; color:white"> Visualización de los almacenes en 3D y 2D </p>
 </div>
+
+
+## Aplicación Android
+1. Pantalla de Inicio de Sesión
+
+    - Características:
+        - Campos para el correo y la contraseña.
+        - Opción de "Recordar Sesión".
+        - Botón de "Iniciar Sesión".
+        - Enlace para recuperación de contraseña.
+
+2. Pantalla Principal
+
+    - Características:
+        - Visión general del estado del almacén.
+        - Acceso a las funcionalidades principales (registrar movimientos, pedidos, etc.).
+
+3. Registro de Movimientos
+
+    - Ventanas:
+        - Formulario de Movimiento: Para registrar la entrada o salida de palets (tipo, cantidad, observaciones).
+        - Opción para escanear códigos de barras de los productos/palets.
+
+4. Gestión de Pedidos
+
+    - Ventanas:
+        - Lista de Pedidos: Mostrar los pedidos activos y su estado.
+        - Formulario de Pedido: Para crear un nuevo pedido (seleccionar productos y cantidades).
+
+5. Visualización de Productos
+
+    - Ventanas:
+        - Lista de Productos: Mostrar todos los productos disponibles en el almacén.
+        - Detalles de cada producto (descripción, precio, ubicación).
+
+6. Notificaciones
+
+    - Características:
+        - Alertas para movimientos de inventario o cambios en el estado de los pedidos.
+
 
 ## Base de datos
 
@@ -208,11 +351,54 @@ Entidades clave a considerar:
 
 ![leyenda de los simbolos de las tablas](imagenes/leyenda_caracteristicas_campos_BDD.png)
 
-**1. Tabla `Usuarios`**
+
+**1. Tabla `Roles`**
+
+Esta tabla define los diferentes roles que pueden tener los usuarios en el sistema.
+
+- `id_rol`: Identificador único para cada rol.
+- `nombre_rol`: Nombre del rol, como sysAdmin, Gestor, Operario, etc.
+- `descripcion`: Descripción detallada del rol y sus permisos dentro del sistema.
+
+
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
+
+  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 2. </a> Tabla roles BDD</p>
+
+  <table class="bdd" style="margin: 10px 0 0 0;">
+    <thead>
+        <tr>
+            <th>Campo</th>
+            <th>Tipo de dato</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>id_rol</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del rol.</td></tr>
+        <tr><td>nombre_rol</td><td>VARCHAR(50)</td><td>Nombre del rol en el sistema.</td></tr>
+        <tr><td>descripcion</td><td>TEXT</td><td>Descripción del rol y sus permisos.</td></tr>
+    </tbody>
+</table>
+</div>
+
+
+
+**2. Tabla `Usuarios`**
 
 Esta tabla almacena la información de todos los usuarios que interactúan con la aplicación.
 
-<table class="bdd">
+- `id_usuario`: Identificador único para cada usuario.
+- `nombre`: Nombre completo del usuario.
+- `email`: Correo electrónico del usuario, utilizado para el inicio de sesión.
+- `contraseña`: Contraseña cifrada del usuario.
+- `id_rol`: Hace referencia al rol del usuario, como sysAdmin, Gestor, Operario, etc.
+- `fecha_registro`: Fecha en la que el usuario se registró en el sistema.
+
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
+
+  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 3. </a> Tabla usuarios BDD</p>
+
+  <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
         <tr>
             <th>Campo</th>
@@ -223,40 +409,29 @@ Esta tabla almacena la información de todos los usuarios que interactúan con l
     <tbody>
         <tr><td>id_usuario</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del usuario.</td></tr>
         <tr><td>nombre</td><td>VARCHAR(100)</td><td>Nombre completo del usuario.</td></tr>
-        <tr><td>correo</td><td>VARCHAR(150)</td><td>Correo electrónico del usuario (único).</td></tr>
-        <tr><td>contraseña</td><td>VARCHAR(255)</td><td>Contraseña encriptada del usuario.</td></tr>
-        <tr><td>rol</td><td>ENUM('Admin', 'Operario', 'Cliente')</td><td>Rol del usuario en el sistema.</td></tr>
-        <tr><td>estado</td><td>ENUM('Activo', 'Inactivo')</td><td>Estado del usuario.</td></tr>
+        <tr><td>email</td><td>VARCHAR(100)</td><td>Correo electrónico del usuario (único).</td></tr>
+        <tr><td>contraseña</td><td>VARCHAR(255)</td><td>Contraseña cifrada del usuario.</td></tr>
+        <tr><td>id_rol</td><td>INT (FK)</td><td>Referencia al rol del usuario en el sistema.</td></tr>
+        <tr><td>fecha_registro</td><td>TIMESTAMP</td><td>Fecha y hora del registro del usuario.</td></tr>
     </tbody>
 </table>
-
-
-**2. Tabla `Almacenes`**
-
-Si hay múltiples almacenes, esta tabla es esencial.
-
-<table class="bdd">
-    <thead>
-        <tr>
-            <th>Campo</th>
-            <th>Tipo de dato</th>
-            <th>Descripción</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr><td>id_almacen</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del almacén.</td></tr>
-        <tr><td>nombre</td><td>VARCHAR(100)</td><td>Nombre o código del almacén.</td></tr>
-        <tr><td>ubicacion</td><td>VARCHAR(150)</td><td>Dirección o ubicación física del almacén.</td></tr>
-        <tr><td>supervisor</td><td>INT (FK)</td><td>Referencia al usuario supervisor del almacén.</td></tr>
-    </tbody>
-</table>
-
+</div>
 
 **3. Tabla `Productos`**
 
-Aquí se almacena toda la información sobre los productos en el inventario
+Esta tabla almacena información sobre los productos gestionados en el almacén.
 
-<table class="bdd">
+- `id_producto`: Identificador único para cada producto.
+- `nombre_producto`: Nombre del producto.
+- `descripcion`: Descripción detallada del producto.
+- `precio`: Precio unitario del producto.
+- `fecha_registro`: Fecha de registro del producto en el sistema.
+
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
+
+  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 4. </a> Tabla productos BDD</p>
+
+  <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
         <tr>
             <th>Campo</th>
@@ -266,24 +441,29 @@ Aquí se almacena toda la información sobre los productos en el inventario
     </thead>
     <tbody>
         <tr><td>id_producto</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del producto.</td></tr>
-        <tr><td>nombre</td><td>VARCHAR(100)</td><td>Nombre del producto.</td></tr>
-        <tr><td>descripcion</td><td>TEXT</td><td>Descripción detallada del producto.</td></tr>
-        <tr><td>codigo_barras</td><td>VARCHAR(50)</td><td>Código de barras del producto (si aplica).</td></tr>
-        <tr><td>stock_actual</td><td>INT</td><td>Cantidad actual en stock del producto.</td></tr>
-        <tr><td>stock_minimo</td><td>INT</td><td>Cantidad mínima para seguridad de stock.</td></tr>
-        <tr><td>precio_compra</td><td>DECIMAL(10, 2)</td><td>Precio de compra del producto.</td></tr>
-        <tr><td>precio_venta</td><td>DECIMAL(10, 2)</td><td>Precio de venta del producto.</td></tr>
-        <tr><td>id_proveedor</td><td>INT (FK)</td><td>Proveedor principal del producto.</td></tr>
-        <tr><td>id_almacen</td><td>INT (FK)</td><td>Almacén donde se encuentra el producto.</td></tr>
+        <tr><td>nombre_producto</td><td>VARCHAR(100)</td><td>Nombre del producto.</td></tr>
+        <tr><td>descripcion</td><td>TEXT</td><td>Descripción del producto.</td></tr>
+        <tr><td>precio</td><td>DECIMAL(10, 2)</td><td>Precio unitario del producto.</td></tr>
+        <tr><td>fecha_registro</td><td>TIMESTAMP</td><td>Fecha de registro del producto.</td></tr>
     </tbody>
 </table>
+</div>
 
+**4. Tabla `Palets`**
 
-**4. Tabla `Proveedores`**
+Esta tabla almacena información sobre cada palet en el almacén. Cada palet contiene un único tipo de producto y tiene una ubicación específica en el almacén.
 
-Guarda información sobre los proveedores que suministran productos al almacén.
+- `id_palet`: Identificador único para cada palet.
+- `id_producto`: Hace referencia al producto que contiene el palet.
+- `cantidad`: Cantidad de productos en el palet.
+- `ubicacion`: Ubicación del palet dentro del almacén.
+- `fecha_registro`: Fecha de registro del palet en el sistema.
 
-<table class="bdd">
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
+
+  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 5. </a> Tabla palets BDD</p>
+
+  <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
         <tr>
             <th>Campo</th>
@@ -292,20 +472,32 @@ Guarda información sobre los proveedores que suministran productos al almacén.
         </tr>
     </thead>
     <tbody>
-        <tr><td>id_proveedor</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del proveedor.</td></tr>
-        <tr><td>nombre</td><td>VARCHAR(100)</td><td>Nombre de la empresa proveedora.</td></tr>
-        <tr><td>contacto</td><td>VARCHAR(100)</td><td>Nombre de la persona de contacto.</td></tr>
-        <tr><td>telefono</td><td>VARCHAR(50)</td><td>Número de teléfono del proveedor.</td></tr>
-        <tr><td>email</td><td>VARCHAR(150)</td><td>Correo electrónico del proveedor.</td></tr>
+        <tr><td>id_palet</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del palet.</td></tr>
+        <tr><td>id_producto</td><td>INT (FK)</td><td>Referencia al producto contenido en el palet.</td></tr>
+        <tr><td>cantidad</td><td>INT</td><td>Cantidad de productos en el palet.</td></tr>
+        <tr><td>ubicacion</td><td>VARCHAR(100)</td><td>Ubicación del palet en el almacén.</td></tr>
+        <tr><td>fecha_registro</td><td>TIMESTAMP</td><td>Fecha de registro del palet en el sistema.</td></tr>
     </tbody>
 </table>
+</div>
 
+**5. Tabla `Movimientos`**
 
-**5. Tabla `Clientes`**
+Esta tabla registra la entrada y salida de palets en el almacén. Cada movimiento está asociado a un usuario que realiza la operación y al palet afectado.
 
-Información sobre los clientes, en caso de que los almacenes vendan productos a clientes.
+- `id_movimiento`: Identificador único del movimiento.
+- `id_usuario`: Hace referencia al usuario que realizó el movimiento.
+- `id_palet`: Hace referencia al palet afectado por el movimiento.
+- `tipo_movimiento`: Tipo de movimiento, puede ser 'Entrada' o 'Salida'.
+- `cantidad`: Cantidad de productos movidos.
+- `fecha_movimiento`: Fecha en la que se registró el movimiento.
+- `observaciones`: Observaciones adicionales sobre el movimiento.
 
-<table class="bdd">
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
+
+  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 6. </a> Tabla movimientos BDD</p>
+
+  <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
         <tr>
             <th>Campo</th>
@@ -314,20 +506,31 @@ Información sobre los clientes, en caso de que los almacenes vendan productos a
         </tr>
     </thead>
     <tbody>
-        <tr><td>id_cliente</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del cliente.</td></tr>
-        <tr><td>nombre</td><td>VARCHAR(100)</td><td>Nombre del cliente o empresa.</td></tr>
-        <tr><td>direccion</td><td>VARCHAR(150)</td><td>Dirección del cliente.</td></tr>
-        <tr><td>telefono</td><td>VARCHAR(50)</td><td>Número de teléfono del cliente.</td></tr>
-        <tr><td>email</td><td>VARCHAR(150)</td><td>Correo electrónico del cliente.</td></tr>
+        <tr><td>id_movimiento</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del movimiento.</td></tr>
+        <tr><td>id_usuario</td><td>INT (FK)</td><td>Referencia al usuario que realizó el movimiento.</td></tr>
+        <tr><td>id_palet</td><td>INT (FK)</td><td>Referencia al palet afectado.</td></tr>
+        <tr><td>tipo_movimiento</td><td>ENUM('Entrada', 'Salida')</td><td>Tipo de movimiento del palet.</td></tr>
+        <tr><td>cantidad</td><td>INT</td><td>Cantidad de productos movidos.</td></tr>
+        <tr><td>fecha_movimiento</td><td>TIMESTAMP</td><td>Fecha de registro del movimiento.</td></tr>
+        <tr><td>observaciones</td><td>TEXT</td><td>Observaciones sobre el movimiento.</td></tr>
     </tbody>
 </table>
-
+</div>
 
 **6. Tabla `Pedidos`**
 
-Los pedidos pueden ser pedidos de clientes o compras a proveedores.
+Esta tabla almacena los pedidos realizados en el almacén, especificando el usuario que los realiza y su estado.
 
-<table class="bdd">
+- `id_pedido`: Identificador único del pedido.
+- `id_usuario`: Hace referencia al usuario que realizó el pedido.
+- `fecha_pedido`: Fecha en la que se realizó el pedido.
+- `estado`: Estado del pedido, puede ser 'Pendiente', 'Completado' o 'Cancelado'.
+
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
+
+  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 7. </a> Tabla pedidos BDD</p>
+
+  <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
         <tr>
             <th>Campo</th>
@@ -336,39 +539,28 @@ Los pedidos pueden ser pedidos de clientes o compras a proveedores.
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>id_pedido</td>
-            <td>INT (PK, AUTO_INCREMENT)</td>
-            <td>Identificador único del pedido.</td>
-        </tr>
-        <tr>
-            <td>fecha_pedido</td>
-            <td>DATE</td>
-            <td>Fecha en que se realizó el pedido.</td>
-        </tr>
-        <tr>
-            <td>id_cliente</td>
-            <td>INT (FK)</td>
-            <td>Referencia al cliente que realizó el pedido.</td>
-        </tr>
-        <tr>
-            <td>id_usuario</td>
-            <td>INT (FK)</td>
-            <td>Referencia al usuario que creó el pedido.</td>
-        </tr>
-        <tr>
-            <td>estado</td>
-            <td>ENUM('Pendiente', 'Enviado', 'Completado', 'Cancelado')</td>
-            <td>Estado del pedido.</td>
-        </tr>
+        <tr><td>id_pedido</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del pedido.</td></tr>
+        <tr><td>id_usuario</td><td>INT (FK)</td><td>Referencia al usuario que realizó el pedido.</td></tr>
+        <tr><td>fecha_pedido</td><td>TIMESTAMP</td><td>Fecha de realización del pedido.</td></tr>
+        <tr><td>estado</td><td>ENUM('Pendiente', 'Completado', 'Cancelado')</td><td>Estado actual del pedido.</td></tr>
     </tbody>
 </table>
+</div>
 
-**7. Tabla `Detalle_Pedidos`**
+**7. Tabla `DetallesPedido`**
 
-Relaciona los productos incluidos en un pedido.
+Esta tabla almacena los detalles de cada pedido realizado, especificando qué palets de productos fueron solicitados.
 
-<table class="bdd">
+- `id_detalle`: Identificador único del detalle de pedido.
+- `id_pedido`: Hace referencia al pedido al que pertenece este detalle.
+- `id_palet`: Hace referencia al palet de productos solicitado en el pedido.
+- `cantidad`: Cantidad de productos solicitados.
+
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
+
+  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 8. </a> Tabla detallesPedido BDD</p>
+
+  <table class="bdd" style="margin: 10px 0 0 0;">
     <thead>
         <tr>
             <th>Campo</th>
@@ -377,153 +569,80 @@ Relaciona los productos incluidos en un pedido.
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>id_detalle</td>
-            <td>INT (PK, AUTO_INCREMENT)</td>
-            <td>Identificador único del detalle del pedido.</td>
-        </tr>
-        <tr>
-            <td>id_pedido</td>
-            <td>INT (FK)</td>
-            <td>Referencia al pedido asociado.</td>
-        </tr>
-        <tr>
-            <td>id_producto</td>
-            <td>INT (FK)</td>
-            <td>Referencia al producto solicitado.</td>
-        </tr>
-        <tr>
-            <td>cantidad</td>
-            <td>INT</td>
-            <td>Cantidad de producto en el pedido.</td>
-        </tr>
-        <tr>
-            <td>precio_unitario</td>
-            <td>DECIMAL(10,2)</td>
-            <td>Precio por unidad del producto.</td>
-        </tr>
+        <tr><td>id_detalle</td><td>INT (PK, AUTO_INCREMENT)</td><td>Identificador único del detalle de pedido.</td></tr>
+        <tr><td>id_pedido</td><td>INT (FK)</td><td>Referencia al pedido correspondiente.</td></tr>
+        <tr><td>id_palet</td><td>INT (FK)</td><td>Referencia al palet solicitado en el pedido.</td></tr>
+        <tr><td>cantidad</td><td>INT</td><td>Cantidad de productos solicitados.</td></tr>
     </tbody>
 </table>
-
-**8. Tabla `Movimientos_Stock`**
-
-Registra las entradas y salidas de productos en el almacén.
-
-<table class="bdd">
-    <thead>
-        <tr>
-            <th>Campo</th>
-            <th>Tipo de dato</th>
-            <th>Descripción</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>id_movimiento</td>
-            <td>INT (PK, AUTO_INCREMENT)</td>
-            <td>Identificador único del movimiento de stock.</td>
-        </tr>
-        <tr>
-            <td>id_producto</td>
-            <td>INT (FK)</td>
-            <td>Referencia al producto afectado por el movimiento.</td>
-        </tr>
-        <tr>
-            <td>cantidad</td>
-            <td>INT</td>
-            <td>Cantidad de stock que se movió.</td>
-        </tr>
-        <tr>
-            <td>tipo_movimiento</td>
-            <td>ENUM('Entrada', 'Salida')</td>
-            <td>Tipo de movimiento de stock (entrada o salida).</td>
-        </tr>
-        <tr>
-            <td>fecha_movimiento</td>
-            <td>DATETIME</td>
-            <td>Fecha y hora del movimiento de stock.</td>
-        </tr>
-        <tr>
-            <td>id_almacen</td>
-            <td>INT (FK)</td>
-            <td>Almacén donde ocurrió el movimiento.</td>
-        </tr>
-        <tr>
-            <td>id_usuario</td>
-            <td>INT (FK)</td>
-            <td>Usuario que registró el movimiento.</td>
-        </tr>
-    </tbody>
-</table>
-
+</div>
 
 ### Relaciones entre las tablas
+- Relación entre `Roles` y `Usuarios`:
+    - Campo relacionado: id_rol
+    - Tipo de relación: Uno a muchos
+    - Descripción: Un rol puede estar asignado a varios usuarios. En la tabla Usuarios, el campo id_rol actúa como clave foránea que referencia al campo id_rol en la tabla Roles, permitiendo saber qué rol tiene cada usuario.
+
+- Relación entre `Usuarios` y `Movimientos`:
+    - Campo relacionado: id_usuario
+    - Tipo de relación: Uno a muchos
+    - Descripción: Un usuario puede realizar múltiples movimientos. En la tabla Movimientos, el campo id_usuario es una clave foránea que referencia al campo id_usuario de la tabla Usuarios. Esto permite rastrear qué usuario realizó cada movimiento de entrada o salida de palets.
+
+- Relación entre `Productos` y `Palets`:
+    - Campo relacionado: id_producto
+    - Tipo de relación: Uno a muchos
+    - Descripción: Un producto puede estar presente en múltiples palets. En la tabla Palets, el campo id_producto es una clave foránea que referencia a id_producto en la tabla Productos. De esta manera, podemos identificar qué producto contiene cada palet.
+
+- Relación entre `Palets` y `Movimientos`:
+    - Campo relacionado: id_palet
+    - Tipo de relación: Uno a muchos
+    - Descripción: Un palet puede estar involucrado en múltiples movimientos. En la tabla Movimientos, el campo id_palet es una clave foránea que referencia a id_palet en la tabla Palets. Esto permite registrar qué palet está siendo movido en cada operación de entrada o salida.
+
 - Relación entre `Usuarios` y `Pedidos`:
     - Campo relacionado: id_usuario
     - Tipo de relación: Uno a muchos
-    - Descripción: Un usuario (administrador o operario) puede crear múltiples pedidos. En la tabla Pedidos, el- campo id_usuario actúa como clave foránea que referencia al campo id_usuario en la tabla Usuarios. Esto- permite saber qué usuario generó cada pedido.
+    - Descripción: Un usuario puede crear múltiples pedidos. En la tabla Pedidos, el campo id_usuario es una clave foránea que hace referencia al campo id_usuario en la tabla Usuarios, indicando qué usuario realizó cada pedido.
 
-- Relación entre `Clientes` y `Pedidos`:
-    - Campo relacionado: id_cliente
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un cliente puede realizar múltiples pedidos. En la tabla Pedidos, el campo id_cliente actúa- como clave foránea que referencia al campo id_cliente en la tabla Clientes. Esto ayuda a identificar qué- cliente realizó un pedido específico.
-
-- Relación entre `Proveedores` y `Pedidos`:
-    - Campo relacionado: id_proveedor
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un proveedor puede estar relacionado con múltiples pedidos. En la tabla Pedidos, el campo- id_proveedor actúa como clave foránea que referencia al campo id_proveedor en la tabla Proveedores. Esto- permite saber qué proveedor está asociado a un pedido específico.
-
-- Relación entre `Pedidos` y `Detalle_Pedidos`:
+- Relación entre `Pedidos` y `DetallesPedido`:
     - Campo relacionado: id_pedido
     - Tipo de relación: Uno a muchos
-    - Descripción: Cada pedido puede incluir múltiples productos. En la tabla Detalle_Pedidos, el campo- id_pedido es una clave foránea que se refiere al campo id_pedido en la tabla Pedidos. Esto permite- desglosar los productos que componen cada pedido.
+    - Descripción: Un pedido puede tener múltiples detalles. En la tabla DetallesPedido, el campo id_pedido es una clave foránea que referencia a id_pedido en la tabla Pedidos. Esto permite registrar los productos que forman parte de cada pedido.
 
-- Relación entre `Productos` y `Detalle_Pedidos`:
-    - Campo relacionado: id_producto
+- Relación entre `Palets` y `DetallesPedido`:
+    - Campo relacionado: id_palet
     - Tipo de relación: Uno a muchos
-    - Descripción: Un producto puede aparecer en múltiples detalles de pedidos. En la tabla Detalle_Pedidos, el- campo id_producto es una clave foránea que referencia al campo id_producto en la tabla Productos. Esto- permite identificar qué producto se está pidiendo y su cantidad en cada detalle de pedido.
+    - Descripción: Un palet puede ser solicitado en múltiples detalles de pedidos. En la tabla DetallesPedido, el campo id_palet es una clave foránea que referencia a id_palet en la tabla Palets, indicando qué palets se están solicitando en cada pedido.
 
-- Relación entre `Productos` y `Movimientos_Stock`:
-    - Campo relacionado: id_producto
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un producto puede tener múltiples movimientos de stock (entradas y salidas). En la tabla- Movimientos_Stock, el campo id_producto es una clave foránea que referencia al campo id_producto en la- tabla Productos. Esto permite rastrear el historial de movimientos de un producto específico.
-
-- Relación entre `Almacenes` y `Productos`:
-    - Campo relacionado: id_almacen
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un almacén puede contener múltiples productos. En la tabla Productos, el campo id_almacen es- una clave foránea que hace referencia al campo id_almacen en la tabla Almacenes. Esto permite saber en- qué almacén se encuentra cada producto.
-
-- Relación entre `Almacenes` y `Movimientos_Stock`:
-    - Campo relacionado: id_almacen
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un almacén puede registrar múltiples movimientos de stock. En la tabla Movimientos_Stock, el- campo id_almacen es una clave foránea que hace referencia al campo id_almacen en la tabla Almacenes. Esto- permite saber en qué almacén se produjo un movimiento de stock específico.
-
-- Relación entre `Usuarios` y `Movimientos_Stock`:
-    - Campo relacionado: id_usuario
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un usuario puede registrar múltiples movimientos de stock. En la tabla Movimientos_Stock, el- campo id_usuario es una clave foránea que hace referencia al campo id_usuario en la tabla Usuarios. Esto- permite saber qué usuario realizó un movimiento de stock específico.
 
 ### Resumen de las claves foráneas
 
 Aquí está un resumen de las relaciones y claves foráneas en la base de datos:
 
-- Pedidos:
-    - `id_usuario` → Referencia a `Usuarios(id_usuario)`
-    - `id_cliente` → Referencia a `Clientes(id_cliente)`
-    - `id_proveedor` → Referencia a `Proveedores(id_proveedor)`
+- **Usuarios**:
+    - `id_rol` → Referencia a `Roles(id_rol)`
 
-- Detalle_Pedidos:
+- **Palets**:
+    - `id_producto` → Referencia a `Productos(id_producto)`
+
+- **Movimientos**:
+    - `id_usuario` → Referencia a `Usuarios(id_usuario)`
+    - `id_palet` → Referencia a `Palets(id_palet)`
+
+- **Pedidos**:
+    - `id_usuario` → Referencia a `Usuarios(id_usuario)`
+
+- **DetallesPedido**:
     - `id_pedido` → Referencia a `Pedidos(id_pedido)`
-    - `id_producto` → Referencia a `Productos(id_producto)`
+    - `id_palet` → Referencia a `Palets(id_palet)`
 
-- Movimientos_Stock:
-    - `id_producto` → Referencia a `Productos(id_producto)`
-    - `id_usuario` → Referencia a `Usuarios(id_usuario)`
-    - `id_almacen` → Referencia a `Almacenes(id_almacen)`
+Explicación de cada relación:
 
-- Productos:
-    - `id_proveedor` → Referencia a `Proveedores(id_proveedor)`
-    - `id_almacen` → Referencia a `Almacenes(id_almacen)`
+- En Usuarios, el campo id_rol hace referencia a la tabla Roles, lo que significa que cada usuario tiene un rol asociado.
+- En Palets, el campo id_producto hace referencia a la tabla Productos, indicando el tipo de producto que contiene el palet.
+- En Movimientos, el campo id_usuario hace referencia a Usuarios, indicando qué usuario realizó el movimiento, mientras que id_palet hace referencia a Palets, identificando el palet afectado.
+- En Pedidos, el campo id_usuario se relaciona con Usuarios, permitiendo saber qué usuario realizó el pedido.
+- Finalmente, en DetallesPedido, id_pedido se relaciona con Pedidos, especificando a qué pedido pertenece el detalle, y id_palet se refiere a Palets, indicando el palet específico que se solicita en el pedido.
+
 
 ## Tecnologías a Considerar:
 
@@ -593,43 +712,46 @@ Si usas Java en el backend, puedes utilizar JDBC (Java Database Connectivity) pa
 
 ### Resumen de Lenguajes y Tecnologías por Componente
 
-<div class="table-container">
-    <table>
-    <thead>
-        <tr>
-            <th>Componente</th>
-            <th>Lenguaje Recomendado</th>
-            <th>Alternativas</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Aplicación de Escritorio</td>
-            <td>Java (JavaFX)</td>
-            <td>---</td>
-        </tr>
-        <tr>
-            <td>Base de Datos</td>
-            <td>SQL</td>
-            <td>NoSQL (MongoDB)</td>
-        </tr>
-        <tr>
-            <td>API REST (Backend)</td>
-            <td>Java (Spring Boot)</td>
-            <td>Node.js (JavaScript/TypeScript), Python (Django/Flask), Go</td>
-        </tr>
-        <tr>
-            <td>Aplicación Móvil</td>
-            <td>Kotlin/Java (Android Nativo)</td>
-            <td>Flutter (Dart), React Native (JavaScript/TypeScript)</td>
-        </tr>
-        <tr>
-            <td>Interfaz Web (si decides usar una)</td>
-            <td>HTML, CSS, JavaScript (React.js, Vue.js, Angular)</td>
-            <td>---</td>
-        </tr>
-        </tbody>
-    </table>
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
+
+  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 9. </a> lenguajes de programación y tecnologias </p>
+
+  <table style="margin: 10px 0 0 0;">
+  <thead>
+      <tr>
+          <th>Componente</th>
+          <th>Lenguaje Recomendado</th>
+          <th>Alternativas</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+          <td>Aplicación de Escritorio</td>
+          <td>Java (JavaFX)</td>
+          <td>---</td>
+      </tr>
+      <tr>
+          <td>Base de Datos</td>
+          <td>SQL</td>
+          <td>NoSQL (MongoDB)</td>
+      </tr>
+      <tr>
+          <td>API REST (Backend)</td>
+          <td>Java (Spring Boot)</td>
+          <td>Node.js (JavaScript/TypeScript), Python (Django/Flask), Go</td>
+      </tr>
+      <tr>
+          <td>Aplicación Móvil</td>
+          <td>Kotlin/Java (Android Nativo)</td>
+          <td>Flutter (Dart), React Native (JavaScript/TypeScript)</td>
+      </tr>
+      <tr>
+          <td>Interfaz Web (si decides usar una)</td>
+          <td>HTML, CSS, JavaScript (React.js, Vue.js, Angular)</td>
+          <td>---</td>
+      </tr>
+      </tbody>
+  </table>
 </div>
 
 <!--
@@ -656,8 +778,9 @@ Para que una persona pueda acceder a la aplicación, se requiere que tenga un us
 
 cuando el usuario desea hacer una determida acción en la aplicación, se debe verificar que el usuario tenga los permisos necesarios para realizar dicha acción. Esto se logra verificando que el usuario tenga el rol correspondiente y que el rol tenga los permisos necesarios para realizar dicha acción. Si el usuario no tiene los permisos necesarios, entonces se le debe notificar al usuario que no tiene los permisos necesarios para realizar dicha acción.
 
-<div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <img src="imagenes/diagrama_gestion_base_datos.jpg" alt="diagrama_gestion_bases_de_datos" style="width: 500px; height: auto; border-radius:10px">
+<div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
+    <img src="imagenes/diagrama_gestion_base_datos.jpg" alt="diagrama_gestion_bases_de_datos" style="width: 500px; height: auto; border-radius:10px;  margin-bottom: 10px;">
+    <p style="margin: 0; font-style: italic; color:white"> Gestión de roles de usuario (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 
@@ -765,146 +888,149 @@ cuando el usuario desea hacer una determida acción en la aplicación, se debe v
     - Ver el historial de compras y facturas.
 
 
-<h2 align="center" style="font-size:20px; margin-top:30px">Tabla de Usuarios y Permisos</h2>
-<div class="table-container">
-    <table>
-        <thead>
-            <tr>
-                <th>Funcionalidad</th>
-                <th>SysAdmin</th>
-                <th>Gestor Almacén</th>
-                <th>Supervisor</th>
-                <th>Operario</th>
-                <th>Mantenimiento</th>
-                <th>Administración</th>
-                <th>Proveedor</th>
-                <th>Cliente</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Gestión de Usuarios</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-            </tr>
-            <tr>
-                <td>Gestión de Productos (CRUD)</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-            </tr>
-            <tr>
-                <td>Gestión de Inventario (stock, ubicación)</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>Ver</td>
-                <td>❌</td>
-                <td>Ver</td>
-                <td>❌</td>
-                <td>❌</td>
-            </tr>
-            <tr>
-                <td>Registro de Entradas/Salidas de Productos</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-            </tr>
-            <tr>
-                <td>Gestión de Pedidos</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>Ver</td>
-                <td>❌</td>
-                <td>✅</td>
-            </tr>
-            <tr>
-                <td>Generación de Reportes (inventario, ventas)</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>❌</td>
-            </tr>
-            <tr>
-                <td>Asignación de Tareas (Picking/Packing)</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-            </tr>
-            <tr>
-                <td>Acceso al Historial de Movimientos</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>Ver</td>
-                <td>Ver</td>
-                <td>Ver</td>
-                <td>❌</td>
-                <td>❌</td>
-            </tr>
-            <tr>
-                <td>Mantenimiento de Infraestructura</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>Ver</td>
-                <td>❌</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-            </tr>
-            <tr>
-                <td>Gestión Financiera (compras/ventas)</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>Ver</td>
-            </tr>
-            <tr>
-                <td>Gestión de Incidencias</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>Ver</td>
-                <td>Ver</td>
-                <td>Ver</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="table-container" style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 40px 0 20px 0; ">
+
+  <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Tabla 10. </a> roles de usuarios y permisos </p>
+
+  <table style="margin: 10px 0 0 0;">
+
+  <thead>
+      <tr>
+          <th>Funcionalidad</th>
+          <th>SysAdmin</th>
+          <th>Gestor Almacén</th>
+          <th>Supervisor</th>
+          <th>Operario</th>
+          <th>Mantenimiento</th>
+          <th>Administración</th>
+          <th>Proveedor</th>
+          <th>Cliente</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Gestión de Usuarios</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+      </tr>
+      <tr>
+          <td>Gestión de Productos (CRUD)</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+      </tr>
+      <tr>
+          <td>Gestión de Inventario (stock, ubicación)</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>Ver</td>
+          <td>❌</td>
+          <td>Ver</td>
+          <td>❌</td>
+          <td>❌</td>
+      </tr>
+      <tr>
+          <td>Registro de Entradas/Salidas de Productos</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+      </tr>
+      <tr>
+          <td>Gestión de Pedidos</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>Ver</td>
+          <td>❌</td>
+          <td>✅</td>
+      </tr>
+      <tr>
+          <td>Generación de Reportes (inventario, ventas)</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+      </tr>
+      <tr>
+          <td>Asignación de Tareas (Picking/Packing)</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+      </tr>
+      <tr>
+          <td>Acceso al Historial de Movimientos</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>Ver</td>
+          <td>Ver</td>
+          <td>Ver</td>
+          <td>❌</td>
+          <td>❌</td>
+      </tr>
+      <tr>
+          <td>Mantenimiento de Infraestructura</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>Ver</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+      </tr>
+      <tr>
+          <td>Gestión Financiera (compras/ventas)</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>Ver</td>
+      </tr>
+      <tr>
+          <td>Gestión de Incidencias</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>Ver</td>
+          <td>Ver</td>
+          <td>Ver</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+      </tr>
+  </tbody>
+</table>
 </div>
 
 

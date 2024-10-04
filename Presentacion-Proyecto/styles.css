@@ -152,19 +152,19 @@ ul, ol {
 /* Configuración para sublistas (anidadas) */
 ul ul, ol ul,
 ul ol, ol ol {
-    padding-left: 60px; /* Mayor sangría para las sublistas del segundo nivel */
+    padding-left: 45px; /* Mayor sangría para las sublistas del segundo nivel */
 }
 
 /* Sublistas de tercer nivel */
 ul ul ul, ol ul ul,
 ul ol ul, ol ol ul {
-    padding-left: 80px; /* Aumenta la sangría para sublistas de tercer nivel */
+    padding-left: 50px; /* Aumenta la sangría para sublistas de tercer nivel */
 }
 
 /* Sublistas de cuarto nivel */
 ul ul ul ul, ol ul ul ul,
 ul ol ul ul, ol ol ul ul {
-    padding-left: 100px; /* Más sangría para el cuarto nivel */
+    padding-left: 55px; /* Más sangría para el cuarto nivel */
 }
 
 
