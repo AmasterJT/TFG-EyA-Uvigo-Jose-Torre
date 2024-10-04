@@ -25,7 +25,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
     <!-- <img src="imagenes/almacenes_reales/almacen_real_1.jpg" alt="almacen real 1" style="max-width: 400px; height: auto; margin-bottom: 10px;"> -->
     <img src="imagenes/almacenes_reales/almacen_real_2.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
     <img src="imagenes/almacenes_reales/almacen_real_3.jpg" alt="almacen real 1" style="max-width:  400px; height: auto; margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> Ejemplos de almacenes reales a gestionar</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 1:</a> Ejemplos de almacenes reales a gestionar</p>
 </div>
 
 
@@ -39,7 +39,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 
   <img src="imagenes/Funcionamiento-de-un-almacén- de-consolidación.png" alt="almacen consolidación" style="max-width:  350px; height: auto; margin-bottom: 10px;">
 
-  <p style="margin: 0; font-style: italic; color:white"> Funcionamiento de un almacén de consolidación.</p>
+  <p style="margin: 0; font-style: italic; color: white; text-align: center;"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 2:</a> Funcionamiento de un almacén de consolidación.</p>
 
  </div>
 
@@ -47,7 +47,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 
   <img src="imagenes/Funcionamiento-de-un-almacén- de-divisón-de-envios.png" alt="almacen consolidación" style="max-width:  350px; height: auto; margin-bottom: 10px;">
 
-  <p style="margin: 0; font-style: italic; color:white"> Funcionamiento de un almacén de división de envíos.
+  <p style="margin: 0; font-style: italic; color: white; text-align: center;"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 3:</a> Funcionamiento de un almacén de división de envíos.
   </p>
 
  </div>
@@ -262,7 +262,7 @@ al aplicacion de escritorio debe tener los siguientes componentes:
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/ventanas_app.jpg" alt="ventanas de la aplicacion" style="max-width: 90%; height: auto; margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> Jerarquía de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 4:</a> Jerarquía de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 Las ventanas principales que componen la aplicación se muestran son:
@@ -278,14 +278,14 @@ Las ventanas principales que componen la aplicación se muestran son:
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/detalle_ventanas.jpg" alt="ventanas de la aplicacion" style="max-width: 100%; height: auto; margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> Bocetos de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 5:</a> Bocetos de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 La visulización de los almacenes en la ventana de _GESTIÓN ALMACEN_ se puede hacer en 3D o 2D, dependiendo de las necesidades del usuario. La opción 3D permite visualizar los productos en un entorno más realista, mientras que la opción 2D se enfoca en una visualización más simple y rápida.
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/modos_de_visualizacion.jpg" alt="modos de la aplicacion" style="max-width: 100%; height: auto; margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> Visualización de los almacenes en 3D y 2D </p>
+    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 6:</a> Visualización de los almacenes en 3D y 2D </p>
 </div>
 
 
@@ -344,7 +344,7 @@ Entidades clave a considerar:
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/BDD_schema.jpg" alt="BDD" style="max-width: 700px; height: auto; border-radius: 10px; margin :0">
-    <p style="margin: 10px 0 0 0; font-style: italic; color:white"> Diagrama de la base de datos (<a href="https://drawsql.app/" style="color: #3498db" >https://drawsql.app/</a>)</p>
+    <p style="margin: 10px 0 0 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 7:</a>  Diagrama de la base de datos (<a href="https://drawsql.app/" style="color: #3498db" >https://drawsql.app/</a>)</p>
 </div>
 
 **leyenda de los simbolos de las tablas:**
@@ -656,7 +656,7 @@ _**Seguridad:**_ Usa JWT para la autenticación de usuarios y controla los permi
 
 ## Legunajes de programacion
 
-Para desarrollar tu aplicación de gestión de almacenes con las características que mencionas (incluyendo la representación en 3D con JavaFX, una aplicación de escritorio y una aplicación móvil para los operarios), puedes optar por una combinación de tecnologías que se adapten a las necesidades del proyecto. Aquí te detallo los lenguajes y tecnologías recomendadas para cada parte del sistema:
+Para desarrollar la aplicación de gestión de almacenes con las características anteriores, podemos usar las siguientes tecnologías. Cada una de ellas tiene sus propias ventajas y desventajas, por lo que es importante evaluar cuál es la mejor opción para tu proyecto.
 
 **1. Aplicación de Escritorio (JavaFX)**
 
@@ -682,6 +682,11 @@ Si prefieres un enfoque más flexible o con alto volumen de datos, puedes optar 
     ~~Ambas opciones son excelentes si deseas tener una única base de código para las aplicaciones móviles de operarios en Android y iOS.~~
 
 **4. Back-End** (API REST para comunicación entre escritorio y móvil)
+
+<div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
+    <img src="imagenes/what-is-api-rest.png" alt="diagrama_gestion_bases_de_datos" style="width: 500px; height: auto; border-radius:10px;  margin-bottom: 10px;">
+    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 8:</a> Descripción api rest</p>
+</div>
 
 Tu aplicación de escritorio y móvil necesitarán conectarse a una base de datos central. Para ello, puedes construir una API REST que exponga los datos del almacén a ambas aplicaciones.
 
@@ -766,7 +771,7 @@ Si usas Java en el backend, puedes utilizar JDBC (Java Database Connectivity) pa
 
 ### Recomendación General
 
-Si ya tienes experiencia con Java y JavaFX, podrías mantener el ecosistema Java para la aplicación de escritorio y el backend, usando Spring Boot para la API REST. Luego, podrías optar por Kotlin o Java para una aplicación nativa en Android, o si deseas mayor flexibilidad, usar Flutter para crear una app multiplataforma.
+Como ya tengo experiencia con Java y JavaFX, se podrá mantener el ecosistema Java para la aplicación de escritorio y el backend, usando Spring Boot para la API REST. Luego, podrías optar por Kotlin o Java para una aplicación nativa en Android, o si deseas mayor flexibilidad, usar Flutter para crear una app multiplataforma.
 
 Para la base de datos, te recomiendo usar MySQL o PostgreSQL, que son muy robustas para gestionar inventarios y transacciones en tiempo real.
 
@@ -780,7 +785,7 @@ cuando el usuario desea hacer una determida acción en la aplicación, se debe v
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/diagrama_gestion_base_datos.jpg" alt="diagrama_gestion_bases_de_datos" style="width: 500px; height: auto; border-radius:10px;  margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> Gestión de roles de usuario (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a href="https://drawsql.app/" style="color: #af7ac5" >Figura 9:</a> Gestión de roles de usuario (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 
