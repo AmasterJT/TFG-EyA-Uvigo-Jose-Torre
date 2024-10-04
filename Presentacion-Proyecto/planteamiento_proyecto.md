@@ -18,7 +18,7 @@
 
 Este software pretende ser una aplicación de gestión de un almacen que permita a los operarios realizar los diferentes procesos de almacenamiento y mantenimiento de productos, así como a los administradores y gestores de gestionar el almacén y sus productos.
 
-Para desarrollar un proyecto de gestión de almacenes completo, es esencial incluir un conjunto de características y funcionalidades que cubran tanto las necesidades operativas de los empleados en el almacén (como el movimientos de los palets dentro del almacen, la gestion de los pedidos, etc.) como las de los administradores y gestores (como la gestión de inventario, pedidos, reportes, etc.).
+Para desarrollar un proyecto de gestión de almacenes completo, es esencial incluir un conjunto de características y funcionalidades que cubran tanto las necesidades operativas de los empleados en el almacén (como el movimiento de los palets dentro del almacen, la gestion de los pedidos, etc.) como las de los administradores y gestores (como la gestión de inventario, pedidos, reportes, etc.).
 
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
@@ -55,7 +55,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 
 NOTA: Para informacion sobre estos modos de funcionamiento ver la pagina 13 de `/Documentacion_complementaria/'El almacén en la cadena logística.pdf'`
 
-### Funciones del almancen
+### Funciones del almacen
 1. Recepción de productos
 2. Almacenaje y manutención
 3. Preparación de pedidos
@@ -68,73 +68,73 @@ Para cubrir las funciones del almacen el software debe tener en cuenta las sigui
 **1. Gestión de Inventario:**
 
 - Registro de Productos:
-- Agregar, editar y eliminar productos.
-- Información detallada de los productos: código de barras, nombre, descripción, categoría, proveedor,- precio, unidades en stock, etc.
+  - Agregar, editar y eliminar productos.
+  - Información detallada de los productos: código de barras, nombre, descripción, categoría, proveedor,- precio, unidades en stock, etc.
 - Control de Stock:
-- Niveles mínimos y máximos de stock.
-- Alertas de productos en niveles bajos o agotados.
-- Ubicación de Productos en el Almacén:
-- Asignar productos a estanterías o zonas específicas del almacén (integrando con la vista 3D que ya tienes).
+  - Niveles mínimos y máximos de stock.
+  - Alertas de productos en niveles bajos o agotados.
+  - Ubicación de Productos en el Almacén:
+    - Asignar productos a estanterías o zonas específicas del almacén (integrando con la vista 3D que ya tienes).
 - Historial de Movimientos:
-- Registro de entradas y salidas de productos, devoluciones y transferencias entre almacenes.
+  - Registro de entradas y salidas de productos, devoluciones y transferencias entre almacenes.
 
 **2. Gestión de Pedidos:**
 
 - Recepción de Pedidos (Entradas):
-- Crear y gestionar órdenes de compra a proveedores.
-- Registro de las entradas de productos al almacén.
+  - Crear y gestionar órdenes de compra a proveedores.
+  - Registro de las entradas de productos al almacén.
 - Gestión de Pedidos de Clientes (Salidas):
-- Procesar pedidos de clientes, asignar productos y gestionar el picking (preparación de los pedidos).
-- Registro del estado de los pedidos (pendiente, preparado, enviado, entregado).
+  - Procesar pedidos de clientes, asignar productos y gestionar el picking (preparación de los pedidos).
+  - Registro del estado de los pedidos (pendiente, preparado, enviado, entregado).
 
 **3. Control de Picking y Packing:**
 
 - Picking Automático:
-- Asignar y optimizar la ruta para que los operarios recojan los productos en el almacén, mostrando la ubicación de los mismos.
+  - Asignar y optimizar la ruta para que los operarios recojan los productos en el almacén, mostrando la ubicación de los mismos.
 - Packing:
-- Gestión de embalaje y preparación de los pedidos antes del envío.
+  - Gestión de embalaje y preparación de los pedidos antes del envío.
 
 **4. Gestión de Usuarios y Roles:**
 
 - Control de Acceso:
-- Permitir la creación de diferentes roles de usuario (administradores, operarios, supervisores) con- permisos específicos.
-- Historial de Acciones:
-- Registrar las acciones realizadas por cada usuario (como cambios en el inventario, pedidos gestionados,- etc.) para tener un control y trazabilidad.
+  - Permitir la creación de diferentes roles de usuario (administradores, operarios, supervisores) con- permisos específicos.
+  - Historial de Acciones:
+    - Registrar las acciones realizadas por cada usuario (como cambios en el inventario, pedidos gestionados,- etc.) para tener un control y trazabilidad.
 
 **5. Interfaz Móvil para Operarios:**
 
 - Acceso desde Dispositivos Móviles:
-- Crear una aplicación móvil o web responsive para que los operarios puedan:
-- Consultar inventario en tiempo real.
-- Escanear productos usando la cámara del móvil (código de barras o QR).
-- Registrar entradas y salidas de productos desde el almacén.
+  - Crear una aplicación móvil o web responsive para que los operarios puedan:
+  - Consultar inventario en tiempo real.
+  - Escanear productos usando la cámara del móvil (código de barras o QR).
+  - Registrar entradas y salidas de productos desde el almacén.
 - Notificaciones en Tiempo Real:
-- Alertas sobre tareas pendientes (recoger productos, gestionar devoluciones, realizar auditorías, etc.).
+  - Alertas sobre tareas pendientes (recoger productos, gestionar devoluciones, realizar auditorías, etc.).
 
 **6. Integración con Base de Datos:**
 
 - Conexión a una Base de Datos Centralizada:
   - Usa una base de datos (SQL o NoSQL, según lo que prefieras) para almacenar toda la información del almacén (productos, ubicaciones, usuarios, pedidos, etc.).
   - Sincronización en tiempo real entre la aplicación de escritorio y la aplicación móvil/tablet.
-  - Backups y Recuperación de Datos:
-  - Implementar un sistema de copias de seguridad y restauración para prevenir pérdida de información crítica.
+- Backups y Recuperación de Datos:
+    - Implementar un sistema de copias de seguridad y restauración para prevenir pérdida de información crítica.
 
 **7. Informes y Análisis:**
 
 - Generación de Reportes:
   - Informes de ventas, productos más vendidos, productos con mayor rotación, inventario actual, etc.
-  - Análisis de Rendimiento:
+- Análisis de Rendimiento:
   - Monitorear el rendimiento del almacén, tiempos de procesamiento de pedidos, eficiencia de los operarios y otros KPIs.
-  - Visualización Gráfica:
+- Visualización Gráfica:
   - Incluir gráficos de barras, pastel, líneas para visualizar tendencias de inventario y rendimiento.
 
 **8. Funcionalidades Adicionales:**
 
 - Devoluciones y Reclamaciones:
   - Gestionar devoluciones de productos defectuosos o incorrectos y mantener un registro de estos casos.
-  - Gestión de Proveedores y Clientes:
+- Gestión de Proveedores y Clientes:
   - Base de datos de proveedores y clientes con capacidad de gestionar pedidos de compra y ventas.
-  - Control de Mermas: Registrar productos dañados o vencidos y su correcta eliminación del inventario.
+- Control de Mermas: Registrar productos dañados o vencidos y su correcta eliminación del inventario.
 
 ~~**9. Seguridad y Auditorías:**~~
 ~~- Cifrado de Datos:~~
