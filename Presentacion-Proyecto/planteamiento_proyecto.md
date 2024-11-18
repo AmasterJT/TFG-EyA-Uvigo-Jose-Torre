@@ -260,7 +260,7 @@ al aplicación de escritorio debe tener los siguientes componentes:
         - Opción para gestionar la configuración de la aplicación (por ejemplo, parámetros del sistema, opciones de notificación).
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-    <img src="imagenes/ventanas_app.jpg" alt="ventanas de la aplicación" style="max-width: 90%; height: auto; margin-bottom: 10px;">
+    <img src="imagenes/ventanas_app.jpg" alt="ventanas de la aplicación" style="max-width: 90%; height: auto; margin-bottom: 10px; border-radius: 10px;">
     <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 4:</a> Jerarquía de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
@@ -276,19 +276,20 @@ Las ventanas principales que componen la aplicación se muestran son:
 
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-    <img src="imagenes/detalle_ventanas.jpg" alt="ventanas de la aplicación" style="max-width: 100%; height: auto; margin-bottom: 10px;">
+    <img src="imagenes/detalle_ventanas.jpg" alt="ventanas de la aplicación" style="max-width: 100%; height: auto; margin-bottom: 10px; border-radius: 10px;">
     <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 5:</a> Bocetos de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 La visualización de los almacenes en la ventana de _GESTIÓN ALMACEN_ se puede hacer en 3D o 2D, dependiendo de las necesidades del usuario. La opción 3D permite visualizar los productos en un entorno más realista, mientras que la opción 2D se enfoca en una visualización más simple y rápida.
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-    <img src="imagenes/modos_de_visualizacion.jpg" alt="modos de la aplicación" style="max-width: 100%; height: auto; margin-bottom: 10px;">
+    <img src="imagenes/modos_de_visualizacion.jpg" alt="modos de la aplicación" style="max-width: 100%; height: auto; margin-bottom: 10px;  border-radius: 10px;">
     <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 6:</a> Visualización de los almacenes en 3D y 2D </p>
 </div>
 
 
 ## Aplicación Android
+
 1. Pantalla de Inicio de Sesión
 
     - Características:
@@ -691,15 +692,15 @@ Tu aplicación de escritorio y móvil necesitarán conectarse a una base de dato
 
 Lenguajes recomendados para crear la API REST:
 
-- _Java_ (Spring Boot):
+- _**Java**_ (Spring Boot):
 
   Si ya estás usando Java para tu aplicación de escritorio, puedes optar por Spring Boot para crear el servidor backend. Es un framework popular para crear aplicaciones web y APIs REST, y te permitirá mantener un entorno coherente usando Java tanto en el cliente como en el servidor.
 
-- _Node.js_ (JavaScript o TypeScript):
+- _**Node.js**_ (JavaScript o TypeScript):
 
   Si prefieres un enfoque más rápido para crear una API, Node.js con Express es una opción popular para construir servidores. Puedes escribir el backend en JavaScript o TypeScript y es muy eficiente para gestionar aplicaciones en tiempo real, como las que requieren notificaciones o sincronización rápida.
 
-- _Python_ (Django/Flask):
+- _**Python**_ (Django/Flask):
 
   Si prefieres usar Python, Django (que incluye Django REST Framework) o Flask son opciones excelentes para desarrollar APIs REST. Python es limpio, tiene una curva de aprendizaje más sencilla, y es muy utilizado en proyectos donde se requiere rapidez de desarrollo.
 
@@ -939,9 +940,9 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>✅</td>
           <td>✅</td>
           <td>✅</td>
-          <td>Ver</td>
+          <td style="color: #3498db">Ver</td>
           <td>❌</td>
-          <td>Ver</td>
+          <td style="color: #3498db">Ver</td>
           <td>❌</td>
           <td>❌</td>
       </tr>
@@ -963,7 +964,7 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>✅</td>
           <td>✅</td>
           <td>❌</td>
-          <td>Ver</td>
+          <td style="color: #3498db">Ver</td>
           <td>❌</td>
           <td>✅</td>
       </tr>
@@ -994,9 +995,9 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>✅</td>
           <td>✅</td>
           <td>✅</td>
-          <td>Ver</td>
-          <td>Ver</td>
-          <td>Ver</td>
+          <td style="color: #3498db">Ver</td>
+          <td style="color: #3498db">Ver</td>
+          <td style="color: #3498db">Ver</td>
           <td>❌</td>
           <td>❌</td>
       </tr>
@@ -1004,7 +1005,7 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>Mantenimiento de Infraestructura</td>
           <td>✅</td>
           <td>❌</td>
-          <td>Ver</td>
+          <td style="color: #3498db">Ver</td>
           <td>❌</td>
           <td>✅</td>
           <td>❌</td>
@@ -1020,15 +1021,15 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>❌</td>
           <td>✅</td>
           <td>❌</td>
-          <td>Ver</td>
+          <td style="color: #3498db">Ver</td>
       </tr>
       <tr>
           <td>Gestión de Incidencias</td>
           <td>✅</td>
           <td>❌</td>
-          <td>Ver</td>
-          <td>Ver</td>
-          <td>Ver</td>
+          <td style="color: #3498db">Ver</td>
+          <td style="color: #3498db">Ver</td>
+          <td style="color: #3498db">Ver</td>
           <td>❌</td>
           <td>❌</td>
           <td>❌</td>
