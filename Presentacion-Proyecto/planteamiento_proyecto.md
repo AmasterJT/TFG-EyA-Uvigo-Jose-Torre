@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="planteamiento_proyecto.css">
 </head>
 </html>
 
@@ -15,10 +15,8 @@
 
 <h1 align="center" style="margin: 20px 0 30px 0; font-size:30px; border-bottom: none; text-decoration: underline;">Aplicación de Gestión de Almacén: Presentación del Proyecto</h1>
 
-
 Este software pretende ser una aplicación de gestión de un almacén que permita a los operarios realizar los diferentes procesos de almacenamiento y mantenimiento de productos, así como a los administradores y gestores de gestionar el almacén y sus productos.
 Para desarrollar un proyecto de gestión de almacenes completo, es esencial incluir un conjunto de características y funcionalidades que cubran tanto las necesidades operativas de los empleados en el almacén (como el movimiento de los palets dentro del almacén, la gestión de los pedidos, etc.) como las de los administradores y gestores (como la gestión de inventario, pedidos, reportes, etc.).
-
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <!-- <img src="imagenes/almacenes_reales/almacen_real_1.jpg" alt="almacen real 1" style="max-width: 400px; height: auto; margin-bottom: 10px;"> -->
@@ -27,12 +25,9 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
     <p style="margin: 0; font-style: italic; color:white"> <a  style="color: #af7ac5" >Figura 1:</a> Ejemplos de almacenes reales a gestionar</p>
 </div>
 
-
-
 ## Funcionamiento de los almacenes a gestionar
 
 <div style="display: flex; flex-direction: raw; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-
 
  <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
 
@@ -55,6 +50,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
 NOTA: Para informacion sobre estos modos de funcionamiento ver la pagina 13 de `/Documentacion_complementaria/'El almacén en la cadena logística.pdf'`
 
 ### Funciones del almacen
+
 1. Recepción de productos
 2. Almacenaje y manutención
 3. Preparación de pedidos
@@ -62,7 +58,7 @@ NOTA: Para informacion sobre estos modos de funcionamiento ver la pagina 13 de `
 
 ## Funcionalidades del software
 
-Para cubrir las funciones del almacen el software debe tener en cuenta las siguiente funcionalidades 
+Para cubrir las funciones del almacen el software debe tener en cuenta las siguiente funcionalidades
 
 **1. Gestión de Inventario:**
 
@@ -116,7 +112,7 @@ Para cubrir las funciones del almacen el software debe tener en cuenta las sigui
   - Usa una base de datos (SQL o NoSQL, según lo que prefieras) para almacenar toda la información del almacén (productos, ubicaciones, usuarios, pedidos, etc.).
   - Sincronización en tiempo real entre la aplicación de escritorio y la aplicación móvil/tablet.
 - Backups y Recuperación de Datos:
-    - Implementar un sistema de copias de seguridad y restauración para prevenir pérdida de información crítica.
+  - Implementar un sistema de copias de seguridad y restauración para prevenir pérdida de información crítica.
 
 **7. Informes y Análisis:**
 
@@ -137,10 +133,9 @@ Para cubrir las funciones del almacen el software debe tener en cuenta las sigui
 
 ~~**9. Seguridad y Auditorías:**~~
 ~~- Cifrado de Datos:~~
-  ~~- Asegurar que la información confidencial (como contraseñas y datos de clientes) esté protegida mediante cifrado.~~
-  ~~- Auditoría de Seguridad:~~
-    ~~- Implementar un sistema que permita revisar qué cambios han sido realizados por cada usuario y cuándo.~~
-
+~~- Asegurar que la información confidencial (como contraseñas y datos de clientes) esté protegida mediante cifrado.~~
+~~- Auditoría de Seguridad:~~
+~~- Implementar un sistema que permita revisar qué cambios han sido realizados por cada usuario y cuándo.~~
 
 **10. Escalabilidad y Extensibilidad:**
 
@@ -148,7 +143,6 @@ Para cubrir las funciones del almacen el software debe tener en cuenta las sigui
   Si planeas a largo plazo, sería útil dejar abierto un espacio para integrar tu sistema con otros sistemas de ERP o de gestión de logística.
   API:
 - Considera el desarrollo de una API para permitir la integración de la aplicación con otros sistemas externos.
-
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 50px; margin-top: 50px; width: 100%;">
 
@@ -174,8 +168,6 @@ Para cubrir las funciones del almacen el software debe tener en cuenta las sigui
   </table>
 </div>
 
-
-
 <!--
 |           IMPLEMENTACIONES             |
 | -------------------------------------- |
@@ -193,75 +185,75 @@ Para cubrir las funciones del almacen el software debe tener en cuenta las sigui
 | Soporte de aplicaciones electrónicas   |
 -->
 
-
 ## Esquema de la aplicación de escritorio (Desktop app)
 
 La aplicación de escritorio es la versión más importante del sistema, se encarga de gestionar el almacén y el equipo de operarios. Para su uso será necesario que el empleado se identifique con su usuario y contraseña para asi gestionar los permisos que las diferentes personas tienen, y que esté conectado a la base de datos. Los diferentes usuarios están descritos en la sección "<a href="#seccion2" style="font-style:italic; color:#3498db">Usuarios, Roles y Permisos</a>"
 
 al aplicación de escritorio debe tener los siguientes componentes:
+
 1. Pantalla de Inicio de Sesión
 
-    - Características:
-      - Campos para ingresar el correo y la contraseña.
-      - Opción para recordar la sesión.
-      - Botón de "Iniciar Sesión".
-      - Enlace para recuperar la contraseña.
+   - Características:
+     - Campos para ingresar el correo y la contraseña.
+     - Opción para recordar la sesión.
+     - Botón de "Iniciar Sesión".
+     - Enlace para recuperar la contraseña.
 
 2. Panel de Control
 
-    - Características:
-        - Visión general del estado del almacén (productos disponibles, movimientos recientes, etc.).
-        - Acceso rápido a las funcionalidades principales (gestionar productos, palets, movimientos, pedidos, etc.).
+   - Características:
+     - Visión general del estado del almacén (productos disponibles, movimientos recientes, etc.).
+     - Acceso rápido a las funcionalidades principales (gestionar productos, palets, movimientos, pedidos, etc.).
 
 3. Gestión de Usuarios
 
-    - Ventanas:
-        - Lista de Usuarios: Mostrar todos los usuarios con opciones para editar o eliminar.
-        - Formulario de Usuario: Para agregar o editar usuarios (nombre, email, rol, estado).
+   - Ventanas:
+     - Lista de Usuarios: Mostrar todos los usuarios con opciones para editar o eliminar.
+     - Formulario de Usuario: Para agregar o editar usuarios (nombre, email, rol, estado).
 
 4. Gestión de Roles
 
-    - Ventanas:
-        - Lista de Roles: Mostrar todos los roles disponibles con opciones para agregar, editar o eliminar.
-        - Formulario de Rol: Para agregar o editar roles (nombre y descripción).
+   - Ventanas:
+     - Lista de Roles: Mostrar todos los roles disponibles con opciones para agregar, editar o eliminar.
+     - Formulario de Rol: Para agregar o editar roles (nombre y descripción).
 
 5. Gestión de Productos
 
-    - Ventanas:
-        - Lista de Productos: Mostrar todos los productos con opciones para agregar, editar o eliminar.
-        - Formulario de Producto: Para agregar o editar productos (nombre, descripción, precio).
+   - Ventanas:
+     - Lista de Productos: Mostrar todos los productos con opciones para agregar, editar o eliminar.
+     - Formulario de Producto: Para agregar o editar productos (nombre, descripción, precio).
 
 6. Gestión de Palets
 
-    - Ventanas:
-        - Lista de Palets: Mostrar todos los palets con información sobre ubicación y cantidad.
-        - Formulario de Palet: Para agregar o editar palets (tipo de producto, cantidad, ubicación).
+   - Ventanas:
+     - Lista de Palets: Mostrar todos los palets con información sobre ubicación y cantidad.
+     - Formulario de Palet: Para agregar o editar palets (tipo de producto, cantidad, ubicación).
 
 7. Registro de Movimientos
 
-    - Ventanas:
-        - Lista de Movimientos: Mostrar todos los movimientos de palets (entrada/salida).
-        - Formulario de Movimiento: Para registrar un nuevo movimiento (tipo, cantidad, observaciones).
+   - Ventanas:
+     - Lista de Movimientos: Mostrar todos los movimientos de palets (entrada/salida).
+     - Formulario de Movimiento: Para registrar un nuevo movimiento (tipo, cantidad, observaciones).
 
 8. Gestión de Pedidos
 
-    - Ventanas:
-        - Lista de Pedidos: Mostrar todos los pedidos realizados con su estado.
-        - Formulario de Pedido: Para agregar o editar pedidos (productos, cantidades).
+   - Ventanas:
+     - Lista de Pedidos: Mostrar todos los pedidos realizados con su estado.
+     - Formulario de Pedido: Para agregar o editar pedidos (productos, cantidades).
 
 9. Informes y Estadísticas
 
-    - Ventanas:
-        - Gráficos y tablas que muestren el rendimiento del almacén (productos más vendidos, estado de inventarios, etc.).
+   - Ventanas:
+     - Gráficos y tablas que muestren el rendimiento del almacén (productos más vendidos, estado de inventarios, etc.).
 
 10. Configuración
 
     - Ventanas:
-        - Opción para gestionar la configuración de la aplicación (por ejemplo, parámetros del sistema, opciones de notificación).
+      - Opción para gestionar la configuración de la aplicación (por ejemplo, parámetros del sistema, opciones de notificación).
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/ventanas_app.jpg" alt="ventanas de la aplicación" style="max-width: 90%; height: auto; margin-bottom: 10px; border-radius: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 4:</a> Jerarquía de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 4:</a> Jerarquía de las ventanas principales (<a href="https://app.diagrams.net/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 Las ventanas principales que componen la aplicación se muestran son:
@@ -271,13 +263,12 @@ Las ventanas principales que componen la aplicación se muestran son:
 - Infomacion del usuario: muestra información sobre el usuario actual asi como los permisos que tiene
 - Administración del almacen: muestra los palets que hay en él con los diferentes productos que hay en cada palet
 - Pedidos:
-    - Pedidos pendientes: muestra todos los pedidos que se deben realizar pero que ningun operario está ejecutando
-    - Pedidos en curso: muestra todos los pedidos que están ejecutando los operarios
-
+  - Pedidos pendientes: muestra todos los pedidos que se deben realizar pero que ningun operario está ejecutando
+  - Pedidos en curso: muestra todos los pedidos que están ejecutando los operarios
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/detalle_ventanas.jpg" alt="ventanas de la aplicación" style="max-width: 100%; height: auto; margin-bottom: 10px; border-radius: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 5:</a> Bocetos de las ventanas principales (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 5:</a> Bocetos de las ventanas principales (<a href="https://app.diagrams.net/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
 
 La visualización de los almacenes en la ventana de _GESTIÓN ALMACEN_ se puede hacer en 3D o 2D, dependiendo de las necesidades del usuario. La opción 3D permite visualizar los productos en un entorno más realista, mientras que la opción 2D se enfoca en una visualización más simple y rápida.
@@ -287,46 +278,44 @@ La visualización de los almacenes en la ventana de _GESTIÓN ALMACEN_ se puede 
     <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 6:</a> Visualización de los almacenes en 3D y 2D </p>
 </div>
 
-
 ## Aplicación Android
 
 1. Pantalla de Inicio de Sesión
 
-    - Características:
-        - Campos para el correo y la contraseña.
-        - Opción de "Recordar Sesión".
-        - Botón de "Iniciar Sesión".
-        - Enlace para recuperación de contraseña.
+   - Características:
+     - Campos para el correo y la contraseña.
+     - Opción de "Recordar Sesión".
+     - Botón de "Iniciar Sesión".
+     - Enlace para recuperación de contraseña.
 
 2. Pantalla Principal
 
-    - Características:
-        - Visión general del estado del almacén.
-        - Acceso a las funcionalidades principales (registrar movimientos, pedidos, etc.).
+   - Características:
+     - Visión general del estado del almacén.
+     - Acceso a las funcionalidades principales (registrar movimientos, pedidos, etc.).
 
 3. Registro de Movimientos
 
-    - Ventanas:
-        - Formulario de Movimiento: Para registrar la entrada o salida de palets (tipo, cantidad, observaciones).
-        - Opción para escanear códigos de barras de los productos/palets.
+   - Ventanas:
+     - Formulario de Movimiento: Para registrar la entrada o salida de palets (tipo, cantidad, observaciones).
+     - Opción para escanear códigos de barras de los productos/palets.
 
 4. Gestión de Pedidos
 
-    - Ventanas:
-        - Lista de Pedidos: Mostrar los pedidos activos y su estado.
-        - Formulario de Pedido: Para crear un nuevo pedido (seleccionar productos y cantidades).
+   - Ventanas:
+     - Lista de Pedidos: Mostrar los pedidos activos y su estado.
+     - Formulario de Pedido: Para crear un nuevo pedido (seleccionar productos y cantidades).
 
 5. Visualización de Productos
 
-    - Ventanas:
-        - Lista de Productos: Mostrar todos los productos disponibles en el almacén.
-        - Detalles de cada producto (descripción, precio, ubicación).
+   - Ventanas:
+     - Lista de Productos: Mostrar todos los productos disponibles en el almacén.
+     - Detalles de cada producto (descripción, precio, ubicación).
 
 6. Notificaciones
 
-    - Características:
-        - Alertas para movimientos de inventario o cambios en el estado de los pedidos.
-
+   - Características:
+     - Alertas para movimientos de inventario o cambios en el estado de los pedidos.
 
 ## Base de datos
 
@@ -343,14 +332,13 @@ Entidades clave a considerar:
 - **Movimientos de stock** (Entrada y salida de productos)
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
-    <img src="imagenes/BDD_schema.jpg" alt="BDD" style="max-width: 700px; height: auto; border-radius: 10px; margin :0">
-    <p style="margin: 10px 0 0 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 7:</a>  Diagrama de la base de datos (<a href="https://drawsql.app/" style="color: #3498db" >https://drawsql.app/</a>)</p>
+    <img src="imagenes/BDD_schema.png" alt="BDD" style="max-width: 700px; height: auto; border-radius: 10px; margin :0">
+    <p style="margin: 10px 0 0 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 7:</a>  Diagrama de la base de datos (MySQL Workbench)</p>
 </div>
 
-**leyenda de los símbolos de las tablas:**
+<!-- **leyenda de los símbolos de las tablas:** -->
 
-![leyenda de los símbolos de las tablas](imagenes/leyenda_caracteristicas_campos_BDD.png)
-
+<!-- ![leyenda de los símbolos de las tablas](imagenes/leyenda_caracteristicas_campos_BDD.png) ->
 
 **1. Tabla `Roles`**
 
@@ -359,7 +347,6 @@ Esta tabla define los diferentes roles que pueden tener los usuarios en el siste
 - `id_rol`: Identificador único para cada rol.
 - `nombre_rol`: Nombre del rol, como sysAdmin, Gestor, Operario, etc.
 - `descripción`: Descripción detallada del rol y sus permisos dentro del sistema.
-
 
 <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 20px 0 20px 0; ">
 
@@ -380,8 +367,6 @@ Esta tabla define los diferentes roles que pueden tener los usuarios en el siste
     </tbody>
 </table>
 </div>
-
-
 
 **2. Tabla `Usuarios`**
 
@@ -578,62 +563,72 @@ Esta tabla almacena los detalles de cada pedido realizado, especificando qué pa
 </div>
 
 ### Relaciones entre las tablas
+
 - Relación entre `Roles` y `Usuarios`:
-    - Campo relacionado: id_rol
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un rol puede estar asignado a varios usuarios. En la tabla Usuarios, el campo id_rol actúa como clave foránea que referencia al campo id_rol en la tabla Roles, permitiendo saber qué rol tiene cada usuario.
+
+  - Campo relacionado: id_rol
+  - Tipo de relación: Uno a muchos
+  - Descripción: Un rol puede estar asignado a varios usuarios. En la tabla Usuarios, el campo id_rol actúa como clave foránea que referencia al campo id_rol en la tabla Roles, permitiendo saber qué rol tiene cada usuario.
 
 - Relación entre `Usuarios` y `Movimientos`:
-    - Campo relacionado: id_usuario
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un usuario puede realizar múltiples movimientos. En la tabla Movimientos, el campo id_usuario es una clave foránea que referencia al campo id_usuario de la tabla Usuarios. Esto permite rastrear qué usuario realizó cada movimiento de entrada o salida de palets.
+
+  - Campo relacionado: id_usuario
+  - Tipo de relación: Uno a muchos
+  - Descripción: Un usuario puede realizar múltiples movimientos. En la tabla Movimientos, el campo id_usuario es una clave foránea que referencia al campo id_usuario de la tabla Usuarios. Esto permite rastrear qué usuario realizó cada movimiento de entrada o salida de palets.
 
 - Relación entre `Productos` y `Palets`:
-    - Campo relacionado: id_producto
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un producto puede estar presente en múltiples palets. En la tabla Palets, el campo id_producto es una clave foránea que referencia a id_producto en la tabla Productos. De esta manera, podemos identificar qué producto contiene cada palet.
+
+  - Campo relacionado: id_producto
+  - Tipo de relación: Uno a muchos
+  - Descripción: Un producto puede estar presente en múltiples palets. En la tabla Palets, el campo id_producto es una clave foránea que referencia a id_producto en la tabla Productos. De esta manera, podemos identificar qué producto contiene cada palet.
 
 - Relación entre `Palets` y `Movimientos`:
-    - Campo relacionado: id_palet
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un palet puede estar involucrado en múltiples movimientos. En la tabla Movimientos, el campo id_palet es una clave foránea que referencia a id_palet en la tabla Palets. Esto permite registrar qué palet está siendo movido en cada operación de entrada o salida.
+
+  - Campo relacionado: id_palet
+  - Tipo de relación: Uno a muchos
+  - Descripción: Un palet puede estar involucrado en múltiples movimientos. En la tabla Movimientos, el campo id_palet es una clave foránea que referencia a id_palet en la tabla Palets. Esto permite registrar qué palet está siendo movido en cada operación de entrada o salida.
 
 - Relación entre `Usuarios` y `Pedidos`:
-    - Campo relacionado: id_usuario
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un usuario puede crear múltiples pedidos. En la tabla Pedidos, el campo id_usuario es una clave foránea que hace referencia al campo id_usuario en la tabla Usuarios, indicando qué usuario realizó cada pedido.
+
+  - Campo relacionado: id_usuario
+  - Tipo de relación: Uno a muchos
+  - Descripción: Un usuario puede crear múltiples pedidos. En la tabla Pedidos, el campo id_usuario es una clave foránea que hace referencia al campo id_usuario en la tabla Usuarios, indicando qué usuario realizó cada pedido.
 
 - Relación entre `Pedidos` y `DetallesPedido`:
-    - Campo relacionado: id_pedido
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un pedido puede tener múltiples detalles. En la tabla DetallesPedido, el campo id_pedido es una clave foránea que referencia a id_pedido en la tabla Pedidos. Esto permite registrar los productos que forman parte de cada pedido.
+
+  - Campo relacionado: id_pedido
+  - Tipo de relación: Uno a muchos
+  - Descripción: Un pedido puede tener múltiples detalles. En la tabla DetallesPedido, el campo id_pedido es una clave foránea que referencia a id_pedido en la tabla Pedidos. Esto permite registrar los productos que forman parte de cada pedido.
 
 - Relación entre `Palets` y `DetallesPedido`:
-    - Campo relacionado: id_palet
-    - Tipo de relación: Uno a muchos
-    - Descripción: Un palet puede ser solicitado en múltiples detalles de pedidos. En la tabla DetallesPedido, el campo id_palet es una clave foránea que referencia a id_palet en la tabla Palets, indicando qué palets se están solicitando en cada pedido.
-
+  - Campo relacionado: id_palet
+  - Tipo de relación: Uno a muchos
+  - Descripción: Un palet puede ser solicitado en múltiples detalles de pedidos. En la tabla DetallesPedido, el campo id_palet es una clave foránea que referencia a id_palet en la tabla Palets, indicando qué palets se están solicitando en cada pedido.
 
 ### Resumen de las claves foráneas
 
 Aquí está un resumen de las relaciones y claves foráneas en la base de datos:
 
 - **Usuarios**:
-    - `id_rol` → Referencia a `Roles(id_rol)`
+
+  - `id_rol` → Referencia a `Roles(id_rol)`
 
 - **Palets**:
-    - `id_producto` → Referencia a `Productos(id_producto)`
+
+  - `id_producto` → Referencia a `Productos(id_producto)`
 
 - **Movimientos**:
-    - `id_usuario` → Referencia a `Usuarios(id_usuario)`
-    - `id_palet` → Referencia a `Palets(id_palet)`
+
+  - `id_usuario` → Referencia a `Usuarios(id_usuario)`
+  - `id_palet` → Referencia a `Palets(id_palet)`
 
 - **Pedidos**:
-    - `id_usuario` → Referencia a `Usuarios(id_usuario)`
+
+  - `id_usuario` → Referencia a `Usuarios(id_usuario)`
 
 - **DetallesPedido**:
-    - `id_pedido` → Referencia a `Pedidos(id_pedido)`
-    - `id_palet` → Referencia a `Palets(id_palet)`
+  - `id_pedido` → Referencia a `Pedidos(id_pedido)`
+  - `id_palet` → Referencia a `Palets(id_palet)`
 
 Explicación de cada relación:
 
@@ -642,7 +637,6 @@ Explicación de cada relación:
 - En Movimientos, el campo id_usuario hace referencia a Usuarios, indicando qué usuario realizó el movimiento, mientras que id_palet hace referencia a Palets, identificando el palet afectado.
 - En Pedidos, el campo id_usuario se relaciona con Usuarios, permitiendo saber qué usuario realizó el pedido.
 - Finalmente, en DetallesPedido, id_pedido se relaciona con Pedidos, especificando a qué pedido pertenece el detalle, y id_palet se refiere a Palets, indicando el palet específico que se solicita en el pedido.
-
 
 ## Tecnologías a Considerar:
 
@@ -674,12 +668,12 @@ Si prefieres un enfoque más flexible o con alto volumen de datos, puedes optar 
 
 - Opción 1: Aplicación nativa para Android
 
-    Lenguaje: Kotlin o Java (Android).** _Kotlin_ es el lenguaje oficial para el desarrollo de aplicaciones Android, pero también puedes usar Java si prefieres mantener la coherencia con la aplicación de escritorio. Esto permitirá desarrollar una aplicación nativa específica para Android, que puede interactuar con la base de datos centralizada a través de una API REST.
+  Lenguaje: Kotlin o Java (Android).\*\* _Kotlin_ es el lenguaje oficial para el desarrollo de aplicaciones Android, pero también puedes usar Java si prefieres mantener la coherencia con la aplicación de escritorio. Esto permitirá desarrollar una aplicación nativa específica para Android, que puede interactuar con la base de datos centralizada a través de una API REST.
 
 - ~~**Opción 2:** Aplicación Multiplataforma~~
-    ~~Flutter (que usa Dart) es una opción multiplataforma que te permite crear aplicaciones tanto para Android como iOS desde un solo código base.~~
-    ~~React Native (con JavaScript o TypeScript) también permite el desarrollo multiplataforma, especialmente si estás más cómodo con el ecosistema JavaScript.~~
-    ~~Ambas opciones son excelentes si deseas tener una única base de código para las aplicaciones móviles de operarios en Android y iOS.~~
+  ~~Flutter (que usa Dart) es una opción multiplataforma que te permite crear aplicaciones tanto para Android como iOS desde un solo código base.~~
+  ~~React Native (con JavaScript o TypeScript) también permite el desarrollo multiplataforma, especialmente si estás más cómodo con el ecosistema JavaScript.~~
+  ~~Ambas opciones son excelentes si deseas tener una única base de código para las aplicaciones móviles de operarios en Android y iOS.~~
 
 **4. Back-End** (API REST para comunicación entre escritorio y móvil)
 
@@ -771,127 +765,125 @@ Si usas Java en el backend, puedes utilizar JDBC (Java Database Connectivity) pa
 
 ### Recomendación General
 
-Como ya tengo experiencia con Java y JavaFX, se podrá mantener el ecosistema Java para la aplicación de escritorio y el backend, usando Spring Boot para la API REST. Luego, podrías optar por Kotlin o Java para una aplicación nativa en Android, o si deseas mayor flexibilidad, usar Flutter para crear una app multiplataforma.
+Como ya tengo experiencia con Java y JavaFX, se podrá mantener el ecosistema Java para la aplicación de escritorio y el backend, usando Spring Boot para la API REST. Luego, podemos optar por Kotlin o Java para una aplicación nativa en Android, o si queremos mayor flexibilidad, usar Flutter para crear una app multiplataforma.
 
-Para la base de datos, te recomiendo usar MySQL o PostgreSQL, que son muy robustas para gestionar inventarios y transacciones en tiempo real.
+Para la base de datos, es recoemendable usar MySQL o PostgreSQL, que son muy robustas para gestionar inventarios y transacciones en tiempo real.
 
 <h3 id="seccion2" style="margin-bottom: 30px"> </h3>
 
-## Usuarios, Roles y Permisos  
+## Usuarios, Roles y Permisos
 
-Para que una persona pueda acceder a la aplicación, se requiere que tenga un usuario y contraseña. Estos usuarios y contraseñas se encuentran en la tabla "Usuarios" de la base de datos. Para cada usuario, se puede definir los diferentes roles que tiene, y los permisos que tiene para cada uno de ellos. 
+Para que una persona pueda acceder a la aplicación, se requiere que tenga un usuario y contraseña. Estos usuarios y contraseñas se encuentran en la tabla "Usuarios" de la base de datos. Para cada usuario, se puede definir los diferentes roles que tiene, y los permisos que tiene para cada uno de ellos.
 
 cuando el usuario desea hacer una determinada acción en la aplicación, se debe verificar que el usuario tenga los permisos necesarios para realizar dicha acción. Esto se logra verificando que el usuario tenga el rol correspondiente y que el rol tenga los permisos necesarios para realizar dicha acción. Si el usuario no tiene los permisos necesarios, entonces se le debe notificar al usuario que no tiene los permisos necesarios para realizar dicha acción.
 
 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
     <img src="imagenes/diagrama_gestion_base_datos.jpg" alt="diagrama_gestion_bases_de_datos" style="width: 500px; height: auto; border-radius:10px;  margin-bottom: 10px;">
-    <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 9:</a> Gestión de roles de usuario (<a href="https://drawsql.app/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
+    <p style="margin: 0; font-style: italic; color:white"> <a style="color: #af7ac5" >Figura 9:</a> Gestión de roles de usuario (<a href="https://app.diagrams.net/" style="color: #3498db" >https://app.diagrams.net/</a>)</p>
 </div>
-
 
 **1. Administrador del Sistema (SysAdmin)**
 
 - Responsabilidades:
-    - Administrar y configurar todo el sistema.
-    - Gestionar la creación, edición y eliminación de otros usuarios.
-    - Controlar la base de datos (backups, recuperación, mantenimiento).
-    - Acceso total a todas las funciones de la aplicación.
+  - Administrar y configurar todo el sistema.
+  - Gestionar la creación, edición y eliminación de otros usuarios.
+  - Controlar la base de datos (backups, recuperación, mantenimiento).
+  - Acceso total a todas las funciones de la aplicación.
 - Permisos:
-    - Crear, modificar y eliminar roles de usuario.
-    - Acceso completo a todas las funcionalidades (gestión de productos, pedidos, reportes, etc.).
-    - Modificar configuraciones del sistema.
-    - Revisar los registros de auditoría y el historial de actividades.
-    - Ver todos los informes de rendimiento y análisis del almacén.
+  - Crear, modificar y eliminar roles de usuario.
+  - Acceso completo a todas las funcionalidades (gestión de productos, pedidos, reportes, etc.).
+  - Modificar configuraciones del sistema.
+  - Revisar los registros de auditoría y el historial de actividades.
+  - Ver todos los informes de rendimiento y análisis del almacén.
 
 **2. Gestor de Almacén**
 
 - Responsabilidades:
-    - Gestionar el inventario y el flujo de productos dentro del almacén.
-    - Coordinar y supervisar al equipo de operarios.
-    - Generar y gestionar informes de rendimiento e inventario.
+  - Gestionar el inventario y el flujo de productos dentro del almacén.
+  - Coordinar y supervisar al equipo de operarios.
+  - Generar y gestionar informes de rendimiento e inventario.
 - Permisos:
-    - Ver, agregar, editar y eliminar productos.
-    - Acceder a la ubicación de los productos en el almacén (y, si es necesario, modificarla).
-    - Gestionar las órdenes de compra (entrada de productos) y pedidos de clientes (salida de productos).
-    - Asignar tareas a los operarios (picking, packing).
-    - Consultar informes de inventario, rendimiento de productos y productividad de los operarios.
-    - Revisar el historial de movimientos de inventario.
+  - Ver, agregar, editar y eliminar productos.
+  - Acceder a la ubicación de los productos en el almacén (y, si es necesario, modificarla).
+  - Gestionar las órdenes de compra (entrada de productos) y pedidos de clientes (salida de productos).
+  - Asignar tareas a los operarios (picking, packing).
+  - Consultar informes de inventario, rendimiento de productos y productividad de los operarios.
+  - Revisar el historial de movimientos de inventario.
 
 **3. Supervisor de Almacén**
 
 - Responsabilidades:
-    - Supervisar las operaciones diarias del almacén.
-    - Asegurarse de que los pedidos se procesen correctamente y a tiempo.
-    - Gestionar el inventario, asegurándose de que esté actualizado.
-    - Coordinar el trabajo de los operarios en la planta.
+  - Supervisar las operaciones diarias del almacén.
+  - Asegurarse de que los pedidos se procesen correctamente y a tiempo.
+  - Gestionar el inventario, asegurándose de que esté actualizado.
+  - Coordinar el trabajo de los operarios en la planta.
 - Permisos:
-    - Ver y actualizar el inventario.
-    - Asignar tareas a los operarios (picking, packing).
-    - Procesar pedidos y entradas de productos.
-    - Controlar la recepción y despacho de mercancía.
-    - Generar reportes básicos de inventario y productividad.
-    - Revisar el historial de movimientos recientes.
+  - Ver y actualizar el inventario.
+  - Asignar tareas a los operarios (picking, packing).
+  - Procesar pedidos y entradas de productos.
+  - Controlar la recepción y despacho de mercancía.
+  - Generar reportes básicos de inventario y productividad.
+  - Revisar el historial de movimientos recientes.
 
 **4. Operario de Almacén**
 
 - Responsabilidades:
-    - Ejecutar las tareas operativas en el almacén (picking, packing, almacenamiento).
-    - Procesar pedidos de clientes y realizar la preparación de los mismos.
-    - Registrar la entrada y salida de productos.
-    - Escanear productos y actualizarlos en el sistema.
+  - Ejecutar las tareas operativas en el almacén (picking, packing, almacenamiento).
+  - Procesar pedidos de clientes y realizar la preparación de los mismos.
+  - Registrar la entrada y salida de productos.
+  - Escanear productos y actualizarlos en el sistema.
 - Permisos:
-    - Ver el inventario y la ubicación de los productos.
-    - Marcar productos como recogidos para un pedido (picking).
-    - Registrar entradas de productos (recepción).
-    - Actualizar el estado de los pedidos (pendiente, preparado, enviado).
-    - Escanear productos para su registro (usando un lector de códigos de barras o la cámara de un dispositivo móvil).
-    - Acceder a su historial de tareas completadas.
+  - Ver el inventario y la ubicación de los productos.
+  - Marcar productos como recogidos para un pedido (picking).
+  - Registrar entradas de productos (recepción).
+  - Actualizar el estado de los pedidos (pendiente, preparado, enviado).
+  - Escanear productos para su registro (usando un lector de códigos de barras o la cámara de un dispositivo móvil).
+  - Acceder a su historial de tareas completadas.
 
 **5. Operario de Mantenimiento**
 
 - Responsabilidades:
-    - Supervisar el estado físico del almacén y sus instalaciones.
-    - Informar y gestionar incidencias relacionadas con el almacenamiento o el estado de los productos.
-    - Realizar mantenimientos preventivos y correctivos en las instalaciones del almacén.
+  - Supervisar el estado físico del almacén y sus instalaciones.
+  - Informar y gestionar incidencias relacionadas con el almacenamiento o el estado de los productos.
+  - Realizar mantenimientos preventivos y correctivos en las instalaciones del almacén.
 - Permisos:
-    - Acceder a la información sobre la disposición y estado físico de los productos.
-    - Registrar problemas o daños en productos o estanterías.
-    - Acceder a las tareas relacionadas con la infraestructura del almacén, pero no con la gestión de inventario ni pedidos.
+  - Acceder a la información sobre la disposición y estado físico de los productos.
+  - Registrar problemas o daños en productos o estanterías.
+  - Acceder a las tareas relacionadas con la infraestructura del almacén, pero no con la gestión de inventario ni pedidos.
 
 **6. Personal de Administración o Finanzas**
 
 - Responsabilidades:
-    - Gestionar el flujo financiero de compras y ventas.
-    - Generar informes financieros sobre los productos del almacén (costos, ingresos, márgenes).
-    - Coordinar con proveedores y clientes en aspectos financieros.
+  - Gestionar el flujo financiero de compras y ventas.
+  - Generar informes financieros sobre los productos del almacén (costos, ingresos, márgenes).
+  - Coordinar con proveedores y clientes en aspectos financieros.
 - Permisos:
-    - Acceder a la información de pedidos y proveedores.
-    - Ver el estado de los inventarios (sin modificar).
-    - Generar informes financieros sobre el rendimiento de productos.
-    - Consultar el historial de compras y ventas.
-    - Ver los costos asociados a la gestión de inventario.
+  - Acceder a la información de pedidos y proveedores.
+  - Ver el estado de los inventarios (sin modificar).
+  - Generar informes financieros sobre el rendimiento de productos.
+  - Consultar el historial de compras y ventas.
+  - Ver los costos asociados a la gestión de inventario.
 
 **7. Proveedor (Usuario Externo)**
 
 - Responsabilidades:
-    - Proveer mercancía al almacén y consultar sus órdenes de compra.
-    - Actualizar el estado de envíos y confirmación de recepción de pedidos.
+  - Proveer mercancía al almacén y consultar sus órdenes de compra.
+  - Actualizar el estado de envíos y confirmación de recepción de pedidos.
 - Permisos:
-    - Acceder a sus órdenes de compra y consultar su estado.
-    - Confirmar el estado de entrega de mercancías.
-    - Ver el inventario de los productos que suministran (si corresponde).
+  - Acceder a sus órdenes de compra y consultar su estado.
+  - Confirmar el estado de entrega de mercancías.
+  - Ver el inventario de los productos que suministran (si corresponde).
 
 **8. Cliente (Usuario Externo)**
 
 - Responsabilidades:
-    - Realizar pedidos y consultas sobre el estado de sus compras.
-    - Acceder a facturas y realizar devoluciones de productos.
+  - Realizar pedidos y consultas sobre el estado de sus compras.
+  - Acceder a facturas y realizar devoluciones de productos.
 - Permisos:
-    - Consultar el catálogo de productos disponibles (si la plataforma lo permite).
-    - Realizar pedidos.
-    - Consultar el estado de sus pedidos y devoluciones.
-    - Ver el historial de compras y facturas.
-
+  - Consultar el catálogo de productos disponibles (si la plataforma lo permite).
+  - Realizar pedidos.
+  - Consultar el estado de sus pedidos y devoluciones.
+  - Ver el historial de compras y facturas.
 
 <div class="table-container" style="display: flex; flex-direction: column; align-items: center; width: 100%; margin: 40px 0 20px 0; ">
 
@@ -1037,5 +1029,3 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
   </tbody>
 </table>
 </div>
-
-

@@ -1,3 +1,10 @@
+-- si queremos volver a crear toda la base de datos desde cero primero la borramos ejecutando
+-- DROP DATABASE tfg_almacenDB;
+
+-- Creación de la base de datos
+create database tfg_almacenDB;
+use tfg_almacenDB;
+
 -- Creación de la tabla Roles, donde se definen los distintos roles del sistema
 CREATE TABLE
     Roles (
@@ -101,17 +108,6 @@ CREATE TABLE
         cantidad INT NOT NULL, -- Cantidad de productos solicitados
         FOREIGN KEY (id_pedido) REFERENCES Pedidos (id_pedido),
         FOREIGN KEY (id_palet) REFERENCES Palets (id_palet)
-    );
-
--- Ejemplo de inserción de un usuario (SysAdmin) en la tabla Usuarios
-INSERT INTO
-    Usuarios (nombre, email, contraseña, id_rol)
-VALUES
-    (
-        'Admin',
-        'admin@almacen.com',
-        'hashed_password',
-        1
     );
 
 -- sysAdmin
