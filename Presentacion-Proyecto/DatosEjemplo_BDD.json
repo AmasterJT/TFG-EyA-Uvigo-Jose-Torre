@@ -1,0 +1,182 @@
+{
+  "Usuarios": [
+    {
+      "id_usuario": 1,
+      "nombre": "Admin",
+      "email": "admin@almacen.com",
+      "contraseña": "hashed_password",
+      "id_rol": 1
+    },
+    {
+      "id_usuario": 2,
+      "nombre": "Juan Perez",
+      "email": "juan.perez@almacen.com",
+      "contraseña": "hashed_password",
+      "id_rol": 2
+    },
+    {
+      "id_usuario": 3,
+      "nombre": "Maria Lopez",
+      "email": "maria.lopez@almacen.com",
+      "contraseña": "hashed_password",
+      "id_rol": 3
+    },
+    {
+      "id_usuario": 4,
+      "nombre": "Carlos Diaz",
+      "email": "carlos.diaz@almacen.com",
+      "contraseña": "hashed_password",
+      "id_rol": 4
+    },
+    {
+      "id_usuario": 5,
+      "nombre": "Luisa Gomez",
+      "email": "luisa.gomez@almacen.com",
+      "contraseña": "hashed_password",
+      "id_rol": 5
+    },
+    {
+      "id_usuario": 6,
+      "nombre": "Ana Torres",
+      "email": "ana.torres@almacen.com",
+      "contraseña": "hashed_password",
+      "id_rol": 6
+    }
+  ],
+  "Productos": [
+    {
+      "id_producto": 1,
+      "nombre_producto": "Lápices",
+      "descripcion": "Caja de 50 lápices de madera",
+      "precio": 10.5
+    },
+    {
+      "id_producto": 2,
+      "nombre_producto": "Cuadernos",
+      "descripcion": "Cuadernos tamaño A4 de 100 hojas",
+      "precio": 5.75
+    },
+    {
+      "id_producto": 3,
+      "nombre_producto": "Bolígrafos",
+      "descripcion": "Paquete de 20 bolígrafos azules",
+      "precio": 7.2
+    },
+    {
+      "id_producto": 4,
+      "nombre_producto": "Marcadores",
+      "descripcion": "Set de 12 marcadores de colores",
+      "precio": 15.0
+    },
+    {
+      "id_producto": 5,
+      "nombre_producto": "Gomas de borrar",
+      "descripcion": "Pack de 10 gomas de borrar suaves",
+      "precio": 3.5
+    }
+  ],
+  "Palets": [
+    {
+      "id_palet": 1,
+      "id_producto": 1,
+      "cantidad": 100,
+      "ubicacion": "Zona A - Estante 1"
+    },
+    {
+      "id_palet": 2,
+      "id_producto": 1,
+      "cantidad": 50,
+      "ubicacion": "Zona A - Estante 2"
+    },
+    {
+      "id_palet": 3,
+      "id_producto": 2,
+      "cantidad": 200,
+      "ubicacion": "Zona B - Estante 3"
+    },
+    {
+      "id_palet": 4,
+      "id_producto": 3,
+      "cantidad": 150,
+      "ubicacion": "Zona C - Estante 1"
+    },
+    {
+      "id_palet": 5,
+      "id_producto": 4,
+      "cantidad": 100,
+      "ubicacion": "Zona D - Estante 4"
+    },
+    {
+      "id_palet": 6,
+      "id_producto": 5,
+      "cantidad": 300,
+      "ubicacion": "Zona E - Estante 5"
+    }
+  ],
+  "Movimientos": [
+    {
+      "id_movimiento": 1,
+      "id_usuario": 2,
+      "id_palet": 1,
+      "tipo_movimiento": "Entrada",
+      "cantidad": 100,
+      "observaciones": "Recepción de lápices en Zona A - Estante 1"
+    },
+    {
+      "id_movimiento": 2,
+      "id_usuario": 3,
+      "id_palet": 2,
+      "tipo_movimiento": "Salida",
+      "cantidad": 50,
+      "observaciones": "Envío parcial de lápices a cliente"
+    },
+    {
+      "id_movimiento": 3,
+      "id_usuario": 4,
+      "id_palet": 3,
+      "tipo_movimiento": "Entrada",
+      "cantidad": 200,
+      "observaciones": "Recepción de cuadernos en Zona B - Estante 3"
+    },
+    {
+      "id_movimiento": 4,
+      "id_usuario": 5,
+      "id_palet": 4,
+      "tipo_movimiento": "Entrada",
+      "cantidad": 150,
+      "observaciones": "Recepción de bolígrafos en Zona C - Estante 1"
+    }
+  ],
+  "Pedidos": [
+    {
+      "id_pedido": 1,
+      "id_usuario": 2,
+      "estado": "Pendiente"
+    },
+    {
+      "id_pedido": 2,
+      "id_usuario": 3,
+      "estado": "Completado"
+    }
+  ],
+  "DetallesPedido": [
+    {
+      "id_detalle": 1,
+      "id_pedido": 1,
+      "id_palet": 1,
+      "cantidad": 20
+    },
+    {
+      "id_detalle": 2,
+      "id_pedido": 1,
+      "id_palet": 2,
+      "cantidad": 10
+    },
+    {
+      "id_detalle": 3,
+      "id_pedido": 2,
+      "id_palet": 3,
+      "cantidad": 50
+    }
+  ]
+}
