@@ -1,4 +1,4 @@
-# Patrón de diseño DAO
+# Patrón de diseño DAO - _Data Access Object DAO) Pattern_
 
 El DAO es un patrón de diseño estructural que se utiliza en el desarrollo de software para separar la lógica de acceso a los datos de la lógica de negocio de una aplicación. Su objetivo es proporcionar una interfaz abstracta para interactuar con diferentes fuentes de datos (bases de datos, archivos, servicios web, etc.), ocultando la implementación interna del acceso a los datos.
 
