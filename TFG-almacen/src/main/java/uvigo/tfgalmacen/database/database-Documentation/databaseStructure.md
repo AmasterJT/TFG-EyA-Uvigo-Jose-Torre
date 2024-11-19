@@ -2,6 +2,14 @@
 
 El DAO es un patrón de diseño estructural que se utiliza en el desarrollo de software para separar la lógica de acceso a los datos de la lógica de negocio de una aplicación. Su objetivo es proporcionar una interfaz abstracta para interactuar con diferentes fuentes de datos (bases de datos, archivos, servicios web, etc.), ocultando la implementación interna del acceso a los datos.
 
+ <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 20px; width: 100%;">
+
+  <img src="./DAO-diagram.png" alt="Esquema DAO" style="max-width:  350px; height: auto; margin-bottom: 10px; border-radius: 10px;">
+
+  <p style="margin: 0; font-style: italic; color: white; text-align: center;"> <a  style="color: #af7ac5" >Figura 1:</a> Patrón de diseño DAO. (<a href="https://www.youtube.com/watch?v=CEDKxPCgosY" style="color: #3498db" >El patrón DAO UPV</a>)
+  </p>
+</div>
+
 ### Propósito del DAO
 
 1. Separación de preocupaciones: Permite que la lógica de negocio de la aplicación se mantenga independiente de los detalles de la persistencia de datos (es decir, cómo se almacenan y recuperan los datos).
