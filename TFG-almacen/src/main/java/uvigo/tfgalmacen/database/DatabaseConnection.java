@@ -1,5 +1,6 @@
 package uvigo.tfgalmacen.database;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,10 +8,9 @@ import java.sql.Statement;
 
 public class DatabaseConnection {
 
-    // Datos de conexión
-    private static final String URL = "jdbc:mysql://localhost:3306/tfg_almacenDB"; // URL de tu base de datos
-    private static final String USER = "root"; // Tu usuario de MySQL
-    private static final String PASSWORD = "Amaster123*"; // Tu contraseña de MySQL
+    static String URL =  DataConfig.URL;
+    static String USER =  DataConfig.USER;
+    static String PASSWORD =  DataConfig.PASSWORD;
 
     public static Connection connect() throws SQLException {
         try {
@@ -43,22 +43,4 @@ public class DatabaseConnection {
         }
     }
 
-    /*public static void main(String[] args) {
-        Connection connection = null;
-        try {
-            // Establecer conexión
-            connection = connect();
-
-            // Aquí puedes ejecutar consultas a la base de datos, por ejemplo:
-            Statement stmt = connection.createStatement();
-            String query = "SELECT * FROM Usuarios";
-            stmt.executeQuery(query);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Cerrar la conexión
-            close(connection);
-        }
-    }*/
 }
