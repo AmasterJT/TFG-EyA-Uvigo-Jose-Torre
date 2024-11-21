@@ -1,13 +1,14 @@
-
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE DetallesPedido;
 TRUNCATE TABLE Pedidos;
 TRUNCATE TABLE Movimientos;
 TRUNCATE TABLE Productos;
 TRUNCATE TABLE Usuarios;
+TRUNCATE TABLE Estanterias;
 SET FOREIGN_KEY_CHECKS = 1;
 
 ALTER TABLE Roles AUTO_INCREMENT = 7;         -- Continúa después del último ID existente
+ALTER TABLE Estanterias AUTO_INCREMENT = 1;
 ALTER TABLE Usuarios AUTO_INCREMENT = 1;
 ALTER TABLE Productos AUTO_INCREMENT = 1;
 ALTER TABLE Palets AUTO_INCREMENT = 1;
@@ -15,6 +16,13 @@ ALTER TABLE Movimientos AUTO_INCREMENT = 1;
 ALTER TABLE Pedidos AUTO_INCREMENT = 1;
 ALTER TABLE DetallesPedido AUTO_INCREMENT = 1;
 
+
+-- Inserción de datos en la tabla Estanterias
+INSERT INTO Estanterias (num_baldas, posiciones_por_balda) VALUES
+(8, 24), -- Estanteria 1
+(8, 24), -- Estanteria 2
+(8, 24), -- Estanteria 3
+(8, 24); -- Estanteria 4
 
 -- Inserción de datos en la tabla Usuarios
 INSERT INTO Usuarios (nombre, email, contraseña, id_rol) VALUES
@@ -34,13 +42,13 @@ INSERT INTO Productos (nombre_producto, descripcion, precio) VALUES
 ('Gomas de borrar', 'Pack de 10 gomas de borrar suaves', 3.50);
 
 -- Inserción de datos en la tabla Palets
-INSERT INTO Palets (id_producto, cantidad, ubicacion) VALUES
-(1, 100, 'Zona A - Estante 1'), -- Lápices
-(1, 50, 'Zona A - Estante 2'), -- Lápices
-(2, 200, 'Zona B - Estante 3'), -- Cuadernos
-(3, 150, 'Zona C - Estante 1'), -- Bolígrafos
-(4, 100, 'Zona D - Estante 4'), -- Marcadores
-(5, 300, 'Zona E - Estante 5'); -- Gomas de borrar
+INSERT INTO Palets (id_producto, cantidad, estanteria, balda, posicion) VALUES
+(1, 100, 1, 2, 3),  -- Lápices: 100 unidades en la estantería 1, balda 2, posición 3
+(1, 50, 2, 4, 2),   -- Lápices: 50 unidades en la estantería 2, balda 4, posición 2
+(2, 200, 3, 3, 3),  -- Cuadernos: 200 unidades en la estantería 3, balda 3, posición 3
+(3, 150, 1, 4, 1),  -- Bolígrafos: 150 unidades en la estantería 1, balda 4, posición 1
+(4, 100, 3, 5, 3),  -- Marcadores: 100 unidades en la estantería 3, balda 5, posición 3
+(5, 300, 4, 4, 2);  -- Gomas de borrar: 300 unidades en la estantería 4, balda 4, posición 2
 
 -- Inserción de datos en la tabla Movimientos
 INSERT INTO Movimientos (id_usuario, id_palet, tipo_movimiento, cantidad, observaciones) VALUES

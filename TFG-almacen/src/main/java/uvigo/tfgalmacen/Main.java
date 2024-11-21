@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import uvigo.tfgalmacen.database.ProductoDAO;
 
 import java.io.IOException;
 
@@ -12,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import static uvigo.tfgalmacen.database.DatabaseConnection.*;
+import static uvigo.tfgalmacen.database.RolePermissionDAO.printRolesAndPermissions;
+
 
 public class Main extends Application {
     @Override
@@ -23,7 +26,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 
     public static void main(String[] args) {
 
@@ -37,14 +39,15 @@ public class Main extends Application {
             String query = "SELECT * FROM Usuarios";
             stmt.executeQuery(query);
 
+            ProductoDAO.readProductos(connection);
+            printRolesAndPermissions(connection);
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // Cerrar la conexión
-            close(connection);
+            close(connection);  // Cerrar la conexión
         }
 
-        
 
         launch();
     }

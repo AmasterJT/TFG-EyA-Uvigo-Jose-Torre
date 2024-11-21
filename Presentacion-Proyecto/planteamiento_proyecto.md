@@ -932,9 +932,9 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>✅</td>
           <td>✅</td>
           <td>✅</td>
-          <td style="color: #3498db">Ver</td>
+          <td style="color: #e89323">Ver</td>
           <td>❌</td>
-          <td style="color: #3498db">Ver</td>
+          <td style="color: #e89323">Ver</td>
           <td>❌</td>
           <td>❌</td>
       </tr>
@@ -956,7 +956,7 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>✅</td>
           <td>✅</td>
           <td>❌</td>
-          <td style="color: #3498db">Ver</td>
+          <td style="color: #e89323">Ver</td>
           <td>❌</td>
           <td>✅</td>
       </tr>
@@ -987,9 +987,9 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>✅</td>
           <td>✅</td>
           <td>✅</td>
-          <td style="color: #3498db">Ver</td>
-          <td style="color: #3498db">Ver</td>
-          <td style="color: #3498db">Ver</td>
+          <td style="color: #e89323">Ver</td>
+          <td style="color: #e89323">Ver</td>
+          <td style="color: #e89323">Ver</td>
           <td>❌</td>
           <td>❌</td>
       </tr>
@@ -997,7 +997,7 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>Mantenimiento de Infraestructura</td>
           <td>✅</td>
           <td>❌</td>
-          <td style="color: #3498db">Ver</td>
+          <td style="color: #e89323">Ver</td>
           <td>❌</td>
           <td>✅</td>
           <td>❌</td>
@@ -1013,15 +1013,15 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>❌</td>
           <td>✅</td>
           <td>❌</td>
-          <td style="color: #3498db">Ver</td>
+          <td style="color: #e89323">Ver</td>
       </tr>
       <tr>
           <td>Gestión de Incidencias</td>
           <td>✅</td>
           <td>❌</td>
-          <td style="color: #3498db">Ver</td>
-          <td style="color: #3498db">Ver</td>
-          <td style="color: #3498db">Ver</td>
+          <td style="color: #e89323">Ver</td>
+          <td style="color: #e89323">Ver</td>
+          <td style="color: #e89323">Ver</td>
           <td>❌</td>
           <td>❌</td>
           <td>❌</td>

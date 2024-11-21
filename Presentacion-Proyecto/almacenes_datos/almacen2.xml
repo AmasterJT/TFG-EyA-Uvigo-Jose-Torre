@@ -1,0 +1,909 @@
+<?xml version='1.0' encoding='utf-8'?>
+<almacen>
+    <tiposProducto>
+        <tipoProducto id="Tensoactivo" color="255,0,0" />
+        <tipoProducto id="Secuestrante" color="0,255,0" />
+        <tipoProducto id="Rindente" color="50,50,255" />
+        <tipoProducto id="Remojo" color="230,230,0" />
+        <tipoProducto id="Engrase" color="255,0,255" />
+        <tipoProducto id="Desencalante" color="0,255,255" />
+        <tipoProducto id="Conservante" color="200,0,0" />
+        <tipoProducto id="Calero" color="0,150,0" />
+        <tipoProducto id="Curtición" color="0,0,150" />
+        <tipoProducto id="Deslizante" color="255,150,0" />
+        <tipoProducto id="Hidrofugante" color="0,180,180" />
+        <tipoProducto id="Resina" color="150,0,150" />
+        <tipoProducto id="Cera" color="150,150,0" />
+    </tiposProducto>
+    <productos>
+        <producto id="SOLVOTAN XS" idTipoProducto="Engrase" caducidad="480" />
+        <producto id="TRUPONAT NF" idTipoProducto="Calero" caducidad="1200" />
+        <producto id="TRUPOFIN CERA HF" idTipoProducto="Cera" caducidad="820" />
+        <producto id="TRUPOFIN CERA HS" idTipoProducto="Cera" caducidad="460" />
+        <producto id="TRUPOFIN CERA HP" idTipoProducto="Cera" caducidad="480" />
+        <producto id="TRUPOSEPT BA" idTipoProducto="Conservante" caducidad="623" />
+        <producto id="TRUPOFIN CERA PW" idTipoProducto="Cera" caducidad="428" />
+        <producto id="TRUPOSYL TBK-E" idTipoProducto="Hidrofugante" caducidad="560" />
+        <producto id="TRUPOFIN CERA PV" idTipoProducto="Cera" caducidad="830" />
+        <producto id="TRUPON AP" idTipoProducto="Engrase" caducidad="520" />
+        <producto id="TRUPOCAL AF" idTipoProducto="Desencalante" caducidad="380" />
+        <producto id="TRUPOSYL TBA" idTipoProducto="Hidrofugante" caducidad="550" />
+        <producto id="TRUPOSOL WBF" idTipoProducto="Engrase" caducidad="380" />
+        <producto id="TRUPOSYL TBD" idTipoProducto="Hidrofugante" caducidad="660" />
+        <producto id="TRUPON BMF" idTipoProducto="Engrase" caducidad="730" />
+        <producto id="TRUPOCRYL K-U-10" idTipoProducto="Resina" caducidad="480" />
+        <producto id="TRUPOFIN CERA DP" idTipoProducto="Cera" caducidad="620" />
+        <producto id="TRUPON CST" idTipoProducto="Engrase" caducidad="820" />
+        <producto id="TRUPON COL" idTipoProducto="Engrase" caducidad="830" />
+        <producto id="TRUPOSIST S-BO" idTipoProducto="Hidrofugante" caducidad="630" />
+        <producto id="TRUPOSYL TBK" idTipoProducto="Hidrofugante" caducidad="910" />
+        <producto id="PASTOSOL KC" idTipoProducto="Secuestrante" caducidad="510" />
+        <producto id="ANTIFOAM NSP" idTipoProducto="Engrase" caducidad="370" />
+        <producto id="TRUPOWET SA" idTipoProducto="Remojo" caducidad="390" />
+        <producto id="TRUPOFIN CERA CA" idTipoProducto="Cera" caducidad="660" />
+        <producto id="TRUPOFIN CERA SP" idTipoProducto="Cera" caducidad="620" />
+        <producto id="PASTOSOL HW" idTipoProducto="Engrase" caducidad="390" />
+        <producto id="TRUPOTAN MON" idTipoProducto="Curtición" caducidad="620" />
+        <producto id="PASTOSOL DG" idTipoProducto="Tensoactivo" caducidad="480" />
+        <producto id="TRUPOCRYL AB" idTipoProducto="Resina" caducidad="920" />
+        <producto id="TRUPOZYM AX" idTipoProducto="Rindente" caducidad="330" />
+        <producto id="TRUPOCRYL A-10" idTipoProducto="Resina" caducidad="790" />
+        <producto id="TRUPOFIN CERA 3A" idTipoProducto="Cera" caducidad="400" />
+        <producto id="TRUPOCAL DE" idTipoProducto="Desencalante" caducidad="720" />
+        <producto id="TRUKALIN K" idTipoProducto="Secuestrante" caducidad="900" />
+        <producto id="TRUPOZYM AB" idTipoProducto="Rindente" caducidad="650" />
+        <producto id="TRUPOCRYL A-18" idTipoProducto="Resina" caducidad="820" />
+        <producto id="SOLVOTAN TACTO" idTipoProducto="Engrase" caducidad="460" />
+        <producto id="TRUPONAT LA" idTipoProducto="Calero" caducidad="480" />
+        <producto id="TRUPOTEC S" idTipoProducto="Hidrofugante" caducidad="710" />
+        <producto id="TRUPOFIN CERA E" idTipoProducto="Cera" caducidad="280" />
+        <producto id="TRUPOFIN CERA P" idTipoProducto="Cera" caducidad="490" />
+        <producto id="TRUPON DBS" idTipoProducto="Engrase" caducidad="720" />
+        <producto id="TRUPOFIN CERA FP" idTipoProducto="Cera" caducidad="1260" />
+        <producto id="TRUPOFIN CERA M" idTipoProducto="Cera" caducidad="470" />
+        <producto id="TRUPOFIN CERA K-A" idTipoProducto="Cera" caducidad="820" />
+        <producto id="TRUPOFIN CERA BT" idTipoProducto="Cera" caducidad="430" />
+        <producto id="TRUPOSYL ABS" idTipoProducto="Hidrofugante" caducidad="620" />
+        <producto id="TRUPOCRYL A-20" idTipoProducto="Resina" caducidad="270" />
+        <producto id="TRUPOFIN CERA KT 09" idTipoProducto="Cera" caducidad="480" />
+        <producto id="TRUPON DB-80" idTipoProducto="Engrase" caducidad="580" />
+        <producto id="TRUPOFIN CERA KT 08" idTipoProducto="Cera" caducidad="440" />
+        <producto id="TRUPON CM" idTipoProducto="Engrase" caducidad="230" />
+        <producto id="TRUPOFIN CERA W" idTipoProducto="Cera" caducidad="620" />
+        <producto id="TRUPOTEC T" idTipoProducto="Hidrofugante" caducidad="890" />
+        <producto id="TRUPOCRYL A-28" idTipoProducto="Resina" caducidad="770" />
+        <producto id="TRUPOCRYL K-U-310" idTipoProducto="Resina" caducidad="490" />
+        <producto id="TRUPOTAN MOW" idTipoProducto="Curtición" caducidad="830" />
+        <producto id="TRUPOCRYL K-A-30" idTipoProducto="Resina" caducidad="720" />
+        <producto id="PASTOSOL F" idTipoProducto="Tensoactivo" caducidad="590" />
+        <producto id="PASTOSOL MD" idTipoProducto="Engrase" caducidad="1170" />
+        <producto id="TRUPOZYM CL" idTipoProducto="Rindente" caducidad="580" />
+        <producto id="TRUPOSLIP P" idTipoProducto="Deslizante" caducidad="620" />
+        <producto id="TRUPOZYM CN" idTipoProducto="Rindente" caducidad="720" />
+        <producto id="TRUPOL RK" idTipoProducto="Engrase" caducidad="440" />
+        <producto id="PASTOSOL BCN" idTipoProducto="Tensoactivo" caducidad="840" />
+        <producto id="TRUPOCRYL A–90" idTipoProducto="Resina" caducidad="910" />
+        <producto id="TRUPOSYL HBD" idTipoProducto="Hidrofugante" caducidad="450" />
+        <producto id="TRUPOTAN OM" idTipoProducto="Curtición" caducidad="820" />
+        <producto id="TRUPOSIST D" idTipoProducto="Hidrofugante" caducidad="350" />
+        <producto id="TRUPOCRYL A-30" idTipoProducto="Resina" caducidad="860" />
+        <producto id="TRUPOCRYL K-U-27" idTipoProducto="Resina" caducidad="570" />
+        <producto id="TRUPOCRYL A-32" idTipoProducto="Resina" caducidad="350" />
+        <producto id="TRUPOFIN CERA D-80" idTipoProducto="Cera" caducidad="480" />
+        <producto id="TRUPOWET PH" idTipoProducto="Remojo" caducidad="650" />
+        <producto id="TRUPON PEM" idTipoProducto="Engrase" caducidad="480" />
+        <producto id="TRUPOZYM CB" idTipoProducto="Rindente" caducidad="440" />
+        <producto id="TRUPOCRYL A-35" idTipoProducto="Resina" caducidad="420" />
+        <producto id="TRUPOFIN CERA A" idTipoProducto="Cera" caducidad="580" />
+        <producto id="TRUPOCRYL K-U-327" idTipoProducto="Resina" caducidad="390" />
+        <producto id="TRUPOZYM CH" idTipoProducto="Rindente" caducidad="960" />
+    </productos>
+    <estanterias>
+        <estanteria numero="1">
+            <balda numero="1">
+                <palet id="1617" idProducto="TRUPOCRYL A-30" litros="1419" fabricacion="2021-09-05" posicion="1" delante="False" />
+                <palet id="2290" idProducto="TRUPOCRYL A-10" litros="1040" fabricacion="2021-04-17" posicion="2" delante="True" />
+                <palet id="9316" idProducto="TRUPONAT NF" litros="1586" fabricacion="2021-04-19" posicion="3" delante="False" />
+                <palet id="2817" idProducto="TRUPOSYL TBA" litros="1696" fabricacion="2021-04-18" posicion="6" delante="False" />
+                <palet id="6811" idProducto="TRUPOFIN CERA CA" litros="1166" fabricacion="2021-10-13" posicion="6" delante="True" />
+                <palet id="7873" idProducto="TRUPOCRYL A-28" litros="974" fabricacion="2021-05-26" posicion="7" delante="True" />
+                <palet id="1436" idProducto="TRUPON COL" litros="888" fabricacion="2021-08-14" posicion="8" delante="False" />
+                <palet id="7615" idProducto="TRUPOFIN CERA HP" litros="1179" fabricacion="2021-05-04" posicion="10" delante="False" />
+                <palet id="6707" idProducto="TRUPOCAL DE" litros="1447" fabricacion="2021-08-15" posicion="11" delante="False" />
+                <palet id="9483" idProducto="TRUPOFIN CERA PW" litros="1169" fabricacion="2021-05-22" posicion="12" delante="False" />
+                <palet id="3506" idProducto="PASTOSOL BCN" litros="1098" fabricacion="2021-02-07" posicion="12" delante="True" />
+                <palet id="1889" idProducto="TRUPOTEC T" litros="999" fabricacion="2021-03-11" posicion="13" delante="True" />
+                <palet id="4643" idProducto="TRUPOCRYL A-30" litros="1245" fabricacion="2020-12-29" posicion="15" delante="True" />
+                <palet id="4884" idProducto="TRUPOCRYL K-U-310" litros="1606" fabricacion="2021-08-20" posicion="17" delante="True" />
+                <palet id="3159" idProducto="TRUPONAT LA" litros="1568" fabricacion="2021-09-09" posicion="18" delante="True" />
+                <palet id="3461" idProducto="TRUPON BMF" litros="1157" fabricacion="2021-03-06" posicion="19" delante="False" />
+                <palet id="8457" idProducto="TRUPOTAN OM" litros="1457" fabricacion="2021-06-30" posicion="22" delante="False" />
+                <palet id="2223" idProducto="TRUPON DBS" litros="1088" fabricacion="2021-05-19" posicion="23" delante="False" />
+                <palet id="8866" idProducto="TRUPOTAN OM" litros="1178" fabricacion="2021-04-09" posicion="24" delante="True" />
+            </balda>
+            <balda numero="2">
+                <palet id="5871" idProducto="SOLVOTAN TACTO" litros="1213" fabricacion="2020-12-31" posicion="2" delante="False" />
+                <palet id="3533" idProducto="TRUPOCRYL A-18" litros="937" fabricacion="2021-03-06" posicion="4" delante="False" />
+                <palet id="9296" idProducto="TRUPOFIN CERA HS" litros="1120" fabricacion="2020-12-31" posicion="5" delante="False" />
+                <palet id="1229" idProducto="SOLVOTAN XS" litros="1627" fabricacion="2021-08-01" posicion="6" delante="False" />
+                <palet id="2849" idProducto="TRUPOFIN CERA CA" litros="979" fabricacion="2021-04-07" posicion="6" delante="True" />
+                <palet id="5174" idProducto="TRUPOCRYL A–90" litros="1385" fabricacion="2021-04-30" posicion="8" delante="True" />
+                <palet id="6284" idProducto="TRUPOFIN CERA DP" litros="1139" fabricacion="2021-02-08" posicion="12" delante="False" />
+                <palet id="7262" idProducto="TRUPOFIN CERA KT 09" litros="1104" fabricacion="2021-01-21" posicion="12" delante="True" />
+                <palet id="4182" idProducto="TRUPOZYM CH" litros="1298" fabricacion="2021-09-26" posicion="13" delante="False" />
+                <palet id="3386" idProducto="TRUPON COL" litros="937" fabricacion="2021-03-04" posicion="14" delante="False" />
+                <palet id="4909" idProducto="TRUPON PEM" litros="903" fabricacion="2021-03-13" posicion="14" delante="True" />
+                <palet id="4774" idProducto="TRUPON CST" litros="885" fabricacion="2021-10-16" posicion="17" delante="True" />
+                <palet id="9071" idProducto="PASTOSOL BCN" litros="1520" fabricacion="2021-05-24" posicion="19" delante="False" />
+                <palet id="9286" idProducto="TRUPOL RK" litros="955" fabricacion="2021-10-14" posicion="19" delante="True" />
+                <palet id="6505" idProducto="TRUPOFIN CERA M" litros="977" fabricacion="2021-09-08" posicion="20" delante="True" />
+                <palet id="5748" idProducto="TRUPOFIN CERA W" litros="1190" fabricacion="2021-04-26" posicion="21" delante="False" />
+                <palet id="1155" idProducto="TRUKALIN K" litros="1234" fabricacion="2021-08-04" posicion="21" delante="True" />
+                <palet id="5273" idProducto="PASTOSOL KC" litros="1071" fabricacion="2021-05-16" posicion="23" delante="True" />
+                <palet id="3213" idProducto="TRUPOTAN OM" litros="1287" fabricacion="2021-06-02" posicion="24" delante="False" />
+            </balda>
+            <balda numero="3">
+                <palet id="7058" idProducto="TRUPOFIN CERA PV" litros="1153" fabricacion="2021-01-10" posicion="2" delante="False" />
+                <palet id="9510" idProducto="TRUPOFIN CERA DP" litros="1420" fabricacion="2021-03-15" posicion="2" delante="True" />
+                <palet id="1392" idProducto="SOLVOTAN XS" litros="1317" fabricacion="2021-01-09" posicion="3" delante="False" />
+                <palet id="7124" idProducto="TRUPOSYL HBD" litros="1596" fabricacion="2021-09-05" posicion="4" delante="True" />
+                <palet id="3582" idProducto="TRUPOWET SA" litros="1117" fabricacion="2021-10-03" posicion="5" delante="False" />
+                <palet id="1412" idProducto="TRUPON CM" litros="1126" fabricacion="2021-01-13" posicion="5" delante="True" />
+                <palet id="3175" idProducto="TRUPOSYL TBK" litros="1379" fabricacion="2021-07-17" posicion="7" delante="True" />
+                <palet id="9487" idProducto="TRUPOZYM CH" litros="1149" fabricacion="2021-05-20" posicion="9" delante="False" />
+                <palet id="9066" idProducto="TRUPOFIN CERA P" litros="1237" fabricacion="2021-02-02" posicion="10" delante="False" />
+                <palet id="4119" idProducto="PASTOSOL BCN" litros="1194" fabricacion="2021-02-24" posicion="10" delante="True" />
+                <palet id="3420" idProducto="TRUPOZYM CL" litros="1213" fabricacion="2021-04-30" posicion="11" delante="True" />
+                <palet id="4434" idProducto="TRUPOCRYL K-U-10" litros="1141" fabricacion="2021-06-11" posicion="12" delante="False" />
+                <palet id="1094" idProducto="TRUPONAT LA" litros="1067" fabricacion="2021-10-02" posicion="15" delante="False" />
+                <palet id="3980" idProducto="TRUPOWET SA" litros="1382" fabricacion="2021-05-19" posicion="18" delante="False" />
+                <palet id="5671" idProducto="TRUPONAT NF" litros="1681" fabricacion="2021-04-28" posicion="19" delante="False" />
+                <palet id="3429" idProducto="PASTOSOL KC" litros="1150" fabricacion="2021-08-01" posicion="20" delante="False" />
+                <palet id="5481" idProducto="TRUPOSYL TBA" litros="1063" fabricacion="2021-04-29" posicion="22" delante="False" />
+                <palet id="5486" idProducto="TRUPOTEC T" litros="1025" fabricacion="2021-03-25" posicion="23" delante="True" />
+                <palet id="2838" idProducto="TRUPOFIN CERA KT 09" litros="1203" fabricacion="2021-08-27" posicion="24" delante="False" />
+                <palet id="4273" idProducto="TRUPOSEPT BA" litros="1517" fabricacion="2021-07-19" posicion="24" delante="True" />
+            </balda>
+            <balda numero="4">
+                <palet id="9956" idProducto="TRUPOCRYL A-18" litros="1370" fabricacion="2021-02-15" posicion="1" delante="False" />
+                <palet id="1408" idProducto="TRUPOTEC T" litros="1551" fabricacion="2021-01-04" posicion="2" delante="False" />
+                <palet id="3138" idProducto="TRUPOTAN MOW" litros="1165" fabricacion="2021-09-07" posicion="3" delante="False" />
+                <palet id="4069" idProducto="TRUPOCRYL A-18" litros="951" fabricacion="2021-03-07" posicion="3" delante="True" />
+                <palet id="2286" idProducto="TRUPOCRYL A-35" litros="1649" fabricacion="2021-09-10" posicion="4" delante="True" />
+                <palet id="2585" idProducto="TRUPOSOL WBF" litros="1570" fabricacion="2021-04-18" posicion="5" delante="True" />
+                <palet id="3913" idProducto="TRUPOL RK" litros="940" fabricacion="2021-06-21" posicion="6" delante="True" />
+                <palet id="6842" idProducto="TRUPOFIN CERA HF" litros="1034" fabricacion="2021-09-22" posicion="7" delante="True" />
+                <palet id="4959" idProducto="TRUPOFIN CERA HP" litros="1483" fabricacion="2021-03-31" posicion="8" delante="True" />
+                <palet id="6027" idProducto="TRUPONAT LA" litros="1377" fabricacion="2021-05-08" posicion="9" delante="True" />
+                <palet id="4591" idProducto="TRUPOTAN MOW" litros="1606" fabricacion="2021-10-22" posicion="10" delante="False" />
+                <palet id="4871" idProducto="TRUPOZYM CB" litros="931" fabricacion="2021-03-21" posicion="11" delante="False" />
+                <palet id="7288" idProducto="TRUPOSOL WBF" litros="686" fabricacion="2021-02-18" posicion="11" delante="True" />
+                <palet id="5719" idProducto="TRUPOZYM CL" litros="997" fabricacion="2021-05-19" posicion="12" delante="False" />
+                <palet id="7910" idProducto="TRUPONAT LA" litros="1247" fabricacion="2021-05-27" posicion="12" delante="True" />
+                <palet id="3793" idProducto="TRUPOSYL HBD" litros="1446" fabricacion="2021-06-12" posicion="13" delante="False" />
+                <palet id="4825" idProducto="TRUPOFIN CERA DP" litros="870" fabricacion="2021-03-02" posicion="13" delante="True" />
+                <palet id="6683" idProducto="TRUPOSIST S-BO" litros="1471" fabricacion="2021-05-31" posicion="14" delante="False" />
+                <palet id="3761" idProducto="TRUPOFIN CERA KT 08" litros="1566" fabricacion="2021-01-08" posicion="14" delante="True" />
+                <palet id="3578" idProducto="TRUPOFIN CERA P" litros="918" fabricacion="2021-06-30" posicion="19" delante="False" />
+                <palet id="3064" idProducto="TRUPOCRYL A-20" litros="1244" fabricacion="2021-02-23" posicion="21" delante="True" />
+                <palet id="1586" idProducto="PASTOSOL BCN" litros="1369" fabricacion="2021-08-23" posicion="22" delante="True" />
+                <palet id="3072" idProducto="TRUPOFIN CERA A" litros="1198" fabricacion="2021-01-25" posicion="23" delante="False" />
+                <palet id="3769" idProducto="TRUPOSLIP P" litros="1356" fabricacion="2021-09-14" posicion="23" delante="True" />
+                <palet id="4068" idProducto="TRUPOFIN CERA D-80" litros="737" fabricacion="2021-09-06" posicion="24" delante="False" />
+                <palet id="8103" idProducto="TRUPOSEPT BA" litros="1074" fabricacion="2021-10-15" posicion="24" delante="True" />
+            </balda>
+            <balda numero="5">
+                <palet id="6425" idProducto="TRUPON DB-80" litros="1164" fabricacion="2021-05-19" posicion="2" delante="False" />
+                <palet id="3544" idProducto="TRUPOCRYL K-U-27" litros="1329" fabricacion="2021-10-19" posicion="3" delante="True" />
+                <palet id="1442" idProducto="PASTOSOL HW" litros="838" fabricacion="2021-06-21" posicion="4" delante="True" />
+                <palet id="4890" idProducto="TRUPON CM" litros="717" fabricacion="2021-08-05" posicion="6" delante="True" />
+                <palet id="6886" idProducto="TRUPOCAL DE" litros="1390" fabricacion="2021-01-24" posicion="7" delante="False" />
+                <palet id="1639" idProducto="TRUPOZYM AB" litros="1549" fabricacion="2021-04-20" posicion="7" delante="True" />
+                <palet id="6183" idProducto="TRUPOZYM AX" litros="899" fabricacion="2021-02-05" posicion="9" delante="True" />
+                <palet id="3504" idProducto="TRUPOTAN OM" litros="1059" fabricacion="2021-06-20" posicion="10" delante="False" />
+                <palet id="8530" idProducto="TRUPOFIN CERA DP" litros="1284" fabricacion="2021-05-02" posicion="11" delante="False" />
+                <palet id="9196" idProducto="TRUPON DB-80" litros="1243" fabricacion="2021-06-02" posicion="11" delante="True" />
+                <palet id="7310" idProducto="TRUPOZYM CH" litros="1419" fabricacion="2021-07-05" posicion="12" delante="False" />
+                <palet id="8324" idProducto="TRUPOFIN CERA K-A" litros="1176" fabricacion="2021-10-24" posicion="12" delante="True" />
+                <palet id="3974" idProducto="TRUPOCRYL AB" litros="1199" fabricacion="2021-06-24" posicion="13" delante="False" />
+                <palet id="7801" idProducto="TRUPOCRYL AB" litros="1538" fabricacion="2021-08-08" posicion="13" delante="True" />
+                <palet id="6159" idProducto="TRUPOCRYL A-32" litros="1529" fabricacion="2021-10-16" posicion="14" delante="False" />
+                <palet id="6775" idProducto="SOLVOTAN XS" litros="1382" fabricacion="2021-04-07" posicion="16" delante="False" />
+                <palet id="2814" idProducto="PASTOSOL HW" litros="1405" fabricacion="2021-06-25" posicion="16" delante="True" />
+                <palet id="5064" idProducto="TRUPOCRYL A-20" litros="1605" fabricacion="2021-03-18" posicion="17" delante="False" />
+                <palet id="4546" idProducto="TRUPOFIN CERA 3A" litros="869" fabricacion="2021-07-24" posicion="18" delante="False" />
+                <palet id="3968" idProducto="PASTOSOL KC" litros="1327" fabricacion="2021-05-13" posicion="18" delante="True" />
+                <palet id="9513" idProducto="TRUPOSYL HBD" litros="1382" fabricacion="2021-03-16" posicion="19" delante="False" />
+                <palet id="8285" idProducto="TRUPON BMF" litros="1315" fabricacion="2021-04-19" posicion="21" delante="True" />
+                <palet id="6443" idProducto="TRUPOCRYL K-A-30" litros="1506" fabricacion="2021-03-02" posicion="22" delante="False" />
+                <palet id="9309" idProducto="TRUPOFIN CERA M" litros="967" fabricacion="2021-08-03" posicion="23" delante="True" />
+            </balda>
+            <balda numero="6">
+                <palet id="5553" idProducto="TRUPOTEC T" litros="1306" fabricacion="2021-08-10" posicion="1" delante="False" />
+                <palet id="5138" idProducto="TRUPOWET PH" litros="1320" fabricacion="2021-02-20" posicion="1" delante="True" />
+                <palet id="3763" idProducto="TRUPOFIN CERA DP" litros="1216" fabricacion="2021-06-26" posicion="5" delante="False" />
+                <palet id="3973" idProducto="TRUPOTAN MOW" litros="868" fabricacion="2021-05-27" posicion="6" delante="True" />
+                <palet id="6175" idProducto="PASTOSOL HW" litros="1292" fabricacion="2021-07-29" posicion="7" delante="False" />
+                <palet id="1014" idProducto="TRUPOCRYL A-20" litros="1185" fabricacion="2021-09-26" posicion="7" delante="True" />
+                <palet id="5923" idProducto="TRUPOZYM CH" litros="1185" fabricacion="2021-10-09" posicion="8" delante="True" />
+                <palet id="5540" idProducto="TRUPOSIST D" litros="1234" fabricacion="2021-10-22" posicion="9" delante="False" />
+                <palet id="7367" idProducto="PASTOSOL KC" litros="1365" fabricacion="2021-07-12" posicion="11" delante="False" />
+                <palet id="2229" idProducto="TRUPOSYL TBA" litros="1386" fabricacion="2021-09-10" posicion="11" delante="True" />
+                <palet id="3484" idProducto="TRUPOWET PH" litros="1362" fabricacion="2021-09-01" posicion="12" delante="False" />
+                <palet id="2607" idProducto="ANTIFOAM NSP" litros="1127" fabricacion="2021-05-29" posicion="14" delante="False" />
+                <palet id="5999" idProducto="TRUPOFIN CERA M" litros="1531" fabricacion="2021-10-08" posicion="14" delante="True" />
+                <palet id="9048" idProducto="TRUPOCRYL A-10" litros="1008" fabricacion="2021-08-06" posicion="15" delante="False" />
+                <palet id="3648" idProducto="TRUPOCRYL K-U-10" litros="1599" fabricacion="2021-01-25" posicion="15" delante="True" />
+                <palet id="7789" idProducto="PASTOSOL KC" litros="1397" fabricacion="2021-06-16" posicion="16" delante="False" />
+                <palet id="9306" idProducto="TRUPOFIN CERA PW" litros="1269" fabricacion="2021-08-28" posicion="17" delante="False" />
+                <palet id="1064" idProducto="TRUPOTAN OM" litros="949" fabricacion="2021-05-25" posicion="18" delante="False" />
+                <palet id="3737" idProducto="TRUPOTAN MON" litros="1381" fabricacion="2021-09-21" posicion="20" delante="False" />
+                <palet id="3050" idProducto="TRUPOSOL WBF" litros="1096" fabricacion="2021-06-15" posicion="20" delante="True" />
+                <palet id="2890" idProducto="TRUPOCRYL A-10" litros="1407" fabricacion="2021-04-27" posicion="21" delante="True" />
+                <palet id="6850" idProducto="TRUPONAT LA" litros="963" fabricacion="2021-01-11" posicion="22" delante="False" />
+                <palet id="2891" idProducto="TRUPON DB-80" litros="1087" fabricacion="2021-05-31" posicion="22" delante="True" />
+                <palet id="2216" idProducto="TRUPOZYM AX" litros="895" fabricacion="2021-08-16" posicion="23" delante="False" />
+                <palet id="2655" idProducto="TRUPOZYM AX" litros="1568" fabricacion="2021-06-23" posicion="24" delante="False" />
+                <palet id="3876" idProducto="TRUPOL RK" litros="840" fabricacion="2021-01-09" posicion="24" delante="True" />
+            </balda>
+            <balda numero="7">
+                <palet id="2369" idProducto="PASTOSOL KC" litros="874" fabricacion="2021-08-30" posicion="1" delante="False" />
+                <palet id="6651" idProducto="TRUPOFIN CERA 3A" litros="1174" fabricacion="2021-02-05" posicion="2" delante="False" />
+                <palet id="4382" idProducto="TRUPONAT NF" litros="1292" fabricacion="2021-08-01" posicion="3" delante="False" />
+                <palet id="5027" idProducto="SOLVOTAN XS" litros="1109" fabricacion="2021-02-20" posicion="5" delante="True" />
+                <palet id="8307" idProducto="TRUPOCRYL A-10" litros="1168" fabricacion="2021-09-24" posicion="6" delante="False" />
+                <palet id="2008" idProducto="TRUPOSEPT BA" litros="1141" fabricacion="2021-08-24" posicion="7" delante="False" />
+                <palet id="3256" idProducto="PASTOSOL MD" litros="1171" fabricacion="2021-07-07" posicion="7" delante="True" />
+                <palet id="9026" idProducto="TRUPOSLIP P" litros="1612" fabricacion="2021-02-22" posicion="8" delante="True" />
+                <palet id="4323" idProducto="TRUPON AP" litros="1725" fabricacion="2021-01-29" posicion="9" delante="True" />
+                <palet id="4862" idProducto="TRUPON PEM" litros="1306" fabricacion="2021-06-22" posicion="10" delante="False" />
+                <palet id="7466" idProducto="PASTOSOL MD" litros="874" fabricacion="2021-04-20" posicion="11" delante="False" />
+                <palet id="1073" idProducto="TRUPONAT LA" litros="1443" fabricacion="2021-09-27" posicion="14" delante="False" />
+                <palet id="2454" idProducto="TRUPOCRYL A-32" litros="1428" fabricacion="2021-06-24" posicion="14" delante="True" />
+                <palet id="7747" idProducto="TRUPOFIN CERA BT" litros="1391" fabricacion="2021-10-11" posicion="16" delante="False" />
+                <palet id="5947" idProducto="PASTOSOL MD" litros="1088" fabricacion="2021-07-14" posicion="16" delante="True" />
+                <palet id="2663" idProducto="TRUPOSLIP P" litros="943" fabricacion="2021-01-30" posicion="17" delante="False" />
+                <palet id="8270" idProducto="TRUPOFIN CERA 3A" litros="1205" fabricacion="2021-10-08" posicion="18" delante="False" />
+                <palet id="1012" idProducto="TRUPOZYM AX" litros="1657" fabricacion="2021-06-15" posicion="19" delante="False" />
+                <palet id="6469" idProducto="TRUPOL RK" litros="1438" fabricacion="2021-06-07" posicion="19" delante="True" />
+                <palet id="9738" idProducto="TRUPON DBS" litros="1506" fabricacion="2021-04-12" posicion="21" delante="True" />
+                <palet id="9852" idProducto="TRUPOFIN CERA BT" litros="955" fabricacion="2021-01-28" posicion="22" delante="True" />
+                <palet id="7147" idProducto="TRUPOFIN CERA PV" litros="1172" fabricacion="2021-06-20" posicion="24" delante="False" />
+            </balda>
+            <balda numero="8">
+                <palet id="8093" idProducto="TRUPOTEC T" litros="1073" fabricacion="2021-01-04" posicion="1" delante="True" />
+                <palet id="2080" idProducto="TRUPON AP" litros="1092" fabricacion="2021-08-08" posicion="2" delante="True" />
+                <palet id="6278" idProducto="PASTOSOL DG" litros="1486" fabricacion="2021-08-12" posicion="3" delante="False" />
+                <palet id="5110" idProducto="TRUPOCRYL A-10" litros="1235" fabricacion="2021-05-05" posicion="6" delante="False" />
+                <palet id="5306" idProducto="TRUPOSIST S-BO" litros="970" fabricacion="2021-03-03" posicion="7" delante="False" />
+                <palet id="8510" idProducto="TRUPOFIN CERA CA" litros="769" fabricacion="2021-08-02" posicion="7" delante="True" />
+                <palet id="9770" idProducto="TRUPOCRYL A-18" litros="763" fabricacion="2021-01-19" posicion="8" delante="False" />
+                <palet id="4665" idProducto="TRUPOFIN CERA A" litros="1215" fabricacion="2021-07-27" posicion="10" delante="False" />
+                <palet id="3198" idProducto="SOLVOTAN TACTO" litros="1341" fabricacion="2021-04-02" posicion="11" delante="True" />
+                <palet id="5840" idProducto="TRUPOSOL WBF" litros="1181" fabricacion="2021-06-03" posicion="12" delante="False" />
+                <palet id="7953" idProducto="TRUPOFIN CERA P" litros="1382" fabricacion="2021-05-23" posicion="13" delante="False" />
+                <palet id="8278" idProducto="TRUPON COL" litros="1204" fabricacion="2021-02-25" posicion="13" delante="True" />
+                <palet id="8572" idProducto="TRUPOFIN CERA K-A" litros="1126" fabricacion="2021-02-20" posicion="14" delante="False" />
+                <palet id="5225" idProducto="TRUPOSYL ABS" litros="1216" fabricacion="2021-05-26" posicion="15" delante="False" />
+                <palet id="6625" idProducto="TRUPON DB-80" litros="1146" fabricacion="2021-03-19" posicion="15" delante="True" />
+                <palet id="9722" idProducto="TRUPOWET SA" litros="1070" fabricacion="2021-04-30" posicion="16" delante="False" />
+                <palet id="3931" idProducto="TRUPOCRYL A-18" litros="1119" fabricacion="2021-09-04" posicion="16" delante="True" />
+                <palet id="1167" idProducto="TRUPOTAN OM" litros="1400" fabricacion="2021-03-23" posicion="17" delante="False" />
+                <palet id="8361" idProducto="TRUPOFIN CERA HF" litros="705" fabricacion="2021-06-16" posicion="19" delante="False" />
+                <palet id="3016" idProducto="SOLVOTAN XS" litros="1006" fabricacion="2021-10-14" posicion="19" delante="True" />
+                <palet id="8730" idProducto="TRUPOSYL ABS" litros="1027" fabricacion="2021-05-18" posicion="22" delante="False" />
+                <palet id="3017" idProducto="TRUPOCRYL K-U-310" litros="1296" fabricacion="2021-10-07" posicion="22" delante="True" />
+                <palet id="6540" idProducto="PASTOSOL F" litros="1440" fabricacion="2021-09-21" posicion="23" delante="False" />
+            </balda>
+        </estanteria>
+        <estanteria numero="2">
+            <balda numero="1">
+                <palet id="7610" idProducto="TRUPOCAL AF" litros="1024" fabricacion="2021-09-28" posicion="1" delante="False" />
+                <palet id="5406" idProducto="TRUPOCRYL K-U-310" litros="1288" fabricacion="2021-03-08" posicion="2" delante="False" />
+                <palet id="2935" idProducto="TRUPOFIN CERA E" litros="1218" fabricacion="2021-04-07" posicion="2" delante="True" />
+                <palet id="6751" idProducto="TRUPOSYL TBD" litros="784" fabricacion="2021-02-07" posicion="3" delante="True" />
+                <palet id="6139" idProducto="TRUPOCRYL A-35" litros="1323" fabricacion="2021-08-04" posicion="4" delante="False" />
+                <palet id="9924" idProducto="PASTOSOL BCN" litros="1489" fabricacion="2021-10-04" posicion="7" delante="True" />
+                <palet id="8003" idProducto="TRUPOCRYL A-28" litros="1134" fabricacion="2021-06-30" posicion="8" delante="False" />
+                <palet id="1218" idProducto="TRUPOFIN CERA HP" litros="881" fabricacion="2021-08-21" posicion="8" delante="True" />
+                <palet id="8060" idProducto="PASTOSOL KC" litros="1561" fabricacion="2021-09-22" posicion="9" delante="False" />
+                <palet id="4812" idProducto="TRUPON DB-80" litros="1011" fabricacion="2021-01-04" posicion="10" delante="False" />
+                <palet id="6528" idProducto="TRUPOSIST S-BO" litros="1693" fabricacion="2021-10-22" posicion="11" delante="False" />
+                <palet id="7145" idProducto="TRUPON DB-80" litros="1365" fabricacion="2021-08-05" posicion="11" delante="True" />
+                <palet id="7161" idProducto="TRUPOZYM CN" litros="1152" fabricacion="2021-06-12" posicion="12" delante="False" />
+                <palet id="7563" idProducto="TRUPOFIN CERA HP" litros="1312" fabricacion="2021-07-28" posicion="12" delante="True" />
+                <palet id="2002" idProducto="TRUPONAT LA" litros="896" fabricacion="2021-01-21" posicion="13" delante="False" />
+                <palet id="3550" idProducto="TRUPOFIN CERA HP" litros="1407" fabricacion="2021-10-07" posicion="15" delante="False" />
+                <palet id="8080" idProducto="TRUPOTEC T" litros="1414" fabricacion="2020-12-31" posicion="15" delante="True" />
+                <palet id="3453" idProducto="TRUPOZYM CB" litros="838" fabricacion="2021-01-12" posicion="17" delante="False" />
+                <palet id="2629" idProducto="TRUPOFIN CERA DP" litros="1237" fabricacion="2021-07-01" posicion="17" delante="True" />
+                <palet id="3423" idProducto="SOLVOTAN XS" litros="1075" fabricacion="2021-04-07" posicion="18" delante="False" />
+                <palet id="7107" idProducto="TRUPOCRYL A-10" litros="834" fabricacion="2021-04-02" posicion="18" delante="True" />
+                <palet id="9926" idProducto="TRUPOSLIP P" litros="1289" fabricacion="2021-09-01" posicion="19" delante="False" />
+                <palet id="8787" idProducto="TRUPON DBS" litros="1147" fabricacion="2021-04-21" posicion="20" delante="False" />
+                <palet id="4635" idProducto="ANTIFOAM NSP" litros="886" fabricacion="2021-04-08" posicion="20" delante="True" />
+                <palet id="2364" idProducto="TRUPOCRYL AB" litros="1301" fabricacion="2021-01-11" posicion="21" delante="False" />
+                <palet id="1163" idProducto="TRUPOCRYL A-30" litros="1369" fabricacion="2021-09-07" posicion="21" delante="True" />
+                <palet id="8053" idProducto="TRUPOCRYL A–90" litros="1066" fabricacion="2021-02-21" posicion="23" delante="False" />
+                <palet id="5541" idProducto="TRUPOZYM CB" litros="1594" fabricacion="2021-09-27" posicion="23" delante="True" />
+                <palet id="2198" idProducto="TRUPOSYL TBK-E" litros="1227" fabricacion="2021-03-29" posicion="24" delante="True" />
+            </balda>
+            <balda numero="2">
+                <palet id="7446" idProducto="TRUPOZYM CN" litros="879" fabricacion="2021-05-01" posicion="1" delante="False" />
+                <palet id="2617" idProducto="TRUPOCRYL AB" litros="1154" fabricacion="2021-10-24" posicion="3" delante="True" />
+                <palet id="7793" idProducto="TRUPON BMF" litros="1350" fabricacion="2021-02-16" posicion="5" delante="False" />
+                <palet id="8690" idProducto="TRUPON AP" litros="1132" fabricacion="2021-03-13" posicion="5" delante="True" />
+                <palet id="3398" idProducto="TRUPOCRYL K-U-327" litros="1007" fabricacion="2021-07-10" posicion="6" delante="True" />
+                <palet id="8146" idProducto="TRUPOFIN CERA KT 09" litros="1249" fabricacion="2021-06-20" posicion="7" delante="True" />
+                <palet id="8934" idProducto="TRUPOCRYL A-18" litros="1284" fabricacion="2021-07-16" posicion="8" delante="True" />
+                <palet id="4488" idProducto="TRUPOCRYL A–90" litros="941" fabricacion="2021-02-20" posicion="9" delante="False" />
+                <palet id="8161" idProducto="TRUPOTAN OM" litros="1060" fabricacion="2021-09-24" posicion="9" delante="True" />
+                <palet id="4895" idProducto="TRUPOCRYL K-U-327" litros="1582" fabricacion="2021-05-28" posicion="12" delante="True" />
+                <palet id="7108" idProducto="TRUPOZYM CH" litros="941" fabricacion="2021-09-17" posicion="13" delante="False" />
+                <palet id="1098" idProducto="TRUPOFIN CERA P" litros="1673" fabricacion="2021-05-16" posicion="13" delante="True" />
+                <palet id="4034" idProducto="ANTIFOAM NSP" litros="1499" fabricacion="2021-06-14" posicion="14" delante="False" />
+                <palet id="8766" idProducto="TRUPOCRYL A-30" litros="795" fabricacion="2021-07-29" posicion="14" delante="True" />
+                <palet id="5710" idProducto="TRUPOSYL TBA" litros="1121" fabricacion="2021-03-28" posicion="15" delante="False" />
+                <palet id="8680" idProducto="TRUPOCRYL AB" litros="1253" fabricacion="2021-01-28" posicion="15" delante="True" />
+                <palet id="5291" idProducto="TRUPOTEC T" litros="1209" fabricacion="2021-07-28" posicion="16" delante="False" />
+                <palet id="1411" idProducto="SOLVOTAN TACTO" litros="1130" fabricacion="2021-04-01" posicion="16" delante="True" />
+                <palet id="1268" idProducto="TRUPOSYL TBD" litros="964" fabricacion="2021-03-18" posicion="17" delante="False" />
+                <palet id="9169" idProducto="TRUKALIN K" litros="1302" fabricacion="2021-10-05" posicion="17" delante="True" />
+                <palet id="3794" idProducto="TRUPOTEC T" litros="1326" fabricacion="2021-06-06" posicion="18" delante="True" />
+                <palet id="5453" idProducto="PASTOSOL MD" litros="1332" fabricacion="2021-03-25" posicion="20" delante="True" />
+                <palet id="7141" idProducto="TRUPOTAN MOW" litros="1203" fabricacion="2021-06-28" posicion="21" delante="True" />
+                <palet id="4390" idProducto="TRUPON PEM" litros="1361" fabricacion="2021-02-21" posicion="22" delante="True" />
+                <palet id="3846" idProducto="TRUPOCRYL A-35" litros="1342" fabricacion="2021-06-29" posicion="23" delante="False" />
+                <palet id="7839" idProducto="TRUPOFIN CERA HP" litros="1436" fabricacion="2021-07-07" posicion="24" delante="False" />
+            </balda>
+            <balda numero="3">
+                <palet id="6676" idProducto="TRUPON COL" litros="1398" fabricacion="2021-10-22" posicion="4" delante="False" />
+                <palet id="3107" idProducto="TRUPOFIN CERA FP" litros="1226" fabricacion="2021-08-30" posicion="5" delante="True" />
+                <palet id="2092" idProducto="TRUPOTAN MON" litros="1032" fabricacion="2021-04-03" posicion="6" delante="True" />
+                <palet id="3240" idProducto="TRUPON CST" litros="1012" fabricacion="2021-07-07" posicion="7" delante="False" />
+                <palet id="3260" idProducto="PASTOSOL KC" litros="1033" fabricacion="2021-08-25" posicion="8" delante="True" />
+                <palet id="4415" idProducto="TRUPONAT LA" litros="1228" fabricacion="2021-02-12" posicion="9" delante="False" />
+                <palet id="4400" idProducto="TRUPON PEM" litros="1381" fabricacion="2021-08-24" posicion="12" delante="False" />
+                <palet id="1979" idProducto="TRUPOZYM CL" litros="955" fabricacion="2021-07-06" posicion="13" delante="True" />
+                <palet id="5565" idProducto="TRUPOZYM CN" litros="1343" fabricacion="2021-01-09" posicion="14" delante="False" />
+                <palet id="4453" idProducto="TRUPOWET PH" litros="1194" fabricacion="2021-01-19" posicion="16" delante="True" />
+                <palet id="5248" idProducto="TRUPOFIN CERA HF" litros="1100" fabricacion="2021-03-30" posicion="17" delante="True" />
+                <palet id="1416" idProducto="TRUPOTEC S" litros="1258" fabricacion="2021-02-26" posicion="19" delante="False" />
+                <palet id="1992" idProducto="TRUPOZYM CH" litros="1522" fabricacion="2021-01-30" posicion="19" delante="True" />
+                <palet id="5293" idProducto="TRUPOFIN CERA HS" litros="785" fabricacion="2021-01-16" posicion="22" delante="False" />
+                <palet id="6325" idProducto="TRUPOZYM AB" litros="1747" fabricacion="2021-01-17" posicion="22" delante="True" />
+                <palet id="4963" idProducto="TRUPOWET PH" litros="1143" fabricacion="2021-04-02" posicion="23" delante="True" />
+                <palet id="9596" idProducto="TRUPOCRYL A-28" litros="1513" fabricacion="2021-08-08" posicion="24" delante="True" />
+            </balda>
+            <balda numero="4">
+                <palet id="7351" idProducto="TRUPOFIN CERA P" litros="708" fabricacion="2021-05-13" posicion="1" delante="True" />
+                <palet id="3985" idProducto="TRUPOFIN CERA PW" litros="1390" fabricacion="2021-08-11" posicion="2" delante="False" />
+                <palet id="3904" idProducto="TRUPOSIST D" litros="1075" fabricacion="2021-08-07" posicion="2" delante="True" />
+                <palet id="9022" idProducto="TRUPON CST" litros="1338" fabricacion="2021-06-05" posicion="4" delante="False" />
+                <palet id="2189" idProducto="TRUPON PEM" litros="720" fabricacion="2021-09-06" posicion="5" delante="False" />
+                <palet id="8214" idProducto="TRUPOCRYL K-U-10" litros="1450" fabricacion="2021-10-07" posicion="8" delante="True" />
+                <palet id="7267" idProducto="SOLVOTAN XS" litros="1042" fabricacion="2021-06-23" posicion="9" delante="False" />
+                <palet id="2962" idProducto="TRUPONAT LA" litros="1606" fabricacion="2021-08-04" posicion="10" delante="False" />
+                <palet id="6116" idProducto="TRUPOSYL TBD" litros="1178" fabricacion="2021-02-22" posicion="11" delante="False" />
+                <palet id="5067" idProducto="TRUPOTEC S" litros="1187" fabricacion="2021-07-15" posicion="12" delante="False" />
+                <palet id="3283" idProducto="TRUPON CM" litros="1336" fabricacion="2021-04-06" posicion="13" delante="False" />
+                <palet id="3313" idProducto="TRUPOCRYL A-18" litros="1159" fabricacion="2021-01-20" posicion="14" delante="True" />
+                <palet id="5468" idProducto="TRUPON CM" litros="1361" fabricacion="2021-02-18" posicion="15" delante="True" />
+                <palet id="7377" idProducto="TRUPOZYM CL" litros="1376" fabricacion="2021-04-13" posicion="17" delante="False" />
+                <palet id="6731" idProducto="TRUPOFIN CERA HS" litros="1208" fabricacion="2021-09-17" posicion="18" delante="False" />
+                <palet id="1289" idProducto="TRUPOFIN CERA W" litros="1751" fabricacion="2021-08-04" posicion="19" delante="False" />
+                <palet id="3328" idProducto="TRUPOCRYL A-32" litros="752" fabricacion="2021-04-26" posicion="19" delante="True" />
+                <palet id="5906" idProducto="TRUPOCRYL K-U-310" litros="1123" fabricacion="2021-10-06" posicion="21" delante="True" />
+                <palet id="2927" idProducto="PASTOSOL DG" litros="1032" fabricacion="2021-07-06" posicion="23" delante="False" />
+                <palet id="5001" idProducto="TRUPOFIN CERA W" litros="1075" fabricacion="2021-08-24" posicion="24" delante="True" />
+            </balda>
+            <balda numero="5">
+                <palet id="7939" idProducto="TRUPOFIN CERA SP" litros="1126" fabricacion="2021-02-26" posicion="2" delante="False" />
+                <palet id="9441" idProducto="TRUPONAT NF" litros="1218" fabricacion="2021-08-27" posicion="3" delante="True" />
+                <palet id="7237" idProducto="TRUPOSEPT BA" litros="1088" fabricacion="2021-01-22" posicion="4" delante="False" />
+                <palet id="3168" idProducto="TRUPOFIN CERA FP" litros="1148" fabricacion="2021-02-12" posicion="5" delante="True" />
+                <palet id="4721" idProducto="TRUPOFIN CERA BT" litros="1556" fabricacion="2021-08-15" posicion="6" delante="False" />
+                <palet id="4715" idProducto="TRUPOSIST D" litros="830" fabricacion="2021-08-29" posicion="7" delante="True" />
+                <palet id="4599" idProducto="TRUPOL RK" litros="1208" fabricacion="2021-04-23" posicion="8" delante="True" />
+                <palet id="4396" idProducto="PASTOSOL BCN" litros="1445" fabricacion="2021-06-16" posicion="9" delante="False" />
+                <palet id="6393" idProducto="TRUPOZYM AB" litros="1350" fabricacion="2021-07-31" posicion="9" delante="True" />
+                <palet id="1855" idProducto="TRUPOFIN CERA M" litros="984" fabricacion="2021-07-04" posicion="10" delante="False" />
+                <palet id="6689" idProducto="TRUPOFIN CERA PW" litros="1174" fabricacion="2021-05-16" posicion="11" delante="True" />
+                <palet id="2968" idProducto="TRUPOFIN CERA 3A" litros="1313" fabricacion="2021-01-25" posicion="12" delante="True" />
+                <palet id="7203" idProducto="TRUPOFIN CERA BT" litros="1603" fabricacion="2021-01-16" posicion="13" delante="False" />
+                <palet id="2809" idProducto="TRUPOFIN CERA HP" litros="970" fabricacion="2021-04-13" posicion="13" delante="True" />
+                <palet id="4270" idProducto="TRUPOCRYL AB" litros="951" fabricacion="2021-02-02" posicion="14" delante="False" />
+                <palet id="6258" idProducto="PASTOSOL BCN" litros="919" fabricacion="2021-03-25" posicion="15" delante="False" />
+                <palet id="5685" idProducto="TRUPON COL" litros="1134" fabricacion="2021-06-17" posicion="16" delante="False" />
+                <palet id="5646" idProducto="TRUPOCRYL A-28" litros="746" fabricacion="2021-10-14" posicion="18" delante="False" />
+                <palet id="2881" idProducto="TRUPONAT NF" litros="854" fabricacion="2021-06-30" posicion="19" delante="True" />
+                <palet id="5931" idProducto="TRUPOWET PH" litros="1028" fabricacion="2021-02-20" posicion="20" delante="False" />
+                <palet id="8202" idProducto="TRUPOSIST S-BO" litros="1479" fabricacion="2021-06-24" posicion="20" delante="True" />
+                <palet id="7587" idProducto="ANTIFOAM NSP" litros="769" fabricacion="2021-02-13" posicion="21" delante="False" />
+                <palet id="4074" idProducto="TRUPOCAL DE" litros="1394" fabricacion="2021-09-10" posicion="21" delante="True" />
+                <palet id="5580" idProducto="TRUPOFIN CERA HP" litros="1208" fabricacion="2021-05-18" posicion="22" delante="False" />
+                <palet id="6544" idProducto="TRUPOZYM AX" litros="1157" fabricacion="2021-08-11" posicion="23" delante="False" />
+                <palet id="8796" idProducto="TRUPOFIN CERA HF" litros="1022" fabricacion="2021-06-18" posicion="23" delante="True" />
+                <palet id="3685" idProducto="TRUPOCRYL A-32" litros="991" fabricacion="2021-06-16" posicion="24" delante="True" />
+            </balda>
+            <balda numero="6">
+                <palet id="5442" idProducto="TRUPOL RK" litros="1196" fabricacion="2020-12-30" posicion="1" delante="True" />
+                <palet id="6983" idProducto="TRUPOFIN CERA M" litros="1245" fabricacion="2021-02-08" posicion="3" delante="True" />
+                <palet id="4573" idProducto="TRUPOCRYL A-28" litros="905" fabricacion="2021-01-30" posicion="4" delante="False" />
+                <palet id="8850" idProducto="TRUPOSYL TBK" litros="1227" fabricacion="2021-01-20" posicion="4" delante="True" />
+                <palet id="5097" idProducto="TRUPOZYM CB" litros="1123" fabricacion="2021-06-18" posicion="5" delante="True" />
+                <palet id="6409" idProducto="TRUPON CST" litros="1505" fabricacion="2021-08-14" posicion="9" delante="False" />
+                <palet id="9977" idProducto="TRUPOTEC T" litros="905" fabricacion="2021-05-12" posicion="9" delante="True" />
+                <palet id="2384" idProducto="TRUPOSYL TBD" litros="1435" fabricacion="2021-07-25" posicion="10" delante="False" />
+                <palet id="2977" idProducto="TRUPOFIN CERA FP" litros="1361" fabricacion="2021-02-25" posicion="13" delante="True" />
+                <palet id="2258" idProducto="TRUPOTEC T" litros="1411" fabricacion="2021-01-17" posicion="15" delante="False" />
+                <palet id="5435" idProducto="TRUKALIN K" litros="1213" fabricacion="2021-06-14" posicion="17" delante="False" />
+                <palet id="9235" idProducto="TRUPOCRYL A-28" litros="1043" fabricacion="2021-05-29" posicion="17" delante="True" />
+                <palet id="9143" idProducto="TRUPOZYM CB" litros="1385" fabricacion="2021-08-04" posicion="18" delante="False" />
+                <palet id="7895" idProducto="TRUPOSOL WBF" litros="1353" fabricacion="2021-09-15" posicion="19" delante="False" />
+                <palet id="3930" idProducto="TRUPOFIN CERA KT 09" litros="1277" fabricacion="2021-09-25" posicion="19" delante="True" />
+                <palet id="4260" idProducto="TRUPOFIN CERA W" litros="974" fabricacion="2021-06-11" posicion="20" delante="False" />
+                <palet id="8197" idProducto="ANTIFOAM NSP" litros="1399" fabricacion="2021-04-15" posicion="21" delante="False" />
+                <palet id="7271" idProducto="TRUPOCRYL K-U-327" litros="1177" fabricacion="2021-03-01" posicion="21" delante="True" />
+                <palet id="5839" idProducto="TRUPOFIN CERA PV" litros="1427" fabricacion="2021-08-26" posicion="22" delante="False" />
+                <palet id="2228" idProducto="TRUPOZYM CN" litros="1125" fabricacion="2021-04-27" posicion="22" delante="True" />
+                <palet id="5060" idProducto="TRUPOCAL DE" litros="1655" fabricacion="2021-04-25" posicion="23" delante="False" />
+                <palet id="8558" idProducto="TRUPON CST" litros="1568" fabricacion="2021-07-08" posicion="24" delante="False" />
+                <palet id="6263" idProducto="TRUPOZYM CL" litros="1171" fabricacion="2021-06-11" posicion="24" delante="True" />
+            </balda>
+            <balda numero="7">
+                <palet id="5969" idProducto="TRUPOSYL HBD" litros="1374" fabricacion="2021-10-24" posicion="1" delante="True" />
+                <palet id="7100" idProducto="TRUPOTAN MON" litros="1254" fabricacion="2021-09-05" posicion="2" delante="False" />
+                <palet id="6395" idProducto="TRUPOZYM AX" litros="1417" fabricacion="2021-10-02" posicion="3" delante="False" />
+                <palet id="5729" idProducto="TRUPOSYL TBK" litros="977" fabricacion="2021-10-18" posicion="4" delante="False" />
+                <palet id="1919" idProducto="PASTOSOL MD" litros="1235" fabricacion="2021-04-12" posicion="4" delante="True" />
+                <palet id="7248" idProducto="TRUPOCRYL K-U-27" litros="1507" fabricacion="2021-10-08" posicion="6" delante="False" />
+                <palet id="2873" idProducto="TRUPOFIN CERA KT 08" litros="984" fabricacion="2021-06-25" posicion="6" delante="True" />
+                <palet id="8241" idProducto="TRUPOFIN CERA W" litros="1234" fabricacion="2021-08-17" posicion="9" delante="False" />
+                <palet id="8140" idProducto="TRUPOCRYL AB" litros="1051" fabricacion="2021-07-21" posicion="9" delante="True" />
+                <palet id="1997" idProducto="TRUPOCRYL K-U-27" litros="1353" fabricacion="2021-01-16" posicion="12" delante="True" />
+                <palet id="6121" idProducto="TRUPOCRYL K-U-27" litros="1083" fabricacion="2021-04-07" posicion="13" delante="False" />
+                <palet id="4223" idProducto="TRUPOTEC S" litros="1238" fabricacion="2021-08-15" posicion="15" delante="False" />
+                <palet id="2079" idProducto="TRUPOCRYL A-20" litros="1197" fabricacion="2021-03-21" posicion="15" delante="True" />
+                <palet id="2412" idProducto="TRUPOFIN CERA DP" litros="1045" fabricacion="2021-01-18" posicion="18" delante="False" />
+                <palet id="3724" idProducto="TRUPOSIST D" litros="1327" fabricacion="2020-12-30" posicion="20" delante="False" />
+                <palet id="9677" idProducto="TRUPOCRYL A-28" litros="1243" fabricacion="2021-09-23" posicion="21" delante="True" />
+                <palet id="7686" idProducto="TRUPOSYL TBD" litros="1149" fabricacion="2021-04-05" posicion="22" delante="False" />
+                <palet id="3365" idProducto="TRUPOCRYL A-32" litros="1381" fabricacion="2021-07-16" posicion="22" delante="True" />
+                <palet id="6720" idProducto="TRUPOZYM AX" litros="1261" fabricacion="2021-04-13" posicion="23" delante="False" />
+                <palet id="6019" idProducto="TRUPOFIN CERA KT 08" litros="797" fabricacion="2021-04-17" posicion="23" delante="True" />
+                <palet id="1334" idProducto="TRUPOZYM AX" litros="1482" fabricacion="2021-01-13" posicion="24" delante="False" />
+            </balda>
+            <balda numero="8">
+                <palet id="3960" idProducto="TRUPON AP" litros="1247" fabricacion="2021-01-23" posicion="1" delante="False" />
+                <palet id="7903" idProducto="TRUPOCRYL AB" litros="909" fabricacion="2021-03-29" posicion="2" delante="False" />
+                <palet id="1550" idProducto="TRUPON BMF" litros="796" fabricacion="2021-07-07" posicion="2" delante="True" />
+                <palet id="6591" idProducto="TRUPOFIN CERA HP" litros="1294" fabricacion="2021-08-07" posicion="4" delante="False" />
+                <palet id="5416" idProducto="TRUPOZYM AX" litros="1177" fabricacion="2021-05-03" posicion="5" delante="True" />
+                <palet id="2037" idProducto="TRUPOFIN CERA D-80" litros="1583" fabricacion="2021-05-17" posicion="6" delante="False" />
+                <palet id="8862" idProducto="TRUPOFIN CERA PW" litros="1082" fabricacion="2021-01-23" posicion="7" delante="False" />
+                <palet id="2928" idProducto="TRUPOL RK" litros="1263" fabricacion="2021-10-08" posicion="8" delante="False" />
+                <palet id="8277" idProducto="TRUPOFIN CERA KT 08" litros="874" fabricacion="2021-07-27" posicion="8" delante="True" />
+                <palet id="1739" idProducto="TRUPON COL" litros="1512" fabricacion="2021-06-28" posicion="9" delante="True" />
+                <palet id="1794" idProducto="TRUPOFIN CERA DP" litros="901" fabricacion="2021-05-30" posicion="10" delante="True" />
+                <palet id="9635" idProducto="TRUPOSEPT BA" litros="1298" fabricacion="2021-06-26" posicion="11" delante="False" />
+                <palet id="4914" idProducto="SOLVOTAN TACTO" litros="1355" fabricacion="2021-07-01" posicion="12" delante="False" />
+                <palet id="7566" idProducto="TRUPON BMF" litros="1399" fabricacion="2021-02-27" posicion="12" delante="True" />
+                <palet id="8388" idProducto="TRUPOCRYL A-30" litros="1072" fabricacion="2021-09-26" posicion="18" delante="False" />
+                <palet id="1812" idProducto="TRUPON PEM" litros="1399" fabricacion="2021-01-10" posicion="19" delante="False" />
+                <palet id="9871" idProducto="TRUPOSEPT BA" litros="954" fabricacion="2021-09-14" posicion="19" delante="True" />
+                <palet id="4612" idProducto="PASTOSOL BCN" litros="947" fabricacion="2021-10-11" posicion="22" delante="False" />
+                <palet id="1609" idProducto="TRUPOFIN CERA HP" litros="1506" fabricacion="2021-04-03" posicion="23" delante="False" />
+                <palet id="2688" idProducto="TRUPOSYL TBK" litros="1501" fabricacion="2021-09-20" posicion="23" delante="True" />
+            </balda>
+        </estanteria>
+        <estanteria numero="3">
+            <balda numero="1">
+                <palet id="3646" idProducto="TRUPOSYL TBK" litros="1454" fabricacion="2021-05-20" posicion="1" delante="False" />
+                <palet id="5736" idProducto="TRUPON BMF" litros="908" fabricacion="2021-05-07" posicion="1" delante="True" />
+                <palet id="2867" idProducto="TRUPOFIN CERA FP" litros="1023" fabricacion="2021-03-06" posicion="2" delante="False" />
+                <palet id="7526" idProducto="TRUPOZYM CL" litros="1265" fabricacion="2021-02-03" posicion="4" delante="True" />
+                <palet id="9522" idProducto="PASTOSOL KC" litros="1442" fabricacion="2021-04-23" posicion="5" delante="False" />
+                <palet id="2512" idProducto="TRUPOCRYL K-A-30" litros="1204" fabricacion="2021-05-26" posicion="5" delante="True" />
+                <palet id="5630" idProducto="TRUPONAT LA" litros="1007" fabricacion="2021-01-06" posicion="8" delante="True" />
+                <palet id="4780" idProducto="TRUPON CM" litros="1180" fabricacion="2021-04-26" posicion="9" delante="False" />
+                <palet id="2331" idProducto="TRUPOFIN CERA PW" litros="1132" fabricacion="2021-06-24" posicion="9" delante="True" />
+                <palet id="2754" idProducto="TRUPOCRYL A-28" litros="1191" fabricacion="2021-01-17" posicion="10" delante="True" />
+                <palet id="3303" idProducto="TRUPOFIN CERA KT 09" litros="1079" fabricacion="2021-01-03" posicion="12" delante="True" />
+                <palet id="8903" idProducto="TRUPOSYL TBA" litros="1221" fabricacion="2021-09-28" posicion="13" delante="False" />
+                <palet id="7509" idProducto="TRUPOCRYL AB" litros="962" fabricacion="2021-04-01" posicion="14" delante="True" />
+                <palet id="1325" idProducto="TRUPOCRYL A-28" litros="1235" fabricacion="2021-07-24" posicion="16" delante="False" />
+                <palet id="6464" idProducto="TRUPOCRYL A-10" litros="1083" fabricacion="2021-05-02" posicion="17" delante="False" />
+                <palet id="2584" idProducto="TRUPOFIN CERA K-A" litros="695" fabricacion="2021-01-02" posicion="19" delante="False" />
+                <palet id="3312" idProducto="TRUPOFIN CERA K-A" litros="713" fabricacion="2021-07-26" posicion="20" delante="False" />
+                <palet id="4925" idProducto="TRUPON CST" litros="1653" fabricacion="2021-06-21" posicion="20" delante="True" />
+                <palet id="4564" idProducto="TRUPOSOL WBF" litros="963" fabricacion="2021-07-28" posicion="21" delante="False" />
+                <palet id="1041" idProducto="TRUPOCRYL A–90" litros="909" fabricacion="2021-07-24" posicion="21" delante="True" />
+                <palet id="1498" idProducto="TRUPOSYL TBK-E" litros="1025" fabricacion="2021-09-22" posicion="23" delante="True" />
+                <palet id="2616" idProducto="TRUPOZYM CB" litros="1181" fabricacion="2021-10-12" posicion="24" delante="False" />
+                <palet id="7133" idProducto="TRUPOFIN CERA A" litros="937" fabricacion="2021-05-01" posicion="24" delante="True" />
+            </balda>
+            <balda numero="2">
+                <palet id="7376" idProducto="TRUPOCRYL K-U-10" litros="1074" fabricacion="2020-12-29" posicion="1" delante="False" />
+                <palet id="7574" idProducto="TRUPOSYL TBK-E" litros="1166" fabricacion="2021-04-19" posicion="1" delante="True" />
+                <palet id="8809" idProducto="TRUPOWET SA" litros="719" fabricacion="2021-04-14" posicion="2" delante="False" />
+                <palet id="5920" idProducto="SOLVOTAN XS" litros="1433" fabricacion="2021-05-30" posicion="2" delante="True" />
+                <palet id="4883" idProducto="TRUPOCRYL K-U-327" litros="1115" fabricacion="2021-04-13" posicion="3" delante="True" />
+                <palet id="8716" idProducto="TRUPOSLIP P" litros="1641" fabricacion="2021-05-12" posicion="5" delante="False" />
+                <palet id="3975" idProducto="TRUPOCAL DE" litros="1341" fabricacion="2021-09-26" posicion="6" delante="False" />
+                <palet id="6408" idProducto="TRUPOFIN CERA P" litros="1611" fabricacion="2021-04-24" posicion="7" delante="True" />
+                <palet id="9648" idProducto="TRUPOL RK" litros="1357" fabricacion="2021-05-26" posicion="10" delante="True" />
+                <palet id="8179" idProducto="TRUPOZYM AB" litros="1174" fabricacion="2021-10-18" posicion="13" delante="True" />
+                <palet id="4095" idProducto="TRUPOTEC S" litros="819" fabricacion="2021-09-01" posicion="14" delante="True" />
+                <palet id="1681" idProducto="PASTOSOL DG" litros="1131" fabricacion="2021-04-19" posicion="15" delante="False" />
+                <palet id="9255" idProducto="TRUPON PEM" litros="1132" fabricacion="2021-08-27" posicion="15" delante="True" />
+                <palet id="3205" idProducto="TRUPOSYL ABS" litros="1161" fabricacion="2021-04-18" posicion="17" delante="False" />
+                <palet id="6752" idProducto="PASTOSOL F" litros="1136" fabricacion="2021-07-20" posicion="18" delante="False" />
+                <palet id="9642" idProducto="TRUPOFIN CERA M" litros="1150" fabricacion="2021-01-03" posicion="19" delante="False" />
+                <palet id="4533" idProducto="TRUPOSYL TBA" litros="1204" fabricacion="2021-04-18" posicion="20" delante="False" />
+                <palet id="1695" idProducto="TRUPOFIN CERA BT" litros="831" fabricacion="2021-06-28" posicion="20" delante="True" />
+                <palet id="7135" idProducto="TRUPON DBS" litros="1029" fabricacion="2021-03-03" posicion="21" delante="True" />
+                <palet id="7527" idProducto="TRUPOCRYL A–90" litros="1126" fabricacion="2021-04-29" posicion="22" delante="True" />
+                <palet id="1293" idProducto="TRUPON CST" litros="780" fabricacion="2021-02-04" posicion="23" delante="True" />
+                <palet id="3376" idProducto="TRUPOCRYL A-20" litros="1183" fabricacion="2021-06-13" posicion="24" delante="False" />
+                <palet id="9330" idProducto="PASTOSOL F" litros="1480" fabricacion="2021-06-29" posicion="24" delante="True" />
+            </balda>
+            <balda numero="3">
+                <palet id="4898" idProducto="TRUPOSYL TBD" litros="1135" fabricacion="2021-04-09" posicion="2" delante="False" />
+                <palet id="6897" idProducto="TRUPON CM" litros="1161" fabricacion="2021-04-25" posicion="3" delante="False" />
+                <palet id="4617" idProducto="TRUPOFIN CERA SP" litros="1758" fabricacion="2021-01-19" posicion="6" delante="False" />
+                <palet id="9577" idProducto="TRUPOCRYL A-20" litros="1119" fabricacion="2021-07-31" posicion="7" delante="False" />
+                <palet id="8960" idProducto="TRUPOFIN CERA HP" litros="1143" fabricacion="2021-10-01" posicion="8" delante="False" />
+                <palet id="4407" idProducto="PASTOSOL KC" litros="1115" fabricacion="2021-05-14" posicion="9" delante="False" />
+                <palet id="8153" idProducto="TRUPOZYM CN" litros="1439" fabricacion="2021-07-30" posicion="9" delante="True" />
+                <palet id="8081" idProducto="TRUPON DB-80" litros="1116" fabricacion="2021-07-14" posicion="10" delante="True" />
+                <palet id="6615" idProducto="TRUPOFIN CERA KT 09" litros="1097" fabricacion="2021-02-14" posicion="11" delante="True" />
+                <palet id="1538" idProducto="TRUPOFIN CERA FP" litros="1010" fabricacion="2021-06-30" posicion="12" delante="False" />
+                <palet id="3033" idProducto="TRUPOCRYL K-U-27" litros="1305" fabricacion="2021-04-29" posicion="14" delante="True" />
+                <palet id="7703" idProducto="PASTOSOL HW" litros="784" fabricacion="2021-01-31" posicion="15" delante="True" />
+                <palet id="1201" idProducto="TRUPOFIN CERA P" litros="804" fabricacion="2021-02-18" posicion="17" delante="True" />
+                <palet id="1768" idProducto="PASTOSOL F" litros="1478" fabricacion="2021-03-11" posicion="19" delante="True" />
+                <palet id="3561" idProducto="PASTOSOL DG" litros="1351" fabricacion="2021-03-03" posicion="21" delante="False" />
+                <palet id="8030" idProducto="TRUPOSEPT BA" litros="1268" fabricacion="2021-04-19" posicion="22" delante="True" />
+                <palet id="9744" idProducto="TRUPONAT NF" litros="1412" fabricacion="2021-07-05" posicion="24" delante="False" />
+            </balda>
+            <balda numero="4">
+                <palet id="6039" idProducto="TRUPON COL" litros="1572" fabricacion="2021-06-13" posicion="1" delante="False" />
+                <palet id="8077" idProducto="TRUPON CST" litros="1437" fabricacion="2021-07-16" posicion="1" delante="True" />
+                <palet id="4753" idProducto="SOLVOTAN XS" litros="1204" fabricacion="2021-08-13" posicion="2" delante="False" />
+                <palet id="1904" idProducto="TRUPOFIN CERA DP" litros="1104" fabricacion="2021-05-11" posicion="4" delante="True" />
+                <palet id="3282" idProducto="TRUPOFIN CERA PW" litros="932" fabricacion="2021-04-30" posicion="5" delante="True" />
+                <palet id="7649" idProducto="TRUPOCRYL A–90" litros="1107" fabricacion="2021-08-03" posicion="6" delante="False" />
+                <palet id="8975" idProducto="TRUPOCRYL AB" litros="807" fabricacion="2021-05-03" posicion="7" delante="False" />
+                <palet id="3603" idProducto="TRUPOFIN CERA CA" litros="1304" fabricacion="2020-12-31" posicion="7" delante="True" />
+                <palet id="1886" idProducto="TRUPOFIN CERA HF" litros="1102" fabricacion="2021-06-13" posicion="9" delante="False" />
+                <palet id="4480" idProducto="PASTOSOL BCN" litros="1175" fabricacion="2021-10-12" posicion="10" delante="False" />
+                <palet id="3290" idProducto="TRUPOSOL WBF" litros="1475" fabricacion="2021-07-25" posicion="11" delante="False" />
+                <palet id="8098" idProducto="TRUPOSYL ABS" litros="1353" fabricacion="2021-01-03" posicion="11" delante="True" />
+                <palet id="1255" idProducto="TRUPOFIN CERA W" litros="1434" fabricacion="2021-09-12" posicion="12" delante="False" />
+                <palet id="1763" idProducto="TRUPOSYL TBD" litros="1055" fabricacion="2021-01-07" posicion="12" delante="True" />
+                <palet id="9000" idProducto="TRUPON DB-80" litros="936" fabricacion="2021-06-15" posicion="13" delante="False" />
+                <palet id="6044" idProducto="TRUPOSIST D" litros="1167" fabricacion="2021-03-11" posicion="13" delante="True" />
+                <palet id="2344" idProducto="TRUPOCRYL A-10" litros="1107" fabricacion="2021-08-13" posicion="14" delante="False" />
+                <palet id="8817" idProducto="PASTOSOL MD" litros="1113" fabricacion="2021-02-13" posicion="14" delante="True" />
+                <palet id="7152" idProducto="TRUPOFIN CERA KT 09" litros="934" fabricacion="2021-04-30" posicion="15" delante="False" />
+                <palet id="9360" idProducto="TRUPOCRYL K-U-27" litros="774" fabricacion="2021-09-02" posicion="16" delante="False" />
+                <palet id="1199" idProducto="TRUPOTEC S" litros="1042" fabricacion="2021-02-15" posicion="17" delante="False" />
+                <palet id="6963" idProducto="TRUPOCRYL K-U-10" litros="1511" fabricacion="2021-05-22" posicion="17" delante="True" />
+                <palet id="2027" idProducto="TRUPOTAN MON" litros="913" fabricacion="2021-07-07" posicion="19" delante="False" />
+                <palet id="3771" idProducto="PASTOSOL MD" litros="1101" fabricacion="2021-04-22" posicion="20" delante="False" />
+                <palet id="2326" idProducto="TRUPON CM" litros="1295" fabricacion="2021-01-23" posicion="20" delante="True" />
+                <palet id="1121" idProducto="TRUPOFIN CERA CA" litros="1540" fabricacion="2021-01-08" posicion="22" delante="True" />
+                <palet id="8302" idProducto="TRUPOTAN OM" litros="1294" fabricacion="2021-04-25" posicion="24" delante="False" />
+                <palet id="1933" idProducto="TRUPOTAN OM" litros="1249" fabricacion="2021-07-17" posicion="24" delante="True" />
+            </balda>
+            <balda numero="5">
+                <palet id="4784" idProducto="TRUPOCAL AF" litros="1131" fabricacion="2021-04-16" posicion="1" delante="True" />
+                <palet id="2201" idProducto="TRUPONAT LA" litros="1203" fabricacion="2021-01-11" posicion="3" delante="False" />
+                <palet id="1476" idProducto="TRUPON CM" litros="940" fabricacion="2021-02-27" posicion="3" delante="True" />
+                <palet id="7333" idProducto="TRUPOTEC S" litros="1117" fabricacion="2021-02-06" posicion="4" delante="False" />
+                <palet id="8165" idProducto="TRUPOCRYL A-28" litros="699" fabricacion="2021-01-07" posicion="4" delante="True" />
+                <palet id="1708" idProducto="SOLVOTAN TACTO" litros="1062" fabricacion="2021-09-03" posicion="5" delante="False" />
+                <palet id="4331" idProducto="TRUPOFIN CERA P" litros="999" fabricacion="2021-01-18" posicion="6" delante="False" />
+                <palet id="4803" idProducto="TRUPOSEPT BA" litros="826" fabricacion="2021-08-19" posicion="7" delante="True" />
+                <palet id="8759" idProducto="TRUPOFIN CERA KT 09" litros="1389" fabricacion="2021-05-19" posicion="8" delante="False" />
+                <palet id="3059" idProducto="TRUPOFIN CERA HP" litros="1364" fabricacion="2021-05-15" posicion="8" delante="True" />
+                <palet id="9771" idProducto="TRUPOFIN CERA FP" litros="1072" fabricacion="2021-04-10" posicion="9" delante="True" />
+                <palet id="6597" idProducto="TRUPOFIN CERA FP" litros="935" fabricacion="2021-04-06" posicion="11" delante="False" />
+                <palet id="1409" idProducto="TRUPOWET PH" litros="971" fabricacion="2021-01-30" posicion="12" delante="False" />
+                <palet id="9581" idProducto="TRUPOCRYL A-30" litros="1090" fabricacion="2021-02-01" posicion="13" delante="True" />
+                <palet id="4206" idProducto="TRUPOSYL TBD" litros="1193" fabricacion="2021-10-15" posicion="14" delante="True" />
+                <palet id="1773" idProducto="TRUPOCAL DE" litros="1377" fabricacion="2021-06-15" posicion="15" delante="True" />
+                <palet id="1513" idProducto="TRUPOZYM CL" litros="1331" fabricacion="2021-05-09" posicion="16" delante="True" />
+                <palet id="2514" idProducto="TRUPOCRYL A-10" litros="1321" fabricacion="2021-02-15" posicion="17" delante="False" />
+                <palet id="7893" idProducto="TRUPONAT NF" litros="1275" fabricacion="2021-03-15" posicion="17" delante="True" />
+                <palet id="7582" idProducto="TRUPONAT LA" litros="1218" fabricacion="2021-09-02" posicion="18" delante="False" />
+                <palet id="2618" idProducto="TRUPOSIST D" litros="885" fabricacion="2021-03-16" posicion="19" delante="False" />
+                <palet id="9333" idProducto="TRUPOSYL HBD" litros="1304" fabricacion="2021-03-09" posicion="20" delante="True" />
+                <palet id="1103" idProducto="TRUPOCRYL K-U-327" litros="933" fabricacion="2021-08-30" posicion="21" delante="False" />
+                <palet id="9786" idProducto="TRUPOFIN CERA A" litros="1210" fabricacion="2021-09-09" posicion="22" delante="False" />
+                <palet id="5204" idProducto="PASTOSOL BCN" litros="1340" fabricacion="2021-02-28" posicion="22" delante="True" />
+                <palet id="4765" idProducto="TRUPON PEM" litros="1394" fabricacion="2021-01-04" posicion="24" delante="True" />
+            </balda>
+            <balda numero="6">
+                <palet id="3554" idProducto="TRUPOSYL TBD" litros="1395" fabricacion="2021-05-13" posicion="1" delante="False" />
+                <palet id="4230" idProducto="TRUPONAT LA" litros="879" fabricacion="2021-04-18" posicion="2" delante="False" />
+                <palet id="6256" idProducto="TRUPOTEC T" litros="930" fabricacion="2021-06-02" posicion="2" delante="True" />
+                <palet id="9502" idProducto="TRUPOFIN CERA HP" litros="863" fabricacion="2021-08-28" posicion="4" delante="True" />
+                <palet id="2714" idProducto="TRUPOFIN CERA M" litros="1505" fabricacion="2021-06-15" posicion="6" delante="False" />
+                <palet id="6014" idProducto="TRUPOCRYL A-30" litros="1473" fabricacion="2021-09-12" posicion="7" delante="False" />
+                <palet id="9290" idProducto="TRUPON BMF" litros="1611" fabricacion="2021-09-12" posicion="7" delante="True" />
+                <palet id="2693" idProducto="TRUPOFIN CERA PV" litros="1170" fabricacion="2021-02-28" posicion="8" delante="True" />
+                <palet id="3845" idProducto="TRUPONAT LA" litros="1113" fabricacion="2021-07-20" posicion="9" delante="False" />
+                <palet id="4892" idProducto="TRUPOFIN CERA PV" litros="1297" fabricacion="2021-04-25" posicion="9" delante="True" />
+                <palet id="6205" idProducto="TRUPOFIN CERA KT 08" litros="1011" fabricacion="2021-08-20" posicion="11" delante="False" />
+                <palet id="7635" idProducto="TRUPOSYL TBK-E" litros="1637" fabricacion="2021-03-21" posicion="11" delante="True" />
+                <palet id="9401" idProducto="TRUPOFIN CERA HP" litros="1485" fabricacion="2021-07-04" posicion="12" delante="False" />
+                <palet id="8986" idProducto="TRUPOFIN CERA SP" litros="1244" fabricacion="2021-06-08" posicion="14" delante="False" />
+                <palet id="5470" idProducto="TRUPOCRYL K-U-27" litros="1166" fabricacion="2021-09-08" posicion="15" delante="False" />
+                <palet id="9819" idProducto="TRUPOFIN CERA CA" litros="1212" fabricacion="2021-03-06" posicion="18" delante="True" />
+                <palet id="8541" idProducto="TRUPOCRYL K-U-27" litros="1147" fabricacion="2021-01-05" posicion="19" delante="False" />
+                <palet id="5648" idProducto="TRUPOFIN CERA BT" litros="938" fabricacion="2021-04-22" posicion="20" delante="False" />
+                <palet id="2878" idProducto="TRUPOZYM CL" litros="1226" fabricacion="2021-01-30" posicion="21" delante="True" />
+                <palet id="3499" idProducto="TRUPON CM" litros="1283" fabricacion="2021-09-28" posicion="22" delante="False" />
+                <palet id="6635" idProducto="TRUPOCRYL A-18" litros="1452" fabricacion="2021-10-03" posicion="23" delante="False" />
+                <palet id="9688" idProducto="SOLVOTAN XS" litros="1172" fabricacion="2021-10-18" posicion="23" delante="True" />
+            </balda>
+            <balda numero="7">
+                <palet id="1405" idProducto="PASTOSOL MD" litros="1203" fabricacion="2021-03-29" posicion="1" delante="False" />
+                <palet id="4362" idProducto="TRUPOTAN OM" litros="1586" fabricacion="2021-08-28" posicion="3" delante="False" />
+                <palet id="4349" idProducto="TRUPOZYM CN" litros="1419" fabricacion="2021-04-08" posicion="4" delante="False" />
+                <palet id="3564" idProducto="TRUPOCRYL A-32" litros="1409" fabricacion="2021-06-02" posicion="5" delante="False" />
+                <palet id="1515" idProducto="PASTOSOL MD" litros="1584" fabricacion="2021-10-07" posicion="7" delante="False" />
+                <palet id="4759" idProducto="TRUPOTAN MON" litros="1396" fabricacion="2021-04-12" posicion="8" delante="True" />
+                <palet id="7272" idProducto="TRUPON CM" litros="1369" fabricacion="2021-01-21" posicion="10" delante="False" />
+                <palet id="6588" idProducto="TRUPOFIN CERA K-A" litros="1408" fabricacion="2021-09-20" posicion="11" delante="False" />
+                <palet id="8399" idProducto="TRUPOTEC S" litros="1680" fabricacion="2021-08-15" posicion="11" delante="True" />
+                <palet id="2836" idProducto="TRUPOZYM AX" litros="1481" fabricacion="2021-01-06" posicion="12" delante="False" />
+                <palet id="6749" idProducto="TRUPON AP" litros="756" fabricacion="2021-09-19" posicion="12" delante="True" />
+                <palet id="6208" idProducto="TRUPON BMF" litros="1296" fabricacion="2021-09-10" posicion="13" delante="True" />
+                <palet id="7220" idProducto="TRUPOFIN CERA A" litros="1227" fabricacion="2021-07-19" posicion="14" delante="False" />
+                <palet id="4191" idProducto="TRUPON CST" litros="1192" fabricacion="2021-01-11" posicion="14" delante="True" />
+                <palet id="7313" idProducto="TRUPOSYL TBK-E" litros="1448" fabricacion="2021-07-08" posicion="15" delante="False" />
+                <palet id="4247" idProducto="TRUPOFIN CERA A" litros="1223" fabricacion="2021-07-02" posicion="16" delante="True" />
+                <palet id="1027" idProducto="TRUPON COL" litros="1122" fabricacion="2021-06-07" posicion="17" delante="False" />
+                <palet id="3473" idProducto="TRUPOFIN CERA KT 08" litros="842" fabricacion="2021-02-01" posicion="17" delante="True" />
+                <palet id="7923" idProducto="TRUPOFIN CERA PV" litros="1218" fabricacion="2021-05-24" posicion="18" delante="True" />
+                <palet id="1961" idProducto="TRUPOSYL ABS" litros="1311" fabricacion="2021-06-20" posicion="19" delante="False" />
+                <palet id="9708" idProducto="TRUPOCRYL A-10" litros="1016" fabricacion="2021-01-09" posicion="20" delante="False" />
+                <palet id="1656" idProducto="TRUPOCRYL A-20" litros="1065" fabricacion="2021-04-13" posicion="23" delante="True" />
+                <palet id="7975" idProducto="TRUPOFIN CERA BT" litros="979" fabricacion="2021-03-27" posicion="24" delante="True" />
+            </balda>
+            <balda numero="8">
+                <palet id="8907" idProducto="TRUPOSOL WBF" litros="1691" fabricacion="2021-03-26" posicion="2" delante="True" />
+                <palet id="2672" idProducto="TRUPON PEM" litros="1326" fabricacion="2021-02-16" posicion="3" delante="False" />
+                <palet id="2594" idProducto="TRUPOZYM CN" litros="1447" fabricacion="2021-01-20" posicion="3" delante="True" />
+                <palet id="7479" idProducto="TRUPOCRYL A-32" litros="1154" fabricacion="2021-10-10" posicion="4" delante="False" />
+                <palet id="1010" idProducto="TRUPOFIN CERA M" litros="909" fabricacion="2021-05-17" posicion="5" delante="True" />
+                <palet id="6195" idProducto="ANTIFOAM NSP" litros="1006" fabricacion="2021-02-26" posicion="6" delante="True" />
+                <palet id="9665" idProducto="TRUPOSYL HBD" litros="1392" fabricacion="2021-06-22" posicion="8" delante="False" />
+                <palet id="5864" idProducto="TRUPOFIN CERA D-80" litros="1084" fabricacion="2021-08-06" posicion="8" delante="True" />
+                <palet id="2579" idProducto="TRUPOSYL TBK" litros="1107" fabricacion="2021-08-05" posicion="9" delante="False" />
+                <palet id="9661" idProducto="PASTOSOL F" litros="1206" fabricacion="2021-01-05" posicion="9" delante="True" />
+                <palet id="7996" idProducto="TRUPOFIN CERA CA" litros="962" fabricacion="2021-09-27" posicion="10" delante="False" />
+                <palet id="5810" idProducto="TRUPOCRYL A-18" litros="1329" fabricacion="2021-04-18" posicion="10" delante="True" />
+                <palet id="6841" idProducto="TRUPOCRYL K-U-310" litros="1165" fabricacion="2021-10-22" posicion="11" delante="False" />
+                <palet id="9915" idProducto="TRUPOZYM AX" litros="995" fabricacion="2021-07-21" posicion="11" delante="True" />
+                <palet id="9856" idProducto="TRUPOTAN MOW" litros="1416" fabricacion="2021-06-17" posicion="12" delante="False" />
+                <palet id="3363" idProducto="TRUPOFIN CERA BT" litros="1602" fabricacion="2021-01-07" posicion="12" delante="True" />
+                <palet id="7119" idProducto="TRUPOZYM CN" litros="1193" fabricacion="2021-04-27" posicion="14" delante="False" />
+                <palet id="8869" idProducto="TRUPOFIN CERA E" litros="990" fabricacion="2021-03-30" posicion="14" delante="True" />
+                <palet id="9322" idProducto="TRUPOCRYL K-U-310" litros="1353" fabricacion="2021-04-09" posicion="15" delante="True" />
+                <palet id="4562" idProducto="TRUPOCRYL K-A-30" litros="1474" fabricacion="2021-03-04" posicion="16" delante="True" />
+                <palet id="5080" idProducto="TRUPOFIN CERA M" litros="1459" fabricacion="2021-01-02" posicion="17" delante="False" />
+                <palet id="5474" idProducto="TRUPOFIN CERA 3A" litros="997" fabricacion="2021-10-19" posicion="18" delante="True" />
+                <palet id="2187" idProducto="TRUPOSYL TBK-E" litros="1191" fabricacion="2021-09-12" posicion="19" delante="False" />
+                <palet id="9538" idProducto="TRUPOFIN CERA KT 08" litros="1014" fabricacion="2020-12-30" posicion="19" delante="True" />
+                <palet id="2425" idProducto="TRUPOWET PH" litros="1327" fabricacion="2021-01-18" posicion="20" delante="False" />
+                <palet id="6874" idProducto="TRUPOCRYL A-30" litros="1306" fabricacion="2021-09-04" posicion="21" delante="True" />
+                <palet id="8159" idProducto="TRUPOSYL TBA" litros="1407" fabricacion="2021-03-06" posicion="22" delante="False" />
+                <palet id="5569" idProducto="TRUPOSIST D" litros="1083" fabricacion="2021-06-16" posicion="23" delante="False" />
+                <palet id="8737" idProducto="TRUPOSIST S-BO" litros="1223" fabricacion="2021-08-31" posicion="23" delante="True" />
+                <palet id="7964" idProducto="TRUPOCRYL A-30" litros="1268" fabricacion="2021-08-29" posicion="24" delante="False" />
+                <palet id="8394" idProducto="TRUPON BMF" litros="933" fabricacion="2021-06-19" posicion="24" delante="True" />
+            </balda>
+        </estanteria>
+        <estanteria numero="4">
+            <balda numero="1">
+                <palet id="4795" idProducto="TRUPON CST" litros="1205" fabricacion="2021-09-15" posicion="1" delante="False" />
+                <palet id="5236" idProducto="TRUPOFIN CERA DP" litros="1362" fabricacion="2021-04-29" posicion="1" delante="True" />
+                <palet id="3760" idProducto="TRUPOSYL TBD" litros="1037" fabricacion="2021-07-13" posicion="2" delante="True" />
+                <palet id="4958" idProducto="TRUPOCAL DE" litros="1184" fabricacion="2021-05-10" posicion="3" delante="False" />
+                <palet id="2547" idProducto="SOLVOTAN TACTO" litros="1384" fabricacion="2021-02-23" posicion="4" delante="False" />
+                <palet id="9079" idProducto="TRUPON DBS" litros="1078" fabricacion="2021-07-19" posicion="6" delante="False" />
+                <palet id="1873" idProducto="TRUPOSEPT BA" litros="1420" fabricacion="2021-06-10" posicion="8" delante="True" />
+                <palet id="5443" idProducto="TRUPON PEM" litros="1640" fabricacion="2021-01-11" posicion="9" delante="False" />
+                <palet id="6157" idProducto="TRUPOSLIP P" litros="730" fabricacion="2021-01-09" posicion="10" delante="False" />
+                <palet id="3857" idProducto="TRUPOSYL TBA" litros="944" fabricacion="2021-01-04" posicion="10" delante="True" />
+                <palet id="4782" idProducto="TRUPOFIN CERA HF" litros="1033" fabricacion="2021-08-23" posicion="12" delante="True" />
+                <palet id="2866" idProducto="TRUPON BMF" litros="1295" fabricacion="2021-04-30" posicion="14" delante="False" />
+                <palet id="9348" idProducto="SOLVOTAN TACTO" litros="877" fabricacion="2021-02-01" posicion="14" delante="True" />
+                <palet id="9740" idProducto="TRUPOFIN CERA SP" litros="1081" fabricacion="2021-02-20" posicion="15" delante="True" />
+                <palet id="1303" idProducto="TRUPOSYL TBA" litros="801" fabricacion="2021-06-03" posicion="17" delante="False" />
+                <palet id="8485" idProducto="TRUPOZYM AX" litros="1663" fabricacion="2021-03-10" posicion="18" delante="False" />
+                <palet id="8204" idProducto="TRUPOTEC S" litros="1283" fabricacion="2021-02-13" posicion="19" delante="False" />
+                <palet id="9159" idProducto="TRUPON DBS" litros="1181" fabricacion="2021-10-06" posicion="19" delante="True" />
+                <palet id="6049" idProducto="TRUPOCRYL A-35" litros="1080" fabricacion="2021-10-16" posicion="20" delante="False" />
+                <palet id="5499" idProducto="TRUPOSEPT BA" litros="1323" fabricacion="2021-04-17" posicion="20" delante="True" />
+                <palet id="5477" idProducto="TRUPOSYL TBA" litros="1146" fabricacion="2021-10-06" posicion="22" delante="False" />
+                <palet id="4711" idProducto="TRUPONAT NF" litros="1481" fabricacion="2021-01-06" posicion="22" delante="True" />
+                <palet id="4545" idProducto="TRUPOFIN CERA E" litros="1205" fabricacion="2021-08-02" posicion="24" delante="True" />
+            </balda>
+            <balda numero="2">
+                <palet id="8234" idProducto="TRUPOCRYL A-28" litros="1426" fabricacion="2021-08-12" posicion="1" delante="False" />
+                <palet id="7817" idProducto="TRUPOZYM AB" litros="1322" fabricacion="2021-05-02" posicion="1" delante="True" />
+                <palet id="9438" idProducto="TRUPOCAL AF" litros="1516" fabricacion="2021-02-02" posicion="2" delante="False" />
+                <palet id="1403" idProducto="SOLVOTAN TACTO" litros="997" fabricacion="2021-10-17" posicion="2" delante="True" />
+                <palet id="2121" idProducto="TRUPOZYM AB" litros="817" fabricacion="2021-02-22" posicion="3" delante="True" />
+                <palet id="2299" idProducto="TRUPOSIST D" litros="1149" fabricacion="2021-05-11" posicion="4" delante="False" />
+                <palet id="4058" idProducto="TRUPON DB-80" litros="1089" fabricacion="2021-01-25" posicion="6" delante="True" />
+                <palet id="2400" idProducto="TRUPOTAN MOW" litros="1461" fabricacion="2021-09-21" posicion="7" delante="False" />
+                <palet id="9256" idProducto="TRUPOFIN CERA M" litros="1052" fabricacion="2021-09-28" posicion="7" delante="True" />
+                <palet id="1404" idProducto="PASTOSOL MD" litros="1404" fabricacion="2021-07-28" posicion="8" delante="False" />
+                <palet id="2068" idProducto="TRUPOCRYL AB" litros="1023" fabricacion="2021-07-31" posicion="9" delante="True" />
+                <palet id="5635" idProducto="TRUPOFIN CERA KT 09" litros="1217" fabricacion="2021-05-24" posicion="10" delante="False" />
+                <palet id="5467" idProducto="TRUPONAT LA" litros="1161" fabricacion="2021-02-10" posicion="13" delante="True" />
+                <palet id="1330" idProducto="TRUPON COL" litros="1070" fabricacion="2021-09-17" posicion="14" delante="False" />
+                <palet id="4602" idProducto="TRUPOFIN CERA BT" litros="1584" fabricacion="2021-08-26" posicion="14" delante="True" />
+                <palet id="5105" idProducto="TRUPOFIN CERA HF" litros="1559" fabricacion="2021-01-06" posicion="15" delante="True" />
+                <palet id="1648" idProducto="TRUPOFIN CERA A" litros="1246" fabricacion="2021-10-07" posicion="18" delante="True" />
+                <palet id="9844" idProducto="TRUPOSYL TBK-E" litros="1502" fabricacion="2021-05-07" posicion="19" delante="False" />
+                <palet id="6316" idProducto="TRUPOFIN CERA A" litros="1250" fabricacion="2021-07-19" posicion="20" delante="False" />
+                <palet id="3740" idProducto="TRUPOFIN CERA SP" litros="1027" fabricacion="2021-07-14" posicion="20" delante="True" />
+                <palet id="6386" idProducto="TRUPOFIN CERA KT 08" litros="1355" fabricacion="2021-05-25" posicion="21" delante="True" />
+                <palet id="2562" idProducto="TRUPOTAN MOW" litros="1591" fabricacion="2021-08-09" posicion="22" delante="True" />
+                <palet id="8166" idProducto="TRUPOCRYL A-32" litros="1088" fabricacion="2021-07-03" posicion="23" delante="False" />
+                <palet id="3448" idProducto="PASTOSOL DG" litros="1067" fabricacion="2021-04-20" posicion="23" delante="True" />
+            </balda>
+            <balda numero="3">
+                <palet id="8997" idProducto="PASTOSOL BCN" litros="1165" fabricacion="2021-04-03" posicion="2" delante="False" />
+                <palet id="3713" idProducto="TRUPOCRYL K-U-310" litros="976" fabricacion="2021-03-22" posicion="4" delante="False" />
+                <palet id="4503" idProducto="TRUPOCRYL K-U-327" litros="1120" fabricacion="2021-03-14" posicion="4" delante="True" />
+                <palet id="4526" idProducto="TRUPOCRYL A-32" litros="1463" fabricacion="2021-03-18" posicion="5" delante="False" />
+                <palet id="3266" idProducto="TRUPOCRYL A-28" litros="1234" fabricacion="2021-07-23" posicion="5" delante="True" />
+                <palet id="8746" idProducto="TRUPOCRYL A-32" litros="987" fabricacion="2021-01-22" posicion="6" delante="False" />
+                <palet id="1680" idProducto="TRUPOFIN CERA HF" litros="1305" fabricacion="2021-08-27" posicion="9" delante="False" />
+                <palet id="9228" idProducto="TRUPOSYL TBD" litros="1633" fabricacion="2021-05-30" posicion="9" delante="True" />
+                <palet id="8588" idProducto="TRUPOFIN CERA KT 08" litros="1116" fabricacion="2021-09-10" posicion="10" delante="False" />
+                <palet id="2034" idProducto="TRUPOFIN CERA DP" litros="873" fabricacion="2021-07-29" posicion="10" delante="True" />
+                <palet id="4888" idProducto="TRUPOSYL HBD" litros="1329" fabricacion="2021-03-25" posicion="11" delante="True" />
+                <palet id="1269" idProducto="TRUPON COL" litros="1099" fabricacion="2021-03-23" posicion="12" delante="False" />
+                <palet id="5073" idProducto="TRUPOFIN CERA KT 08" litros="1391" fabricacion="2021-03-13" posicion="13" delante="True" />
+                <palet id="6239" idProducto="TRUPOFIN CERA W" litros="1261" fabricacion="2021-05-02" posicion="14" delante="False" />
+                <palet id="8898" idProducto="SOLVOTAN XS" litros="1202" fabricacion="2021-03-07" posicion="15" delante="True" />
+                <palet id="6979" idProducto="TRUPOZYM CL" litros="1378" fabricacion="2021-02-14" posicion="16" delante="False" />
+                <palet id="6374" idProducto="TRUPON CST" litros="1210" fabricacion="2021-08-01" posicion="18" delante="True" />
+                <palet id="2480" idProducto="TRUPOFIN CERA PV" litros="1607" fabricacion="2021-04-09" posicion="19" delante="True" />
+                <palet id="2359" idProducto="TRUPOTAN MOW" litros="1163" fabricacion="2021-07-17" posicion="20" delante="False" />
+                <palet id="1418" idProducto="TRUPOWET PH" litros="1058" fabricacion="2021-08-19" posicion="20" delante="True" />
+                <palet id="1827" idProducto="TRUPOCRYL A–90" litros="1398" fabricacion="2021-10-23" posicion="21" delante="False" />
+                <palet id="6478" idProducto="PASTOSOL KC" litros="1190" fabricacion="2021-04-26" posicion="22" delante="True" />
+                <palet id="5265" idProducto="TRUPOFIN CERA PW" litros="1411" fabricacion="2021-08-10" posicion="23" delante="False" />
+            </balda>
+            <balda numero="4">
+                <palet id="8249" idProducto="TRUPOCRYL A–90" litros="1405" fabricacion="2021-08-22" posicion="2" delante="False" />
+                <palet id="1307" idProducto="TRUPOWET SA" litros="1147" fabricacion="2021-09-21" posicion="2" delante="True" />
+                <palet id="3837" idProducto="TRUPOTEC T" litros="1595" fabricacion="2021-08-13" posicion="4" delante="False" />
+                <palet id="3734" idProducto="TRUPON CM" litros="1242" fabricacion="2021-04-22" posicion="4" delante="True" />
+                <palet id="4589" idProducto="TRUPOCRYL AB" litros="1430" fabricacion="2021-02-21" posicion="6" delante="False" />
+                <palet id="7168" idProducto="TRUKALIN K" litros="1271" fabricacion="2021-06-19" posicion="8" delante="True" />
+                <palet id="3811" idProducto="TRUPOSYL TBD" litros="1132" fabricacion="2021-07-28" posicion="9" delante="False" />
+                <palet id="2139" idProducto="TRUPOSIST S-BO" litros="1509" fabricacion="2021-02-09" posicion="9" delante="True" />
+                <palet id="3001" idProducto="TRUPOSOL WBF" litros="1224" fabricacion="2021-03-02" posicion="10" delante="True" />
+                <palet id="4510" idProducto="TRUPOFIN CERA PV" litros="1397" fabricacion="2021-07-28" posicion="11" delante="False" />
+                <palet id="6880" idProducto="TRUPOSIST S-BO" litros="1004" fabricacion="2021-03-23" posicion="13" delante="False" />
+                <palet id="4242" idProducto="TRUPOTAN OM" litros="1430" fabricacion="2021-10-05" posicion="14" delante="False" />
+                <palet id="7252" idProducto="TRUPONAT LA" litros="863" fabricacion="2021-02-09" posicion="14" delante="True" />
+                <palet id="1753" idProducto="TRUPOCRYL K-U-10" litros="1196" fabricacion="2021-03-03" posicion="15" delante="True" />
+                <palet id="5699" idProducto="TRUPOFIN CERA CA" litros="951" fabricacion="2021-08-05" posicion="16" delante="False" />
+                <palet id="6669" idProducto="TRUPOTEC T" litros="1358" fabricacion="2021-09-06" posicion="20" delante="False" />
+                <palet id="1253" idProducto="TRUPOCRYL A-32" litros="1091" fabricacion="2021-08-04" posicion="21" delante="False" />
+                <palet id="4176" idProducto="PASTOSOL KC" litros="802" fabricacion="2021-06-27" posicion="22" delante="False" />
+                <palet id="2624" idProducto="TRUPOTAN MOW" litros="1261" fabricacion="2021-08-30" posicion="23" delante="True" />
+                <palet id="6062" idProducto="TRUPOFIN CERA DP" litros="1721" fabricacion="2021-01-01" posicion="24" delante="False" />
+                <palet id="6391" idProducto="TRUPOZYM CH" litros="709" fabricacion="2021-10-17" posicion="24" delante="True" />
+            </balda>
+            <balda numero="5">
+                <palet id="7472" idProducto="TRUPOFIN CERA HF" litros="1593" fabricacion="2021-03-03" posicion="2" delante="False" />
+                <palet id="4910" idProducto="TRUPOCRYL A–90" litros="977" fabricacion="2021-04-07" posicion="2" delante="True" />
+                <palet id="7729" idProducto="TRUPOCRYL A-10" litros="1220" fabricacion="2021-05-15" posicion="5" delante="False" />
+                <palet id="9041" idProducto="TRUPOFIN CERA 3A" litros="1241" fabricacion="2021-05-12" posicion="5" delante="True" />
+                <palet id="1011" idProducto="TRUPOCRYL K-U-310" litros="1444" fabricacion="2021-01-07" posicion="6" delante="False" />
+                <palet id="3323" idProducto="TRUPOSYL TBK" litros="913" fabricacion="2021-06-20" posicion="8" delante="False" />
+                <palet id="4960" idProducto="TRUPOCRYL A–90" litros="1476" fabricacion="2021-06-11" posicion="8" delante="True" />
+                <palet id="8763" idProducto="TRUPOZYM CH" litros="1476" fabricacion="2021-10-03" posicion="11" delante="False" />
+                <palet id="3424" idProducto="TRUPOFIN CERA FP" litros="1552" fabricacion="2021-05-02" posicion="11" delante="True" />
+                <palet id="9278" idProducto="TRUPOSYL TBK-E" litros="1187" fabricacion="2021-04-07" posicion="12" delante="True" />
+                <palet id="2591" idProducto="PASTOSOL BCN" litros="1264" fabricacion="2021-02-21" posicion="17" delante="True" />
+                <palet id="2415" idProducto="PASTOSOL MD" litros="1503" fabricacion="2021-04-12" posicion="18" delante="False" />
+                <palet id="3214" idProducto="TRUPOFIN CERA K-A" litros="877" fabricacion="2021-03-26" posicion="18" delante="True" />
+                <palet id="4431" idProducto="TRUKALIN K" litros="1249" fabricacion="2021-09-12" posicion="19" delante="False" />
+                <palet id="5044" idProducto="TRUPOFIN CERA HP" litros="703" fabricacion="2021-07-16" posicion="19" delante="True" />
+                <palet id="2767" idProducto="ANTIFOAM NSP" litros="1542" fabricacion="2021-06-29" posicion="21" delante="False" />
+                <palet id="8451" idProducto="TRUPOCRYL A-30" litros="1127" fabricacion="2021-06-08" posicion="21" delante="True" />
+                <palet id="1733" idProducto="TRUPOCRYL K-U-327" litros="1218" fabricacion="2021-09-28" posicion="23" delante="True" />
+                <palet id="7085" idProducto="TRUPOFIN CERA D-80" litros="752" fabricacion="2021-07-23" posicion="24" delante="False" />
+                <palet id="9981" idProducto="TRUPOSIST D" litros="1431" fabricacion="2021-01-24" posicion="24" delante="True" />
+            </balda>
+            <balda numero="6">
+                <palet id="2657" idProducto="TRUPOWET PH" litros="1326" fabricacion="2021-09-05" posicion="3" delante="False" />
+                <palet id="6944" idProducto="TRUPOFIN CERA E" litros="1403" fabricacion="2021-08-21" posicion="4" delante="False" />
+                <palet id="1308" idProducto="TRUPOSYL TBK" litros="1214" fabricacion="2021-07-29" posicion="4" delante="True" />
+                <palet id="2947" idProducto="TRUPOFIN CERA HP" litros="1036" fabricacion="2021-03-12" posicion="5" delante="False" />
+                <palet id="9116" idProducto="TRUPONAT NF" litros="1291" fabricacion="2021-03-11" posicion="6" delante="True" />
+                <palet id="1872" idProducto="TRUPOFIN CERA K-A" litros="964" fabricacion="2021-10-04" posicion="7" delante="True" />
+                <palet id="4205" idProducto="TRUPON CM" litros="1227" fabricacion="2021-05-01" posicion="9" delante="True" />
+                <palet id="8788" idProducto="TRUPOSYL TBK" litros="1528" fabricacion="2021-06-06" posicion="10" delante="True" />
+                <palet id="6046" idProducto="TRUPOCRYL AB" litros="1460" fabricacion="2021-06-17" posicion="11" delante="True" />
+                <palet id="8797" idProducto="PASTOSOL DG" litros="1313" fabricacion="2021-06-19" posicion="13" delante="False" />
+                <palet id="8923" idProducto="TRUPOCAL AF" litros="820" fabricacion="2021-02-07" posicion="13" delante="True" />
+                <palet id="6209" idProducto="TRUPOCRYL A-28" litros="976" fabricacion="2021-07-12" posicion="14" delante="False" />
+                <palet id="7883" idProducto="TRUPOCRYL A-20" litros="1152" fabricacion="2021-08-20" posicion="14" delante="True" />
+                <palet id="4324" idProducto="TRUPOFIN CERA CA" litros="908" fabricacion="2021-05-18" posicion="15" delante="False" />
+                <palet id="8982" idProducto="TRUPOFIN CERA D-80" litros="1572" fabricacion="2021-09-16" posicion="15" delante="True" />
+                <palet id="2599" idProducto="TRUPONAT NF" litros="881" fabricacion="2021-07-04" posicion="17" delante="False" />
+                <palet id="3215" idProducto="TRUPOSYL ABS" litros="1745" fabricacion="2021-09-27" posicion="17" delante="True" />
+                <palet id="4970" idProducto="TRUPOFIN CERA DP" litros="1464" fabricacion="2021-08-28" posicion="18" delante="True" />
+                <palet id="5164" idProducto="TRUPOFIN CERA SP" litros="1161" fabricacion="2021-08-08" posicion="19" delante="False" />
+                <palet id="4507" idProducto="TRUPOZYM CH" litros="1331" fabricacion="2021-07-27" posicion="20" delante="False" />
+                <palet id="2181" idProducto="TRUPOZYM AB" litros="971" fabricacion="2021-04-02" posicion="21" delante="True" />
+                <palet id="4155" idProducto="TRUPOCRYL A-10" litros="1619" fabricacion="2021-02-12" posicion="22" delante="True" />
+                <palet id="4544" idProducto="TRUPOSYL HBD" litros="1268" fabricacion="2021-08-23" posicion="23" delante="False" />
+                <palet id="5109" idProducto="PASTOSOL BCN" litros="1011" fabricacion="2021-06-30" posicion="24" delante="False" />
+            </balda>
+            <balda numero="7">
+                <palet id="4607" idProducto="TRUPOFIN CERA K-A" litros="1307" fabricacion="2021-06-03" posicion="1" delante="True" />
+                <palet id="1266" idProducto="PASTOSOL F" litros="928" fabricacion="2021-09-29" posicion="2" delante="True" />
+                <palet id="4254" idProducto="TRUPOSYL ABS" litros="1214" fabricacion="2021-09-09" posicion="4" delante="False" />
+                <palet id="9720" idProducto="ANTIFOAM NSP" litros="1452" fabricacion="2021-03-08" posicion="6" delante="False" />
+                <palet id="1726" idProducto="TRUPOWET PH" litros="1065" fabricacion="2021-03-18" posicion="6" delante="True" />
+                <palet id="2863" idProducto="PASTOSOL KC" litros="1405" fabricacion="2021-06-05" posicion="8" delante="True" />
+                <palet id="7080" idProducto="TRUPOSLIP P" litros="1301" fabricacion="2021-02-08" posicion="9" delante="True" />
+                <palet id="6427" idProducto="TRUPOZYM CB" litros="1340" fabricacion="2021-02-21" posicion="10" delante="True" />
+                <palet id="3389" idProducto="TRUPOFIN CERA PW" litros="1061" fabricacion="2021-09-22" posicion="11" delante="False" />
+                <palet id="1053" idProducto="TRUPOCRYL A–90" litros="1644" fabricacion="2021-06-07" posicion="11" delante="True" />
+                <palet id="2167" idProducto="TRUPOSLIP P" litros="1147" fabricacion="2021-09-10" posicion="12" delante="True" />
+                <palet id="1095" idProducto="TRUPOZYM CB" litros="971" fabricacion="2021-07-07" posicion="13" delante="True" />
+                <palet id="8956" idProducto="TRUPOCRYL K-U-310" litros="943" fabricacion="2021-08-13" posicion="14" delante="True" />
+                <palet id="9882" idProducto="TRUPOSIST D" litros="896" fabricacion="2021-07-09" posicion="17" delante="True" />
+                <palet id="1088" idProducto="TRUPON PEM" litros="1219" fabricacion="2021-09-23" posicion="18" delante="True" />
+                <palet id="2352" idProducto="TRUPON PEM" litros="995" fabricacion="2021-09-18" posicion="19" delante="False" />
+                <palet id="7408" idProducto="TRUPOSIST S-BO" litros="968" fabricacion="2021-10-02" posicion="20" delante="False" />
+                <palet id="1240" idProducto="TRUPOFIN CERA CA" litros="1071" fabricacion="2021-05-28" posicion="21" delante="False" />
+                <palet id="6537" idProducto="TRUPOSIST S-BO" litros="914" fabricacion="2021-05-02" posicion="22" delante="False" />
+                <palet id="9624" idProducto="TRUPOCAL AF" litros="1171" fabricacion="2021-01-01" posicion="23" delante="True" />
+            </balda>
+            <balda numero="8">
+                <palet id="5567" idProducto="TRUPOSYL TBA" litros="936" fabricacion="2021-06-09" posicion="1" delante="False" />
+                <palet id="7988" idProducto="TRUPOSEPT BA" litros="1285" fabricacion="2021-04-12" posicion="2" delante="False" />
+                <palet id="1376" idProducto="TRUPOFIN CERA FP" litros="763" fabricacion="2021-04-21" posicion="3" delante="True" />
+                <palet id="5558" idProducto="TRUPOFIN CERA DP" litros="1661" fabricacion="2021-09-09" posicion="4" delante="False" />
+                <palet id="6494" idProducto="TRUPOFIN CERA HP" litros="1295" fabricacion="2021-08-05" posicion="4" delante="True" />
+                <palet id="8573" idProducto="TRUPOWET PH" litros="1488" fabricacion="2021-04-09" posicion="5" delante="False" />
+                <palet id="1892" idProducto="TRUPOZYM AX" litros="1014" fabricacion="2021-02-28" posicion="5" delante="True" />
+                <palet id="7498" idProducto="TRUPON BMF" litros="967" fabricacion="2021-08-06" posicion="6" delante="True" />
+                <palet id="1548" idProducto="TRUPOSYL TBK-E" litros="1450" fabricacion="2021-05-10" posicion="7" delante="False" />
+                <palet id="9373" idProducto="TRUPOCRYL A-10" litros="907" fabricacion="2021-09-05" posicion="8" delante="True" />
+                <palet id="8357" idProducto="TRUPON AP" litros="1000" fabricacion="2021-02-09" posicion="9" delante="False" />
+                <palet id="8703" idProducto="TRUPOL RK" litros="839" fabricacion="2021-10-21" posicion="10" delante="True" />
+                <palet id="2694" idProducto="TRUPOSIST S-BO" litros="1080" fabricacion="2020-12-31" posicion="11" delante="False" />
+                <palet id="6098" idProducto="TRUPOFIN CERA PV" litros="943" fabricacion="2021-05-08" posicion="12" delante="False" />
+                <palet id="3670" idProducto="PASTOSOL DG" litros="1306" fabricacion="2021-06-21" posicion="13" delante="False" />
+                <palet id="6888" idProducto="PASTOSOL F" litros="1200" fabricacion="2021-09-07" posicion="16" delante="False" />
+                <palet id="8489" idProducto="TRUPOFIN CERA BT" litros="1209" fabricacion="2021-06-21" posicion="16" delante="True" />
+                <palet id="2093" idProducto="TRUPON COL" litros="1290" fabricacion="2021-08-23" posicion="18" delante="False" />
+                <palet id="7636" idProducto="TRUPONAT NF" litros="878" fabricacion="2021-09-13" posicion="18" delante="True" />
+                <palet id="4016" idProducto="TRUPOFIN CERA DP" litros="995" fabricacion="2021-09-08" posicion="20" delante="False" />
+                <palet id="7926" idProducto="TRUPOFIN CERA E" litros="1246" fabricacion="2021-09-15" posicion="21" delante="False" />
+                <palet id="8043" idProducto="TRUPOL RK" litros="1141" fabricacion="2021-06-18" posicion="21" delante="True" />
+                <palet id="1888" idProducto="TRUPOTAN MON" litros="893" fabricacion="2021-03-15" posicion="23" delante="True" />
+                <palet id="5405" idProducto="TRUPOFIN CERA D-80" litros="1226" fabricacion="2021-08-27" posicion="24" delante="True" />
+            </balda>
+        </estanteria>
+    </estanterias>
+</almacen>

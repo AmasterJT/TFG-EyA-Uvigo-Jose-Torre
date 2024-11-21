@@ -8,13 +8,16 @@ import java.sql.SQLException;
 public class PaletDAO {
 
     // Crear palet
-    private static final String INSERT_PALET_SQL = "INSERT INTO Palets (id_producto, cantidad, ubicacion) VALUES (?, ?, ?)";
+    private static final String INSERT_PALET_SQL = "INSERT INTO Palets (id_producto, cantidad, estanteria, balda, posicion) VALUES (?, ?, ?, ?, ?)";
 
-    public static void createPalet(Connection connection, int id_producto, int cantidad, String ubicacion) {
+    public static void createPalet(Connection connection, int id_producto, int cantidad, int estanteria, int balda, int posicion) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PALET_SQL)) {
             preparedStatement.setInt(1, id_producto);
             preparedStatement.setInt(2, cantidad);
-            preparedStatement.setString(3, ubicacion);
+            preparedStatement.setInt(3, estanteria);
+            preparedStatement.setInt(3, balda);
+            preparedStatement.setInt(3, posicion);
+
 
             int result = preparedStatement.executeUpdate();
             if (result > 0) {
