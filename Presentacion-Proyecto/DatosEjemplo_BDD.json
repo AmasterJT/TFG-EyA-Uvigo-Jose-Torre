@@ -1,11 +1,4 @@
 {
-  "inserts": {
-    "Estanterias": [
-      { "num_baldas": 8, "posiciones_por_balda": 24 },
-      { "num_baldas": 8, "posiciones_por_balda": 24 },
-      { "num_baldas": 8, "posiciones_por_balda": 24 },
-      { "num_baldas": 8, "posiciones_por_balda": 24 }
-    ],
     "Usuarios": [
       {
         "nombre": "Admin",

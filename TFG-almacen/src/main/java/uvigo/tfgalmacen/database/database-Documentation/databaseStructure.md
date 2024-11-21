@@ -38,6 +38,189 @@ Ventaja principal: Este patrón hace que tu código sea más modular, testable y
 
 En resumen, DAO es una técnica que ayuda a manejar la persistencia de datos de manera eficiente, separando las preocupaciones entre la lógica de negocio y el acceso a los datos
 
+# Documentación: Clase `DatabaseConnection`
+
+Esta clase se encarga de gestionar la conexión con una base de datos MySQL para la aplicación **TFG Almacén**. Proporciona métodos para establecer y cerrar conexiones de manera eficiente.
+
+---
+
+## 1. Detalles de la Clase
+
+### Paquete
+
+```java
+uvigo.tfgalmacen.database
+```
+
+### Importaciones
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+```
+
+### Propósito
+
+La clase `DatabaseConnection` maneja las operaciones básicas de conexión y cierre con la base de datos MySQL utilizando el controlador JDBC.
+
+---
+
+## 2. Constantes
+
+### 2.1 URL de la base de datos
+
+```java
+private static final String URL = "jdbc:mysql://localhost:3306/tfg_almacenDB";
+```
+
+- **Descripción**: Dirección de la base de datos en MySQL.
+- **Ejemplo**: Cambiar `localhost` o `3306` si la base de datos está en un host remoto o en un puerto diferente.
+
+### 2.2 Usuario
+
+```java
+private static final String USER = "root";
+```
+
+- **Descripción**: Usuario de MySQL con permisos para acceder a la base de datos.
+
+### 2.3 Contraseña
+
+```java
+private static final String PASSWORD = "Amaster123*";
+```
+
+- **Descripción**: Contraseña asociada al usuario especificado.
+
+---
+
+## 3. Métodos
+
+### 3.1 Establecemos una conexión a la base de datos -> `connect`
+
+```java
+public static Connection connect() throws SQLException
+```
+
+- **Descripción**: Establece una conexión con la base de datos.
+- **Parámetros**: No aplica.
+- **Retorno**: Un objeto `Connection` si la conexión es exitosa.
+- **Excepciones**:
+  - `SQLException`: Si ocurre un error durante la conexión.
+  - `ClassNotFoundException`: Si no se encuentra el driver de MySQL.
+- **Funcionamiento**:
+  1. Carga el driver de MySQL utilizando `Class.forName`.
+  2. Establece la conexión con la base de datos utilizando `DriverManager.getConnection`.
+  3. Imprime un mensaje de éxito o lanza excepciones en caso de error.
+
+#### Ejemplo de Uso
+
+```java
+Connection conn = DatabaseConnection.connect();
+```
+
+---
+
+### 3.2 Cerramos la conexión a la base de datos -> `close`
+
+```java
+public static void close(Connection connection)
+```
+
+- **Descripción**: Cierra una conexión abierta con la base de datos.
+- **Parámetros**:
+  - `connection`: Objeto `Connection` que se desea cerrar.
+- **Retorno**: No aplica.
+- **Excepciones**:
+  - `SQLException`: Si ocurre un error durante el cierre de la conexión.
+- **Funcionamiento**:
+  1. Verifica si la conexión no es nula y está abierta.
+  2. Cierra la conexión utilizando el método `close()` del objeto `Connection`.
+  3. Imprime un mensaje indicando el cierre exitoso o un mensaje de error en caso contrario.
+
+#### Ejemplo de Uso
+
+```java
+/* ejemplo
+  1. Conexión a la base de datos:
+    -  Se utiliza DatabaseConnection.connect() para establecer la conexión.
+    - La conexión se almacena en una variable de tipo Connection.
+
+  2. Ejecución de una consulta SQL:
+    - Se crea un objeto Statement a partir de la conexión.
+    - Se ejecuta una consulta SQL (SELECT * FROM productos) para obtener datos de una tabla llamada productos.
+
+  3. Procesamiento de resultados:
+    - Los datos obtenidos por la consulta se procesan utilizando un objeto ResultSet.
+
+  4. Cierre de recursos:
+    - El ResultSet y el Statement se cierran explícitamente.
+    - La conexión se cierra con DatabaseConnection.close() dentro del bloque finally para asegurar que se liberen los recursos incluso si ocurre un error.
+*/
+
+import uvigo.tfgalmacen.database.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Main {
+    public static void main(String[] args) {
+        // Declarar una conexión
+        Connection connection = null;
+
+        try {
+            // Establecer la conexión con la base de datos
+            connection = DatabaseConnection.connect();
+
+            // Crear un objeto Statement para ejecutar consultas SQL
+            Statement statement = connection.createStatement();
+
+            // Consulta de ejemplo: obtener todos los productos de una tabla
+            String query = "SELECT * FROM productos";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Procesar los resultados
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id_producto");
+                String nombre = resultSet.getString("nombre_producto");
+                double precio = resultSet.getDouble("precio");
+                System.out.println("ID: " + id + ", Nombre: " + nombre + ", Precio: " + precio);
+            }
+
+            // Cerrar el ResultSet y Statement
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            // Manejar errores de SQL
+            System.err.println("Error durante la operación: " + e.getMessage());
+        } finally {
+            // Asegurarse de cerrar la conexión
+            DatabaseConnection.close(connection);
+        }
+    }
+}
+
+```
+
+---
+
+## 4. Manejo de Excepciones
+
+- Si el driver de MySQL no está disponible, se lanza una excepción de tipo `ClassNotFoundException` con un mensaje de error claro.
+- Los errores de conexión y cierre son gestionados mediante `SQLException` y se imprimen mensajes detallados en la consola para facilitar la depuración.
+
+---
+
+## 5. Notas Adicionales
+
+- Asegúrate de que el driver de MySQL esté incluido en el classpath del proyecto.
+- Cambia las credenciales (usuario y contraseña) y la URL de la base de datos según el entorno de despliegue.
+- Este código está diseñado para fines educativos y puede requerir ajustes para su uso en un entorno de producción (e.g., manejo avanzado de excepciones, pooling de conexiones).
+
 # Interfaces para interactuar con la base de datos
 
 - [UsuarioDAO](#clase-usuariodao)
@@ -59,7 +242,7 @@ La clase `UsuarioDAO` funciona como un Objeto de Acceso a Datos (DAO) para gesti
 
 ## Métodos
 
-**1. Crear usuario -> _createUser_**
+### **1. Crear usuario -> _`createUser`_**
 
 ```java
 public static void createUser(Connection connection, String nombre, String email, String contraseña, int id_rol)
@@ -89,7 +272,7 @@ UsuarioDAO.createUser (connection, "Juan Pérez", "juan@example.com", "password1
 // Si hay un error, se imprimirá un mensaje como: Error al crear el usuario: [detalles del error]
 ```
 
-**2. Leer todos los usuarios -> _readUsers_**
+### **2. Leer todos los usuarios -> _`readUsers`_**
 
 ```java
 public static void readUsers(Connection connection)
@@ -114,7 +297,7 @@ UsuarioDAO.readUsers(connection);
 // ID: 2, Nombre: María López, Email: maria@example.com, Rol: 2
 ```
 
-**3. Actualizar usuario -> _updateUser_**
+### **3. Actualizar usuario -> _`updateUser`_**
 
 ```java
 public static void updateUser(Connection connection, int id_usuario, String nombre, String email, String contraseña, int id_rol)
@@ -145,7 +328,7 @@ UsuarioDAO.updateUser (connection, 1, "Juan Pérez", "juan.perez@example.com", "
 // Si hay un error, se imprimirá un mensaje como: Error al actualizar el usuario: [detalles del error]
 ```
 
-**4. Borrar usuario -> _deleteUser_**
+### **4. Borrar usuario -> _`deleteUser`_**
 
 ```java
 public static void deleteUser(Connection connection, int id_usuario)
@@ -182,7 +365,7 @@ La clase `ProductoDAO` funciona como un Objeto de Acceso a Datos (DAO) para gest
 
 ## Métodos
 
-**1. Creación de un producto -> _createProducto_**
+### **1. Creación de un producto -> _`createProducto`_**
 
 ```java
 public static void createProducto(Connection connection, String nombre, String descripcion, double precio)
@@ -211,7 +394,7 @@ ProductoDAO.createProducto(connection, "Laptop", "Laptop de 15 pulgadas", 1200.0
 // Si hay un error, se imprimirá un mensaje como: Error al crear el producto: [detalles del error]
 ```
 
-**2. Leemos todos los productos -> _readProductos_**
+### **2. Leemos todos los productos -> _`readProductos`_**
 
 ```java
 public static void readProductos(Connection connection)
@@ -237,7 +420,7 @@ ProductoDAO.readProductos(connection);
 // ID: 2, Nombre: Smartphone, Descripción: Smartphone de última generación, Precio: 800.0
 ```
 
-**3. Actualizar producto -> _updateProducto_**
+### **3. Actualizar producto -> _`updateProducto`_**
 
 ```java
 public static void updateProducto(Connection connection, int id_producto, String nombre, String descripcion, double precio)
@@ -267,7 +450,7 @@ ProductoDAO.updateProducto(connection, 1, "Laptop", "Laptop de 17 pulgadas", 130
 // Si hay un error, se imprimirá un mensaje como: Error al actualizar el producto: [detalles del error]
 ```
 
-**4. Borrar producto -> _deleteProducto_**
+### **4. Borrar producto -> _`deleteProducto`_**
 
 ```java
 public static void deleteProducto(Connection connection, int id_producto)
@@ -304,7 +487,7 @@ La clase `PedidoDAO` funciona como un Objeto de Acceso a Datos (DAO) para gestio
 
 ## Métodos
 
-**1. Creación de un pedidio -> _createPedido_**
+### **1. Creación de un pedidio -> _`createPedido`_**
 
 ```java
 public static void createPedido(Connection connection, int id_usuario, String estado)
@@ -332,7 +515,7 @@ PedidoDAO.createPedido(connection, 1, "Pendiente");
 // Si hay un error, se imprimirá un mensaje como: Error al crear el pedido: [detalles del error]
 ```
 
-**2. Leer todos los pedidios -> _readPedidos_**
+### **2. Leer todos los pedidios -> _`readPedidos`_**
 
 ```java
 public static void readPedidos(Connection connection)
@@ -368,7 +551,7 @@ La clase `PaletDAO` funciona como un Objeto de Acceso a Datos (DAO) para gestion
 
 ## Métodos
 
-**1. Creación de un nuevo paler -> _createPalet_**
+### **1. Creación de un nuevo paler -> _`createPalet`_**
 
 ```java
 public static void createPalet(Connection connection, int id_producto, int cantidad, String ubicacion)
@@ -397,7 +580,7 @@ PaletDAO.createPalet(connection, 1, 100, "A1");
 // Si hay un error, se imprimirá un mensaje como: Error al crear el palet: [detalles del error]
 ```
 
-**2. Leemos todos los palets -> _readPalets_**
+### **2. Leemos todos los palets -> _`readPalets`_**
 
 ```java
 public static void readPalets(Connection connection)
@@ -423,7 +606,7 @@ PaletDAO.readPalets(connection);
 // ID: 2, Producto ID: 2, Cantidad: 50, Ubicación: B2
 ```
 
-**3. Actualizamos un palet -> _updatePalet_**
+### **3. Actualizamos un palet -> _`updatePalet`_**
 
 ```java
 public static void updatePalet(Connection connection, int id_palet, int id_producto, int cantidad, String ubicacion)
@@ -453,7 +636,7 @@ PaletDAO.updatePalet(connection, 1, 1, 120, "A2");
 // Si hay un error, se imprimirá un mensaje como: Error al actualizar el palet: [detalles del error]
 ```
 
-**4. Borrar palet -> _deletePalet_**
+### **4. Borrar palet -> _`deletePalet`_**
 
 ```java
 public static void deletePalet(Connection connection, int id_palet)
@@ -490,7 +673,7 @@ La clase `MovimientoDAO` funciona como un Objeto de Acceso a Datos (DAO) para ge
 
 ## Métodos
 
-**1. Creamos un nuevo movimiento -> _createMovimiento_**
+### **1. Creamos un nuevo movimiento -> _`createMovimiento`_**
 
 ```java
 public static void createMovimiento(Connection connection, int id_usuario, int id_palet, String tipo_movimiento, int cantidad, String observaciones)
@@ -521,7 +704,7 @@ MovimientoDAO.createMovimiento(connection, 1, 1, "Entrada", 50, "Movimiento inic
 // Si hay un error, se imprimirá un mensaje como: Error al crear el movimiento: [detalles del error]
 ```
 
-**2. Leemos todos los movimientos -> _readMovimientos_**
+### **2. Leemos todos los movimientos -> _`readMovimientos`_**
 
 ```java
 public static void readMovimientos(Connection connection)
@@ -557,7 +740,7 @@ La clase `DetallePedidoDAO` funciona como un Objeto de Acceso a Datos (DAO) para
 
 ## Métodos
 
-**1. Creación de un nuevo DetallePedido -> _createDetallePedido_**
+### **1. Creación de un nuevo DetallePedido -> _`createDetallePedido`_**
 
 ```java
 public static void createDetallePedido(Connection connection, int id_pedido, int id_palet, int cantidad)
