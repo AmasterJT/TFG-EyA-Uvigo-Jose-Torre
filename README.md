@@ -4,6 +4,10 @@ TFG de ingenieria en electronica industrial y automatica de la Uvigo. Estuidiant
 
 ## Leer: `Presentacion-Proyecto/planteamiento_proyecto.md`
 
+Este fichero es un boceto de cómo será el proyecto, sin embargo, con el desarrollo del proyecto habrán variaciones
+
+Es simplemente una guia orientativa
+
 !! SE RECOMIENDA VER EL FICHERO EN UN VISUALIZADOR DE `MARKDOWN` QUE ACEPTE `HTML`
 
 ## Código Fuente Java
