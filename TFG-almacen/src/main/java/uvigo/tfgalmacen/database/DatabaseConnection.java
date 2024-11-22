@@ -12,6 +12,8 @@ public class DatabaseConnection {
     static String USER =  DataConfig.USER;
     static String PASSWORD =  DataConfig.PASSWORD;
 
+    public static Boolean isConnected = false;
+
     public static Connection connect() throws SQLException {
         try {
             // Cargar el driver de MySQL
@@ -22,6 +24,7 @@ public class DatabaseConnection {
 
             System.out.println("Conexión exitosa a la base de datos");
 
+            isConnected = true;
             return connection;
         } catch (ClassNotFoundException e) {
             System.err.println("Driver no encontrado: " + e.getMessage());
@@ -36,6 +39,7 @@ public class DatabaseConnection {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
+                isConnected = false;
                 System.out.println("Conexión cerrada");
             }
         } catch (SQLException e) {
