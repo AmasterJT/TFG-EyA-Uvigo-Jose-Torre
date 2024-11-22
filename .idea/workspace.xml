@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e4b8d42c-528b-46d3-a67e-28defa9bf9b3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Presentacion-Proyecto/almacenesBDD.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Presentacion-Proyecto/almacenesBDD.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-almacen/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TFG-almacen/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-almacen/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TFG-almacen/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-almacen/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/TFG-almacen/src/main/java/module-info.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2pCfC09cbjoYc0DLX0rIssqs2OZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/mysql-connector-j-9.1.0/mysql-connector-j-9.1.0.jar",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.49655172",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Escritorio\TFG-EyA-Uvigo-Jose-Torre\TFG-almacen\src\main\resources" />
+      <recent name="D:\Escritorio\TFG-EyA-Uvigo-Jose-Torre\TFG-almacen\src\main\java\uvigo\tfgalmacen\database" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e4b8d42c-528b-46d3-a67e-28defa9bf9b3" name="Changes" comment="" />
+      <created>1732274847728</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732274847728</updated>
+    </task>
+    <servers />
+  </component>
+</project>
