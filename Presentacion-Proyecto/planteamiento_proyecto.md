@@ -47,7 +47,7 @@ Para desarrollar un proyecto de gestión de almacenes completo, es esencial incl
  </div>
 </div>
 
-NOTA: Para informacion sobre estos modos de funcionamiento ver la pagina 13 de `/Documentacion_complementaria/'El almacén en la cadena logística.pdf'`
+💡**NOTA:** Para informacion sobre estos modos de funcionamiento ver la pagina 13 de `/Documentacion_complementaria/'El almacén en la cadena logística.pdf'`
 
 ### Funciones del almacen
 
@@ -956,9 +956,9 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>✅</td>
           <td>✅</td>
           <td>❌</td>
-          <td style="color: #e89323">Ver</td>
+          <td style="color: #e89323">Ver </td>
           <td>❌</td>
-          <td>✅</td>
+          <td>✅ <text style="color: #2399e8">(Restringido)</text></td>
       </tr>
       <tr>
           <td>Generación de Reportes (inventario, ventas)</td>
@@ -1013,7 +1013,7 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
           <td>❌</td>
           <td>✅</td>
           <td>❌</td>
-          <td style="color: #e89323">Ver</td>
+          <td style="color: #e89323">Ver <text style="color: #2399e8">(Restringido)</text></td>
       </tr>
       <tr>
           <td>Gestión de Incidencias</td>
@@ -1029,3 +1029,5 @@ cuando el usuario desea hacer una determinada acción en la aplicación, se debe
   </tbody>
 </table>
 </div>
+
+💡**NOTA:** Los clientes tienen permisos restringidos, es decir, solo pueden ver y gestionar sus pedidos, no pueden interacturar con los pedidios de los demas clientes.

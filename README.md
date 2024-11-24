@@ -6,7 +6,7 @@ TFG de ingeniería en electrónica industrial y automática de la Universidad de
 
 Este fichero es un boceto de cómo será el proyecto, sin embargo, con el desarrollo del proyecto habrán variaciones. Es simplemente una guía orientativa
 
-⚠️ !! SE RECOMIENDA VER EL FICHERO EN UN VISUALIZADOR DE `MARKDOWN` QUE ACEPTE `HTML`
+⚠️ !! SE RECOMIENDA VER EL FICHERO EN UN VISUALIZADOR DE `MARKDOWN` QUE ACEPTE `HTML` ¡¡
 
 ## Código Fuente Java
 

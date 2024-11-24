@@ -23,7 +23,7 @@ El DAO es un patrón de diseño estructural que se utiliza en el desarrollo de s
 Interfaz DAO: Define los métodos de acceso a los datos (por ejemplo, `crear()`, `leer()`, `actualizar()`, `eliminar()`).
 Implementación del DAO: Esta clase implementa los métodos definidos en la interfaz DAO y contiene la lógica de acceso a los datos (como consultas SQL o llamadas a una API).
 
-#### Ejemplo
+#### 📚 EJEMPLO:
 
 Supongamos que tienes una base de datos con una tabla `Usuario`. Podrías tener una interfaz `UsuarioDAO` con métodos como:
 
@@ -76,7 +76,8 @@ private static final String URL = "jdbc:mysql://localhost:3306/tfg_almacenDB";
 ```
 
 - **Descripción**: Dirección de la base de datos en MySQL.
-- **Ejemplo**: Cambiar `localhost` o `3306` si la base de datos está en un host remoto o en un puerto diferente.
+
+⚠️ **Cambiar** `localhost` o `3306` si la base de datos está en un host remoto o en un puerto diferente.
 
 ### 2.2 Usuario
 
@@ -115,10 +116,18 @@ public static Connection connect() throws SQLException
   2. Establece la conexión con la base de datos utilizando `DriverManager.getConnection`.
   3. Imprime un mensaje de éxito o lanza excepciones en caso de error.
 
-#### Ejemplo de Uso
+#### 📚 EJEMPLO:
 
 ```java
-Connection conn = DatabaseConnection.connect();
+// Establecemos una conexión a la base de datos.
+
+Connection connection_database = DatabaseConnection.connect();
+
+// Ahora tenemos un objeto llamado 'connection_database' con el cual podemos
+// interactuar con la base de datos
+
+// Crear un objeto Statement para ejecutar consultas SQL
+Statement statement = connection_database.createStatement();
 ```
 
 ---
@@ -140,7 +149,7 @@ public static void close(Connection connection)
   2. Cierra la conexión utilizando el método `close()` del objeto `Connection`.
   3. Imprime un mensaje indicando el cierre exitoso o un mensaje de error en caso contrario.
 
-#### Ejemplo de Uso
+#### 📚 EJEMPLO:
 
 ```java
 /* ejemplo
@@ -259,6 +268,8 @@ public static void createUser(Connection connection, String nombre, String email
 - Imprime un mensaje de éxito ("Usuario creado exitosamente.") a la salida estándar si el usuario se crea correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
 
+#### 📚 EJEMPLO:
+
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' creamos un nuevo usuario donde
 // nombre = "Juan Pérez"; email = "juan@example.com"; contraseña = "password123", id_rol = 1 (sysAdmin)
@@ -284,6 +295,8 @@ public static void readUsers(Connection connection)
 - Retorno: No retorna nada (void).
 - Imprime una cadena formateada que contiene información del usuario (ID, nombre, email, ID del rol y fecha de registro) por cada usuario encontrado en la base de datos.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
+
+#### 📚 EJEMPLO:
 
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' leemos todos los usuarios de la base de datos
@@ -315,6 +328,8 @@ public static void updateUser(Connection connection, int id_usuario, String nomb
 - Imprime un mensaje de éxito ("Usuario actualizado exitosamente.") a la salida estándar si el usuario se actualiza correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
 
+#### 📚 EJEMPLO:
+
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' actualizamos un usuario de la base de datos donde
 // id_usuario = 1, nombre = "Juan Pérez", email = "juan.perez@example.com", contraseña = "newpassword123", id_rol = 2
@@ -341,6 +356,8 @@ public static void deleteUser(Connection connection, int id_usuario)
 - Retorno: No retorna nada (void).
 - Imprime un mensaje de éxito ("Usuario eliminado exitosamente.") a la salida estándar si el usuario se elimina correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
+
+#### 📚 EJEMPLO:
 
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' actualizamos un usuario de la base de datos donde
@@ -381,6 +398,8 @@ public static void createProducto(Connection connection, String nombre, String d
 - Imprime un mensaje de éxito ("Producto creado exitosamente.") a la salida estándar si el producto se crea correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
 
+#### 📚 EJEMPLO:
+
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' creamos un nuevo producto en la base de datos donde
 // nombre = "Laptop", descripcion = "Laptop de 15 pulgadas", precio = 1200.00
@@ -406,6 +425,8 @@ public static void readProductos(Connection connection)
 - Retorno: No retorna nada (void).
 - Imprime una cadena formateada que contiene información del producto (ID, nombre, descripción y precio) por cada producto encontrado en la base de datos.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
+
+#### 📚 EJEMPLO:
 
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' leemos todos los productos de la base de datos
@@ -437,6 +458,8 @@ public static void updateProducto(Connection connection, int id_producto, String
 - Imprime un mensaje de éxito ("Producto actualizado exitosamente.") a la salida estándar si el producto se actualiza correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
 
+#### 📚 EJEMPLO:
+
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' actualizamos un producto de la base de datos donde
 // id_producto = 1, nombre = "Laptop", descripcion = "Laptop de 17 pulgadas", precio = 1300.00
@@ -463,6 +486,8 @@ public static void deleteProducto(Connection connection, int id_producto)
 - Retorno: No retorna nada (void).
 - Imprime un mensaje de éxito ("Producto eliminado exitosamente.") a la salida estándar si el producto se elimina correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
+
+#### 📚 EJEMPLO:
 
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' borramos un producto de la base de datos donde
@@ -502,6 +527,8 @@ public static void createPedido(Connection connection, int id_usuario, String es
 - Imprime un mensaje de éxito ("Pedido creado exitosamente.") a la salida estándar si el pedido se crea correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
 
+#### 📚 EJEMPLO:
+
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' creamos un nuevo pedido en la base de datos donde
 // id_usuario = 1, estado = "Pendiente"
@@ -527,6 +554,8 @@ public static void readPedidos(Connection connection)
 - Retorno: No retorna nada (void).
 - Imprime una cadena formateada que contiene información del pedido (ID, ID del usuario, estado) por cada pedido encontrado en la base de datos.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
+
+#### 📚 EJEMPLO:
 
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' leemos todos los pedidos de la base de datos
@@ -567,6 +596,8 @@ public static void createPalet(Connection connection, int id_producto, int canti
 - Imprime un mensaje de éxito ("Palet creado exitosamente.") a la salida estándar si el palet se crea correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
 
+#### 📚 EJEMPLO:
+
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' creamos un palet en la base de datos donde
 // id_producto = 1, cantidad = 100, ubicacion = "A1"
@@ -592,6 +623,8 @@ public static void readPalets(Connection connection)
 - Retorno: No retorna nada (void).
 - Imprime una cadena formateada que contiene información del palet (ID, ID del producto, cantidad, ubicación) por cada palet encontrado en la base de datos.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
+
+#### 📚 EJEMPLO:
 
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' leemos todos los palet de la base de datos
@@ -623,6 +656,8 @@ public static void updatePalet(Connection connection, int id_palet, int id_produ
 - Imprime un mensaje de éxito ("Palet actualizado exitosamente.") a la salida estándar si el palet se actualiza correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
 
+#### 📚 EJEMPLO:
+
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' actualizamos un palet de la base de datos donde
 // id_palet = 1, id_producto = 1, cantidad = 120, ubicacion = "A2"
@@ -649,6 +684,8 @@ public static void deletePalet(Connection connection, int id_palet)
 - Retorno: No retorna nada (void).
 - Imprime un mensaje de éxito ("Palet eliminado exitosamente.") a la salida estándar si el palet se elimina correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
+
+#### 📚 EJEMPLO:
 
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' borramos un palet de la base de datos donde
@@ -691,6 +728,8 @@ public static void createMovimiento(Connection connection, int id_usuario, int i
 - Imprime un mensaje de éxito ("Movimiento creado exitosamente.") a la salida estándar si el movimiento se crea correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
 
+#### 📚 EJEMPLO:
+
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' un nuevo movimiento en la base de datos donde
 // id_usuario = 1, id_palet = 1, tipo_movimiento = "Entrada", cantidad = 50, observaciones = "Movimiento inicial de stock"
@@ -716,6 +755,8 @@ public static void readMovimientos(Connection connection)
 - Retorno: No retorna nada (void).
 - Imprime una cadena formateada que contiene información del movimiento (ID, ID de usuario, ID de palet, tipo de movimiento, cantidad, observaciones) por cada movimiento encontrado en la base de datos.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
+
+#### 📚 EJEMPLO:
 
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' leemos todos los movimientos de la base de datos
@@ -755,6 +796,8 @@ public static void createDetallePedido(Connection connection, int id_pedido, int
 - Retorno: No retorna nada (void).
 - Imprime un mensaje de éxito ("Detalle de pedido creado exitosamente.") a la salida estándar si el detalle de pedido se crea correctamente.
 - Lanza una excepción `SQLException` si ocurre un error durante la operación de la base de datos.
+
+#### 📚 EJEMPLO:
 
 ```java
 // Ejemplo: Dada la conexion a la base de datos 'connection' creamos un nuevo DetallePedido en la base de datos donde

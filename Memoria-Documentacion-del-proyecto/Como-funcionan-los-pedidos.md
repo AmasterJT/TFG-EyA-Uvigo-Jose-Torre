@@ -1,6 +1,6 @@
 # ¿Cómo funciona el sistema de pedidos?
 
-Cada pedido tiene asociado el nombre del cliente que realiza el pedido, un número de referencia que identifica el pedido, asi como el usuasrio que crea el pedidio (este usuario puede ser tanto un empleado que tenga el rol adecuado como el propio cliente)
+Cada pedido tiene asociado el **nombre del cliente** que realiza el pedido, un **número de referencia** que identifica el pedido, asi como el **usuario que crea el pedidio**
 
 los pedidios los crea un cliente y estos llegan al departamento de ventas y pedidos. Este departamento es quien pasas el pedido al sistema de gestión del almacen
 
@@ -10,7 +10,7 @@ Este documento describe el flujo de un pedido desde su inicio hasta su finalizac
 
 ### 1. **Inicio del Pedido: Petición de nuevo pedido**
 
-El proceso comienza cuando un usuario decide insertar un pedido en el sistema.
+El proceso comienza cuando un usuario decide insertar un pedido en el sistema. En el departamento de 'Ventas y Pedidos' los administrativos (rol de 'Administración') generan el pedido
 
 ### 2. **¿Cliente Registrado?**
 
@@ -22,7 +22,7 @@ Si el cliente está registrado, puede proceder a seleccionar los productos.
 
 #### 2.2. **No: Registrar Cliente**
 
-Si el cliente no está registrado, se realiza el proceso automático de registro del cliente
+Si el cliente no está registrado, se realiza el proceso de registro del cliente
 
 ### 3. **Generar Pedido**
 
@@ -66,11 +66,11 @@ El proceso del pedido ha finalizado exitosamente.
 
 ---
 
-## Diagrama de Flujo del Proceso de Pedido
+### Diagrama de Flujo del Proceso de Pedido
 
 ```mermaid
   flowchart TD
-    A[Petición de nuevo pedido] --> B{¿Cliente Registrado?}
+    A[Nuevo Pedido] --> B{¿Cliente Registrado?}
     B -- Sí --> E[Generar Pedido]
     B -- No --> D[Registrar Cliente]
     D -- Registro del cliente cancelado --> B
@@ -87,11 +87,12 @@ El proceso del pedido ha finalizado exitosamente.
     L --> M[Estado del Pedido: Completado]
     M --> N[Fin del Pedido]
 
+    style A fill:#bb21b6,stroke:#333,stroke-width:2px, color:#FFF, ,rx:500, ry:500
     style J fill:#947c1f,stroke:#333,stroke-width:2px, color:#FFF, ,rx:20, ry:20
     style F fill:#947c1f,stroke:#333,stroke-width:2px, color:#FFF, ,rx:20, ry:20
     style H fill:#947c1f,stroke:#333,stroke-width:2px, color:#FFF, ,rx:20, ry:20
     style M fill:#947c1f,stroke:#333,stroke-width:2px, color:#FFF, ,rx:20, ry:20
-
+    style N fill:#bb21b6,stroke:#333,stroke-width:2px, color:#FFF, ,rx:500, ry:500
 ```
 
 ## Código de referencia
@@ -104,8 +105,14 @@ Los códigos de referencia se **generan automaticamente** y presentan el siguien
   </code>
 </div>
 
-1. **PED**: Identificador del tipo de registro (pedido).
-2. **YYYYMMDD**: Año, mes y día del pedido (por ejemplo, 20241121 para el 21 de noviembre de 2024).
-3. **HHHHH**: Código secuencial único en hexadecimal, donde cada nuevo pedido del día tiene su número consecutivo convertido a hexadecimal.
+1. **`PED`**: **{Prefijo}** Identificador del tipo de registro (pedido).
+2. **`YYYYMMDD`**: Año, mes y día del registro del pedido (por ejemplo, 20241121 para el 21 de noviembre de 2024).
+3. **`HHHHHH`**: Código secuencial único en hexadecimal, donde cada nuevo pedido del día tiene su número consecutivo convertido a hexadecimal.
 
-**Ejemplo:** PED-20241121-03E8
+Dado que el código secuencial tiene seis dígitos en formato hexadecimal en un dia podemos hacer la siguiente cantidad de pedidos:
+
+$$
+16^6 = 16,777,216 \ \text{pedidos/día}
+$$
+
+📚 **Ejemplo:** PED-20241121-0003E8 (En ese día se hicieron 1000 pedidos)
