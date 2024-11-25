@@ -62,9 +62,8 @@ public class Main extends Application {
             listTables(connection, DatabaseConnection.DATABASE_NAME);
 
             // Exportar datos de la tabla "Pedidos" a un archivo "pedidos.xml"
-            String tableName = "pedidos";
             exportDatabaseTablesToXML(connection);
-            //exportDatabaseToXML(connection);
+            exportDatabaseToXML(connection);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,6 +72,6 @@ public class Main extends Application {
             close(connection);  // Cerrar la conexión
         }
 
-        launch();
+        launch(); // lanzamos la aplicacion grafica
     }
 }

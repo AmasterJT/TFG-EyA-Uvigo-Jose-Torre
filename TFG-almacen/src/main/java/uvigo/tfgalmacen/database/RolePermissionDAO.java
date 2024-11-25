@@ -50,9 +50,9 @@ public class RolePermissionDAO {
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             // Encabezado de la tabla
-            System.out.println("\n+-------------------+------------------------------------------------+--------------+");
-            System.out.println("│ Nombre del Rol    │ Permiso                                        │ Estado       │");
-            System.out.println("+-------------------+------------------------------------------------+--------------+");
+            System.out.println("\n+-------------------+------------------------------------------------+-------------+");
+            System.out.println("│ Nombre del Rol    │ Permiso                                        │ Estado      │");
+            System.out.println("+-------------------+------------------------------------------------+-------------+");
 
             // Iterar sobre los resultados y mostrar los datos
             while (resultSet.next()) {
@@ -74,21 +74,27 @@ public class RolePermissionDAO {
 
                 if (estado.equalsIgnoreCase("activo")){
                     estado = "✅ activo";
+                    if (nombreRol.equals("Cliente")){
+                        estado = "‼\uFE0F✅ activo";
+                    }
+
                 } else if (estado.equalsIgnoreCase("inactivo")) {
                     estado = "❌ inactivo";
-                } else{
-                    estado = "\uD83D\uDD0D ver";
+                } else if ( estado.equals("ver") && nombreRol.equals("Cliente")){
+                    estado = "‼\uFE0F\uD83D\uDD0D ver ";
+                }else {
+                    estado = "\uD83D\uDD0D ver ";
                 }
 
                 // Imprimir cada fila de la tabla con colores aplicados
-                System.out.printf("│ %-26s │ %-54s │ %-20s │\n",
+                System.out.printf("│ %-26s │ %-54s │ %-19s │\n",
                         rolColor + "\uD83D\uDC64 " + nombreRol + RESET,
                         rolColor + "\uD83D\uDCDD " + permiso + RESET,
                         estadoColor + estado + RESET);
             }
 
             // Final de la tabla
-            System.out.println("+-------------------+------------------------------------------------+--------------+");
+            System.out.println("+-------------------+------------------------------------------------+-------------+");
 
         } catch (SQLException e) {
             System.err.println("Error al recuperar los roles y permisos: " + e.getMessage());
