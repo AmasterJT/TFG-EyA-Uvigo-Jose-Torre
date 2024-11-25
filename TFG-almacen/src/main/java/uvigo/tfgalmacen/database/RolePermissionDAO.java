@@ -10,15 +10,15 @@ public class RolePermissionDAO {
     private static final String RESET = "\033[0m";  // Resetea el color
     private static final String GREEN = "\033[32m"; // Verde
     private static final String RED = "\033[31m";   // Rojo
-    private static final String BLUE = "\033[34m";  // Azul
+    private static final String ORANGE = "\033[34m";  // Azul
 
     // Consulta SQL para obtener los roles y permisos
     private static final String SELECT_ROLES_PERMISOS_SQL =
-            "SELECT r.nombre_rol, p.permiso, rp.estado " +
-                    "FROM Roles r " +
-                    "JOIN RolPermiso rp ON r.id_rol = rp.id_rol " +
-                    "JOIN PerimisosUsuarios p ON rp.id_permiso = p.id_permiso " +
-                    "ORDER BY r.id_rol, p.id_permiso";
+            "SELECT r.nombre_rol, p.permiso, rp.estado\n" +
+                    "FROM roles r\n" +
+                    "JOIN rol_permiso rp ON r.id_rol = rp.id_rol\n" +
+                    "JOIN permisos_usuarios p ON rp.id_permiso = p.id_permiso\n" +
+                    "ORDER BY r.id_rol, p.id_permiso;";
 
     // Método para asignar un color específico a cada rol
     private static String getRoleColor(String rol) {
@@ -50,9 +50,9 @@ public class RolePermissionDAO {
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             // Encabezado de la tabla
-            System.out.println("\n\n+-----------------------+-------------------------------------------+-----------+");
-            System.out.println("| Nombre del Rol        | Permiso                                   | Estado    |");
-            System.out.println("+-----------------------+-------------------------------------------+-----------+");
+            System.out.println("\n+-------------------+------------------------------------------------+--------------+");
+            System.out.println("│ Nombre del Rol    │ Permiso                                        │ Estado       │");
+            System.out.println("+-------------------+------------------------------------------------+--------------+");
 
             // Iterar sobre los resultados y mostrar los datos
             while (resultSet.next()) {
@@ -68,19 +68,27 @@ public class RolePermissionDAO {
                 String estadoColor = switch (estado.toLowerCase()) {
                     case "activo" -> GREEN;
                     case "inactivo" -> RED;
-                    case "ver" -> BLUE;
+                    case "ver" -> ORANGE;
                     default -> RESET;
                 };
 
+                if (estado.equalsIgnoreCase("activo")){
+                    estado = "✅ activo";
+                } else if (estado.equalsIgnoreCase("inactivo")) {
+                    estado = "❌ inactivo";
+                } else{
+                    estado = "\uD83D\uDD0D ver";
+                }
+
                 // Imprimir cada fila de la tabla con colores aplicados
-                System.out.printf("| %-30s | %-50s | %-18s |\n",
-                        rolColor + nombreRol + RESET,
-                        rolColor + permiso + RESET,
+                System.out.printf("│ %-26s │ %-54s │ %-20s │\n",
+                        rolColor + "\uD83D\uDC64 " + nombreRol + RESET,
+                        rolColor + "\uD83D\uDCDD " + permiso + RESET,
                         estadoColor + estado + RESET);
             }
 
             // Final de la tabla
-            System.out.println("+-----------------------+-------------------------------------------+-----------+");
+            System.out.println("+-------------------+------------------------------------------------+--------------+");
 
         } catch (SQLException e) {
             System.err.println("Error al recuperar los roles y permisos: " + e.getMessage());

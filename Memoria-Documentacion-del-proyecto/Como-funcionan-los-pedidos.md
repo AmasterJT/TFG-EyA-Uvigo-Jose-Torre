@@ -113,4 +113,4 @@ $$
 16^6 = 16,777,216 \ \text{pedidos/día}
 $$
 
-📚 **Ejemplo:** PED-20241121-0003E8 (En ese día se hicieron 1000 pedidos)
+📚 **Ejemplo:** PED-20241121-0003E8 (En ese día se hicieron 3E8=1000 pedidos)

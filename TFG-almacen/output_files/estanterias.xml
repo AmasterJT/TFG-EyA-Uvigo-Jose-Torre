@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TableData name="estanterias">
+  <Row>
+    <id_estanteria>1</id_estanteria>
+    <num_baldas>8</num_baldas>
+    <posiciones_por_balda>24</posiciones_por_balda>
+    <posiciones_disponibles>192</posiciones_disponibles>
+    <zona/>
+  </Row>
+  <Row>
+    <id_estanteria>2</id_estanteria>
+    <num_baldas>8</num_baldas>
+    <posiciones_por_balda>4</posiciones_por_balda>
+    <posiciones_disponibles>32</posiciones_disponibles>
+    <zona/>
+  </Row>
+  <Row>
+    <id_estanteria>3</id_estanteria>
+    <num_baldas>10</num_baldas>
+    <posiciones_por_balda>24</posiciones_por_balda>
+    <posiciones_disponibles>240</posiciones_disponibles>
+    <zona/>
+  </Row>
+  <Row>
+    <id_estanteria>4</id_estanteria>
+    <num_baldas>6</num_baldas>
+    <posiciones_por_balda>10</posiciones_por_balda>
+    <posiciones_disponibles>60</posiciones_disponibles>
+    <zona/>
+  </Row>
+</TableData>

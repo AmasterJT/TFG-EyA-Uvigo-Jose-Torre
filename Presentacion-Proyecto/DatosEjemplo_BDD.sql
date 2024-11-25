@@ -3,42 +3,42 @@ SET
     FOREIGN_KEY_CHECKS = 0;
 
 -- Limpiar las tablas (eliminar todos los registros)
-TRUNCATE TABLE DetallesPedido;
+TRUNCATE TABLE detalles_pedido;
 
-TRUNCATE TABLE Pedidos;
+TRUNCATE TABLE pedidos;
 
-TRUNCATE TABLE Movimientos;
+TRUNCATE TABLE movimientos;
 
-TRUNCATE TABLE Productos;
+TRUNCATE TABLE productos;
 
-TRUNCATE TABLE Usuarios;
+TRUNCATE TABLE usuarios;
 
-TRUNCATE TABLE Estanterias;
+TRUNCATE TABLE estanterias;
 
 -- Reactivar las comprobaciones de claves foráneas
 SET
     FOREIGN_KEY_CHECKS = 1;
 
 -- Establecer valores iniciales para el auto incremento de varias tablas
-ALTER TABLE Roles AUTO_INCREMENT = 7;
+ALTER TABLE roles AUTO_INCREMENT = 7;
 
-ALTER TABLE Estanterias AUTO_INCREMENT = 1;
+ALTER TABLE estanterias AUTO_INCREMENT = 1;
 
-ALTER TABLE Usuarios AUTO_INCREMENT = 1;
+ALTER TABLE usuarios AUTO_INCREMENT = 1;
 
-ALTER TABLE Productos AUTO_INCREMENT = 1;
+ALTER TABLE productos AUTO_INCREMENT = 1;
 
-ALTER TABLE Palets AUTO_INCREMENT = 1;
+ALTER TABLE palets AUTO_INCREMENT = 1;
 
-ALTER TABLE Movimientos AUTO_INCREMENT = 1;
+ALTER TABLE movimientos AUTO_INCREMENT = 1;
 
-ALTER TABLE Pedidos AUTO_INCREMENT = 1;
+ALTER TABLE pedidos AUTO_INCREMENT = 1;
 
-ALTER TABLE DetallesPedido AUTO_INCREMENT = 1;
+ALTER TABLE detalles_pedido AUTO_INCREMENT = 1;
 
 -- Inserción de datos en la tabla Estanterias
 INSERT INTO
-    Estanterias (num_baldas, posiciones_por_balda)
+    estanterias (num_baldas, posiciones_por_balda)
 VALUES
     -- Estantería 1: 8 baldas, 24 posiciones por balda
     (8, 24),
@@ -51,7 +51,7 @@ VALUES
 
 -- Inserción de datos en la tabla Usuarios
 INSERT INTO
-    Usuarios (nombre, email, contraseña, id_rol)
+    usuarios (nombre, email, contraseña, id_rol)
 VALUES
     -- Usuario SysAdmin
     (
@@ -98,7 +98,7 @@ VALUES
 
 -- Insertando registros en la tabla Clientes
 INSERT INTO
-    Clientes (
+    clientes (
         nombre_cliente,
         email_cliente,
         telefono_cliente,
@@ -233,7 +233,7 @@ VALUES
 
 -- Inserción de datos en la tabla Productos
 INSERT INTO
-    Productos (nombre_producto, descripcion, precio)
+    productos (nombre_producto, descripcion, precio)
 VALUES
     -- Producto 1: Lápices
     ('Lápices', 'Caja de 50 lápices de madera', 10.50),
@@ -264,7 +264,7 @@ VALUES
 
 -- Inserción de datos en la tabla Palets
 INSERT INTO
-    Palets (
+    palets (
         id_producto,
         cantidad,
         estanteria,
@@ -287,7 +287,7 @@ VALUES
 
 -- Inserción de datos en la tabla Movimientos
 INSERT INTO
-    Movimientos (
+    movimientos (
         id_usuario,
         id_palet,
         tipo_movimiento,
@@ -330,16 +330,32 @@ VALUES
 
 -- Inserción de datos en la tabla Pedidos
 INSERT INTO
-    Pedidos (id_usuario, id_cliente, estado)
+    pedidos (id_usuario, id_cliente, estado)
 VALUES
     -- Pedido 1: Hecho por el Gestor Almacén
     (2, 2, 'Pendiente'),
     -- Pedido 2: Hecho por el Supervisor
-    (3, 3, 'Completado');
+    (3, 3, 'Completado'),
+    -- Pedido 3: Hecho por el Operario
+    (4, 4, 'En proceso'),
+    -- Pedido 4: Hecho por el Administrador
+    (6, 5, 'Pendiente'),
+    -- Pedido 5: Hecho por el SysAdmin
+    (1, 6, 'Completado'),
+    -- Pedido 6: Hecho por el Gestor Almacén
+    (2, 7, 'Cancelado'),
+    -- Pedido 7: Hecho por el Supervisor
+    (3, 8, 'Pendiente'),
+    -- Pedido 8: Hecho por el Administrador
+    (6, 9, 'Completado'),
+    -- Pedido 9: Hecho por el Operario
+    (4, 10, 'Pendiente'),
+    -- Pedido 10: Hecho por el Gestor Almacén
+    (2, 1, 'En proceso');
 
 -- Inserción de datos en la tabla DetallesPedido
 INSERT INTO
-    DetallesPedido (id_pedido, id_palet, cantidad)
+    detalles_pedido (id_pedido, id_palet, cantidad)
 VALUES
     -- Detalles del Pedido 1: Incluye lápices y bolígrafos
     (1, 1, 20), -- 20 unidades del primer palet (Lápices)
@@ -374,5 +390,6 @@ VALUES
     -- Detalles del Pedido 10: Incluye marcadores, lápices y bolígrafos
     (10, 4, 50), -- 50 unidades del cuarto palet (Marcadores)
     (10, 1, 20), -- 20 unidades del primer palet (Lápices)
-    (10, 3, 25) -- 25 unidades del tercer palet (Bolígrafos)
-;
+    (10, 3, 25);
+
+-- 25 unidades del tercer palet (Bolígrafos)

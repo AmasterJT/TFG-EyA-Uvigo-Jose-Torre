@@ -9,6 +9,7 @@ public class DataConfig {
     static String URL;
     static String USER;
     static String PASSWORD;
+    static String DATABASE_NAME;
 
     static {
         try {
@@ -19,6 +20,9 @@ public class DataConfig {
             URL = properties.getProperty("url");
             USER = properties.getProperty("user");
             PASSWORD = properties.getProperty("password");
+            DATABASE_NAME = properties.getProperty("database_name");
+
+            URL = URL + DATABASE_NAME;
 
 
         } catch (IOException e) {

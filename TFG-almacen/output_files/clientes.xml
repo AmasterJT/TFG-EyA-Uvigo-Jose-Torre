@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TableData name="clientes">
+  <Row>
+    <id_cliente>1</id_cliente>
+    <nombre_cliente>Juan Pérez</nombre_cliente>
+    <email_cliente>juan.perez@example.com</email_cliente>
+    <telefono_cliente>+52-555-123-4567</telefono_cliente>
+    <direccion_cliente>Av. Reforma 123</direccion_cliente>
+    <ciudad_cliente>Ciudad de México</ciudad_cliente>
+    <estado_pais_cliente>CDMX</estado_pais_cliente>
+    <pais_cliente>México</pais_cliente>
+    <fecha_nacimiento>1985-04-15</fecha_nacimiento>
+    <estado_cliente>1</estado_cliente>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
+  </Row>
+  <Row>
+    <id_cliente>2</id_cliente>
+    <nombre_cliente>María López</nombre_cliente>
+    <email_cliente>maria.lopez@example.com</email_cliente>
+    <telefono_cliente>+52-555-987-6543</telefono_cliente>
+    <direccion_cliente>Calle Independencia 456</direccion_cliente>
+    <ciudad_cliente>Monterrey</ciudad_cliente>
+    <estado_pais_cliente>Nuevo León</estado_pais_cliente>
+    <pais_cliente>México</pais_cliente>
+    <fecha_nacimiento>1990-07-22</fecha_nacimiento>
+    <estado_cliente>1</estado_cliente>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
+  </Row>
+  <Row>
+    <id_cliente>3</id_cliente>
+    <nombre_cliente>Carlos Sánchez</nombre_cliente>
+    <email_cliente>carlos.sanchez@example.com</email_cliente>
+    <telefono_cliente>+52-812-345-6789</telefono_cliente>
+    <direccion_cliente>Blvd. Hidalgo 789</direccion_cliente>
+    <ciudad_cliente>Guadalajara</ciudad_cliente>
+    <estado_pais_cliente>Jalisco</estado_pais_cliente>
+    <pais_cliente>México</pais_cliente>
+    <fecha_nacimiento>1982-11-02</fecha_nacimiento>
+    <estado_cliente>0</estado_cliente>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
+  </Row>
+  <Row>
+    <id_cliente>4</id_cliente>
+    <nombre_cliente>Ana Rodríguez</nombre_cliente>
+    <email_cliente>ana.rodriguez@example.com</email_cliente>
+    <telefono_cliente>+1-310-555-1234</telefono_cliente>
+    <direccion_cliente>1234 Sunset Blvd</direccion_cliente>
+    <ciudad_cliente>Los Ángeles</ciudad_cliente>
+    <estado_pais_cliente>California</estado_pais_cliente>
+    <pais_cliente>Estados Unidos</pais_cliente>
+    <fecha_nacimiento>1995-06-30</fecha_nacimiento>
+    <estado_cliente>1</estado_cliente>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
+  </Row>
+  <Row>
+    <id_cliente>5</id_cliente>
+    <nombre_cliente>Pedro Gómez</nombre_cliente>
+    <email_cliente>pedro.gomez@example.com</email_cliente>
+    <telefono_cliente>+44-20-7946-0958</telefono_cliente>
+    <direccion_cliente>10 Downing Street</direccion_cliente>
+    <ciudad_cliente>Londres</ciudad_cliente>
+    <estado_pais_cliente>Inglaterra</estado_pais_cliente>
+    <pais_cliente>Reino Unido</pais_cliente>
+    <fecha_nacimiento>1979-03-18</fecha_nacimiento>
+    <estado_cliente>1</estado_cliente>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
+  </Row>
+  <Row>
+    <id_cliente>6</id_cliente>
+    <nombre_cliente>Laura Fernández</nombre_cliente>
+    <email_cliente>laura.fernandez@example.com</email_cliente>
+    <telefono_cliente/>
+    <direccion_cliente>Calle Principal 123</direccion_cliente>
+    <ciudad_cliente>Madrid</ciudad_cliente>
+    <estado_pais_cliente>Madrid</estado_pais_cliente>
+    <pais_cliente>España</pais_cliente>
+    <fecha_nacimiento>1988-08-10</fecha_nacimiento>
+    <estado_cliente>1</estado_cliente>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
+  </Row>
+  <Row>
+    <id_cliente>7</id_cliente>
+    <nombre_cliente>Miguel Herrera</nombre_cliente>
+    <email_cliente>miguel.herrera@example.com</email_cliente>
+    <telefono_cliente>+52-333-678-1234</telefono_cliente>
+    <direccion_cliente/>
+    <ciudad_cliente>Tijuana</ciudad_cliente>
+    <estado_pais_cliente>Baja California</estado_pais_cliente>
+    <pais_cliente>México</pais_cliente>
+    <fecha_nacimiento>1992-01-05</fecha_nacimiento>
+    <estado_cliente>0</estado_cliente>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
+  </Row>
+  <Row>
+    <id_cliente>8</id_cliente>
+    <nombre_cliente>Sofía Morales</nombre_cliente>
+    <email_cliente>sofia.morales@example.com</email_cliente>
+    <telefono_cliente>+34-655-123-456</telefono_cliente>
+    <direccion_cliente>Av. del Sol 234</direccion_cliente>
+    <ciudad_cliente>Barcelona</ciudad_cliente>
+    <estado_pais_cliente>Cataluña</estado_pais_cliente>
+    <pais_cliente>España</pais_cliente>
+    <fecha_nacimiento>1986-12-25</fecha_nacimiento>
+    <estado_cliente>1</estado_cliente>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
+  </Row>
+  <Row>
+    <id_cliente>9</id_cliente>
+    <nombre_cliente>Diego Martínez</nombre_cliente>
+    <email_cliente>diego.martinez@example.com</email_cliente>
+    <telefono_cliente>+54-11-4321-5678</telefono_cliente>
+    <direccion_cliente>Av. 9 de Julio 567</direccion_cliente>
+    <ciudad_cliente>Buenos Aires</ciudad_cliente>
+    <estado_pais_cliente>Buenos Aires</estado_pais_cliente>
+    <pais_cliente>Argentina</pais_cliente>
+    <fecha_nacimiento>1993-09-12</fecha_nacimiento>
+    <estado_cliente>1</estado_cliente>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
+  </Row>
+  <Row>
+    <id_cliente>10</id_cliente>
+    <nombre_cliente>Lucía Jiménez</nombre_cliente>
+    <email_cliente>lucia.jimenez@example.com</email_cliente>
+    <telefono_cliente>+49-30-5678-1234</telefono_cliente>
+    <direccion_cliente>Unter den Linden 1</direccion_cliente>
+    <ciudad_cliente>Berlín</ciudad_cliente>
+    <estado_pais_cliente>Berlín</estado_pais_cliente>
+    <pais_cliente>Alemania</pais_cliente>
+    <fecha_nacimiento>1980-05-08</fecha_nacimiento>
+    <estado_cliente>1</estado_cliente>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
+  </Row>
+</TableData>

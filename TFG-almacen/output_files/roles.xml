@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TableData name="roles">
+  <Row>
+    <id_rol>1</id_rol>
+    <nombre_rol>SysAdmin</nombre_rol>
+    <descripcion>Administrador del sistema con todos los privilegios.</descripcion>
+  </Row>
+  <Row>
+    <id_rol>2</id_rol>
+    <nombre_rol>Gestor Almacén</nombre_rol>
+    <descripcion>Responsable de la gestión del inventario y almacenes.</descripcion>
+  </Row>
+  <Row>
+    <id_rol>3</id_rol>
+    <nombre_rol>Supervisor</nombre_rol>
+    <descripcion>Encargado de supervisar las operaciones y los equipos.</descripcion>
+  </Row>
+  <Row>
+    <id_rol>4</id_rol>
+    <nombre_rol>Operario</nombre_rol>
+    <descripcion>Trabajador encargado de tareas específicas operativas.</descripcion>
+  </Row>
+  <Row>
+    <id_rol>5</id_rol>
+    <nombre_rol>Mantenimiento</nombre_rol>
+    <descripcion>Responsable del mantenimiento y reparaciones.</descripcion>
+  </Row>
+  <Row>
+    <id_rol>6</id_rol>
+    <nombre_rol>Administración</nombre_rol>
+    <descripcion>Gestión administrativa y documentación.</descripcion>
+  </Row>
+  <Row>
+    <id_rol>7</id_rol>
+    <nombre_rol>Proveedor</nombre_rol>
+    <descripcion>Entidad o persona que suministra productos o servicios.</descripcion>
+  </Row>
+  <Row>
+    <id_rol>8</id_rol>
+    <nombre_rol>Cliente</nombre_rol>
+    <descripcion>Usuario final o consumidor de los productos o servicios.</descripcion>
+  </Row>
+</TableData>

@@ -5,9 +5,9 @@ create database tfg_almacenDB;
 
 use tfg_almacenDB;
 
--- Creación de la tabla PerimisosUsuarios, donde se definen los distintos permisos que tienen los usuarios
+-- Creación de la tabla permisos_usuarios
 CREATE TABLE
-    PerimisosUsuarios (
+    permisos_usuarios (
         id_permiso INT PRIMARY KEY AUTO_INCREMENT,
         permiso VARCHAR(50) NOT NULL, -- nombre del permiso
         descripcion TEXT -- descripción de la utilidad del permiso
@@ -15,7 +15,7 @@ CREATE TABLE
 
 -- Inserción de los permisos por defecto
 INSERT INTO
-    PerimisosUsuarios (permiso, descripcion)
+    permisos_usuarios (permiso, descripcion)
 VALUES
     (
         'Gestión de Usuarios',
@@ -62,9 +62,9 @@ VALUES
         'Permiso para gestionar y hacer seguimiento a incidencias o problemas reportados en el sistema.'
     );
 
--- Creación de la tabla Roles, donde se definen los distintos roles del sistema
+-- Creación de la tabla roles
 CREATE TABLE
-    Roles (
+    roles (
         id_rol INT PRIMARY KEY AUTO_INCREMENT,
         nombre_rol VARCHAR(20) NOT NULL,
         descripcion TEXT
@@ -72,7 +72,7 @@ CREATE TABLE
 
 -- Inserción de los roles por defecto
 INSERT INTO
-    Roles (nombre_rol, descripcion)
+    roles (nombre_rol, descripcion)
 VALUES
     (
         'SysAdmin',
@@ -107,22 +107,21 @@ VALUES
         'Usuario final o consumidor de los productos o servicios.'
     );
 
--- Creación de una tabla intermedia (relacional) que vincule las tablas Roles y PerimisosUsuarios. Dado que un rol puede tener múltiples permisos
--- y un permiso puede ser asignado a varios roles, la relación entre estas dos tablas es de tipo muchos a muchos.
+-- Creación de la tabla rol_permiso
 CREATE TABLE
-    RolPermiso (
+    rol_permiso (
         id_rol INT,
         id_permiso INT,
         estado ENUM ('activo', 'inactivo', 'ver') NOT NULL,
         PRIMARY KEY (id_rol, id_permiso),
-        FOREIGN KEY (id_rol) REFERENCES Roles (id_rol),
-        FOREIGN KEY (id_permiso) REFERENCES PerimisosUsuarios (id_permiso)
+        FOREIGN KEY (id_rol) REFERENCES roles (id_rol),
+        FOREIGN KEY (id_permiso) REFERENCES permisos_usuarios (id_permiso)
     );
 
 -- Insertar relación entre Roles y Permisos
 -- Para "Gestión de Usuarios"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
     -- SysAdmin
     (1, 1, 'activo'),
@@ -143,7 +142,7 @@ VALUES
 
 -- Para "Gestión de Productos (CRUD)"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
     -- SysAdmin
     (1, 2, 'activo'),
@@ -164,7 +163,7 @@ VALUES
 
 -- Para "Gestión de Inventario (stock, ubicación)"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
     -- SysAdmin
     (1, 3, 'activo'),
@@ -185,7 +184,7 @@ VALUES
 
 -- Para "Registro de Entradas/Salidas de Productos"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
     -- SysAdmin
     (1, 4, 'activo'),
@@ -206,7 +205,7 @@ VALUES
 
 -- Para "Gestión de Pedidos"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
     -- SysAdmin
     (1, 5, 'activo'),
@@ -227,7 +226,7 @@ VALUES
 
 -- Para "Generación de Reportes (inventario, ventas)"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
     -- SysAdmin
     (1, 6, 'activo'),
@@ -248,7 +247,7 @@ VALUES
 
 -- Para "Asignación de Tareas (Picking/Packing)"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
     -- SysAdmin
     (1, 7, 'activo'),
@@ -269,7 +268,7 @@ VALUES
 
 -- Para "Acceso al Historial de Movimientos"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
     -- SysAdmin
     (1, 8, 'activo'),
@@ -290,7 +289,7 @@ VALUES
 
 -- Para "Mantenimiento de Infraestructura"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
     -- SysAdmin
     (1, 9, 'activo'),
@@ -311,7 +310,7 @@ VALUES
 
 -- Para "Gestión Financiera (compras/ventas)"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
     -- SysAdmin
     (1, 10, 'activo'),
@@ -332,7 +331,7 @@ VALUES
 
 -- Para "Gestión de Incidencias"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
     -- SysAdmin
     (1, 11, 'activo'),
@@ -351,21 +350,17 @@ VALUES
     -- Cliente
     (8, 11, 'inactivo');
 
--- Creación de la tabla Estanterias, que almacena la información de cómo son estas
+-- Creación de la tabla estanterias
 CREATE TABLE
-    Estanterias (
-        id_estanteria INT PRIMARY KEY AUTO_INCREMENT, -- identificador de la estanteria
-        num_baldas INT NOT NULL, -- Cantidad de baldas que tiene la estanteria
-        posiciones_por_balda INT NOT NULL, -- Cuántas posiciones hay en cada balda
-        posiciones_disponibles INT NOT NULL, -- Cuantas posiciones estan disponibles en la estantería
-        zona VARCHAR(100) -- Zona del almacen donde se encuentra la estanteria
+    estanterias (
+        id_estanteria INT PRIMARY KEY AUTO_INCREMENT,
+        num_baldas INT NOT NULL,
+        posiciones_por_balda INT NOT NULL,
+        posiciones_disponibles INT NOT NULL,
+        zona VARCHAR(100)
     );
 
---  Este TRIGGER calculará el valor de posiciones_disponibles multiplicando las baldas y las posiciones.
-DELIMITER / / CREATE TRIGGER calcular_posiciones_disponibles BEFORE INSERT ON estanterias -- establecemos el valor de posiciones_disponibles antes de que se realice la inserción
-FOR EACH ROW -- Se aplica a cada fila que se inserta.
-BEGIN
--- Calcula el valor de posiciones_disponibles multiplicando balas y posiciones de la nueva fila.
+DELIMITER / / CREATE TRIGGER calcular_posiciones_disponibles BEFORE INSERT ON estanterias FOR EACH ROW BEGIN
 SET
     NEW.posiciones_disponibles = NEW.num_baldas * NEW.posiciones_por_balda;
 
@@ -373,103 +368,128 @@ END;
 
 / / DELIMITER;
 
--- Creación de la tabla Usuarios, que almacena la información de los usuarios del sistema
+-- Creación de la tabla usuarios
 CREATE TABLE
-    Usuarios (
+    usuarios (
         id_usuario INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(100) NOT NULL,
         email VARCHAR(100) NOT NULL UNIQUE,
         contraseña VARCHAR(255) NOT NULL,
         id_rol INT,
         fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (id_rol) REFERENCES Roles (id_rol)
+        FOREIGN KEY (id_rol) REFERENCES roles (id_rol)
     );
 
--- Crear la tabla Clientes
+-- Creación de la tabla clientes
 CREATE TABLE
-    Clientes (
-        -- Identificador único para cada cliente. Es la clave primaria y se incrementa automáticamente.
+    clientes (
         id_cliente INT PRIMARY KEY AUTO_INCREMENT,
-        -- Nombre del cliente, un texto obligatorio de hasta 100 caracteres.
         nombre_cliente VARCHAR(100) NOT NULL,
-        -- Correo electrónico del cliente, debe ser único y no puede estar vacío.
         email_cliente VARCHAR(150) UNIQUE NOT NULL,
-        -- Teléfono del cliente. Se almacena como texto para admitir formatos como "+52-123-456-7890".
         telefono_cliente VARCHAR(20),
-        -- Dirección del cliente, como la calle y el número. Opcional, de hasta 255 caracteres.
         direccion_cliente VARCHAR(255),
-        -- Ciudad del cliente. Opcional, de hasta 100 caracteres.
         ciudad_cliente VARCHAR(100),
-        -- Estado o provincia del cliente. Opcional, de hasta 100 caracteres.
         estado_pais_cliente VARCHAR(100),
-        -- País del cliente. Opcional, de hasta 100 caracteres.
         pais_cliente VARCHAR(100),
-        -- Fecha de nacimiento del cliente. Opcional, almacenada en formato de fecha.
         fecha_nacimiento DATE,
-        -- Indica si el cliente está activo o no. Por defecto, es TRUE (activo).
         estado_cliente BOOLEAN DEFAULT TRUE,
-        -- Fecha y hora en que el cliente se registró. Por defecto, se asigna la hora actual automáticamente.
         fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        -- Fecha y hora de la última actualización del registro. Se actualiza automáticamente al modificar la fila.
         ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
 
--- Creación de la tabla Productos, donde se almacenan los productos del almacén
+-- Creación de la tabla productos
 CREATE TABLE
-    Productos (
+    productos (
         id_producto INT PRIMARY KEY AUTO_INCREMENT,
         nombre_producto VARCHAR(100) NOT NULL,
         descripcion TEXT,
-        precio DECIMAL(10, 2), -- Precio unitario del producto
+        precio DECIMAL(10, 2),
         fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
--- Creación de la tabla Palets, donde se almacenan los palets que contienen productos
+-- Creación de la tabla palets
 CREATE TABLE
-    Palets (
+    palets (
         id_palet INT PRIMARY KEY AUTO_INCREMENT,
-        id_producto INT, -- Hace referencia al tipo de producto que contiene el palet
-        cantidad INT NOT NULL, -- Cantidad de productos que contiene el palet
-        estanteria INT NOT NULL, -- estanteria donde se encuentra el palet
-        balda INT NOT NULL, -- balda donde se encuetra el palet en la estanteria
-        posicion INT NOT NULL, -- poscion de la balda donde se encuentra el palet
+        id_producto INT,
+        cantidad INT NOT NULL,
+        estanteria INT NOT NULL,
+        balda INT NOT NULL,
+        posicion INT NOT NULL,
         fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (id_producto) REFERENCES Productos (id_producto)
+        FOREIGN KEY (id_producto) REFERENCES productos (id_producto)
     );
 
--- Creación de la tabla Movimientos, que almacena la entrada y salida de palets en el almacén
+-- Creación de la tabla movimientos
 CREATE TABLE
-    Movimientos (
+    movimientos (
         id_movimiento INT PRIMARY KEY AUTO_INCREMENT,
-        id_usuario INT, -- Usuario que realizó el movimiento
-        id_palet INT, -- Palet afectado por el movimiento
+        id_usuario INT,
+        id_palet INT,
         tipo_movimiento ENUM ('Entrada', 'Salida') NOT NULL,
-        cantidad INT NOT NULL, -- Cantidad de productos movidos en el movimiento
+        cantidad INT NOT NULL,
         fecha_movimiento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         observaciones TEXT,
-        FOREIGN KEY (id_usuario) REFERENCES Usuarios (id_usuario),
-        FOREIGN KEY (id_palet) REFERENCES Palets (id_palet)
+        FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario),
+        FOREIGN KEY (id_palet) REFERENCES palets (id_palet)
     );
 
--- Creación de la tabla Pedidos, donde se almacenan los pedidos realizados
+-- Creación de la tabla pedidos
 CREATE TABLE
-    Pedidos (
+    pedidos (
         id_pedido INT PRIMARY KEY AUTO_INCREMENT,
-        id_usuario INT NOT NULL, -- Usuario que realizó el pedido
-        id_cliente INT NOT NULL, -- Cliente que realizó el pedido
+        codigo_referencia VARCHAR(50) UNIQUE,
+        id_usuario INT NOT NULL,
+        id_cliente INT NOT NULL,
         fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        estado ENUM ('Pendiente', 'Completado', 'Cancelado') NOT NULL,
-        FOREIGN KEY (id_cliente) REFERENCES Clientes (id_cliente),
-        FOREIGN KEY (id_usuario) REFERENCES Usuarios (id_usuario)
+        estado ENUM (
+            'Pendiente',
+            'Completado',
+            'En proceso',
+            'Cancelado'
+        ) NOT NULL,
+        FOREIGN KEY (id_cliente) REFERENCES clientes (id_cliente),
+        FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario)
     );
 
--- Creación de la tabla DetallesPedido, que almacena los productos incluidos en cada pedido
+DELIMITER / / CREATE TRIGGER generar_codigo_referencia BEFORE INSERT ON pedidos FOR EACH ROW BEGIN DECLARE secuencia_diaria INT;
+
+DECLARE secuencia_hex VARCHAR(10);
+
+DECLARE nuevo_codigo VARCHAR(50);
+
+SELECT
+    COUNT(*) + 1 INTO secuencia_diaria
+FROM
+    pedidos
+WHERE
+    DATE (fecha_pedido) = DATE (NEW.fecha_pedido);
+
+SET
+    secuencia_hex = LPAD (HEX (secuencia_diaria), 6, '0');
+
+SET
+    nuevo_codigo = CONCAT (
+        'PED-',
+        DATE_FORMAT (NEW.fecha_pedido, '%Y%m%d'),
+        '-',
+        secuencia_hex
+    );
+
+SET
+    NEW.codigo_referencia = nuevo_codigo;
+
+END;
+
+/ / DELIMITER;
+
+-- Creación de la tabla detalles_pedido
 CREATE TABLE
-    DetallesPedido (
+    detalles_pedido (
         id_detalle INT PRIMARY KEY AUTO_INCREMENT,
-        id_pedido INT, -- Pedido al que pertenece este detalle
-        id_palet INT, -- Palet de productos solicitado en el pedido
-        cantidad INT NOT NULL, -- Cantidad de productos solicitados
-        FOREIGN KEY (id_pedido) REFERENCES Pedidos (id_pedido),
-        FOREIGN KEY (id_palet) REFERENCES Palets (id_palet)
+        id_pedido INT,
+        id_palet INT,
+        cantidad INT NOT NULL,
+        FOREIGN KEY (id_pedido) REFERENCES pedidos (id_pedido),
+        FOREIGN KEY (id_palet) REFERENCES palets (id_palet)
     );

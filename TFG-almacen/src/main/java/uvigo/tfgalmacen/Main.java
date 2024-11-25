@@ -13,9 +13,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import uvigo.tfgalmacen.database.DatabaseConnection;
 import uvigo.tfgalmacen.database.ProductoDAO;
+
+import static uvigo.tfgalmacen.dataTransform.DataExporter.exportDatabaseTablesToXML;
+import static uvigo.tfgalmacen.dataTransform.DataExporter.exportDatabaseToXML;
 import static uvigo.tfgalmacen.database.DatabaseConnection.*;
 import static uvigo.tfgalmacen.database.RolePermissionDAO.printRolesAndPermissions;
+import static uvigo.tfgalmacen.database.TableLister.listTables;
 
 public class Main extends Application {
     @Override
@@ -47,18 +52,26 @@ public class Main extends Application {
 
             // Aquí puedes ejecutar consultas a la base de datos, por ejemplo:
             Statement stmt = connection.createStatement();
-            String query = "SELECT * FROM Usuarios";
+            String query = "SELECT * FROM usuarios";
             stmt.executeQuery(query);
 
             ProductoDAO.readProductos(connection);
             printRolesAndPermissions(connection);
 
+            // Listar las tablas de la base de datos
+            listTables(connection, DatabaseConnection.DATABASE_NAME);
+
+            // Exportar datos de la tabla "Pedidos" a un archivo "pedidos.xml"
+            String tableName = "pedidos";
+            exportDatabaseTablesToXML(connection);
+            //exportDatabaseToXML(connection);
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            //System.out.println("deberiamos cerrar la conexion aqui");
             close(connection);  // Cerrar la conexión
         }
-
 
         launch();
     }
