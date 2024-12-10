@@ -9,7 +9,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.*;
-import org.xml.sax.SAXException;
 import uvigo.tfgalmacen.database.DatabaseConnection;
 
 import javax.xml.transform.*;
@@ -18,7 +17,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import static uvigo.tfgalmacen.database.TableLister.getTables;
 
-public class DataExporter {
+public class DataExcelExporter {
 
     static String FILE_EXTENTION = ".xml";
     static String OUTPUT_DIRECTORY = "output_files/";

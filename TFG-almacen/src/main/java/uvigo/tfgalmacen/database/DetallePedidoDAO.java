@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DetallePedidoDAO {
 
     // Crear detalle de pedido
-    private static final String INSERT_DETALLE_PEDIDO_SQL = "INSERT INTO DetallesPedido (id_pedido, id_palet, cantidad) VALUES (?, ?, ?)";
+    private static final String INSERT_DETALLE_PEDIDO_SQL = "INSERT INTO detalles_pedido (id_pedido, id_palet, cantidad) VALUES (?, ?, ?)";
 
     public static void createDetallePedido(Connection connection, int id_pedido, int id_palet, int cantidad) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DETALLE_PEDIDO_SQL)) {

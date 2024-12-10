@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class MovimientoDAO {
 
     // Crear movimiento
-    private static final String INSERT_MOVIMIENTO_SQL = "INSERT INTO Movimientos (id_usuario, id_palet, tipo_movimiento, cantidad, observaciones) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_MOVIMIENTO_SQL = "INSERT INTO movimientos (id_usuario, id_palet, tipo_movimiento, cantidad, observaciones) VALUES (?, ?, ?, ?, ?)";
 
     public static void createMovimiento(Connection connection, int id_usuario, int id_palet, String tipo_movimiento, int cantidad, String observaciones) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_MOVIMIENTO_SQL)) {

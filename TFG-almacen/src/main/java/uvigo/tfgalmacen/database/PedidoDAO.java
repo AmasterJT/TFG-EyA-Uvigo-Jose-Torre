@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class PedidoDAO {
 
     // Crear pedido
-    private static final String INSERT_PEDIDO_SQL = "INSERT INTO Pedidos (id_usuario, estado) VALUES (?, ?)";
+    private static final String INSERT_PEDIDO_SQL = "INSERT INTO pedidos (id_usuario, estado) VALUES (?, ?)";
 
     public static void createPedido(Connection connection, int id_usuario, String estado) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PEDIDO_SQL)) {
@@ -25,7 +25,7 @@ public class PedidoDAO {
     }
 
     // Leer pedidos
-    private static final String SELECT_ALL_PEDIDOS_SQL = "SELECT * FROM Pedidos";
+    private static final String SELECT_ALL_PEDIDOS_SQL = "SELECT * FROM pedidos";
 
     public static void readPedidos(Connection connection) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PEDIDOS_SQL)) {
