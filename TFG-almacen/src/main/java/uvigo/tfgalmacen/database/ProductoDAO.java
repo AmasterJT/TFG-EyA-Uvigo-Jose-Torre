@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class ProductoDAO {
 
     // Crear producto
-    private static final String INSERT_PRODUCTO_SQL = "INSERT INTO Productos (nombre_producto, descripcion, precio) VALUES (?, ?, ?)";
+    private static final String INSERT_PRODUCTO_SQL = "INSERT INTO productos (nombre_producto, descripcion, precio) VALUES (?, ?, ?)";
 
     public static void createProducto(Connection connection, String nombre, String descripcion, double precio) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCTO_SQL)) {
@@ -26,7 +26,7 @@ public class ProductoDAO {
     }
 
     // Leer productos
-    private static final String SELECT_ALL_PRODUCTOS_SQL = "SELECT * FROM Productos";
+    private static final String SELECT_ALL_PRODUCTOS_SQL = "SELECT * FROM productos";
 
     public static void readProductos(Connection connection) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PRODUCTOS_SQL)) {
@@ -46,7 +46,7 @@ public class ProductoDAO {
     }
 
     // Actualizar producto
-    private static final String UPDATE_PRODUCTO_SQL = "UPDATE Productos SET nombre_producto = ?, descripcion = ?, precio = ? WHERE id_producto = ?";
+    private static final String UPDATE_PRODUCTO_SQL = "UPDATE productos SET nombre_producto = ?, descripcion = ?, precio = ? WHERE id_producto = ?";
 
     public static void updateProducto(Connection connection, int id_producto, String nombre, String descripcion, double precio) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PRODUCTO_SQL)) {
@@ -65,7 +65,7 @@ public class ProductoDAO {
     }
 
     // Eliminar producto
-    private static final String DELETE_PRODUCTO_SQL = "DELETE FROM Productos WHERE id_producto = ?";
+    private static final String DELETE_PRODUCTO_SQL = "DELETE FROM productos WHERE id_producto = ?";
 
     public static void deleteProducto(Connection connection, int id_producto) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCTO_SQL)) {

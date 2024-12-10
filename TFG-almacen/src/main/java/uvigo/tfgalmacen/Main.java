@@ -16,8 +16,8 @@ import java.sql.Statement;
 import uvigo.tfgalmacen.database.DatabaseConnection;
 import uvigo.tfgalmacen.database.ProductoDAO;
 
-import static uvigo.tfgalmacen.dataTransform.DataExporter.exportDatabaseTablesToXML;
-import static uvigo.tfgalmacen.dataTransform.DataExporter.exportDatabaseToXML;
+import static uvigo.tfgalmacen.dataTransform.DataExcelExporter.exportDatabaseTablesToXML;
+import static uvigo.tfgalmacen.dataTransform.DataExcelExporter.exportDatabaseToXML;
 import static uvigo.tfgalmacen.database.DatabaseConnection.*;
 import static uvigo.tfgalmacen.database.RolePermissionDAO.printRolesAndPermissions;
 import static uvigo.tfgalmacen.database.TableLister.listTables;
@@ -68,8 +68,8 @@ public class Main extends Application {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            //System.out.println("deberiamos cerrar la conexion aqui");
-            close(connection);  // Cerrar la conexión
+            System.out.println("deberiamos cerrar la conexion aqui");
+            //close(connection);  // Cerrar la conexión
         }
 
         launch(); // lanzamos la aplicacion grafica

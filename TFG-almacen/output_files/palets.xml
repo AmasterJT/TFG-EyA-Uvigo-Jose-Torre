@@ -7,7 +7,7 @@
     <estanteria>1</estanteria>
     <balda>2</balda>
     <posicion>3</posicion>
-    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
   </Row>
   <Row>
     <id_palet>2</id_palet>
@@ -16,7 +16,7 @@
     <estanteria>2</estanteria>
     <balda>4</balda>
     <posicion>2</posicion>
-    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
   </Row>
   <Row>
     <id_palet>3</id_palet>
@@ -25,7 +25,7 @@
     <estanteria>3</estanteria>
     <balda>3</balda>
     <posicion>3</posicion>
-    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
   </Row>
   <Row>
     <id_palet>4</id_palet>
@@ -34,7 +34,7 @@
     <estanteria>1</estanteria>
     <balda>4</balda>
     <posicion>1</posicion>
-    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
   </Row>
   <Row>
     <id_palet>5</id_palet>
@@ -43,7 +43,7 @@
     <estanteria>3</estanteria>
     <balda>5</balda>
     <posicion>3</posicion>
-    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
   </Row>
   <Row>
     <id_palet>6</id_palet>
@@ -52,6 +52,6 @@
     <estanteria>4</estanteria>
     <balda>4</balda>
     <posicion>2</posicion>
-    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
   </Row>
 </TableData>
