@@ -84,7 +84,7 @@ El proceso del pedido ha finalizado exitosamente.
     R --> H[Estado del Pedido: 'En curso']
     H --> K[Empacar Productos]
     K --> L[Enviar Pedido]
-    L --> M[Estado del Pedido: Completado]
+    L --> M[Estado del Pedido: 'Completado']
     M --> N[Fin del Pedido]
 
     style A fill:#bb21b6,stroke:#333,stroke-width:2px, color:#FFF, ,rx:500, ry:500

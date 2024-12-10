@@ -5,9 +5,9 @@ create database tfg_almacenDB;
 
 use tfg_almacenDB;
 
--- Creación de la tabla PerimisosUsuarios, donde se definen los distintos permisos que tienen los usuarios
+-- Creación de la tabla permisos_usuarios
 CREATE TABLE
-    PerimisosUsuarios (
+    permisos_usuarios (
         id_permiso INT PRIMARY KEY AUTO_INCREMENT,
         permiso VARCHAR(50) NOT NULL, -- nombre del permiso
         descripcion TEXT -- descripción de la utilidad del permiso
@@ -15,56 +15,23 @@ CREATE TABLE
 
 -- Inserción de los permisos por defecto
 INSERT INTO
-    PerimisosUsuarios (permiso, descripcion)
+    permisos_usuarios (permiso, descripcion)
 VALUES
-    (
-        'Gestión de Usuarios',
-        'Permiso para crear, editar o eliminar usuarios del sistema.'
-    ),
-    (
-        'Gestión de Productos',
-        'Permiso para gestionar la información de los productos, incluyendo la creación, edición y eliminación.'
-    ),
-    (
-        'Gestión de Inventario',
-        'Permiso para administrar el inventario, realizar ajustes y mantener registros actualizados.'
-    ),
-    (
-        'Registro de Entradas/Salidas de Productos',
-        'Permiso para registrar y gestionar el movimiento de productos dentro y fuera del sistema.'
-    ),
-    (
-        'Gestión de Pedidos',
-        'Permiso para realizar, modificar o cancelar pedidos dentro del sistema.'
-    ),
-    (
-        'Generación de Reportes',
-        'Permiso para generar reportes detallados sobre diversas actividades dentro del sistema.'
-    ),
-    (
-        'Asignación de Tareas',
-        'Permiso para asignar tareas a usuarios o grupos dentro del sistema.'
-    ),
-    (
-        'Acceso al Historial de Movimientos',
-        'Permiso para acceder al historial de movimientos y transacciones registradas en el sistema.'
-    ),
-    (
-        'Mantenimiento de Infraestructura',
-        'Permiso para realizar tareas de mantenimiento en la infraestructura tecnológica del sistema.'
-    ),
-    (
-        'Gestión Financiera',
-        'Permiso para gestionar aspectos financieros, como facturación y pagos dentro del sistema.'
-    ),
-    (
-        'Gestión de Incidencias',
-        'Permiso para gestionar y hacer seguimiento a incidencias o problemas reportados en el sistema.'
-    );
+    ('Gestión de Usuarios', 'Permiso para crear, editar o eliminar usuarios del sistema.'),
+    ('Gestión de Productos', 'Permiso para gestionar la información de los productos, incluyendo la creación, edición y eliminación.'),
+    ('Gestión de Inventario', 'Permiso para administrar el inventario, realizar ajustes y mantener registros actualizados.'),
+    ('Registro de Entradas/Salidas de Productos', 'Permiso para registrar y gestionar el movimiento de productos dentro y fuera del sistema.'),
+    ('Gestión de Pedidos', 'Permiso para realizar, modificar o cancelar pedidos dentro del sistema.'),
+    ('Generación de Reportes', 'Permiso para generar reportes detallados sobre diversas actividades dentro del sistema.'),
+    ('Asignación de Tareas', 'Permiso para asignar tareas a usuarios o grupos dentro del sistema.'),
+    ('Acceso al Historial de Movimientos', 'Permiso para acceder al historial de movimientos y transacciones registradas en el sistema.'),
+    ('Mantenimiento de Infraestructura', 'Permiso para realizar tareas de mantenimiento en la infraestructura tecnológica del sistema.'),
+    ('Gestión Financiera', 'Permiso para gestionar aspectos financieros, como facturación y pagos dentro del sistema.'),
+    ('Gestión de Incidencias', 'Permiso para gestionar y hacer seguimiento a incidencias o problemas reportados en el sistema.');
 
--- Creación de la tabla Roles, donde se definen los distintos roles del sistema
+-- Creación de la tabla roles
 CREATE TABLE
-    Roles (
+    roles (
         id_rol INT PRIMARY KEY AUTO_INCREMENT,
         nombre_rol VARCHAR(20) NOT NULL,
         descripcion TEXT
@@ -72,373 +39,391 @@ CREATE TABLE
 
 -- Inserción de los roles por defecto
 INSERT INTO
-    Roles (nombre_rol, descripcion)
+    roles (nombre_rol, descripcion)
 VALUES
-    (
-        'SysAdmin',
-        'Administrador del sistema con todos los privilegios.'
-    ),
-    (
-        'Gestor Almacén',
-        'Responsable de la gestión del inventario y almacenes.'
-    ),
-    (
-        'Supervisor',
-        'Encargado de supervisar las operaciones y los equipos.'
-    ),
-    (
-        'Operario',
-        'Trabajador encargado de tareas específicas operativas.'
-    ),
-    (
-        'Mantenimiento',
-        'Responsable del mantenimiento y reparaciones.'
-    ),
-    (
-        'Administración',
-        'Gestión administrativa y documentación.'
-    ),
-    (
-        'Proveedor',
-        'Entidad o persona que suministra productos o servicios.'
-    ),
-    (
-        'Cliente',
-        'Usuario final o consumidor de los productos o servicios.'
-    );
+    ('SysAdmin', 'Administrador del sistema con todos los privilegios.'),
+    ('Gestor Almacén', 'Responsable de la gestión del inventario y almacenes.'),
+    ('Supervisor', 'Encargado de supervisar las operaciones y los equipos.'),
+    ('Operario', 'Trabajador encargado de tareas específicas operativas.'),
+    ('Mantenimiento', 'Responsable del mantenimiento y reparaciones.'),
+    ('Administración', 'Gestión administrativa y documentación.'),
+    ('Proveedor', 'Entidad o persona que suministra productos o servicios.'),
+    ('Cliente', 'Usuario final o consumidor de los productos o servicios.');
 
--- Creación de una tabla intermedia (relacional) que vincule las tablas Roles y PerimisosUsuarios. Dado que un rol puede tener múltiples permisos
--- y un permiso puede ser asignado a varios roles, la relación entre estas dos tablas es de tipo muchos a muchos.
+-- Creación de la tabla rol_permiso
 CREATE TABLE
-    RolPermiso (
+    rol_permiso (
         id_rol INT,
         id_permiso INT,
         estado ENUM ('activo', 'inactivo', 'ver') NOT NULL,
         PRIMARY KEY (id_rol, id_permiso),
-        FOREIGN KEY (id_rol) REFERENCES Roles (id_rol),
-        FOREIGN KEY (id_permiso) REFERENCES PerimisosUsuarios (id_permiso)
+        FOREIGN KEY (id_rol) REFERENCES roles (id_rol),
+        FOREIGN KEY (id_permiso) REFERENCES permisos_usuarios (id_permiso)
     );
+
+
 
 -- Insertar relación entre Roles y Permisos
 -- Para "Gestión de Usuarios"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
-    (1, 1, 'activo'), -- SysAdmin
-    (2, 1, 'inactivo'), -- Gestor Almacén
-    (3, 1, 'inactivo'), -- Supervisor
-    (4, 1, 'inactivo'), -- Operario
-    (5, 1, 'inactivo'), -- Mantenimiento
-    (6, 1, 'inactivo'), -- Administración
-    (7, 1, 'inactivo'), -- Proveedor
+    -- SysAdmin
+    (1, 1, 'activo'),
+    -- Gestor Almacén
+    (2, 1, 'inactivo'),
+    -- Supervisor
+    (3, 1, 'inactivo'),
+    -- Operario
+    (4, 1, 'inactivo'),
+    -- Mantenimiento
+    (5, 1, 'inactivo'),
+    -- Administración
+    (6, 1, 'inactivo'),
+    -- Proveedor
+    (7, 1, 'inactivo'),
+    -- Cliente
     (8, 1, 'inactivo');
 
--- Cliente
 -- Para "Gestión de Productos (CRUD)"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
-    (1, 2, 'activo'), -- SysAdmin
-    (2, 2, 'activo'), -- Gestor Almacén
-    (3, 2, 'activo'), -- Supervisor
-    (4, 2, 'inactivo'), -- Operario
-    (5, 2, 'inactivo'), -- Mantenimiento
-    (6, 2, 'inactivo'), -- Administración
-    (7, 2, 'inactivo'), -- Proveedor
+    -- SysAdmin
+    (1, 2, 'activo'),
+    -- Gestor Almacén
+    (2, 2, 'activo'),
+    -- Supervisor
+    (3, 2, 'activo'),
+    -- Operario
+    (4, 2, 'inactivo'),
+    -- Mantenimiento
+    (5, 2, 'inactivo'),
+    -- Administración
+    (6, 2, 'inactivo'),
+    -- Proveedor
+    (7, 2, 'inactivo'),
+    -- Cliente
     (8, 2, 'inactivo');
 
--- Cliente
 -- Para "Gestión de Inventario (stock, ubicación)"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
-    (1, 3, 'activo'), -- SysAdmin
-    (2, 3, 'activo'), -- Gestor Almacén
-    (3, 3, 'activo'), -- Supervisor
-    (4, 3, 'ver'), -- Operario
-    (5, 3, 'inactivo'), -- Mantenimiento
-    (6, 3, 'ver'), -- Administración
-    (7, 3, 'inactivo'), -- Proveedor
+    -- SysAdmin
+    (1, 3, 'activo'),
+    -- Gestor Almacén
+    (2, 3, 'activo'),
+    -- Supervisor
+    (3, 3, 'activo'),
+    -- Operario
+    (4, 3, 'ver'),
+    -- Mantenimiento
+    (5, 3, 'inactivo'),
+    -- Administración
+    (6, 3, 'ver'),
+    -- Proveedor
+    (7, 3, 'inactivo'),
+    -- Cliente
     (8, 3, 'inactivo');
 
--- Cliente
 -- Para "Registro de Entradas/Salidas de Productos"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
-    (1, 4, 'activo'), -- SysAdmin
-    (2, 4, 'activo'), -- Gestor Almacén
-    (3, 4, 'activo'), -- Supervisor
-    (4, 4, 'activo'), -- Operario
-    (5, 4, 'inactivo'), -- Mantenimiento
-    (6, 4, 'inactivo'), -- Administración
-    (7, 4, 'inactivo'), -- Proveedor
-    (8, 4, 'inactivo'); -- Cliente
-    
+    -- SysAdmin
+    (1, 4, 'activo'),
+    -- Gestor Almacén
+    (2, 4, 'activo'),
+    -- Supervisor
+    (3, 4, 'activo'),
+    -- Operario
+    (4, 4, 'activo'),
+    -- Mantenimiento
+    (5, 4, 'inactivo'),
+    -- Administración
+    (6, 4, 'inactivo'),
+    -- Proveedor
+    (7, 4, 'inactivo'),
+    -- Cliente
+    (8, 4, 'inactivo');
+
 -- Para "Gestión de Pedidos"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
-    (1, 5, 'activo'), -- SysAdmin
-    (2, 5, 'activo'), -- Gestor Almacén
-    (3, 5, 'activo'), -- Supervisor
-    (4, 5, 'activo'), -- Operario
-    (5, 5, 'inactivo'), -- Mantenimiento
-    (6, 5, 'ver'), -- Administración
-    (7, 5, 'inactivo'), -- Proveedor
+    -- SysAdmin
+    (1, 5, 'activo'),
+    -- Gestor Almacén
+    (2, 5, 'activo'),
+    -- Supervisor
+    (3, 5, 'activo'),
+    -- Operario
+    (4, 5, 'activo'),
+    -- Mantenimiento
+    (5, 5, 'inactivo'),
+    -- Administración
+    (6, 5, 'ver'),
+    -- Proveedor
+    (7, 5, 'inactivo'),
+    -- Cliente
     (8, 5, 'activo');
 
--- Cliente
 -- Para "Generación de Reportes (inventario, ventas)"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
-    (1, 6, 'activo'), -- SysAdmin
-    (2, 6, 'activo'), -- Gestor Almacén
-    (3, 6, 'activo'), -- Supervisor
-    (4, 6, 'inactivo'), -- Operario
-    (5, 6, 'inactivo'), -- Mantenimiento
-    (6, 6, 'activo'), -- Administración
-    (7, 6, 'inactivo'), -- Proveedor
+    -- SysAdmin
+    (1, 6, 'activo'),
+    -- Gestor Almacén
+    (2, 6, 'activo'),
+    -- Supervisor
+    (3, 6, 'activo'),
+    -- Operario
+    (4, 6, 'inactivo'),
+    -- Mantenimiento
+    (5, 6, 'inactivo'),
+    -- Administración
+    (6, 6, 'activo'),
+    -- Proveedor
+    (7, 6, 'inactivo'),
+    -- Cliente
     (8, 6, 'inactivo');
 
--- Cliente
 -- Para "Asignación de Tareas (Picking/Packing)"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
-    (1, 7, 'activo'), -- SysAdmin
-    (2, 7, 'activo'), -- Gestor Almacén
-    (3, 7, 'activo'), -- Supervisor
-    (4, 7, 'inactivo'), -- Operario
-    (5, 7, 'inactivo'), -- Mantenimiento
-    (6, 7, 'inactivo'), -- Administración
-    (7, 7, 'inactivo'), -- Proveedor
+    -- SysAdmin
+    (1, 7, 'activo'),
+    -- Gestor Almacén
+    (2, 7, 'activo'),
+    -- Supervisor
+    (3, 7, 'activo'),
+    -- Operario
+    (4, 7, 'inactivo'),
+    -- Mantenimiento
+    (5, 7, 'inactivo'),
+    -- Administración
+    (6, 7, 'inactivo'),
+    -- Proveedor
+    (7, 7, 'inactivo'),
+    -- Cliente
     (8, 7, 'inactivo');
 
--- Cliente
 -- Para "Acceso al Historial de Movimientos"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
-    (1, 8, 'activo'), -- SysAdmin
-    (2, 8, 'activo'), -- Gestor Almacén
-    (3, 8, 'activo'), -- Supervisor
-    (4, 8, 'ver'), -- Operario
-    (5, 8, 'ver'), -- Mantenimiento
-    (6, 8, 'ver'), -- Administración
-    (7, 8, 'inactivo'), -- Proveedor
-    (8, 8, 'inactivo'); -- Cliente
-    
+    -- SysAdmin
+    (1, 8, 'activo'),
+    -- Gestor Almacén
+    (2, 8, 'activo'),
+    -- Supervisor
+    (3, 8, 'activo'),
+    -- Operario
+    (4, 8, 'ver'),
+    -- Mantenimiento
+    (5, 8, 'ver'),
+    -- Administración
+    (6, 8, 'ver'),
+    -- Proveedor
+    (7, 8, 'inactivo'),
+    -- Cliente
+    (8, 8, 'inactivo');
+
 -- Para "Mantenimiento de Infraestructura"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
-    (1, 9, 'activo'), -- SysAdmin
-    (2, 9, 'inactivo'), -- Gestor Almacén
-    (3, 9, 'ver'), -- Supervisor
-    (4, 9, 'inactivo'), -- Operario
-    (5, 9, 'activo'), -- Mantenimiento
-    (6, 9, 'inactivo'), -- Administración
-    (7, 9, 'inactivo'), -- Proveedor
-    (8, 9, 'inactivo'); -- Cliente
-    
+    -- SysAdmin
+    (1, 9, 'activo'),
+    -- Gestor Almacén
+    (2, 9, 'inactivo'),
+    -- Supervisor
+    (3, 9, 'ver'),
+    -- Operario
+    (4, 9, 'inactivo'),
+    -- Mantenimiento
+    (5, 9, 'activo'),
+    -- Administración
+    (6, 9, 'inactivo'),
+    -- Proveedor
+    (7, 9, 'inactivo'),
+    -- Cliente
+    (8, 9, 'inactivo');
+
 -- Para "Gestión Financiera (compras/ventas)"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
-    (1, 10, 'activo'), -- SysAdmin
-    (2, 10, 'inactivo'), -- Gestor Almacén
-    (3, 10, 'inactivo'), -- Supervisor
-    (4, 10, 'inactivo'), -- Operario
-    (5, 10, 'inactivo'), -- Mantenimiento
-    (6, 10, 'activo'), -- Administración
-    (7, 10, 'inactivo'), -- Proveedor
+    -- SysAdmin
+    (1, 10, 'activo'),
+    -- Gestor Almacén
+    (2, 10, 'inactivo'),
+    -- Supervisor
+    (3, 10, 'inactivo'),
+    -- Operario
+    (4, 10, 'inactivo'),
+    -- Mantenimiento
+    (5, 10, 'inactivo'),
+    -- Administración
+    (6, 10, 'activo'),
+    -- Proveedor
+    (7, 10, 'inactivo'),
+    -- Cliente
     (8, 10, 'ver');
 
--- Cliente
 -- Para "Gestión de Incidencias"
 INSERT INTO
-    RolPermiso (id_rol, id_permiso, estado)
+    rol_permiso (id_rol, id_permiso, estado)
 VALUES
-    (1, 11, 'activo'), -- SysAdmin
-    (2, 11, 'inactivo'), -- Gestor Almacén
-    (3, 11, 'ver'), -- Supervisor
-    (4, 11, 'ver'), -- Operario
-    (5, 11, 'ver'), -- Mantenimiento
-    (6, 11, 'inactivo'), -- Administración
-    (7, 11, 'inactivo'), -- Proveedor
+    -- SysAdmin
+    (1, 11, 'activo'),
+    -- Gestor Almacén
+    (2, 11, 'inactivo'),
+    -- Supervisor
+    (3, 11, 'ver'),
+    -- Operario
+    (4, 11, 'ver'),
+    -- Mantenimiento
+    (5, 11, 'ver'),
+    -- Administración
+    (6, 11, 'inactivo'),
+    -- Proveedor
+    (7, 11, 'inactivo'),
+    -- Cliente
     (8, 11, 'inactivo');
 
--- Cliente
--- Creación de la tabla Estanterias, que almacena la información de cómo son estas
+-- Creación de la tabla estanterias
 CREATE TABLE
-    Estanterias (
-        id_estanteria INT PRIMARY KEY AUTO_INCREMENT, -- identificador de la estanteria
-        num_baldas INT NOT NULL, -- Cantidad de baldas que tiene la estanteria
-        posiciones_por_balda INT NOT NULL, -- Cuántas posiciones hay en cada balda
-        posiciones_disponibles INT NOT NULL, -- Cuantas posiciones estan disponibles en la estantería
-        zona VARCHAR(100) -- Zona del almacen donde se encuentra la estanteria
+    estanterias (
+        id_estanteria INT PRIMARY KEY AUTO_INCREMENT,
+        num_baldas INT NOT NULL,
+        posiciones_por_balda INT NOT NULL,
+        posiciones_disponibles INT NOT NULL,
+        zona VARCHAR(100)
     );
 
---  Este TRIGGER calculará el valor de posiciones_disponibles multiplicando las baldas y las posiciones.
 DELIMITER //
 CREATE TRIGGER calcular_posiciones_disponibles
-BEFORE INSERT ON estanterias -- establecemos el valor de posiciones_disponibles antes de que se realice la inserción
-FOR EACH ROW -- Se aplica a cada fila que se inserta.
+BEFORE INSERT ON estanterias
+FOR EACH ROW
 BEGIN
-	-- Calcula el valor de posiciones_disponibles multiplicando balas y posiciones de la nueva fila.
     SET NEW.posiciones_disponibles = NEW.num_baldas * NEW.posiciones_por_balda;
 END;
 //
 DELIMITER ;
 
--- Creación de la tabla Usuarios, que almacena la información de los usuarios del sistema
+-- Creación de la tabla usuarios
 CREATE TABLE
-    Usuarios (
+    usuarios (
         id_usuario INT PRIMARY KEY AUTO_INCREMENT,
         nombre VARCHAR(100) NOT NULL,
         email VARCHAR(100) NOT NULL UNIQUE,
         contraseña VARCHAR(255) NOT NULL,
         id_rol INT,
         fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (id_rol) REFERENCES Roles (id_rol)
+        FOREIGN KEY (id_rol) REFERENCES roles (id_rol)
     );
 
--- Crear la tabla Clientes
-CREATE TABLE Clientes (
-    -- Identificador único para cada cliente. Es la clave primaria y se incrementa automáticamente.
-    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
-
-    -- Nombre del cliente, un texto obligatorio de hasta 100 caracteres.
-    nombre_cliente VARCHAR(100) NOT NULL,
-
-    -- Correo electrónico del cliente, debe ser único y no puede estar vacío.
-    email_cliente VARCHAR(150) UNIQUE NOT NULL,
-
-    -- Teléfono del cliente. Se almacena como texto para admitir formatos como "+52-123-456-7890".
-    telefono_cliente VARCHAR(20),
-
-    -- Dirección del cliente, como la calle y el número. Opcional, de hasta 255 caracteres.
-    direccion_cliente VARCHAR(255),
-
-    -- Ciudad del cliente. Opcional, de hasta 100 caracteres.
-    ciudad_cliente VARCHAR(100),
-
-    -- Estado o provincia del cliente. Opcional, de hasta 100 caracteres.
-    estado_pais_cliente VARCHAR(100),
-
-    -- País del cliente. Opcional, de hasta 100 caracteres.
-    pais_cliente VARCHAR(100),
-
-    -- Fecha de nacimiento del cliente. Opcional, almacenada en formato de fecha.
-    fecha_nacimiento DATE,
-
-    -- Indica si el cliente está activo o no. Por defecto, es TRUE (activo).
-    estado_cliente BOOLEAN DEFAULT TRUE,
-
-    -- Fecha y hora en que el cliente se registró. Por defecto, se asigna la hora actual automáticamente.
-    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    -- Fecha y hora de la última actualización del registro. Se actualiza automáticamente al modificar la fila.
-    ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-
--- Creación de la tabla Productos, donde se almacenan los productos del almacén
+-- Creación de la tabla clientes
 CREATE TABLE
-    Productos (
+    clientes (
+        id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+        nombre_cliente VARCHAR(100) NOT NULL,
+        email_cliente VARCHAR(150) UNIQUE NOT NULL,
+        telefono_cliente VARCHAR(20),
+        direccion_cliente VARCHAR(255),
+        ciudad_cliente VARCHAR(100),
+        estado_pais_cliente VARCHAR(100),
+        pais_cliente VARCHAR(100),
+        fecha_nacimiento DATE,
+        estado_cliente BOOLEAN DEFAULT TRUE,
+        fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    );
+
+-- Creación de la tabla productos
+CREATE TABLE
+    productos (
         id_producto INT PRIMARY KEY AUTO_INCREMENT,
         nombre_producto VARCHAR(100) NOT NULL,
         descripcion TEXT,
-        precio DECIMAL(10, 2), -- Precio unitario del producto
+        precio DECIMAL(10, 2),
         fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
--- Creación de la tabla Palets, donde se almacenan los palets que contienen productos
+-- Creación de la tabla palets
 CREATE TABLE
-    Palets (
+    palets (
         id_palet INT PRIMARY KEY AUTO_INCREMENT,
-        id_producto INT, -- Hace referencia al tipo de producto que contiene el palet
-        cantidad INT NOT NULL, -- Cantidad de productos que contiene el palet
-        estanteria INT NOT NULL, -- estanteria donde se encuentra el palet
-        balda INT NOT NULL, -- balda donde se encuetra el palet en la estanteria
-        posicion INT NOT NULL, -- poscion de la balda donde se encuentra el palet
+        id_producto INT,
+        cantidad INT NOT NULL,
+        estanteria INT NOT NULL,
+        balda INT NOT NULL,
+        posicion INT NOT NULL,
         fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (id_producto) REFERENCES Productos (id_producto)
+        FOREIGN KEY (id_producto) REFERENCES productos (id_producto)
     );
 
--- Creación de la tabla Movimientos, que almacena la entrada y salida de palets en el almacén
+-- Creación de la tabla movimientos
 CREATE TABLE
-    Movimientos (
+    movimientos (
         id_movimiento INT PRIMARY KEY AUTO_INCREMENT,
-        id_usuario INT, -- Usuario que realizó el movimiento
-        id_palet INT, -- Palet afectado por el movimiento
+        id_usuario INT,
+        id_palet INT,
         tipo_movimiento ENUM ('Entrada', 'Salida') NOT NULL,
-        cantidad INT NOT NULL, -- Cantidad de productos movidos en el movimiento
+        cantidad INT NOT NULL,
         fecha_movimiento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         observaciones TEXT,
-        FOREIGN KEY (id_usuario) REFERENCES Usuarios (id_usuario),
-        FOREIGN KEY (id_palet) REFERENCES Palets (id_palet)
+        FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario),
+        FOREIGN KEY (id_palet) REFERENCES palets (id_palet)
     );
-    
 
-
--- Creación de la tabla Pedidos, donde se almacenan los pedidos realizados
+-- Creación de la tabla pedidos
 CREATE TABLE
-    Pedidos (
+    pedidos (
         id_pedido INT PRIMARY KEY AUTO_INCREMENT,
         codigo_referencia VARCHAR(50) UNIQUE,
-        id_usuario INT NOT NULL, -- Usuario que realizó el pedido
-		id_cliente INT NOT NULL, -- Cliente que realizó el pedido
+        id_usuario INT NOT NULL,
+        id_cliente INT NOT NULL,
         fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         estado ENUM ('Pendiente', 'Completado', 'En proceso', 'Cancelado') NOT NULL,
-        FOREIGN KEY (id_cliente) REFERENCES Clientes (id_cliente),
-		FOREIGN KEY (id_usuario) REFERENCES Usuarios (id_usuario)
+        FOREIGN KEY (id_cliente) REFERENCES clientes (id_cliente),
+        FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario)
     );
 
 DELIMITER //
-CREATE TRIGGER generar_codigo_referencia BEFORE INSERT ON Pedidos
+CREATE TRIGGER generar_codigo_referencia
+BEFORE INSERT ON pedidos
 FOR EACH ROW
 BEGIN
     DECLARE secuencia_diaria INT;
     DECLARE secuencia_hex VARCHAR(10);
     DECLARE nuevo_codigo VARCHAR(50);
 
-    -- Calcular el número secuencial para el día actual
     SELECT COUNT(*) + 1 INTO secuencia_diaria
-    FROM Pedidos
+    FROM pedidos
     WHERE DATE(fecha_pedido) = DATE(NEW.fecha_pedido);
 
-    -- Convertir el número secuencial a formato hexadecimal
-    SET secuencia_hex = LPAD(HEX(secuencia_diaria), 5, '0');
-
-    -- Generar el código de referencia
-    SET nuevo_codigo = CONCAT(
-        'PED-', 
-        DATE_FORMAT(NEW.fecha_pedido, '%Y%m%d'), 
-        '-', 
-        secuencia_hex
-    );
-
-    -- Asignar el nuevo código al pedido
+    SET secuencia_hex = LPAD(HEX(secuencia_diaria), 6, '0');
+    SET nuevo_codigo = CONCAT('PED-', DATE_FORMAT(NEW.fecha_pedido, '%Y%m%d'), '-', secuencia_hex);
     SET NEW.codigo_referencia = nuevo_codigo;
 END;
 //
 DELIMITER ;
 
-
--- Creación de la tabla DetallesPedido, que almacena los productos incluidos en cada pedido
+-- Creación de la tabla detalles_pedido
 CREATE TABLE
-    DetallesPedido (
+    detalles_pedido (
         id_detalle INT PRIMARY KEY AUTO_INCREMENT,
-        id_pedido INT, -- Pedido al que pertenece este detalle
-        id_palet INT, -- Palet de productos solicitado en el pedido
-        cantidad INT NOT NULL, -- Cantidad de productos solicitados
-        FOREIGN KEY (id_pedido) REFERENCES Pedidos (id_pedido),
-        FOREIGN KEY (id_palet) REFERENCES Palets (id_palet)
+        id_pedido INT,
+        id_palet INT,
+        cantidad INT NOT NULL,
+        FOREIGN KEY (id_pedido) REFERENCES pedidos (id_pedido),
+        FOREIGN KEY (id_palet) REFERENCES palets (id_palet)
     );
-
 
 
 -- -------------------------------------------------------------------------------------------------
@@ -448,28 +433,28 @@ CREATE TABLE
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- Limpiar las tablas (eliminar todos los registros)
-TRUNCATE TABLE DetallesPedido;
-TRUNCATE TABLE Pedidos;
-TRUNCATE TABLE Movimientos;
-TRUNCATE TABLE Productos;
-TRUNCATE TABLE Usuarios;
-TRUNCATE TABLE Estanterias;
+TRUNCATE TABLE detalles_pedido;
+TRUNCATE TABLE pedidos;
+TRUNCATE TABLE movimientos;
+TRUNCATE TABLE productos;
+TRUNCATE TABLE usuarios;
+TRUNCATE TABLE estanterias;
 
 -- Reactivar las comprobaciones de claves foráneas
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- Establecer valores iniciales para el auto incremento de varias tablas
-ALTER TABLE Roles AUTO_INCREMENT = 7;
-ALTER TABLE Estanterias AUTO_INCREMENT = 1;
-ALTER TABLE Usuarios AUTO_INCREMENT = 1;
-ALTER TABLE Productos AUTO_INCREMENT = 1;
-ALTER TABLE Palets AUTO_INCREMENT = 1;
-ALTER TABLE Movimientos AUTO_INCREMENT = 1;
-ALTER TABLE Pedidos AUTO_INCREMENT = 1;
-ALTER TABLE DetallesPedido AUTO_INCREMENT = 1;
+ALTER TABLE roles AUTO_INCREMENT = 7;
+ALTER TABLE estanterias AUTO_INCREMENT = 1;
+ALTER TABLE usuarios AUTO_INCREMENT = 1;
+ALTER TABLE productos AUTO_INCREMENT = 1;
+ALTER TABLE palets AUTO_INCREMENT = 1;
+ALTER TABLE movimientos AUTO_INCREMENT = 1;
+ALTER TABLE pedidos AUTO_INCREMENT = 1;
+ALTER TABLE detalles_pedido AUTO_INCREMENT = 1;
 
 -- Inserción de datos en la tabla Estanterias
-INSERT INTO Estanterias (num_baldas, posiciones_por_balda)
+INSERT INTO estanterias (num_baldas, posiciones_por_balda)
 VALUES
     -- Estantería 1: 8 baldas, 24 posiciones por balda
     (8, 24), 
@@ -481,7 +466,7 @@ VALUES
     (6, 10); 
 
 -- Inserción de datos en la tabla Usuarios
-INSERT INTO Usuarios (nombre, email, contraseña, id_rol)
+INSERT INTO usuarios (nombre, email, contraseña, id_rol)
 VALUES
     -- Usuario SysAdmin
     ('Admin', 'admin@almacen.com', 'hashed_password', 1),
@@ -497,7 +482,7 @@ VALUES
     ('Ana Torres', 'ana.torres@almacen.com', 'hashed_password', 6);
 
 -- Insertando registros en la tabla Clientes
-INSERT INTO Clientes (nombre_cliente, email_cliente, telefono_cliente, direccion_cliente, ciudad_cliente, estado_pais_cliente, pais_cliente, fecha_nacimiento, estado_cliente)
+INSERT INTO clientes (nombre_cliente, email_cliente, telefono_cliente, direccion_cliente, ciudad_cliente, estado_pais_cliente, pais_cliente, fecha_nacimiento, estado_cliente)
 VALUES
     -- Cliente 1: Juan Pérez
     ('Juan Pérez', 'juan.perez@example.com', '+52-555-123-4567', 'Av. Reforma 123', 'Ciudad de México', 'CDMX', 'México', '1985-04-15', TRUE),
@@ -521,7 +506,7 @@ VALUES
     ('Lucía Jiménez', 'lucia.jimenez@example.com', '+49-30-5678-1234', 'Unter den Linden 1', 'Berlín', 'Berlín', 'Alemania', '1980-05-08', TRUE);
 
 -- Inserción de datos en la tabla Productos
-INSERT INTO Productos (nombre_producto, descripcion, precio)
+INSERT INTO productos (nombre_producto, descripcion, precio)
 VALUES
     -- Producto 1: Lápices
     ('Lápices', 'Caja de 50 lápices de madera', 10.50),
@@ -535,7 +520,7 @@ VALUES
     ('Gomas de borrar', 'Pack de 10 gomas de borrar suaves', 3.50);
 
 -- Inserción de datos en la tabla Palets
-INSERT INTO Palets (id_producto, cantidad, estanteria, balda, posicion)
+INSERT INTO palets (id_producto, cantidad, estanteria, balda, posicion)
 VALUES
     -- Palet 1: Lápices, 100 unidades en la estantería 1, balda 2, posición 3
     (1, 100, 1, 2, 3),
@@ -551,7 +536,7 @@ VALUES
     (5, 300, 4, 4, 2);
 
 -- Inserción de datos en la tabla Movimientos
-INSERT INTO Movimientos (id_usuario, id_palet, tipo_movimiento, cantidad, observaciones)
+INSERT INTO movimientos (id_usuario, id_palet, tipo_movimiento, cantidad, observaciones)
 VALUES
     -- Movimiento 1: Entrada de lápices en Zona A
     (2, 1, 'Entrada', 100, 'Recepción de lápices en Zona A - Estante 1'),
@@ -563,7 +548,7 @@ VALUES
     (5, 4, 'Entrada', 150, 'Recepción de bolígrafos en Zona C - Estante 1');
 
 -- Inserción de datos en la tabla Pedidos
-INSERT INTO Pedidos (id_usuario, id_cliente, estado)
+INSERT INTO pedidos (id_usuario, id_cliente, estado)
 VALUES
     -- Pedido 1: Hecho por el Gestor Almacén
     (2, 2, 'Pendiente'),
@@ -588,7 +573,7 @@ VALUES
 
 
 -- Inserción de datos en la tabla DetallesPedido
-INSERT INTO DetallesPedido (id_pedido, id_palet, cantidad)
+INSERT INTO detalles_pedido (id_pedido, id_palet, cantidad)
 VALUES
     -- Detalles del Pedido 1: Incluye lápices y bolígrafos
     (1, 1, 20),  -- 20 unidades del primer palet (Lápices)
