@@ -6,7 +6,7 @@
     <email>admin@almacen.com</email>
     <contraseña>hashed_password</contraseña>
     <id_rol>1</id_rol>
-    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
+    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
   </Row>
   <Row>
     <id_usuario>2</id_usuario>
@@ -14,7 +14,7 @@
     <email>juan.perez@almacen.com</email>
     <contraseña>hashed_password</contraseña>
     <id_rol>2</id_rol>
-    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
+    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
   </Row>
   <Row>
     <id_usuario>3</id_usuario>
@@ -22,7 +22,7 @@
     <email>maria.lopez@almacen.com</email>
     <contraseña>hashed_password</contraseña>
     <id_rol>3</id_rol>
-    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
+    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
   </Row>
   <Row>
     <id_usuario>4</id_usuario>
@@ -30,7 +30,7 @@
     <email>carlos.diaz@almacen.com</email>
     <contraseña>hashed_password</contraseña>
     <id_rol>4</id_rol>
-    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
+    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
   </Row>
   <Row>
     <id_usuario>5</id_usuario>
@@ -38,7 +38,7 @@
     <email>luisa.gomez@almacen.com</email>
     <contraseña>hashed_password</contraseña>
     <id_rol>5</id_rol>
-    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
+    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
   </Row>
   <Row>
     <id_usuario>6</id_usuario>
@@ -46,6 +46,6 @@
     <email>ana.torres@almacen.com</email>
     <contraseña>hashed_password</contraseña>
     <id_rol>6</id_rol>
-    <fecha_registro>2024-12-09 23:33:26</fecha_registro>
+    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
   </Row>
 </TableData>
