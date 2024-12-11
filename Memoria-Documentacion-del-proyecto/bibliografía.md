@@ -42,17 +42,17 @@
 <div class="image-container">
     <div >
         <a class="image-item" href="https://docs.oracle.com/en/java/javase/11/docs/api/index.html" target="_blank">
-            <img src="image.png" alt="java">
+            <img src="logo-java.png" alt="java">
         </a>
     </div>
     <div>
         <a class="image-item" href="https://openjfx.io/" target="_blank">
-            <img src="image-1.png" alt="javaFX">
+            <img src="logo-javafx.png" alt="javaFX">
         </a>
     </div>
     <div >
         <a class="image-item" href="https://docs.spring.io/spring-boot/docs/3.2.5/reference/htmlsingle/" target="_blank">
-            <img src="image-2.png" alt="Spring Boot">
+            <img src="spring-boot-logo.png" alt="Spring Boot">
         </a> 
     </div>
 </div>
@@ -62,7 +62,7 @@
 
 <div class="image-container">
     <div class="image-item">
-          <img src="image-3.png" alt="Android">
+          <img src="android-logo.png" alt="Android">
     </div>
 </div>
 
@@ -71,7 +71,7 @@
 
 <div style="aling-items: center; margin-bottom: 20px;">
        <a class="image-item" href="https://github.com/" target="_blank">
-      <img src="image-4.png" alt="Android">
+      <img src="github-logo.png" alt="Android">
     </a>
 </div>
 
