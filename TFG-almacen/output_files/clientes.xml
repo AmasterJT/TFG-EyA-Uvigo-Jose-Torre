@@ -11,8 +11,8 @@
     <pais_cliente>México</pais_cliente>
     <fecha_nacimiento>1985-04-15</fecha_nacimiento>
     <estado_cliente>1</estado_cliente>
-    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
-    <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
   </Row>
   <Row>
     <id_cliente>2</id_cliente>
@@ -25,8 +25,8 @@
     <pais_cliente>México</pais_cliente>
     <fecha_nacimiento>1990-07-22</fecha_nacimiento>
     <estado_cliente>1</estado_cliente>
-    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
-    <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
   </Row>
   <Row>
     <id_cliente>3</id_cliente>
@@ -39,8 +39,8 @@
     <pais_cliente>México</pais_cliente>
     <fecha_nacimiento>1982-11-02</fecha_nacimiento>
     <estado_cliente>0</estado_cliente>
-    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
-    <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
   </Row>
   <Row>
     <id_cliente>4</id_cliente>
@@ -53,8 +53,8 @@
     <pais_cliente>Estados Unidos</pais_cliente>
     <fecha_nacimiento>1995-06-30</fecha_nacimiento>
     <estado_cliente>1</estado_cliente>
-    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
-    <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
   </Row>
   <Row>
     <id_cliente>5</id_cliente>
@@ -67,8 +67,8 @@
     <pais_cliente>Reino Unido</pais_cliente>
     <fecha_nacimiento>1979-03-18</fecha_nacimiento>
     <estado_cliente>1</estado_cliente>
-    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
-    <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
   </Row>
   <Row>
     <id_cliente>6</id_cliente>
@@ -81,8 +81,8 @@
     <pais_cliente>España</pais_cliente>
     <fecha_nacimiento>1988-08-10</fecha_nacimiento>
     <estado_cliente>1</estado_cliente>
-    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
-    <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
   </Row>
   <Row>
     <id_cliente>7</id_cliente>
@@ -95,8 +95,8 @@
     <pais_cliente>México</pais_cliente>
     <fecha_nacimiento>1992-01-05</fecha_nacimiento>
     <estado_cliente>0</estado_cliente>
-    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
-    <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
   </Row>
   <Row>
     <id_cliente>8</id_cliente>
@@ -109,8 +109,8 @@
     <pais_cliente>España</pais_cliente>
     <fecha_nacimiento>1986-12-25</fecha_nacimiento>
     <estado_cliente>1</estado_cliente>
-    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
-    <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
   </Row>
   <Row>
     <id_cliente>9</id_cliente>
@@ -123,8 +123,8 @@
     <pais_cliente>Argentina</pais_cliente>
     <fecha_nacimiento>1993-09-12</fecha_nacimiento>
     <estado_cliente>1</estado_cliente>
-    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
-    <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
   </Row>
   <Row>
     <id_cliente>10</id_cliente>
@@ -137,7 +137,7 @@
     <pais_cliente>Alemania</pais_cliente>
     <fecha_nacimiento>1980-05-08</fecha_nacimiento>
     <estado_cliente>1</estado_cliente>
-    <fecha_registro>2024-12-11 13:50:27</fecha_registro>
-    <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+    <fecha_registro>2024-11-24 22:55:33</fecha_registro>
+    <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
   </Row>
 </TableData>

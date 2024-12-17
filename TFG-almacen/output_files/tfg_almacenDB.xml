@@ -22,9 +22,9 @@
             
         <estado_cliente>1</estado_cliente>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
             
-        <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+        <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
           
     </Row>
     <Row>
@@ -49,9 +49,9 @@
             
         <estado_cliente>1</estado_cliente>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
             
-        <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+        <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
           
     </Row>
     <Row>
@@ -76,9 +76,9 @@
             
         <estado_cliente>0</estado_cliente>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
             
-        <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+        <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
           
     </Row>
     <Row>
@@ -103,9 +103,9 @@
             
         <estado_cliente>1</estado_cliente>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
             
-        <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+        <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
           
     </Row>
     <Row>
@@ -130,9 +130,9 @@
             
         <estado_cliente>1</estado_cliente>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
             
-        <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+        <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
           
     </Row>
     <Row>
@@ -157,9 +157,9 @@
             
         <estado_cliente>1</estado_cliente>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
             
-        <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+        <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
           
     </Row>
     <Row>
@@ -184,9 +184,9 @@
             
         <estado_cliente>0</estado_cliente>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
             
-        <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+        <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
           
     </Row>
     <Row>
@@ -211,9 +211,9 @@
             
         <estado_cliente>1</estado_cliente>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
             
-        <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+        <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
           
     </Row>
     <Row>
@@ -238,9 +238,9 @@
             
         <estado_cliente>1</estado_cliente>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
             
-        <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+        <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
           
     </Row>
     <Row>
@@ -265,9 +265,9 @@
             
         <estado_cliente>1</estado_cliente>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
             
-        <ultima_actualizacion>2024-12-11 13:50:27</ultima_actualizacion>
+        <ultima_actualizacion>2024-11-24 22:55:33</ultima_actualizacion>
           
     </Row>
     <Row>
@@ -598,7 +598,7 @@
             
         <cantidad>100</cantidad>
             
-        <fecha_movimiento>2024-12-11 13:50:27</fecha_movimiento>
+        <fecha_movimiento>2024-11-24 22:55:33</fecha_movimiento>
             
         <observaciones>Recepción de lápices en Zona A - Estante 1</observaciones>
           
@@ -615,7 +615,7 @@
             
         <cantidad>50</cantidad>
             
-        <fecha_movimiento>2024-12-11 13:50:27</fecha_movimiento>
+        <fecha_movimiento>2024-11-24 22:55:33</fecha_movimiento>
             
         <observaciones>Envío parcial de lápices a cliente</observaciones>
           
@@ -632,7 +632,7 @@
             
         <cantidad>200</cantidad>
             
-        <fecha_movimiento>2024-12-11 13:50:27</fecha_movimiento>
+        <fecha_movimiento>2024-11-24 22:55:33</fecha_movimiento>
             
         <observaciones>Recepción de cuadernos en Zona B - Estante 3</observaciones>
           
@@ -649,7 +649,7 @@
             
         <cantidad>150</cantidad>
             
-        <fecha_movimiento>2024-12-11 13:50:27</fecha_movimiento>
+        <fecha_movimiento>2024-11-24 22:55:33</fecha_movimiento>
             
         <observaciones>Recepción de bolígrafos en Zona C - Estante 1</observaciones>
           
@@ -668,7 +668,7 @@
             
         <posicion>3</posicion>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -685,7 +685,7 @@
             
         <posicion>2</posicion>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -702,7 +702,7 @@
             
         <posicion>3</posicion>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -719,7 +719,7 @@
             
         <posicion>1</posicion>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -736,7 +736,7 @@
             
         <posicion>3</posicion>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -753,20 +753,20 @@
             
         <posicion>2</posicion>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
             
         <id_pedido>1</id_pedido>
             
-        <codigo_referencia>PED-20241211-000001</codigo_referencia>
+        <codigo_referencia>PED-20241124-000001</codigo_referencia>
             
         <id_usuario>2</id_usuario>
             
         <id_cliente>2</id_cliente>
             
-        <fecha_pedido>2024-12-11 13:50:27</fecha_pedido>
+        <fecha_pedido>2024-11-24 22:55:33</fecha_pedido>
             
         <estado>Pendiente</estado>
           
@@ -775,13 +775,13 @@
             
         <id_pedido>2</id_pedido>
             
-        <codigo_referencia>PED-20241211-000002</codigo_referencia>
+        <codigo_referencia>PED-20241124-000002</codigo_referencia>
             
         <id_usuario>3</id_usuario>
             
         <id_cliente>3</id_cliente>
             
-        <fecha_pedido>2024-12-11 13:50:27</fecha_pedido>
+        <fecha_pedido>2024-11-24 22:55:33</fecha_pedido>
             
         <estado>Completado</estado>
           
@@ -790,13 +790,13 @@
             
         <id_pedido>3</id_pedido>
             
-        <codigo_referencia>PED-20241211-000003</codigo_referencia>
+        <codigo_referencia>PED-20241124-000003</codigo_referencia>
             
         <id_usuario>4</id_usuario>
             
         <id_cliente>4</id_cliente>
             
-        <fecha_pedido>2024-12-11 13:50:27</fecha_pedido>
+        <fecha_pedido>2024-11-24 22:55:33</fecha_pedido>
             
         <estado>En proceso</estado>
           
@@ -805,13 +805,13 @@
             
         <id_pedido>4</id_pedido>
             
-        <codigo_referencia>PED-20241211-000004</codigo_referencia>
+        <codigo_referencia>PED-20241124-000004</codigo_referencia>
             
         <id_usuario>6</id_usuario>
             
         <id_cliente>5</id_cliente>
             
-        <fecha_pedido>2024-12-11 13:50:27</fecha_pedido>
+        <fecha_pedido>2024-11-24 22:55:33</fecha_pedido>
             
         <estado>Pendiente</estado>
           
@@ -820,13 +820,13 @@
             
         <id_pedido>5</id_pedido>
             
-        <codigo_referencia>PED-20241211-000005</codigo_referencia>
+        <codigo_referencia>PED-20241124-000005</codigo_referencia>
             
         <id_usuario>1</id_usuario>
             
         <id_cliente>6</id_cliente>
             
-        <fecha_pedido>2024-12-11 13:50:27</fecha_pedido>
+        <fecha_pedido>2024-11-24 22:55:33</fecha_pedido>
             
         <estado>Completado</estado>
           
@@ -835,13 +835,13 @@
             
         <id_pedido>6</id_pedido>
             
-        <codigo_referencia>PED-20241211-000006</codigo_referencia>
+        <codigo_referencia>PED-20241124-000006</codigo_referencia>
             
         <id_usuario>2</id_usuario>
             
         <id_cliente>7</id_cliente>
             
-        <fecha_pedido>2024-12-11 13:50:27</fecha_pedido>
+        <fecha_pedido>2024-11-24 22:55:33</fecha_pedido>
             
         <estado>Cancelado</estado>
           
@@ -850,13 +850,13 @@
             
         <id_pedido>7</id_pedido>
             
-        <codigo_referencia>PED-20241211-000007</codigo_referencia>
+        <codigo_referencia>PED-20241124-000007</codigo_referencia>
             
         <id_usuario>3</id_usuario>
             
         <id_cliente>8</id_cliente>
             
-        <fecha_pedido>2024-12-11 13:50:27</fecha_pedido>
+        <fecha_pedido>2024-11-24 22:55:33</fecha_pedido>
             
         <estado>Pendiente</estado>
           
@@ -865,13 +865,13 @@
             
         <id_pedido>8</id_pedido>
             
-        <codigo_referencia>PED-20241211-000008</codigo_referencia>
+        <codigo_referencia>PED-20241124-000008</codigo_referencia>
             
         <id_usuario>6</id_usuario>
             
         <id_cliente>9</id_cliente>
             
-        <fecha_pedido>2024-12-11 13:50:27</fecha_pedido>
+        <fecha_pedido>2024-11-24 22:55:33</fecha_pedido>
             
         <estado>Completado</estado>
           
@@ -880,13 +880,13 @@
             
         <id_pedido>9</id_pedido>
             
-        <codigo_referencia>PED-20241211-000009</codigo_referencia>
+        <codigo_referencia>PED-20241124-000009</codigo_referencia>
             
         <id_usuario>4</id_usuario>
             
         <id_cliente>10</id_cliente>
             
-        <fecha_pedido>2024-12-11 13:50:27</fecha_pedido>
+        <fecha_pedido>2024-11-24 22:55:33</fecha_pedido>
             
         <estado>Pendiente</estado>
           
@@ -895,13 +895,13 @@
             
         <id_pedido>10</id_pedido>
             
-        <codigo_referencia>PED-20241211-00000A</codigo_referencia>
+        <codigo_referencia>PED-20241124-00000A</codigo_referencia>
             
         <id_usuario>2</id_usuario>
             
         <id_cliente>1</id_cliente>
             
-        <fecha_pedido>2024-12-11 13:50:27</fecha_pedido>
+        <fecha_pedido>2024-11-24 22:55:33</fecha_pedido>
             
         <estado>En proceso</estado>
           
@@ -1015,7 +1015,7 @@
             
         <precio>10.50</precio>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -1028,7 +1028,7 @@
             
         <precio>5.75</precio>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -1041,7 +1041,7 @@
             
         <precio>7.20</precio>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -1054,7 +1054,7 @@
             
         <precio>15.00</precio>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -1067,7 +1067,7 @@
             
         <precio>3.50</precio>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -1946,7 +1946,7 @@
             
         <id_rol>1</id_rol>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -1961,7 +1961,7 @@
             
         <id_rol>2</id_rol>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -1976,7 +1976,7 @@
             
         <id_rol>3</id_rol>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -1991,7 +1991,7 @@
             
         <id_rol>4</id_rol>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -2006,7 +2006,7 @@
             
         <id_rol>5</id_rol>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
     <Row>
@@ -2021,7 +2021,7 @@
             
         <id_rol>6</id_rol>
             
-        <fecha_registro>2024-12-11 13:50:27</fecha_registro>
+        <fecha_registro>2024-11-24 22:55:33</fecha_registro>
           
     </Row>
 </tfg_almacenDB>
