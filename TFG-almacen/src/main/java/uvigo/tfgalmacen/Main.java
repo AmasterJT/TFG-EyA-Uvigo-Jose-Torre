@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javafx.stage.StageStyle;
 import uvigo.tfgalmacen.database.DatabaseConnection;
 import uvigo.tfgalmacen.database.ProductoDAO;
 
@@ -37,6 +38,8 @@ public class Main extends Application {
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main.fxml"));
+
+        stage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");
         stage.setScene(scene);
@@ -45,7 +48,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        Connection connection = null;
+        Connection connection;
         try {
             // Establecer conexión
             connection = connect();
