@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>uvigo</groupId>
-    <artifactId>TFG-almacen</artifactId>
+    <artifactId>tfgalmacen</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>TFG-almacen</name>
 
@@ -38,12 +38,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>io.github.palexdev</groupId>
-            <artifactId>materialfx</artifactId>
-            <version>11.17.0</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -78,14 +72,5 @@
                 </executions>
             </plugin>
         </plugins>
-
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.ttf</include> <!-- Incluir archivos de fuente -->
-                </includes>
-            </resource>
-        </resources>
     </build>
 </project>

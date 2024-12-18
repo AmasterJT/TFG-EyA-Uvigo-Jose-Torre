@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -11,25 +12,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0"
-            style="-fx-border-radius: 10px;" stylesheets="@Styles.css"
-            xmlns="http://javafx.com/javafx/22-e+11" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="uvigo.tfgalmacen.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-border-radius: 10px;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.HelloController">
    <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
-          <Button onAction="#onHelloButtonClick" prefHeight="107.0" prefWidth="181.0" text="Hello!sssasa" BorderPane.alignment="CENTER" />
+          <Button onAction="#onHelloButtonClick" prefHeight="107.0" prefWidth="181.0" text="Hello!sssasa" BorderPane.alignment="CENTER">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
       </center>
       <top>
          <AnchorPane prefHeight="85.0" prefWidth="200.0" style="-fx-background-color: #db9f75;" BorderPane.alignment="CENTER">
             <HBox alignment="CENTER_LEFT" layoutX="192.0" layoutY="-25.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="38.0" prefWidth="1000.0" style="-fx-background-color: #3e2411;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <Button fx:id="ExitButton" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #3e2411;" styleClass="exitItem">
                   <graphic>
-                     <ImageView accessibleRole="BUTTON" fitHeight="35.0" fitWidth="35.0" nodeOrientation="RIGHT_TO_LEFT"
-                                pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../icons/exit.png"/>
+                     <ImageView accessibleRole="BUTTON" fitHeight="35.0" fitWidth="35.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../icons/exit.png" />
                      </ImageView>
                   </graphic>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                </Button>
             </HBox>
             <HBox alignment="CENTER" layoutX="80.0" layoutY="-11.0" prefHeight="90.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
@@ -42,6 +44,9 @@
                   <font>
                      <Font name="System Bold" size="10.0" />
                   </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                </Button>
                <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="ADD" textFill="WHITE">
                   <graphic>
@@ -52,6 +57,9 @@
                   <font>
                      <Font name="System Bold" size="10.0" />
                   </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                </Button>
                <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="REPORT" textFill="WHITE">
                   <graphic>
@@ -62,22 +70,31 @@
                   <font>
                      <Font name="System Bold" size="10.0" />
                   </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                </Button>
                <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="BACKUP" textFill="WHITE">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../../icons/data.png" />
+                        <cursor>
+                           <Cursor fx:constant="HAND" />
+                        </cursor>
                      </ImageView>
                   </graphic>
                   <font>
                      <Font name="System Bold" size="10.0" />
                   </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                </Button>
             </HBox>
             <Label fx:id="MenuBackButton" layoutX="15.0" layoutY="44.0" text="MENU" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="40.0">
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                     <Image url="@../../icons/menu.png"/>
+                     <Image url="@../../icons/menu.png" />
                   </ImageView>
                </graphic>
                <font>
@@ -111,6 +128,9 @@
                   <VBox.margin>
                      <Insets top="10.0" />
                   </VBox.margin>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                </Button>
                <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="ADD" textFill="WHITE">
                   <graphic>
@@ -124,6 +144,9 @@
                   <VBox.margin>
                      <Insets top="10.0" />
                   </VBox.margin>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                </Button>
                <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="REPORT" textFill="WHITE">
                   <graphic>
@@ -134,6 +157,9 @@
                   <VBox.margin>
                      <Insets top="10.0" />
                   </VBox.margin>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                </Button>
                <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="BACKUP" textFill="WHITE">
                   <graphic>
@@ -144,6 +170,9 @@
                   <VBox.margin>
                      <Insets top="10.0" />
                   </VBox.margin>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                </Button>
             </VBox>
          </AnchorPane>
