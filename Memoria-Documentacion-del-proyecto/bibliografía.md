@@ -75,6 +75,6 @@
     </a>
 </div>
 
-- [MaterialFX](https://github.com/palexdev/MaterialFX)
+- COMPONENTES PARA LA INTERFAZ GRÁFICA: [MaterialFX](https://github.com/palexdev/MaterialFX)
 
-- [javafx-login-registration-admin-panel](https://github.com/inforkgodara/javafx-login-registration-admin-panel))
+- EJEMPLO DE SESIÓN LOGIN: [javafx-login-registration-admin-panel](https://github.com/inforkgodara/javafx-login-registration-admin-panel)
