@@ -61,9 +61,9 @@
 ## Android Documentation
 
 <div class="image-container">
-    <div class="image-item">
+    <a class="image-item" href="https://developer.android.com/develop?hl=es-419" target="_blank">
           <img src="imagenes-bibliografia/android-logo.png" alt="Android">
-    </div>
+    </a>
 </div>
 
 
