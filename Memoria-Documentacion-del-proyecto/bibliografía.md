@@ -75,6 +75,6 @@
     </a>
 </div>
 
-- ![MaterialFX] (componentes para la interfaz gráfica para JavaFX)](https://github.com/palexdev/MaterialFX)
+- [MaterialFX](https://github.com/palexdev/MaterialFX)
 
-[![javafx-login-registration-admin-panel]([https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/](https://github.com/inforkgodara/javafx-login-registration-admin-panel))
+- [javafx-login-registration-admin-panel](https://github.com/inforkgodara/javafx-login-registration-admin-panel))
