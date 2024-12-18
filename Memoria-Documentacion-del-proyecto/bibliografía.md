@@ -18,8 +18,8 @@
   }
 
   .image-item img {
-    max-width: auto;
-    height: 150px;
+    min-width: auto;
+    height: 130px;
     border-radius: 10px;
     transition: opacity 0.3s ease; /* Suaviza el cambio */
   }
