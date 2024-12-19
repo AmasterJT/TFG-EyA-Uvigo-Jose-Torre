@@ -11,11 +11,18 @@
     -fx-border-width: 0px 0px 0px 3px;
 }
 
-.exitItem:hover {
+.loginBtn:hover{
     -fx-background-color: #146886;
     -fx-border-color: RED;
     -fx-border-width: 1px 1px 1px 1px;
 }
+
+.exitItem:hover{
+     -fx-background-color: #eb4034 !important;
+}
+
+
+
 
 
 

@@ -12,33 +12,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-border-radius: 10px;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.HelloController">
-   <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <center>
-          <Button onAction="#onHelloButtonClick" prefHeight="107.0" prefWidth="181.0" text="Hello!sssasa" BorderPane.alignment="CENTER">
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor></Button>
-      </center>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-border-radius: 10px; -fx-background-color: white;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.MainController">
+   <BorderPane fx:id="BorderPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <top>
          <AnchorPane prefHeight="85.0" prefWidth="200.0" style="-fx-background-color: #db9f75;" BorderPane.alignment="CENTER">
-            <HBox alignment="CENTER_LEFT" layoutX="192.0" layoutY="-25.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="38.0" prefWidth="1000.0" style="-fx-background-color: #3e2411;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <Button fx:id="ExitButton" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #3e2411;" styleClass="exitItem">
-                  <graphic>
-                     <ImageView accessibleRole="BUTTON" fitHeight="35.0" fitWidth="35.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../icons/exit.png" />
-                     </ImageView>
-                  </graphic>
+            <HBox alignment="CENTER_LEFT" layoutX="192.0" layoutY="-25.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="1000.0" style="-fx-background-color: #3e2411;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <Button fx:id="ExitButton" minHeight="39.0" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-radius: 0px; -fx-background-color: #3e2411;" styleClass="exitItem" text="⨉" textFill="WHITE" HBox.hgrow="NEVER">
                   <cursor>
                      <Cursor fx:constant="HAND" />
                   </cursor>
+                  <font>
+                     <Font name="System Bold" size="17.0" />
+                  </font>
+                  <HBox.margin>
+                     <Insets top="-1.0" />
+                  </HBox.margin>
                </Button>
             </HBox>
             <HBox alignment="CENTER" layoutX="80.0" layoutY="-11.0" prefHeight="90.0" prefWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-               <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="DASHBOARD" textFill="WHITE">
+               <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="INVENTARIO" textFill="WHITE">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../icons/home.png" />
+                        <Image url="@../../icons/box.png" />
                      </ImageView>
                   </graphic>
                   <font>
@@ -119,7 +114,7 @@
                <Image url="@../../icons/user.png" />
             </ImageView>
             <VBox layoutX="48.0" layoutY="41.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #804012;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-               <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012; -fx-font-weight: bold;" styleClass="sidebarItem" text="DASHBOARD" textFill="WHITE">
+               <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012; -fx-font-weight: bold;" styleClass="sidebarItem" text="ALMACEN" textFill="WHITE">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../../icons/home.png" />
@@ -132,7 +127,7 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </Button>
-               <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="ADD" textFill="WHITE">
+               <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="INVENTARIO" textFill="WHITE">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../../icons/add.png" />
@@ -175,10 +170,32 @@
                   </cursor>
                </Button>
             </VBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="99.0" prefWidth="160.0" style="-fx-background-color: #804012;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
+                     <graphic>
+                        <ImageView fx:id="ajustesBtn" fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/setting.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
          </AnchorPane>
       </left>
-      <right>
-          <Label fx:id="welcomeText" prefHeight="17.0" prefWidth="167.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER" />
-      </right>
+      <center>
+         <AnchorPane fx:id="almacenContainer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER" />
+      </center>
    </BorderPane>
 </AnchorPane>

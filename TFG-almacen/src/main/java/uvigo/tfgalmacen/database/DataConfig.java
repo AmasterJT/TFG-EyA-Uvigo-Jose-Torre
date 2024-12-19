@@ -10,6 +10,7 @@ public class DataConfig {
     static String USER;
     static String PASSWORD;
     static String DATABASE_NAME;
+    static String DRIVER;
 
     static {
         try {
@@ -21,6 +22,7 @@ public class DataConfig {
             USER = properties.getProperty("user");
             PASSWORD = properties.getProperty("password");
             DATABASE_NAME = properties.getProperty("database_name");
+            DRIVER = properties.getProperty("driver");
 
             URL = URL + DATABASE_NAME;
 

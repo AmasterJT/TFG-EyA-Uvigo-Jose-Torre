@@ -17,6 +17,7 @@ public class DatabaseConnection {
     static String URL =  DataConfig.URL;
     static String USER =  DataConfig.USER;
     static String PASSWORD =  DataConfig.PASSWORD;
+    static String DRIVER =  DataConfig.DRIVER;
     public static String DATABASE_NAME =  DataConfig.DATABASE_NAME;
 
     public static Boolean isConnected = false;
@@ -24,7 +25,7 @@ public class DatabaseConnection {
     public static Connection connect() throws SQLException {
         try {
             // Cargar el driver de MySQL
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(DRIVER);
 
             // Establecer la conexión
             Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
