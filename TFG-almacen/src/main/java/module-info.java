@@ -7,4 +7,6 @@ module uvigo.tfgalmacen {
 
     opens uvigo.tfgalmacen to javafx.fxml;
     exports uvigo.tfgalmacen;
+    exports uvigo.tfgalmacen.almacenUtilities;
+    opens uvigo.tfgalmacen.almacenUtilities to javafx.fxml;
 }

@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.PhongMaterial;
@@ -19,11 +20,21 @@ import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 import javafx.scene.shape.Box;
 import javafx.scene.control.Alert.AlertType;
+import uvigo.tfgalmacen.almacenUtilities.Almacen;
+import uvigo.tfgalmacen.almacenUtilities.MisElementoGraficos;
+import uvigo.tfgalmacen.almacenUtilities.Palet;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+
+
+    @FXML
+    AnchorPane topBar;
+
+    @FXML
+    HBox windowBar;
 
     @FXML
     private Button ExitButton;
@@ -38,7 +49,7 @@ public class MainController implements Initializable {
     private Label MenuButton;
 
     @FXML
-    private AnchorPane Slider;
+    AnchorPane Slider;
 
     @FXML
     private Label welcomeText;
@@ -92,7 +103,10 @@ public class MainController implements Initializable {
             });
         });
 
+
+
         setupAlmacen3D();
+
     }
 
 
@@ -194,7 +208,7 @@ public class MainController implements Initializable {
 
         // Configurar la SubScene 3D
         SubScene subEscena3D = new SubScene(grupo3D, 0, 0, true, SceneAntialiasing.BALANCED);
-        Paint BACKGROUND_COLOR = Color.web("#FFFFFF");
+        Paint BACKGROUND_COLOR = Color.web("#EEE");
         subEscena3D.setFill(BACKGROUND_COLOR);
 
         camara = new PerspectiveCamera(false);
@@ -203,7 +217,7 @@ public class MainController implements Initializable {
         Rotate rotacionXCamara = new Rotate(160, Rotate.X_AXIS);
         Rotate rotacionYCamara = new Rotate(-30, Rotate.Y_AXIS);
         Rotate rotacionZCamara = new Rotate(-10, Rotate.Z_AXIS);
-        Translate traslacionCamara = new Translate(-1500, -8500, -40000);
+        Translate traslacionCamara = new Translate(-1500, -9500, -40000);
         camara.getTransforms().addAll(rotacionXCamara, rotacionYCamara, rotacionZCamara, traslacionCamara);
         subEscena3D.setCamera(camara);
 

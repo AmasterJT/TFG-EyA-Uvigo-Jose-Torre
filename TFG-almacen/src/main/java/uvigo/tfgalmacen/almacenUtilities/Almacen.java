@@ -1,4 +1,4 @@
-package uvigo.tfgalmacen;
+package uvigo.tfgalmacen.almacenUtilities;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package uvigo.tfgalmacen;
+package uvigo.tfgalmacen.almacenUtilities;
 import javafx.scene.paint.Color;
 
 public class Tipo {

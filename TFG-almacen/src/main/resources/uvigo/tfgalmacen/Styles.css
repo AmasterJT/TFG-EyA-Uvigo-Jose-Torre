@@ -22,6 +22,9 @@
 }
 
 
+.topbarItem:hover{
+     -fx-background-color: #776558 !important;
+}
 
 
 

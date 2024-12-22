@@ -62,12 +62,12 @@
 
 <div class="image-container">
     <a class="image-item" href="https://developer.android.com/develop?hl=es-419" target="_blank">
-          <img src="imagenes-bibliografia/android-logo.png" alt="Android">
+          <img style="background-color: #FFF" src="imagenes-bibliografia/android-logo.png" alt="Android">
     </a>
 </div>
 
 
-## Repositorio usados
+## Repositorio de referencia
 
 <div style="aling-items: center; margin-bottom: 20px;">
        <a class="image-item" href="https://github.com/" target="_blank">
@@ -78,3 +78,5 @@
 - COMPONENTES PARA LA INTERFAZ GRÁFICA: [MaterialFX](https://github.com/palexdev/MaterialFX)
 
 - EJEMPLO DE SESIÓN LOGIN: [javafx-login-registration-admin-panel](https://github.com/inforkgodara/javafx-login-registration-admin-panel)
+
+- EJEMPLO MANEJO DE VENTANAS: [javafx-login-registration-admin-panel](https://github.com/inforkgodara/javafx-login-registration-admin-panel)

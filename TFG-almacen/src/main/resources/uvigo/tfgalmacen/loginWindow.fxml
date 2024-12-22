@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.LoginController">
     <left>
         <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #3e2411;" BorderPane.alignment="CENTER">
             <children>
@@ -43,7 +43,7 @@
                         <Font name="Wingdings 3" size="27.0" />
                     </font>
                 </Text>
-            <Button fx:id="loginExitButton" layoutX="260.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0px; -fx-background-color: #db9f75;" styleClass="exitItem" text="⨉" textFill="WHITE">
+            <Button fx:id="loginExitButton" layoutX="260.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0px; -fx-background-color: #db9f75;" styleClass="exitItem" text="⨉" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

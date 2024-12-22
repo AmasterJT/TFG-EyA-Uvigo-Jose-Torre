@@ -1,4 +1,4 @@
-package uvigo.tfgalmacen;
+package uvigo.tfgalmacen.almacenUtilities;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
