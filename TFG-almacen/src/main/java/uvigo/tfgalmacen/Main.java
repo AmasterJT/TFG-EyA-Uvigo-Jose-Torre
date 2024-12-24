@@ -42,6 +42,11 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         //stage.initStyle(StageStyle.UNDECORATED);
         stage.setMinWidth(615);
+        stage.setMaxWidth(615);
+        stage.setMinHeight(400);
+        stage.setMaxHeight(400);
+
+
         // Configurar movimiento y redimensionamiento
         //WindowMovement(root, stage);
         //WindowResize(root, stage,scene);
