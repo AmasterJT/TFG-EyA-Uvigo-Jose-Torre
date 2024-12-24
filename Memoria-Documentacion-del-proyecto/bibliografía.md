@@ -80,8 +80,9 @@ style="
              min-width: auto;
             height: 130px;
             border-radius: 10px;
-            transition: opacity 0.3s ease;"
-            style="background-color: #FFF" src="imagenes-bibliografia/android-logo.png" alt="Android">
+            transition: opacity 0.3s ease;
+            background-color: #FFF" 
+            src="imagenes-bibliografia/android-logo.png" alt="Android">
     </a>
 </div>
 
