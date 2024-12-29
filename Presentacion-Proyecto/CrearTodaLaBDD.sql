@@ -469,17 +469,17 @@ VALUES
 INSERT INTO usuarios (nombre, email, contraseña, id_rol)
 VALUES
     -- Usuario SysAdmin
-    ('Admin', 'admin@almacen.com', 'hashed_password', 1),
+    ('Admin', 'admin@almacen.com', 'Admin', 1),
     -- Usuario Gestor Almacén
-    ('Juan Perez', 'juan.perez@almacen.com', 'hashed_password', 2),
+    ('Juan Perez', 'juan.perez@almacen.com', '1234', 2),
     -- Usuario Supervisor
-    ('Maria Lopez', 'maria.lopez@almacen.com', 'hashed_password', 3),
+    ('Maria Lopez', 'maria.lopez@almacen.com', 'dasd213', 3),
     -- Usuario Operario
-    ('Carlos Diaz', 'carlos.diaz@almacen.com', 'hashed_password', 4),
+    ('Carlos Diaz', 'carlos.diaz@almacen.com', 'fdsfEre23123*', 4),
     -- Usuario Mantenimiento
-    ('Luisa Gomez', 'luisa.gomez@almacen.com', 'hashed_password', 5),
+    ('Luisa Gomez', 'luisa.gomez@almacen.com', '234566', 5),
     -- Usuario Administración
-    ('Ana Torres', 'ana.torres@almacen.com', 'hashed_password', 6);
+    ('Ana Torres', 'ana.torres@almacen.com', '111111111111', 6);
 
 -- Insertando registros en la tabla Clientes
 INSERT INTO clientes (nombre_cliente, email_cliente, telefono_cliente, direccion_cliente, ciudad_cliente, estado_pais_cliente, pais_cliente, fecha_nacimiento, estado_cliente)

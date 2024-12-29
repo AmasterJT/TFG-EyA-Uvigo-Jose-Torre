@@ -6,7 +6,7 @@
     <id_palet>1</id_palet>
     <tipo_movimiento>Entrada</tipo_movimiento>
     <cantidad>100</cantidad>
-    <fecha_movimiento>2024-11-24 22:55:33</fecha_movimiento>
+    <fecha_movimiento>2024-12-29 01:17:36</fecha_movimiento>
     <observaciones>Recepción de lápices en Zona A - Estante 1</observaciones>
   </Row>
   <Row>
@@ -15,7 +15,7 @@
     <id_palet>2</id_palet>
     <tipo_movimiento>Salida</tipo_movimiento>
     <cantidad>50</cantidad>
-    <fecha_movimiento>2024-11-24 22:55:33</fecha_movimiento>
+    <fecha_movimiento>2024-12-29 01:17:36</fecha_movimiento>
     <observaciones>Envío parcial de lápices a cliente</observaciones>
   </Row>
   <Row>
@@ -24,7 +24,7 @@
     <id_palet>3</id_palet>
     <tipo_movimiento>Entrada</tipo_movimiento>
     <cantidad>200</cantidad>
-    <fecha_movimiento>2024-11-24 22:55:33</fecha_movimiento>
+    <fecha_movimiento>2024-12-29 01:17:36</fecha_movimiento>
     <observaciones>Recepción de cuadernos en Zona B - Estante 3</observaciones>
   </Row>
   <Row>
@@ -33,7 +33,7 @@
     <id_palet>4</id_palet>
     <tipo_movimiento>Entrada</tipo_movimiento>
     <cantidad>150</cantidad>
-    <fecha_movimiento>2024-11-24 22:55:33</fecha_movimiento>
+    <fecha_movimiento>2024-12-29 01:17:36</fecha_movimiento>
     <observaciones>Recepción de bolígrafos en Zona C - Estante 1</observaciones>
   </Row>
 </TableData>

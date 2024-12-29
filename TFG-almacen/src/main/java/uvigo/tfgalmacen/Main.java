@@ -28,6 +28,8 @@ import static uvigo.tfgalmacen.database.TableLister.listTables;
  */
 public class Main extends Application {
 
+    public static Connection connection;
+
     private double xOffset = 0; // Desplazamiento horizontal del ratón respecto a la ventana.
     private double yOffset = 0; // Desplazamiento vertical del ratón respecto a la ventana.
     private enum RESIZE {NONE, W_border, E_border, N_border, S_border, NW_cornner, NE_cornner, SW_cornner, SE_cornner}
@@ -40,21 +42,19 @@ public class Main extends Application {
 
         // Configurar la escena y la ventana sin bordes
         Scene scene = new Scene(root);
-        //stage.initStyle(StageStyle.UNDECORATED);
-        stage.setMinWidth(615);
-        stage.setMaxWidth(615);
-        stage.setMinHeight(400);
-        stage.setMaxHeight(400);
+        stage.initStyle(StageStyle.UNDECORATED);
 
 
         // Configurar movimiento y redimensionamiento
-        //WindowMovement(root, stage);
-        //WindowResize(root, stage,scene);
+        WindowMovement(root, stage);
+        WindowResize(root, stage,scene);
 
         // Configurar y mostrar la escena
         stage.setScene(scene);
         stage.show();
     }
+
+    static double mousex21;
 
     /**
      * Configura el movimiento de la ventana para permitir que el usuario la arrastre desde un área específica.
@@ -92,7 +92,7 @@ public class Main extends Application {
         }
     }
 
-    static double mousex21;
+
 
     /**
      * Configura el redimensionamiento de la ventana mediante el movimiento y el arrastre del ratón.
@@ -112,7 +112,8 @@ public class Main extends Application {
             double width = stage.getWidth();   // Obtiene el ancho actual de la ventana.
             double height = stage.getHeight(); // Obtiene el alto actual de la ventana.
 
-            // Cambia el cursor según la posición del ratón cerca de los bordes o esquinas.
+
+            // Cambia el cursor según la posición del ratón cerca de los bordes o esquinas y establece el modo de redimensionamiento.
             if (mouseX < borderWidth && mouseY < borderWidth) {
                 root.setCursor(NW_RESIZE); // Esquina superior izquierda.
                 resize = RESIZE.NW_cornner;
@@ -233,7 +234,7 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
 
-        Connection connection;
+
         try {
             // Establecer conexión
             connection = connect();

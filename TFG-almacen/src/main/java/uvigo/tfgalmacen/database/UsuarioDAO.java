@@ -84,4 +84,20 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
     }
+
+    private static final String CHECK_USER_SQL = "SELECT * FROM usuarios WHERE nombre = ? AND contraseña = ?";
+
+    public static boolean SQLcheckUser(Connection connection, String username, String password) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(CHECK_USER_SQL)) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

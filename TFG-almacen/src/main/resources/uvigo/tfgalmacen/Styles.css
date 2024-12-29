@@ -21,6 +21,9 @@
      -fx-background-color: #eb4034 !important;
 }
 
+.exitItem:pressed{
+     -fx-background-color: #e36259 !important;
+}
 
 .topbarItem:hover{
      -fx-background-color: #776558 !important;

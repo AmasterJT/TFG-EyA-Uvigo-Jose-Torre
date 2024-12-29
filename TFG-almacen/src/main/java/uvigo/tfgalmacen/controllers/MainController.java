@@ -1,4 +1,4 @@
-package uvigo.tfgalmacen;
+package uvigo.tfgalmacen.controllers;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -48,6 +48,10 @@ public class MainController implements Initializable {
     @FXML
     private Label MenuButton;
 
+
+    @FXML
+    private AnchorPane root;
+
     @FXML
     AnchorPane Slider;
 
@@ -63,8 +67,11 @@ public class MainController implements Initializable {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
 
         ExitButton.setOnMouseClicked(event -> {
             System.exit(0);

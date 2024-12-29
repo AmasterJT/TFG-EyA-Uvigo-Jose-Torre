@@ -2,7 +2,6 @@
 
 ## Java Documentation
 
-
 <div class="image-container"
 style="
   display: flex;
@@ -17,8 +16,7 @@ style="
           display: flex;
           flex-direction: column;
           align-items: center;
-          position: relative;
-          ">
+dart          ">
             <img style="
              min-width: auto;
             height: 130px;
@@ -44,8 +42,7 @@ style="
         </a>
     </div>
     <div >
-        <a class="image-item" href="https://docs.spring.io/spring-boot/docs/3.2.5/reference/htmlsingle/" target="_blank"
-                 style="
+        <a class="image-item" href="https://docs.spring.io/spring-boot/docs/3.2.5/reference/htmlsingle/" target="_blank" style="
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -57,10 +54,9 @@ style="
             border-radius: 10px;
             transition: opacity 0.3s ease;"
             src="imagenes-bibliografia/spring-boot-logo.png" alt="Spring Boot">
-        </a> 
+        </a>
     </div>
 </div>
-
 
 ## Android Documentation
 
@@ -81,11 +77,10 @@ style="
             height: 130px;
             border-radius: 10px;
             transition: opacity 0.3s ease;
-            background-color: #FFF" 
+            background-color: #FFF"
             src="imagenes-bibliografia/android-logo.png" alt="Android">
     </a>
 </div>
-
 
 ## Repositorio de referencia
 

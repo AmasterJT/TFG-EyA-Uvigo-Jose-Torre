@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-border-radius: 40px; -fx-background-color: #EEE;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.MainController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-border-radius: 40px !important; -fx-background-color: #EEE;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.MainController">
    <BorderPane fx:id="BorderPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-border-radius: 40;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <top>
          <AnchorPane fx:id="topBar" prefHeight="85.0" prefWidth="200.0" style="-fx-background-color: #db9f75;">
@@ -125,6 +125,9 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
             </Label>
             </children>
          </AnchorPane>
