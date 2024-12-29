@@ -10,6 +10,6 @@ Este fichero es un boceto de cómo será el proyecto, sin embargo, con el desarr
 
 ## Código Fuente Java
 
-El código fuente de la aplicacion en **Java** se encuentra en `./TFG-almacen`. Este es el módulo que hhhay que importar en _**IntellIJ**_
+El código fuente de la aplicacion en **Java** se encuentra en `./TFG-almacen`. Este es el módulo que hay que importar en _**IntellIJ**_
 
 ⚠️ **De momento el proyecto solo funciona en local**
