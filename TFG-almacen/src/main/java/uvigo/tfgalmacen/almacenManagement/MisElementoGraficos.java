@@ -1,4 +1,4 @@
-package uvigo.tfgalmacen.almacenUtilities;
+package uvigo.tfgalmacen.almacenManagement;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;

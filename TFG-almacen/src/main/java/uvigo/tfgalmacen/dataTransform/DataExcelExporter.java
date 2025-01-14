@@ -15,6 +15,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import static uvigo.tfgalmacen.utils.TerminalColors.*;
 import static uvigo.tfgalmacen.database.TableLister.getTables;
 
 public class DataExcelExporter {
@@ -22,13 +23,10 @@ public class DataExcelExporter {
     static String FILE_EXTENTION = ".xml";
     static String OUTPUT_DIRECTORY = "output_files/";
 
-    // Colores ANSI para consola
-    private static final String RESET = "\033[0m";  // Resetea el color
-    private static final String GREEN = "\033[32m"; // Verde
-    private static final String RED = "\033[31m";   // Rojo
-    private static final String ORANGE = "\033[34m";  // Azul
-
     public static void exportTableToXML(Connection connection, String tableName) {
+
+        // Pasamos la informacion de una tabla a un archivo XML para su posterior importacion a Excel
+        // El archivo XML se guarda en la carpeta "output_files" y se llama "{nombre_tabla}.xml"
 
         String outputPath = OUTPUT_DIRECTORY + tableName + FILE_EXTENTION;
 
@@ -79,8 +77,8 @@ public class DataExcelExporter {
             transformer.transform(domSource, streamResult);
 
             System.out.println("✔️");
-            System.out.println("✅ Datos exportados a " + GREEN + outputPath + RESET);
-            System.out.println("✅ " + GREEN + "Conversión finalizada con exito" + RESET);
+            System.out.println("✅ Datos exportados a " + VERDE + outputPath + RESET);
+            System.out.println("✅ " + VERDE + "Conversión finalizada con exito" + RESET);
 
         } catch (SQLException | ParserConfigurationException | TransformerException | IOException e) {
             System.err.println("❌ Error exportando datos a XML: " + e.getMessage());
@@ -144,14 +142,14 @@ public class DataExcelExporter {
 
                 transformer.transform(domSource, streamResult);
 
-                System.out.println("✅ Datos exportados a " + GREEN + "'" + outputPath + "' " +  RESET);
+                System.out.println("✅ Datos exportados a " + VERDE + "'" + outputPath + "' " +  RESET);
 
             } catch (SQLException | ParserConfigurationException | TransformerException | IOException e) {
                 System.err.println("❌ Error exportando datos a XML: " + e.getMessage());
             }
 
         }
-        System.out.println("✅ " + GREEN + "Conversión finalizada con exito" + RESET);
+        System.out.println("✅ " + VERDE + "Conversión finalizada con exito" + RESET);
 
     }
 
@@ -178,7 +176,7 @@ public class DataExcelExporter {
                 File file = new File(current_inputFile);
                 if (!file.exists()) {
                     // Avisar que el archivo no existe
-                    System.out.println("⚠️ " + ORANGE + "El archivo " + current_inputFile + " no existe. Se omitirá." + RESET);
+                    System.out.println("⚠️ " + NARANJA + "El archivo " + current_inputFile + " no existe. Se omitirá." + RESET);
                     continue; // Ignorar este archivo y pasar al siguiente
                 }
                 System.out.print("\uD83D\uDD50 Procesando el archivo " + tableName + FILE_EXTENTION + " ...");
@@ -213,13 +211,13 @@ public class DataExcelExporter {
             StreamResult result = new StreamResult(new File(DATABASE_XML_NAME_OUTPUTFILE));
 
             transformer.transform(source, result);
-            System.out.println("✅ Archivo XML combinado guardado como: " + GREEN + DATABASE_XML_NAME_OUTPUTFILE + RESET);
+            System.out.println("✅ Archivo XML combinado guardado como: " + VERDE + DATABASE_XML_NAME_OUTPUTFILE + RESET);
 
         } catch (Exception e) {
             System.err.println("❌ Error exportando datos a XML: " + e.getMessage());
         }
 
-        System.out.println("✅ " + GREEN + "Conversión finalizada con éxito" + RESET);
+        System.out.println("✅ " + VERDE + "Conversión finalizada con éxito" + RESET);
     }
 
 

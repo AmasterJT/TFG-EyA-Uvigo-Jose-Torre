@@ -20,9 +20,9 @@ import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 import javafx.scene.shape.Box;
 import javafx.scene.control.Alert.AlertType;
-import uvigo.tfgalmacen.almacenUtilities.Almacen;
-import uvigo.tfgalmacen.almacenUtilities.MisElementoGraficos;
-import uvigo.tfgalmacen.almacenUtilities.Palet;
+import uvigo.tfgalmacen.almacenManagement.Almacen;
+import uvigo.tfgalmacen.almacenManagement.MisElementoGraficos;
+import uvigo.tfgalmacen.almacenManagement.Palet;
 
 import java.net.URL;
 import java.util.ResourceBundle;

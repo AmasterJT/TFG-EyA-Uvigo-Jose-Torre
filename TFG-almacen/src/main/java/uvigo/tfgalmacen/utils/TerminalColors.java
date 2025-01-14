@@ -1,7 +1,7 @@
-package uvigo.tfgalmacen.almacenUtilities;
+package uvigo.tfgalmacen.utils;
 
 
-public class Colores {
+public class TerminalColors {
     // Esta clase establece colores para escribir texto por consola
 
     // sintaxis del trexto (ejemplo):
@@ -12,7 +12,7 @@ public class Colores {
     // Definir colores con nombres descriptivos
     public static String ROJO = "\u001B[31m";
     public static String VERDE = "\u001B[32m";
-    public static String AZUL = "\u001B[34m";
+    public static String NARANJA = "\033[34m";  // Azul
     public static String AMARILLO = "\u001B[33m";
     public static String MAGENTA = "\u001B[35m";
     public static String CYAN = "\u001B[36m";
@@ -31,7 +31,7 @@ public class Colores {
     public static String FONDO_AZUL = "\u001B[44m";
     public static String FONDO_MAGENTA = "\u001B[45m";
 
-    public static String RESET_COLOR = "\u001B[0m";
+    public static String RESET = "\u001B[0m";
 
 
     public static int rgbToAnsi(int r, int g, int b) {

@@ -1,5 +1,7 @@
-package uvigo.tfgalmacen.almacenUtilities;
+package uvigo.tfgalmacen.almacenManagement;
 
+
+import uvigo.tfgalmacen.utils.TerminalColors;
 
 public class Producto {
     private String idProducto, idTipo;
@@ -48,9 +50,9 @@ public class Producto {
 
     @Override
     public String toString() {
-        return Colores.AMARILLO + "Producto: " + "id:" + this.getIdProducto() +
+        return TerminalColors.AMARILLO + "Producto: " + "id:" + this.getIdProducto() +
                 " tipo:" + this.getIdTipo() +
                 " Palets: " + this.getNumPalets() +
-                " Cantidad de producto: " + this.getCantidadDeProducto() + Colores.RESET_COLOR;
+                " Cantidad de producto: " + this.getCantidadDeProducto() + TerminalColors.RESET;
     }
 }

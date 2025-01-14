@@ -10,11 +10,11 @@ public class UsuarioDAO {
     // Crear usuario
     private static final String INSERT_USER_SQL = "INSERT INTO usuarios (nombre, email, contraseña, id_rol) VALUES (?, ?, ?, ?)";
 
-    public static void createUser(Connection connection, String nombre, String email, String contraseña, int id_rol) {
+    public static void createUser(Connection connection, String nombre, String email, String password, int id_rol) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
             preparedStatement.setString(1, nombre);
             preparedStatement.setString(2, email);
-            preparedStatement.setString(3, contraseña);
+            preparedStatement.setString(3, password);
             preparedStatement.setInt(4, id_rol);
 
             int result = preparedStatement.executeUpdate();

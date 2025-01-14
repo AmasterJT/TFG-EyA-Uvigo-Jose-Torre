@@ -1,7 +1,8 @@
-package uvigo.tfgalmacen.almacenUtilities;
+package uvigo.tfgalmacen.almacenManagement;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
+import uvigo.tfgalmacen.utils.TerminalColors;
 
 
 public class Palet {
@@ -246,14 +247,14 @@ public class Palet {
 
     @Override
     public String toString() {
-        return Colores.CYAN + "Palet: id:" + this.getIdPalet() +
+        return TerminalColors.CYAN + "Palet: id:" + this.getIdPalet() +
                 " alto:" + this.getAlto() +
                 " ancho:" + this.getAncho() +
                 " largo:" + this.getLargo() +
                 " CantidadProducto:" + this.getCantidadProducto() +
                 " IdProducto:" + this.getIdProducto() +
                 " (" + this.getEstanteria() + ";" + this.getBalda() + "; " + this.getPosicion() + "; " + this.isDelante() + ")"
-                + Colores.RESET_COLOR;
+                + TerminalColors.RESET;
     }
 
 

@@ -1,5 +1,6 @@
-package uvigo.tfgalmacen.almacenUtilities;
+package uvigo.tfgalmacen.almacenManagement;
 import javafx.scene.paint.Color;
+import uvigo.tfgalmacen.utils.TerminalColors;
 
 public class Tipo {
 
@@ -67,7 +68,7 @@ public class Tipo {
 
     @Override
     public  String toString(){
-        return Colores.VERDE + "Tipo: " + this.getIdTipo() + " Palets: " + this.getNumPalets() + " Cantidad de produto: " + this.getCantidadDeTipo() + " (" + this.getColor() + ")" + Colores.RESET_COLOR;
+        return TerminalColors.VERDE + "Tipo: " + this.getIdTipo() + " Palets: " + this.getNumPalets() + " Cantidad de produto: " + this.getCantidadDeTipo() + " (" + this.getColor() + ")" + TerminalColors.RESET;
     }
 
 }

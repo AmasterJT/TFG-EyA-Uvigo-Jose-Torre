@@ -22,9 +22,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
 
+import static uvigo.tfgalmacen.utils.TerminalColors.*;
 import static uvigo.tfgalmacen.database.UsuarioDAO.SQLcheckUser;
 
 /**
@@ -49,10 +51,10 @@ public class LoginController implements Initializable{
 
     @FXML
     void login(ActionEvent event) {
-        System.out.println("loginnnnn");
+        System.out.println("⏳ loginnnnn");
 
         if (checkLogin(username.getText(), password.getText())){
-           System.out.println("login correcto");
+           System.out.println(VERDE + "✅ login correcto" + RESET);
 
             try {
                 // Carga la nueva escena desde otro archivo FXML
@@ -76,7 +78,7 @@ public class LoginController implements Initializable{
             }
 
         } else{
-            System.out.println("login incorrecto");
+            System.out.println(ROJO + "❌ login incorrecto" + RESET);
         };
 
 
@@ -91,6 +93,22 @@ public class LoginController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loginExitButton.setOnMouseClicked(event -> {
             System.exit(0);
+        });
+
+        // Configurar acción de ENTER en el campo username.
+        username.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                loginButton.requestFocus(); // Hace foco en el botón.
+                loginButton.fire(); // Simula el clic en el botón.
+            }
+        });
+
+        // Configurar acción de ENTER en el campo password.
+        password.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                loginButton.requestFocus(); // Hace foco en el botón.
+                loginButton.fire(); // Simula el clic en el botón.
+            }
         });
     }
 

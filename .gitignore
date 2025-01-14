@@ -26,3 +26,4 @@ replay_pid*
 
 # draw.io bakup files
 *.drawio.bkp
+.codegpt
