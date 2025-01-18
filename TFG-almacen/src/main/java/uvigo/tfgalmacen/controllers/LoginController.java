@@ -53,7 +53,8 @@ public class LoginController implements Initializable{
     void login(ActionEvent event) {
         System.out.println("⏳ loginnnnn");
 
-        if (checkLogin(username.getText(), password.getText())){
+
+        if (SQLcheckUser(Main.connection, username.getText(), password.getText())){
            System.out.println(VERDE + "✅ login correcto" + RESET);
 
             try {
@@ -112,9 +113,5 @@ public class LoginController implements Initializable{
         });
     }
 
-
-    private boolean checkLogin(String username, String password) {
-        return SQLcheckUser(Main.connection, username, password);
-    }
 }
 
