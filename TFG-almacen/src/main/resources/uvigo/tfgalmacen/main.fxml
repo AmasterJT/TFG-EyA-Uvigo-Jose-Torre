@@ -151,7 +151,7 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </Button>
-               <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="INVENTARIO" textFill="WHITE">
+               <Button fx:id="inventarioButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="INVENTARIO" textFill="WHITE">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../../icons/add.png" />

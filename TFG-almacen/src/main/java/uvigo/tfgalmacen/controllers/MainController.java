@@ -3,6 +3,7 @@ package uvigo.tfgalmacen.controllers;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -30,7 +31,10 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class MainController implements Initializable {
@@ -41,6 +45,9 @@ public class MainController implements Initializable {
 
     @FXML
     HBox windowBar;
+
+    @FXML
+    private Button inventarioButton;
 
     @FXML
     private Button ExitButton;
@@ -76,6 +83,10 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        inventarioButton.setOnMouseClicked(event -> {
+            loadinventarioView();
+        });
 
 
 
@@ -385,6 +396,37 @@ public class MainController implements Initializable {
         });
     }
 
+
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ //                                   APARTADOS DEL MAIN CONTROLLER
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    @FXML
+    private void loadFXML(String fileName) {
+        Parent parent;
+        try {
+            String PATH = "/uvigo/tfgalmacen/" + fileName + ".fxml";
+            parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(PATH)));
+
+            BorderPane.setCenter(parent);
+
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void loadinventarioView() {
+        loadFXML("inventario");
+    }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//                                   Funciones adicionales
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     @FXML
     private Button openExcelButton;
 
@@ -418,4 +460,8 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
+
+
 }
