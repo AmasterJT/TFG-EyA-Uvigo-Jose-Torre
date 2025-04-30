@@ -82,7 +82,7 @@ public class MainController implements Initializable {
         ExitButton.setOnMouseClicked(event -> {
             System.exit(0);
         });
-        Slider.setTranslateX(-176);
+        //Slider.setTranslateX(-176);
 
         MenuButton.setOnMouseClicked(_ -> {
             TranslateTransition slide = new TranslateTransition();

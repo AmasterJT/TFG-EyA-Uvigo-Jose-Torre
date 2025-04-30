@@ -1,12 +1,5 @@
 package uvigo.tfgalmacen.controllers;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
@@ -29,10 +22,7 @@ import uvigo.tfgalmacen.Main;
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
 import static uvigo.tfgalmacen.database.UsuarioDAO.SQLcheckUser;
 
-/**
- *
- * @author Ramesh Godara
- */
+
 public class LoginController implements Initializable{
 
     public static final boolean IS_RESIZABLE = false;
@@ -74,6 +64,10 @@ public class LoginController implements Initializable{
                 stage.setScene(newScene);
                 stage.centerOnScreen();
                 stage.show();
+
+
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
