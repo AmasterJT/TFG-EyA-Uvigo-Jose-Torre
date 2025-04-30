@@ -100,7 +100,7 @@ El proceso del pedido ha finalizado exitosamente.
 Los códigos de referencia se **generan automaticamente** y presentan el siguiente formato
 
 <div style="text-align: center; margin-bottom: 10px;">
-  <code style="background-color: #222; color: #caa83f; padding: 5px 10px; border-radius: 4px; display: inline-block;"> PED-YYYYMMDD-HHHHH </code>
+  <code style="background-color: #222; color: #caa83f; padding: 5px 10px; border-radius: 4px; display: inline-block;"> PED-YYYYMMDD-HHHHHH </code>
 </div>
 
 1. **`PED`**: **{Prefijo}** Identificador del tipo de registro (pedido).
