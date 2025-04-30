@@ -27,7 +27,6 @@ import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.MisElementoGraficos;
 import uvigo.tfgalmacen.almacenManagement.Palet;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -48,6 +47,9 @@ public class MainController implements Initializable {
 
     @FXML
     private Button inventarioButton;
+
+    @FXML
+    private Button pedidosButton;
 
     @FXML
     private Button ExitButton;
@@ -84,8 +86,12 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        inventarioButton.setOnMouseClicked(event -> {
-            loadinventarioView();
+        inventarioButton.setOnMouseClicked(_ -> {
+            loadInventarioView();
+        });
+
+        pedidosButton.setOnMouseClicked(_ -> {
+            loadPedidosView();
         });
 
 
@@ -397,10 +403,11 @@ public class MainController implements Initializable {
     }
 
 
-    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
 
- //                                   APARTADOS DEL MAIN CONTROLLER
-    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //                                   APARTADOS DEL MAIN CONTROLLER
+
+    //------------------------------------------------------------------------------------------------------------------
 
     @FXML
     private void loadFXML(String fileName) {
@@ -417,15 +424,20 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void loadinventarioView() {
+    private void loadInventarioView() {
         loadFXML("inventario");
     }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    @FXML
+    private void loadPedidosView() {
+        loadFXML("pedidos");
+    }
 
-//                                   Funciones adicionales
+    //------------------------------------------------------------------------------------------------------------------
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //                                        Funciones adicionales
+
+    //------------------------------------------------------------------------------------------------------------------
 
     @FXML
     private Button openExcelButton;
