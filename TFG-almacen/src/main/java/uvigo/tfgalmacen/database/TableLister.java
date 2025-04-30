@@ -41,14 +41,14 @@ public class TableLister {
         ResultSet resultSet = statement.executeQuery(query);
 
         System.out.println("Tablas en la base de datos:" );
-        System.out.println("-🗄️" + databaseName);
+        System.out.println("-\uD83D\uDCC2️" + databaseName);
 
         // Procesar los resultados
         String separador = "\t -─── ";
         separador = "\t └─ ";
         while (resultSet.next()){
 
-            String tableName = separador + "🗂️ " + resultSet.getString("TABLE_NAME");
+            String tableName = separador + "\uD83D\uDCDD\u200B " + resultSet.getString("TABLE_NAME");
             System.out.println(tableName);
 
             // separador = "\t └───";

@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -24,8 +26,12 @@ import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.MisElementoGraficos;
 import uvigo.tfgalmacen.almacenManagement.Palet;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 public class MainController implements Initializable {
 
@@ -377,5 +383,39 @@ public class MainController implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    private Button openExcelButton;
+
+    @FXML
+    private void openXmlInExcel() {
+        String excelPath = "\"C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\EXCEL.EXE\"";
+        File folder = new File("output_files/");
+
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.out.println("Directorio no encontrado.");
+            return;
+        }
+
+        File[] xmlFiles = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".xml"));
+
+        if (xmlFiles == null || xmlFiles.length == 0) {
+            System.out.println("No se encontraron archivos XML.");
+            return;
+        }
+
+        try {
+            for (File xmlFile : xmlFiles) {
+                // Usa el comando por defecto del sistema para abrir el archivo con la aplicación asociada (Excel si está bien asociado).
+                //Desktop.getDesktop().open(xmlFile);
+
+                // Construir el comando para abrir cada archivo XML con Excel
+                String command = excelPath + " \"" + xmlFile.getAbsolutePath() + "\"";
+                Runtime.getRuntime().exec(command);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

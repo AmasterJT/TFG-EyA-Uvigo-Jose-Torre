@@ -15,8 +15,7 @@ import javafx.stage.StageStyle;
 import uvigo.tfgalmacen.database.ProductoDAO;
 
 import static javafx.scene.Cursor.*;
-import static uvigo.tfgalmacen.dataTransform.DataExcelExporter.exportDatabaseTablesToXML;
-import static uvigo.tfgalmacen.dataTransform.DataExcelExporter.exportDatabaseToXML;
+import static uvigo.tfgalmacen.dataTransform.DataExcelExporter.*;
 import static uvigo.tfgalmacen.database.DatabaseConnection.*;
 import static uvigo.tfgalmacen.database.RolePermissionDAO.printRolesAndPermissions;
 import static uvigo.tfgalmacen.database.TableLister.listTables;
