@@ -138,7 +138,7 @@
                <Image url="@../../icons/user.png" />
             </ImageView>
             <VBox layoutX="48.0" layoutY="41.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #804012;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-               <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012; -fx-font-weight: bold;" styleClass="sidebarItem" text="ALMACEN" textFill="WHITE">
+               <Button fx:id="almacenButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012; -fx-font-weight: bold;" styleClass="sidebarItem" text="ALMACEN" textFill="WHITE">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../../icons/home.png" />

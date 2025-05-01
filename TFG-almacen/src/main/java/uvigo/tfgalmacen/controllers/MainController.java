@@ -52,6 +52,9 @@ public class MainController implements Initializable {
     private Button pedidosButton;
 
     @FXML
+    private Button almacenButton;
+
+    @FXML
     private Button ExitButton;
 
     @FXML
@@ -86,13 +89,11 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        inventarioButton.setOnMouseClicked(_ -> {
-            loadInventarioView();
-        });
+        inventarioButton.setOnMouseClicked(_ -> loadInventarioView());
 
-        pedidosButton.setOnMouseClicked(_ -> {
-            loadPedidosView();
-        });
+        pedidosButton.setOnMouseClicked(_ -> loadPedidosView());
+
+        almacenButton.setOnMouseClicked(_ -> loadAlmacenView());
 
 
 
@@ -101,6 +102,7 @@ public class MainController implements Initializable {
         });
         //Slider.setTranslateX(-176);
 
+        /*
         MenuButton.setOnMouseClicked(_ -> {
             TranslateTransition slide = new TranslateTransition();
             slide.setDuration(Duration.seconds(0.4));
@@ -116,8 +118,9 @@ public class MainController implements Initializable {
                 MenuBackButton.setVisible(true);
             });
         });
+        */
 
-        MenuBackButton.setOnMouseClicked(event -> {
+        MenuBackButton.setOnMouseClicked(_ -> {
             TranslateTransition slide = new TranslateTransition();
             slide.setDuration(Duration.seconds(0.4));
             slide.setNode(Slider);
@@ -135,11 +138,11 @@ public class MainController implements Initializable {
 
 
 
-        setupAlmacen3D();
+        loadAlmacenView();
 
     }
 
-
+/*
     private final Group grupo3D = new Group();
     private final Group grupoEjes = new Group();
 
@@ -402,7 +405,25 @@ public class MainController implements Initializable {
         });
     }
 
+*/
+    private void setupAlmacen3D() {
+        Almacen almacen = new Almacen("almacen.xml");
+        almacen.GenerarAlmacen();
 
+        almacenController almacen3DController = new almacenController();
+        SubScene subEscena = almacen3DController.crearVistaAlmacen(almacenContainer, almacen);
+
+        BorderPane content = new BorderPane();
+        content.setCenter(subEscena);
+        subEscena.widthProperty().bind(content.widthProperty());
+        subEscena.heightProperty().bind(content.heightProperty());
+
+        almacenContainer.getChildren().add(content);
+        AnchorPane.setTopAnchor(content, 0.0);
+        AnchorPane.setRightAnchor(content, 0.0);
+        AnchorPane.setBottomAnchor(content, 0.0);
+        AnchorPane.setLeftAnchor(content, 0.0);
+    }
     //------------------------------------------------------------------------------------------------------------------
 
     //                                   APARTADOS DEL MAIN CONTROLLER
@@ -421,6 +442,11 @@ public class MainController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void loadAlmacenView() {
+        loadFXML("almacen");
     }
 
     @FXML
