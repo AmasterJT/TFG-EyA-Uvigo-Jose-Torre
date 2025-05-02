@@ -1,4 +1,4 @@
 package uvigo.tfgalmacen.controllers;
 
-public class PedidosController {
+public class pedidosController {
 }

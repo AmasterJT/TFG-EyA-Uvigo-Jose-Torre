@@ -2,28 +2,25 @@ package uvigo.tfgalmacen.controllers;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
+import uvigo.tfgalmacen.Main;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class MainController implements Initializable {
+public class mainController implements Initializable {
 
 
     @FXML
@@ -42,6 +39,9 @@ public class MainController implements Initializable {
     private Button almacenButton;
 
     @FXML
+    private Button recepcionButton;
+
+    @FXML
     private Button ExitButton;
 
     @FXML
@@ -57,6 +57,9 @@ public class MainController implements Initializable {
     private Label welcomeText;
 
     @FXML
+    private Label roleLabel;
+
+    @FXML
     private BorderPane BorderPane;
 
     @FXML
@@ -69,6 +72,8 @@ public class MainController implements Initializable {
     AnchorPane Slider;
 
 
+    private Button activeScene = null;
+
 
 
     @FXML
@@ -80,13 +85,16 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        ExitButton.setOnMouseClicked(_ -> Platform.exit());
+
+        almacenButton.setOnMouseClicked(_ -> loadAlmacenView());
+
         inventarioButton.setOnMouseClicked(_ -> loadInventarioView());
 
         pedidosButton.setOnMouseClicked(_ -> loadPedidosView());
 
-        almacenButton.setOnMouseClicked(_ -> loadAlmacenView());
+        recepcionButton.setOnMouseClicked(_ -> loadRecepcionView());
 
-        ExitButton.setOnMouseClicked(_ -> Platform.exit());
 
 
         // MenuBackButton.setOnMouseClicked(_ -> slideMenu(false));
@@ -94,6 +102,14 @@ public class MainController implements Initializable {
 
         // Por defecto carga la vista de almacen
         loadAlmacenView();
+
+        if(Main.currentUser != null){
+            roleLabel.setText(Main.currentUser.getRole());
+        }
+        else{
+            roleLabel.setText("NO ROL");
+        }
+
 
     }
 
@@ -115,23 +131,32 @@ public class MainController implements Initializable {
             BorderPane.setCenter(parent);
 
         } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @FXML
     private void loadAlmacenView() {
         loadFXML("almacen");
+        marcarBotonActivo(almacenButton);
     }
 
     @FXML
     private void loadInventarioView() {
         loadFXML("inventario");
+        marcarBotonActivo(inventarioButton);
     }
 
     @FXML
     private void loadPedidosView() {
         loadFXML("pedidos");
+        marcarBotonActivo(pedidosButton);
+    }
+
+    @FXML
+    private void loadRecepcionView() {
+        loadFXML("recepcion");
+        marcarBotonActivo(recepcionButton);
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -183,6 +208,21 @@ public class MainController implements Initializable {
     }
 
 
+    private void marcarBotonActivo(Button botonSeleccionado) {
+        // Estilo para botón activo
+        String estiloActivo = "-fx-background-color: #2E2E2E; -fx-text-fill: white;";
+        // Estilo para botón inactivo (vacío o el que uses por defecto)
+        String estiloNormal = "-fx-background-color: #804012; -fx-text-fill: white;";
+
+        // Aplicar estilos condicionalmente
+        almacenButton.setStyle(botonSeleccionado == almacenButton ? estiloActivo : estiloNormal);
+        inventarioButton.setStyle(botonSeleccionado == inventarioButton ? estiloActivo : estiloNormal);
+        pedidosButton.setStyle(botonSeleccionado == pedidosButton ? estiloActivo : estiloNormal);
+        recepcionButton.setStyle(botonSeleccionado == recepcionButton ? estiloActivo : estiloNormal);
+
+        // Actualizar referencia del botón activo
+        activeScene = botonSeleccionado;
+    }
 
 
 }

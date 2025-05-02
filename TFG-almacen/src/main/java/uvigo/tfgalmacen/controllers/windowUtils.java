@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 
 import static javafx.scene.Cursor.*;
 
-public class wWindowUtils {
+public class windowUtils {
 
     private static final double borderWidth = 8; // Define el grosor del borde que será interactivo para redimensionar.
     private static double xOffset = 0; // Desplazamiento horizontal del ratón respecto a la ventana.

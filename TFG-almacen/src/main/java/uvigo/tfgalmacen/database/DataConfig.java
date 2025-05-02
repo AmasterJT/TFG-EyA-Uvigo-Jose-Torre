@@ -12,9 +12,11 @@ public class DataConfig {
     static String DATABASE_NAME;
     static String DRIVER;
 
+    static Properties properties = new Properties();
+
+
     static {
         try {
-            Properties properties = new Properties();
             FileInputStream fis = new FileInputStream("src/main/resources/config.properties");
             properties.load(fis);
 
@@ -31,5 +33,11 @@ public class DataConfig {
             System.err.println("Error al cargar las propiedades de configuración: " + e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+
+    public static void setCurrentUser(String name, String role){
+        properties.setProperty("current_user_name", name);
+        properties.setProperty("current_user_role", role);
     }
 }

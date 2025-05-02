@@ -19,11 +19,16 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
 
+import uvigo.tfgalmacen.User;
+import uvigo.tfgalmacen.database.DataConfig;
+import uvigo.tfgalmacen.database.UsuarioDAO;
+import uvigo.tfgalmacen.database.RolePermissionDAO;
+
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
 import static uvigo.tfgalmacen.database.UsuarioDAO.SQLcheckUser;
 
 
-public class LoginController implements Initializable{
+public class loginController implements Initializable{
 
     public static final boolean IS_RESIZABLE = false;
 
@@ -47,6 +52,9 @@ public class LoginController implements Initializable{
         if (SQLcheckUser(Main.connection, username.getText(), password.getText())){
            System.out.println(VERDE + "✅ login correcto" + RESET);
 
+           Main.currentUser = new User(username.getText(), password.getText(), Main.connection);
+
+
             try {
                 // Carga la nueva escena desde otro archivo FXML
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("/uvigo/tfgalmacen/main.fxml"));
@@ -58,8 +66,8 @@ public class LoginController implements Initializable{
                 // Configura la nueva escena en el Stage
                 Scene newScene = new Scene(newRoot);
 
-                WindowUtils.enableWindowMovement(newRoot, stage);
-                WindowUtils.enableWindowResize(newRoot, stage);
+                windowUtils.enableWindowMovement(newRoot, stage);
+                windowUtils.enableWindowResize(newRoot, stage);
 
                 stage.setScene(newScene);
                 stage.centerOnScreen();
