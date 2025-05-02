@@ -100,4 +100,24 @@ public class RolePermissionDAO {
             System.err.println("Error al recuperar los roles y permisos: " + e.getMessage());
         }
     }
+
+    // Consulta SQL para obtener el nombre del rol por ID
+    private static final String SELECT_ROLE_NAME_BY_ID_SQL = "SELECT nombre_rol FROM roles WHERE id_rol = ?";
+
+    // Método para obtener el nombre del rol según el id_rol
+    public static String getRoleNameById(Connection connection, int id_rol) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ROLE_NAME_BY_ID_SQL)) {
+            preparedStatement.setInt(1, id_rol);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("nombre_rol");
+            } else {
+                return null; // No se encontró ningún rol con ese ID
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener el nombre del rol: " + e.getMessage());
+            return null;
+        }
+    }
 }
