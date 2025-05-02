@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 
 public class almacenController  implements Initializable {
     private final Group grupo3D = new Group();
+    private final Group grupoEjes = new Group();
     private final Group[] gruposPalets = {new Group(), new Group(), new Group(), new Group()};
     private final Group[] gruposBaldas = {new Group(), new Group(), new Group(), new Group()};
 
@@ -47,6 +48,7 @@ public class almacenController  implements Initializable {
 
         almacenController almacen3DController = new almacenController();
         SubScene subEscena = almacen3DController.crearVistaAlmacen(almacenContainer, almacen);
+        subEscena.setOnMouseEntered(e -> subEscena.requestFocus());
 
         // Usa un contenedor intermedio para redimensionar correctamente
         BorderPane content = new BorderPane();
@@ -54,7 +56,7 @@ public class almacenController  implements Initializable {
         subEscena.widthProperty().bind(content.widthProperty());
         subEscena.heightProperty().bind(content.heightProperty());
 
-        almacenContainer.getChildren().clear(); // 🧹 Limpia la vista anterior si la hubiera
+        almacenContainer.getChildren().clear(); // Limpia la vista anterior si la hubiera
         almacenContainer.getChildren().add(content);
         AnchorPane.setTopAnchor(content, 0.0);
         AnchorPane.setBottomAnchor(content, 0.0);
@@ -64,8 +66,8 @@ public class almacenController  implements Initializable {
 
     public SubScene crearVistaAlmacen(AnchorPane container, Almacen almacen) {
         // Ejes opcionales
-        Group grupoEjes = new Group();
         grupo3D.getChildren().add(grupoEjes);
+        showAxis(true);
 
         // Dibujar baldas y palets
         for (int k = 0; k < 4; k++) {
@@ -125,31 +127,66 @@ public class almacenController  implements Initializable {
         return subEscena3D;
     }
 
-    private void configurarEventos(SubScene escena, Almacen almacen) {
-        escena.setOnMousePressed(event -> {
-            ratonXVentanaAntes = event.getSceneX();
-            ratonYVentanaAntes = event.getSceneY();
-        });
+    private void reiniciarCamara() {
+        camara.getTransforms().clear();
+        camara.getTransforms().addAll(
+                new Rotate(160, Rotate.X_AXIS),
+                new Rotate(-30, Rotate.Y_AXIS),
+                new Rotate(-10, Rotate.Z_AXIS),
+                new Translate(-1500, -9500, -40000)
+        );
+    }
 
-        escena.setOnScroll(event -> {
-            double factor = 0.06;
-            double roll = grupo3D.getRotate() + event.getDeltaY() * factor;
-            Rotate rot = new Rotate(roll, -7200, 18150, -8800, Rotate.Y_AXIS);
-            grupo3D.getTransforms().add(rot);
-        });
+    private void configurarEventos(SubScene escena, Almacen almacen) {
 
         escena.setOnKeyPressed(event -> {
             double desplazamiento = event.isShiftDown() ? 60 : 200;
-            Translate tr = switch (event.getCode()) {
-                case S -> new Translate(0, 0, -desplazamiento);
-                case W -> new Translate(0, 0, desplazamiento);
-                case A -> new Translate(-desplazamiento, 0, 0);
-                case D -> new Translate(desplazamiento, 0, 0);
-                case E -> new Translate(0, -desplazamiento, 0);
-                case C -> new Translate(0, desplazamiento, 0);
-                default -> null;
-            };
+            double rotacion = 5;
+            double factor = 0.06;
+            double roll = grupo3D.getRotate() + rotacion * factor;
+
+            Translate tr = null;
+            Rotate rot = null;
+
+            switch (event.getCode()) {
+                case S, DOWN    -> tr = new Translate(0, -desplazamiento, 0);
+                case W, UP      -> tr = new Translate(0, desplazamiento,0);
+                case A, LEFT    -> tr = new Translate(-desplazamiento, 0, 0);
+                case D, RIGHT   -> tr = new Translate(desplazamiento, 0, 0);
+                case C          -> tr = new Translate(0, desplazamiento, 0);
+                case R          -> reiniciarCamara();
+                case PLUS, EQUALS -> tr = new Translate(0, 0, 500); // Zoom in
+                case MINUS        -> tr = new Translate(0, 0, -500); // Zoom out
+                default         -> {}
+            }
+
             if (tr != null) camara.getTransforms().add(tr);
+        });
+
+        escena.setOnScroll(event -> {
+            if (event.isControlDown()) {
+                // Zoom con CTRL + scroll
+                double zoomAmount = event.getDeltaY() > 0 ? 500 : -500;
+                Translate zoom = new Translate(0, 0, zoomAmount);
+                camara.getTransforms().add(zoom);
+            } else {
+                // Rotación normal si no está presionado CTRL
+                double factor = 0.06;
+                double roll = grupo3D.getRotate() + event.getDeltaY() * factor;
+                Rotate rot = new Rotate(
+                        roll,
+                        (double) -(3600 * 4 + 3700 * 2) / 2,  // centro X
+                        18150,                               // centro Y
+                        (double) -36300 / 2,                 // centro Z
+                        Rotate.Y_AXIS
+                );
+                grupo3D.getTransforms().add(rot);
+            }
+        });
+
+        escena.setOnMousePressed(event -> {
+            ratonXVentanaAntes = event.getSceneX();
+            ratonYVentanaAntes = event.getSceneY();
         });
 
         escena.setOnMouseDragged(event -> {
@@ -160,9 +197,10 @@ public class almacenController  implements Initializable {
                 camara.getTransforms().addAll(new Rotate(-dy * 0.05, Rotate.X_AXIS));
                 camara.getTransforms().addAll(new Rotate(dx * 0.05, Rotate.Y_AXIS));
             }
-
             ratonXVentanaAntes = event.getSceneX();
             ratonYVentanaAntes = event.getSceneY();
+
+
         });
 
         escena.setOnMouseClicked(event -> {
@@ -182,7 +220,26 @@ public class almacenController  implements Initializable {
                 }
             }
         });
+
     }
 
+    public void showAxis(Boolean show) {
+        if (show) {
+            Box ejeY = new Box(1500, 10, 10);
+            ejeY.setTranslateX(750);
+            ejeY.setMaterial(new PhongMaterial(Color.YELLOW));
+            Box ejeZ = new Box(10, 1500, 10);
+            ejeZ.setTranslateY(750);
+            ejeZ.setMaterial(new PhongMaterial(Color.GREEN));
+            Box ejeX = new Box(10, 10, 1500);
+            ejeX.setTranslateZ(750);
+            ejeX.setMaterial(new PhongMaterial(Color.BLUE));
+
+
+            grupoEjes.getChildren().add(ejeX);
+            grupoEjes.getChildren().add(ejeY);
+            grupoEjes.getChildren().add(ejeZ);
+        }
+    }
 
 }
