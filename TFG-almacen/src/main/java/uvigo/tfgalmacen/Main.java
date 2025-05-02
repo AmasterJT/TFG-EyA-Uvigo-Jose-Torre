@@ -28,6 +28,7 @@ import static uvigo.tfgalmacen.database.TableLister.listTables;
 public class Main extends Application {
 
     public static Connection connection;
+    public static User currentUser = null;
 
     private double xOffset = 0; // Desplazamiento horizontal del ratón respecto a la ventana.
     private double yOffset = 0; // Desplazamiento vertical del ratón respecto a la ventana.
