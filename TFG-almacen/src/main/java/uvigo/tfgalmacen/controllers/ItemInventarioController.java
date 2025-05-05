@@ -23,9 +23,9 @@ public class ItemInventarioController {
         identificador_producto.setText(palet.getIdProducto());
         identificador_tipo.setText(palet.getProducto().getTipo().getIdTipo());
 
+        String colorHEX = palet.getProducto().getTipo().applyPastelFilter(palet.getProducto().getTipo().colorHEX);
+        System.out.println("Color:" + colorHEX);
 
-        System.out.println("Color:" + palet.getProducto().getTipo().getColor());
-
-        //backgroundAnchorPane.setStyle("-fx-background-color: " +  "rgb(" + palet.getProducto().getTipo().getColor() + ")");
+        backgroundAnchorPane.setStyle("-fx-background-color: " +  colorHEX);
     }
 }

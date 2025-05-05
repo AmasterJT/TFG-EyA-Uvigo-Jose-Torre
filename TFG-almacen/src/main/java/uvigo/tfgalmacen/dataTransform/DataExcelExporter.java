@@ -33,6 +33,7 @@ public class DataExcelExporter {
      * @param tableName Nombre de la tabla a exportar.
      */
     public static void exportTableToXML(Connection connection, String tableName) {
+        verificarYCrearDirectorio();
 
         String outputPath = OUTPUT_DIRECTORY + tableName + FILE_EXTENTION;
 
@@ -110,6 +111,7 @@ public class DataExcelExporter {
      * @param connection Conexión a la base de datos.
      */
     public static void exportDatabaseToXML(Connection connection) {
+        verificarYCrearDirectorio();
         try {
             System.out.println("⏳ Iniciando conversión...");
             List<String> tablesNames = getTables(connection, DatabaseConnection.DATABASE_NAME);
@@ -172,6 +174,25 @@ public class DataExcelExporter {
         System.out.println("✅ " + VERDE + "Conversión finalizada con éxito" + RESET);
 
     }
+
+
+    // Función para verificar y crear el directorio si no existe
+    public static void verificarYCrearDirectorio() {
+        File directorio = new File(OUTPUT_DIRECTORY);
+
+        // Si el directorio no existe, lo creamos
+        if (!directorio.exists()) {
+            boolean creado = directorio.mkdirs(); // Crea el directorio y sus subdirectorios si es necesario
+            if (creado) {
+                System.out.println("✅ Directorio creado: " + OUTPUT_DIRECTORY);
+            } else {
+                System.err.println("❌ Error al crear el directorio: " + OUTPUT_DIRECTORY);
+            }
+        } else {
+            System.out.println("✔️ El directorio ya existe: " + OUTPUT_DIRECTORY);
+        }
+    }
+
 
 
 }
