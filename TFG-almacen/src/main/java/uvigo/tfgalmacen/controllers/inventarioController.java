@@ -3,6 +3,7 @@ package uvigo.tfgalmacen.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.almacenManagement.Palet;
@@ -10,6 +11,7 @@ import uvigo.tfgalmacen.database.PaletDAO;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -44,7 +46,9 @@ public class inventarioController implements Initializable {
         colPosicion.setCellValueFactory(cellData -> cellData.getValue().posicionProperty());
         colDelante.setCellValueFactory(cellData -> cellData.getValue().delanteProperty());
 
-        tablaInventario.getItems().setAll(PaletDAO.getAllPalets(conexion));
+        List<Palet> palets = PaletDAO.getAllPalets(conexion);
+
+        tablaInventario.getItems().setAll(palets);
     }
 }
 

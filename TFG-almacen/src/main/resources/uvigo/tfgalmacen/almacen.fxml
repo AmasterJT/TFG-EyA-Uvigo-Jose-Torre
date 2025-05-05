@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="almacenContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1040.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.almacenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1040.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.almacenController">
+    <VBox>
+      <HBox prefWidth="200.0">
+         <children>
+            <CheckBox mnemonicParsing="false" text="1" />
+            <CheckBox mnemonicParsing="false" text="2" />
+            <CheckBox mnemonicParsing="false" text="3" />
+            <CheckBox mnemonicParsing="false" text="4" />
+            <ComboBox prefWidth="150.0" promptText="Tipo de producto" />
+            <ComboBox prefWidth="150.0" promptText="Producto" />
+         </children>
+      </HBox>
+       <AnchorPane fx:id="almacenContainer" prefHeight="663.0" prefWidth="1040.0">
+          <children>
 
-    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="440.0" layoutY="240.0" text="Page almacen" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <font>
-            <Font />
-        </font>
-    </Label>
+              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="663.0" prefWidth="1040.0" text="Page almacen" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <font>
+                      <Font />
+                  </font>
+              </Label>
+          </children>
+       </AnchorPane>
+    </VBox>
 
 </AnchorPane>
