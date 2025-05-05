@@ -71,7 +71,7 @@ public class inventarioController implements Initializable {
 
 
 
-
+        limpiarGridPane(grid);
 
         int column = 0;
         int row = 1;
@@ -113,7 +113,12 @@ public class inventarioController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
+    public void limpiarGridPane(GridPane gridPane) {
+        gridPane.getChildren().clear();
+        gridPane.getColumnConstraints().clear();
+        gridPane.getRowConstraints().clear();
+    }
 }
-
-
 

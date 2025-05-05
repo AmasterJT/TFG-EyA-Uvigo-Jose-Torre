@@ -171,10 +171,7 @@ public class Almacen {
 
                 for (Producto producto : TodosProductos) {
                     if (producto.getIdProducto().equals(palets.getLast().getIdProducto())) {
-
-                        System.out.println("encontramos el producto del palet: " + palets.getLast().getIdProducto());
                         palets.getLast().setProducto(producto);
-                            System.out.println("    -- " + palets.getLast().getProducto().getIdProducto());
                         break;
                     }
                 }

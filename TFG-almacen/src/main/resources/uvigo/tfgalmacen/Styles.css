@@ -119,7 +119,7 @@
 
 .chosen-fruit-card{
     -fx-background-color: #F16C31;
-    -fx-background-radius: 30;
+    -fx-background-radius: 15;
 }
 
 .comboBox{
@@ -144,7 +144,7 @@
 
 .fruit-item{
     -fx-background-color: #FFFFFF;
-        -fx-background-radius: 30;
+        -fx-background-radius: 15;
 }
 
 
