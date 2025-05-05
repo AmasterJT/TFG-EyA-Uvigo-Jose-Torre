@@ -14,6 +14,8 @@ public class Palet {
     private String idProducto, idTipo = "NO SE ASIGNO TIPO";
     private boolean delante;
 
+    public Producto producto = null;
+
     public int ANCHO_BALDA = Almacen.ANCHO_BALDA, SEPARACION_ENTRE_BALDAS = Almacen.SEPARACION_ENTRE_BALDAS, BORDE = Almacen.BORDE, ALTO_BALDA = Almacen.ALTO_BALDA;
 
     // estas variables guardan la posicion del plaet y el producto qque son objetos graficos de tipo Box en javaFX
@@ -286,4 +288,12 @@ public class Palet {
     public StringProperty posicionProperty() { return new SimpleStringProperty(String.valueOf(posicion)); }
     public StringProperty delanteProperty() { return new SimpleStringProperty(String.valueOf(delante)); }
 
+    public void setProducto(Producto producto) {
+
+        this.producto = producto;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
 }

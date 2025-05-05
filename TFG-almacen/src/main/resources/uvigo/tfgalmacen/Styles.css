@@ -163,3 +163,9 @@
 .scroll-pane .scroll-bar {
     -fx-background-color: transparent;
 }
+
+
+.grid-centered {
+    -fx-alignment: center;
+    -fx-padding: 20;
+}

@@ -7,6 +7,8 @@ public class Producto {
     private String idProducto, idTipo;
     private int numPalets = 0, cantidadDeProducto = 0;
 
+    public Tipo tipo = null;
+
     // =========================CONSTRUCTORES===============================
     public Producto(String idProducto, String idTipo) {
         this.idProducto = idProducto;
@@ -54,5 +56,14 @@ public class Producto {
                 " tipo:" + this.getIdTipo() +
                 " Palets: " + this.getNumPalets() +
                 " Cantidad de producto: " + this.getCantidadDeProducto() + TerminalColors.RESET;
+    }
+
+    public void setTipo(Tipo tipo) {
+
+        this.tipo = tipo;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
     }
 }

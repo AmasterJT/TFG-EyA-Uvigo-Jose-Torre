@@ -18,7 +18,7 @@ public class Almacen {
 
     public String archivoXML;
 
-    public ArrayList<Palet> TodosPalets = null;
+    public static ArrayList<Palet> TodosPalets = null;
     public ArrayList<Producto> TodosProductos = null;
     public ArrayList<Tipo> TodosTipos = null;
 
@@ -44,9 +44,9 @@ public class Almacen {
             if (conexion != null) {
 
                 //extraerDatosDeXML(conexion); // Carga los datos desde XML
-                TodosPalets = obtenerPaletsDesdeBD(conexion);
-                TodosProductos = obtenerProductosDesdeBD(conexion); // deberías implementar estas
                 TodosTipos = obtenerTiposDesdeBD(conexion);         // también si usas DB para todo
+                TodosProductos = obtenerProductosDesdeBD(conexion); // deberías implementar estas
+                TodosPalets = obtenerPaletsDesdeBD(conexion);
             }
 
         } catch (Exception ex) {
@@ -167,6 +167,17 @@ public class Almacen {
                         String.valueOf(rs.getInt("posicion")),
                         String.valueOf(rs.getBoolean("delante"))
                 ));
+
+
+                for (Producto producto : TodosProductos) {
+                    if (producto.getIdProducto().equals(palets.getLast().getIdProducto())) {
+
+                        System.out.println("encontramos el producto del palet: " + palets.getLast().getIdProducto());
+                        palets.getLast().setProducto(producto);
+                            System.out.println("    -- " + palets.getLast().getProducto().getIdProducto());
+                        break;
+                    }
+                }
             }
 
         } catch (Exception e) {
@@ -184,10 +195,19 @@ public class Almacen {
              ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
+
                 productos.add(new Producto(
                         rs.getString("identificador_producto"),
                         rs.getString("tipo_producto")
                 ));
+
+                for (Tipo tipo : TodosTipos) {
+
+                    if (tipo.getIdTipo().equals(productos.getLast().getIdTipo())) {
+                        productos.getLast().setTipo(tipo);
+                        break;
+                    }
+                }
             }
 
         } catch (Exception e) {
@@ -214,6 +234,8 @@ public class Almacen {
         } catch (Exception e) {
             System.err.println("❌ Error leyendo tipos: " + e.getMessage());
         }
+
+
 
         return tipos;
     }

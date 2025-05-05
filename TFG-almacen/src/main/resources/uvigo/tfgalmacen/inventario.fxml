@@ -17,20 +17,16 @@
    <children>
       <VBox alignment="TOP_CENTER" layoutX="-4.0" layoutY="-3.0" prefHeight="702.0" prefWidth="1040.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ScrollPane prefHeight="183.0" prefWidth="1040.0" styleClass="transparent" stylesheets="@Styles.css">
-               <HBox alignment="CENTER" prefHeight="183.0" prefWidth="1040.0" styleClass="transparent" />
-            </ScrollPane>
-            <ScrollPane prefHeight="152.0" prefWidth="1040.0" styleClass="transparent" stylesheets="@Styles.css">
+            <ScrollPane fx:id="scroll" prefHeight="353.0" prefWidth="1040.0" styleClass="transparent" stylesheets="@Styles.css">
                <content>
-                  <HBox alignment="CENTER" prefHeight="151.0" prefWidth="1040.0" styleClass="transparent" stylesheets="@Styles.css">
+                  <VBox alignment="CENTER" stylesheets="@Styles.css">
                      <children>
-                        <GridPane>
+                        <GridPane fx:id="grid" styleClass="grid-centered" stylesheets="@Styles.css">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                         </GridPane>
                      </children>
-                  </HBox>
+                  </VBox>
                </content>
             </ScrollPane>
             <HBox prefWidth="200.0">
