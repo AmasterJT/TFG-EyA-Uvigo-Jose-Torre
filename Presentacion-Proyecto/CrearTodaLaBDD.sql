@@ -344,28 +344,65 @@ CREATE TABLE
         ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
 
--- Creación de la tabla productos
-CREATE TABLE
-    productos (
-        id_producto INT PRIMARY KEY AUTO_INCREMENT,
-        nombre_producto VARCHAR(100) NOT NULL,
-        descripcion TEXT,
-        precio DECIMAL(10, 2),
-        fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
 
--- Creación de la tabla palets
-CREATE TABLE
-    palets (
-        id_palet INT PRIMARY KEY AUTO_INCREMENT,
-        id_producto INT,
-        cantidad INT NOT NULL,
-        estanteria INT NOT NULL,
-        balda INT NOT NULL,
-        posicion INT NOT NULL,
-        fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (id_producto) REFERENCES productos (id_producto)
-    );
+-- Tabla tipos (ajustada)
+CREATE TABLE tipos (
+    id_tipo VARCHAR(100) PRIMARY KEY,
+    color VARCHAR(100) NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- Tabla productos (ajustada)
+CREATE TABLE productos (
+
+    id_producto INT PRIMARY KEY AUTO_INCREMENT,
+    identificador_producto VARCHAR(100) UNIQUE, -- era INT
+    tipo_producto VARCHAR(100),
+    nombre_producto VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    color VARCHAR(100),
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+DELIMITER //
+
+CREATE TRIGGER asignar_color_producto
+BEFORE INSERT ON productos
+FOR EACH ROW
+BEGIN
+    DECLARE tipo_color VARCHAR(100);
+
+    -- Buscar el color del tipo de producto
+    SELECT color INTO tipo_color
+    FROM tipos
+    WHERE id_tipo = NEW.tipo_producto;
+
+    -- Asignar el color al producto
+    SET NEW.color = tipo_color;
+END;
+//
+
+DELIMITER ;
+
+-- Tabla palets (ajustada)
+CREATE TABLE palets (
+    id_palet INT PRIMARY KEY AUTO_INCREMENT,
+    alto INT,
+    ancho INT,
+    largo INT,
+    id_producto VARCHAR(100),
+    cantidad_de_producto INT NOT NULL,
+    identificador INT,
+    
+    estanteria INT NOT NULL,
+    balda INT NOT NULL,
+    posicion INT NOT NULL,
+    delante VARCHAR(100) NOT NULL,
+    
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_producto) REFERENCES productos (identificador_producto)
+);
 
 -- Creación de la tabla movimientos
 CREATE TABLE
@@ -413,6 +450,7 @@ BEGIN
 END;
 //
 DELIMITER ;
+
 
 -- Creación de la tabla detalles_pedido
 CREATE TABLE
@@ -505,47 +543,50 @@ VALUES
     -- Cliente 10: Lucía Jiménez
     ('Lucía Jiménez', 'lucia.jimenez@example.com', '+49-30-5678-1234', 'Unter den Linden 1', 'Berlín', 'Berlín', 'Alemania', '1980-05-08', TRUE);
 
--- Inserción de datos en la tabla Productos
-INSERT INTO productos (nombre_producto, descripcion, precio)
-VALUES
+-- Inserción de datos en la tabla Productos        
+        
+-- INSERT INTO productos (nombre_producto, tipo_producto, descripcion)
+-- VALUES
     -- Producto 1: Lápices
-    ('Lápices', 'Caja de 50 lápices de madera', 10.50),
+   -- ('Lápices', 'Caja de 50 lápices de madera'),
     -- Producto 2: Cuadernos
-    ('Cuadernos', 'Cuadernos tamaño A4 de 100 hojas', 5.75),
+  --  ('Cuadernos', 'Cuadernos tamaño A4 de 100 hojas'),
     -- Producto 3: Bolígrafos
-    ('Bolígrafos', 'Paquete de 20 bolígrafos azules', 7.20),
+   -- ('Bolígrafos', 'Paquete de 20 bolígrafos azules'),
     -- Producto 4: Marcadores
-    ('Marcadores', 'Set de 12 marcadores de colores', 15.00),
+   -- ('Marcadores', 'Set de 12 marcadores de colores'),
     -- Producto 5: Gomas de borrar
-    ('Gomas de borrar', 'Pack de 10 gomas de borrar suaves', 3.50);
+   -- ('Gomas de borrar', 'Pack de 10 gomas de borrar suaves');
 
 -- Inserción de datos en la tabla Palets
-INSERT INTO palets (id_producto, cantidad, estanteria, balda, posicion)
-VALUES
+
+-- INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_producto, estanteria, balda, posicion)
+-- VALUES
     -- Palet 1: Lápices, 100 unidades en la estantería 1, balda 2, posición 3
-    (1, 100, 1, 2, 3),
+   -- (1, 100, 1, 2, 3),
     -- Palet 2: Lápices, 50 unidades en la estantería 2, balda 4, posición 2
-    (1, 50, 2, 4, 2),
+   -- (1, 50, 2, 4, 2),
     -- Palet 3: Cuadernos, 200 unidades en la estantería 3, balda 3, posición 3
-    (2, 200, 3, 3, 3),
+   -- (2, 200, 3, 3, 3),
     -- Palet 4: Bolígrafos, 150 unidades en la estantería 1, balda 4, posición 1
-    (3, 150, 1, 4, 1),
+   -- (3, 150, 1, 4, 1),
     -- Palet 5: Marcadores, 100 unidades en la estantería 3, balda 5, posición 3
-    (4, 100, 3, 5, 3),
+   -- (4, 100, 3, 5, 3),
     -- Palet 6: Gomas de borrar, 300 unidades en la estantería 4, balda 4, posición 2
-    (5, 300, 4, 4, 2);
+   -- (5, 300, 4, 4, 2);
+
 
 -- Inserción de datos en la tabla Movimientos
-INSERT INTO movimientos (id_usuario, id_palet, tipo_movimiento, cantidad, observaciones)
-VALUES
+-- INSERT INTO movimientos (id_usuario, id_palet, tipo_movimiento, cantidad, observaciones)
+-- VALUES
     -- Movimiento 1: Entrada de lápices en Zona A
-    (2, 1, 'Entrada', 100, 'Recepción de lápices en Zona A - Estante 1'),
+   -- (2, 1, 'Entrada', 100, 'Recepción de lápices en Zona A - Estante 1'),
     -- Movimiento 2: Salida de lápices a cliente
-    (3, 2, 'Salida', 50, 'Envío parcial de lápices a cliente'),
+   -- (3, 2, 'Salida', 50, 'Envío parcial de lápices a cliente'),
     -- Movimiento 3: Entrada de cuadernos en Zona B
-    (4, 3, 'Entrada', 200, 'Recepción de cuadernos en Zona B - Estante 3'),
+   -- (4, 3, 'Entrada', 200, 'Recepción de cuadernos en Zona B - Estante 3'),
     -- Movimiento 4: Entrada de bolígrafos en Zona C
-    (5, 4, 'Entrada', 150, 'Recepción de bolígrafos en Zona C - Estante 1');
+   -- (5, 4, 'Entrada', 150, 'Recepción de bolígrafos en Zona C - Estante 1');
 
 -- Inserción de datos en la tabla Pedidos
 INSERT INTO pedidos (id_usuario, id_cliente, estado)
@@ -573,39 +614,39 @@ VALUES
 
 
 -- Inserción de datos en la tabla DetallesPedido
-INSERT INTO detalles_pedido (id_pedido, id_palet, cantidad)
-VALUES
+-- INSERT INTO detalles_pedido (id_pedido, id_palet, cantidad)
+-- VALUES
     -- Detalles del Pedido 1: Incluye lápices y bolígrafos
-    (1, 1, 20),  -- 20 unidades del primer palet (Lápices)
-    (1, 3, 15),  -- 15 unidades del tercer palet (Bolígrafos)
+  --  (1, 1, 20),  -- 20 unidades del primer palet (Lápices)
+  --  (1, 3, 15),  -- 15 unidades del tercer palet (Bolígrafos)
     -- Detalles del Pedido 2: Incluye cuadernos y marcadores
-    (2, 2, 10),  -- 10 unidades del segundo palet (Cuadernos)
-    (2, 4, 5),   -- 5 unidades del cuarto palet (Marcadores)
+  --  (2, 2, 10),  -- 10 unidades del segundo palet (Cuadernos)
+  --  (2, 4, 5),   -- 5 unidades del cuarto palet (Marcadores)
     -- Detalles del Pedido 3: Incluye lápices, cuadernos y gomas de borrar
-    (3, 1, 30),  -- 30 unidades del primer palet (Lápices)
-    (3, 2, 20),  -- 20 unidades del segundo palet (Cuadernos)
-    (3, 6, 10),  -- 10 unidades del sexto palet (Gomas de borrar)
+   -- (3, 1, 30),  -- 30 unidades del primer palet (Lápices)
+   -- (3, 2, 20),  -- 20 unidades del segundo palet (Cuadernos)
+   -- (3, 6, 10),  -- 10 unidades del sexto palet (Gomas de borrar)
     -- Detalles del Pedido 4: Incluye marcadores y bolígrafos
-    (4, 4, 25),  -- 25 unidades del cuarto palet (Marcadores)
-    (4, 3, 40),  -- 40 unidades del tercer palet (Bolígrafos)
+   -- (4, 4, 25),  -- 25 unidades del cuarto palet (Marcadores)
+   -- (4, 3, 40),  -- 40 unidades del tercer palet (Bolígrafos)
     -- Detalles del Pedido 5: Incluye cuadernos, lápices y gomas de borrar
-    (5, 2, 15),  -- 15 unidades del segundo palet (Cuadernos)
-    (5, 1, 10),  -- 10 unidades del primer palet (Lápices)
-    (5, 6, 5),   -- 5 unidades del sexto palet (Gomas de borrar)
+  --  (5, 2, 15),  -- 15 unidades del segundo palet (Cuadernos)
+  --  (5, 1, 10),  -- 10 unidades del primer palet (Lápices)
+  --  (5, 6, 5),   -- 5 unidades del sexto palet (Gomas de borrar)
     -- Detalles del Pedido 6: Incluye lápices y marcadores
-    (6, 1, 50),  -- 50 unidades del primer palet (Lápices)
-    (6, 4, 20),  -- 20 unidades del cuarto palet (Marcadores)
+  --  (6, 1, 50),  -- 50 unidades del primer palet (Lápices)
+  --  (6, 4, 20),  -- 20 unidades del cuarto palet (Marcadores)
     -- Detalles del Pedido 7: Incluye bolígrafos, cuadernos y marcadores
-    (7, 3, 35),  -- 35 unidades del tercer palet (Bolígrafos)
-    (7, 2, 25),  -- 25 unidades del segundo palet (Cuadernos)
-    (7, 4, 10),  -- 10 unidades del cuarto palet (Marcadores)
+   -- (7, 3, 35),  -- 35 unidades del tercer palet (Bolígrafos)
+   -- (7, 2, 25),  -- 25 unidades del segundo palet (Cuadernos)
+   -- (7, 4, 10),  -- 10 unidades del cuarto palet (Marcadores)
     -- Detalles del Pedido 8: Incluye lápices y gomas de borrar
-    (8, 1, 40),  -- 40 unidades del primer palet (Lápices)
-    (8, 6, 15),  -- 15 unidades del sexto palet (Gomas de borrar)
+  --  (8, 1, 40),  -- 40 unidades del primer palet (Lápices)
+   -- (8, 6, 15),  -- 15 unidades del sexto palet (Gomas de borrar)
     -- Detalles del Pedido 9: Incluye bolígrafos y cuadernos
-    (9, 3, 20),  -- 20 unidades del tercer palet (Bolígrafos)
-    (9, 2, 30),  -- 30 unidades del segundo palet (Cuadernos)
+  --  (9, 3, 20),  -- 20 unidades del tercer palet (Bolígrafos)
+  --  (9, 2, 30),  -- 30 unidades del segundo palet (Cuadernos)
     -- Detalles del Pedido 10: Incluye marcadores, lápices y bolígrafos
-    (10, 4, 50), -- 50 unidades del cuarto palet (Marcadores)
-    (10, 1, 20), -- 20 unidades del primer palet (Lápices)
-    (10, 3, 25); -- 25 unidades del tercer palet (Bolígrafos)
+   -- (10, 4, 50), -- 50 unidades del cuarto palet (Marcadores)
+   -- (10, 1, 20), -- 20 unidades del primer palet (Lápices)
+   -- (10, 3, 25); -- 25 unidades del tercer palet (Bolígrafos)

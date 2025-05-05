@@ -58,12 +58,31 @@ public class Tipo {
     //==========================================================================
 
     //==================================METODOS=================================
+ /*
     public Color color_javaFx(){
 
         String[] c = this.getColor().split(",");
         //System.out.println(new Color(Double.parseDouble(c[0]), Double.parseDouble(c[1]), Double.parseDouble(c[2]), 1));
         return new Color(Double.parseDouble(c[0]), Double.parseDouble(c[1]), Double.parseDouble(c[2]), 1);
 
+    }
+*/
+    public Color color_javaFx() {
+        if (this.color_javafx == null) {
+            try {
+                String[] c = this.getColor().split(",");
+                this.color_javafx = new Color(
+                        Double.parseDouble(c[0]),
+                        Double.parseDouble(c[1]),
+                        Double.parseDouble(c[2]),
+                        1.0
+                );
+            } catch (Exception e) {
+                System.err.println("❌ Error al parsear color en Tipo (" + this.idTipo + "): " + e.getMessage());
+                this.color_javafx = Color.GRAY; // Color por defecto
+            }
+        }
+        return this.color_javafx;
     }
 
     @Override

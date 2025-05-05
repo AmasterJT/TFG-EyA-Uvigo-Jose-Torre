@@ -38,13 +38,13 @@ public class ExtractXMLinfo {
                         PaletsTotales.add(new Palet(
                                 palet_individual.getAttribute("alto"),
                                 palet_individual.getAttribute("ancho"),
-                                palet_individual.getAttribute("cantidadProducto"),
-                                palet_individual.getAttribute("delante"),
-                                palet_individual.getAttribute("idPalet"),
-                                palet_individual.getAttribute("idProducto"),
                                 palet_individual.getAttribute("largo"),
+                                palet_individual.getAttribute("idProducto"),
+                                palet_individual.getAttribute("cantidadProducto"),
+                                palet_individual.getAttribute("idPalet"),
+                                estanteria, balda,
                                 palet_individual.getAttribute("posicion"),
-                                estanteria, balda
+                                palet_individual.getAttribute("delante")
                         ));
                     }
                 }

@@ -26,24 +26,38 @@ public class Palet {
     public static int TotalPalets = 0;
 
     // =========================CONSTRUCTORES===============================
-    public Palet(String alto, String ancho, String cantidadProducto,
-                 String delante, String idPalet, String idProducto,
-                 String largo, String posicion, int estanteria, int balda) {
+    public Palet(String alto,
+                 String ancho,
+                 String largo,
+                 String idProducto,
+                 String cantidadProducto,
+                 String idPalet,
+                 int estanteria,
+                 int balda,
+                 String posicion,
+                 String delante
+
+    ) {
+
         this.alto = Integer.parseInt(alto);
         this.ancho = Integer.parseInt(ancho);
+        this.largo = Integer.parseInt(largo);
+
+        this.idProducto = idProducto;
         this.cantidadProducto = Integer.parseInt(cantidadProducto);
-        this.delante = !delante.equals("false");
 
         this.idPalet = Integer.parseInt(idPalet);
-        this.idProducto = idProducto;
-        this.largo = Integer.parseInt(largo);
-        this.posicion = Integer.parseInt(posicion);
+
 
         this.estanteria = estanteria;
         this.balda = balda;
+        this.posicion = Integer.parseInt(posicion);
+        this.delante = !delante.equals("false");
 
         TotalPalets++;
     }
+
+
 
     public Palet() {
         this.alto = this.ancho = this.cantidadProducto = this.idPalet = this.largo = this.posicion = this.posicion = this.estanteria = this.balda = 0;
@@ -51,6 +65,7 @@ public class Palet {
         this.idProducto = "";
         TotalPalets++;
     }
+
     //======================================================================
 
     //=======================GETTERS Y SETTERS =============================

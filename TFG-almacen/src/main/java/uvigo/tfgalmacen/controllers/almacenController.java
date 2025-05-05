@@ -97,6 +97,7 @@ public class almacenController implements Initializable {
                         if (palet != null) {
                             Box paletBox = palet.CreaPalet();
                             Box productoBox = palet.CreaProducto();
+                            //System.out.println(palet.getColorProducto());
                             palet.setPaletBox(paletBox);
                             palet.setProductBox(productoBox);
                             gruposPalets[k].getChildren().addAll(paletBox, productoBox);
@@ -144,7 +145,7 @@ public class almacenController implements Initializable {
     }
 
     /**
-     * Reinicia la cámara a su posición y rotación original.
+     * Reinicia la cámara y la rotación del grupo 3D a su estado inicial.
      */
     private void reiniciarCamara() {
         camara.getTransforms().clear();
@@ -153,6 +154,26 @@ public class almacenController implements Initializable {
                 new Rotate(-30, Rotate.Y_AXIS),
                 new Rotate(-10, Rotate.Z_AXIS),
                 new Translate(-1500, -9500, -40000)
+        );
+
+        // Restablecer rotación del grupo 3D (almacén)
+        grupo3D.getTransforms().clear(); // Quita todas las rotaciones previas
+        grupo3D.getChildren().clear();   // Limpiamos para evitar elementos duplicados
+        grupo3D.getChildren().add(grupoEjes); // Añadimos de nuevo los ejes
+
+        // Añadir baldas y palets otra vez al grupo principal
+        for (int i = 0; i < 4; i++) {
+            grupo3D.getChildren().addAll(gruposBaldas[i], gruposPalets[i]);
+        }
+
+        // Añadir luces otra vez si es necesario
+        grupo3D.getChildren().addAll(
+                new PointLight(new Color(0.6, 0.6, 0.6, 1)) {{
+                    setTranslateX(10000);
+                    setTranslateY(20000);
+                    setTranslateZ(30000);
+                }},
+                new AmbientLight(new Color(0.3, 0.3, 0.3, 1))
         );
     }
 
