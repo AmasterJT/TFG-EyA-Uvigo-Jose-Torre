@@ -27,6 +27,9 @@ public class Almacen {
         this.archivoXML = archivoXML;
     }
 
+    public Almacen() {
+    }
+
     public void GenerarAlmacen() {
 
         Connection conexion = null;

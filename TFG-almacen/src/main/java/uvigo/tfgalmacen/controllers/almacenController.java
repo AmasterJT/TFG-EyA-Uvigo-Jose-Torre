@@ -52,7 +52,8 @@ public class almacenController implements Initializable {
      * Se recrea desde cero cada vez que se entra a esta escena.
      */
     private void cargarVistaAlmacen() {
-        Almacen almacen = new Almacen("almacen.xml");
+        //Almacen almacen = new Almacen("almacen.xml");
+        Almacen almacen = new Almacen();
         almacen.GenerarAlmacen();
 
         // Se crea una instancia nueva que contiene la SubScene con todo renderizado
