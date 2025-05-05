@@ -1,9 +1,13 @@
 package uvigo.tfgalmacen.database;
 
+import uvigo.tfgalmacen.almacenManagement.Palet;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaletDAO {
 
@@ -46,6 +50,33 @@ public class PaletDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static List<Palet> getAllPalets(Connection connection) {
+        List<Palet> palets = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PALETS_SQL)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                palets.add(new Palet(String.valueOf(resultSet.getInt("alto")),
+                        String.valueOf(resultSet.getInt("ancho")),
+                        String.valueOf(resultSet.getInt("largo")),
+
+                        resultSet.getString("id_producto"),
+                        String.valueOf(resultSet.getInt("cantidad_de_producto")),
+
+                        resultSet.getString("identificador"),
+
+                        resultSet.getInt("estanteria"),
+                        resultSet.getInt("balda"),
+                        String.valueOf(resultSet.getInt("posicion")),
+                        String.valueOf(resultSet.getBoolean("delante"))));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return palets;
     }
 
     // Actualizar palet

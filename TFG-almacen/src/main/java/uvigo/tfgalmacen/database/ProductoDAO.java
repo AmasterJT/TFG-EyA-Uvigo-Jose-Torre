@@ -7,6 +7,9 @@ import java.sql.SQLException;
 
 public class ProductoDAO {
 
+    private static final String ORANGE = "\033[34m";
+    private static final String RESET = "\033[0m";
+
     // Crear producto
     private static final String INSERT_PRODUCTO_SQL = "INSERT INTO productos (nombre_producto, descripcion, precio) VALUES (?, ?, ?)";
 
@@ -34,11 +37,12 @@ public class ProductoDAO {
 
             while (resultSet.next()) {
                 int id_producto = resultSet.getInt("id_producto");
-                String nombre = resultSet.getString("nombre_producto");
+                String nombre = resultSet.getString("identificador_producto");
                 String descripcion = resultSet.getString("descripcion");
-                double precio = resultSet.getDouble("precio");
+                String tipo_producto = resultSet.getString("tipo_producto");
 
-                System.out.println("ID: " + id_producto + ", Nombre: " + nombre + ", Descripción: " + descripcion + ", Precio: " + precio);
+
+                System.out.println( ORANGE + "ID: " + RESET + id_producto + ", " + ORANGE + "Nombre: " + RESET + nombre + ORANGE + ", Descripción: " + RESET + descripcion + ", " + ORANGE +  "Tipo_producto: " + RESET + tipo_producto);
             }
         } catch (SQLException e) {
             e.printStackTrace();

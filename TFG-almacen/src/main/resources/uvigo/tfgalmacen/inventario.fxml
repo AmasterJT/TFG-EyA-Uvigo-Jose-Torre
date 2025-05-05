@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -27,6 +29,20 @@
                   </HBox>
                </content>
             </ScrollPane>
+             <TableView fx:id="tablaInventario">
+                 <columns>
+                     <TableColumn fx:id="colAlto" text="Alto"/>
+                     <TableColumn fx:id="colAncho" text="Ancho"/>
+                     <TableColumn fx:id="colLargo" text="Largo"/>
+                     <TableColumn fx:id="colIdProducto" text="ID Producto"/>
+                     <TableColumn fx:id="colCantidadProducto" text="Cantidad"/>
+                     <TableColumn fx:id="colIdPalet" text="ID Palet"/>
+                     <TableColumn fx:id="colEstanteria" text="Estantería"/>
+                     <TableColumn fx:id="colBalda" text="Balda"/>
+                     <TableColumn fx:id="colPosicion" text="Posición"/>
+                     <TableColumn fx:id="colDelante" text="Delante"/>
+                 </columns>
+             </TableView>
          </children>
       </VBox>
    </children>

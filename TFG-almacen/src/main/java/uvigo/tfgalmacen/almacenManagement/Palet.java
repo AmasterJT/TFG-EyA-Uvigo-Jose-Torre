@@ -1,5 +1,6 @@
 package uvigo.tfgalmacen.almacenManagement;
 
+import javafx.beans.property.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
 import uvigo.tfgalmacen.utils.TerminalColors;
@@ -272,5 +273,17 @@ public class Palet {
                 + TerminalColors.RESET;
     }
 
+
+
+    public StringProperty altoProperty() { return new SimpleStringProperty(String.valueOf(alto)); }
+    public StringProperty anchoProperty() { return new SimpleStringProperty(String.valueOf(ancho)); }
+    public StringProperty largoProperty() { return new SimpleStringProperty(String.valueOf(largo)); }
+    public StringProperty idProductoProperty() { return new SimpleStringProperty(String.valueOf(idProducto)); }
+    public StringProperty cantidadProductoProperty() { return new SimpleStringProperty(String.valueOf(cantidadProducto)); }
+    public StringProperty idPaletProperty() { return new SimpleStringProperty(String.valueOf(idPalet)); }
+    public IntegerProperty estanteriaProperty() { return new SimpleIntegerProperty(estanteria); }
+    public IntegerProperty baldaProperty() { return new SimpleIntegerProperty(balda); }
+    public StringProperty posicionProperty() { return new SimpleStringProperty(String.valueOf(posicion)); }
+    public StringProperty delanteProperty() { return new SimpleStringProperty(String.valueOf(delante)); }
 
 }
