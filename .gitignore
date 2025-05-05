@@ -27,3 +27,5 @@ replay_pid*
 # draw.io bakup files
 *.drawio.bkp
 .codegpt
+
+TFG-almacen/output_files/
