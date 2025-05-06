@@ -19,8 +19,8 @@ public class Almacen {
     public String archivoXML;
 
     public static ArrayList<Palet> TodosPalets = null;
-    public ArrayList<Producto> TodosProductos = null;
-    public ArrayList<Tipo> TodosTipos = null;
+    public static ArrayList<Producto> TodosProductos = null;
+    public static ArrayList<Tipo> TodosTipos = null;
 
 
     public Almacen(String archivoXML) {
@@ -42,6 +42,8 @@ public class Almacen {
             }
 
             if (conexion != null) {
+
+                System.out.println("✅ ALMACEN GENERADO CORRECTAMENTE.");
 
                 //extraerDatosDeXML(conexion); // Carga los datos desde XML
                 TodosTipos = obtenerTiposDesdeBD(conexion);         // también si usas DB para todo

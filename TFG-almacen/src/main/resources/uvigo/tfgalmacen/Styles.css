@@ -169,3 +169,11 @@
     -fx-alignment: center;
     -fx-padding: 20;
 }
+
+
+
+.texto-label {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+}

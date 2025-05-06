@@ -52,6 +52,7 @@ public class Main extends Application {
         // Configurar y mostrar la escena
         stage.setScene(scene);
         stage.show();
+
     }
 
     static double mousex21;
@@ -232,6 +233,9 @@ public class Main extends Application {
         });
 
     }
+
+
+
     public static void main(String[] args) {
 
 
@@ -244,15 +248,17 @@ public class Main extends Application {
             String query = "SELECT * FROM usuarios";
             stmt.executeQuery(query);
 
-            ProductoDAO.readProductos(connection);
-            printRolesAndPermissions(connection);
+            // ProductoDAO.readProductos(connection);
+            // printRolesAndPermissions(connection);
 
             // Listar las tablas de la base de datos
-            listTables(connection, DATABASE_NAME);
+            // listTables(connection, DATABASE_NAME);
 
             // Exportar datos de la tabla "Pedidos" a un archivo "pedidos.xml"
-            exportDatabaseTablesToXML(connection);
-            exportDatabaseToXML(connection);
+            // exportDatabaseTablesToXML(connection);
+            // exportDatabaseToXML(connection);
+
+
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-border-radius: 40px !important; -fx-background-color: #EEE;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.mainController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1560.0" style="-fx-border-radius: 40px !important; -fx-background-color: #EEE;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.mainController">
    <BorderPane fx:id="BorderPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-border-radius: 40;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <top>
          <AnchorPane fx:id="topBar" prefHeight="85.0" prefWidth="200.0" style="-fx-background-color: #db9f75;">
@@ -223,10 +223,7 @@
          </AnchorPane>
       </left>
       <center>
-         <AnchorPane fx:id="almacenContainer" maxHeight="858.0" maxWidth="1185.0" minHeight="600.0" minWidth="494.0" prefHeight="858.0" prefWidth="1185.0" style="-fx-background-color: #EEE;" BorderPane.alignment="CENTER">
-            <children>
-               <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="82.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" />
-            </children></AnchorPane>
+         <AnchorPane fx:id="almacenContainer" prefHeight="858.0" prefWidth="1300.0" style="-fx-background-color: #EEE;" BorderPane.alignment="CENTER" />
       </center>
       <bottom>
          <AnchorPane prefHeight="20.0" style="-fx-background-color: #3e2411;" BorderPane.alignment="CENTER">
