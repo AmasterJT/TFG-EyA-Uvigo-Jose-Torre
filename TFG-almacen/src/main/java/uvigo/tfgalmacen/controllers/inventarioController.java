@@ -1,5 +1,6 @@
 package uvigo.tfgalmacen.controllers;
 
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

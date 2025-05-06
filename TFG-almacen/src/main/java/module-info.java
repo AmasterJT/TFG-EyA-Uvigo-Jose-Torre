@@ -5,6 +5,7 @@ module uvigo.tfgalmacen {
     requires java.desktop;
 
 
+
     opens uvigo.tfgalmacen to javafx.fxml;
     exports uvigo.tfgalmacen;
     exports uvigo.tfgalmacen.almacenManagement;

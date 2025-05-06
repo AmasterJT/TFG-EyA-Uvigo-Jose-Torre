@@ -114,8 +114,14 @@
 }
 
 .shadow{
-    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.3), 10.0 , 0.0 , 0.0 ,10.0);
 }
+
+
+.shadow-right{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.3), 10.0 , 0.0 , 10.0 ,0.0);
+}
+
 
 .chosen-fruit-card{
     -fx-background-color: #F16C31;
@@ -177,3 +183,211 @@
     -fx-font-family: "David Libre Regular";
     -fx-font-size: 16px;
 }
+
+
+.inventory-filter-bar {
+    -fx-background-color: #2F3A32;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}@import "MFXColors.css";
+
+ .menuItem:hover{
+     -fx-border-color: #660099;
+     -fx-border-width: 0px 0px 3px 0px;
+ }
+
+ .sidebarItem:hover{
+     -fx-background-color: #146886;
+     -fx-border-color: WHITE;
+     -fx-border-width: 0px 0px 0px 3px;
+ }
+
+ .loginBtn:hover{
+     -fx-background-color: #146886;
+     -fx-border-color: RED;
+     -fx-border-width: 1px 1px 1px 1px;
+ }
+
+ .exitItem:hover{
+      -fx-background-color: #eb4034 !important;
+ }
+
+ .exitItem:pressed{
+      -fx-background-color: #e36259 !important;
+ }
+
+ .topbarItem:hover{
+      -fx-background-color: #776558 !important;
+ }
+
+
+ .loginText{
+     -fx-text-fill: white;
+ }
+
+
+
+ .mfx-checkbox {
+   -mfx-main: #6200EE;
+   -mfx-secondary: #424242;
+   -fx-font-family: "Open Sans Regular";
+   -fx-text-fill: -mfx-text-he;
+
+ }
+
+ .mfx-checkbox .box {
+   -fx-background-color: transparent;
+   -fx-background-radius: 2;
+   -fx-border-color: -mfx-secondary;
+   -fx-border-radius: 2;
+   -fx-border-width: 1.5;
+
+
+ }
+
+ .mfx-checkbox .box .mark {
+   visibility: hidden;
+   -mfx-color: white;
+   -mfx-description: "fas-check";
+   -mfx-size: 12;
+ }
+
+ .mfx-checkbox .ripple-container {
+   -fx-padding: 4;
+ }
+
+ .mfx-checkbox .ripple-container .mfx-ripple-generator {
+   -mfx-animation-speed: 1.5;
+   -mfx-ripple-color: derive(-mfx-main, 110%);
+   -mfx-ripple-radius: 16;
+ }
+
+ .mfx-checkbox:selected .box,
+ .mfx-checkbox:indeterminate .box {
+   -fx-background-color: -mfx-main;
+   -fx-border-color: -mfx-main;
+ }
+
+ .mfx-checkbox:selected .box .mark {
+   visibility: visible;
+ }
+
+ .mfx-checkbox:selected:disabled .box,
+ .mfx-checkbox:indeterminate:disabled .box {
+   -fx-background-color: -mfx-secondary;
+   -fx-border-color: -mfx-secondary;
+ }
+
+ .mfx-checkbox:indeterminate .box .mark {
+   visibility: visible;
+   -mfx-description: "fas-minus";
+ }
+
+
+
+
+ .search-box{
+     -fx-background-color:#FFFFFF;
+     -fx-background-radius: 100;
+ }
+
+ .transparent{
+     -fx-background-color: rgba(0,0,0,0);
+ }
+
+ .search-button{
+     -fx-background-color: #828282;
+     -fx-background-radius: 30;
+ }
+
+ .right-bar{
+     -fx-background-color: #D3D3D3;
+ }
+
+ .shadow{
+     -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.3), 10.0 , 0.0 , 0.0 ,10.0);
+ }
+
+
+ .shadow-right{
+     -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.3), 10.0 , 0.0 , 10.0 ,0.0);
+ }
+
+
+ .chosen-fruit-card{
+     -fx-background-color: #F16C31;
+     -fx-background-radius: 15;
+ }
+
+ .comboBox{
+     -fx-background-color: rgba(255,255,255,0.3);
+     -fx-background-radius: 30;
+ }
+
+ .add-btn{
+     -fx-background-color: #FFFFFF;
+     -fx-background-radius: 100;
+ }
+
+ .free-delivery-card{
+     -fx-background-color: #D3D3D3;
+     -fx-background-radius: 30;
+ }
+
+ .shopping-online-card{
+     -fx-background-color: #BAEAC3;
+     -fx-background-radius: 30;
+ }
+
+ .fruit-item{
+     -fx-background-color: #FFFFFF;
+         -fx-background-radius: 15;
+ }
+
+
+
+
+ .scroll-pane {
+     -fx-background-color: transparent;
+     -fx-background-insets: 0;
+     -fx-padding: 0;
+ }
+
+ .scroll-pane .viewport {
+     -fx-background-color: transparent;
+ }
+
+ .scroll-pane .scroll-bar {
+     -fx-background-color: transparent;
+ }
+
+
+ .grid-centered {
+     -fx-alignment: center;
+     -fx-padding: 20;
+ }
+
+
+
+ .texto-label {
+     -fx-text-fill: white;
+     -fx-font-family: "David Libre Regular";
+     -fx-font-size: 16px;
+ }
+
+
+ .inventory-filter-bar {
+     -fx-background-color: #2F3A32;
+     -fx-background-radius: 20;
+     -fx-border-radius: 20;
+ }
+
+  .texto-invetory-filter-bar {
+      -fx-text-fill: white;
+      -fx-font-family: "David Libre Regular";
+      -fx-font-size: 11px;
+  }
+
+
+
+
