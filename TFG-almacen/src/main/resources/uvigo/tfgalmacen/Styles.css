@@ -391,3 +391,38 @@
 
 
 
+.combo-box {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #E6E6E6 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+}
+
+.combo-box:hover, .combo-box:focused {
+    -fx-border-color: transparent transparent #2478E9 transparent;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #2478E9;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-style: none;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #2F3A32;
+    -fx-text-fill: white;
+    -fx-border-color: #444; /* separador entre elementos */
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+}
+
+.combo-box .list-cell:filled:selected {
+    -fx-background-color: #2F3A32;
+}
+
+.combo-box .list-cell:filled:hover {
+    -fx-background-color: #3F4A42;
+}

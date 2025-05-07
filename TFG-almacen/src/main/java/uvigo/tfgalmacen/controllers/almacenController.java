@@ -38,6 +38,8 @@ public class almacenController implements Initializable {
     private double ratonX, ratonY;
     private double ratonXVentanaAntes, ratonYVentanaAntes;
 
+    private ArrayList<String> todosLosProductos = new ArrayList<>();
+
     @FXML
     private AnchorPane almacenContainer;
 
@@ -112,7 +114,7 @@ public class almacenController implements Initializable {
         comboTipoAlmacen.setValue("Todos");
 
 
-        ArrayList<String> todosLosProductos = new ArrayList<>();
+
         todosLosProductos.add("Todos");
         for (Producto producto : almacen.TodosProductos) {
             todosLosProductos.add(producto.getIdProducto());
@@ -371,6 +373,88 @@ public class almacenController implements Initializable {
                         break;
                     }
                 }
+            }
+        });
+
+        // Evento cuando se selecciona un tipo
+        comboTipoAlmacen.setOnAction(_ -> {
+            String tipoSeleccionado = comboTipoAlmacen.getSelectionModel().getSelectedItem();
+
+            if (!tipoSeleccionado.equals("Todos")) {
+                // Filtrar productos por el tipo seleccionado
+                ArrayList<String> productosFiltrados = new ArrayList<>();
+                productosFiltrados.add("Todos");
+                for (Producto producto : almacen.TodosProductos) {
+                    if (producto.getIdTipo().equals(tipoSeleccionado)) {
+                        productosFiltrados.add(producto.getIdProducto());
+
+                    }
+                }
+                comboProductoAlmacen.setItems(FXCollections.observableArrayList(productosFiltrados));
+                comboProductoAlmacen.setValue(productosFiltrados.getFirst());
+
+                //llenamos la etiqueta con la informacion correspondiente
+                for (Tipo tipo : almacen.TodosTipos) {
+                    if (tipo.getIdTipo().equals(tipoSeleccionado)) {
+                        //etiquetaComboBox.setText("Palets totales: " + tipo.getNumPalets() + " = " + tipo.getCantidadDeTipo() + " L");
+                        break;
+                    }
+                }
+
+                //Mostramos los prodcutos correspondientes
+                for (Palet palet : Almacen.TodosPalets) {
+                    palet.getProductBox().setVisible(palet.getIdTipo().equals(tipoSeleccionado));
+                    palet.getPaletBox().setVisible(palet.getIdTipo().equals(tipoSeleccionado));
+                }
+
+            } else {
+
+                for (Producto producto : almacen.TodosProductos) {
+                    todosLosProductos.add(producto.getIdProducto());
+                }
+                todosLosProductos.add("Todos");
+                comboProductoAlmacen.setItems(FXCollections.observableArrayList(todosLosProductos));
+                comboProductoAlmacen.setValue("Todos");
+                for (Palet palet : almacen.TodosPalets) {
+                    palet.getProductBox().setVisible(true);
+                    palet.getPaletBox().setVisible(true);
+                }
+            }
+        });
+
+        // Evento cuando se selecciona un producto
+        comboProductoAlmacen.setOnAction(_ -> {
+
+            try {
+                String productoSeleccionado = comboProductoAlmacen.getSelectionModel().getSelectedItem();
+                //etiquetaComboBox.setText(productoSeleccionado);
+                System.out.println(productoSeleccionado);
+
+
+                if (!productoSeleccionado.equals("Todos")) {
+
+                    for (Producto producto : almacen.TodosProductos) {
+                        if (producto.getIdProducto().equals(productoSeleccionado)) {
+                            //etiquetaComboBox.setText("Palet totales: " + producto.getNumPalets() + " = " + producto.getCantidadDeProducto() + " L");
+                            break;
+                        }
+                    }
+
+                    for (Palet palet : almacen.TodosPalets) {
+                        palet.getProductBox().setVisible(palet.getIdProducto().equals(productoSeleccionado));
+                        palet.getPaletBox().setVisible(palet.getIdProducto().equals(productoSeleccionado));
+                    }
+
+
+                } else {
+                    for (Palet palet : almacen.TodosPalets) {
+                        palet.getProductBox().setVisible(palet.getIdTipo().equals(comboTipoAlmacen.getSelectionModel().getSelectedItem()));
+                        palet.getPaletBox().setVisible(palet.getIdTipo().equals(comboTipoAlmacen.getSelectionModel().getSelectedItem()));
+                    }
+                }
+
+            } catch (Exception ignore) {
+
             }
         });
     }

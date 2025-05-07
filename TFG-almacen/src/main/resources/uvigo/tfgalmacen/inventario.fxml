@@ -22,7 +22,7 @@
                         <VBox alignment="CENTER">
                             <children>
                                 <Label styleClass="texto-invetory-filter-bar" text="Estanterias:" />
-                                <ComboBox fx:id="estanteriaComboBox" prefWidth="150.0" promptText="Estanteria" />
+                                <ComboBox fx:id="estanteriaComboBox" prefWidth="150.0" promptText="Estanteria" styleClass="combo-box" />
                             </children>
                         </VBox>
                         <VBox alignment="CENTER">
