@@ -133,7 +133,7 @@ public class almacenController implements Initializable {
         for (int k = 0; k < 4; k++) {
             int offsetEstanteria = (k >= 2) ? 3700 : 0;
             for (int i = 0; i < 8; i++) {
-                Box balda = MisElementoGraficos.CreaParalelepipedo(3600, 100, 36300, 0, -6300 * k + offsetEstanteria, 2000 * i, Color.GRAY);
+                Box balda = MisElementoGraficos.CreaParalelepipedo(3600, 100, 36300, 0, -6300 * k + offsetEstanteria, 2000 * i, Color.web("#2F3A32"));
                 if (gruposBaldas[k].getChildren().size() <= 7) gruposBaldas[k].getChildren().add(balda);
 
                 // Agrega palets adelante y atrás
@@ -191,24 +191,26 @@ public class almacenController implements Initializable {
 
 
         // Añadir múltiples luces para cubrir desde varios ángulos
-        PointLight luz1 = new PointLight(Color.DARKGRAY);
-        luz1.setTranslateX(10000);
-        luz1.setTranslateY(20000);
-        luz1.setTranslateZ(30000);
 
-        PointLight luz2 = new PointLight(Color.DARKGRAY);
-        luz2.setTranslateX(-10000);
-        luz2.setTranslateY(20000);
-        luz2.setTranslateZ(-30000);
+        int translate = 2;
+        PointLight luz1 = new PointLight(Color.web("#2F3A32"));
+        luz1.setTranslateX(10000*translate);
+        luz1.setTranslateY(20000*translate);
+        luz1.setTranslateZ(30000*translate);
 
-        PointLight luz3 = new PointLight(Color.DARKGRAY);
+        PointLight luz2 = new PointLight(Color.web("#2F3A32"));
+        luz2.setTranslateX(-10000*translate);
+        luz2.setTranslateY(20000*translate);
+        luz2.setTranslateZ(-30000*translate);
+
+        PointLight luz3 = new PointLight(Color.web("#2F3A32"));
         luz3.setTranslateX(0);
-        luz3.setTranslateY(-20000);
+        luz3.setTranslateY(-20000*translate);
         luz3.setTranslateZ(0);
 
-        PointLight luz4 = new PointLight(Color.DARKGRAY);
+        PointLight luz4 = new PointLight(Color.web("#2F3A32"));
         luz4.setTranslateX(0);
-        luz4.setTranslateY(30000);
+        luz4.setTranslateY(30000*translate);
         luz4.setTranslateZ(0);
 
         //AmbientLight luzAmbiente = new AmbientLight(new Color(0.4, 0.4, 0.4, 1));

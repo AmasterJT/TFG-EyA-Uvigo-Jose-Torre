@@ -1,33 +1,32 @@
 package uvigo.tfgalmacen.controllers;
 
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.almacenManagement.Palet;
-import uvigo.tfgalmacen.almacenManagement.Producto;
-import uvigo.tfgalmacen.almacenManagement.Tipo;
-import uvigo.tfgalmacen.database.PaletDAO;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 
 public class inventarioController implements Initializable {
+
+    private static final Logger LOGGER = Logger.getLogger(inventarioController.class.getName());
+
 
 
 
@@ -61,7 +60,7 @@ public class inventarioController implements Initializable {
     private Button buscarButton;
 
 
-
+    /*
     @FXML
     private TableView<Palet> tablaInventario;
     Connection conexion = Main.connection;
@@ -76,6 +75,7 @@ public class inventarioController implements Initializable {
     @FXML private TableColumn<Palet, Number> colBalda;
     @FXML private TableColumn<Palet, String> colPosicion;
     @FXML private TableColumn<Palet, String> colDelante;
+    */
 
 
     @Override
@@ -145,7 +145,7 @@ public class inventarioController implements Initializable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error ejecutando someMethod", e);
         }
 
         // Agregar "Todos" al principio
@@ -207,7 +207,7 @@ public class inventarioController implements Initializable {
         baldaComboBox.getSelectionModel().selectFirst();
         posicionComboBox.getSelectionModel().selectFirst();
 
-        buscarButton.setOnAction(e -> aplicarFiltros());
+        buscarButton.setOnAction(_ -> aplicarFiltros());
 
     }
 
@@ -225,8 +225,6 @@ public class inventarioController implements Initializable {
         String producto = productoComboBox.getValue();
         String tipoProducto = tipoComboBox.getValue();
         String delante = delanteComboBox.getValue();
-
-        boolean boolDelante = delante.equals("Delante");
 
         limpiarGridPane(grid);
         int counter = 0;
@@ -269,7 +267,7 @@ public class inventarioController implements Initializable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error ejecutando someMethod", e);
         }
     }
 
