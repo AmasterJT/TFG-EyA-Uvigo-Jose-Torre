@@ -31,4 +31,12 @@
   -mfx-text-me: rgba(0, 0, 0, 0.60);
   /* Disabled */
   -mfx-text-disabled: rgba(0, 0, 0, 0.38);
+
+
+  -amaster-dark-blue: #2F3A32;
+  -amaster-dark-gray: #2F3A32;
+  -amaster-gray: #545748;
+  -amaster-light-brown: #DB9F75;
+  -amaster-brown: #804012;
+  -amaster-dark-brown: #3E2411;
 }

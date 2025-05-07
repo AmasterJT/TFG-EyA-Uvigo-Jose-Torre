@@ -238,7 +238,7 @@ public class inventarioController implements Initializable {
                         (posicion == null || posicion.equals("Todos") ||  palet.getPosicion() == Integer.parseInt(posicion)) &&
                         (producto == null || producto.equals("Todos") || producto.equals(palet.getIdProducto())) &&
                         (tipoProducto == null || tipoProducto.equals("Todos") || tipoProducto.equals(palet.getProducto().getTipo().getIdTipo())) &&
-                        (delante.equals("Todos") || palet.isDelante())) {
+                        (delante == null || delante.equals("Todos") || palet.isDelante() == delante.equalsIgnoreCase("delante"))) {
 
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("/uvigo/tfgalmacen/itemInventario.fxml"));
@@ -261,11 +261,8 @@ public class inventarioController implements Initializable {
                         break;
                     }
                 }
-                else {
-                    System.out.println("No se encontró palet para estas condiciones");
-                    break;
-                }
             }
+
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error ejecutando someMethod", e);
         }
