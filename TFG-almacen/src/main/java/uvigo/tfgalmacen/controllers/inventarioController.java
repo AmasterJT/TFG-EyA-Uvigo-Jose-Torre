@@ -1,6 +1,7 @@
 package uvigo.tfgalmacen.controllers;
 
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import uvigo.tfgalmacen.almacenManagement.Palet;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -22,10 +24,15 @@ import java.util.logging.Logger;
 
 
 import uvigo.tfgalmacen.almacenManagement.Almacen;
+import uvigo.tfgalmacen.almacenManagement.Producto;
+import uvigo.tfgalmacen.almacenManagement.Tipo;
 
 public class inventarioController implements Initializable {
 
     private static final Logger LOGGER = Logger.getLogger(inventarioController.class.getName());
+
+    private ArrayList<String> todosLosProductos = new ArrayList<>();
+
 
 
 
@@ -206,6 +213,90 @@ public class inventarioController implements Initializable {
         estanteriaComboBox.getSelectionModel().selectFirst();
         baldaComboBox.getSelectionModel().selectFirst();
         posicionComboBox.getSelectionModel().selectFirst();
+
+
+
+        // Evento cuando se selecciona un tipo
+        tipoComboBox.setOnAction(_ -> {
+            String tipoSeleccionado = tipoComboBox.getSelectionModel().getSelectedItem();
+
+            if (!tipoSeleccionado.equals("Todos")) {
+                // Filtrar productos por el tipo seleccionado
+                ArrayList<String> productosFiltrados = new ArrayList<>();
+                productosFiltrados.add("Todos");
+                for (Producto producto : Almacen.TodosProductos) {
+                    if (producto.getIdTipo().equals(tipoSeleccionado)) {
+                        productosFiltrados.add(producto.getIdProducto());
+
+                    }
+                }
+                productoComboBox.setItems(FXCollections.observableArrayList(productosFiltrados));
+                productoComboBox.setValue(productosFiltrados.getFirst());
+
+                //llenamos la etiqueta con la informacion correspondiente
+                for (Tipo tipo : Almacen.TodosTipos) {
+                    if (tipo.getIdTipo().equals(tipoSeleccionado)) {
+                        //etiquetaComboBox.setText("Palets totales: " + tipo.getNumPalets() + " = " + tipo.getCantidadDeTipo() + " L");
+                        break;
+                    }
+                }
+
+                //Mostramos los prodcutos correspondientes
+                for (Palet palet : Almacen.TodosPalets) {
+                    palet.getProductBox().setVisible(palet.getIdTipo().equals(tipoSeleccionado));
+                    palet.getPaletBox().setVisible(palet.getIdTipo().equals(tipoSeleccionado));
+                }
+
+            } else {
+
+                for (Producto producto : Almacen.TodosProductos) {
+                    todosLosProductos.add(producto.getIdProducto());
+                }
+                todosLosProductos.add("Todos");
+                productoComboBox.setItems(FXCollections.observableArrayList(todosLosProductos));
+                productoComboBox.setValue("Todos");
+                for (Palet palet : Almacen.TodosPalets) {
+                    palet.getProductBox().setVisible(true);
+                    palet.getPaletBox().setVisible(true);
+                }
+            }
+        });
+
+        // Evento cuando se selecciona un producto
+        productoComboBox.setOnAction(_ -> {
+
+            try {
+                String productoSeleccionado = productoComboBox.getSelectionModel().getSelectedItem();
+                //etiquetaComboBox.setText(productoSeleccionado);
+                System.out.println(productoSeleccionado);
+
+
+                if (!productoSeleccionado.equals("Todos")) {
+
+                    for (Producto producto : Almacen.TodosProductos) {
+                        if (producto.getIdProducto().equals(productoSeleccionado)) {
+                            //etiquetaComboBox.setText("Palet totales: " + producto.getNumPalets() + " = " + producto.getCantidadDeProducto() + " L");
+                            break;
+                        }
+                    }
+
+                    for (Palet palet : Almacen.TodosPalets) {
+                        palet.getProductBox().setVisible(palet.getIdProducto().equals(productoSeleccionado));
+                        palet.getPaletBox().setVisible(palet.getIdProducto().equals(productoSeleccionado));
+                    }
+
+
+                } else {
+                    for (Palet palet : Almacen.TodosPalets) {
+                        palet.getProductBox().setVisible(palet.getIdTipo().equals(tipoComboBox.getSelectionModel().getSelectedItem()));
+                        palet.getPaletBox().setVisible(palet.getIdTipo().equals(tipoComboBox.getSelectionModel().getSelectedItem()));
+                    }
+                }
+
+            } catch (Exception ignore) {
+
+            }
+        });
 
         buscarButton.setOnAction(_ -> aplicarFiltros());
 
