@@ -347,7 +347,6 @@ public class inventarioController implements Initializable {
                     GridPane.setMargin(anchorPane, new Insets(10));
 
                     counter++;
-
                     if (counter == 100) {
                         break;
                     }
@@ -357,6 +356,8 @@ public class inventarioController implements Initializable {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error ejecutando someMethod", e);
         }
+
+
     }
 
 }
