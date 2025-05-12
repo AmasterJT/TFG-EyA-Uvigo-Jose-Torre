@@ -262,12 +262,6 @@ public class Main extends Application {
             List<Pedido> p = PedidoDAO.getPedidosAllData(connection);
 
             for (Pedido pedido : p) {
-
-                String codigo_referencia = pedido.codigo_referencia;
-                int id_pedido = pedido.id_pedido;
-                int id_usuario = pedido.id_usuario;
-                String estado = pedido.estado;
-
                 System.out.println(pedido);
             }
 

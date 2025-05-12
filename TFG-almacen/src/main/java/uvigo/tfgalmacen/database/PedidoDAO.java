@@ -61,8 +61,9 @@ public class PedidoDAO {
                 int id_pedido = resultSet.getInt("id_pedido");
                 int id_usuario = resultSet.getInt("id_usuario");
                 String estado = resultSet.getString("estado");
+                String fecha_pedido = resultSet.getString("fecha_pedido");
 
-                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_usuario, estado);
+                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_usuario, estado, fecha_pedido);
                 pedidos.add(pedido);
 
             }
@@ -104,8 +105,9 @@ public class PedidoDAO {
                 int id_pedido = resultSet.getInt("id_pedido");
                 int id_usuario = resultSet.getInt("id_usuario");
                 String estadoResult = resultSet.getString("estado");
+                String fecha_pedido = resultSet.getString("fecha_pedido");
 
-                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_usuario, estadoResult);
+                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_usuario, estadoResult, fecha_pedido);
                 pedidos.add(pedido);
             }
         } catch (SQLException e) {
