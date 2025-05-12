@@ -10,15 +10,16 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javafx.stage.StageStyle;
-import uvigo.tfgalmacen.database.ProductoDAO;
+import uvigo.tfgalmacen.database.PedidoDAO;
 
 import static javafx.scene.Cursor.*;
-import static uvigo.tfgalmacen.dataTransform.DataExcelExporter.*;
 import static uvigo.tfgalmacen.database.DatabaseConnection.*;
-import static uvigo.tfgalmacen.database.RolePermissionDAO.printRolesAndPermissions;
-import static uvigo.tfgalmacen.database.TableLister.listTables;
+import static uvigo.tfgalmacen.database.PedidoDAO.printPedidosData;
+import static uvigo.tfgalmacen.utils.TerminalColors.CYAN;
+import static uvigo.tfgalmacen.utils.TerminalColors.RESET;
 
 /**
  * Clase principal de la aplicación JavaFX.
@@ -257,6 +258,19 @@ public class Main extends Application {
             // Exportar datos de la tabla "Pedidos" a un archivo "pedidos.xml"
             // exportDatabaseTablesToXML(connection);
             // exportDatabaseToXML(connection);
+
+            List<Pedido> p = PedidoDAO.getPedidosAllData(connection);
+
+            for (Pedido pedido : p) {
+
+                String codigo_referencia = pedido.codigo_referencia;
+                int id_pedido = pedido.id_pedido;
+                int id_usuario = pedido.id_usuario;
+                String estado = pedido.estado;
+
+                System.out.println(pedido);
+            }
+
 
 
 

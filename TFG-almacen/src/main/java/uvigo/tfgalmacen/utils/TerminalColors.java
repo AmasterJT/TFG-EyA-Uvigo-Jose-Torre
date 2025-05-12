@@ -12,7 +12,7 @@ public class TerminalColors {
     // Definir colores con nombres descriptivos
     public static String ROJO = "\u001B[31m";
     public static String VERDE = "\u001B[32m";
-    public static String NARANJA = "\033[34m";  // Azul
+    public static String NARANJA = "\033[34m";
     public static String AMARILLO = "\u001B[33m";
     public static String MAGENTA = "\u001B[35m";
     public static String CYAN = "\u001B[36m";

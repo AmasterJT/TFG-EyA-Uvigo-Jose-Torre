@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -9,25 +10,41 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1400.0" style="-fx-background-color: grey;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.pedidosController">
     <children>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #EEE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" style="-fx-background-color: #EEE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <VBox alignment="CENTER" prefHeight="200.0">
                     <children>
                         <Label text="PEDIDIOS EN CURSO" />
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                        <ScrollPane fx:id="pedidiosEnCursoScroll" prefHeight="200.0" prefWidth="400.0">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #222;" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: #222;">
+                           <children>
+                              <ListView fx:id="pedidiosEnCursoList" prefHeight="200.0" prefWidth="400.0" />
+                           </children></AnchorPane>
                             </content>
                         </ScrollPane>
+                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Button" />
                         <Label text="PEDIDIOS PENDIENTES" />
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                        <ScrollPane fx:id="pedidiosPendientesScroll" prefHeight="200.0" prefWidth="400.0">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #222;" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: #222;">
+                           <children>
+                              <ListView fx:id="pedidiosPendientesList" prefHeight="200.0" prefWidth="400.0" />
+                           </children></AnchorPane>
                             </content>
                         </ScrollPane>
+                  <Label text="PEDIDIOS CANCELADOS" />
+                  <ScrollPane fx:id="pedidiosCanceladosScroll" prefHeight="100.0" prefWidth="400.0">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="400.0" style="-fx-background-color: #222;">
+                           <children>
+                              <ListView fx:id="pedidiosCanceladosList" prefHeight="100.0" prefWidth="400.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0">
