@@ -6,6 +6,11 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +23,9 @@ import java.util.ArrayList;
  * en una base de datos.
  */
 public class ExtractXMLinfo {
+
+    public String archivoXML;
+
 
     /**
      * Método extraerInfoAlamcen_XML
@@ -169,4 +177,213 @@ public class ExtractXMLinfo {
 
         return TodosTipos;
     }
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Exporta una lista de objetos Palet a un archivo de texto con instrucciones SQL INSERT.
+     * Cada palet genera una instrucción SQL para insertar sus datos en la tabla "palets".
+     *
+     * @param palets      Lista de objetos Palet que se desean exportar.
+     * @param nombreArchivo Nombre del archivo donde se guardarán las instrucciones SQL.
+     */
+    public void exportarPaletsASQL(ArrayList<Palet> palets, String nombreArchivo) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
+            for (Palet palet : palets) {
+                String insert = String.format(
+                        "INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_producto, estanteria, balda, posicion, delante) " +
+                                "VALUES ('%s', '%s', %s, %s, %s, %s, %d, %d, %s, %s);",
+                        palet.getIdPalet(),
+                        palet.getIdProducto(),
+                        palet.getAlto(),
+                        palet.getAncho(),
+                        palet.getLargo(),
+                        palet.getCantidadProducto(),
+                        palet.getEstanteria(),
+                        palet.getBalda(),
+                        palet.getPosicion(),
+                        String.valueOf(palet.isDelante())
+                );
+                writer.println(insert);
+            }
+            System.out.println("✅ Instrucciones SQL exportadas a " + nombreArchivo);
+        } catch (Exception e) {
+            System.err.println("❌ Error al exportar SQL: " + e.getMessage());
+        }
+    }
+
+
+    /**
+     * Exporta una lista de objetos Tipo a un archivo de texto con instrucciones SQL INSERT.
+     * Cada tipo genera una instrucción SQL para insertar sus datos en la tabla "tipos".
+     *
+     * @param tipos        Lista de objetos Tipo que se desean exportar.
+     * @param nombreArchivo Nombre del archivo donde se guardarán las instrucciones SQL.
+     */
+    public void exportarTiposASQL(ArrayList<Tipo> tipos, String nombreArchivo) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
+            for (Tipo tipo : tipos) {
+                String insert = String.format(
+                        "INSERT INTO tipos (id_tipo, color) VALUES ('%s', '%s');",
+                        tipo.getIdTipo(),
+                        tipo.getColor()
+                );
+                writer.println(insert);
+            }
+            System.out.println("✅ Instrucciones SQL de tipos exportadas a " + nombreArchivo);
+        } catch (Exception e) {
+            System.err.println("❌ Error al exportar SQL de tipos: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Exporta una lista de objetos Producto a un archivo de texto con instrucciones SQL INSERT.
+     * Cada producto genera una instrucción SQL para insertar sus datos en la tabla "productos".
+     *
+     * @param productos    Lista de objetos Producto que se desean exportar.
+     * @param nombreArchivo Nombre del archivo donde se guardarán las instrucciones SQL.
+     */
+    public void exportarProductosASQL(ArrayList<Producto> productos, String nombreArchivo) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
+            for (Producto producto : productos) {
+                String insert = String.format(
+                        "INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('%s', '%s');",
+                        producto.getIdProducto(),
+                        producto.getIdTipo()
+                );
+                writer.println(insert);
+            }
+            System.out.println("✅ Instrucciones SQL de productos exportadas a " + nombreArchivo);
+        } catch (Exception e) {
+            System.err.println("❌ Error al exportar SQL de productos: " + e.getMessage());
+        }
+    }
+
+
+
+
+    /**
+     * Extrae datos de un archivo XML e inserta la información en la base de datos.
+     * Llama a métodos específicos para insertar tipos, productos y palets desde el XML.
+     *
+     * @param conn       Conexión activa a la base de datos donde se insertarán los datos.
+     * @param archivoXML Ruta del archivo XML desde donde se extraerán los datos.
+     * @throws SQLException Si ocurre un error durante la inserción en la base de datos.
+     */
+    public static void extraerDatosDeXML(Connection conn, String archivoXML) throws SQLException {
+
+        insertarTiposDesdeXML(conn, archivoXML);
+        insertarProductosDesdeXML(conn, archivoXML);
+        insertarPaletsDesdeXML(conn, archivoXML); // OPCIONAL: solo si quieres cargar desde XML cada vez
+
+    }
+
+
+    /**
+     * Inserta registros de tipos extraídos de un archivo XML en la tabla "tipos" de la base de datos.
+     * Además, exporta las instrucciones SQL generadas a un archivo "tipos_inserts.sql".
+     *
+     * @param conn       Conexión activa a la base de datos.
+     * @param archivoXML Ruta del archivo XML con la información de tipos.
+     * @throws SQLException Si ocurre un error durante la inserción en la base de datos.
+     */
+    public static void insertarTiposDesdeXML(Connection conn, String archivoXML) throws SQLException {
+        ArrayList<Tipo> tipos = ExtractXMLinfo.extraerInfoTipo_XML(archivoXML);
+
+        String insertQuery = "INSERT INTO tipos (id_tipo, color) VALUES (?, ?)";
+
+
+        PreparedStatement statement = conn.prepareStatement(insertQuery);
+
+        for (Tipo tipo : tipos) {
+            statement.setString(1, tipo.getIdTipo());
+            statement.setString(2, tipo.getColor());
+
+            statement.addBatch();
+        }
+
+        statement.executeBatch();
+        System.out.println("✅ Tipos insertados correctamente en la base de datos.");
+
+
+        exportarTiposASQL(tipos, "tipos_inserts.sql");
+    }
+
+    /**
+     * Inserta registros de productos extraídos de un archivo XML en la tabla "productos" de la base de datos.
+     * Los campos nombre, descripción y color están vacíos, pero se pueden completar si se dispone de datos.
+     * También exporta las instrucciones SQL generadas a un archivo "productos_inserts.sql".
+     *
+     * @param conn       Conexión activa a la base de datos.
+     * @param archivoXML Ruta del archivo XML con la información de productos.
+     * @throws SQLException Si ocurre un error durante la inserción en la base de datos.
+     */
+    public static void insertarProductosDesdeXML(Connection conn, String archivoXML) throws SQLException {
+        ArrayList<Producto> productos = ExtractXMLinfo.extraerInfoProductos_XML(archivoXML);
+
+        String insertQuery = "INSERT INTO productos (identificador_producto, tipo_producto, nombre_producto, descripcion, color) VALUES (?, ?, ?, ?, ?)";
+
+
+        PreparedStatement statement = conn.prepareStatement(insertQuery);
+
+        for (Producto producto : productos) {
+            statement.setString(1, producto.getIdProducto()); // identificador_producto
+            statement.setString(2, producto.getIdTipo());     // tipo_producto
+            statement.setString(3, ""); // nombre_producto (rellena si tienes)
+            statement.setString(4, ""); // descripcion
+            statement.setString(5, ""); // color
+            statement.addBatch();
+        }
+
+        statement.executeBatch();
+        System.out.println("✅ Productos insertados correctamente.");
+        exportarProductosASQL(productos, "productos_inserts.sql");
+    }
+
+    /**
+     * Inserta registros de palets extraídos de un archivo XML en la tabla "palets" de la base de datos.
+     * También exporta las instrucciones SQL generadas a un archivo "palets_inserts.sql".
+     *
+     * @param conn       Conexión activa a la base de datos.
+     * @param archivoXML Ruta del archivo XML con la información de palets.
+     * @throws SQLException Si ocurre un error durante la inserción en la base de datos.
+     */
+    public static void insertarPaletsDesdeXML(Connection conn, String archivoXML) throws SQLException {
+        ArrayList<Palet> palets = ExtractXMLinfo.extraerInfoAlamcen_XML(archivoXML);
+
+        String insertQuery = "INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_producto, estanteria, balda, posicion, delante) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+
+        //try (Connection conn = DatabaseConnection.connect()) {
+        PreparedStatement statement = conn.prepareStatement(insertQuery);
+
+        for (Palet palet : palets) {
+            statement.setInt(1, palet.getIdPalet());
+            statement.setString(2, palet.getIdProducto());
+            statement.setInt(3, palet.getAlto());
+            statement.setInt(4, palet.getAncho());
+            statement.setInt(5, palet.getLargo());
+            statement.setInt(6, palet.getCantidadProducto());
+            statement.setInt(7, palet.getEstanteria());
+            statement.setInt(8, palet.getBalda());
+            statement.setInt(9, palet.getPosicion());
+            statement.setBoolean(10, palet.isDelante());
+
+            statement.addBatch();
+        }
+
+        statement.executeBatch();
+        System.out.println("✅ Palets insertados correctamente en la base de datos.");
+
+
+        exportarPaletsASQL(palets, "palets_inserts.sql");
+    }
+
 }

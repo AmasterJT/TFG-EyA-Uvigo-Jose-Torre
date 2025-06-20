@@ -9,17 +9,69 @@ import java.util.ArrayList;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import uvigo.tfgalmacen.almacenManagement.ExtractXMLinfo.*;
 
 
+
+/**
+ * Clase que representa un almacén y gestiona la carga y manipulación de palets, productos y tipos.
+ * Proporciona métodos para obtener datos desde la base de datos, relacionar información entre objetos,
+ * y mostrar datos en consola.
+ */
 public class Almacen {
-    public static int NUM_ESTANTERIAS = 4, NUM_BALDAS_PER_ESTANTERIA = 8;
-    public static double SEPARACION = 0.3;
-    public static int ANCHO_BALDA =3600, SEPARACION_ENTRE_BALDAS = 2000, BORDE = 300, ALTO_BALDA = 100;
+    /**
+     * Número de estanterías en el almacén.
+     */
+    public static int NUM_ESTANTERIAS = 4;
 
+    /**
+     * Número de baldas por estantería.
+     */
+    public static int NUM_BALDAS_PER_ESTANTERIA = 8;
+
+    /**
+     * Separación entre elementos del almacén (en metros).
+     */
+    public static double SEPARACION = 0.3;
+
+    /**
+     * Ancho de cada balda (en milímetros).
+     */
+    public static int ANCHO_BALDA = 3600;
+
+    /**
+     * Separación entre baldas (en milímetros).
+     */
+    public static int SEPARACION_ENTRE_BALDAS = 2000;
+
+    /**
+     * Borde de seguridad o margen (en milímetros).
+     */
+    public static int BORDE = 300;
+
+    /**
+     * Altura de cada balda (en milímetros).
+     */
+    public static int ALTO_BALDA = 100;
+
+    /**
+     * Ruta del archivo XML que contiene datos para el almacén.
+     */
     public String archivoXML;
 
+    /**
+     * Lista estática que almacena todos los palets cargados.
+     */
     public static ArrayList<Palet> TodosPalets = null;
+
+    /**
+     * Lista estática que almacena todos los productos cargados.
+     */
     public static ArrayList<Producto> TodosProductos = null;
+
+    /**
+     * Lista estática que almacena todos los tipos cargados.
+     */
     public static ArrayList<Tipo> TodosTipos = null;
 
 
@@ -30,6 +82,12 @@ public class Almacen {
     public Almacen() {
     }
 
+
+    /**
+     * Genera el almacén cargando datos desde la base de datos o XML (según implementación).
+     * Se conecta a la base de datos, obtiene tipos, productos y palets,
+     * y establece las relaciones entre ellos.
+     */
     public void GenerarAlmacen() {
 
         Connection conexion = null;
@@ -44,8 +102,9 @@ public class Almacen {
             if (conexion != null) {
 
                 System.out.println("✅ ALMACEN GENERADO CORRECTAMENTE.");
+                // Se comenta la carga desde XML pero se carga desde base de datos:
+                // ExtractXMLinfo.extraerDatosDeXML(conexion, archivoXML);
 
-                //extraerDatosDeXML(conexion); // Carga los datos desde XML
                 TodosTipos = obtenerTiposDesdeBD(conexion);         // también si usas DB para todo
                 TodosProductos = obtenerProductosDesdeBD(conexion); // deberías implementar estas
                 TodosPalets = obtenerPaletsDesdeBD(conexion);
@@ -61,91 +120,13 @@ public class Almacen {
 
     }
 
-    public void extraerDatosDeXML(Connection conn) throws SQLException {
-
-        insertarTiposDesdeXML(conn);
-        insertarProductosDesdeXML(conn);
-        insertarPaletsDesdeXML(conn); // OPCIONAL: solo si quieres cargar desde XML cada vez
-
-    }
-
-    public void insertarPaletsDesdeXML(Connection conn) throws SQLException {
-        ArrayList<Palet> palets = ExtractXMLinfo.extraerInfoAlamcen_XML(archivoXML);
-
-        String insertQuery = "INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_producto, estanteria, balda, posicion, delante) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-
-        //try (Connection conn = DatabaseConnection.connect()) {
-            PreparedStatement statement = conn.prepareStatement(insertQuery);
-
-            for (Palet palet : palets) {
-                statement.setInt(1, palet.getIdPalet());
-                statement.setString(2, palet.getIdProducto());
-                statement.setInt(3, palet.getAlto());
-                statement.setInt(4, palet.getAncho());
-                statement.setInt(5, palet.getLargo());
-                statement.setInt(6, palet.getCantidadProducto());
-                statement.setInt(7, palet.getEstanteria());
-                statement.setInt(8, palet.getBalda());
-                statement.setInt(9, palet.getPosicion());
-                statement.setBoolean(10, palet.isDelante());
-
-                statement.addBatch();
-            }
-
-            statement.executeBatch();
-            System.out.println("✅ Palets insertados correctamente en la base de datos.");
-
-
-        exportarPaletsASQL(palets, "palets_inserts.sql");
-    }
-
-    public void insertarProductosDesdeXML(Connection conn) throws SQLException {
-        ArrayList<Producto> productos = ExtractXMLinfo.extraerInfoProductos_XML(archivoXML);
-
-        String insertQuery = "INSERT INTO productos (identificador_producto, tipo_producto, nombre_producto, descripcion, color) VALUES (?, ?, ?, ?, ?)";
-
-
-            PreparedStatement statement = conn.prepareStatement(insertQuery);
-
-            for (Producto producto : productos) {
-                statement.setString(1, producto.getIdProducto()); // identificador_producto
-                statement.setString(2, producto.getIdTipo());     // tipo_producto
-                statement.setString(3, ""); // nombre_producto (rellena si tienes)
-                statement.setString(4, ""); // descripcion
-                statement.setString(5, ""); // color
-                statement.addBatch();
-            }
-
-            statement.executeBatch();
-            System.out.println("✅ Productos insertados correctamente.");
-        exportarProductosASQL(productos, "productos_inserts.sql");
-    }
-
-    public void insertarTiposDesdeXML(Connection conn) throws SQLException {
-        ArrayList<Tipo> tipos = ExtractXMLinfo.extraerInfoTipo_XML(archivoXML);
-
-        String insertQuery = "INSERT INTO tipos (id_tipo, color) VALUES (?, ?)";
-
-
-             PreparedStatement statement = conn.prepareStatement(insertQuery);
-
-            for (Tipo tipo : tipos) {
-                statement.setString(1, tipo.getIdTipo());
-                statement.setString(2, tipo.getColor());
-
-                statement.addBatch();
-            }
-
-            statement.executeBatch();
-            System.out.println("✅ Tipos insertados correctamente en la base de datos.");
-
-
-        exportarTiposASQL(tipos, "tipos_inserts.sql");
-    }
-
-
-
+    /**
+     * Obtiene todos los palets almacenados en la base de datos.
+     * Además, asigna a cada palet su producto correspondiente.
+     *
+     * @param conn Conexión activa a la base de datos.
+     * @return Lista con todos los palets obtenidos.
+     */
     public ArrayList<Palet> obtenerPaletsDesdeBD(Connection conn) {
         ArrayList<Palet> palets = new ArrayList<>();
         String query = "SELECT * FROM palets";
@@ -186,6 +167,13 @@ public class Almacen {
         return palets;
     }
 
+    /**
+     * Obtiene todos los productos almacenados en la base de datos.
+     * Además, asigna a cada producto su tipo correspondiente.
+     *
+     * @param conn Conexión activa a la base de datos.
+     * @return Lista con todos los productos obtenidos.
+     */
     public ArrayList<Producto> obtenerProductosDesdeBD(Connection conn) {
         ArrayList<Producto> productos = new ArrayList<>();
         String query = "SELECT * FROM productos";
@@ -216,6 +204,12 @@ public class Almacen {
         return productos;
     }
 
+    /**
+     * Obtiene todos los tipos almacenados en la base de datos.
+     *
+     * @param conn Conexión activa a la base de datos.
+     * @return Lista con todos los tipos obtenidos.
+     */
     public ArrayList<Tipo> obtenerTiposDesdeBD(Connection conn) {
         ArrayList<Tipo> tipos = new ArrayList<>();
         String query = "SELECT * FROM tipos";
@@ -234,72 +228,16 @@ public class Almacen {
             System.err.println("❌ Error leyendo tipos: " + e.getMessage());
         }
 
-
-
         return tipos;
     }
 
 
-    public void exportarPaletsASQL(ArrayList<Palet> palets, String nombreArchivo) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
-            for (Palet palet : palets) {
-                String insert = String.format(
-                        "INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_producto, estanteria, balda, posicion, delante) " +
-                                "VALUES ('%s', '%s', %s, %s, %s, %s, %d, %d, %s, %s);",
-                        palet.getIdPalet(),
-                        palet.getIdProducto(),
-                        palet.getAlto(),
-                        palet.getAncho(),
-                        palet.getLargo(),
-                        palet.getCantidadProducto(),
-                        palet.getEstanteria(),
-                        palet.getBalda(),
-                        palet.getPosicion(),
-                        String.valueOf(palet.isDelante())
-                );
-                writer.println(insert);
-            }
-            System.out.println("✅ Instrucciones SQL exportadas a " + nombreArchivo);
-        } catch (Exception e) {
-            System.err.println("❌ Error al exportar SQL: " + e.getMessage());
-        }
-    }
-
-    public void exportarTiposASQL(ArrayList<Tipo> tipos, String nombreArchivo) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
-            for (Tipo tipo : tipos) {
-                String insert = String.format(
-                        "INSERT INTO tipos (id_tipo, color) VALUES ('%s', '%s');",
-                        tipo.getIdTipo(),
-                        tipo.getColor()
-                );
-                writer.println(insert);
-            }
-            System.out.println("✅ Instrucciones SQL de tipos exportadas a " + nombreArchivo);
-        } catch (Exception e) {
-            System.err.println("❌ Error al exportar SQL de tipos: " + e.getMessage());
-        }
-    }
-
-    public void exportarProductosASQL(ArrayList<Producto> productos, String nombreArchivo) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
-            for (Producto producto : productos) {
-                String insert = String.format(
-                        "INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('%s', '%s');",
-                        producto.getIdProducto(),
-                        producto.getIdTipo()
-                );
-                writer.println(insert);
-            }
-            System.out.println("✅ Instrucciones SQL de productos exportadas a " + nombreArchivo);
-        } catch (Exception e) {
-            System.err.println("❌ Error al exportar SQL de productos: " + e.getMessage());
-        }
-    }
 
 
-
-
+    /**
+     * Establece la información y relaciones entre palets, productos y tipos.
+     * Actualiza colores, cantidades y números de palets asociados para cada objeto.
+     */
     private void setInformationToPaletProductType() {
 
         for (Palet palet : TodosPalets) {
@@ -331,11 +269,16 @@ public class Almacen {
     }
 
 
-
+    /**
+     * Muestra por consola la información completa del almacén (palets, productos y tipos).
+     */
     public void MostrarAlmacen(){
         System.out.println(toString());
     }
 
+    /**
+     * Muestra por consola la información de todos los palets.
+     */
     public void MostrarPalets() {
         for (Palet palet : TodosPalets) {
             if (palet != null) {
@@ -344,6 +287,9 @@ public class Almacen {
         }
     }
 
+    /**
+     * Muestra por consola la información de todos los productos.
+     */
     public void MostrarProductos() {
         for (Producto producto : TodosProductos) {
             if (producto != null) {
@@ -352,6 +298,9 @@ public class Almacen {
         }
     }
 
+    /**
+     * Muestra por consola la información de todos los tipos.
+     */
     public void MostrarTipos() {
         for (Tipo tipo : TodosTipos) {
             if (tipo != null) {
@@ -360,6 +309,9 @@ public class Almacen {
         }
     }
 
+    /**
+     * Muestra por consola los colores asignados a cada palet.
+     */
     public void MostrarColoresPalet() {
         for (Palet palet : TodosPalets) {
             if (palet != null) {
@@ -368,6 +320,15 @@ public class Almacen {
         }
     }
 
+    /**
+     * Comprueba si existe un palet en la posición indicada (estantería, balda, posición, delante).
+     *
+     * @param estanteria Número de la estantería.
+     * @param balda      Número de la balda.
+     * @param posicion   Posición dentro de la balda.
+     * @param delante    Indica si el palet está delante o no.
+     * @return true si existe un palet en esa posición, false en caso contrario.
+     */
     public Boolean ExistePalet(int estanteria, int balda, int posicion, Boolean delante) {
 
         for (Palet palet : TodosPalets) {
@@ -379,6 +340,15 @@ public class Almacen {
         return false;
     }
 
+    /**
+     * Obtiene el palet ubicado en la posición indicada (estantería, balda, posición, delante).
+     *
+     * @param estanteria Número de la estantería.
+     * @param balda      Número de la balda.
+     * @param posicion   Posición dentro de la balda.
+     * @param delante    Indica si el palet está delante o no.
+     * @return El objeto Palet si existe, o null si no se encuentra.
+     */
     public Palet getPalet(int estanteria, int balda, int posicion, Boolean delante) {
 
         for (Palet palet : TodosPalets) {
@@ -392,7 +362,12 @@ public class Almacen {
 
 
 
-
+    /**
+     * Devuelve una representación en texto con la información completa del almacén,
+     * incluyendo palets, productos y tipos.
+     *
+     * @return String con toda la información concatenada.
+     */
     @Override
     public String toString(){
 
