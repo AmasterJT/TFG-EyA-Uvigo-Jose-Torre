@@ -39,8 +39,15 @@ public class inventarioController implements Initializable {
 
     /** Número de columnas del grid de palets. */
     private final int COLUMS = 6;
+    /** Número de filas del grid de palets. */
+    private final int ROWS = 8;
     /** Número máximo de items a mostrar en el grid. */
-    private final int NUM_ITEMS_GRID = 50;
+    private final int NUM_ITEMS_GRID = COLUMS * ROWS;
+    /** Número de palets a mostrar. */
+    private int NUM_PALETS = 0;
+
+    private int paginaActual = 0;
+
     // Filtros y controles visuales
     @FXML private ComboBox<String> estanteriaComboBox;
     @FXML private ComboBox<String> baldaComboBox;
@@ -52,6 +59,8 @@ public class inventarioController implements Initializable {
     @FXML private ScrollPane scroll;
     @FXML private Button buscarButton;
     @FXML private Button inventory_reset_button;
+    @FXML private Button siguienteButton;
+    @FXML private Button anteriorButton;
 
     /**
      * Inicializa la interfaz de inventario:
@@ -83,12 +92,16 @@ public class inventarioController implements Initializable {
         Tooltip resetTooltip = new Tooltip("Quitar filtros");
         inventory_reset_button.setTooltip(resetTooltip);
         inventory_reset_button.setOnAction(_ -> resetFiltros());
+
+        siguienteButton.setOnAction(_ -> siguientePagina());
+        anteriorButton.setOnAction(_ -> anteriorPagina());
     }
 
     /**
      * Resetea los filtros aplicados y vuelve a mostrar todos los palets.
      */
     private void resetFiltros() {
+        paginaActual = 0;
         inicializarComboBoxes();
         renderizarPalets(Almacen.TodosPalets);
     }
@@ -141,15 +154,26 @@ public class inventarioController implements Initializable {
     }
 
     /**
+     * Lista de palets actualmente mostrados en el GridPane.
+     * Se utiliza para mantener el estado de los palets visibles.
+     */
+    private List<Palet> paletsMostrados = new ArrayList<>();
+
+    /**
      * Renderiza una lista de palets en el GridPane.
      * @param palets Lista de palets a mostrar
      */
     private void renderizarPalets(List<Palet> palets) {
+        paletsMostrados = palets;
         limpiarGridPane(grid);
-        int column = 0, row = 1, counter = 0;
+        int totalPalets = palets.size();
+        int inicio = paginaActual * NUM_ITEMS_GRID;
+        int fin = Math.min(inicio + NUM_ITEMS_GRID, totalPalets);
+
+        int column = 0, row = 1;
         try {
-            for (Palet palet : palets) {
-                if (counter == NUM_ITEMS_GRID) break;
+            for (int i = inicio; i < fin; i++) {
+                Palet palet = palets.get(i);
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemInventario.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 ItemInventarioController itemController = fxmlLoader.getController();
@@ -161,16 +185,32 @@ public class inventarioController implements Initializable {
                 }
                 grid.add(anchorPane, column++, row);
                 GridPane.setMargin(anchorPane, new Insets(10));
-                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                grid.setMaxHeight(Region.USE_PREF_SIZE);
-                counter++;
             }
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error cargando los palets en el grid", e);
         }
+        actualizarBotonesNavegacion(totalPalets);
     }
 
+    // Métodos para los botones de navegación
+    @FXML
+    private void siguientePagina() {
+        paginaActual++;
+        renderizarPalets(Almacen.TodosPalets);
+    }
+
+    @FXML
+    private void anteriorPagina() {
+        if (paginaActual > 0) {
+            paginaActual--;
+            renderizarPalets(Almacen.TodosPalets);
+        }
+    }
+
+    private void actualizarBotonesNavegacion(int totalPalets) {
+        anteriorButton.setDisable(paginaActual == 0);
+        siguienteButton.setDisable((paginaActual + 1) * NUM_ITEMS_GRID >= totalPalets);
+    }
     /**
      * Configura los eventos de los ComboBoxes para filtrar por tipo o producto.
      */
@@ -261,9 +301,12 @@ public class inventarioController implements Initializable {
      * para mostrar solo los palets que cumplen las condiciones.
      */
     private void aplicarFiltros() {
+        NUM_PALETS = 0;
+
         limpiarGridPane(grid);
         List<Palet> paletsFiltrados = filtrarPalets();
         agregarPaletsAGrid(paletsFiltrados);
+        System.out.println(NUM_PALETS);
     }
 
     /**
@@ -271,6 +314,7 @@ public class inventarioController implements Initializable {
      * @return Lista de palets que cumplen los filtros
      */
     private List<Palet> filtrarPalets() {
+
         String estanteria = estanteriaComboBox.getValue();
         String balda = baldaComboBox.getValue();
         String posicion = posicionComboBox.getValue();
@@ -287,6 +331,7 @@ public class inventarioController implements Initializable {
                 (tipoProducto == null || tipoProducto.equals("Todos") || tipoProducto.equals(palet.getProducto().getTipo().getIdTipo())) &&
                 (delante == null || delante.equals("Todos") || palet.isDelante() == delante.equalsIgnoreCase("Delante"))) {
                 resultado.add(palet);
+                NUM_PALETS ++;
             }
         }
         return resultado;
