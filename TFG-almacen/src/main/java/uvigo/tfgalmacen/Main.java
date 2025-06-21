@@ -251,6 +251,8 @@ public class Main extends Application {
             // ProductoDAO.readProductos(connection);
             // printRolesAndPermissions(connection);
 
+
+
             // Listar las tablas de la base de datos
             // listTables(connection, DATABASE_NAME);
 

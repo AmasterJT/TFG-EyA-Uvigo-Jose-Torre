@@ -50,6 +50,11 @@ public class PedidoDAO {
         }
     }
 
+    /**
+     * Obtiene una lista de todos los pedidos con todos sus datos.
+     * @param connection La conexión a la base de datos.
+     * @return Una lista de objetos Pedido con todos sus datos.
+     */
     public static List<Pedido> getPedidosAllData(Connection connection) {
 
         List<Pedido> pedidos= new ArrayList<>();
@@ -59,11 +64,12 @@ public class PedidoDAO {
             while (resultSet.next()) {
                 String codigo_referencia = resultSet.getString("codigo_referencia");
                 int id_pedido = resultSet.getInt("id_pedido");
+                int id_cliente = resultSet.getInt("id_cliente");
                 int id_usuario = resultSet.getInt("id_usuario");
                 String estado = resultSet.getString("estado");
                 String fecha_pedido = resultSet.getString("fecha_pedido");
 
-                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_usuario, estado, fecha_pedido);
+                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_cliente, id_usuario, estado, fecha_pedido);
                 pedidos.add(pedido);
 
             }
@@ -93,7 +99,12 @@ public class PedidoDAO {
         return getPedidosPorEstado(connection, "Completado");
     }
 
-    // Método reutilizable para evitar duplicación de código
+    /**
+     * Método genérico para obtener una lista de pedidos filtrados por estado.
+     * @param connection La conexión a la base de datos.
+     * @param estado El estado del pedido que se desea filtrar.
+     * @return Una lista de objetos Pedido que coinciden con el estado especificado.
+     */
     private static List<Pedido> getPedidosPorEstado(Connection connection, String estado) {
         List<Pedido> pedidos = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PEDIDOS_BY_ESTADO_SQL)) {
@@ -104,10 +115,11 @@ public class PedidoDAO {
                 String codigo_referencia = resultSet.getString("codigo_referencia");
                 int id_pedido = resultSet.getInt("id_pedido");
                 int id_usuario = resultSet.getInt("id_usuario");
+                int id_cliente = resultSet.getInt("id_cliente");
                 String estadoResult = resultSet.getString("estado");
                 String fecha_pedido = resultSet.getString("fecha_pedido");
 
-                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_usuario, estadoResult, fecha_pedido);
+                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_cliente, id_usuario, estadoResult, fecha_pedido);
                 pedidos.add(pedido);
             }
         } catch (SQLException e) {

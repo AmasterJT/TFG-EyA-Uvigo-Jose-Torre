@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="40.0" prefWidth="847.0" fx:controller="uvigo.tfgalmacen.controllers.ItemPedidoController" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="item-pedido-en-curso" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="40.0" prefWidth="847.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="item-pedido-en-curso" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemPedidoController">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

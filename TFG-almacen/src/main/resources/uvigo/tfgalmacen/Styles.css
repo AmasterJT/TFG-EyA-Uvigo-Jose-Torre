@@ -265,11 +265,21 @@
       -fx-background-color: -pedido-en-curso-color;
   }
 
-   .indicador-item-pedido-en-curso {
+   .indicador-item-pedido-pendiente {
         -fx-text-fill: white;
         -fx-font-family: "David Libre Regular";
         -fx-font-size: 16px;
-        -fx-background-color: #4bb030;
+        -fx-background-color: #bfbfbf;
+        -fx-border-radius: 10;
+        -fx-background-radius: 10;
+        -fx-padding: 2 10 2 10;
+    }
+
+   .indicador-item-pedido-en-curso {
+        -fx-text-fill: black;
+        -fx-font-family: "David Libre Regular";
+        -fx-font-size: 16px;
+        -fx-background-color: #edf55f;
         -fx-border-radius: 10;
         -fx-background-radius: 10;
         -fx-padding: 2 10 2 10;
@@ -280,5 +290,15 @@
        -fx-text-fill: white;
        -fx-font-family: "David Libre Regular";
        -fx-font-size: 16px;
-       -fx-background-color: -pedido-cancelado-color;
+       -fx-background-color: #9e3a2cr;
    }
+
+   .indicador-item-pedido-completado {
+        -fx-text-fill: white;
+        -fx-font-family: "David Libre Regular";
+        -fx-font-size: 16px;
+        -fx-background-color: #4bb030;
+        -fx-border-radius: 10;
+        -fx-background-radius: 10;
+        -fx-padding: 2 10 2 10;
+    }
