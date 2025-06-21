@@ -197,35 +197,39 @@ public class inventarioController implements Initializable {
         actualizarBotonesNavegacion(totalPalets);
         total_paginas_inventario = totalPalets / NUM_ITEMS_GRID;
 
-
-        int pag = paginaActual + 1;
-
-        current_page_label.setText(pag + "/" + total_paginas_inventario);
+        actualizarLabelPagina();
     }
 
-    // Métodos para los botones de navegación
-    @FXML
-    private void siguientePagina() {
+    /**
+     * Navega a la siguiente página de palets en el GridPane.
+     * Incrementa la página actual y renderiza los palets correspondientes.
+     */
+    @FXML private void siguientePagina() {
         paginaActual++;
         renderizarPalets(Almacen.TodosPalets);
 
-        int pag = paginaActual +1;
-
-        current_page_label.setText(pag + "/" + total_paginas_inventario);
+        actualizarLabelPagina();
     }
 
-    @FXML
-    private void anteriorPagina() {
+    /**
+     * Navega a la página anterior de palets en el GridPane.
+     * Decrementa la página actual y renderiza los palets correspondientes.
+     */
+    @FXML private void anteriorPagina() {
         if (paginaActual > 0) {
             paginaActual--;
             renderizarPalets(Almacen.TodosPalets);
 
-
-            int pag = paginaActual +1;
-            current_page_label.setText(pag + "/" + total_paginas_inventario);
+            actualizarLabelPagina();
         }
     }
 
+    /**
+     * Actualiza el estado de los botones de navegación según la página actual y el total de palets.
+     * Deshabilita el botón "Anterior" si estamos en la primera página
+     * y el botón "Siguiente" si no hay más palets para mostrar.
+     * @param totalPalets Total de palets disponibles
+     */
     private void actualizarBotonesNavegacion(int totalPalets) {
         anteriorButton.setDisable(paginaActual == 0);
         siguienteButton.setDisable((paginaActual + 1) * NUM_ITEMS_GRID >= totalPalets);
@@ -327,8 +331,7 @@ public class inventarioController implements Initializable {
         agregarPaletsAGrid(paletsFiltrados);
         total_paginas_inventario = NUM_PALETS / NUM_ITEMS_GRID;
 
-        int pag = paginaActual +1;
-        current_page_label.setText(pag + "/" + total_paginas_inventario);
+        actualizarLabelPagina();
 
     }
 
@@ -397,4 +400,8 @@ public class inventarioController implements Initializable {
     }
 
 
+    private void actualizarLabelPagina() {
+        int pag = paginaActual + 1;
+        current_page_label.setText(pag + "/" + total_paginas_inventario);
+    }
 }
