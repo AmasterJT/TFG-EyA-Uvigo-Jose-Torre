@@ -27,7 +27,7 @@ public class Pedido implements Comparable<Pedido> {
 
 
 
-    public String colorEstadoHEX;
+    private String colorEstadoHEX;
 
 
     private final String nombre_cliente;
@@ -43,22 +43,28 @@ public class Pedido implements Comparable<Pedido> {
 
         this.nombre_cliente = setNombreCliente(id_cliente); // Inicializar como null, se puede establecer más tarde si es necesario
 
+
+        setDataEstado(estado);
+
+    }
+
+    private void setDataEstado(String estado) {
         switch (estado) {
             case "Pendiente" -> {
-                colorEstadoHEX = "#bfbfbf";
-                emoji = "📌";
+                this.colorEstadoHEX = "#bfbfbf";
+                this.emoji = "📌";
             }
             case "En proceso" -> {
-                colorEstadoHEX = "##edf55f";
-                emoji = "⏳" + NARANJA;
+                this.colorEstadoHEX = "##edf55f";
+                this.emoji = "⏳" + NARANJA;
             }
             case "Cancelado" -> {
-                colorEstadoHEX = "#9e3a2c";
-                emoji = "❌" + ROJO;
+                this.colorEstadoHEX = "#9e3a2c";
+                this.emoji = "❌" + ROJO;
             }
             case "Completado" -> {
-                colorEstadoHEX = "#4bb030";
-                emoji = "✅" + VERDE;
+                this.colorEstadoHEX = "#4bb030";
+                this.emoji = "✅" + VERDE;
             }
         }
     }
@@ -110,10 +116,10 @@ public class Pedido implements Comparable<Pedido> {
         return CYAN + "Codigo Referencia: " + RESET +
                 codigo_referencia + CYAN +
                 ", Fecha Creacion: " + RESET +
-                fechaPedido + CYAN + ", ID: " + RESET +
-                CYAN + "Nombre Cliente: " + RESET +
-                nombre_cliente + RESET + "ID" +
-                id_pedido + CYAN + ", Usuario ID: " + RESET +
+                fechaPedido + CYAN + ", ID: " + RESET + id_pedido +
+                CYAN + ", Nombre Cliente: " + RESET +
+                nombre_cliente + RESET  +
+                ", Usuario ID: " + RESET +
                 id_usuario + CYAN + ", Estado: " + RESET +
                 emoji + " "+ estado + RESET;
     }
