@@ -39,4 +39,13 @@
   -amaster-light-brown: #DB9F75;
   -amaster-brown: #804012;
   -amaster-dark-brown: #3E2411;
+
+
+  -pedido-pendiente-color: #bfbfbf;
+  -pedido-en-curso-color:  #2F3A32;
+  -pedido-cancelado-color: #ed8080;
+
+    -indicador-pedido-pendiente-color: #bfbfbf;
+    -indicador-pedido-en-curso-color:  #4bb030;
+    -indicador-pedido-cancelado-color: #9e3a2c;
 }

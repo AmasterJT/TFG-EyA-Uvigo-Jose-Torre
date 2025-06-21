@@ -249,3 +249,36 @@
  .combo-box .cell:selected {
      -fx-text-fill: white;
  }
+
+
+ .item-pedido-pendiente {
+     -fx-text-fill: white;
+     -fx-font-family: "David Libre Regular";
+     -fx-font-size: 16px;
+    -fx-background-color: -pedido-pendiente-color;
+ }
+
+  .item-pedido-en-curso {
+      -fx-text-fill: white;
+      -fx-font-family: "David Libre Regular";
+      -fx-font-size: 16px;
+      -fx-background-color: -pedido-en-curso-color;
+  }
+
+   .indicador-item-pedido-en-curso {
+        -fx-text-fill: white;
+        -fx-font-family: "David Libre Regular";
+        -fx-font-size: 16px;
+        -fx-background-color: #4bb030;
+        -fx-border-radius: 10;
+        -fx-background-radius: 10;
+        -fx-padding: 2 10 2 10;
+    }
+
+
+   .item-pedido-cancelado {
+       -fx-text-fill: white;
+       -fx-font-family: "David Libre Regular";
+       -fx-font-size: 16px;
+       -fx-background-color: -pedido-cancelado-color;
+   }
