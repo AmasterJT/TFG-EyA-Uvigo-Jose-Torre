@@ -27,6 +27,9 @@ public class Pedido implements Comparable<Pedido> {
 
 
 
+    public String colorEstadoHEX;
+
+
     private final String nombre_cliente;
 
     public Pedido(String codigo_referencia, int id_pedido, int id_cliente, int id_usuario, String estado, String fechaPedidoRaw) {
@@ -41,10 +44,22 @@ public class Pedido implements Comparable<Pedido> {
         this.nombre_cliente = setNombreCliente(id_cliente); // Inicializar como null, se puede establecer más tarde si es necesario
 
         switch (estado) {
-            case "Pendiente" -> emoji = "📌";
-            case "En proceso" -> emoji = "⏳" + NARANJA;
-            case "Cancelado" -> emoji = "❌" + ROJO;
-            case "Completado" -> emoji = "✅" + VERDE;
+            case "Pendiente" -> {
+                colorEstadoHEX = "#bfbfbf";
+                emoji = "📌";
+            }
+            case "En proceso" -> {
+                colorEstadoHEX = "##edf55f";
+                emoji = "⏳" + NARANJA;
+            }
+            case "Cancelado" -> {
+                colorEstadoHEX = "#9e3a2c";
+                emoji = "❌" + ROJO;
+            }
+            case "Completado" -> {
+                colorEstadoHEX = "#4bb030";
+                emoji = "✅" + VERDE;
+            }
         }
     }
 
@@ -52,6 +67,8 @@ public class Pedido implements Comparable<Pedido> {
 
         return ClientesDAO.getNombreClienteById(Main.connection, idCliente);
     }
+
+
 
     public String getCodigo_referencia() {
         return codigo_referencia;
@@ -63,6 +80,10 @@ public class Pedido implements Comparable<Pedido> {
 
     public int getId_usuario() {
         return id_usuario;
+    }
+
+    public String getColorEstadoHEX() {
+        return colorEstadoHEX;
     }
 
     public String getEstado() {
@@ -80,6 +101,9 @@ public class Pedido implements Comparable<Pedido> {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+
+
 
     @Override
     public String toString() {
