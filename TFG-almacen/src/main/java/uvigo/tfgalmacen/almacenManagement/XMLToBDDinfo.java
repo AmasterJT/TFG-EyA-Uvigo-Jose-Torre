@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Los datos extraídos se utilizan, por ejemplo, para cargar el contenido de un almacén
  * en una base de datos.
  */
-public class ExtractXMLinfo {
+public class XMLToBDDinfo {
 
     public String archivoXML;
 
@@ -194,7 +194,7 @@ public class ExtractXMLinfo {
      * @param palets      Lista de objetos Palet que se desean exportar.
      * @param nombreArchivo Nombre del archivo donde se guardarán las instrucciones SQL.
      */
-    public void exportarPaletsASQL(ArrayList<Palet> palets, String nombreArchivo) {
+    public static void exportarPaletsASQL(ArrayList<Palet> palets, String nombreArchivo) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
             for (Palet palet : palets) {
                 String insert = String.format(
@@ -227,7 +227,7 @@ public class ExtractXMLinfo {
      * @param tipos        Lista de objetos Tipo que se desean exportar.
      * @param nombreArchivo Nombre del archivo donde se guardarán las instrucciones SQL.
      */
-    public void exportarTiposASQL(ArrayList<Tipo> tipos, String nombreArchivo) {
+    public static void exportarTiposASQL(ArrayList<Tipo> tipos, String nombreArchivo) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
             for (Tipo tipo : tipos) {
                 String insert = String.format(
@@ -250,7 +250,7 @@ public class ExtractXMLinfo {
      * @param productos    Lista de objetos Producto que se desean exportar.
      * @param nombreArchivo Nombre del archivo donde se guardarán las instrucciones SQL.
      */
-    public void exportarProductosASQL(ArrayList<Producto> productos, String nombreArchivo) {
+    public static void exportarProductosASQL(ArrayList<Producto> productos, String nombreArchivo) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
             for (Producto producto : productos) {
                 String insert = String.format(
@@ -295,7 +295,7 @@ public class ExtractXMLinfo {
      * @throws SQLException Si ocurre un error durante la inserción en la base de datos.
      */
     public static void insertarTiposDesdeXML(Connection conn, String archivoXML) throws SQLException {
-        ArrayList<Tipo> tipos = ExtractXMLinfo.extraerInfoTipo_XML(archivoXML);
+        ArrayList<Tipo> tipos = XMLToBDDinfo.extraerInfoTipo_XML(archivoXML);
 
         String insertQuery = "INSERT INTO tipos (id_tipo, color) VALUES (?, ?)";
 
@@ -326,7 +326,7 @@ public class ExtractXMLinfo {
      * @throws SQLException Si ocurre un error durante la inserción en la base de datos.
      */
     public static void insertarProductosDesdeXML(Connection conn, String archivoXML) throws SQLException {
-        ArrayList<Producto> productos = ExtractXMLinfo.extraerInfoProductos_XML(archivoXML);
+        ArrayList<Producto> productos = XMLToBDDinfo.extraerInfoProductos_XML(archivoXML);
 
         String insertQuery = "INSERT INTO productos (identificador_producto, tipo_producto, nombre_producto, descripcion, color) VALUES (?, ?, ?, ?, ?)";
 
@@ -356,7 +356,7 @@ public class ExtractXMLinfo {
      * @throws SQLException Si ocurre un error durante la inserción en la base de datos.
      */
     public static void insertarPaletsDesdeXML(Connection conn, String archivoXML) throws SQLException {
-        ArrayList<Palet> palets = ExtractXMLinfo.extraerInfoAlamcen_XML(archivoXML);
+        ArrayList<Palet> palets = XMLToBDDinfo.extraerInfoAlamcen_XML(archivoXML);
 
         String insertQuery = "INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_producto, estanteria, balda, posicion, delante) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

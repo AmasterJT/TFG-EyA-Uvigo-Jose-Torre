@@ -101,7 +101,7 @@ public class Main extends Application {
      *
      * @param root  El nodo raíz del diseño de la ventana.
      * @param stage El escenario principal que representa la ventana.
-     * @param scene
+     * @param scene La escena que contiene el diseño de la ventana.
      */
     private void WindowResize(Parent root, Stage stage, Scene scene) {
         final double borderWidth = 8; // Define el grosor del borde que será interactivo para redimensionar.
@@ -207,7 +207,6 @@ public class Main extends Application {
                         stage.setWidth(newWidth);
 
                     }
-
                     break;
                 case E_border:
                     // Redimensionar desde el borde derecho.

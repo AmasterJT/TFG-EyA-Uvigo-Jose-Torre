@@ -7,11 +7,6 @@ import java.sql.*;
 
 import java.util.ArrayList;
 
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import uvigo.tfgalmacen.almacenManagement.ExtractXMLinfo.*;
-
-
 
 /**
  * Clase que representa un almacén y gestiona la carga y manipulación de palets, productos y tipos.

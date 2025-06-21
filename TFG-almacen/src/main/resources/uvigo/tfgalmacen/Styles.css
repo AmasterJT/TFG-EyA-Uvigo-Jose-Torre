@@ -106,6 +106,18 @@
     -fx-background-color: #e3bfa6;
 }
 
+.inventory-reset-button {
+    -fx-background-color: red;
+    -fx-background-radius: 30;
+    -fx-padding: 10 15 10 15;
+    -fx-width: 50;
+}
+
+.inventory-reset-button:hover {
+    -fx-background-color: #e3bfa6;
+}
+
+
 .inventory-filter-bar {
     -fx-background-color: linear-gradient(to right, #2F3A32, #000000);
     -fx-background-radius: 20;
