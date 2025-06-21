@@ -113,10 +113,11 @@
                <children>
                   <Button fx:id="anteriorButton" mnemonicParsing="false" prefWidth="70.0" text="Anterior">
                      <HBox.margin>
-                        <Insets />
+                        <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="siguienteButton" mnemonicParsing="false" prefWidth="70.0" text="Siguiente" />
+                  <Label fx:id="current_page_label" text="1/1" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />

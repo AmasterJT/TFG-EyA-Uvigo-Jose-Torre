@@ -48,6 +48,8 @@ public class inventarioController implements Initializable {
 
     private int paginaActual = 0;
 
+    private int total_paginas_inventario = 0;
+
     // Filtros y controles visuales
     @FXML private ComboBox<String> estanteriaComboBox;
     @FXML private ComboBox<String> baldaComboBox;
@@ -61,6 +63,7 @@ public class inventarioController implements Initializable {
     @FXML private Button inventory_reset_button;
     @FXML private Button siguienteButton;
     @FXML private Button anteriorButton;
+    @FXML private Label current_page_label;
 
     /**
      * Inicializa la interfaz de inventario:
@@ -167,6 +170,7 @@ public class inventarioController implements Initializable {
         paletsMostrados = palets;
         limpiarGridPane(grid);
         int totalPalets = palets.size();
+        NUM_PALETS = totalPalets;
         int inicio = paginaActual * NUM_ITEMS_GRID;
         int fin = Math.min(inicio + NUM_ITEMS_GRID, totalPalets);
 
@@ -185,11 +189,18 @@ public class inventarioController implements Initializable {
                 }
                 grid.add(anchorPane, column++, row);
                 GridPane.setMargin(anchorPane, new Insets(10));
+                NUM_PALETS ++;
             }
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error cargando los palets en el grid", e);
         }
         actualizarBotonesNavegacion(totalPalets);
+        total_paginas_inventario = totalPalets / NUM_ITEMS_GRID;
+
+
+        int pag = paginaActual + 1;
+
+        current_page_label.setText(pag + "/" + total_paginas_inventario);
     }
 
     // Métodos para los botones de navegación
@@ -197,6 +208,10 @@ public class inventarioController implements Initializable {
     private void siguientePagina() {
         paginaActual++;
         renderizarPalets(Almacen.TodosPalets);
+
+        int pag = paginaActual +1;
+
+        current_page_label.setText(pag + "/" + total_paginas_inventario);
     }
 
     @FXML
@@ -204,6 +219,10 @@ public class inventarioController implements Initializable {
         if (paginaActual > 0) {
             paginaActual--;
             renderizarPalets(Almacen.TodosPalets);
+
+
+            int pag = paginaActual +1;
+            current_page_label.setText(pag + "/" + total_paginas_inventario);
         }
     }
 
@@ -302,11 +321,15 @@ public class inventarioController implements Initializable {
      */
     private void aplicarFiltros() {
         NUM_PALETS = 0;
-
+        paginaActual = 0;
         limpiarGridPane(grid);
         List<Palet> paletsFiltrados = filtrarPalets();
         agregarPaletsAGrid(paletsFiltrados);
-        System.out.println(NUM_PALETS);
+        total_paginas_inventario = NUM_PALETS / NUM_ITEMS_GRID;
+
+        int pag = paginaActual +1;
+        current_page_label.setText(pag + "/" + total_paginas_inventario);
+
     }
 
     /**
@@ -342,13 +365,16 @@ public class inventarioController implements Initializable {
      * @param palets Lista de palets a agregar
      */
     private void agregarPaletsAGrid(List<Palet> palets) {
-        int counter = 0;
+        int inicio = paginaActual * NUM_ITEMS_GRID;
+        int fin = Math.min(inicio + NUM_ITEMS_GRID, palets.size());
         int column = 0;
         int row = 1;
 
+        NUM_PALETS = palets.size();
+
         try {
-            for (Palet palet : palets) {
-                if (counter == NUM_ITEMS_GRID) break;
+            for (int i = inicio; i < fin; i++) {
+                Palet palet = palets.get(i);
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemInventario.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
@@ -363,10 +389,12 @@ public class inventarioController implements Initializable {
 
                 grid.add(anchorPane, column++, row);
                 GridPane.setMargin(anchorPane, new Insets(10));
-                counter++;
             }
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error aplicando filtros", e);
         }
+    total_paginas_inventario = NUM_PALETS / NUM_ITEMS_GRID;
     }
+
+
 }
