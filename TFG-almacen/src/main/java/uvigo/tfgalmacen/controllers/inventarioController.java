@@ -39,15 +39,20 @@ public class inventarioController implements Initializable {
 
     /** Número de columnas del grid de palets. */
     private final int COLUMS = 6;
+
     /** Número de filas del grid de palets. */
     private final int ROWS = 7;
+
     /** Número máximo de items a mostrar en el grid. */
     private final int NUM_ITEMS_GRID = COLUMS * ROWS;
+
     /** Número de palets a mostrar. */
     private int NUM_PALETS = 0;
 
+    /** Página actual del inventario. */
     private int paginaActual = 0;
 
+    /** Total de páginas de inventario calculado según los filtros. */
     private int total_paginas_inventario = 0;
 
     // Filtros y controles visuales
