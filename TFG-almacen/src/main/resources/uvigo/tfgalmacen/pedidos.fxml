@@ -5,7 +5,10 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1400.0" style="-fx-background-color: grey;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.pedidosController">
@@ -15,23 +18,60 @@
                 <VBox alignment="CENTER" prefHeight="200.0">
                     <children>
                         <Label text="PEDIDIOS EN CURSO" />
-                        <ScrollPane fx:id="pedidiosEnCursoScroll" prefHeight="200.0" prefWidth="400.0">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: #222;">
+                  <ScrollPane fx:id="pedidiosEnCursoScroll">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #222;">
                            <children>
-                              <ListView fx:id="pedidiosEnCursoList" prefHeight="200.0" prefWidth="400.0" />
-                           </children></AnchorPane>
-                            </content>
-                        </ScrollPane>
+                              <ScrollPane fx:id="pedidiosPendientesList1">
+                                 <content>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="650.0">
+                                       <children>
+                                          <GridPane fx:id="grid_en_curso">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
                         <Button mnemonicParsing="false" text="Button" />
                         <Button mnemonicParsing="false" text="Button" />
                         <Button mnemonicParsing="false" text="Button" />
                         <Label text="PEDIDIOS PENDIENTES" />
-                        <ScrollPane fx:id="pedidiosPendientesScroll" prefHeight="200.0" prefWidth="400.0">
+                        <ScrollPane fx:id="pedidiosPendientesScroll">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: #222;">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #222;">
                            <children>
-                              <ListView fx:id="pedidiosPendientesList" prefHeight="200.0" prefWidth="400.0" />
+                              <ScrollPane fx:id="pedidiosPendientesList">
+                                 <content>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="650.0">
+                                       <children>
+                                          <GridPane fx:id="grid_pendientes">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
                            </children></AnchorPane>
                             </content>
                         </ScrollPane>
@@ -49,7 +89,7 @@
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0">
                     <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2F3A32;" />
+                        <AnchorPane prefHeight="200.0" prefWidth="650.0" style="-fx-background-color: #2F3A32;" />
                     </children>
                 </VBox>
             </children>
