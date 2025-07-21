@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
@@ -47,9 +48,11 @@ public class MovePendienteToEnProcesoController {
     public void initialize() {
         // Llenar usuarios desde la base de datos
         setUsers();
-        ExitButton.setOnMouseClicked(_ -> Platform.exit());
+        ExitButton.setOnMouseClicked(event -> {
+            Stage stage = (Stage) ExitButton.getScene().getWindow();
+            stage.close();
+        });
         aplicar_nuevo_estado_btn.setOnMouseClicked(_ -> actualizarPedido(combo_pedido_update.getValue(), combo_usuario_update.getValue()));
-
     }
 
     private void setUsers() {
@@ -77,14 +80,27 @@ public class MovePendienteToEnProcesoController {
 
     private void actualizarPedido(Pedido pedido, User usuarioSeleccionado) {
         // Validar que ambos ComboBox tengan un valor seleccionado
+
+
+        Alert alerta = new Alert(Alert.AlertType.WARNING);
+        alerta.setTitle("Advertencia");
+        alerta.setHeaderText(null); // puedes poner un título más corto aquí si quieres
+
         if (combo_pedido_update.getValue() == null || combo_usuario_update.getValue() == null) {
-            System.out.println(ROJO + "❌ Debes seleccionar un pedido y un usuario válido." + RESET);
+            System.out.println(ROJO + "❌ Se debe seleccionar un pedido y un usuario válido." + RESET);
+
+
+            alerta.setContentText("Se debe seleccionar un pedido y un usuario válido");
+            alerta.showAndWait();
+
             return;
         }
 
         // Validación adicional por si los objetos no fueron bien pasados
         if (pedido == null || usuarioSeleccionado == null) {
             System.out.println(ROJO + "❌ Error interno: pedido o usuario no válidos." + RESET);
+            alerta.setContentText("Se debe seleccionar un pedido y un usuario válido");
+            alerta.showAndWait();
             return;
         }
 

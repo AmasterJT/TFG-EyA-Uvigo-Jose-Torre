@@ -3,6 +3,7 @@ package uvigo.tfgalmacen.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -140,10 +141,22 @@ public class pedidosController {
     private void handleMoveToEnProcesoClick() {
         List<Pedido> seleccionados = getPedidosSeleccionadosPendientes();
         System.out.println("Pedidos seleccionados:");
+
+
         for (Pedido pedido : seleccionados) {
             System.out.println(pedido);
         }
+        if (seleccionados.isEmpty()){
+            LOGGER.warning("No hay pedidos seleccionados para mover a 'En Proceso'.");
 
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia");
+            alerta.setHeaderText(null); // puedes poner un título más corto aquí si quieres
+            alerta.setContentText("No se ha seleccionado ningún pedido");
+            alerta.showAndWait();
+
+            return;
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/MovePendienteToEnProceso.fxml"));
             AnchorPane pane = loader.load();
@@ -160,10 +173,19 @@ public class pedidosController {
             stage.setScene(new javafx.scene.Scene(pane));
             stage.show();
 
+            stage.setOnHidden(e -> {
+                // Llama al método que redibuja/recarga datos
+                this.redibujar();  // o refreshTable(), etc.
+            });
+
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de movimiento de pedidos", e);
         }
     }
 
-
+    public void redibujar() {
+        // Recargar tabla, combobox, pedidos, etc.
+        renderizarPedidos(PedidoDAO.getPedidosPendientes(Main.connection), grid_pendientes);
+        renderizarPedidos(PedidoDAO.getPedidosEnProceso(Main.connection), grid_en_curso);
+    }
 }
