@@ -48,10 +48,10 @@
 
             </HBox>
             <HBox fx:id="toolBar" alignment="CENTER" layoutX="80.0" layoutY="-11.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="90.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-               <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="INVENTARIO" textFill="WHITE">
+               <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="HISTORIAL" textFill="WHITE">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../icons/box.png" />
+                        <Image url="@../../icons/history-50.png" />
                      </ImageView>
                   </graphic>
                   <font>
@@ -152,7 +152,7 @@
                <Button fx:id="inventarioButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="INVENTARIO" textFill="WHITE">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../icons/add.png" />
+                        <Image url="@../../icons/box.png" />
                      </ImageView>
                   </graphic>
                   <VBox.margin>
@@ -184,7 +184,7 @@
                <Button fx:id="recepcionButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="RECPECIÓN" textFill="WHITE" wrapText="true">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../icons/data.png" />
+                        <Image url="@../../icons/arrivals-50.png" />
                      </ImageView>
                   </graphic>
                   <VBox.margin>

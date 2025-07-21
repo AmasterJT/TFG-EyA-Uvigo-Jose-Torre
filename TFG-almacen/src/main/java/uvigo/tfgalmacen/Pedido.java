@@ -55,7 +55,7 @@ public class Pedido implements Comparable<Pedido> {
                 this.emoji = "📌";
             }
             case "En proceso" -> {
-                this.colorEstadoHEX = "##edf55f";
+                this.colorEstadoHEX = "#edf55f";
                 this.emoji = "⏳" + NARANJA;
             }
             case "Cancelado" -> {

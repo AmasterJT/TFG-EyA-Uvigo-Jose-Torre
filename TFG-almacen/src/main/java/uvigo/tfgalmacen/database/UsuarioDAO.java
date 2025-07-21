@@ -122,4 +122,53 @@ public class UsuarioDAO {
         }
     }
 
+    // Obtener el nombre completo del usuario por ID
+    private static final String GET_USERNAME_BY_ID_SQL = "SELECT nombre, apellido FROM usuarios WHERE id_usuario = ?";
+
+    public static String getNombreUsuarioById(Connection connection, int id_usuario) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_USERNAME_BY_ID_SQL)) {
+            preparedStatement.setInt(1, id_usuario);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String nombre = resultSet.getString("nombre");
+                String apellido = resultSet.getString("apellido");
+                return nombre + " " + apellido;
+            } else {
+                return null; // Usuario no encontrado
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null; // Error en la base de datos
+        }
+    }
+
+
+    // Obtener el nombre del rol de un usuario por su ID
+    private static final String GET_ROLE_NAME_BY_USER_ID_SQL =
+            "SELECT r.nombre_rol " +
+                    "FROM usuarios u " +
+                    "JOIN roles r ON u.id_rol = r.id_rol " +
+                    "WHERE u.id_usuario = ?";
+
+    public static String getRoleNameByUserId(Connection connection, int id_usuario) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_ROLE_NAME_BY_USER_ID_SQL)) {
+            preparedStatement.setInt(1, id_usuario);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("nombre_rol");
+            } else {
+                return null; // Usuario o rol no encontrado
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
+
+

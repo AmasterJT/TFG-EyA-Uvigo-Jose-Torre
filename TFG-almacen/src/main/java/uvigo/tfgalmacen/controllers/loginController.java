@@ -82,8 +82,11 @@ public class loginController implements Initializable{
 
         } else{
             System.out.println(ROJO + "❌ login incorrecto" + RESET);
-        };
+        }
 
+        System.out.println(CYAN + "Usuario Activo: " + RESET + Main.currentUser.getName() + ", " +
+                            CYAN + "ROL: " + RESET + Main.currentUser.getRole()
+        );
 
     }
 
