@@ -127,4 +127,50 @@ public class PedidoDAO {
         }
         return pedidos;
     }
+
+
+    private static final String UPDATE_ESTADO_PEDIDO_SQL = "UPDATE pedidos SET estado = ? WHERE id_pedido = ?";
+
+    public static boolean updateEstadoPedido(Connection connection, int idPedido, String nuevoEstado) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ESTADO_PEDIDO_SQL)) {
+            preparedStatement.setString(1, nuevoEstado);  // nuevo estado: "Pendiente", "En proceso", etc.
+            preparedStatement.setInt(2, idPedido);        // ID del pedido a modificar
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("✅ Estado del pedido actualizado correctamente.");
+                return true;
+            } else {
+                System.out.println("⚠️ No se encontró ningún pedido con ese ID.");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error actualizando el estado del pedido: " + e.getMessage());
+            return false;
+        }
+    }
+
+
+
+    private static final String UPDATE_USUARIO_PEDIDO_SQL = "UPDATE pedidos SET id_usuario = ? WHERE id_pedido = ?";
+    // PedidoDAO.updateUsuarioPedido(connection, 12, 5);  // Asignar el usuario con ID 5 al pedido con ID 12
+    public static boolean updateUsuarioPedido(Connection connection, int idPedido, int nuevoIdUsuario) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USUARIO_PEDIDO_SQL)) {
+            preparedStatement.setInt(1, nuevoIdUsuario);  // Nuevo ID de usuario
+            preparedStatement.setInt(2, idPedido);        // ID del pedido a modificar
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("✅ Usuario del pedido actualizado correctamente.");
+                return true;
+            } else {
+                System.out.println("⚠️ No se encontró ningún pedido con ese ID.");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error actualizando el usuario del pedido: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

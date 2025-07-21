@@ -3,16 +3,25 @@ package uvigo.tfgalmacen.controllers;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
+import uvigo.tfgalmacen.User;
+import uvigo.tfgalmacen.database.PedidoDAO;
 import uvigo.tfgalmacen.database.UsuarioDAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import static uvigo.tfgalmacen.utils.TerminalColors.*;
 
 public class MovePendienteToEnProcesoController {
 
@@ -20,19 +29,69 @@ public class MovePendienteToEnProcesoController {
     private ComboBox<Pedido> combo_pedido_update;
 
     @FXML
-    private ComboBox<String> combo_usuario_update;
+    private ComboBox<User> combo_usuario_update;
 
 
     @FXML
     private Button ExitButton;
+
+    @FXML
+    private Button aplicar_nuevo_estado_btn;
+
+
 
     private List<Pedido> pedidosSeleccionados;
     private Connection connection;
 
     public void initialize() {
         // Llenar usuarios desde la base de datos
-        combo_usuario_update.getItems().addAll(UsuarioDAO.getAllNombresUsuarios(Main.connection));
+        setUsers();
         ExitButton.setOnMouseClicked(_ -> Platform.exit());
+        aplicar_nuevo_estado_btn.setOnMouseClicked(_ -> actualizarPedido(combo_pedido_update.getValue(), combo_usuario_update.getValue()));
+
+    }
+
+    private void setUsers() {
+        List<User> users = getAllUsers(Main.connection);
+
+        // Establece los pedidos en el ComboBox
+        combo_usuario_update.setItems(FXCollections.observableArrayList(users));
+
+        // Establece un convertidor para mostrar solo el código de referencia
+        combo_usuario_update.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(User user) {
+                return user.getName() + " " + user.getApellido();
+            }
+
+            @Override
+            public User fromString(String s) {
+                return null;
+            }
+
+
+
+        });
+    }
+
+    private void actualizarPedido(Pedido pedido, User usuarioSeleccionado) {
+        if (pedido != null || usuarioSeleccionado != null) {
+            // Actualizar el estado del pedido a "En proceso"
+            pedido.setEstado("En proceso");
+            pedido.setUsuario(usuarioSeleccionado);
+
+            // Actualizar el pedido en la base de datos
+            PedidoDAO.updateEstadoPedido(Main.connection, pedido.getId_pedido(), "En proceso");
+            PedidoDAO.updateUsuarioPedido(Main.connection, pedido.getId_pedido(), pedido.getId_usuario());
+
+            System.out.println(CYAN + "El pedido: " + RESET + pedido.getCodigo_referencia() + CYAN + " lo va a ejecutar el usuario: " + RESET + usuarioSeleccionado.getName() + " " + usuarioSeleccionado.getApellido()  + "(" + pedido.getId_usuario() + ")");
+
+
+        } else {
+            // Manejar el caso donde no se seleccionó un pedido o usuario
+            System.out.println("Por favor, seleccione un pedido y un usuario.");
+        }
+
     }
 
     public void setData(List<Pedido> pedidosSeleccionados, Connection connection) {
@@ -58,5 +117,32 @@ public class MovePendienteToEnProcesoController {
                         .orElse(null);
             }
         });
+    }
+
+
+    public static List<User> getAllUsers(Connection connection) {
+        List<User> usuarios = new ArrayList<>();
+
+        String sql = "SELECT id_usuario, user_name, nombre, apellido, email FROM usuarios";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                int id_usuario = rs.getInt("id_usuario");
+                String username = rs.getString("user_name");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String email = rs.getString("email");
+
+                User user = new User(id_usuario, username, nombre, apellido, email, connection);
+                usuarios.add(user);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("❌ Error al obtener usuarios: " + e.getMessage());
+        }
+
+        return usuarios;
     }
 }

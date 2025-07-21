@@ -1,6 +1,8 @@
 package uvigo.tfgalmacen;
 
 import uvigo.tfgalmacen.database.ClientesDAO;
+import uvigo.tfgalmacen.database.PedidoDAO;
+import uvigo.tfgalmacen.database.UsuarioDAO;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +24,7 @@ public class Pedido implements Comparable<Pedido> {
     private final String codigo_referencia;
     private final int id_pedido;
     private final int id_cliente;
-    private final int id_usuario;
+    private int id_usuario;
     private String estado;
 
 
@@ -106,6 +108,10 @@ public class Pedido implements Comparable<Pedido> {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public void setUsuario(User nombre_usuario) {
+        this.id_usuario = UsuarioDAO.getIdUsuarioByNombre(Main.connection, nombre_usuario.username);
     }
 
 

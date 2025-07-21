@@ -31,8 +31,7 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" spacing="15.0">
                      <children>
-                        <Button fx:id="cerrar_nuevo_estado_btn" mnemonicParsing="false" text="cerrar" />
-                        <Button fx:id="apllicar_nuevo_estado_btn" mnemonicParsing="false" text="aplicar" />
+                        <Button fx:id="aplicar_nuevo_estado_btn" mnemonicParsing="false" text="aplicar" />
                      </children>
                      <padding>
                         <Insets left="10.0" />

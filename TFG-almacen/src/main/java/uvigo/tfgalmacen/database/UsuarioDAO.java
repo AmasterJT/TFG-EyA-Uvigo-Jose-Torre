@@ -187,6 +187,29 @@ public class UsuarioDAO {
     }
 
 
+    public static Integer getIdUsuarioByNombre(Connection connection, String username) {
+        String sql = "SELECT id_usuario FROM usuarios WHERE user_name = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt("id_usuario");
+            } else {
+                System.out.println("⚠️ No se encontró ningún usuario con ese nombre.");
+                return null;
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error al obtener ID del usuario: " + e.getMessage());
+            return null;
+        }
+    }
+
+
+
+
+
+
 }
 
 

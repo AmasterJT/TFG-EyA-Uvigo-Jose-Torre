@@ -30,6 +30,7 @@ public class Main extends Application {
 
     public static Connection connection = null;
     public static User currentUser = null;
+    public static List<User> allUsers = null;
 
     private double xOffset = 0; // Desplazamiento horizontal del ratón respecto a la ventana.
     private double yOffset = 0; // Desplazamiento vertical del ratón respecto a la ventana.
