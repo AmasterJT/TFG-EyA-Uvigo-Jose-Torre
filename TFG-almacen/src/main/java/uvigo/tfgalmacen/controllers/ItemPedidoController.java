@@ -10,6 +10,7 @@ import uvigo.tfgalmacen.almacenManagement.Palet;
 
 import static uvigo.tfgalmacen.database.UsuarioDAO.getNombreUsuarioById;
 import static uvigo.tfgalmacen.database.UsuarioDAO.getRoleNameByUserId;
+import static uvigo.tfgalmacen.utils.TerminalColors.*;
 
 
 public class ItemPedidoController {
@@ -38,8 +39,12 @@ public class ItemPedidoController {
     @FXML
     private VBox vertical_container;
 
+    private Pedido pedido;
 
     public void setData(Pedido pedido){
+        this.pedido = pedido;
+
+        check_select_item_pedido.setOnMouseClicked(_ -> prueba());
 
         // Código para llenar los labels o nodos con la información del pedido
         id_pedido_label.setText(String.valueOf(pedido.getCodigo_referencia()));
@@ -63,5 +68,32 @@ public class ItemPedidoController {
         }
 
     }
+
+    private void prueba() {
+        System.out.println("click");
+
+
+        for(int i = 0; i < pedidosController.allItemControllers.size(); i++) {
+            if(pedidosController.allItemControllers.get(i).getPedido().getId_pedido() == this.pedido.getId_pedido()){
+                pedidosController.allItemControllers.remove(i);
+                pedidosController.allItemControllers.add(this);
+            }
+
+        }
+    }
+
+    public boolean isSelected() {
+        return check_select_item_pedido.isSelected();
+    }
+
+    public Pedido getPedido() {
+        return pedido; // Asegúrate de guardar el Pedido en setData
+    }
+
+    @Override
+    public String toString() {
+        return CYAN + "Pedido #" + RESET + pedido.getCodigo_referencia();
+    }
+
 
 }

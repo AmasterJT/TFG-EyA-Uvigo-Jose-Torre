@@ -3,14 +3,18 @@ package uvigo.tfgalmacen.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.database.PedidoDAO;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +45,16 @@ public class pedidosController {
 
     @FXML private GridPane grid_en_curso;
 
+    @FXML
+    private Button move_to_en_proceso_btn;
+
+    @FXML
+    private Button move_to_pendiente_btn;
+
+
+
+    public static  List<ItemPedidoController> allItemControllers = new ArrayList<>();
+
 
 
     /** Número de columnas del grid de pedidos. */
@@ -59,9 +73,14 @@ public class pedidosController {
 
 
     public void initialize() {
+        allItemControllers.clear(); // Limpiar la lista para evitar duplicados
         configurarScrollYGrid();
         renderizarPedidos(PedidoDAO.getPedidosPendientes(Main.connection), grid_pendientes);
         renderizarPedidos(PedidoDAO.getPedidosEnProceso(Main.connection), grid_en_curso);
+
+        move_to_en_proceso_btn.setOnAction(_ -> handleMoveToEnProcesoClick());
+
+
     }
 
 
@@ -75,16 +94,18 @@ public class pedidosController {
 
     private void renderizarPedidos(List<Pedido> pedidos, GridPane grid) {
         limpiarGridPane(grid);
-        int totalPedidos = pedidos.size();
+
 
         int column = 0, row = 1;
         try {
-            for (int i = 0; i < totalPedidos; i++) {
-                Pedido pedido = pedidos.get(i);
+            for (Pedido pedido : pedidos) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemPedidos.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
                 ItemPedidoController itemController = fxmlLoader.getController();
                 itemController.setData(pedido);
+
+                allItemControllers.add(itemController); // ✅ Guardamos cada controller
+
 
                 if (column == COLUMS) {
                     column = 0;
@@ -98,10 +119,51 @@ public class pedidosController {
         }
 
     }
-
     public void limpiarGridPane(GridPane gridPane) {
         gridPane.getChildren().clear();
         gridPane.getColumnConstraints().clear();
         gridPane.getRowConstraints().clear();
     }
+
+    private List<Pedido> getPedidosSeleccionadosPendientes() {
+        List<Pedido> seleccionados = new ArrayList<>();
+
+        for (ItemPedidoController controller : allItemControllers) {
+            if (controller.isSelected()){
+                seleccionados.add(controller.getPedido());
+            }
+        }
+        return seleccionados;
+    }
+
+    @FXML
+    private void handleMoveToEnProcesoClick() {
+        List<Pedido> seleccionados = getPedidosSeleccionadosPendientes();
+        System.out.println("Pedidos seleccionados:");
+        for (Pedido pedido : seleccionados) {
+            System.out.println(pedido);
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/MovePendienteToEnProceso.fxml"));
+            AnchorPane pane = loader.load();
+
+            MovePendienteToEnProcesoController controller = loader.getController();
+
+
+            // Pasa datos
+            controller.setData(seleccionados, Main.connection);
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setTitle("Asignar pedido a usuario");
+            stage.setScene(new javafx.scene.Scene(pane));
+            stage.show();
+
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de movimiento de pedidos", e);
+        }
+    }
+
+
 }

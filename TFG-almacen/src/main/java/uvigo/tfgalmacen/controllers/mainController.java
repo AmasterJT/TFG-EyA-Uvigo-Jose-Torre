@@ -76,11 +76,6 @@ public class mainController implements Initializable {
 
 
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

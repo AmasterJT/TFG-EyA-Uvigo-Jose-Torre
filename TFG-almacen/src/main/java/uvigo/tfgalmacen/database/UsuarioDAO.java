@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioDAO {
 
@@ -168,6 +170,22 @@ public class UsuarioDAO {
             return null;
         }
     }
+
+
+    public static List<String> getAllNombresUsuarios(Connection connection) {
+        List<String> nombres = new ArrayList<>();
+        String sql = "SELECT nombre, apellido FROM usuarios";
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                nombres.add(rs.getString("nombre") + " " + rs.getString("apellido"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nombres;
+    }
+
 
 }
 

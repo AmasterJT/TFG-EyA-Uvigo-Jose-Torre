@@ -3,6 +3,7 @@ package uvigo.tfgalmacen.controllers;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -31,6 +32,8 @@ import static uvigo.tfgalmacen.database.UsuarioDAO.SQLcheckUser;
 public class loginController implements Initializable{
 
     public static final boolean IS_RESIZABLE = false;
+
+    public static List<User> allUsers;
 
     @FXML
     private Button loginButton;
@@ -85,9 +88,11 @@ public class loginController implements Initializable{
         }
 
         System.out.println(CYAN + "Usuario Activo: " + RESET + Main.currentUser.getName() + ", " +
-                            CYAN + "ROL: " + RESET + Main.currentUser.getRole()
-        );
+                            CYAN + "ROL: " + RESET + Main.currentUser.getRole());
 
+        if (Main.currentUser.getRole().equals("SysAdmin")){
+
+        }
     }
 
     @FXML
