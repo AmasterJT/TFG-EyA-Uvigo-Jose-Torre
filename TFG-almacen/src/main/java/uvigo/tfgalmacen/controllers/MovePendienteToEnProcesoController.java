@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
@@ -75,24 +76,33 @@ public class MovePendienteToEnProcesoController {
     }
 
     private void actualizarPedido(Pedido pedido, User usuarioSeleccionado) {
-        if (pedido != null || usuarioSeleccionado != null) {
-            // Actualizar el estado del pedido a "En proceso"
-            pedido.setEstado("En proceso");
-            pedido.setUsuario(usuarioSeleccionado);
-
-            // Actualizar el pedido en la base de datos
-            PedidoDAO.updateEstadoPedido(Main.connection, pedido.getId_pedido(), "En proceso");
-            PedidoDAO.updateUsuarioPedido(Main.connection, pedido.getId_pedido(), pedido.getId_usuario());
-
-            System.out.println(CYAN + "El pedido: " + RESET + pedido.getCodigo_referencia() + CYAN + " lo va a ejecutar el usuario: " + RESET + usuarioSeleccionado.getName() + " " + usuarioSeleccionado.getApellido()  + "(" + pedido.getId_usuario() + ")");
-
-
-        } else {
-            // Manejar el caso donde no se seleccionó un pedido o usuario
-            System.out.println("Por favor, seleccione un pedido y un usuario.");
+        // Validar que ambos ComboBox tengan un valor seleccionado
+        if (combo_pedido_update.getValue() == null || combo_usuario_update.getValue() == null) {
+            System.out.println(ROJO + "❌ Debes seleccionar un pedido y un usuario válido." + RESET);
+            return;
         }
 
+        // Validación adicional por si los objetos no fueron bien pasados
+        if (pedido == null || usuarioSeleccionado == null) {
+            System.out.println(ROJO + "❌ Error interno: pedido o usuario no válidos." + RESET);
+            return;
+        }
+
+        // Lógica de actualización
+        pedido.setEstado("En proceso");
+        pedido.setUsuario(usuarioSeleccionado);
+
+        PedidoDAO.updateEstadoPedido(Main.connection, pedido.getId_pedido(), "En proceso");
+        PedidoDAO.updateUsuarioPedido(Main.connection, pedido.getId_pedido(), pedido.getId_usuario());
+
+        System.out.println(CYAN + "✅ El pedido: " + RESET + pedido.getCodigo_referencia() +
+                CYAN + " lo va a ejecutar el usuario: " + RESET +
+                usuarioSeleccionado.getName() + " " + usuarioSeleccionado.getApellido() +
+                " (" + pedido.getId_usuario() + ")");
+
+        combo_pedido_update.getItems().remove(pedido);
     }
+
 
     public void setData(List<Pedido> pedidosSeleccionados, Connection connection) {
         this.pedidosSeleccionados = pedidosSeleccionados;
