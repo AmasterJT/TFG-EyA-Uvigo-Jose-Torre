@@ -459,6 +459,7 @@ CREATE TABLE detalles_pedido (
     id_detalle INT AUTO_INCREMENT PRIMARY KEY,
     id_pedido INT NOT NULL,
     id_producto INT NOT NULL,
+    estado_producto_pedido BOOLEAN,
     cantidad INT NOT NULL,
     FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto)

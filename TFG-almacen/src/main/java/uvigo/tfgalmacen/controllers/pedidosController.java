@@ -52,6 +52,9 @@ public class pedidosController {
     @FXML
     private Button move_to_pendiente_btn;
 
+    @FXML
+    private Button ver_detalles_pedido_btn;
+
 
 
     public static  List<ItemPedidoController> allItemControllers = new ArrayList<>();
@@ -80,8 +83,7 @@ public class pedidosController {
         renderizarPedidos(PedidoDAO.getPedidosEnProceso(Main.connection), grid_en_curso);
 
         move_to_en_proceso_btn.setOnAction(_ -> handleMoveToEnProcesoClick());
-
-
+        ver_detalles_pedido_btn.setOnAction(_ -> verDetallesPedido());
     }
 
 
@@ -90,8 +92,6 @@ public class pedidosController {
         pedidiosPendientesScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         grid_pendientes.prefWidthProperty().bind(pedidiosPendientesScroll.widthProperty());
     }
-
-
 
     private void renderizarPedidos(List<Pedido> pedidos, GridPane grid) {
         limpiarGridPane(grid);
@@ -120,6 +120,7 @@ public class pedidosController {
         }
 
     }
+
     public void limpiarGridPane(GridPane gridPane) {
         gridPane.getChildren().clear();
         gridPane.getColumnConstraints().clear();
@@ -139,6 +140,51 @@ public class pedidosController {
 
     @FXML
     private void handleMoveToEnProcesoClick() {
+        List<Pedido> seleccionados = getPedidosSeleccionadosPendientes();
+        System.out.println("Pedidos seleccionados:");
+
+
+        for (Pedido pedido : seleccionados) {
+            System.out.println(pedido);
+        }
+        if (seleccionados.isEmpty()){
+            LOGGER.warning("No hay pedidos seleccionados para mover a 'En Proceso'.");
+
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia");
+            alerta.setHeaderText(null); // puedes poner un título más corto aquí si quieres
+            alerta.setContentText("No se ha seleccionado ningún pedido");
+            alerta.showAndWait();
+
+            return;
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/MovePendienteToEnProceso.fxml"));
+            AnchorPane pane = loader.load();
+
+            MovePendienteToEnProcesoController controller = loader.getController();
+
+
+            // Pasa datos
+            controller.setData(seleccionados, Main.connection);
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setTitle("Asignar pedido a usuario");
+            stage.setScene(new javafx.scene.Scene(pane));
+            stage.show();
+
+            stage.setOnHidden(e -> {
+                // Llama al método que redibuja/recarga datos
+                this.redibujar();  // o refreshTable(), etc.
+            });
+
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de movimiento de pedidos", e);
+        }
+    }
+
+    private void verDetallesPedido() {
         List<Pedido> seleccionados = getPedidosSeleccionadosPendientes();
         System.out.println("Pedidos seleccionados:");
 
