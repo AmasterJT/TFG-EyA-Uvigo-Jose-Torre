@@ -1,50 +1,28 @@
 
--- Inserción de datos en la tabla Usuarios
-INSERT INTO
-    usuarios (nombre, email, contraseña, id_rol)
-VALUES
-    -- Usuario SysAdmin
-    (
-        'Admin',
-        'admin@almacen.com',
-        'Admin',
-        1
-    ),
-    -- Usuario Gestor Almacén
-    (
-        'Juan Perez',
-        'juan.perez@almacen.com',
-        'hashed_password',
-        2
-    ),
-    -- Usuario Supervisor
-    (
-        'Maria Lopez',
-        'maria.lopez@almacen.com',
-        'hashed_password',
-        3
-    ),
-    -- Usuario Operario
-    (
-        'Carlos Diaz',
-        'carlos.diaz@almacen.com',
-        'hashed_password',
-        4
-    ),
-    -- Usuario Mantenimiento
-    (
-        'Luisa Gomez',
-        'luisa.gomez@almacen.com',
-        'hashed_password',
-        5
-    ),
-    -- Usuario Administración
-    (
-        'Ana Torres',
-        'ana.torres@almacen.com',
-        'hashed_password',
-        6
-    );
+
+-- Insertamos usarios para tener todos los roles
+INSERT INTO usuarios (user_name, nombre, apellido, email, contraseña, id_rol) VALUES
+('AdLo', 'Admin', 'Lopez', 'admin@almacen.com', 'admin', 1), -- Usuario SysAdmin
+('JuPe', 'Juan', 'Perez', 'juan.perez@almacen.com', 'juan123', 2), -- Usuario Gestor Almacén
+('MaLo', 'Maria', 'Lopez', 'maria.lopez@almacen.com', 'maria123', 3), -- Usuario Supervisor
+('CaDi', 'Carlos', 'Diaz', 'carlos.diaz@almacen.com', 'carlos123', 4), -- Usuario Operario
+('LuGo', 'Luisa', 'Gomez', 'luisa.gomez@almacen.com', 'luisa123', 5), -- Usuario Mantenimiento
+('AnTo', 'Ana', 'Torres', 'ana.torres@almacen.com', 'ana123', 6); -- Usuario Administración
+
+-- Insertamos operarios sin user_name para usar el trigger
+INSERT INTO usuarios (nombre, apellido, email, contraseña, id_rol) VALUES
+('Luis', 'Fernandez', 'luis.fernandez@almacen.com', 'luis123', 4),
+('Sofia', 'Martinez', 'sofia.martinez@almacen.com', 'sofia123', 4),
+('Javier', 'Romero', 'javier.romero@almacen.com', 'javier123', 4),
+('Claudia', 'Hernandez', 'claudia.hernandez@almacen.com', 'claudia123', 4),
+('Pablo', 'Ruiz', 'pablo.ruiz@almacen.com', 'pablo123', 4),
+('Andrea', 'Castro', 'andrea.castro@almacen.com', 'andrea123', 4),
+('Diego', 'Navarro', 'diego.navarro@almacen.com', 'diego123', 4),
+('Valeria', 'Ortega', 'valeria.ortega@almacen.com', 'valeria123', 4),
+('Miguel', 'Ramos', 'miguel.ramos@almacen.com', 'miguel123', 4),
+('Isabel', 'Vargas', 'isabel.vargas@almacen.com', 'isabel123', 4);
+
+
 
 INSERT INTO tipos (id_tipo, color) VALUES ('Tensoactivo', '0.8,0,0');
 INSERT INTO tipos (id_tipo, color) VALUES ('Secuestrante', '0,0.8,0');
@@ -1062,3 +1040,514 @@ INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_
 INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_producto, estanteria, balda, posicion, delante) VALUES ('92731', 'TRUPON PEM', 1484, 795, 971, 984, 4, 8, 21, false);
 INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_producto, estanteria, balda, posicion, delante) VALUES ('59211', 'TRUPON DBS', 692, 734, 677, 914, 4, 8, 22, true);
 INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_producto, estanteria, balda, posicion, delante) VALUES ('6944', 'TRUPOCAL DE', 1349, 982, 966, 916, 4, 8, 23, true);
+
+
+    
+INSERT INTO clientes (nombre, direccion, telefono, email) VALUES
+('Cliente A', 'Calle Falsa 123, Madrid', '600111222', 'cliente.a@example.com'),
+('Cliente B', 'Av. Siempre Viva 456, Barcelona', '600333444', 'cliente.b@example.com'),
+('Cliente C', 'Paseo Marítimo 789, Valencia', '600555666', 'cliente.c@example.com'),
+('Cliente D', 'Rúa Central 10, Vigo', '600777888', 'cliente.d@example.com'),
+('Cliente E', 'Calle Mayor 20, Sevilla', '600999000', 'cliente.e@example.com'),
+('Cliente F', 'C/ de la Luna 1, Granada', '601111222', 'cliente.f@example.com'),
+('Cliente G', 'Plaza Mayor 2, Oviedo', '601333444', 'cliente.g@example.com'),
+('Cliente H', 'Av. de la Reina 3, Toledo', '601555666', 'cliente.h@example.com'),
+('Cliente I', 'Camino Real 4, Bilbao', '601777888', 'cliente.i@example.com'),
+('Cliente J', 'Calle Nueva 5, Málaga', '601999000', 'cliente.j@example.com'),
+('Cliente K', 'C/ del Sol 6, Zaragoza', '602111222', 'cliente.k@example.com'),
+('Cliente L', 'Av. de América 7, Murcia', '602333444', 'cliente.l@example.com'),
+('Cliente M', 'Plaza del Pilar 8, Córdoba', '602555666', 'cliente.m@example.com'),
+('Cliente N', 'Calle del Río 9, Valladolid', '602777888', 'cliente.n@example.com'),
+('Cliente O', 'Gran Vía 11, Salamanca', '602999000', 'cliente.o@example.com'),
+('Cliente P', 'Av. Libertad 12, Pamplona', '603111222', 'cliente.p@example.com'),
+('Cliente Q', 'C/ Cartagena 13, Alicante', '603333444', 'cliente.q@example.com'),
+('Cliente R', 'Plaza de España 14, Albacete', '603555666', 'cliente.r@example.com'),
+('Cliente S', 'Calle las Flores 15, Cádiz', '603777888', 'cliente.s@example.com'),
+('Cliente T', 'Av. Andalucía 16, Almería', '603999000', 'cliente.t@example.com'),
+('Cliente U', 'Rúa do Sol 17, Lugo', '604111222', 'cliente.u@example.com'),
+('Cliente V', 'Calle La Paz 18, Logroño', '604333444', 'cliente.v@example.com'),
+('Cliente W', 'Av. Cataluña 19, Pamplona', '604555666', 'cliente.w@example.com'),
+('Cliente X', 'Plaza Constitución 21, Santander', '604777888', 'cliente.x@example.com'),
+('Cliente Y', 'C/ Nueva 22, Burgos', '604999000', 'cliente.y@example.com'),
+('Cliente Z', 'Av. Goya 23, San Sebastián', '605111222', 'cliente.z@example.com'),
+('Cliente AA', 'Calle Real 24, León', '605333444', 'cliente.aa@example.com'),
+('Cliente AB', 'Av. Asturias 25, Oviedo', '605555666', 'cliente.ab@example.com'),
+('Cliente AC', 'Plaza del Mercado 26, Toledo', '605777888', 'cliente.ac@example.com'),
+('Cliente AD', 'Calle Sorolla 27, Valencia', '605999000', 'cliente.ad@example.com');
+
+
+
+INSERT INTO pedidos (id_usuario, id_cliente, estado) VALUES
+(NULL, 1, 'Pendiente'),
+(NULL, 2, 'Pendiente'),
+(NULL, 3, 'Pendiente'),
+(NULL, 4, 'Pendiente'),
+(NULL, 5, 'Pendiente'),
+
+(1, 1, 'En proceso'),
+(2, 2, 'En proceso'),
+(3, 3, 'En proceso'),
+(4, 4, 'En proceso'),
+(5, 5, 'En proceso'),
+
+(1, 1, 'Completado'),
+(2, 2, 'Completado'),
+(3, 3, 'Completado'),
+(4, 4, 'Completado'),
+(5, 5, 'Completado'),
+
+(1, 1, 'Cancelado'),
+(2, 2, 'Cancelado'),
+(3, 3, 'Cancelado'),
+(4, 4, 'Cancelado'),
+(5, 5, 'Cancelado'),
+
+(NULL, 1, 'Pendiente'),
+(NULL, 2, 'Pendiente'),
+(NULL, 3, 'Pendiente'),
+(NULL, 4, 'Pendiente'),
+(NULL, 5, 'Pendiente'),
+
+(2, 1, 'En proceso'),
+(3, 2, 'En proceso'),
+(4, 3, 'En proceso'),
+(5, 4, 'En proceso'),
+(1, 5, 'En proceso'),
+
+(2, 1, 'Completado'),
+(3, 2, 'Completado'),
+(4, 3, 'Completado'),
+(5, 4, 'Completado'),
+(1, 5, 'Completado'),
+
+(2, 1, 'Cancelado'),
+(3, 2, 'Cancelado'),
+(4, 3, 'Cancelado'),
+(5, 4, 'Cancelado'),
+(1, 5, 'Cancelado'),
+
+(NULL, 1, 'Pendiente'),
+(NULL, 2, 'Pendiente'),
+(NULL, 3, 'Pendiente'),
+(NULL, 4, 'Pendiente'),
+(NULL, 5, 'Pendiente');
+
+
+
+-- insertamos los productos en cada pedido:
+
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (1, 18, 30);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (1, 68, 14);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (1, 23, 49);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (1, 13, 42);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (1, 25, 20);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (1, 33, 34);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (1, 32, 85);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (1, 12, 82);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (1, 63, 42);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (1, 60, 42);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (2, 9, 22);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (2, 46, 56);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (2, 27, 10);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (2, 77, 74);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (2, 75, 62);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (2, 12, 68);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 76, 30);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 23, 20);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 53, 94);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 60, 43);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 18, 90);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 14, 27);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 34, 82);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 7, 40);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 44, 56);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 6, 66);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 13, 34);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 9, 23);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (3, 80, 37);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (4, 25, 29);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (4, 42, 100);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (4, 62, 38);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (4, 33, 84);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (4, 78, 38);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (4, 14, 62);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (4, 70, 34);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (4, 65, 14);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (4, 19, 31);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (4, 63, 30);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 29, 62);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 23, 53);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 46, 79);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 47, 44);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 49, 81);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 15, 53);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 68, 10);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 25, 16);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 44, 80);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 63, 43);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 51, 17);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (5, 71, 87);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 41, 53);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 64, 26);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 49, 88);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 48, 25);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 28, 48);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 50, 44);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 78, 80);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 31, 94);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 30, 64);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 45, 66);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 20, 60);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (6, 73, 77);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (7, 65, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (7, 67, 91);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (7, 3, 68);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (7, 12, 16);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (7, 71, 38);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (7, 63, 37);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (7, 54, 13);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (7, 11, 14);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (8, 78, 89);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (8, 80, 38);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (8, 49, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (8, 39, 67);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (8, 12, 78);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (8, 21, 76);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (8, 55, 69);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (8, 1, 36);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (9, 15, 92);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (9, 42, 76);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (9, 47, 72);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (9, 53, 49);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (9, 74, 34);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (9, 10, 79);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (10, 71, 29);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (10, 65, 84);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (10, 44, 78);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (10, 15, 21);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (10, 39, 27);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (10, 46, 43);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (10, 45, 45);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 11, 14);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 51, 86);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 46, 69);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 27, 98);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 78, 96);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 19, 36);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 60, 63);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 15, 85);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 79, 41);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 12, 71);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 47, 68);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 9, 75);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 38, 49);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (11, 49, 15);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (12, 72, 15);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (12, 58, 13);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (12, 71, 94);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (12, 38, 81);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (12, 3, 14);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (12, 25, 82);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (12, 2, 47);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (12, 56, 75);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (12, 24, 85);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (12, 63, 98);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 80, 27);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 59, 76);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 10, 97);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 28, 86);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 52, 100);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 8, 28);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 36, 34);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 75, 86);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 14, 74);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 9, 69);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 2, 98);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 43, 25);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 74, 92);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 39, 70);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (13, 27, 20);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (14, 61, 22);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (14, 20, 16);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (14, 80, 96);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (14, 13, 56);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (14, 34, 15);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (14, 48, 15);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (14, 22, 10);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (14, 24, 82);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (14, 35, 52);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (14, 46, 59);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 70, 96);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 46, 81);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 11, 38);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 71, 75);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 69, 54);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 32, 90);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 15, 63);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 5, 21);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 55, 36);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 35, 51);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 25, 75);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (15, 44, 73);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 58, 71);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 31, 24);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 68, 36);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 57, 20);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 29, 15);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 52, 73);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 34, 33);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 70, 65);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 19, 50);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 51, 33);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 69, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 8, 96);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 43, 59);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 54, 62);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (16, 22, 74);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (17, 50, 71);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (17, 77, 30);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (17, 16, 77);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (17, 71, 28);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (17, 40, 70);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (17, 19, 56);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 15, 96);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 23, 34);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 47, 10);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 21, 73);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 60, 59);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 20, 69);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 37, 78);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 46, 53);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 31, 55);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 63, 61);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 55, 17);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (18, 53, 79);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (19, 31, 42);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (19, 70, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (19, 32, 22);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (19, 52, 49);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (19, 38, 98);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (19, 53, 38);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (19, 10, 46);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (19, 54, 93);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (19, 55, 89);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (19, 45, 84);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (20, 5, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (20, 19, 91);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (20, 67, 24);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (20, 24, 50);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (20, 71, 46);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (20, 64, 28);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (20, 43, 93);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (20, 49, 38);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (20, 11, 62);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (20, 40, 85);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (21, 32, 71);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (21, 52, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (21, 42, 34);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (21, 50, 94);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (21, 61, 49);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (21, 3, 18);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (22, 2, 72);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (22, 28, 58);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (22, 39, 40);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (22, 11, 26);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (22, 66, 41);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (22, 69, 17);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (22, 52, 45);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (22, 27, 54);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (22, 3, 78);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (22, 65, 17);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (22, 79, 65);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 32, 72);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 75, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 25, 44);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 8, 31);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 26, 94);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 62, 72);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 18, 95);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 17, 90);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 13, 65);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 43, 39);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 34, 100);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (23, 50, 40);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 77, 37);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 34, 89);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 24, 48);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 5, 11);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 73, 73);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 69, 16);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 37, 31);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 20, 89);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 9, 49);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 31, 93);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 47, 61);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 65, 11);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 6, 27);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (24, 70, 97);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 54, 82);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 69, 38);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 38, 53);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 23, 72);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 11, 84);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 76, 16);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 74, 35);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 16, 76);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 41, 94);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 53, 15);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 12, 53);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 32, 98);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (25, 34, 16);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (26, 57, 79);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (26, 27, 84);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (26, 73, 56);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (26, 44, 95);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (26, 28, 12);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (27, 19, 10);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (27, 36, 54);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (27, 48, 12);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (27, 28, 58);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (27, 45, 10);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (27, 65, 11);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (27, 23, 38);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (28, 20, 85);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (28, 65, 92);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (28, 50, 94);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (28, 69, 99);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (28, 67, 100);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (28, 29, 71);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (28, 41, 58);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (28, 62, 19);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (28, 76, 45);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (28, 34, 37);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (29, 6, 44);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (29, 72, 49);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (29, 43, 42);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (29, 5, 86);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (29, 66, 99);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (29, 27, 89);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (29, 13, 92);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (29, 54, 61);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (29, 35, 42);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (29, 37, 51);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 54, 53);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 29, 20);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 10, 95);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 51, 74);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 16, 59);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 37, 51);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 63, 93);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 18, 15);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 26, 26);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 65, 55);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 73, 65);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (30, 72, 22);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (31, 72, 54);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (31, 26, 28);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (31, 43, 55);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (31, 80, 90);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (31, 27, 21);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (31, 76, 51);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (31, 57, 70);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 6, 30);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 51, 88);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 15, 35);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 79, 25);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 31, 44);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 19, 54);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 78, 60);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 45, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 73, 28);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 68, 58);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 65, 16);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 5, 73);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (32, 62, 17);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (33, 22, 79);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (33, 17, 65);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (33, 51, 87);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (33, 30, 16);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (33, 6, 39);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 68, 55);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 43, 37);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 50, 74);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 25, 88);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 14, 97);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 40, 41);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 35, 14);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 71, 35);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 24, 91);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 61, 99);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 2, 55);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 8, 47);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 70, 90);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 42, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (34, 16, 99);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (35, 51, 79);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (35, 54, 46);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (35, 52, 49);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (35, 6, 90);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (35, 40, 47);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (35, 9, 93);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (35, 48, 91);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (35, 2, 60);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (35, 44, 17);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (35, 45, 65);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 48, 37);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 67, 47);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 43, 33);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 80, 52);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 49, 18);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 57, 59);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 64, 30);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 50, 96);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 9, 82);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 11, 47);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 6, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 60, 29);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (36, 47, 58);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 12, 40);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 53, 60);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 8, 33);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 75, 52);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 58, 59);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 10, 83);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 44, 38);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 42, 66);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 52, 52);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 22, 31);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 64, 78);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 29, 81);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 45, 70);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 19, 46);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (37, 67, 86);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (38, 23, 20);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (38, 16, 10);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (38, 67, 65);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (38, 66, 50);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (38, 39, 19);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (38, 64, 10);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (38, 73, 27);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (38, 80, 19);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (38, 15, 81);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (39, 49, 61);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (39, 66, 93);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (39, 79, 12);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (39, 37, 14);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (39, 56, 41);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (39, 41, 63);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (39, 16, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (39, 63, 17);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (39, 1, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (39, 72, 57);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 67, 34);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 37, 63);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 21, 21);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 75, 25);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 53, 46);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 47, 25);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 36, 19);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 22, 54);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 3, 24);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 61, 92);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 57, 71);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (40, 42, 90);

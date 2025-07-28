@@ -364,32 +364,28 @@ CREATE TABLE
 
 -- Creación de la tabla usuarios
 CREATE TABLE
-    usuarios (
-        id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-        nombre VARCHAR(100) NOT NULL,
-        email VARCHAR(100) NOT NULL UNIQUE,
-        contraseña VARCHAR(255) NOT NULL,
-        id_rol INT,
-        fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (id_rol) REFERENCES roles (id_rol)
-    );
+usuarios (
+	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+	user_name VARCHAR(100) NOT NULL,
+	nombre VARCHAR(100) NOT NULL,
+	apellido VARCHAR(100) NOT NULL,
+	email VARCHAR(100) NOT NULL UNIQUE,
+	contraseña VARCHAR(255) NOT NULL,
+	id_rol INT,
+	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (id_rol) REFERENCES roles (id_rol)
+);
 
 -- Creación de la tabla clientes
-CREATE TABLE
-    clientes (
-        id_cliente INT PRIMARY KEY AUTO_INCREMENT,
-        nombre_cliente VARCHAR(100) NOT NULL,
-        email_cliente VARCHAR(150) UNIQUE NOT NULL,
-        telefono_cliente VARCHAR(20),
-        direccion_cliente VARCHAR(255),
-        ciudad_cliente VARCHAR(100),
-        estado_pais_cliente VARCHAR(100),
-        pais_cliente VARCHAR(100),
-        fecha_nacimiento DATE,
-        estado_cliente BOOLEAN DEFAULT TRUE,
-        fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    );
+CREATE TABLE clientes (
+	id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+	nombre VARCHAR(100),
+	direccion VARCHAR(200),
+	telefono VARCHAR(20),
+	email VARCHAR(100) UNIQUE,
+	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
 -- Creación de la tabla tipos
 CREATE TABLE tipos (
@@ -405,8 +401,9 @@ CREATE TABLE productos (
     tipo_producto VARCHAR(50) NOT NULL,
     descripcion TEXT,
     precio DECIMAL(10, 2),
-    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tipo_producto) REFERENCES tipos(id_tipo)
+    );
 
 -- Creación de la tabla palets
 CREATE TABLE palets (
@@ -443,7 +440,7 @@ CREATE TABLE
 CREATE TABLE pedidos (
     id_pedido INT PRIMARY KEY AUTO_INCREMENT,
     codigo_referencia VARCHAR(50) UNIQUE,
-    id_usuario INT NOT NULL,
+    id_usuario INT NULL,
     id_cliente INT NOT NULL,
     fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     estado ENUM (
@@ -458,17 +455,15 @@ CREATE TABLE pedidos (
 
 
 
--- Creación de la tabla detalles_pedido
-CREATE TABLE
-    detalles_pedido (
-        id_detalle INT PRIMARY KEY AUTO_INCREMENT,
-        id_pedido INT,
-        id_palet INT,
-        cantidad INT NOT NULL,
-        FOREIGN KEY (id_pedido) REFERENCES pedidos (id_pedido),
-        FOREIGN KEY (id_palet) REFERENCES palets (id_palet)
-    );
-    
+CREATE TABLE detalles_pedido (
+    id_detalle INT AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT NOT NULL,
+    id_producto INT NOT NULL,
+    cantidad INT NOT NULL,
+    FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+);
+
     
     
 DELIMITER //
@@ -505,3 +500,20 @@ SET
     NEW.posiciones_disponibles = NEW.num_baldas * NEW.posiciones_por_balda;
 
 END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER generar_user_name
+BEFORE INSERT ON usuarios
+FOR EACH ROW
+BEGIN
+    IF NEW.user_name IS NULL OR NEW.user_name = '' THEN
+        SET NEW.user_name = LOWER(CONCAT(
+            LEFT(NEW.nombre, 1),
+            NEW.apellido
+        ));
+    END IF;
+END;
+//
+DELIMITER ;
