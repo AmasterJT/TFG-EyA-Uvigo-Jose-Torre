@@ -15,95 +15,102 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1400.0" style="-fx-background-color: grey;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.pedidosController">
     <children>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #EEE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-            <VBox alignment="CENTER">
-               <children>
-                        <Label text="PEDIDIOS PENDIENTES" />
-                          <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #222; -fx-background-radius: 15;">
+      <VBox prefHeight="695.0" style="-fx-background-color: #EEE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button mnemonicParsing="false" text="VER PEDIDO" />
+              <HBox alignment="CENTER" prefWidth="1400.0" spacing="20.0" style="-fx-background-color: #EEE;">
+                  <children>
+                  <VBox alignment="CENTER">
                      <children>
-                        <ScrollPane fx:id="pedidiosEnCursoScroll" fitToHeight="true" fitToWidth="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <content>
-                              <VBox alignment="CENTER" prefHeight="650.0" prefWidth="630.0">
-                                 <children>
-                                    <GridPane fx:id="grid_pendientes" alignment="CENTER">
-                                       <columnConstraints>
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                    </GridPane>
-                                 </children>
-                              </VBox>
-                           </content>
+                              <Label text="PEDIDIOS PENDIENTES" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #222; -fx-background-radius: 15;">
+                           <children>
+                              <ScrollPane fx:id="pedidiosEnCursoScroll" fitToHeight="true" fitToWidth="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <content>
+                                    <VBox alignment="CENTER" prefHeight="600.0" prefWidth="630.0">
+                                       <children>
+                                          <GridPane fx:id="grid_pendientes" alignment="CENTER">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </ScrollPane>
+                           </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
-                        </ScrollPane>
+                        </AnchorPane>
                      </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </AnchorPane>
-               </children>
-            </VBox>
-                <VBox alignment="CENTER" spacing="20.0">
-                    <children>
-                        <Button fx:id="move_to_en_proceso_btn" mnemonicParsing="false">
-                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../icons/arrows/icons8-right-arrow-64.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                        <Button fx:id="move_to_pendiente_btn" mnemonicParsing="false">
-                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../icons/arrows/icons8-left-arrow-64.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                    </children>
-                </VBox>
-            <VBox alignment="CENTER">
-               <children>
-                        <Label text="PEDIDIOS EN CURSO" />
-                  <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #ebcc34; -fx-background-radius: 15;">
+                  </VBox>
+                      <VBox alignment="CENTER" spacing="20.0">
+                          <children>
+                              <Button fx:id="move_to_en_proceso_btn" mnemonicParsing="false">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/arrows/icons8-right-arrow-64.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                              <Button fx:id="move_to_pendiente_btn" mnemonicParsing="false">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/arrows/icons8-left-arrow-64.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                          </children>
+                      </VBox>
+                  <VBox alignment="CENTER">
                      <children>
-                        <ScrollPane fx:id="pedidiosPendientesScroll" fitToHeight="true" fitToWidth="true">
-                           <content>
-                              <VBox alignment="CENTER" prefHeight="650.0" prefWidth="630.0">
-                                 <children>
-                                    <GridPane fx:id="grid_en_curso" alignment="CENTER">
-                                       <columnConstraints>
-                                          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                    </GridPane>
-                                 </children>
-                              </VBox>
-                           </content>
+                              <Label text="PEDIDIOS EN CURSO" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #ebcc34; -fx-background-radius: 15;">
+                           <children>
+                              <ScrollPane fx:id="pedidiosPendientesScroll" fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                    <VBox alignment="CENTER" prefHeight="600.0" prefWidth="630.0">
+                                       <children>
+                                          <GridPane fx:id="grid_en_curso" alignment="CENTER">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </ScrollPane>
+                           </children>
                            <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                            </padding>
-                        </ScrollPane>
+                        </AnchorPane>
                      </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
-                     </padding>
-                  </AnchorPane>
-               </children>
-            </VBox>
-            </children>
-        </HBox>
+                  </VBox>
+                  </children>
+              </HBox>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>
