@@ -6,43 +6,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="40.0" prefWidth="590.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="item-pedido-en-curso" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemPedidoController">
+<AnchorPane prefWidth="450.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="item-pedido-en-curso" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemPedidoController">
    <children>
-      <VBox fx:id="vertical_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <VBox fx:id="vertical_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" spacing="10.0">
-               <padding>
-                  <Insets right="5.0" />
-               </padding>
+            <HBox alignment="CENTER_LEFT">
                <children>
-                  <Label fx:id="text_usuario_label" text="USUARIO:" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="id_usuario_label" text="Jose Torre" textFill="#d0d0d0" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER">
-               <children>
-                  <CheckBox fx:id="check_select_item_pedido" mnemonicParsing="false">
+                  <Circle fx:id="tipo_producto_color_ldentifier" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE">
                      <HBox.margin>
-                        <Insets right="15.0" />
+                        <Insets right="10.0" />
                      </HBox.margin>
-                  </CheckBox>
-                  <Label text="ID PEDIDO:" textFill="WHITE">
+                  </Circle>
+                  <Label text="PRODUCTO:" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="id_pedido_label" text="PED-20250621-000001" textFill="#d0d0d0">
+                  <Label fx:id="producto_detalle_pedido_label" text="TRUPOFIN CERA HF" textFill="#d0d0d0">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Label text="CLIENTE:" textFill="WHITE">
+                  <Label text="CANTIDAD:" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -50,28 +38,28 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="nombre_cliente_label" text="Cliente A" textFill="#d0d0d0">
+                  <Label fx:id="cantidad_detalle_pedido_label" text="100" textFill="#d0d0d0">
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <HBox alignment="CENTER">
-                     <children>
-                        <Label fx:id="estado_pedido_label" styleClass="indicador-item-pedido-en-curso" text="En curso" />
-                     </children>
+                  <CheckBox fx:id="producto_listo_en_pedido_check" mnemonicParsing="false">
                      <HBox.margin>
-                        <Insets left="40.0" />
+                        <Insets left="15.0" />
                      </HBox.margin>
-                  </HBox>
+                  </CheckBox>
                </children>
                <padding>
                   <Insets left="10.0" />
                </padding>
                <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
          </children>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>
