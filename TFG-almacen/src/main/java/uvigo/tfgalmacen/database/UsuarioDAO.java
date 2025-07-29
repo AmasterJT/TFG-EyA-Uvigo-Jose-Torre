@@ -1,5 +1,7 @@
 package uvigo.tfgalmacen.database;
 
+import uvigo.tfgalmacen.User;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -172,18 +174,30 @@ public class UsuarioDAO {
     }
 
 
-    public static List<String> getAllNombresUsuarios(Connection connection) {
-        List<String> nombres = new ArrayList<>();
-        String sql = "SELECT nombre, apellido FROM usuarios";
-        try (PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+    public static List<User> getAllUsers(Connection connection) {
+        List<User> usuarios = new ArrayList<>();
+
+        String sql = "SELECT id_usuario, user_name, nombre, apellido, email FROM usuarios";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet rs = statement.executeQuery();
+
             while (rs.next()) {
-                nombres.add(rs.getString("nombre") + " " + rs.getString("apellido"));
+                int id_usuario = rs.getInt("id_usuario");
+                String username = rs.getString("user_name");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String email = rs.getString("email");
+
+                User user = new User(id_usuario, username, nombre, apellido, email, connection);
+                usuarios.add(user);
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("❌ Error al obtener usuarios: " + e.getMessage());
         }
-        return nombres;
+
+        return usuarios;
     }
 
 

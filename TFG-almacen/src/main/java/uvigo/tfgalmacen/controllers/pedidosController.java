@@ -131,29 +131,32 @@ public class pedidosController {
         List<Pedido> seleccionados = new ArrayList<>();
 
         for (ItemPedidoController controller : allItemControllers) {
-            if (controller.isSelected()){
+            seleccionados.clear();
+            if (controller.isSelected() && "Pendiente".equals(controller.getPedido().getEstado())){
                 seleccionados.add(controller.getPedido());
             }
-        }
-        return seleccionados;
+        }return seleccionados;
     }
 
     @FXML
     private void handleMoveToEnProcesoClick() {
-        List<Pedido> seleccionados = getPedidosSeleccionadosPendientes();
+        List<Pedido> seleccionados = new ArrayList<>();
+        seleccionados = getPedidosSeleccionadosPendientes();
         System.out.println("Pedidos seleccionados:");
 
 
         for (Pedido pedido : seleccionados) {
             System.out.println(pedido);
         }
+
+
         if (seleccionados.isEmpty()){
             LOGGER.warning("No hay pedidos seleccionados para mover a 'En Proceso'.");
 
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Advertencia");
             alerta.setHeaderText(null); // puedes poner un título más corto aquí si quieres
-            alerta.setContentText("No se ha seleccionado ningún pedido");
+            alerta.setContentText("No se ha seleccionado ningún pedido pendiente");
             alerta.showAndWait();
 
             return;
@@ -185,14 +188,15 @@ public class pedidosController {
     }
 
     private void verDetallesPedido() {
-        List<Pedido> seleccionados = getPedidosSeleccionadosPendientes();
+        List<Pedido> seleccionadosPendientes = getPedidosSeleccionadosPendientes();
+        List<Pedido> seleccionadosEnProceso = getPedidosSeleccionadosPendientes();
         System.out.println("Pedidos seleccionados:");
 
 
-        for (Pedido pedido : seleccionados) {
+        for (Pedido pedido : seleccionadosPendientes) {
             System.out.println(pedido);
         }
-        if (seleccionados.isEmpty()){
+        if (seleccionadosPendientes.isEmpty()){
             LOGGER.warning("No hay pedidos seleccionados para mover a 'En Proceso'.");
 
             Alert alerta = new Alert(Alert.AlertType.WARNING);
@@ -211,7 +215,7 @@ public class pedidosController {
 
 
             // Pasa datos
-            controller.setData(seleccionados, Main.connection);
+            controller.setData(seleccionadosPendientes, Main.connection);
 
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);

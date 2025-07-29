@@ -17,7 +17,7 @@
     <children>
       <VBox prefHeight="695.0" style="-fx-background-color: #EEE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="ver_detalles_pedido_btn" mnemonicParsing="false" text="VER PEDIDO" />
+            <Button fx:id="ver_detalles_pedido_btn" mnemonicParsing="false" text="VER PEDIDOS" />
               <HBox alignment="CENTER" prefWidth="1400.0" spacing="20.0" style="-fx-background-color: #EEE;">
                   <children>
                   <VBox alignment="CENTER">

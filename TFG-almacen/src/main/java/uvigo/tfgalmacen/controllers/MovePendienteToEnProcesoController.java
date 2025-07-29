@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
+import static uvigo.tfgalmacen.database.UsuarioDAO.getAllUsers;
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
 
 public class MovePendienteToEnProcesoController {
@@ -43,12 +44,12 @@ public class MovePendienteToEnProcesoController {
 
 
     private List<Pedido> pedidosSeleccionados;
-    private Connection connection;
 
     public void initialize() {
         // Llenar usuarios desde la base de datos
         setUsers();
         ExitButton.setOnMouseClicked(event -> {
+            combo_pedido_update.getItems().removeAll(pedidosSeleccionados);
             Stage stage = (Stage) ExitButton.getScene().getWindow();
             stage.close();
         });
@@ -122,7 +123,6 @@ public class MovePendienteToEnProcesoController {
 
     public void setData(List<Pedido> pedidosSeleccionados, Connection connection) {
         this.pedidosSeleccionados = pedidosSeleccionados;
-        this.connection = connection;
 
         // Establece los pedidos en el ComboBox
         combo_pedido_update.setItems(FXCollections.observableArrayList(pedidosSeleccionados));
@@ -145,30 +145,4 @@ public class MovePendienteToEnProcesoController {
         });
     }
 
-
-    public static List<User> getAllUsers(Connection connection) {
-        List<User> usuarios = new ArrayList<>();
-
-        String sql = "SELECT id_usuario, user_name, nombre, apellido, email FROM usuarios";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            ResultSet rs = statement.executeQuery();
-
-            while (rs.next()) {
-                int id_usuario = rs.getInt("id_usuario");
-                String username = rs.getString("user_name");
-                String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
-                String email = rs.getString("email");
-
-                User user = new User(id_usuario, username, nombre, apellido, email, connection);
-                usuarios.add(user);
-            }
-
-        } catch (SQLException e) {
-            System.err.println("❌ Error al obtener usuarios: " + e.getMessage());
-        }
-
-        return usuarios;
-    }
 }
