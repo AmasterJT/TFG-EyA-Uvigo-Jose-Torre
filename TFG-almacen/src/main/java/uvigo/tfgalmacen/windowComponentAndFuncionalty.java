@@ -2,6 +2,7 @@ package uvigo.tfgalmacen;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -204,6 +205,13 @@ public class windowComponentAndFuncionalty {
             Main.mousex21 = mousex22;
         });
 
+    }
+
+
+    public static void limpiarGridPane(GridPane gridPane) {
+        gridPane.getChildren().clear();
+        gridPane.getColumnConstraints().clear();
+        gridPane.getRowConstraints().clear();
     }
 
 }

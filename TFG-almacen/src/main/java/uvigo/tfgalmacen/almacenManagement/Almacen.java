@@ -148,7 +148,7 @@ public class Almacen {
 
 
                 for (Producto producto : TodosProductos) {
-                    if (producto.getIdProducto().equals(palets.getLast().getIdProducto())) {
+                    if (producto.getIdentificadorProducto().equals(palets.getLast().getIdProducto())) {
                         palets.getLast().setProducto(producto);
                         break;
                     }
@@ -238,7 +238,7 @@ public class Almacen {
         for (Palet palet : TodosPalets) {
             for (Producto producto : TodosProductos) {
 
-                if (producto.getIdProducto().equals(palet.getIdProducto())) {
+                if (producto.getIdentificadorProducto().equals(palet.getIdProducto())) {
                     String idTipoProducto = producto.getIdTipo();
 
 

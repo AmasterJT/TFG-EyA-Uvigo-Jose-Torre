@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefWidth="450.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="item-pedido-en-curso" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemPedidoController">
+<AnchorPane prefWidth="450.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="item-pedido-en-curso" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemDetallesPedidoController">
    <children>
       <VBox fx:id="vertical_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

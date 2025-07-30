@@ -22,8 +22,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.windowComponentAndFuncionalty.WindowMovement;
-import static uvigo.tfgalmacen.windowComponentAndFuncionalty.WindowResize;
+import static uvigo.tfgalmacen.windowComponentAndFuncionalty.*;
 
 
 public class pedidosController {
@@ -124,11 +123,7 @@ public class pedidosController {
 
     }
 
-    public void limpiarGridPane(GridPane gridPane) {
-        gridPane.getChildren().clear();
-        gridPane.getColumnConstraints().clear();
-        gridPane.getRowConstraints().clear();
-    }
+
 
     private List<Pedido> getPedidosSeleccionadosPendientes() {
         List<Pedido> seleccionadosPendientes = new ArrayList<>();

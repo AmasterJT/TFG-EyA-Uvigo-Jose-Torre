@@ -13,7 +13,6 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import uvigo.tfgalmacen.almacenManagement.Palet;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Producto;
@@ -257,7 +256,7 @@ public class inventarioController implements Initializable {
             productosFiltrados.add("Todos");
             for (Producto producto : Almacen.TodosProductos) {
                 if (producto.getIdTipo().equals(tipoSeleccionado)) {
-                    productosFiltrados.add(producto.getIdProducto());
+                    productosFiltrados.add(producto.getIdentificadorProducto());
                 }
             }
             productoComboBox.setItems(FXCollections.observableArrayList(productosFiltrados));
@@ -266,7 +265,7 @@ public class inventarioController implements Initializable {
         } else {
             todosLosProductos.clear();
             for (Producto producto : Almacen.TodosProductos) {
-                todosLosProductos.add(producto.getIdProducto());
+                todosLosProductos.add(producto.getIdentificadorProducto());
             }
             todosLosProductos.add("Todos");
             productoComboBox.setItems(FXCollections.observableArrayList(todosLosProductos));

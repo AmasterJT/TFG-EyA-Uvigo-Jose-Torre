@@ -255,7 +255,7 @@ public class XMLToBDDinfo {
             for (Producto producto : productos) {
                 String insert = String.format(
                         "INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('%s', '%s');",
-                        producto.getIdProducto(),
+                        producto.getIdentificadorProducto(),
                         producto.getIdTipo()
                 );
                 writer.println(insert);
@@ -334,7 +334,7 @@ public class XMLToBDDinfo {
         PreparedStatement statement = conn.prepareStatement(insertQuery);
 
         for (Producto producto : productos) {
-            statement.setString(1, producto.getIdProducto()); // identificador_producto
+            statement.setString(1, producto.getIdentificadorProducto()); // identificador_producto
             statement.setString(2, producto.getIdTipo());     // tipo_producto
             statement.setString(3, ""); // nombre_producto (rellena si tienes)
             statement.setString(4, ""); // descripcion

@@ -83,4 +83,31 @@ public class ProductoDAO {
             e.printStackTrace();
         }
     }
+
+
+    // Obtener el color del tipo de producto por identificador_producto
+    public static String getColorByIdentificadorProducto(Connection connection, String identificadorProducto) {
+        String sql = """
+        SELECT t.color
+        FROM productos p
+        JOIN tipos t ON p.tipo_producto = t.id_tipo
+        WHERE p.identificador_producto = ?
+        """;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, identificadorProducto);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("color");
+            } else {
+                System.err.println("No se encontró ningún producto con identificador: " + identificadorProducto);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener el color del tipo para el producto: " + identificadorProducto);
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

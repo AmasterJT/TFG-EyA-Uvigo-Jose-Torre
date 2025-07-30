@@ -4,10 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -117,7 +115,7 @@ public class almacenController implements Initializable {
 
         todosLosProductos.add("Todos");
         for (Producto producto : almacen.TodosProductos) {
-            todosLosProductos.add(producto.getIdProducto());
+            todosLosProductos.add(producto.getIdentificadorProducto());
         }
         comboProductoAlmacen.setItems(FXCollections.observableArrayList(todosLosProductos));
         comboProductoAlmacen.setValue("Todos");
@@ -386,7 +384,7 @@ public class almacenController implements Initializable {
                 productosFiltrados.add("Todos");
                 for (Producto producto : almacen.TodosProductos) {
                     if (producto.getIdTipo().equals(tipoSeleccionado)) {
-                        productosFiltrados.add(producto.getIdProducto());
+                        productosFiltrados.add(producto.getIdentificadorProducto());
 
                     }
                 }
@@ -410,7 +408,7 @@ public class almacenController implements Initializable {
             } else {
 
                 for (Producto producto : almacen.TodosProductos) {
-                    todosLosProductos.add(producto.getIdProducto());
+                    todosLosProductos.add(producto.getIdentificadorProducto());
                 }
                 todosLosProductos.add("Todos");
                 comboProductoAlmacen.setItems(FXCollections.observableArrayList(todosLosProductos));
@@ -434,7 +432,7 @@ public class almacenController implements Initializable {
                 if (!productoSeleccionado.equals("Todos")) {
 
                     for (Producto producto : almacen.TodosProductos) {
-                        if (producto.getIdProducto().equals(productoSeleccionado)) {
+                        if (producto.getIdentificadorProducto().equals(productoSeleccionado)) {
                             //etiquetaComboBox.setText("Palet totales: " + producto.getNumPalets() + " = " + producto.getCantidadDeProducto() + " L");
                             break;
                         }

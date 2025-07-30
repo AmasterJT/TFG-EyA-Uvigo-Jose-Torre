@@ -31,6 +31,9 @@ public class TerminalColors {
     public static String FONDO_AZUL = "\u001B[44m";
     public static String FONDO_MAGENTA = "\u001B[45m";
 
+    public static final String GREEN = "\033[32m"; // Verde
+
+
     public static String RESET = "\u001B[0m";
 
 

@@ -13,7 +13,7 @@ public class DetallesPedidoDAO {
 
     // Consulta para obtener los productos y cantidades según el código de referencia del pedido
     private static final String SELECT_PRODUCTOS_POR_PEDIDO_SQL =
-            "SELECT p.identificador_producto, dp.cantidad " +
+            "SELECT p.identificador_producto, dp.cantidad, dp.estado_producto_pedido " +
                     "FROM detalles_pedido dp " +
                     "JOIN pedidos pe ON dp.id_pedido = pe.id_pedido " +
                     "JOIN productos p ON dp.id_producto = p.id_producto " +
@@ -29,8 +29,9 @@ public class DetallesPedidoDAO {
             while (resultSet.next()) {
                 String identificadorProducto = resultSet.getString("identificador_producto");
                 int cantidad = resultSet.getInt("cantidad");
+                Boolean isComplete = resultSet.getBoolean("estado_producto_pedido");
 
-                productos.add(new ProductoPedido(identificadorProducto, cantidad));
+                productos.add(new ProductoPedido(identificadorProducto, cantidad, isComplete));
             }
 
         } catch (SQLException e) {
