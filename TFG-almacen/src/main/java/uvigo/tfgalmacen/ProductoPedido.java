@@ -29,6 +29,7 @@ public class ProductoPedido {
         try {
             // Dividir el color en componentes RGB
             String[] components = color.split(",");
+
             // Asegurarse de que se tengan exactamente tres componentes
             if (components.length != 3) {
                 throw new IllegalArgumentException("Color debe tener 3 componentes (R, G, B).");
@@ -40,9 +41,8 @@ public class ProductoPedido {
             int b = (int) (Double.parseDouble(components[2]) * 255);
 
             // Convertir los valores RGB a hexadecimal
-            String hex = String.format("#%02X%02X%02X", r, g, b);
 
-            return hex;
+            return String.format("#%02X%02X%02X", r, g, b);
         } catch (Exception e) {
             // En caso de error, devolver un color por defecto en formato HEX
             System.err.println("❌ Error al convertir color: " + e.getMessage());
