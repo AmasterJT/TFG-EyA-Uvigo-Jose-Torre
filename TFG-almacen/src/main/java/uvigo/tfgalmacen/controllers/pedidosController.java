@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.windowComponentAndFuncionalty.WindowMovement;
+import static uvigo.tfgalmacen.windowComponentAndFuncionalty.WindowResize;
+
 
 public class pedidosController {
 
@@ -128,81 +131,47 @@ public class pedidosController {
     }
 
     private List<Pedido> getPedidosSeleccionadosPendientes() {
-        List<Pedido> seleccionados = new ArrayList<>();
+        List<Pedido> seleccionadosPendientes = new ArrayList<>();
+        System.out.println("Pedidos seleccionados:");
+
 
         for (ItemPedidoController controller : allItemControllers) {
-            seleccionados.clear();
-            if (controller.isSelected() && "Pendiente".equals(controller.getPedido().getEstado())){
-                seleccionados.add(controller.getPedido());
+            if (controller.isSelected() && "Pendiente".equals(controller.getPedido().getEstado())) {
+                seleccionadosPendientes.add(controller.getPedido());
             }
-        }return seleccionados;
-    }
-
-    @FXML
-    private void handleMoveToEnProcesoClick() {
-        List<Pedido> seleccionados = new ArrayList<>();
-        seleccionados = getPedidosSeleccionadosPendientes();
-        System.out.println("Pedidos seleccionados:");
-
-
-        for (Pedido pedido : seleccionados) {
-            System.out.println(pedido);
         }
-
-
-        if (seleccionados.isEmpty()){
-            LOGGER.warning("No hay pedidos seleccionados para mover a 'En Proceso'.");
-
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia");
-            alerta.setHeaderText(null); // puedes poner un título más corto aquí si quieres
-            alerta.setContentText("No se ha seleccionado ningún pedido pendiente");
-            alerta.showAndWait();
-
-            return;
-        }
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/MovePendienteToEnProceso.fxml"));
-            AnchorPane pane = loader.load();
-
-            MovePendienteToEnProcesoController controller = loader.getController();
-
-
-            // Pasa datos
-            controller.setData(seleccionados, Main.connection);
-
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setTitle("Asignar pedido a usuario");
-            stage.setScene(new javafx.scene.Scene(pane));
-            stage.show();
-
-            stage.setOnHidden(e -> {
-                // Llama al método que redibuja/recarga datos
-                this.redibujar();  // o refreshTable(), etc.
-            });
-
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de movimiento de pedidos", e);
-        }
-    }
-
-    private void verDetallesPedido() {
-        List<Pedido> seleccionadosPendientes = getPedidosSeleccionadosPendientes();
-        List<Pedido> seleccionadosEnProceso = getPedidosSeleccionadosPendientes();
-        System.out.println("Pedidos seleccionados:");
-
 
         for (Pedido pedido : seleccionadosPendientes) {
             System.out.println(pedido);
         }
+        return seleccionadosPendientes;
+    }
+
+    private List<Pedido> getPedidosAll() {
+        List<Pedido> seleccionadosAll = new ArrayList<>();
+        for (ItemPedidoController controller : allItemControllers) {
+            if (controller.isSelected()) {
+                seleccionadosAll.add(controller.getPedido());
+            }
+        }
+        return seleccionadosAll;
+    }
+
+
+    @FXML
+    private void handleMoveToEnProcesoClick() {
+        List<Pedido> seleccionadosPendientes;
+        seleccionadosPendientes = getPedidosSeleccionadosPendientes();
+
+
+
         if (seleccionadosPendientes.isEmpty()){
             LOGGER.warning("No hay pedidos seleccionados para mover a 'En Proceso'.");
 
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Advertencia");
             alerta.setHeaderText(null); // puedes poner un título más corto aquí si quieres
-            alerta.setContentText("No se ha seleccionado ningún pedido");
+            alerta.setContentText("No se ha seleccionado ningún pedido pendiente");
             alerta.showAndWait();
 
             return;
@@ -230,6 +199,53 @@ public class pedidosController {
 
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de movimiento de pedidos", e);
+        }
+    }
+
+    private void verDetallesPedido() {
+        List<Pedido> seleccionados = getPedidosAll();
+        System.out.println("Pedidos seleccionados:");
+        for (Pedido pedido : seleccionados) {
+            System.out.println(pedido);
+        }
+
+        if (seleccionados.isEmpty()) {
+            LOGGER.warning("No hay pedidos seleccionados.");
+
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia");
+            alerta.setHeaderText(null);
+            alerta.setContentText("No se ha seleccionado ningún pedido");
+            alerta.showAndWait();
+            return;
+        }
+
+        for (Pedido pedido : seleccionados) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/detallesPedidoView.fxml"));
+                AnchorPane pane = loader.load();
+
+                // Suponemos que el controlador de detallesPedidoView.fxml se llama DetallesPedidoController
+                DetallesPedidoController controller = loader.getController();
+                controller.setData(pedido, Main.connection);
+
+                Stage stage = new Stage();
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setTitle("Detalles del pedido: " + pedido.getCodigo_referencia());
+
+
+
+                stage.setScene(new javafx.scene.Scene(pane));
+                // Configurar movimiento y redimensionamiento
+                WindowMovement(pane, stage);
+                //WindowResize(pane, stage, stage.getScene());
+                stage.show();
+
+                stage.setOnHidden(e -> this.redibujar());
+
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de detalles del pedido", e);
+            }
         }
     }
 

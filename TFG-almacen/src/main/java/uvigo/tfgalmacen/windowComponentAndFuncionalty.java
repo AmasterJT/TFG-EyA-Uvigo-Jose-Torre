@@ -1,61 +1,32 @@
 package uvigo.tfgalmacen;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
-import javafx.stage.StageStyle;
-import uvigo.tfgalmacen.database.PedidoDAO;
-
 import static javafx.scene.Cursor.*;
-import static uvigo.tfgalmacen.database.DatabaseConnection.*;
-import static uvigo.tfgalmacen.database.PedidoDAO.printPedidosData;
-import static uvigo.tfgalmacen.utils.TerminalColors.CYAN;
-import static uvigo.tfgalmacen.utils.TerminalColors.RESET;
+import static javafx.scene.Cursor.DEFAULT;
+import static javafx.scene.Cursor.E_RESIZE;
+import static javafx.scene.Cursor.N_RESIZE;
+import static javafx.scene.Cursor.SE_RESIZE;
+import static javafx.scene.Cursor.S_RESIZE;
+import static javafx.scene.Cursor.W_RESIZE;
 
-/**
- * Clase principal de la aplicación JavaFX.
- * Maneja la creación de la ventana principal y las configuraciones relacionadas
- * como el movimiento, el redimensionamiento y el diseño de la interfaz gráfica.
- */
-public class Main extends Application {
+public class windowComponentAndFuncionalty {
 
     public static Connection connection = null;
     public static User currentUser = null;
     public static List<User> allUsers = null;
 
-    private double xOffset = 0; // Desplazamiento horizontal del ratón respecto a la ventana.
-    private double yOffset = 0; // Desplazamiento vertical del ratón respecto a la ventana.
-    enum RESIZE {NONE, W_border, E_border, N_border, S_border, NW_cornner, NE_cornner, SW_cornner, SE_cornner}
-    RESIZE resize;
+    private static double xOffset = 0; // Desplazamiento horizontal del ratón respecto a la ventana.
+    private static double yOffset = 0; // Desplazamiento vertical del ratón respecto a la ventana.
+    private enum RESIZE {NONE, W_border, E_border, N_border, S_border, NW_cornner, NE_cornner, SW_cornner, SE_cornner}
+    static Main.RESIZE resize;
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/uvigo/tfgalmacen/loginWindow.fxml"));
-        Parent root = fxmlLoader.load();
-
-        // Configurar la escena y la ventana sin bordes
-        Scene scene = new Scene(root);
-        stage.initStyle(StageStyle.UNDECORATED);
-
-
-        // Configurar movimiento y redimensionamiento
-        WindowMovement(root, stage);
-        WindowResize(root, stage,scene);
-
-        // Configurar y mostrar la escena
-        stage.setScene(scene);
-        stage.show();
-
-    }
 
     static double mousex21;
 
@@ -65,7 +36,7 @@ public class Main extends Application {
      * @param root  El nodo raíz del diseño de la ventana, que contiene todos los elementos de la interfaz.
      * @param stage El escenario principal de la aplicación, que representa la ventana.
      */
-    private void WindowMovement(Parent root, Stage stage) {
+    public static void WindowMovement(Parent root, Stage stage) {
         // Busca en el diseño un nodo con el ID "windowBar", que se usará para arrastrar la ventana.
         try{
             HBox windowBar = (HBox) root.lookup("#windowBar"); // Cambia "#windowBar" si el ID difiere.
@@ -104,7 +75,7 @@ public class Main extends Application {
      * @param stage El escenario principal que representa la ventana.
      * @param scene La escena que contiene el diseño de la ventana.
      */
-    private void WindowResize(Parent root, Stage stage, Scene scene) {
+    public static void WindowResize(Parent root, Stage stage, Scene scene) {
         final double borderWidth = 8; // Define el grosor del borde que será interactivo para redimensionar.
         // Evento que detecta el movimiento del ratón para cambiar el cursor al acercarse al borde.
 
@@ -119,27 +90,27 @@ public class Main extends Application {
             // Cambia el cursor según la posición del ratón cerca de los bordes o esquinas y establece el modo de redimensionamiento.
             if (mouseX < borderWidth && mouseY < borderWidth) {
                 root.setCursor(NW_RESIZE); // Esquina superior izquierda.
-                resize = RESIZE.NW_cornner;
+                resize = Main.RESIZE.NW_cornner;
             } else if (mouseX < borderWidth && mouseY > height - borderWidth) {
                 root.setCursor(SW_RESIZE); // Esquina inferior izquierda.
-                resize = RESIZE.SW_cornner;
+                resize = Main.RESIZE.SW_cornner;
             } else if (mouseX > width - borderWidth && mouseY < borderWidth) {
                 root.setCursor(NE_RESIZE); // Esquina superior derecha.
             } else if (mouseX > width - borderWidth && mouseY > height - borderWidth) {
                 root.setCursor(SE_RESIZE); // Esquina inferior derecha.
-                resize = RESIZE.SE_cornner;
+                resize = Main.RESIZE.SE_cornner;
             } else if (mouseX < borderWidth) {
                 root.setCursor(W_RESIZE);  // Borde izquierdo.
-                resize = RESIZE.W_border;
+                resize = Main.RESIZE.W_border;
             } else if (mouseX > width - borderWidth) {
                 root.setCursor(E_RESIZE);  // Borde derecho.
-                resize = RESIZE.E_border;
+                resize = Main.RESIZE.E_border;
             } else if (mouseY < borderWidth) {
                 root.setCursor(N_RESIZE);  // Borde superior.
-                resize = RESIZE.N_border;
+                resize = Main.RESIZE.N_border;
             } else if (mouseY > height - borderWidth) {
                 root.setCursor(S_RESIZE);  // Borde inferior.
-                resize = RESIZE.S_border;
+                resize = Main.RESIZE.S_border;
             } else {
                 root.setCursor(DEFAULT);  // Cursor por defecto si no está en un borde.
             }
@@ -199,7 +170,7 @@ public class Main extends Application {
                     break;
                 case W_border:
                     // Redimensionar desde el borde izquierdo.
-                     mousex22 = event.getScreenX();
+                    mousex22 = event.getScreenX();
 
                     double newX = Main.mousex21 - mousex22;
                     newWidth = width + newX;
@@ -230,54 +201,9 @@ public class Main extends Application {
                     break;
             }
 
-        Main.mousex21 = mousex22;
+            Main.mousex21 = mousex22;
         });
 
     }
 
-
-
-    public static void main(String[] args) {
-
-
-        try {
-            // Establecer conexión
-            connection = connect();
-
-            // Aquí puedes ejecutar consultas a la base de datos, por ejemplo:
-            Statement stmt = connection.createStatement();
-            String query = "SELECT * FROM usuarios";
-            stmt.executeQuery(query);
-
-            // ProductoDAO.readProductos(connection);
-            // printRolesAndPermissions(connection);
-
-
-
-            // Listar las tablas de la base de datos
-            // listTables(connection, DATABASE_NAME);
-
-            // Exportar datos de la tabla "Pedidos" a un archivo "pedidos.xml"
-            // exportDatabaseTablesToXML(connection);
-            // exportDatabaseToXML(connection);
-
-            List<Pedido> p = PedidoDAO.getPedidosAllData(connection);
-
-            for (Pedido pedido : p) {
-                System.out.println(pedido);
-            }
-
-
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        } finally {
-            System.out.println("deberiamos cerrar la conexion aqui");
-            //close(connection);  // Cerrar la conexión
-        }
-
-        launch(); // lanzamos la aplicacion grafica
-    }
 }

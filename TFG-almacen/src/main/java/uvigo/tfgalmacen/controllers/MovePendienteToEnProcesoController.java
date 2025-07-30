@@ -49,7 +49,7 @@ public class MovePendienteToEnProcesoController {
         // Llenar usuarios desde la base de datos
         setUsers();
         ExitButton.setOnMouseClicked(event -> {
-            combo_pedido_update.getItems().removeAll(pedidosSeleccionados);
+            combo_pedido_update.getItems().clear();
             Stage stage = (Stage) ExitButton.getScene().getWindow();
             stage.close();
         });

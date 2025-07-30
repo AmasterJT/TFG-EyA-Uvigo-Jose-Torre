@@ -29,7 +29,21 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
-                        <Label text="PED-20250728-000001">
+                        <Label fx:id="codigo_referencia_pedido_detalle_label" text="PED-20250728-000001">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label text="ESTADO DEL PEDIDO: ">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="estado_pedido_detalle_label" text="Pendiente">
                            <font>
                               <Font size="15.0" />
                            </font>

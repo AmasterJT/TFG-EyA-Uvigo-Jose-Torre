@@ -200,7 +200,6 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-
     public static Integer getIdUsuarioByNombre(Connection connection, String username) {
         String sql = "SELECT id_usuario FROM usuarios WHERE user_name = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

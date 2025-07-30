@@ -77,8 +77,6 @@ public class loginController implements Initializable{
                 stage.show();
 
 
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
