@@ -15,79 +15,43 @@ import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.database.PedidoDAO;
 
-import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.windowComponentAndFuncionalty.*;
-
+import static uvigo.tfgalmacen.windowComponentAndFuncionalty.WindowMovement;
 
 public class pedidosController {
 
     private static final Logger LOGGER = Logger.getLogger(pedidosController.class.getName());
 
-
-    List<String> ESTADOS_DEL_PEDIDO = List.of("Pendiente", "En proceso", "Cancelado", "Completado");
-
+    private static final List<String> ESTADOS_DEL_PEDIDO = List.of("Pendiente", "En proceso", "Cancelado", "Completado");
 
     @FXML private ListView<?> pedidiosCanceladosList;
-
     @FXML private ScrollPane pedidiosCanceladosScroll;
-
     @FXML private ScrollPane pedidiosEnCursoScroll;
-
-
-
     @FXML private ScrollPane pedidiosPendientesScroll;
-
-    @FXML GridPane grid_pendientes;
-
-
+    @FXML private GridPane grid_pendientes;
     @FXML private GridPane grid_en_curso;
+    @FXML private Button move_to_en_proceso_btn;
+    @FXML private Button move_to_pendiente_btn;
+    @FXML private Button ver_detalles_pedido_btn;
 
-    @FXML
-    private Button move_to_en_proceso_btn;
+    public static final List<ItemPedidoController> allItemControllers = new ArrayList<>();
 
-    @FXML
-    private Button move_to_pendiente_btn;
-
-    @FXML
-    private Button ver_detalles_pedido_btn;
-
-
-
-    public static  List<ItemPedidoController> allItemControllers = new ArrayList<>();
-
-
-
-    /** Número de columnas del grid de pedidos. */
-    private final int COLUMS = 1;
-
-    /** Número de filas del grid de pedidos. */
-    private final int ROWS = 7;
-
-    /** Número máximo de items a mostrar en el grid. */
-    private final int NUM_ITEMS_GRID = COLUMS * ROWS;
-
-
-    /** Página actual del inventario. */
-    private int paginaActual = 0;
-
-
+    private static final int COLUMNS = 1;
+    private static final int ROWS = 7;
 
     public void initialize() {
-        allItemControllers.clear(); // Limpiar la lista para evitar duplicados
+        allItemControllers.clear();
         configurarScrollYGrid();
-        renderizarPedidos(PedidoDAO.getPedidosPendientes(Main.connection), grid_pendientes);
-        renderizarPedidos(PedidoDAO.getPedidosEnProceso(Main.connection), grid_en_curso);
+        redibujar();
 
         move_to_en_proceso_btn.setOnAction(_ -> handleMoveToEnProcesoClick());
         ver_detalles_pedido_btn.setOnAction(_ -> verDetallesPedido());
     }
-
 
     private void configurarScrollYGrid() {
         pedidiosPendientesScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -96,101 +60,64 @@ public class pedidosController {
     }
 
     private void renderizarPedidos(List<Pedido> pedidos, GridPane grid) {
-        limpiarGridPane(grid);
+        grid.getChildren().clear();
+        grid.getColumnConstraints().clear();
+        grid.getRowConstraints().clear();
 
-
-        int column = 0, row = 1;
+        int column = 0, row = 0;
         try {
             for (Pedido pedido : pedidos) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemPedidos.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
-                ItemPedidoController itemController = fxmlLoader.getController();
-                itemController.setData(pedido);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemPedidos.fxml"));
+                AnchorPane pane = loader.load();
 
-                allItemControllers.add(itemController); // ✅ Guardamos cada controller
+                ItemPedidoController controller = loader.getController();
+                controller.setData(pedido);
+                allItemControllers.add(controller);
 
-
-                if (column == COLUMS) {
-                    column = 0;
-                    row++;
-                }
-                grid.add(anchorPane, column++, row);
-                GridPane.setMargin(anchorPane, new Insets(10));
+                grid.add(pane, column, row++);
+                GridPane.setMargin(pane, new Insets(10));
             }
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error cargando los pedidos en el grid", e);
         }
-
     }
 
-
-
-    private List<Pedido> getPedidosSeleccionadosPendientes() {
-        List<Pedido> seleccionadosPendientes = new ArrayList<>();
-        System.out.println("Pedidos seleccionados:");
-
-
+    private List<Pedido> getPedidosSeleccionados(String estadoFiltro) {
+        List<Pedido> seleccionados = new ArrayList<>();
         for (ItemPedidoController controller : allItemControllers) {
-            if (controller.isSelected() && "Pendiente".equals(controller.getPedido().getEstado())) {
-                seleccionadosPendientes.add(controller.getPedido());
+            Pedido pedido = controller.getPedido();
+            if (controller.isSelected() &&
+                    (estadoFiltro == null || estadoFiltro.equals(pedido.getEstado())) &&
+                    !seleccionados.contains(pedido)) {
+
+                seleccionados.add(pedido);
+                controller.setSelected(false);
             }
         }
-
-        for (Pedido pedido : seleccionadosPendientes) {
-            System.out.println(pedido);
-        }
-        return seleccionadosPendientes;
+        return seleccionados;
     }
 
-    private List<Pedido> getPedidosAll() {
-        List<Pedido> seleccionadosAll = new ArrayList<>();
-        for (ItemPedidoController controller : allItemControllers) {
-            if (controller.isSelected()) {
-                seleccionadosAll.add(controller.getPedido());
-            }
-        }
-        return seleccionadosAll;
-    }
-
-
-    @FXML
     private void handleMoveToEnProcesoClick() {
-        List<Pedido> seleccionadosPendientes;
-        seleccionadosPendientes = getPedidosSeleccionadosPendientes();
+        List<Pedido> pendientes = getPedidosSeleccionados("Pendiente");
 
-
-
-        if (seleccionadosPendientes.isEmpty()){
-            LOGGER.warning("No hay pedidos seleccionados para mover a 'En Proceso'.");
-
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia");
-            alerta.setHeaderText(null); // puedes poner un título más corto aquí si quieres
-            alerta.setContentText("No se ha seleccionado ningún pedido pendiente");
-            alerta.showAndWait();
-
+        if (pendientes.isEmpty()) {
+            mostrarAlertaAdvertencia("No se ha seleccionado ningún pedido pendiente");
             return;
         }
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/MovePendienteToEnProceso.fxml"));
             AnchorPane pane = loader.load();
 
             MovePendienteToEnProcesoController controller = loader.getController();
-
-
-            // Pasa datos
-            controller.setData(seleccionadosPendientes, Main.connection);
+            controller.setData(pendientes, Main.connection);
 
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setTitle("Asignar pedido a usuario");
             stage.setScene(new javafx.scene.Scene(pane));
+            stage.setOnHidden(e -> redibujar());
             stage.show();
-
-            stage.setOnHidden(e -> {
-                // Llama al método que redibuja/recarga datos
-                this.redibujar();  // o refreshTable(), etc.
-            });
 
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de movimiento de pedidos", e);
@@ -198,20 +125,10 @@ public class pedidosController {
     }
 
     private void verDetallesPedido() {
-        List<Pedido> seleccionados = getPedidosAll();
-        System.out.println("Pedidos seleccionados:");
-        for (Pedido pedido : seleccionados) {
-            System.out.println(pedido);
-        }
+        List<Pedido> seleccionados = getPedidosSeleccionados(null);
 
         if (seleccionados.isEmpty()) {
-            LOGGER.warning("No hay pedidos seleccionados.");
-
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia");
-            alerta.setHeaderText(null);
-            alerta.setContentText("No se ha seleccionado ningún pedido");
-            alerta.showAndWait();
+            mostrarAlertaAdvertencia("No se ha seleccionado ningún pedido");
             return;
         }
 
@@ -220,23 +137,16 @@ public class pedidosController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/detallesPedidoView.fxml"));
                 AnchorPane pane = loader.load();
 
-                // Suponemos que el controlador de detallesPedidoView.fxml se llama DetallesPedidoController
                 DetallesPedidoController controller = loader.getController();
                 controller.setData(pedido, Main.connection);
 
                 Stage stage = new Stage();
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setTitle("Detalles del pedido: " + pedido.getCodigo_referencia());
-
-
-
                 stage.setScene(new javafx.scene.Scene(pane));
-                // Configurar movimiento y redimensionamiento
                 WindowMovement(pane, stage);
-                //WindowResize(pane, stage, stage.getScene());
+                stage.setOnHidden(e -> redibujar());
                 stage.show();
-
-                stage.setOnHidden(e -> this.redibujar());
 
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de detalles del pedido", e);
@@ -245,8 +155,15 @@ public class pedidosController {
     }
 
     public void redibujar() {
-        // Recargar tabla, combobox, pedidos, etc.
         renderizarPedidos(PedidoDAO.getPedidosPendientes(Main.connection), grid_pendientes);
         renderizarPedidos(PedidoDAO.getPedidosEnProceso(Main.connection), grid_en_curso);
+    }
+
+    private void mostrarAlertaAdvertencia(String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.WARNING);
+        alerta.setTitle("Advertencia");
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 }

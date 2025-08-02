@@ -86,6 +86,10 @@ public class ItemPedidoController {
         return check_select_item_pedido.isSelected();
     }
 
+    public void setSelected(boolean bool) {
+        check_select_item_pedido.setSelected(bool);
+    }
+
     public Pedido getPedido() {
         return pedido; // Asegúrate de guardar el Pedido en setData
     }
