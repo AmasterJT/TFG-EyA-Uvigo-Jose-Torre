@@ -119,15 +119,12 @@ public class Pedido implements Comparable<Pedido> {
 
     @Override
     public String toString() {
-        return CYAN + "Codigo Referencia: " + RESET +
-                codigo_referencia + CYAN +
-                ", Fecha Creacion: " + RESET +
-                fechaPedido + CYAN + ", ID: " + RESET + id_pedido +
-                CYAN + ", Nombre Cliente: " + RESET +
-                nombre_cliente + RESET  +
-                ", Usuario ID: " + RESET +
-                id_usuario + CYAN + ", Estado: " + RESET +
-                emoji + " "+ estado + RESET;
+        return CYAN + "Codigo Referencia: " + RESET + codigo_referencia +
+                CYAN + ", Fecha Creacion: " + RESET + fechaPedido +
+                CYAN + ", ID: " + RESET + id_pedido +
+                CYAN + ", Nombre Cliente: " + RESET + nombre_cliente +
+                CYAN + ", Usuario ID: " + RESET + id_usuario +
+                CYAN + ", Estado: " + RESET + emoji + " " + estado + RESET;
     }
 
     @Override

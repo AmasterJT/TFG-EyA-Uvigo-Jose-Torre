@@ -1,10 +1,12 @@
-package uvigo.tfgalmacen;
+package uvigo.tfgalmacen.utils;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import uvigo.tfgalmacen.Main;
+import uvigo.tfgalmacen.User;
 
 import java.sql.Connection;
 import java.util.List;

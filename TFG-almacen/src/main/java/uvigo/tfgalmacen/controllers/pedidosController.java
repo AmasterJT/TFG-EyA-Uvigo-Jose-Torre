@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.windowComponentAndFuncionalty.WindowMovement;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.WindowMovement;
 
 public class pedidosController {
 

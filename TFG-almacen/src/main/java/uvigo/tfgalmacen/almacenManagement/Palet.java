@@ -202,9 +202,8 @@ public class Palet {
     public Box CreaPalet() {
         // funcion para crear el elemento grafico de JavaFX que representa al palet
 
-        int desplazamiento = 0;
-        if (estanteria >= 3)
-            desplazamiento = -3400;
+        int desplazamiento = -3400;
+
 
         int Posdelante = 1500;
         if (delante) {
@@ -234,9 +233,7 @@ public class Palet {
         // funcion para crear el elemento grafico de JavaFX que representa al
         // producto sobre el palet
 
-        int desplazamiento = 0;
-        if (estanteria >= 3)
-            desplazamiento = -3400;
+        int desplazamiento = -3400;
 
         int Posdelante = 1500;
         if (delante) {

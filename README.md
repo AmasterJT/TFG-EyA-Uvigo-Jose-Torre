@@ -10,7 +10,7 @@ Este fichero es un boceto de cómo será el proyecto, sin embargo, con el desarr
 
 ## Código Fuente Java
 
-El código fuente de la aplicacion en **Java** se encuentra en `./TFG-almacen`. Este es el módulo que hay que importar en _**IntellIJ**_
+El código fuente de la aplicacion de escritorio en **Java** se encuentra en `./TFG-almacen`. Este es el módulo que hay que importar en _**IntellIJ**_
 
 ⚠️ **De momento el proyecto solo funciona en local**
 
@@ -29,3 +29,5 @@ Haz click en `Modify options` -> `VM options`, añade lo siguiente:
 
 
 `--enable-native-access=javafx.graphics, --sun-misc-unsafe-memory-access=allow`
+
+![alt text](Presentacion-Proyecto/imagenes/img-readme/image.png)

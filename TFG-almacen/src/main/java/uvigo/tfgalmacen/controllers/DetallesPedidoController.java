@@ -1,6 +1,5 @@
 package uvigo.tfgalmacen.controllers;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -11,22 +10,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.ProductoPedido;
-import uvigo.tfgalmacen.database.PedidoDAO;
-import uvigo.tfgalmacen.windowComponentAndFuncionalty;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoReferencia;
-import static uvigo.tfgalmacen.utils.TerminalColors.*;
-import static uvigo.tfgalmacen.windowComponentAndFuncionalty.limpiarGridPane;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.limpiarGridPane;
 
 public class DetallesPedidoController {
 

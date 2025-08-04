@@ -131,9 +131,10 @@ public class almacenController implements Initializable {
 
         // Crear baldas y añadir palets a cada una
         for (int k = 0; k < 4; k++) {
-            int offsetEstanteria = (k >= 2) ? 3700 : 0;
+            //int offsetEstanteria = (k >= 2) ? 3700 : 0;
             for (int i = 0; i < 8; i++) {
-                Box balda = MisElementoGraficos.CreaParalelepipedo(3600, 100, 36300, 0, -6300 * k + offsetEstanteria, 2000 * i, Color.web("#2F3A32"));
+                //Box balda = MisElementoGraficos.CreaParalelepipedo(3600, 100, 36300, 0, -6300 * k + offsetEstanteria, 2000 * i, Color.web("#2F3A32"));
+                Box balda = MisElementoGraficos.CreaParalelepipedo(3600, 100, 36300, 0, -6300 * k , 2000 * i, Color.web("#2F3A32"));
                 if (gruposBaldas[k].getChildren().size() <= 7) gruposBaldas[k].getChildren().add(balda);
 
                 // Agrega palets adelante y atrás

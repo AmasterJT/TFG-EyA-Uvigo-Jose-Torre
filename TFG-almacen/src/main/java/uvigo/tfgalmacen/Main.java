@@ -34,7 +34,7 @@ public class Main extends Application {
 
     private double xOffset = 0; // Desplazamiento horizontal del ratón respecto a la ventana.
     private double yOffset = 0; // Desplazamiento vertical del ratón respecto a la ventana.
-    enum RESIZE {NONE, W_border, E_border, N_border, S_border, NW_cornner, NE_cornner, SW_cornner, SE_cornner}
+    public enum RESIZE {NONE, W_border, E_border, N_border, S_border, NW_cornner, NE_cornner, SW_cornner, SE_cornner}
     RESIZE resize;
 
     @Override
@@ -57,7 +57,7 @@ public class Main extends Application {
 
     }
 
-    static double mousex21;
+    public static double mousex21;
 
     /**
      * Configura el movimiento de la ventana para permitir que el usuario la arrastre desde un área específica.
