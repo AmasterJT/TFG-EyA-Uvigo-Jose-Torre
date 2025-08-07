@@ -436,13 +436,13 @@ CREATE TABLE
         FOREIGN KEY (id_palet) REFERENCES palets (id_palet)
     );
 
--- Creación de la tabla pedidos
 CREATE TABLE pedidos (
     id_pedido INT PRIMARY KEY AUTO_INCREMENT,
     codigo_referencia VARCHAR(50) UNIQUE,
     id_usuario INT NULL,
     id_cliente INT NOT NULL,
     fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_entrega DATE NOT NULL,
     estado ENUM (
         'Pendiente',
         'Completado',
@@ -1598,61 +1598,60 @@ INSERT INTO clientes (nombre, direccion, telefono, email) VALUES
 ('Cliente AD', 'Calle Sorolla 27, Valencia', '605999000', 'cliente.ad@example.com');
 
 
+INSERT INTO pedidos (id_usuario, id_cliente, estado, fecha_entrega) VALUES
+(NULL, 1, 'Pendiente', '2025-08-10'),
+(NULL, 2, 'Pendiente', '2025-08-12'),
+(NULL, 3, 'Pendiente', '2025-08-14'),
+(NULL, 4, 'Pendiente', '2025-08-16'),
+(NULL, 5, 'Pendiente', '2025-08-18'),
 
-INSERT INTO pedidos (id_usuario, id_cliente, estado) VALUES
-(NULL, 1, 'Pendiente'),
-(NULL, 2, 'Pendiente'),
-(NULL, 3, 'Pendiente'),
-(NULL, 4, 'Pendiente'),
-(NULL, 5, 'Pendiente'),
+(1, 1, 'En proceso', '2025-08-11'),
+(2, 2, 'En proceso', '2025-08-13'),
+(3, 3, 'En proceso', '2025-08-15'),
+(4, 4, 'En proceso', '2025-08-17'),
+(5, 5, 'En proceso', '2025-08-19'),
 
-(1, 1, 'En proceso'),
-(2, 2, 'En proceso'),
-(3, 3, 'En proceso'),
-(4, 4, 'En proceso'),
-(5, 5, 'En proceso'),
+(1, 1, 'Completado', '2025-07-01'),
+(2, 2, 'Completado', '2025-07-02'),
+(3, 3, 'Completado', '2025-07-03'),
+(4, 4, 'Completado', '2025-07-04'),
+(5, 5, 'Completado', '2025-07-05'),
 
-(1, 1, 'Completado'),
-(2, 2, 'Completado'),
-(3, 3, 'Completado'),
-(4, 4, 'Completado'),
-(5, 5, 'Completado'),
+(1, 1, 'Cancelado', '2025-06-01'),
+(2, 2, 'Cancelado', '2025-06-02'),
+(3, 3, 'Cancelado', '2025-06-03'),
+(4, 4, 'Cancelado', '2025-06-04'),
+(5, 5, 'Cancelado', '2025-06-05'),
 
-(1, 1, 'Cancelado'),
-(2, 2, 'Cancelado'),
-(3, 3, 'Cancelado'),
-(4, 4, 'Cancelado'),
-(5, 5, 'Cancelado'),
+(NULL, 1, 'Pendiente', '2025-08-20'),
+(NULL, 2, 'Pendiente', '2025-08-21'),
+(NULL, 3, 'Pendiente', '2025-08-22'),
+(NULL, 4, 'Pendiente', '2025-08-23'),
+(NULL, 5, 'Pendiente', '2025-08-24'),
 
-(NULL, 1, 'Pendiente'),
-(NULL, 2, 'Pendiente'),
-(NULL, 3, 'Pendiente'),
-(NULL, 4, 'Pendiente'),
-(NULL, 5, 'Pendiente'),
+(2, 1, 'En proceso', '2025-08-25'),
+(3, 2, 'En proceso', '2025-08-26'),
+(4, 3, 'En proceso', '2025-08-27'),
+(5, 4, 'En proceso', '2025-08-28'),
+(1, 5, 'En proceso', '2025-08-29'),
 
-(2, 1, 'En proceso'),
-(3, 2, 'En proceso'),
-(4, 3, 'En proceso'),
-(5, 4, 'En proceso'),
-(1, 5, 'En proceso'),
+(2, 1, 'Completado', '2025-07-10'),
+(3, 2, 'Completado', '2025-07-11'),
+(4, 3, 'Completado', '2025-07-12'),
+(5, 4, 'Completado', '2025-07-13'),
+(1, 5, 'Completado', '2025-07-14'),
 
-(2, 1, 'Completado'),
-(3, 2, 'Completado'),
-(4, 3, 'Completado'),
-(5, 4, 'Completado'),
-(1, 5, 'Completado'),
+(2, 1, 'Cancelado', '2025-06-10'),
+(3, 2, 'Cancelado', '2025-06-11'),
+(4, 3, 'Cancelado', '2025-06-12'),
+(5, 4, 'Cancelado', '2025-06-13'),
+(1, 5, 'Cancelado', '2025-06-14'),
 
-(2, 1, 'Cancelado'),
-(3, 2, 'Cancelado'),
-(4, 3, 'Cancelado'),
-(5, 4, 'Cancelado'),
-(1, 5, 'Cancelado'),
-
-(NULL, 1, 'Pendiente'),
-(NULL, 2, 'Pendiente'),
-(NULL, 3, 'Pendiente'),
-(NULL, 4, 'Pendiente'),
-(NULL, 5, 'Pendiente');
+(NULL, 1, 'Pendiente', '2025-08-30'),
+(NULL, 2, 'Pendiente', '2025-08-31'),
+(NULL, 3, 'Pendiente', '2025-09-01'),
+(NULL, 4, 'Pendiente', '2025-09-02'),
+(NULL, 5, 'Pendiente', '2025-09-03');
 
 
 

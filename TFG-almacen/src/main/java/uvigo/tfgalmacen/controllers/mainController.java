@@ -71,6 +71,9 @@ public class mainController implements Initializable {
     @FXML
     AnchorPane Slider;
 
+    @FXML
+    private Button ajustesButton;
+
 
     private Button activeScene = null;
 
@@ -89,6 +92,8 @@ public class mainController implements Initializable {
         pedidosButton.setOnMouseClicked(_ -> loadPedidosView());
 
         recepcionButton.setOnMouseClicked(_ -> loadRecepcionView());
+
+        ajustesButton.setOnMouseClicked(_ -> loadAjustesView());
 
 
 
@@ -152,6 +157,12 @@ public class mainController implements Initializable {
     private void loadRecepcionView() {
         loadFXML("recepcion");
         marcarBotonActivo(recepcionButton);
+    }
+
+    @FXML
+    private void loadAjustesView() {
+        loadFXML("ajustes");
+        marcarBotonActivo(ajustesButton);
     }
 
     //------------------------------------------------------------------------------------------------------------------

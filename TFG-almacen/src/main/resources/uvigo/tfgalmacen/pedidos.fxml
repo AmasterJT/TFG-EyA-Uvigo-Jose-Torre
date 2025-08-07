@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1400.0" style="-fx-background-color: grey;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.pedidosController">
     <children>
@@ -106,6 +107,23 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                            </padding>
                         </AnchorPane>
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                           <children>
+                              <Label text="HORA SALIDA: " />
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1fa0" height="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+                                    <Label text="11:00" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+                                    <Label text="17:00" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                   </children>

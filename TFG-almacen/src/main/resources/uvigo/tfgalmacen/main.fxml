@@ -61,7 +61,7 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </Button>
-               <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="ADD" textFill="WHITE">
+               <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="MOVIMENTOS" textFill="WHITE">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../../icons/add.png" />
@@ -200,7 +200,7 @@
             </VBox>
             <VBox alignment="BOTTOM_CENTER" prefHeight="99.0" prefWidth="160.0" style="-fx-background-color: #804012;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
+                  <Button fx:id="ajustesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
                      <graphic>
                         <ImageView fx:id="ajustesBtn" fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>

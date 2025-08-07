@@ -17,6 +17,7 @@ import uvigo.tfgalmacen.almacenManagement.*;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -36,7 +37,7 @@ public class almacenController implements Initializable {
     private double ratonX, ratonY;
     private double ratonXVentanaAntes, ratonYVentanaAntes;
 
-    private ArrayList<String> todosLosProductos = new ArrayList<>();
+    private final ArrayList<String> todosLosProductos = new ArrayList<>();
 
     @FXML
     private AnchorPane almacenContainer;
@@ -105,7 +106,7 @@ public class almacenController implements Initializable {
 
         ArrayList<String> opcionesComboBoxTipo = new ArrayList<>();
         opcionesComboBoxTipo.add("Todos");
-        for (Tipo tipo : almacen.TodosTipos) {
+        for (Tipo tipo : Almacen.TodosTipos) {
             opcionesComboBoxTipo.add(tipo.getIdTipo());
         }
         comboTipoAlmacen.setItems(FXCollections.observableArrayList(opcionesComboBoxTipo));
@@ -114,7 +115,7 @@ public class almacenController implements Initializable {
 
 
         todosLosProductos.add("Todos");
-        for (Producto producto : almacen.TodosProductos) {
+        for (Producto producto : Almacen.TodosProductos) {
             todosLosProductos.add(producto.getIdentificadorProducto());
         }
         comboProductoAlmacen.setItems(FXCollections.observableArrayList(todosLosProductos));
@@ -134,7 +135,7 @@ public class almacenController implements Initializable {
             //int offsetEstanteria = (k >= 2) ? 3700 : 0;
             for (int i = 0; i < 8; i++) {
                 //Box balda = MisElementoGraficos.CreaParalelepipedo(3600, 100, 36300, 0, -6300 * k + offsetEstanteria, 2000 * i, Color.web("#2F3A32"));
-                Box balda = MisElementoGraficos.CreaParalelepipedo(3600, 100, 36300, 0, -6300 * k , 2000 * i, Color.web("#2F3A32"));
+                Box balda = MisElementoGraficos.CreaParalelepipedo(3350, 100, 36300, 0, -6300 * k , 2000 * i, Color.web("#2F3A32"));
                 if (gruposBaldas[k].getChildren().size() <= 7) gruposBaldas[k].getChildren().add(balda);
 
                 // Agrega palets adelante y atrás
@@ -284,179 +285,163 @@ public class almacenController implements Initializable {
         grupo3D.getChildren().addAll(luz1, luz2, luz3, luz4);
 
     }
-
-    /**
-     * Configura todos los eventos de teclado, ratón y scroll de la escena 3D.
-     */
     private void configurarEventos(SubScene escena, Almacen almacen) {
-        // Evento de teclado para mover cámara o hacer zoom
+        configurarEventosTeclado(escena);
+        configurarEventosScroll(escena);
+        configurarEventosMouseClick(escena, almacen);
+        configurarEventosMousePress(escena);
+        configurarComboTipo(almacen);
+        configurarComboProducto(almacen);
+    }
+
+    private void configurarEventosTeclado(SubScene escena) {
         escena.setOnKeyPressed(event -> {
             double desplazamiento = event.isShiftDown() ? 60 : 200;
-            Translate tr = null;
-
-            switch (event.getCode()) {
-                case S, DOWN    -> tr = new Translate(0, -desplazamiento, 0);
-                case W, UP      -> tr = new Translate(0, desplazamiento, 0);
-                case A, LEFT    -> tr = new Translate(-desplazamiento, 0, 0);
-                case D, RIGHT   -> tr = new Translate(desplazamiento, 0, 0);
-                case C          -> tr = new Translate(0, desplazamiento, 0);
-                case R          -> reiniciarCamara();
-                case PLUS, EQUALS -> tr = new Translate(0, 0, 500);  // Zoom in
-                case MINUS        -> tr = new Translate(0, 0, -500); // Zoom out
-                default         -> {}
-            }
-
+            Translate tr = switch (event.getCode()) {
+                case S, DOWN -> new Translate(0, -desplazamiento, 0);
+                case W, UP, C -> new Translate(0, desplazamiento, 0);
+                case A, LEFT -> new Translate(-desplazamiento, 0, 0);
+                case D, RIGHT -> new Translate(desplazamiento, 0, 0);
+                case PLUS, EQUALS -> new Translate(0, 0, 500);  // Zoom in
+                case MINUS -> new Translate(0, 0, -500);        // Zoom out
+                case R -> {
+                    reiniciarCamara();
+                    yield null;
+                }
+                default -> null;
+            };
             if (tr != null) camara.getTransforms().add(tr);
         });
+    }
 
-        // Evento de scroll: Zoom si CTRL está presionado, si no, rotación del grupo
+    private void configurarEventosScroll(SubScene escena) {
         escena.setOnScroll(event -> {
             if (event.isControlDown()) {
                 double zoomAmount = event.getDeltaY() > 0 ? 500 : -500;
-                Translate zoom = new Translate(0, 0, zoomAmount);
-                camara.getTransforms().add(zoom);
+                camara.getTransforms().add(new Translate(0, 0, zoomAmount));
             } else {
                 double factor = 0.06;
                 double roll = grupo3D.getRotate() + event.getDeltaY() * factor;
-                Rotate rot = new Rotate(
+                grupo3D.getTransforms().add(new Rotate(
                         roll,
-                        (double) -(3600 * 4 + 3700 * 2) / 2,
+                        -(3600 * 4 + 3700 * 2) / 2.0,
                         18150,
-                        (double) -36300 / 2,
+                        -36300 / 2.0,
                         Rotate.Y_AXIS
-                );
-                grupo3D.getTransforms().add(rot);
+                ));
             }
         });
+    }
 
-        // Guardar posición del ratón al presionar
+    private void configurarEventosMousePress(SubScene escena) {
         escena.setOnMousePressed(event -> {
             ratonXVentanaAntes = event.getSceneX();
             ratonYVentanaAntes = event.getSceneY();
         });
+    }
 
-        // Rotación de cámara con arrastre del ratón
-        /*escena.setOnMouseDragged(event -> {
-            double dx = event.getSceneX() - ratonXVentanaAntes;
-            double dy = event.getSceneY() - ratonYVentanaAntes;
-
-            if (event.isPrimaryButtonDown()) {
-                camara.getTransforms().addAll(new Rotate(-dy * 0.05, Rotate.X_AXIS));
-                camara.getTransforms().addAll(new Rotate(dx * 0.05, Rotate.Y_AXIS));
-            }
-            ratonXVentanaAntes = event.getSceneX();
-            ratonYVentanaAntes = event.getSceneY();
-        });*/
-
-        // Mostrar información de un palet al hacer clic sobre él
+    private void configurarEventosMouseClick(SubScene escena, Almacen almacen) {
         escena.setOnMouseClicked(event -> {
             Node node = event.getPickResult().getIntersectedNode();
             if (node instanceof Box) {
-                for (Palet palet : almacen.TodosPalets) {
+                for (Palet palet : Almacen.TodosPalets) {
                     if (palet.getProductBox() == node) {
-                        /*Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Información del Palet");
-                        alert.setHeaderText("Detalle");
-                        alert.setContentText("Palet: " + palet.getIdProducto() + " = " +
-                                palet.getCantidadProducto() + "L (" + palet.getEstanteria() + ", " +
-                                palet.getBalda() + ", " + palet.getPosicion() + ", " + palet.isDelante() + ")");
-                        alert.showAndWait();
-                        */
-
                         idPalelLabel.setText(String.valueOf(palet.getIdPalet()));
                         nombreProductoLabel.setText(palet.getIdProducto());
                         contenidoLabel.setText(palet.getCantidadProducto() + "L");
                         tipoProductoLabel.setText(palet.getIdTipo());
-
-
                         break;
                     }
                 }
             }
         });
+    }
 
-        // Evento cuando se selecciona un tipo
+    private void configurarComboTipo(Almacen almacen) {
         comboTipoAlmacen.setOnAction(_ -> {
             String tipoSeleccionado = comboTipoAlmacen.getSelectionModel().getSelectedItem();
 
             if (!tipoSeleccionado.equals("Todos")) {
-                // Filtrar productos por el tipo seleccionado
-                ArrayList<String> productosFiltrados = new ArrayList<>();
-                productosFiltrados.add("Todos");
-                for (Producto producto : almacen.TodosProductos) {
-                    if (producto.getIdTipo().equals(tipoSeleccionado)) {
-                        productosFiltrados.add(producto.getIdentificadorProducto());
-
-                    }
-                }
-                comboProductoAlmacen.setItems(FXCollections.observableArrayList(productosFiltrados));
-                comboProductoAlmacen.setValue(productosFiltrados.getFirst());
-
-                //llenamos la etiqueta con la informacion correspondiente
-                for (Tipo tipo : almacen.TodosTipos) {
-                    if (tipo.getIdTipo().equals(tipoSeleccionado)) {
-                        //etiquetaComboBox.setText("Palets totales: " + tipo.getNumPalets() + " = " + tipo.getCantidadDeTipo() + " L");
-                        break;
-                    }
-                }
-
-                //Mostramos los prodcutos correspondientes
-                for (Palet palet : Almacen.TodosPalets) {
-                    palet.getProductBox().setVisible(palet.getIdTipo().equals(tipoSeleccionado));
-                    palet.getPaletBox().setVisible(palet.getIdTipo().equals(tipoSeleccionado));
-                }
-
+                actualizarComboProductoFiltrado(almacen, tipoSeleccionado);
+                actualizarVisibilidadPorTipo(almacen, tipoSeleccionado);
             } else {
-
-                for (Producto producto : almacen.TodosProductos) {
-                    todosLosProductos.add(producto.getIdentificadorProducto());
-                }
-                todosLosProductos.add("Todos");
-                comboProductoAlmacen.setItems(FXCollections.observableArrayList(todosLosProductos));
-                comboProductoAlmacen.setValue("Todos");
-                for (Palet palet : almacen.TodosPalets) {
-                    palet.getProductBox().setVisible(true);
-                    palet.getPaletBox().setVisible(true);
-                }
-            }
-        });
-
-        // Evento cuando se selecciona un producto
-        comboProductoAlmacen.setOnAction(_ -> {
-
-            try {
-                String productoSeleccionado = comboProductoAlmacen.getSelectionModel().getSelectedItem();
-                //etiquetaComboBox.setText(productoSeleccionado);
-                System.out.println(productoSeleccionado);
-
-
-                if (!productoSeleccionado.equals("Todos")) {
-
-                    for (Producto producto : almacen.TodosProductos) {
-                        if (producto.getIdentificadorProducto().equals(productoSeleccionado)) {
-                            //etiquetaComboBox.setText("Palet totales: " + producto.getNumPalets() + " = " + producto.getCantidadDeProducto() + " L");
-                            break;
-                        }
-                    }
-
-                    for (Palet palet : almacen.TodosPalets) {
-                        palet.getProductBox().setVisible(palet.getIdProducto().equals(productoSeleccionado));
-                        palet.getPaletBox().setVisible(palet.getIdProducto().equals(productoSeleccionado));
-                    }
-
-
-                } else {
-                    for (Palet palet : almacen.TodosPalets) {
-                        palet.getProductBox().setVisible(palet.getIdTipo().equals(comboTipoAlmacen.getSelectionModel().getSelectedItem()));
-                        palet.getPaletBox().setVisible(palet.getIdTipo().equals(comboTipoAlmacen.getSelectionModel().getSelectedItem()));
-                    }
-                }
-
-            } catch (Exception ignore) {
-
+                mostrarTodosProductos(almacen);
+                mostrarTodosPalets(almacen);
             }
         });
     }
+
+    private void actualizarComboProductoFiltrado(Almacen almacen, String tipoSeleccionado) {
+        List<String> productosFiltrados = new ArrayList<>();
+        productosFiltrados.add("Todos");
+
+        for (Producto producto : Almacen.TodosProductos) {
+            if (producto.getIdTipo().equals(tipoSeleccionado)) {
+                productosFiltrados.add(producto.getIdentificadorProducto());
+            }
+        }
+
+        comboProductoAlmacen.setItems(FXCollections.observableArrayList(productosFiltrados));
+        comboProductoAlmacen.setValue(productosFiltrados.getFirst());
+    }
+
+    private void actualizarVisibilidadPorTipo(Almacen almacen, String tipoSeleccionado) {
+        for (Palet palet : Almacen.TodosPalets) {
+            boolean visible = palet.getIdTipo().equals(tipoSeleccionado);
+            palet.getProductBox().setVisible(visible);
+            palet.getPaletBox().setVisible(visible);
+        }
+    }
+
+    private void mostrarTodosProductos(Almacen almacen) {
+        todosLosProductos.clear();
+
+        for (Producto producto : Almacen.TodosProductos) {
+            todosLosProductos.add(producto.getIdentificadorProducto());
+        }
+
+        todosLosProductos.add("Todos");
+        comboProductoAlmacen.setItems(FXCollections.observableArrayList(todosLosProductos));
+        comboProductoAlmacen.setValue("Todos");
+    }
+
+    private void mostrarTodosPalets(Almacen almacen) {
+        for (Palet palet : Almacen.TodosPalets) {
+            palet.getProductBox().setVisible(true);
+            palet.getPaletBox().setVisible(true);
+        }
+    }
+
+
+
+    private void configurarComboProducto(Almacen almacen) {
+        comboProductoAlmacen.setOnAction(_ -> {
+            try {
+                String productoSeleccionado = comboProductoAlmacen.getSelectionModel().getSelectedItem();
+
+                if (!productoSeleccionado.equals("Todos")) {
+                    for (Producto producto : almacen.TodosProductos) {
+                        if (producto.getIdentificadorProducto().equals(productoSeleccionado)) break;
+                    }
+
+                    for (Palet palet : almacen.TodosPalets) {
+                        boolean visible = palet.getIdProducto().equals(productoSeleccionado);
+                        palet.getProductBox().setVisible(visible);
+                        palet.getPaletBox().setVisible(visible);
+                    }
+                } else {
+                    String tipoSeleccionado = comboTipoAlmacen.getSelectionModel().getSelectedItem();
+                    for (Palet palet : almacen.TodosPalets) {
+                        boolean visible = palet.getIdTipo().equals(tipoSeleccionado);
+                        palet.getProductBox().setVisible(visible);
+                        palet.getPaletBox().setVisible(visible);
+                    }
+                }
+            } catch (Exception ignored) {}
+        });
+    }
+
+
 
     /**
      * Dibuja los ejes del espacio 3D si está habilitado.
