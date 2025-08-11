@@ -54,6 +54,9 @@ public class inventarioController implements Initializable {
     /** Total de páginas de inventario calculado según los filtros. */
     private int total_paginas_inventario = 0;
 
+    private List<Palet> paletsMostrados = new ArrayList<>();
+
+
     // Filtros y controles visuales
     @FXML private ComboBox<String> estanteriaComboBox;
     @FXML private ComboBox<String> baldaComboBox;
@@ -110,7 +113,8 @@ public class inventarioController implements Initializable {
     private void resetFiltros() {
         paginaActual = 0;
         inicializarComboBoxes();
-        renderizarPalets(Almacen.TodosPalets);
+        paletsMostrados = Almacen.TodosPalets;
+        renderizarPalets(paletsMostrados);
     }
 
     /**
@@ -160,11 +164,6 @@ public class inventarioController implements Initializable {
         posicionComboBox.getSelectionModel().selectFirst();
     }
 
-    /**
-     * Lista de palets actualmente mostrados en el GridPane.
-     * Se utiliza para mantener el estado de los palets visibles.
-     */
-    private List<Palet> paletsMostrados = new ArrayList<>();
 
     /**
      * Renderiza una lista de palets en el GridPane.
@@ -199,7 +198,8 @@ public class inventarioController implements Initializable {
             LOGGER.log(Level.SEVERE, "Error cargando los palets en el grid", e);
         }
         actualizarBotonesNavegacion(totalPalets);
-        total_paginas_inventario = totalPalets / NUM_ITEMS_GRID;
+        total_paginas_inventario = (int) Math.ceil((double) totalPalets / NUM_ITEMS_GRID);
+
 
         actualizarLabelPagina();
     }
@@ -210,7 +210,8 @@ public class inventarioController implements Initializable {
      */
     @FXML private void siguientePagina() {
         paginaActual++;
-        renderizarPalets(Almacen.TodosPalets);
+        renderizarPalets(paletsMostrados);
+        System.out.println(paletsMostrados.size());
 
         actualizarLabelPagina();
     }
@@ -222,7 +223,7 @@ public class inventarioController implements Initializable {
     @FXML private void anteriorPagina() {
         if (paginaActual > 0) {
             paginaActual--;
-            renderizarPalets(Almacen.TodosPalets);
+            renderizarPalets(paletsMostrados);
 
             actualizarLabelPagina();
         }
@@ -279,7 +280,7 @@ public class inventarioController implements Initializable {
      */
     private void filtrarPorProducto() {
         String productoSeleccionado = productoComboBox.getSelectionModel().getSelectedItem();
-        if (!productoSeleccionado.equals("Todos")) {
+        if (productoSeleccionado != null && !productoSeleccionado.equals("Todos")) {
             for (Palet palet : Almacen.TodosPalets) {
                 boolean visible = palet.getIdProducto().equals(productoSeleccionado);
                 palet.getProductBox().setVisible(visible);
@@ -332,8 +333,11 @@ public class inventarioController implements Initializable {
         paginaActual = 0;
         limpiarGridPane(grid);
         List<Palet> paletsFiltrados = filtrarPalets();
-        agregarPaletsAGrid(paletsFiltrados);
-        total_paginas_inventario = NUM_PALETS / NUM_ITEMS_GRID;
+
+        paletsMostrados = paletsFiltrados; // <-- Guardar para la paginación
+
+        agregarPaletsAGrid(paletsMostrados);
+        total_paginas_inventario = (int) Math.ceil((double) paletsMostrados.size() / NUM_ITEMS_GRID);
 
         actualizarLabelPagina();
 
@@ -400,7 +404,8 @@ public class inventarioController implements Initializable {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error aplicando filtros", e);
         }
-    total_paginas_inventario = NUM_PALETS / NUM_ITEMS_GRID;
+    total_paginas_inventario = (int) Math.ceil((double) paletsMostrados.size() / NUM_ITEMS_GRID)
+    ;
     }
 
 
