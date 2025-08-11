@@ -77,8 +77,8 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" spacing="15.0">
                      <children>
-                        <Button fx:id="aplicar_nuevo_estado_btn1" mnemonicParsing="false" prefWidth="200.0" text="FINALIZAR PEDIDO" />
-                        <Separator opacity="0.0" prefHeight="4.0" prefWidth="320.0" stylesheets="@Styles.css" />
+                        <Button fx:id="aplicar_nuevo_estado_btn1" mnemonicParsing="false" prefWidth="200.0" text="COMPLETAR PEDIDO" />
+                        <Separator opacity="0.0" prefHeight="4.0" prefWidth="300.0" stylesheets="@Styles.css" />
                         <Button fx:id="aplicar_nuevo_estado_btn" mnemonicParsing="false" prefWidth="150.0" text="aplicar" />
                      </children>
                      <VBox.margin>
