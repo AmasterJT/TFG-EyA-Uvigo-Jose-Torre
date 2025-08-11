@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="641.0" prefWidth="500.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.DetallesPedidoController">
    <children>
       <BorderPane style="-fx-background-radius: 5; -fx-border-radius: 5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -78,9 +77,9 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" spacing="15.0">
                      <children>
-                        <Button fx:id="aplicar_nuevo_estado_btn1" mnemonicParsing="false" text="FINALIZAR PEDIDO" />
-                        <Separator opacity="0.0" prefHeight="4.0" prefWidth="370.0" stylesheets="@Styles.css" />
-                        <Button fx:id="aplicar_nuevo_estado_btn" mnemonicParsing="false" text="aplicar" />
+                        <Button fx:id="aplicar_nuevo_estado_btn1" mnemonicParsing="false" prefWidth="200.0" text="FINALIZAR PEDIDO" />
+                        <Separator opacity="0.0" prefHeight="4.0" prefWidth="320.0" stylesheets="@Styles.css" />
+                        <Button fx:id="aplicar_nuevo_estado_btn" mnemonicParsing="false" prefWidth="150.0" text="aplicar" />
                      </children>
                      <VBox.margin>
                         <Insets />

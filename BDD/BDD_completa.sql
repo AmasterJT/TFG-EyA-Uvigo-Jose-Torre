@@ -449,6 +449,10 @@ CREATE TABLE pedidos (
         'En proceso',
         'Cancelado'
     ) NOT NULL,
+    hora_salida ENUM (
+        'primera_hora',
+        'segunda_hora'
+    ),
     FOREIGN KEY (id_cliente) REFERENCES clientes (id_cliente),
     FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario)
 );
@@ -1597,61 +1601,60 @@ INSERT INTO clientes (nombre, direccion, telefono, email) VALUES
 ('Cliente AC', 'Plaza del Mercado 26, Toledo', '605777888', 'cliente.ac@example.com'),
 ('Cliente AD', 'Calle Sorolla 27, Valencia', '605999000', 'cliente.ad@example.com');
 
+INSERT INTO pedidos (id_usuario, id_cliente, estado, fecha_entrega, hora_salida) VALUES
+(NULL, 1, 'Pendiente', '2025-08-10', NULL),
+(NULL, 2, 'Pendiente', '2025-08-12', NULL),
+(NULL, 3, 'Pendiente', '2025-08-14', NULL),
+(NULL, 4, 'Pendiente', '2025-08-16', NULL),
+(NULL, 5, 'Pendiente', '2025-08-18', NULL),
 
-INSERT INTO pedidos (id_usuario, id_cliente, estado, fecha_entrega) VALUES
-(NULL, 1, 'Pendiente', '2025-08-10'),
-(NULL, 2, 'Pendiente', '2025-08-12'),
-(NULL, 3, 'Pendiente', '2025-08-14'),
-(NULL, 4, 'Pendiente', '2025-08-16'),
-(NULL, 5, 'Pendiente', '2025-08-18'),
+(1, 1, 'En proceso', '2025-08-11', 'primera_hora'),
+(2, 2, 'En proceso', '2025-08-13', 'segunda_hora'),
+(3, 3, 'En proceso', '2025-08-15', 'primera_hora'),
+(4, 4, 'En proceso', '2025-08-17', 'segunda_hora'),
+(5, 5, 'En proceso', '2025-08-19', 'primera_hora'),
 
-(1, 1, 'En proceso', '2025-08-11'),
-(2, 2, 'En proceso', '2025-08-13'),
-(3, 3, 'En proceso', '2025-08-15'),
-(4, 4, 'En proceso', '2025-08-17'),
-(5, 5, 'En proceso', '2025-08-19'),
+(1, 1, 'Completado', '2025-07-01', NULL),
+(2, 2, 'Completado', '2025-07-02', NULL),
+(3, 3, 'Completado', '2025-07-03', NULL),
+(4, 4, 'Completado', '2025-07-04', NULL),
+(5, 5, 'Completado', '2025-07-05', NULL),
 
-(1, 1, 'Completado', '2025-07-01'),
-(2, 2, 'Completado', '2025-07-02'),
-(3, 3, 'Completado', '2025-07-03'),
-(4, 4, 'Completado', '2025-07-04'),
-(5, 5, 'Completado', '2025-07-05'),
+(1, 1, 'Cancelado', '2025-06-01', NULL),
+(2, 2, 'Cancelado', '2025-06-02', NULL),
+(3, 3, 'Cancelado', '2025-06-03', NULL),
+(4, 4, 'Cancelado', '2025-06-04', NULL),
+(5, 5, 'Cancelado', '2025-06-05', NULL),
 
-(1, 1, 'Cancelado', '2025-06-01'),
-(2, 2, 'Cancelado', '2025-06-02'),
-(3, 3, 'Cancelado', '2025-06-03'),
-(4, 4, 'Cancelado', '2025-06-04'),
-(5, 5, 'Cancelado', '2025-06-05'),
+(NULL, 1, 'Pendiente', '2025-08-20', NULL),
+(NULL, 2, 'Pendiente', '2025-08-21', NULL),
+(NULL, 3, 'Pendiente', '2025-08-22', NULL),
+(NULL, 4, 'Pendiente', '2025-08-23', NULL),
+(NULL, 5, 'Pendiente', '2025-08-24', NULL),
 
-(NULL, 1, 'Pendiente', '2025-08-20'),
-(NULL, 2, 'Pendiente', '2025-08-21'),
-(NULL, 3, 'Pendiente', '2025-08-22'),
-(NULL, 4, 'Pendiente', '2025-08-23'),
-(NULL, 5, 'Pendiente', '2025-08-24'),
+(2, 1, 'En proceso', '2025-08-25', 'segunda_hora'),
+(3, 2, 'En proceso', '2025-08-26', 'primera_hora'),
+(4, 3, 'En proceso', '2025-08-27', 'segunda_hora'),
+(5, 4, 'En proceso', '2025-08-28', 'primera_hora'),
+(1, 5, 'En proceso', '2025-08-29', 'segunda_hora'),
 
-(2, 1, 'En proceso', '2025-08-25'),
-(3, 2, 'En proceso', '2025-08-26'),
-(4, 3, 'En proceso', '2025-08-27'),
-(5, 4, 'En proceso', '2025-08-28'),
-(1, 5, 'En proceso', '2025-08-29'),
+(2, 1, 'Completado', '2025-07-10', NULL),
+(3, 2, 'Completado', '2025-07-11', NULL),
+(4, 3, 'Completado', '2025-07-12', NULL),
+(5, 4, 'Completado', '2025-07-13', NULL),
+(1, 5, 'Completado', '2025-07-14', NULL),
 
-(2, 1, 'Completado', '2025-07-10'),
-(3, 2, 'Completado', '2025-07-11'),
-(4, 3, 'Completado', '2025-07-12'),
-(5, 4, 'Completado', '2025-07-13'),
-(1, 5, 'Completado', '2025-07-14'),
+(2, 1, 'Cancelado', '2025-06-10', NULL),
+(3, 2, 'Cancelado', '2025-06-11', NULL),
+(4, 3, 'Cancelado', '2025-06-12', NULL),
+(5, 4, 'Cancelado', '2025-06-13', NULL),
+(1, 5, 'Cancelado', '2025-06-14', NULL),
 
-(2, 1, 'Cancelado', '2025-06-10'),
-(3, 2, 'Cancelado', '2025-06-11'),
-(4, 3, 'Cancelado', '2025-06-12'),
-(5, 4, 'Cancelado', '2025-06-13'),
-(1, 5, 'Cancelado', '2025-06-14'),
-
-(NULL, 1, 'Pendiente', '2025-08-30'),
-(NULL, 2, 'Pendiente', '2025-08-31'),
-(NULL, 3, 'Pendiente', '2025-09-01'),
-(NULL, 4, 'Pendiente', '2025-09-02'),
-(NULL, 5, 'Pendiente', '2025-09-03');
+(NULL, 1, 'Pendiente', '2025-08-30', NULL),
+(NULL, 2, 'Pendiente', '2025-08-31', NULL),
+(NULL, 3, 'Pendiente', '2025-09-01', NULL),
+(NULL, 4, 'Pendiente', '2025-09-02', NULL),
+(NULL, 5, 'Pendiente', '2025-09-03', NULL);
 
 
 

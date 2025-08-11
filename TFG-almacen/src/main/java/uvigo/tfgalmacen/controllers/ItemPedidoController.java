@@ -41,6 +41,9 @@ public class ItemPedidoController {
 
     private Pedido pedido;
 
+    private String colorPrimeraHora = "#ff1fa0";
+    private String colorSegundaHora = "#1e90ff";
+
     public void setData(Pedido pedido){
         this.pedido = pedido;
 
@@ -49,11 +52,21 @@ public class ItemPedidoController {
         // Código para llenar los labels o nodos con la información del pedido
         id_pedido_label.setText(String.valueOf(pedido.getCodigo_referencia()));
         nombre_cliente_label.setText(pedido.getNombre_cliente());
-        estado_pedido_label.setText(pedido.getEstado());
 
 
         String colorHEX = pedido.getColorEstadoHEX();
-        estado_pedido_label.setStyle("-fx-background-color: " +  colorHEX);
+
+        estado_pedido_label.setText(pedido.getEstado());
+        if ("primera_hora".equals(pedido.getHoraSalida())) {
+            estado_pedido_label.setStyle("-fx-background-color: " + colorPrimeraHora);
+        }
+        else if ("segunda_hora".equals(pedido.getHoraSalida())) {
+            estado_pedido_label.setStyle("-fx-background-color: " + colorSegundaHora);
+        }
+        else {
+            estado_pedido_label.setStyle("-fx-background-color: " + colorHEX);
+        }
+
 
         if ("Pendiente".equals(pedido.getEstado())){
             id_usuario_label.setVisible(false);

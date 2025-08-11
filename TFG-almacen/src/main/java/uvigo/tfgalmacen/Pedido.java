@@ -27,6 +27,8 @@ public class Pedido implements Comparable<Pedido> {
     private int id_usuario;
     private String estado;
 
+    private final String horaSalida;
+
 
 
     private String colorEstadoHEX;
@@ -34,7 +36,7 @@ public class Pedido implements Comparable<Pedido> {
 
     private final String nombre_cliente;
 
-    public Pedido(String codigo_referencia, int id_pedido, int id_cliente, int id_usuario, String estado, String fechaPedidoRaw) {
+    public Pedido(String codigo_referencia, int id_pedido, int id_cliente, int id_usuario, String estado, String fechaPedidoRaw, String hora_salida) {
         this.codigo_referencia = codigo_referencia;
         this.id_pedido = id_pedido;
         this.id_cliente = id_cliente;
@@ -42,6 +44,8 @@ public class Pedido implements Comparable<Pedido> {
         this.estado = estado;
         this.fechaPedidoRaw =fechaPedidoRaw;
         this.fechaPedido = LocalDateTime.parse(fechaPedidoRaw, FORMATTER);
+        this.horaSalida = hora_salida;
+
 
         this.nombre_cliente = setNombreCliente(id_cliente); // Inicializar como null, se puede establecer más tarde si es necesario
 
@@ -104,6 +108,10 @@ public class Pedido implements Comparable<Pedido> {
 
     public String getNombre_cliente() {
         return nombre_cliente;
+    }
+
+    public String getHoraSalida() {
+        return horaSalida;
     }
 
     public void setEstado(String estado) {

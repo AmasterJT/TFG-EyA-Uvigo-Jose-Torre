@@ -3,12 +3,11 @@ package uvigo.tfgalmacen.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import uvigo.tfgalmacen.Main;
@@ -16,6 +15,7 @@ import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.database.PedidoDAO;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,6 +52,8 @@ public class pedidosController {
         move_to_en_proceso_btn.setOnAction(_ -> handleMoveToEnProcesoClick());
         ver_detalles_pedido_btn.setOnAction(_ -> verDetallesPedido());
     }
+
+
 
     private void configurarScrollYGrid() {
         pedidiosPendientesScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -166,4 +168,5 @@ public class pedidosController {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
+
 }

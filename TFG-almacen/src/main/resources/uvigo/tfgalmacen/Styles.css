@@ -13,6 +13,7 @@
 
 .exitItem:hover {
     -fx-background-color: #eb4034 !important;
+    -fx-border-color: #eb4034 !important;
 }
 
 .exitItem:pressed {

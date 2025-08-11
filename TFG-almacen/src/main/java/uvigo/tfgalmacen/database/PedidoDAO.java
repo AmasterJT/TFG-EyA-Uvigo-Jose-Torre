@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
@@ -68,8 +69,9 @@ public class PedidoDAO {
                 int id_usuario = resultSet.getInt("id_usuario");
                 String estado = resultSet.getString("estado");
                 String fecha_pedido = resultSet.getString("fecha_pedido");
+                String hora_salida = resultSet.getString("hora_salida");
 
-                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_cliente, id_usuario, estado, fecha_pedido);
+                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_cliente, id_usuario, estado, fecha_pedido, hora_salida);
                 pedidos.add(pedido);
 
             }
@@ -118,15 +120,27 @@ public class PedidoDAO {
                 int id_cliente = resultSet.getInt("id_cliente");
                 String estadoResult = resultSet.getString("estado");
                 String fecha_pedido = resultSet.getString("fecha_pedido");
+                String hora_salida = resultSet.getString("hora_salida");
 
-                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_cliente, id_usuario, estadoResult, fecha_pedido);
+                Pedido pedido = new Pedido(codigo_referencia, id_pedido, id_cliente, id_usuario, estadoResult, fecha_pedido, hora_salida);
                 pedidos.add(pedido);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        // Ordenar: primero "primera_hora", luego "segunda_hora", y dejar nulls al final
+        pedidos.sort(Comparator.comparing(
+                p -> {
+                    String hora = p.getHoraSalida();
+                    if (hora == null) return 2; // null al final
+                    return hora.equals("primera_hora") ? 0 : 1;
+                }
+        ));
+
         return pedidos;
     }
+
 
 
     private static final String UPDATE_ESTADO_PEDIDO_SQL = "UPDATE pedidos SET estado = ? WHERE id_pedido = ?";
