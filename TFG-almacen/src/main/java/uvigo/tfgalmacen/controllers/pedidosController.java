@@ -29,15 +29,32 @@ public class pedidosController {
 
     private static final List<String> ESTADOS_DEL_PEDIDO = List.of("Pendiente", "En proceso", "Cancelado", "Completado");
 
-    @FXML private ListView<?> pedidiosCanceladosList;
-    @FXML private ScrollPane pedidiosCanceladosScroll;
-    @FXML private ScrollPane pedidiosEnCursoScroll;
-    @FXML private ScrollPane pedidiosPendientesScroll;
-    @FXML private GridPane grid_pendientes;
-    @FXML private GridPane grid_en_curso;
-    @FXML private Button move_to_en_proceso_btn;
-    @FXML private Button move_to_pendiente_btn;
-    @FXML private Button ver_detalles_pedido_btn;
+    @FXML
+    private ListView<?> pedidiosCanceladosList;
+    @FXML
+    private ScrollPane pedidiosCanceladosScroll;
+    @FXML
+    private ScrollPane pedidiosEnCursoScroll;
+    @FXML
+    private ScrollPane pedidiosPendientesScroll;
+    @FXML
+    private GridPane grid_pendientes;
+    @FXML
+    private GridPane grid_en_curso;
+    @FXML
+    private Button move_to_en_proceso_btn;
+    @FXML
+    private Button move_to_pendiente_btn;
+    @FXML
+    private Button ver_detalles_pedido_btn;
+    @FXML
+    private Button ver_detalles_pedido_pendiente_btn;
+    @FXML
+    private Button ver_detalles_pedido_en_proceso_btn;
+    @FXML
+    private Button clear_pendientes_btn;
+    @FXML
+    private Button clear_en_proceso_btn;
 
     public static final List<ItemPedidoController> allItemControllers = new ArrayList<>();
 
@@ -51,8 +68,11 @@ public class pedidosController {
 
         move_to_en_proceso_btn.setOnAction(_ -> handleMoveToEnProcesoClick());
         ver_detalles_pedido_btn.setOnAction(_ -> verDetallesPedido());
+        ver_detalles_pedido_pendiente_btn.setOnAction(_ -> verDetallesPedidoFiltro(ESTADOS_DEL_PEDIDO.getFirst()));
+        ver_detalles_pedido_en_proceso_btn.setOnAction(_ -> verDetallesPedidoFiltro(ESTADOS_DEL_PEDIDO.get(1)));
+        clear_pendientes_btn.setOnAction(_ -> clearALL(ESTADOS_DEL_PEDIDO.getFirst()));
+        clear_en_proceso_btn.setOnAction(_ -> clearALL(ESTADOS_DEL_PEDIDO.get(1)));
     }
-
 
 
     private void configurarScrollYGrid() {
@@ -80,6 +100,7 @@ public class pedidosController {
                 GridPane.setMargin(pane, new Insets(10));
             }
         } catch (IOException e) {
+
             LOGGER.log(Level.SEVERE, "Error cargando los pedidos en el grid", e);
         }
     }
@@ -88,16 +109,26 @@ public class pedidosController {
         List<Pedido> seleccionados = new ArrayList<>();
         for (ItemPedidoController controller : allItemControllers) {
             Pedido pedido = controller.getPedido();
-            if (controller.isSelected() &&
-                    (estadoFiltro == null || estadoFiltro.equals(pedido.getEstado())) &&
-                    !seleccionados.contains(pedido)) {
+            System.out.println("Pedido Estado: " + pedido.getEstado());
 
+            if (controller.isSelected() && (estadoFiltro == null || estadoFiltro.equals(pedido.getEstado())) && !seleccionados.contains(pedido)) {
                 seleccionados.add(pedido);
                 controller.setSelected(false);
             }
         }
         return seleccionados;
     }
+
+
+    private void clearALL(String estadoFiltro) {
+        for (ItemPedidoController controller : allItemControllers) {
+            Pedido pedido = controller.getPedido();
+            System.out.println("Pedido Estado: " + pedido.getEstado());
+
+            controller.setSelected(false);
+        }
+    }
+
 
     private void handleMoveToEnProcesoClick() {
         List<Pedido> pendientes = getPedidosSeleccionados("Pendiente");
@@ -128,6 +159,39 @@ public class pedidosController {
 
     private void verDetallesPedido() {
         List<Pedido> seleccionados = getPedidosSeleccionados(null);
+
+        if (seleccionados.isEmpty()) {
+            mostrarAlertaAdvertencia("No se ha seleccionado ningún pedido");
+            return;
+        }
+
+        for (Pedido pedido : seleccionados) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/detallesPedidoView.fxml"));
+                AnchorPane pane = loader.load();
+
+                DetallesPedidoController controller = loader.getController();
+                controller.setData(pedido, Main.connection);
+
+                Stage stage = new Stage();
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setTitle("Detalles del pedido: " + pedido.getCodigo_referencia());
+                stage.setScene(new javafx.scene.Scene(pane));
+                WindowMovement(pane, stage);
+                stage.setOnHidden(e -> redibujar());
+                stage.show();
+
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de detalles del pedido", e);
+            }
+        }
+    }
+
+
+    private void verDetallesPedidoFiltro(String estadoFiltro) {
+
+        System.out.println("---------------" + estadoFiltro + "----------------");
+        List<Pedido> seleccionados = getPedidosSeleccionados(estadoFiltro);
 
         if (seleccionados.isEmpty()) {
             mostrarAlertaAdvertencia("No se ha seleccionado ningún pedido");

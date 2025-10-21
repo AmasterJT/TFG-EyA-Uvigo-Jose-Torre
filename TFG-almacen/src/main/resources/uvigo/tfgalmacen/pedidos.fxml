@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -27,12 +28,33 @@
                   <children>
                   <VBox alignment="CENTER">
                      <children>
-                              <Label text="PEDIDIOS PENDIENTES" />
-                                <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #222; -fx-background-radius: 15;">
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #222; -fx-background-radius: 15 15 0 0;" text="PEDIDIOS PENDIENTES" textAlignment="CENTER" textFill="WHITE">
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding></Label>
+                        <HBox alignment="BASELINE_CENTER" style="-fx-background-color: #222;">
+                           <children>
+                              <Button fx:id="clear_pendientes_btn" mnemonicParsing="false" text="clear all">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Region maxHeight="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="ver_detalles_pedido_pendiente_btn" mnemonicParsing="false" text="VER PENDIENTES">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </HBox>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #222; -fx-background-radius: 0 0 15 15;">
                            <children>
                               <ScrollPane fx:id="pedidiosEnCursoScroll" fitToHeight="true" fitToWidth="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <content>
-                                    <VBox alignment="CENTER" prefHeight="600.0" prefWidth="630.0">
+                                    <VBox alignment="CENTER" prefHeight="580.0" prefWidth="630.0">
                                        <children>
                                           <GridPane fx:id="grid_pendientes" alignment="CENTER">
                                              <columnConstraints>
@@ -82,12 +104,33 @@
                       </VBox>
                   <VBox alignment="CENTER">
                      <children>
-                              <Label text="PEDIDOS A REALIZAR HOY" />
-                        <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #ebcc34; -fx-background-radius: 15;">
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ebcc34; -fx-background-radius: 15 15 0 0;" text="PEDIDOS A REALIZAR HOY">
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding></Label>
+                        <HBox style="-fx-background-color: #ebcc34;">
+                           <children>
+                              <Button fx:id="clear_en_proceso_btn" mnemonicParsing="false" text="clear all">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Region maxHeight="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="ver_detalles_pedido_en_proceso_btn" mnemonicParsing="false" text="VER EN PROCESO">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </HBox>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #ebcc34; -fx-background-radius: 0 0 15 15;">
                            <children>
                               <ScrollPane fx:id="pedidiosPendientesScroll" fitToHeight="true" fitToWidth="true">
                                  <content>
-                                    <VBox alignment="CENTER" prefHeight="600.0" prefWidth="630.0">
+                                    <VBox alignment="CENTER" prefHeight="580.0" prefWidth="630.0">
                                        <children>
                                           <GridPane fx:id="grid_en_curso" alignment="CENTER">
                                              <columnConstraints>
