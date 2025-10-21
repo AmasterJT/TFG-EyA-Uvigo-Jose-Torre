@@ -41,8 +41,8 @@ public class ItemPedidoController {
 
     private Pedido pedido;
 
-    private String colorPrimeraHora = "#ff1fa0";
-    private String colorSegundaHora = "#1e90ff";
+    private final String  colorPrimeraHora = "#ff1fa0";
+    private final String colorSegundaHora = "#1e90ff";
 
     public void setData(Pedido pedido){
         this.pedido = pedido;
@@ -83,9 +83,6 @@ public class ItemPedidoController {
     }
 
     private void prueba() {
-        System.out.println("click");
-
-
         for(int i = 0; i < pedidosController.allItemControllers.size(); i++) {
             if(pedidosController.allItemControllers.get(i).getPedido().getId_pedido() == this.pedido.getId_pedido()){
                 pedidosController.allItemControllers.remove(i);
