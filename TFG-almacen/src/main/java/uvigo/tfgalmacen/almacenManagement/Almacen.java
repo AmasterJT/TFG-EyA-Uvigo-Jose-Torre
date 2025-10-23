@@ -1,6 +1,7 @@
 package uvigo.tfgalmacen.almacenManagement;
 
 import uvigo.tfgalmacen.Main;
+import uvigo.tfgalmacen.Proveedor;
 import uvigo.tfgalmacen.database.DatabaseConnection;
 
 import java.sql.*;
@@ -70,6 +71,12 @@ public class Almacen {
     public static ArrayList<Tipo> TodosTipos = null;
 
 
+    /**
+     * Lista estática que almacena todos los proveedores cargados.
+     */
+    public static ArrayList<Proveedor> TodosProveedores = null;
+
+
     public Almacen(String archivoXML) {
         this.archivoXML = archivoXML;
     }
@@ -103,6 +110,7 @@ public class Almacen {
                 TodosTipos = obtenerTiposDesdeBD(conexion);         // también si usas DB para todo
                 TodosProductos = obtenerProductosDesdeBD(conexion); // deberías implementar estas
                 TodosPalets = obtenerPaletsDesdeBD(conexion);
+                TodosProveedores = obtenerProveedoresDesdeBD(conexion);
             }
 
         } catch (Exception ex) {
@@ -113,6 +121,37 @@ public class Almacen {
         setInformationToPaletProductType(); // colocamos el color correspondiente a cada palet
 
 
+    }
+
+    public ArrayList<Proveedor> obtenerProveedoresDesdeBD(Connection conn) {
+        ArrayList<Proveedor> proveedores = new ArrayList<>();
+        String query = "SELECT id_proveedor, nombre, direccion, telefono, email, nif_cif, " +
+                "contacto, fecha_registro, ultima_actualizacion " +
+                "FROM proveedores ORDER BY nombre ASC";
+
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                Proveedor prov = new Proveedor(
+                        rs.getInt("id_proveedor"),
+                        rs.getString("nombre"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono"),
+                        rs.getString("email"),
+                        rs.getString("nif_cif"),
+                        rs.getString("contacto"),
+                        rs.getTimestamp("fecha_registro"),
+                        rs.getTimestamp("ultima_actualizacion")
+                );
+                proveedores.add(prov);
+            }
+
+        } catch (Exception e) {
+            System.err.println("❌ Error leyendo proveedores: " + e.getMessage());
+        }
+
+        return proveedores;
     }
 
     /**
@@ -227,8 +266,6 @@ public class Almacen {
     }
 
 
-
-
     /**
      * Establece la información y relaciones entre palets, productos y tipos.
      * Actualiza colores, cantidades y números de palets asociados para cada objeto.
@@ -243,7 +280,7 @@ public class Almacen {
 
 
                     //añadimos la informacion del palet al producto correspondiente
-                    producto.setNumPalets(producto.getNumPalets()+1);
+                    producto.setNumPalets(producto.getNumPalets() + 1);
                     producto.setCantidadDeProducto(producto.getCantidadDeProducto() + palet.getCantidadProducto());
 
                     for (Tipo tipo : TodosTipos) {
@@ -267,7 +304,7 @@ public class Almacen {
     /**
      * Muestra por consola la información completa del almacén (palets, productos y tipos).
      */
-    public void MostrarAlmacen(){
+    public void MostrarAlmacen() {
         System.out.println(toString());
     }
 
@@ -356,7 +393,6 @@ public class Almacen {
     }
 
 
-
     /**
      * Devuelve una representación en texto con la información completa del almacén,
      * incluyendo palets, productos y tipos.
@@ -364,7 +400,7 @@ public class Almacen {
      * @return String con toda la información concatenada.
      */
     @Override
-    public String toString(){
+    public String toString() {
 
         StringBuilder textoBuilder = new StringBuilder();
 
