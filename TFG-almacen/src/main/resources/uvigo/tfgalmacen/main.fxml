@@ -87,6 +87,21 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </Button>
+                  <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="COMPRAR" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/buy-64.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="System Bold" size="10.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                <Button mnemonicParsing="false" onAction="#openXmlInExcel" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="EXPORT" textFill="WHITE">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -230,7 +245,7 @@
             <children>
                <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0">
                   <children>
-                     <Label fx:id="roleLabel" depthTest="ENABLE" graphicTextGap="6.0" lineSpacing="10.0" text="rol" textFill="WHITE" />
+                     <Label fx:id="roleLabel" depthTest="ENABLE" graphicTextGap="6.0" lineSpacing="10.0" text="ROL DEL USUARIO" textFill="WHITE" />
                   </children>
                </HBox>
             </children></AnchorPane>
