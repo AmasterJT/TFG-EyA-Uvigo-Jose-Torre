@@ -13,9 +13,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.database.PedidoDAO;
+import uvigo.tfgalmacen.utils.windowComponentAndFuncionalty;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ public class pedidosController {
     private static final Logger LOGGER = Logger.getLogger(pedidosController.class.getName());
 
     private static final List<String> ESTADOS_DEL_PEDIDO = List.of("Pendiente", "En proceso", "Cancelado", "Completado");
-    private static final String ESTADO_PENDIENTE = ESTADOS_DEL_PEDIDO.get(0);
+    private static final String ESTADO_PENDIENTE = ESTADOS_DEL_PEDIDO.getFirst();
     private static final String ESTADO_EN_PROCESO = ESTADOS_DEL_PEDIDO.get(1);
 
     @FXML
@@ -117,9 +120,7 @@ public class pedidosController {
     private void renderizarPedidos(List<Pedido> pedidos, GridPane grid) {
         if (grid == null) return;
 
-        grid.getChildren().clear();
-        grid.getColumnConstraints().clear();
-        grid.getRowConstraints().clear();
+        windowComponentAndFuncionalty.limpiarGridPane(grid);
 
         try {
             int row = 0;
@@ -139,7 +140,8 @@ public class pedidosController {
         }
     }
 
-    private List<Pedido> getPedidosSeleccionados(String estadoFiltro) {
+    @Contract("_ -> new")
+    private @NotNull List<Pedido> getPedidosSeleccionados(String estadoFiltro) {
         Set<Pedido> seleccionados = new LinkedHashSet<>();
         for (ItemPedidoController controller : allItemControllers) {
             Pedido pedido = controller.getPedido();
@@ -185,7 +187,7 @@ public class pedidosController {
             controller.setData(pendientes, Main.connection);
 
             Stage stage = crearStageBasico("Asignar pedido a usuario", pane, false);
-            stage.setOnHidden(e -> redibujar());
+            stage.setOnHidden(_ -> redibujar());
             stage.show();
 
         } catch (IOException e) {
@@ -216,7 +218,7 @@ public class pedidosController {
         abrirVentanasDetalle(seleccionados);
     }
 
-    private void abrirVentanasDetalle(List<Pedido> pedidos) {
+    private void abrirVentanasDetalle(@NotNull List<Pedido> pedidos) {
         for (Pedido pedido : pedidos) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/detallesPedidoView.fxml"));
@@ -226,7 +228,7 @@ public class pedidosController {
                 controller.setData(pedido, Main.connection);
 
                 Stage stage = crearStageBasico("Detalles del pedido: " + pedido.getCodigo_referencia(), pane, true);
-                stage.setOnHidden(e -> redibujar());
+                stage.setOnHidden(_ -> redibujar());
                 stage.show();
 
             } catch (IOException e) {
@@ -235,7 +237,7 @@ public class pedidosController {
         }
     }
 
-    private Stage crearStageBasico(String titulo, AnchorPane root, boolean habilitarMovimientoVentana) {
+    private @NotNull Stage crearStageBasico(String titulo, AnchorPane root, boolean habilitarMovimientoVentana) {
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle(titulo);

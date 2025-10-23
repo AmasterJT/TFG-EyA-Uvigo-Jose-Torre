@@ -14,11 +14,11 @@ public class DatabaseConnection {
     private static final String RED = "\033[31m";   // Rojo
     private static final String ORANGE = "\033[34m";  // Azul
 
-    static String URL =  DataConfig.URL;
-    static String USER =  DataConfig.USER;
-    static String PASSWORD =  DataConfig.PASSWORD;
-    static String DRIVER =  DataConfig.DRIVER;
-    public static String DATABASE_NAME =  DataConfig.DATABASE_NAME;
+    static String URL = DataConfig.URL;
+    static String USER = DataConfig.USER;
+    static String PASSWORD = DataConfig.PASSWORD;
+    static String DRIVER = DataConfig.DRIVER;
+    public static String DATABASE_NAME = DataConfig.DATABASE_NAME;
 
     public static Boolean isConnected = false;
 
@@ -48,7 +48,7 @@ public class DatabaseConnection {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
                 isConnected = false;
-                System.out.println("⚠\uFE0F " + ORANGE +  "CONEXIÓN CERRADA" + RESET);
+                System.out.println("⚠️ " + ORANGE + "CONEXIÓN CERRADA" + RESET);
             }
         } catch (SQLException e) {
             System.err.println("❌ Error cerrando la conexión: " + e.getMessage());

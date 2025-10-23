@@ -3,7 +3,7 @@ module uvigo.tfgalmacen {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
-
+    requires org.jetbrains.annotations;
 
 
     opens uvigo.tfgalmacen to javafx.fxml;

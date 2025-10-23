@@ -6,278 +6,125 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import uvigo.tfgalmacen.utils.WindowResizer;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javafx.stage.StageStyle;
+import static uvigo.tfgalmacen.database.DatabaseConnection.connect;
+import static uvigo.tfgalmacen.database.DatabaseConnection.close;
+
 import uvigo.tfgalmacen.database.PedidoDAO;
 
-import static javafx.scene.Cursor.*;
-import static uvigo.tfgalmacen.database.DatabaseConnection.*;
-import static uvigo.tfgalmacen.database.PedidoDAO.printPedidosData;
-import static uvigo.tfgalmacen.utils.TerminalColors.CYAN;
-import static uvigo.tfgalmacen.utils.TerminalColors.RESET;
-
-/**
- * Clase principal de la aplicación JavaFX.
- * Maneja la creación de la ventana principal y las configuraciones relacionadas
- * como el movimiento, el redimensionamiento y el diseño de la interfaz gráfica.
- */
 public class Main extends Application {
 
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
+    /**
+     * Conexión compartida (si prefieres, muévela a un “ConnectionProvider” o usa un pool).
+     */
     public static Connection connection = null;
     public static User currentUser = null;
     public static List<User> allUsers = null;
 
-    private double xOffset = 0; // Desplazamiento horizontal del ratón respecto a la ventana.
-    private double yOffset = 0; // Desplazamiento vertical del ratón respecto a la ventana.
-    public enum RESIZE {NONE, W_border, E_border, N_border, S_border, NW_cornner, NE_cornner, SW_cornner, SE_cornner}
-    RESIZE resize;
+    /**
+     * Offsets para arrastre de ventana.
+     */
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    @Override
+    public void init() {
+        // Inicializa la conexión antes de crear UI (init() no corre en el FX thread).
+        try {
+            connection = connect();
+
+            // (Opcional) Pequeño sanity-check: una query ligera
+            try (Statement stmt = connection.createStatement()) {
+                stmt.execute("SELECT 1");
+            }
+
+            // (Opcional) Carga inicial de datos. Evita tareas pesadas aquí.
+            // final List<Pedido> pedidos = PedidoDAO.getPedidosAllData(connection);
+            // LOGGER.info(() -> "Pedidos precargados: " + pedidos.size());
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error inicializando la conexión a BD", e);
+        }
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/uvigo/tfgalmacen/loginWindow.fxml"));
         Parent root = fxmlLoader.load();
 
-        // Configurar la escena y la ventana sin bordes
         Scene scene = new Scene(root);
         stage.initStyle(StageStyle.UNDECORATED);
 
-
-        // Configurar movimiento y redimensionamiento
+        // Movimiento y redimensionado (con la utilidad optimizada)
         WindowMovement(root, stage);
-        WindowResize(root, stage,scene);
+        WindowResizer.attach(root, stage, scene);
 
-        // Configurar y mostrar la escena
         stage.setScene(scene);
         stage.show();
-
     }
 
-    public static double mousex21;
+    @Override
+    public void stop() {
+        // Cierra recursos antes de salir
+        close(connection);
+        connection = null;
+        LOGGER.info("Aplicación detenida y conexión cerrada.");
+    }
 
     /**
-     * Configura el movimiento de la ventana para permitir que el usuario la arrastre desde un área específica.
-     *
-     * @param root  El nodo raíz del diseño de la ventana, que contiene todos los elementos de la interfaz.
-     * @param stage El escenario principal de la aplicación, que representa la ventana.
+     * Permite mover la ventana arrastrando un contenedor con fx:id="windowBar".
+     * Si el nodo no existe, registra un warning y continúa (para evitar romper la app).
      */
     private void WindowMovement(Parent root, Stage stage) {
-        // Busca en el diseño un nodo con el ID "windowBar", que se usará para arrastrar la ventana.
-        try{
-            HBox windowBar = (HBox) root.lookup("#windowBar"); // Cambia "#windowBar" si el ID difiere.
-
-            // Si no se encuentra el componente, lanza una excepción para evitar errores silenciosos.
-            if (windowBar == null) {
-                throw new IllegalStateException("No se encontró el componente windowBar en el FXML.");
-            }
-
-            // Evento para capturar la posición inicial del mouse cuando se presiona en la barra.
-            windowBar.setOnMousePressed(event -> {
-                // Guarda la posición X e Y del mouse dentro de la escena cuando el usuario presiona el botón.
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            });
-
-            // Evento para manejar el arrastre del mouse y mover la ventana en consecuencia.
-            windowBar.setOnMouseDragged(event -> {
-                // Calcula la nueva posición de la ventana basada en la posición actual del mouse en la pantalla,
-                // menos el desplazamiento inicial registrado cuando se presionó el botón.
-                stage.setX(event.getScreenX() - xOffset);
-                stage.setY(event.getScreenY() - yOffset);
-            });
+        HBox windowBar = null;
+        try {
+            windowBar = (HBox) root.lookup("#windowBar");
+        } catch (Exception e) {
+            // lookup lanzó algo raro; lo registramos, pero no detenemos la app
+            LOGGER.log(Level.WARNING, "Error al hacer lookup de #windowBar", e);
         }
-        catch(Exception e){
-            System.out.println("Error al buscar el nodo windowBar en el FXML");
+
+        if (windowBar == null) {
+            LOGGER.warning("No se encontró el nodo con fx:id='windowBar'. El arrastre de ventana estará deshabilitado.");
+            return;
         }
-    }
 
-
-
-    /**
-     * Configura el redimensionamiento de la ventana mediante el movimiento y el arrastre del ratón.
-     *
-     * @param root  El nodo raíz del diseño de la ventana.
-     * @param stage El escenario principal que representa la ventana.
-     * @param scene La escena que contiene el diseño de la ventana.
-     */
-    private void WindowResize(Parent root, Stage stage, Scene scene) {
-        final double borderWidth = 8; // Define el grosor del borde que será interactivo para redimensionar.
-        // Evento que detecta el movimiento del ratón para cambiar el cursor al acercarse al borde.
-
-        root.setOnMouseMoved(event -> {
-            Main.mousex21 = event.getScreenX();
-            double mouseX = event.getSceneX(); // Obtiene la posición X del ratón en la escena.
-            double mouseY = event.getSceneY(); // Obtiene la posición Y del ratón en la escena.
-            double width = stage.getWidth();   // Obtiene el ancho actual de la ventana.
-            double height = stage.getHeight(); // Obtiene el alto actual de la ventana.
-
-
-            // Cambia el cursor según la posición del ratón cerca de los bordes o esquinas y establece el modo de redimensionamiento.
-            if (mouseX < borderWidth && mouseY < borderWidth) {
-                root.setCursor(NW_RESIZE); // Esquina superior izquierda.
-                resize = RESIZE.NW_cornner;
-            } else if (mouseX < borderWidth && mouseY > height - borderWidth) {
-                root.setCursor(SW_RESIZE); // Esquina inferior izquierda.
-                resize = RESIZE.SW_cornner;
-            } else if (mouseX > width - borderWidth && mouseY < borderWidth) {
-                root.setCursor(NE_RESIZE); // Esquina superior derecha.
-            } else if (mouseX > width - borderWidth && mouseY > height - borderWidth) {
-                root.setCursor(SE_RESIZE); // Esquina inferior derecha.
-                resize = RESIZE.SE_cornner;
-            } else if (mouseX < borderWidth) {
-                root.setCursor(W_RESIZE);  // Borde izquierdo.
-                resize = RESIZE.W_border;
-            } else if (mouseX > width - borderWidth) {
-                root.setCursor(E_RESIZE);  // Borde derecho.
-                resize = RESIZE.E_border;
-            } else if (mouseY < borderWidth) {
-                root.setCursor(N_RESIZE);  // Borde superior.
-                resize = RESIZE.N_border;
-            } else if (mouseY > height - borderWidth) {
-                root.setCursor(S_RESIZE);  // Borde inferior.
-                resize = RESIZE.S_border;
-            } else {
-                root.setCursor(DEFAULT);  // Cursor por defecto si no está en un borde.
-            }
-
-
+        windowBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
         });
 
-
-        // Evento que redimensiona la ventana mientras el usuario arrastra el borde.
-        root.setOnMouseDragged(event -> {
-            double mouseX = event.getSceneX(); // Posición X del ratón dentro de la escena.
-            double mouseY = event.getSceneY(); // Posición Y del ratón dentro de la escena.
-            double width = stage.getWidth();   // Ancho actual de la ventana.
-            double height = stage.getHeight(); // Alto actual de la ventana.
-            double mousex22 = 0;
-
-            double newWidth;
-            double newHeight;
-
-            // Verifica el estado del resize y realiza la acción correspondiente.
-            switch (resize) {
-                case NW_cornner:
-                    // Redimensionar desde la esquina superior izquierda.
-                    newWidth = width - mouseX;
-                    newHeight = height - mouseY;
-                    if (newWidth > 0) {
-                        stage.setWidth(newWidth);
-                        stage.setX(event.getScreenX());
-                    }
-                    if (newHeight > 0) {
-                        stage.setHeight(newHeight);
-                        stage.setY(event.getScreenY());
-                    }
-                    break;
-                case SW_cornner:
-                    // Redimensionar desde la esquina inferior izquierda.
-                    stage.setWidth(mouseX);
-                    newHeight = height - mouseY;
-                    if (newHeight > 0) {
-                        stage.setHeight(newHeight);
-                        stage.setY(event.getScreenY());
-                    }
-                    break;
-                case NE_cornner:
-                    // Redimensionar desde la esquina superior derecha.
-                    stage.setWidth(mouseX);
-                    newHeight = height - mouseY;
-                    if (newHeight > 0) {
-                        stage.setHeight(newHeight);
-                        stage.setY(event.getScreenY());
-                    }
-                    break;
-                case SE_cornner:
-                    // Redimensionar desde la esquina inferior derecha.
-                    stage.setWidth(mouseX);
-                    stage.setHeight(mouseY);
-                    break;
-                case W_border:
-                    // Redimensionar desde el borde izquierdo.
-                     mousex22 = event.getScreenX();
-
-                    double newX = Main.mousex21 - mousex22;
-                    newWidth = width + newX;
-                    stage.setX(mousex22);
-                    if (newWidth > 0) {
-                        stage.setWidth(newWidth);
-
-                    }
-                    break;
-                case E_border:
-                    // Redimensionar desde el borde derecho.
-                    stage.setWidth(mouseX);
-                    break;
-                case N_border:
-                    // Redimensionar desde el borde superior.
-                    newHeight = height - mouseY;
-                    if (newHeight > 0) {
-                        stage.setHeight(newHeight);
-                        stage.setY(event.getScreenY());
-                    }
-                    break;
-                case S_border:
-                    // Redimensionar desde el borde inferior.
-                    stage.setHeight(mouseY);
-                    break;
-
-                default:
-                    break;
-            }
-
-        Main.mousex21 = mousex22;
+        windowBar.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
         });
-
     }
-
-
 
     public static void main(String[] args) {
-
-
+        // Si quieres dejar pruebas de consola, protégelas con try/catch y logs.
+        // Evita trabajo pesado en el hilo principal; usa init()/start() o tareas en background.
         try {
-            // Establecer conexión
-            connection = connect();
-
-            // Aquí puedes ejecutar consultas a la base de datos, por ejemplo:
-            Statement stmt = connection.createStatement();
-            String query = "SELECT * FROM usuarios";
-            stmt.executeQuery(query);
-
-            // ProductoDAO.readProductos(connection);
-            // printRolesAndPermissions(connection);
-
-
-
-            // Listar las tablas de la base de datos
-            // listTables(connection, DATABASE_NAME);
-
-            // Exportar datos de la tabla "Pedidos" a un archivo "pedidos.xml"
-            // exportDatabaseTablesToXML(connection);
-            // exportDatabaseToXML(connection);
-
-            List<Pedido> p = PedidoDAO.getPedidosAllData(connection);
-
-            for (Pedido pedido : p) {
-                System.out.println(pedido);
-            }
-
-
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        } finally {
-            System.out.println("deberiamos cerrar la conexion aqui");
-            //close(connection);  // Cerrar la conexión
+            // Ejemplo (comentado) de lectura para depurar antes de lanzar UI:
+            // Connection tmp = connect();
+            // List<Pedido> lista = PedidoDAO.getPedidosAllData(tmp);
+            // lista.forEach(p -> LOGGER.info(p::toString));
+            // close(tmp);
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Error en bloque de pre-lanzamiento (opcional)", e);
         }
 
-        launch(); // lanzamos la aplicacion grafica
+        launch(); // Arranca JavaFX
     }
 }

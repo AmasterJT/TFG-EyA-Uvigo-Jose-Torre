@@ -93,7 +93,7 @@
 }
 
 .transparent {
-    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-color: rgba(0, 0, 0, 0);
 }
 
 .search-button {
@@ -136,11 +136,11 @@
 }
 
 .shadow {
-    -fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0.3), 10.0, 0.0, 0.0, 10.0);
+    -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.3), 10.0, 0.0, 0.0, 10.0);
 }
 
 .shadow-right {
-    -fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0.3), 10.0, 0.0, 10.0, 0.0);
+    -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.3), 10.0, 0.0, 10.0, 0.0);
 }
 
 .chosen-fruit-card {
@@ -149,7 +149,7 @@
 }
 
 .comboBox {
-    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-background-color: rgba(255, 255, 255, 0.3);
     -fx-background-radius: 30;
 }
 
@@ -199,9 +199,6 @@
 }
 
 
-
-
-
 .combo-box {
     -fx-background-color: transparent;
     -fx-border-color: transparent transparent #5e5e5e transparent;
@@ -226,86 +223,85 @@
     -fx-text-fill: white;
 }
 
-.combo-box-popup .list-view
- {
-   -fx-background-color: #000;
-   -fx-background-insets: 0, 1;
-   -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
- }
+.combo-box-popup .list-view {
+    -fx-background-color: #000;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 8, 0.0, 0, 0);
+}
 
 
-.combo-box-popup .list-view .list-cell
- {
+.combo-box-popup .list-view .list-cell {
     -fx-background-color: -amaster-dark-gray;
     -fx-border-color: transparent transparent #5e5e5e transparent;
     -fx-border-width: 0 0 1 0;
     -fx-text-fill: white;
- }
+}
 
- .combo-box-popup .list-view .list-cell:hover {
+.combo-box-popup .list-view .list-cell:hover {
 
-     -fx-background-color:  -amaster-dark-blue;
- }
+    -fx-background-color: -amaster-dark-blue;
+}
 
- .combo-box .cell:selected {
-     -fx-text-fill: white;
- }
+.combo-box .cell:selected {
+    -fx-text-fill: white;
+}
 
 
- .item-pedido-pendiente {
-     -fx-text-fill: white;
-     -fx-font-family: "David Libre Regular";
-     -fx-font-size: 16px;
+.item-pedido-pendiente {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
     -fx-background-color: -pedido-pendiente-color;
- }
+}
 
-  .item-pedido-en-curso {
-      -fx-text-fill: white;
-      -fx-font-family: "David Libre Regular";
-      -fx-font-size: 16px;
-      -fx-background-color: -pedido-en-curso-color;
-  }
+.item-pedido-en-curso {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+    -fx-background-color: -pedido-en-curso-color;
+}
 
-   .indicador-item-pedido-pendiente {
-        -fx-text-fill: white;
-        -fx-font-family: "David Libre Regular";
-        -fx-font-size: 16px;
-        -fx-background-color: #bfbfbf;
-        -fx-border-radius: 10;
-        -fx-background-radius: 10;
-        -fx-padding: 2 10 2 10;
-    }
+.indicador-item-pedido-pendiente {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+    -fx-background-color: #bfbfbf;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 2 10 2 10;
+}
 
-   .indicador-item-pedido-en-curso {
-        -fx-text-fill: black;
-        -fx-font-family: "David Libre Regular";
-        -fx-font-size: 16px;
-        -fx-background-color: #edf55f;
-        -fx-border-radius: 10;
-        -fx-background-radius: 10;
-        -fx-padding: 2 10 2 10;
-    }
+.indicador-item-pedido-en-curso {
+    -fx-text-fill: black;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+    -fx-background-color: #edf55f;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 2 10 2 10;
+}
 
 
-   .item-pedido-cancelado {
-       -fx-text-fill: white;
-       -fx-font-family: "David Libre Regular";
-       -fx-font-size: 16px;
-       -fx-background-color: #9e3a2c;
-   }
+.item-pedido-cancelado {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+    -fx-background-color: #9e3a2c;
+}
 
-  .item-pedido-completado {
-      -fx-text-fill: white;
-      -fx-font-family: "David Libre Regular";
-      -fx-font-size: 16px;
-      -fx-background-color: -pedido-en-curso-color;
-  }
-   .indicador-item-pedido-completado {
-        -fx-text-fill: white;
-        -fx-font-family: "David Libre Regular";
-        -fx-font-size: 16px;
-        -fx-background-color: #4bb030;
-        -fx-border-radius: 10;
-        -fx-background-radius: 10;
-        -fx-padding: 2 10 2 10;
-    }
+.item-pedido-completado {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+    -fx-background-color: -pedido-en-curso-color;
+}
+
+.indicador-item-pedido-completado {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+    -fx-background-color: #4bb030;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 2 10 2 10;
+}

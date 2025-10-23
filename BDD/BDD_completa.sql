@@ -372,6 +372,7 @@ usuarios (
 	email VARCHAR(100) NOT NULL UNIQUE,
 	contraseña VARCHAR(255) NOT NULL,
 	id_rol INT,
+	activo INT,
 	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (id_rol) REFERENCES roles (id_rol)
 );
@@ -526,28 +527,27 @@ DELIMITER ;
 
 
 
--- Insertamos usarios para tener todos los roles
-INSERT INTO usuarios (user_name, nombre, apellido, email, contraseña, id_rol) VALUES
-('AdLo', 'Admin', 'Lopez', 'admin@almacen.com', 'admin', 1), -- Usuario SysAdmin
-('JuPe', 'Juan', 'Perez', 'juan.perez@almacen.com', 'juan123', 2), -- Usuario Gestor Almacén
-('MaLo', 'Maria', 'Lopez', 'maria.lopez@almacen.com', 'maria123', 3), -- Usuario Supervisor
-('CaDi', 'Carlos', 'Diaz', 'carlos.diaz@almacen.com', 'carlos123', 4), -- Usuario Operario
-('LuGo', 'Luisa', 'Gomez', 'luisa.gomez@almacen.com', 'luisa123', 5), -- Usuario Mantenimiento
-('AnTo', 'Ana', 'Torres', 'ana.torres@almacen.com', 'ana123', 6); -- Usuario Administración
+-- Insertamos usuarios para tener todos los roles (con activo)
+INSERT INTO usuarios (user_name, nombre, apellido, email, contraseña, id_rol, activo) VALUES
+('AdLo', 'Admin', 'Lopez', 'admin@almacen.com', 'admin', 1, 1), -- SysAdmin (dentro)
+('JuPe', 'Juan', 'Perez', 'juan.perez@almacen.com', 'juan123', 2, 1), -- Gestor Almacén (dentro)
+('MaLo', 'Maria', 'Lopez', 'maria.lopez@almacen.com', 'maria123', 3, 1), -- Supervisor (dentro)
+('CaDi', 'Carlos', 'Diaz', 'carlos.diaz@almacen.com', 'carlos123', 4, 1), -- Operario (dentro)
+('LuGo', 'Luisa', 'Gomez', 'luisa.gomez@almacen.com', 'luisa123', 5, 0), -- Mantenimiento (fuera)
+('AnTo', 'Ana', 'Torres', 'ana.torres@almacen.com', 'ana123', 6, 0);   -- Administración (fuera)
 
--- Insertamos operarios sin user_name para usar el trigger
-INSERT INTO usuarios (nombre, apellido, email, contraseña, id_rol) VALUES
-('Luis', 'Fernandez', 'luis.fernandez@almacen.com', 'luis123', 4),
-('Sofia', 'Martinez', 'sofia.martinez@almacen.com', 'sofia123', 4),
-('Javier', 'Romero', 'javier.romero@almacen.com', 'javier123', 4),
-('Claudia', 'Hernandez', 'claudia.hernandez@almacen.com', 'claudia123', 4),
-('Pablo', 'Ruiz', 'pablo.ruiz@almacen.com', 'pablo123', 4),
-('Andrea', 'Castro', 'andrea.castro@almacen.com', 'andrea123', 4),
-('Diego', 'Navarro', 'diego.navarro@almacen.com', 'diego123', 4),
-('Valeria', 'Ortega', 'valeria.ortega@almacen.com', 'valeria123', 4),
-('Miguel', 'Ramos', 'miguel.ramos@almacen.com', 'miguel123', 4),
-('Isabel', 'Vargas', 'isabel.vargas@almacen.com', 'isabel123', 4);
-
+-- Insertamos operarios (el trigger sigue generando user_name); añadimos activo al final
+INSERT INTO usuarios (nombre, apellido, email, contraseña, id_rol, activo) VALUES
+('Luis',   'Fernandez', 'luis.fernandez@almacen.com',   'luis123',   4, 1),
+('Sofia',  'Martinez',  'sofia.martinez@almacen.com',   'sofia123',  4, 0),
+('Javier', 'Romero',    'javier.romero@almacen.com',    'javier123', 4, 1),
+('Claudia','Hernandez', 'claudia.hernandez@almacen.com','claudia123',4, 0),
+('Pablo',  'Ruiz',      'pablo.ruiz@almacen.com',       'pablo123',  4, 1),
+('Andrea', 'Castro',    'andrea.castro@almacen.com',    'andrea123', 4, 0),
+('Diego',  'Navarro',   'diego.navarro@almacen.com',    'diego123',  4, 1),
+('Valeria','Ortega',    'valeria.ortega@almacen.com',   'valeria123',4, 0),
+('Miguel', 'Ramos',     'miguel.ramos@almacen.com',     'miguel123', 4, 1),
+('Isabel', 'Vargas',    'isabel.vargas@almacen.com',    'isabel123', 4, 0);
 
 
 INSERT INTO tipos (id_tipo, color) VALUES ('Tensoactivo', '0.8,0,0');
