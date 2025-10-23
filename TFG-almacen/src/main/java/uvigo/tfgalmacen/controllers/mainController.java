@@ -9,7 +9,11 @@ import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.jetbrains.annotations.NotNull;
 import uvigo.tfgalmacen.Main;
 
 import java.io.File;
@@ -19,8 +23,12 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.WindowMovement;
+
 
 public class mainController implements Initializable {
+
+    private static final Logger LOGGER = Logger.getLogger(mainController.class.getName());
 
 
     @FXML
@@ -75,9 +83,11 @@ public class mainController implements Initializable {
     private Button ajustesButton;
 
 
+    @FXML
+    private Button orden_compra_btn;
+
+
     private Button activeScene = null;
-
-
 
 
     @Override
@@ -95,6 +105,7 @@ public class mainController implements Initializable {
 
         ajustesButton.setOnMouseClicked(_ -> loadAjustesView());
 
+        orden_compra_btn.setOnMouseClicked(_ -> abrirVentanaOrdenCompra());
 
 
         // MenuBackButton.setOnMouseClicked(_ -> slideMenu(false));
@@ -103,18 +114,47 @@ public class mainController implements Initializable {
         // Por defecto carga la vista de almacen
         loadAlmacenView();
 
-        if(Main.currentUser != null){
+        if (Main.currentUser != null) {
             roleLabel.setText(Main.currentUser.getRole());
-        }
-        else{
+        } else {
             roleLabel.setText("NO ROL");
         }
 
 
     }
 
+    private @NotNull Stage crearStageBasico(Parent root) {
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Orden de compra");
+        stage.setScene(new Scene(root));
+        WindowMovement(root, stage);
+        return stage;
+    }
 
-   //------------------------------------------------------------------------------------------------------------------
+
+    private void abrirVentanaOrdenCompra() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/orden_compra.fxml"));
+            Parent root = loader.load();
+
+            Stage ventanaOrdenCompra = crearStageBasico(root);
+
+            Stage ventanaPadre = (Stage) orden_compra_btn.getScene().getWindow();
+
+            // Bloquear la ventana padre
+            ventanaOrdenCompra.initOwner(ventanaPadre);
+            ventanaOrdenCompra.initModality(Modality.WINDOW_MODAL);
+
+            ventanaOrdenCompra.showAndWait();
+
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de orden de compra", e);
+        }
+    }
+
+
+    //------------------------------------------------------------------------------------------------------------------
 
     //                                   APARTADOS DEL MAIN CONTROLLER
 
@@ -164,6 +204,7 @@ public class mainController implements Initializable {
         loadFXML("ajustes");
         marcarBotonActivo(ajustesButton);
     }
+
 
     //------------------------------------------------------------------------------------------------------------------
 

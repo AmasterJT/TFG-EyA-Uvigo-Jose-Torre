@@ -4,6 +4,8 @@ module uvigo.tfgalmacen {
     requires java.sql;
     requires java.desktop;
     requires org.jetbrains.annotations;
+    requires javafx.graphics;
+    requires java.logging;
 
 
     opens uvigo.tfgalmacen to javafx.fxml;
