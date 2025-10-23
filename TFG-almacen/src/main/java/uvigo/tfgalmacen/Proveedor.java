@@ -1,6 +1,6 @@
 package uvigo.tfgalmacen;
 
-import java.sql.Timestamp;
+import java.sql.*;
 
 /**
  * Clase que representa un proveedor del sistema.
@@ -130,6 +130,67 @@ public class Proveedor {
     public void setUltimaActualizacion(Timestamp ultimaActualizacion) {
         this.ultimaActualizacion = ultimaActualizacion;
     }
+
+
+    /**
+     * Verifica si este proveedor tiene asociado el producto por su id.
+     *
+     * @param idProducto id del producto en la tabla 'productos'
+     * @param connection conexión activa a la base de datos
+     * @return true si el proveedor tiene ese producto, false en caso contrario
+     */
+    public boolean tieneProductoPorId(int idProducto, Connection connection) {
+        String sql = """
+                    SELECT 1
+                    FROM proveedor_producto
+                    WHERE id_proveedor = ? AND id_producto = ?
+                    LIMIT 1
+                """;
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, this.idProveedor);
+            stmt.setInt(2, idProducto);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next(); // true si existe alguna fila
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Verifica si este proveedor tiene asociado el producto por su identificador (cadena).
+     *
+     * @param identificadorProducto identificador único del producto
+     * @param connection            conexión activa a la base de datos
+     * @return true si el proveedor tiene ese producto, false en caso contrario
+     */
+    public boolean tieneProductoPorIdentificador(String identificadorProducto, Connection connection) {
+        String sql = """
+                    SELECT 1
+                    FROM proveedor_producto pp
+                    INNER JOIN productos p ON pp.id_producto = p.id_producto
+                    WHERE pp.id_proveedor = ? AND p.identificador_producto = ?
+                    LIMIT 1
+                """;
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, this.idProveedor);
+            stmt.setString(2, identificadorProducto);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     // ============================
     // MÉTODOS AUXILIARES

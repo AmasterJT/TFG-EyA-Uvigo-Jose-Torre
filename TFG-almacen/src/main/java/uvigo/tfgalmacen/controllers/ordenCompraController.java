@@ -13,9 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
+import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Proveedor;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Palet;
+import uvigo.tfgalmacen.almacenManagement.Producto;
 
 
 import java.net.URL;
@@ -72,8 +74,8 @@ public class ordenCompraController implements Initializable {
 
 
         // Añade productos y tipos únicos
-        for (Palet palet : Almacen.TodosPalets) {
-            String idProducto = palet.getIdProducto();
+        for (Producto producto : Almacen.TodosProductos) {
+            String idProducto = producto.getIdentificadorProducto();
             if (!combo_producto_oc.getItems().contains(idProducto)) combo_producto_oc.getItems().add(idProducto);
         }
 
