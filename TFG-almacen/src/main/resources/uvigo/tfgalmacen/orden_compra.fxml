@@ -23,7 +23,7 @@
                     <children>
                         <HBox alignment="CENTER">
                             <children>
-                                <Label text="NUEVA ORDEN DE COMPRA">
+                                <Label text="GENERAR ORDEN DE COMPRA">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
@@ -46,7 +46,7 @@
                                 </HBox>
                                 <HBox>
                                     <children>
-                                        <Button fx:id="agregar_palet_oc_btn" mnemonicParsing="false" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="AGREGAR PALET" textFill="WHITE">
+                                        <Button fx:id="agregar_palet_oc_btn" alignment="CENTER" mnemonicParsing="false" styleClass="addPaletOC" text="AGREGAR PALET" textFill="WHITE">
                                             <graphic>
                                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>

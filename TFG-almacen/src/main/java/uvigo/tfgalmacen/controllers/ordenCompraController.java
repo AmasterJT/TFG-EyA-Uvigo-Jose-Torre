@@ -104,7 +104,7 @@ public class ordenCompraController implements Initializable {
         boolean productoOK = seleccionValida(productoSel, PLACEHOLDER_PRODUCTO);
 
         if (!proveedorOK || !productoOK) {
-            parpadearErrorWindowBar();
+            // parpadearErrorWindowBar();
             // (Opcional) micro-animación para llamar la atención en los combos no válidos
             if (!proveedorOK) shake(combo_proveedor_oc);
             if (!productoOK) shake(combo_producto_oc);

@@ -331,3 +331,20 @@
 }
 
 
+/* Estado base del botón */
+.addPaletOC {
+    -fx-background-color: #db9f75;
+    -fx-text-fill: white;
+    -fx-background-radius: 6; /* opcional */
+    -fx-cursor: hand; /* opcional */
+}
+
+/* Hover */
+.addPaletOC:hover {
+    -fx-background-color: #e3bfa6;
+}
+
+/* Pressed (clic sostenido) */
+.addPaletOC:pressed {
+    -fx-background-color: #c78d67;
+}
