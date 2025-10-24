@@ -5,19 +5,24 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
+import uvigo.tfgalmacen.almacenManagement.Palet;
 import uvigo.tfgalmacen.almacenManagement.Producto;
 import uvigo.tfgalmacen.Proveedor;
 import uvigo.tfgalmacen.database.ProveedorProductoDAO;
 import uvigo.tfgalmacen.Main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.*;
@@ -33,7 +38,7 @@ public class ordenCompraController implements Initializable {
     @FXML
     private AnchorPane Pane;
     @FXML
-    private Button agregar_palet_oc;
+    private Button agregar_palet_oc_btn;
     @FXML
     private ComboBox<String> combo_producto_oc;
     @FXML
@@ -41,9 +46,13 @@ public class ordenCompraController implements Initializable {
     @FXML
     private Button generar_compra_btn;
     @FXML
-    private ListView<?> list_palets_agregados_oc;
+    private ListView<Parent> list_palets_agregados_oc; // <— tipado
+    private final ObservableList<ItemOC> itemsOC = FXCollections.observableArrayList();
+
     @FXML
     private HBox windowBar;
+
+    private ArrayList<Palet> palets_del_pedidp = null;
 
     private static final String PLACEHOLDER_PROVEEDOR = "Seleccionar proveedor";
     private static final String PLACEHOLDER_PRODUCTO = "Seleccionar producto";
@@ -58,7 +67,7 @@ public class ordenCompraController implements Initializable {
             stage.close();
         });
 
-        if (agregar_palet_oc != null) {
+        if (generar_compra_btn != null) {
             generar_compra_btn.setOnAction(_ -> setRecepcion());
         }
 
@@ -72,6 +81,61 @@ public class ordenCompraController implements Initializable {
         combo_proveedor_oc.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, nuevoProveedorNombre) -> {
             filtrarProductosPorProveedorAsync(nuevoProveedorNombre);
         });
+
+        list_palets_agregados_oc.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(Parent item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(null);
+                setGraphic(empty ? null : item);
+            }
+        });
+
+        agregar_palet_oc_btn.setOnAction(_ -> agregarItemFXML());
+
+    }
+
+    // --- Inserta visualmente el ítem cargando itemOrdenCompra.fxml ---
+    private void agregarItemFXML() {
+        String proveedorSel = combo_proveedor_oc.getSelectionModel().getSelectedItem();
+        String productoSel = combo_producto_oc.getSelectionModel().getSelectedItem();
+
+        boolean proveedorOK = seleccionValida(proveedorSel, PLACEHOLDER_PROVEEDOR);
+        boolean productoOK = seleccionValida(productoSel, PLACEHOLDER_PRODUCTO);
+
+        if (!proveedorOK || !productoOK) {
+            parpadearErrorWindowBar();
+            // (Opcional) micro-animación para llamar la atención en los combos no válidos
+            if (!proveedorOK) shake(combo_proveedor_oc);
+            if (!productoOK) shake(combo_producto_oc);
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemOrdenCompra.fxml"));
+            Parent itemRoot = loader.load();
+
+            list_palets_agregados_oc.getItems().add(itemRoot);
+            list_palets_agregados_oc.scrollTo(list_palets_agregados_oc.getItems().size() - 1);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            parpadearErrorWindowBar();
+        }
+    }
+
+    private boolean seleccionValida(String valor, String placeholder) {
+        return valor != null && !valor.isBlank() && !valor.equals(placeholder);
+    }
+
+
+    private void shake(javafx.scene.Node node) {
+        TranslateTransition tt = new TranslateTransition(Duration.millis(50), node);
+        tt.setFromX(0);
+        tt.setByX(4);
+        tt.setAutoReverse(true);
+        tt.setCycleCount(2);
+        tt.play();
     }
 
     private void setRecepcion() {
@@ -148,10 +212,41 @@ public class ordenCompraController implements Initializable {
         if (windowBar == null) return;
         String original = windowBar.getStyle();
         Timeline t = new Timeline(
-                new KeyFrame(Duration.ZERO, e -> windowBar.setStyle("-fx-background-color:#b33;")),
-                new KeyFrame(Duration.millis(160), e -> windowBar.setStyle(original))
+                new KeyFrame(Duration.ZERO, e -> windowBar.setStyle("-fx-background-color:rgba(62,36,17,0.47);")),
+                new KeyFrame(Duration.millis(10), _ -> windowBar.setStyle("-fx-background-color:#3e2411;")),
+
+                new KeyFrame(Duration.millis(10), e -> windowBar.setStyle("-fx-background-color:rgba(62,36,17,0.47);")),
+                new KeyFrame(Duration.millis(40), e -> windowBar.setStyle("-fx-background-color:#3e2411;")),
+
+                new KeyFrame(Duration.millis(10), e -> windowBar.setStyle("-fx-background-color:rgba(62,36,17,0.47);")),
+                new KeyFrame(Duration.millis(10), e -> windowBar.setStyle("-fx-background-color:#3e2411;"))
         );
         t.setCycleCount(4);
         t.play();
     }
+
+
+    // DTO para lo que quieres mostrar por cada ítem
+    public static class ItemOC {
+        private final String producto;
+        private final String proveedor;
+
+        public ItemOC(String producto, String proveedor) {
+            this.producto = producto;
+            this.proveedor = proveedor;
+        }
+
+        public String getProducto() {
+            return producto;
+        }
+
+        public String getProveedor() {
+            return proveedor;
+        }
+    }
+
+
 }
+
+
+

@@ -199,6 +199,30 @@
 }
 
 
+/* Hace que todo el ListView sea transparente */
+.list-view {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Quita el color alterno de filas */
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Al pasar el ratón o seleccionar, define colores suaves o transparentes */
+.list-cell:filled:selected, .list-cell:filled:selected:hover {
+    -fx-background-color: transparent; /* o totalmente transparente */
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+
+
 .combo-box {
     -fx-background-color: transparent;
     -fx-border-color: transparent transparent #5e5e5e transparent;
@@ -305,3 +329,5 @@
     -fx-background-radius: 10;
     -fx-padding: 2 10 2 10;
 }
+
+

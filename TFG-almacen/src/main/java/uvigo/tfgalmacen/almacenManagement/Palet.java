@@ -61,12 +61,32 @@ public class Palet {
     }
 
 
-
     public Palet() {
         this.alto = this.ancho = this.cantidadProducto = this.idPalet = this.largo = this.posicion = this.posicion = this.estanteria = this.balda = 0;
         this.delante = false;
         this.idProducto = "";
         TotalPalets++;
+    }
+
+    public Palet(
+            String idProducto,
+            String cantidadProducto,
+            int estanteria,
+            int balda,
+            String posicion,
+            String delante
+    ) {
+        this.alto = this.ancho = this.idPalet = this.largo = 0;
+
+        this.idProducto = idProducto;
+        this.cantidadProducto = Integer.parseInt(cantidadProducto);
+
+
+        this.estanteria = estanteria;
+        this.balda = balda;
+        this.posicion = Integer.parseInt(posicion);
+        this.delante = !delante.equals("false");
+
     }
 
     //======================================================================
@@ -207,11 +227,11 @@ public class Palet {
 
         int Posdelante = 1500;
         if (delante) {
-            if (estanteria%2 == 1) {
+            if (estanteria % 2 == 1) {
                 Posdelante = 0;
             }
         } else {
-            if (estanteria%2 == 0) {
+            if (estanteria % 2 == 0) {
                 Posdelante = 0;
             }
         }
@@ -237,11 +257,11 @@ public class Palet {
 
         int Posdelante = 1500;
         if (delante) {
-            if (estanteria%2 == 1) {
+            if (estanteria % 2 == 1) {
                 Posdelante = 0;
             }
         } else {
-            if (estanteria%2 == 0) {
+            if (estanteria % 2 == 0) {
                 Posdelante = 0;
             }
         }
@@ -273,17 +293,45 @@ public class Palet {
     }
 
 
+    public StringProperty altoProperty() {
+        return new SimpleStringProperty(String.valueOf(alto));
+    }
 
-    public StringProperty altoProperty() { return new SimpleStringProperty(String.valueOf(alto)); }
-    public StringProperty anchoProperty() { return new SimpleStringProperty(String.valueOf(ancho)); }
-    public StringProperty largoProperty() { return new SimpleStringProperty(String.valueOf(largo)); }
-    public StringProperty idProductoProperty() { return new SimpleStringProperty(String.valueOf(idProducto)); }
-    public StringProperty cantidadProductoProperty() { return new SimpleStringProperty(String.valueOf(cantidadProducto)); }
-    public StringProperty idPaletProperty() { return new SimpleStringProperty(String.valueOf(idPalet)); }
-    public IntegerProperty estanteriaProperty() { return new SimpleIntegerProperty(estanteria); }
-    public IntegerProperty baldaProperty() { return new SimpleIntegerProperty(balda); }
-    public StringProperty posicionProperty() { return new SimpleStringProperty(String.valueOf(posicion)); }
-    public StringProperty delanteProperty() { return new SimpleStringProperty(String.valueOf(delante)); }
+    public StringProperty anchoProperty() {
+        return new SimpleStringProperty(String.valueOf(ancho));
+    }
+
+    public StringProperty largoProperty() {
+        return new SimpleStringProperty(String.valueOf(largo));
+    }
+
+    public StringProperty idProductoProperty() {
+        return new SimpleStringProperty(String.valueOf(idProducto));
+    }
+
+    public StringProperty cantidadProductoProperty() {
+        return new SimpleStringProperty(String.valueOf(cantidadProducto));
+    }
+
+    public StringProperty idPaletProperty() {
+        return new SimpleStringProperty(String.valueOf(idPalet));
+    }
+
+    public IntegerProperty estanteriaProperty() {
+        return new SimpleIntegerProperty(estanteria);
+    }
+
+    public IntegerProperty baldaProperty() {
+        return new SimpleIntegerProperty(balda);
+    }
+
+    public StringProperty posicionProperty() {
+        return new SimpleStringProperty(String.valueOf(posicion));
+    }
+
+    public StringProperty delanteProperty() {
+        return new SimpleStringProperty(String.valueOf(delante));
+    }
 
     public void setProducto(Producto producto) {
 
