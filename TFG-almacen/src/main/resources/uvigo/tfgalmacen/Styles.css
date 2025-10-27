@@ -47,8 +47,10 @@
 /* (Opcional) text styling sólo para labels dentro del wrapper, NO a controles */
 .oc-list .list-cell .oc-row-content .label {
     -fx-text-fill: white;
-    -fx-font-size: 14px;
+    -fx-font-family: "David Libre Regular";
+
 }
+
 
 .menuItem:hover {
     -fx-border-color: #660099;
@@ -88,7 +90,7 @@
     -mfx-main: #6200EE;
     -mfx-secondary: #424242;
     -fx-font-family: "Open Sans Regular";
-    -fx-text-fill: -mfx-text-he;
+    -fx-text-fill: white;
 }
 
 .mfx-checkbox .box {
