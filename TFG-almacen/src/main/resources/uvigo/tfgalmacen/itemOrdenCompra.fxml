@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="46.0" prefWidth="795.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="item-pedido-en-curso" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemOrdenCompraController">
     <children>
-        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="806.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="806.0" styleClass="oc-row-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <VBox fx:id="vertical_container" alignment="CENTER" spacing="2.0" HBox.hgrow="ALWAYS">
                     <padding>
@@ -49,9 +49,9 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </TextField>
-                        <ComboBox prefHeight="36.0" prefWidth="123.0" promptText="ESTANTERÍA" style="-fx-font-size: 13;" />
-                        <ComboBox prefHeight="36.0" prefWidth="89.0" promptText="BALDA" style="-fx-font-size: 13;" />
-                        <ComboBox prefHeight="36.0" prefWidth="109.0" promptText="POSICIÓN" style="-fx-font-size: 13;" />
+                        <ComboBox prefHeight="36.0" prefWidth="123.0" promptText="ESTANTERÍA" style="-fx-font-size: 13;" styleClass="custom-in-list" />
+                        <ComboBox prefHeight="36.0" prefWidth="89.0" promptText="BALDA" style="-fx-font-size: 13;" styleClass="custom-in-list" />
+                        <ComboBox prefHeight="36.0" prefWidth="109.0" promptText="POSICIÓN" style="-fx-font-size: 13;" styleClass="custom-in-list" />
                         <CheckBox mnemonicParsing="false" text="DELANTE" textFill="WHITE">
                             <HBox.margin>
                                 <Insets right="10.0" />

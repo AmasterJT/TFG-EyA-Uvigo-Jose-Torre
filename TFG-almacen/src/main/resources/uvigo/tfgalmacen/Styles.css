@@ -1,5 +1,55 @@
 @import "MFXColors.css";
 
+/* Solo esta lista */
+.oc-list {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-width: 1;
+
+}
+
+/* Deja la celda “neutra” para no ensuciar controles internos */
+.oc-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0; /* el padding lo damos al wrapper */
+}
+
+/* Wrapper del contenido de la fila (tu root del FXML del ítem) */
+.oc-list .list-cell .oc-row-content {
+    -fx-background-color: transparent;
+    -fx-padding: 8 10; /* padding visual del item */
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+
+/* Hover de la fila: solo colorea el wrapper, no la celda completa */
+.oc-list .list-cell:filled:hover .oc-row-content {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Seleccionado: highlight elegante SOLO en el wrapper */
+.oc-list .list-cell:filled:selected .oc-row-content {
+    /*-fx-background-color: linear-gradient(to right, #dba679, #a5653d);*/
+    -fx-border-color: #e3bfa6;
+    -fx-border-width: 1;
+    -fx-text-fill: white; /* Nota: aplica sólo al wrapper, no al ComboBox */
+}
+
+/* Seleccionado y enfocado: un poco más de contraste */
+.oc-list .list-cell:filled:selected:focused .oc-row-content {
+    -fx-border-color: #e3bfa6;
+    -fx-border-width: 1;
+}
+
+/* (Opcional) text styling sólo para labels dentro del wrapper, NO a controles */
+.oc-list .list-cell .oc-row-content .label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
 .menuItem:hover {
     -fx-border-color: #660099;
     -fx-border-width: 0px 0px 3px 0px;
@@ -148,10 +198,12 @@
     -fx-background-radius: 15;
 }
 
+/*
 .comboBox {
     -fx-background-color: rgba(255, 255, 255, 0.3);
     -fx-background-radius: 30;
 }
+*/
 
 .add-btn {
     -fx-background-color: #FFFFFF;
@@ -207,6 +259,7 @@
     -fx-padding: 0;
 }
 
+
 /* Quita el color alterno de filas */
 .list-cell {
     -fx-background-color: transparent;
@@ -228,6 +281,8 @@
     -fx-border-color: transparent transparent #5e5e5e transparent;
     -fx-border-width: 0 0 1 0;
     -fx-text-fill: white;
+    -fx-cursor: hand; /* opcional */
+
 }
 
 .combo-box .list-view {
@@ -347,4 +402,16 @@
 /* Pressed (clic sostenido) */
 .addPaletOC:pressed {
     -fx-background-color: #c78d67;
+}
+
+
+.generar_compra {
+    -fx-background-color: #222;
+    -fx-text-fill: white;
+    -fx-background-radius: 6; /* opcional */
+    -fx-cursor: hand; /* opcional */
+}
+
+.generar_compra:hover {
+    -fx-background-color: #3f3f3f;
 }

@@ -8,10 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -31,6 +29,8 @@ import java.util.stream.Collectors;
 import javafx.animation.*;
 import javafx.util.Duration;
 
+import static java.nio.file.attribute.AclEntryPermission.DELETE;
+
 public class ordenCompraController implements Initializable {
 
     @FXML
@@ -46,7 +46,7 @@ public class ordenCompraController implements Initializable {
     @FXML
     private Button generar_compra_btn;
     @FXML
-    private ListView<Parent> list_palets_agregados_oc; // <— tipado
+    public ListView<Parent> list_palets_agregados_oc; // <— tipado
     private final ObservableList<ItemOC> itemsOC = FXCollections.observableArrayList();
 
     @FXML
@@ -82,12 +82,58 @@ public class ordenCompraController implements Initializable {
             filtrarProductosPorProveedorAsync(nuevoProveedorNombre);
         });
 
+
+        list_palets_agregados_oc.setCellFactory(lv -> {
+            ListCell<Parent> cell = new ListCell<>() {
+                @Override
+                protected void updateItem(Parent item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(null);
+                    setGraphic(empty ? null : item);
+                }
+            };
+
+            // Menú contextual por celda
+            ContextMenu menu = new ContextMenu();
+            MenuItem eliminar = new MenuItem("Eliminar");
+
+            eliminar.setOnAction(e -> {
+                int index = cell.getIndex();
+                if (index >= 0 && index < lv.getItems().size()) {
+                    lv.getItems().remove(index); // elimina la fila actual
+                }
+            });
+
+            menu.getItems().add(eliminar);
+
+            // Solo mostrar menú si la celda NO está vacía
+            cell.emptyProperty().addListener((obs, wasEmpty, isEmpty) -> {
+                cell.setContextMenu(isEmpty ? null : menu);
+            });
+
+            // Al abrir el menú, selecciona la celda (útil si haces clic derecho sin seleccionar antes)
+            cell.setOnContextMenuRequested(evt -> {
+                if (!cell.isEmpty()) {
+                    lv.getSelectionModel().select(cell.getIndex());
+                }
+            });
+
+            return cell;
+        });
+
+
         list_palets_agregados_oc.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Parent item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(null);
                 setGraphic(empty ? null : item);
+            }
+        });
+
+        list_palets_agregados_oc.setOnKeyPressed(evt -> {
+            if (Objects.requireNonNull(evt.getCode()) == KeyCode.DELETE) {
+                eliminarSeleccionado();
             }
         });
 
@@ -246,6 +292,12 @@ public class ordenCompraController implements Initializable {
     }
 
 
+    private void eliminarSeleccionado() {
+        int idx = list_palets_agregados_oc.getSelectionModel().getSelectedIndex();
+        if (idx >= 0) {
+            list_palets_agregados_oc.getItems().remove(idx);
+        }
+    }
 }
 
 
