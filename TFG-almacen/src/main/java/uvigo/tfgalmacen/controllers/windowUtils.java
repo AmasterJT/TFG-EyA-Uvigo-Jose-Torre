@@ -11,7 +11,9 @@ public class windowUtils {
     private static final double borderWidth = 8; // Define el grosor del borde que será interactivo para redimensionar.
     private static double xOffset = 0; // Desplazamiento horizontal del ratón respecto a la ventana.
     private static double yOffset = 0; // Desplazamiento vertical del ratón respecto a la ventana.
+
     private enum RESIZE {NONE, W_border, E_border, N_border, S_border, NW_cornner, NE_cornner, SW_cornner, SE_cornner}
+
     private static RESIZE resize;
     private static double mousex21;
     private static double mousex22 = 0;
@@ -204,4 +206,6 @@ public class windowUtils {
             }
         });
     }
+
+
 }

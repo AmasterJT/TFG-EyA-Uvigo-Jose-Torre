@@ -415,3 +415,66 @@
 .generar_compra:hover {
     -fx-background-color: #3f3f3f;
 }
+
+
+/* === Estilo general del menú contextual === */
+.context-menu {
+    -fx-background-radius: 6;
+    -fx-border-color: #dba679;
+    -fx-background-color: #dba679;
+    -fx-border-radius: 6;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 3);
+}
+
+/* === Estilo de los ítems del menú === */
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+}
+
+/* === Hover sobre los ítems === */
+.menu-item:hover {
+    -fx-background-color: #e3bfa6;
+    -fx-text-fill: black;
+    -fx-cursor: hand; /* opcional */
+}
+
+
+/*-------------------------------------------------*/
+/*--------------------ALERT DIALOG-----------------*/
+/*-------------------------------------------------*/
+
+.alert-dialog {
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 13px;
+    -fx-background-color: #2b170b;
+}
+
+.alert-dialog .dialog-pane {
+    -fx-background-color: #2b170b;
+    -fx-border-color: #dba679;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.alert-dialog .header-panel {
+    -fx-background-color: #3e2411;
+    -fx-text-fill: white;
+}
+
+.alert-dialog .label {
+    -fx-text-fill: white;
+}
+
+.alert-dialog .button-bar .button {
+    -fx-background-color: #dba679;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+}
+
+.alert-dialog .button-bar .button:hover {
+    -fx-background-color: #e3bfa6;
+}
