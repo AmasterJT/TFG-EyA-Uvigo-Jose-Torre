@@ -33,6 +33,26 @@ public class ItemOrdenCompraController {
     @FXML
     private Label nombre_proveedor_label;
 
+    public TextField get_cant_producto_text() {
+        return cant_producto_text;
+    }
+
+    public ComboBox<String> get_balda_itemOc() {
+        return combo_balda_itemOc;
+    }
+
+    public ComboBox<String> get_combo_estanteria_itemOc() {
+        return combo_estanteria_itemOc;
+    }
+
+    public ComboBox<String> get_combo_posicion_itemOc() {
+        return combo_posicion_itemOc;
+    }
+
+    public CheckBox get_delante_checkBox() {
+        return delante_checkBox;
+    }
+
     private int cantidad = 0;
     private int estanteria = 0;
     private int balda = 0;

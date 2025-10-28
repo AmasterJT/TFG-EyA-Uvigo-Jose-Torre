@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import static uvigo.tfgalmacen.database.UsuarioDAO.getAllUsers;
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.WindowMovement;
 
 public class MovePendienteToEnProcesoController {
 
@@ -34,6 +36,8 @@ public class MovePendienteToEnProcesoController {
     @FXML
     private ComboBox<User> combo_usuario_update;
 
+    @FXML
+    private HBox windowBar;
 
     @FXML
     private Button ExitButton;
@@ -42,10 +46,10 @@ public class MovePendienteToEnProcesoController {
     private Button aplicar_nuevo_estado_btn;
 
 
-
     private List<Pedido> pedidosSeleccionados;
 
     public void initialize() {
+
         // Llenar usuarios desde la base de datos
         setUsers();
         ExitButton.setOnMouseClicked(event -> {
@@ -73,7 +77,6 @@ public class MovePendienteToEnProcesoController {
             public User fromString(String s) {
                 return null;
             }
-
 
 
         });

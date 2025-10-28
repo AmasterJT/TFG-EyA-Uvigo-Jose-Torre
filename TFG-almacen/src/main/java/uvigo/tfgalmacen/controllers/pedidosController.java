@@ -186,7 +186,8 @@ public class pedidosController {
             MovePendienteToEnProcesoController controller = loader.getController();
             controller.setData(pendientes, Main.connection);
 
-            Stage stage = crearStageBasico("Asignar pedido a usuario", pane, false);
+
+            Stage stage = crearStageBasico("Asignar pedido a usuario", pane, true);
             stage.setOnHidden(_ -> redibujar());
             stage.show();
 

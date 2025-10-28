@@ -27,9 +27,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ordenCompraController implements Initializable {
+
+    private static final Logger LOGGER = Logger.getLogger(ordenCompraController.class.getName());
 
     // ----------------------------
     // Constantes / Placeholders
@@ -77,12 +81,10 @@ public class ordenCompraController implements Initializable {
         configurarAcciones();
 
         // No dejar selección inicial en la lista
-        // (hacerlo al final para que la escena ya esté lista)
         javafx.application.Platform.runLater(() ->
                 list_palets_agregados_oc.getSelectionModel().clearSelection()
         );
     }
-
 
     // ----------------------------
     // Configuración UI
@@ -107,6 +109,7 @@ public class ordenCompraController implements Initializable {
                         (a, b) -> a,
                         LinkedHashMap::new
                 ));
+        LOGGER.fine(() -> "Proveedores cacheados: " + proveedorPorNombre.keySet());
     }
 
     private void inicializarComboBoxes() {
@@ -124,7 +127,10 @@ public class ordenCompraController implements Initializable {
     private void encadenarFiltrosProveedorProductos() {
         combo_proveedor_oc.getSelectionModel()
                 .selectedItemProperty()
-                .addListener((obs, oldVal, nuevoProveedorNombre) -> filtrarProductosPorProveedorAsync(nuevoProveedorNombre));
+                .addListener((obs, oldVal, nuevoProveedorNombre) -> {
+                    LOGGER.fine(() -> "Proveedor seleccionado: " + nuevoProveedorNombre);
+                    filtrarProductosPorProveedorAsync(nuevoProveedorNombre);
+                });
     }
 
     private void configurarListViewConMenuContextual() {
@@ -187,6 +193,7 @@ public class ordenCompraController implements Initializable {
             if (index >= 0) {
                 lv.getItems().remove(index);
                 lv.getSelectionModel().clearSelection();
+                LOGGER.fine("Ítem eliminado del ListView en índice " + index);
             }
             menu.hide();
         });
@@ -207,18 +214,22 @@ public class ordenCompraController implements Initializable {
             ButtonType btnNo = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
             confirmacion.getButtonTypes().setAll(btnSi, btnNo);
 
-            // Aplicar estilo (opcional, para que combine con tu app)
+            // Aplicar estilo (opcional)
             DialogPane dialogPane = confirmacion.getDialogPane();
-            dialogPane.getStylesheets().add(
-                    getClass().getResource("/uvigo/tfgalmacen/Styles.css").toExternalForm()
-            );
-            dialogPane.getStyleClass().add("alert-dialog");
+            try {
+                dialogPane.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/uvigo/tfgalmacen/Styles.css")).toExternalForm()
+                );
+                dialogPane.getStyleClass().add("alert-dialog");
+            } catch (Exception ex) {
+                LOGGER.log(Level.FINE, "No se pudo cargar Styles.css para el diálogo de confirmación.", ex);
+            }
 
-            // Mostrar y procesar la respuesta
             Optional<ButtonType> resultado = confirmacion.showAndWait();
             if (resultado.isPresent() && resultado.get() == btnSi) {
                 lv.getItems().clear();
                 lv.getSelectionModel().clearSelection();
+                LOGGER.info("Se han borrado todos los ítems del ListView.");
             }
 
             menu.hide();
@@ -226,11 +237,9 @@ public class ordenCompraController implements Initializable {
 
         // --- Deshabilitar cuando no procede ---
         eliminar.disableProperty().bind(lv.getSelectionModel().selectedIndexProperty().lessThan(0));
-
         menu.getItems().addAll(eliminar, borrarTodo);
         return menu;
     }
-
 
     private void configurarAcciones() {
         agregar_palet_oc_btn.setOnAction(_ -> agregarItemFXML());
@@ -243,10 +252,14 @@ public class ordenCompraController implements Initializable {
         String proveedorSel = combo_proveedor_oc.getSelectionModel().getSelectedItem();
         String productoSel = combo_producto_oc.getSelectionModel().getSelectedItem();
 
-        if (!seleccionValida(proveedorSel, PLACEHOLDER_PROVEEDOR) ||
-                !seleccionValida(productoSel, PLACEHOLDER_PRODUCTO)) {
-            if (!seleccionValida(proveedorSel, PLACEHOLDER_PROVEEDOR)) shake(combo_proveedor_oc);
-            if (!seleccionValida(productoSel, PLACEHOLDER_PRODUCTO)) shake(combo_producto_oc);
+        // Validación: ambos deben ser válidos (no placeholder ni vacío)
+        if (isInvalidSelection(proveedorSel, PLACEHOLDER_PROVEEDOR) ||
+                isInvalidSelection(productoSel, PLACEHOLDER_PRODUCTO)) {
+
+            if (isInvalidSelection(proveedorSel, PLACEHOLDER_PROVEEDOR)) shake(combo_proveedor_oc);
+            if (isInvalidSelection(productoSel, PLACEHOLDER_PRODUCTO)) shake(combo_producto_oc);
+            // parpadearErrorWindowBar();
+            LOGGER.fine("No se añadió ítem: selección inválida. Proveedor='" + proveedorSel + "', Producto='" + productoSel + "'");
             return;
         }
 
@@ -255,26 +268,28 @@ public class ordenCompraController implements Initializable {
             Parent itemRoot = loader.load();
 
             ItemOrdenCompraController ctrl = loader.getController();
-            // Info visual en labels del item (opcional)
+            // Info visual en labels del item
             ctrl.set_basic_info(proveedorSel, productoSel);
-            // Inicializar combos de ubicaciones desde la BD
 
-            // Guardar el controller para generar compra luego (si ya lo tienes así)
+            // Guardar el controller para generar compra luego
             itemRoot.setUserData(ctrl);
 
             list_palets_agregados_oc.getItems().add(itemRoot);
             list_palets_agregados_oc.scrollTo(list_palets_agregados_oc.getItems().size() - 1);
 
+            LOGGER.fine("Ítem agregado al ListView para proveedor='" + proveedorSel + "', producto='" + productoSel + "'");
+
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error cargando itemOrdenCompra.fxml", e);
+            // parpadearErrorWindowBar();
         }
     }
-
 
     private void eliminarSeleccionado() {
         int idx = list_palets_agregados_oc.getSelectionModel().getSelectedIndex();
         if (idx >= 0) {
             list_palets_agregados_oc.getItems().remove(idx);
+            LOGGER.fine("Ítem eliminado con tecla Supr en índice " + idx);
         }
     }
 
@@ -285,30 +300,62 @@ public class ordenCompraController implements Initializable {
             Object ud = node.getUserData();
             if (ud instanceof ItemOrdenCompraController ctrl) {
                 try {
-                    // Si crear_palet retorna algo (p.ej. Palet), puedes recogerlo:
-                    // Palet p = ctrl.crear_palet();
                     String cantidad = ctrl.getCant_producto_text();
                     String estanteria = ctrl.getCombo_estanteria_itemOc();
                     String balda = ctrl.getCombo_balda_itemOc();
                     String posicion = ctrl.getCombo_posicion_itemOc();
                     boolean delante = ctrl.getDelante_checkBox();
+
+                    if (!validar_palets(ctrl, cantidad, estanteria, balda, posicion)) {
+                        fail++;
+                        continue;
+                    }
+
                     ctrl.crear_palet(cantidad, estanteria, balda, posicion, delante);
                     ok++;
                 } catch (Exception ex) {
                     fail++;
-                    ex.printStackTrace();
+                    LOGGER.log(Level.SEVERE, "Fallo al crear palet de un ítem.", ex);
                 }
             } else {
                 // No encontramos controller en el nodo
                 fail++;
+                LOGGER.warning("Nodo en ListView sin controller válido (userData).");
             }
         }
 
-        // Feedback mínimo (ajústalo a tu UI)
-        System.out.println("Palets creados: " + ok + " | fallos: " + fail);
-        // (Opcional) si todo OK, limpia la lista:
+        LOGGER.info("Generar compra → Palets creados OK=" + ok + " | fallos=" + fail);
+        // (Opcional) si todo OK, limpiar:
         // if (fail == 0) list_palets_agregados_oc.getItems().clear();
     }
+
+    private boolean validar_palets(ItemOrdenCompraController ctrl, String cantidad, String estanteria, String balda, String posicion) {
+
+        int fail = 0;
+        // Validación simple por si el usuario dejó algo sin seleccionar
+        if (cantidad == null || cantidad.isBlank()) {
+            LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
+            shake(ctrl.get_cant_producto_text());
+            fail++;
+        }
+        if (estanteria == null || estanteria.isBlank()) {
+            LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
+            shake(ctrl.get_combo_estanteria_itemOc());
+            fail++;
+        }
+        if (balda == null || balda.isBlank()) {
+            LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
+            shake(ctrl.get_balda_itemOc());
+            fail++;
+        }
+        if (posicion == null || posicion.isBlank()) {
+            LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
+            shake(ctrl.get_combo_posicion_itemOc());
+            fail++;
+        }
+        return fail == 0;
+    }
+
 
     // ----------------------------
     // Lógica de filtrado (BD)
@@ -351,11 +398,15 @@ public class ordenCompraController implements Initializable {
             productosFiltrados.setAll(PLACEHOLDER_PRODUCTO);
             productosFiltrados.addAll(ids);
             combo_producto_oc.getSelectionModel().selectFirst();
+            LOGGER.fine(() -> "Productos filtrados para proveedor '" + proveedorNombre + "': " + ids);
         });
 
         task.setOnFailed(_ -> {
             productosFiltrados.setAll(PLACEHOLDER_PRODUCTO);
             combo_producto_oc.getSelectionModel().selectFirst();
+            Throwable ex = task.getException();
+            LOGGER.log(Level.SEVERE, "Error filtrando productos por proveedor '" + proveedorNombre + "'", ex);
+            // parpadearErrorWindowBar();
         });
 
         new Thread(task, "FiltrarProductosProveedor").start();
@@ -364,8 +415,12 @@ public class ordenCompraController implements Initializable {
     // ----------------------------
     // Utilidades de UI
     // ----------------------------
-    private static boolean seleccionValida(String valor, String placeholder) {
-        return valor != null && !valor.isBlank() && !valor.equals(placeholder);
+    private static boolean isValidSelection(String value, String placeholder) {
+        return value != null && !value.isBlank() && !value.equals(placeholder);
+    }
+
+    private static boolean isInvalidSelection(String value, String placeholder) {
+        return !isValidSelection(value, placeholder);
     }
 
     private void shake(javafx.scene.Node node) {
@@ -392,25 +447,9 @@ public class ordenCompraController implements Initializable {
         t.play();
     }
 
-
     // ----------------------------
     // DTO (reservado para cuando quieras data-driven)
     // ----------------------------
-    public static class ItemOC {
-        private final String producto;
-        private final String proveedor;
-
-        public ItemOC(String producto, String proveedor) {
-            this.producto = producto;
-            this.proveedor = proveedor;
-        }
-
-        public String getProducto() {
-            return producto;
-        }
-
-        public String getProveedor() {
-            return proveedor;
-        }
+    public record ItemOC(String producto, String proveedor) {
     }
 }
