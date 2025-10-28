@@ -29,7 +29,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.WindowMovement;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 
 public class pedidosController {
 
@@ -238,16 +238,6 @@ public class pedidosController {
         }
     }
 
-    private @NotNull Stage crearStageBasico(String titulo, AnchorPane root, boolean habilitarMovimientoVentana) {
-        Stage stage = new Stage();
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle(titulo);
-        stage.setScene(new Scene(root));
-        if (habilitarMovimientoVentana) {
-            WindowMovement(root, stage);
-        }
-        return stage;
-    }
 
     public void redibujar() {
         // Redibujar en el hilo de UI para evitar posibles problemas si se llama desde callbacks

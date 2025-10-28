@@ -26,10 +26,11 @@ import uvigo.tfgalmacen.database.UsuarioDAO;
 import uvigo.tfgalmacen.database.RolePermissionDAO;
 
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 import static uvigo.tfgalmacen.database.UsuarioDAO.SQLcheckUser;
 
 
-public class loginController implements Initializable{
+public class loginController implements Initializable {
 
     public static final boolean IS_RESIZABLE = false;
 
@@ -52,10 +53,10 @@ public class loginController implements Initializable{
         System.out.println("⏳ loginnnnn");
 
 
-        if (SQLcheckUser(Main.connection, username.getText(), password.getText())){
-           System.out.println(VERDE + "✅ login correcto" + RESET);
+        if (SQLcheckUser(Main.connection, username.getText(), password.getText())) {
+            System.out.println(VERDE + "✅ login correcto" + RESET);
 
-           Main.currentUser = new User(username.getText(), password.getText(), Main.connection);
+            Main.currentUser = new User(username.getText(), password.getText(), Main.connection);
 
 
             try {
@@ -69,8 +70,8 @@ public class loginController implements Initializable{
                 // Configura la nueva escena en el Stage
                 Scene newScene = new Scene(newRoot);
 
-                windowUtils.enableWindowMovement(newRoot, stage);
-                windowUtils.enableWindowResize(newRoot, stage);
+                WindowMovement(newRoot, stage);
+                enableWindowResize(newRoot, stage);
 
                 stage.setScene(newScene);
                 stage.centerOnScreen();
@@ -81,14 +82,14 @@ public class loginController implements Initializable{
                 e.printStackTrace();
             }
 
-        } else{
+        } else {
             System.out.println(ROJO + "❌ login incorrecto" + RESET);
         }
 
         System.out.println(CYAN + "Usuario Activo: " + RESET + Main.currentUser.getName() + ", " +
-                            CYAN + "ROL: " + RESET + Main.currentUser.getRole());
+                CYAN + "ROL: " + RESET + Main.currentUser.getRole());
 
-        if (Main.currentUser.getRole().equals("SysAdmin")){
+        if (Main.currentUser.getRole().equals("SysAdmin")) {
 
         }
     }
