@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" prefHeight="641.0" prefWidth="840.0" style="radius: ;" stylesheets="@Styles.css"
+<AnchorPane fx:id="Pane" prefHeight="641.0" prefWidth="840.0" stylesheets="@Styles.css"
             xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="uvigo.tfgalmacen.controllers.ordenCompraController">
     <children>
