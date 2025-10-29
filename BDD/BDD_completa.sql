@@ -6,6 +6,22 @@ create database  tfg_almacenDB;
 
 use tfg_almacenDB;
 
+
+-- =======================================
+-- TABLA DE PROVEEDORES
+-- =======================================
+CREATE TABLE proveedores (
+    id_proveedor INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(150) NOT NULL,
+    direccion VARCHAR(200),
+    telefono VARCHAR(20),
+    email VARCHAR(100) UNIQUE,
+    nif_cif VARCHAR(20) UNIQUE,   -- Identificación fiscal
+    contacto VARCHAR(100),        -- Persona de contacto
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 -- Creación de la tabla permisos_usuarios
 CREATE TABLE
     permisos_usuarios (
@@ -395,16 +411,26 @@ CREATE TABLE tipos (
 );
 
 
--- Creación de la tabla productos
 CREATE TABLE productos (
     id_producto INT PRIMARY KEY AUTO_INCREMENT,
-    identificador_producto VARCHAR(100) NOT NULL UNIQUE ,
+    identificador_producto VARCHAR(100) NOT NULL UNIQUE,
     tipo_producto VARCHAR(50) NOT NULL,
     descripcion TEXT,
     precio DECIMAL(10, 2),
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (tipo_producto) REFERENCES tipos(id_tipo)
-    );
+);
+
+CREATE TABLE proveedor_producto (
+    id_proveedor INT NOT NULL,
+    id_producto INT NOT NULL,
+    precio DECIMAL(10,2) NULL,   -- opcional: precio acordado con ese proveedor
+    PRIMARY KEY (id_proveedor, id_producto),
+    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor),
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+);
+
+
 
 -- Creación de la tabla palets
 CREATE TABLE palets (
@@ -523,6 +549,123 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+
+
+
+
+
+
+
+
+/* ===========================
+   CABECERA: ORDEN DE COMPRA
+   =========================== */
+CREATE TABLE orden_compra (
+    id_oc INT PRIMARY KEY AUTO_INCREMENT,
+    codigo_referencia VARCHAR(50) UNIQUE,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    observaciones TEXT NULL
+);
+
+-- Generar código OC-YYYYMMDD-XXXXXX (hex consecutivo por día)
+DELIMITER //
+CREATE TRIGGER generar_codigo_orden_compra
+BEFORE INSERT ON orden_compra
+FOR EACH ROW
+BEGIN
+    DECLARE secuencia_diaria INT;
+    DECLARE secuencia_hex VARCHAR(10);
+    IF NEW.fecha_creacion IS NULL THEN
+        SET NEW.fecha_creacion = CURRENT_TIMESTAMP;
+    END IF;
+
+    SELECT COUNT(*) + 1 INTO secuencia_diaria
+    FROM orden_compra
+    WHERE DATE(fecha_creacion) = DATE(NEW.fecha_creacion);
+
+    SET secuencia_hex = LPAD(HEX(secuencia_diaria), 6, '0');
+    SET NEW.codigo_referencia = CONCAT('OC-', DATE_FORMAT(NEW.fecha_creacion, '%Y%m%d'), '-', secuencia_hex);
+END;
+//
+DELIMITER ;
+
+CREATE INDEX idx_oc_fecha ON orden_compra (fecha_creacion);
+CREATE INDEX idx_oc_codigo ON orden_compra (codigo_referencia);
+
+
+/* =====================================
+   DETALLE: LÍNEAS DE LA ORDEN DE COMPRA
+   - Cada fila representa UN palet planificado
+   - Se liga por id_oc a la cabecera
+   - Se especifica proveedor de esa línea
+   - Se especifica producto, cantidad y ubicación (tentativa)
+   ===================================== */
+CREATE TABLE detalle_orden_compra (
+    id_detalle_oc INT PRIMARY KEY AUTO_INCREMENT,
+    id_oc INT NOT NULL,                      -- FK a cabecera
+    id_proveedor INT NOT NULL,               -- proveedor de esta línea
+    id_producto INT NOT NULL,                -- producto a pedir (productos.id_producto)
+    cantidad INT NOT NULL CHECK (cantidad > 0),
+
+    -- Ubicación tentativa (pueden dejarse NULL si no se conoce aún)
+    estanteria INT NULL,
+    balda INT NULL,
+    posicion INT NULL,
+    delante BOOLEAN NULL,
+
+    -- Integridad referencial
+    FOREIGN KEY (id_oc) REFERENCES orden_compra(id_oc),
+    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor),
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
+
+    -- Garantiza que el proveedor realmente suministra ese producto
+    FOREIGN KEY (id_proveedor, id_producto) REFERENCES proveedor_producto(id_proveedor, id_producto)
+);
+
+CREATE INDEX idx_doc_oc       ON detalle_orden_compra (id_oc);
+CREATE INDEX idx_doc_prov     ON detalle_orden_compra (id_proveedor);
+CREATE INDEX idx_doc_prod     ON detalle_orden_compra (id_producto);
+
+
+
+DELIMITER //
+CREATE PROCEDURE crear_orden_compra(
+  IN  p_observaciones TEXT,
+  OUT p_id_oc INT,
+  OUT p_codigo_referencia VARCHAR(50)
+)
+BEGIN
+  INSERT INTO orden_compra (observaciones) VALUES (p_observaciones);
+  SET p_id_oc = LAST_INSERT_ID();
+
+  SELECT codigo_referencia
+    INTO p_codigo_referencia
+  FROM orden_compra
+  WHERE id_oc = p_id_oc;
+END;
+//
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Insertar algunos proveedores de ejemplo
+INSERT INTO proveedores (nombre, direccion, telefono, email, nif_cif, contacto)
+VALUES
+('Distribuciones ACME S.L.', 'Calle Mayor 45, Madrid', '910000111', 'contacto@acme.com', 'B12345678', 'Laura Gómez'),
+('Logística Central S.A.', 'Polígono Industrial Sur, Valencia', '963000222', 'info@logisticacentral.es', 'A87654321', 'Mario Ruiz'),
+('Frutas del Campo', 'Camino Viejo 12, Sevilla', '955001122', 'ventas@frutascampo.es', 'C44556677', 'Ana Torres');
+
 
 
 
@@ -648,6 +791,155 @@ INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('TRUPOCRYL
 INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('TRUPOFIN CERA A', 'Cera');
 INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('TRUPOCRYL K-U-327', 'Resina');
 INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('TRUPOZYM CH', 'Rindente');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- ============================================
+-- PROVEEDOR: Distribuciones ACME S.L.
+-- (Conservante, Cera, Resina, Calero, Curtición)
+-- ============================================
+INSERT INTO proveedor_producto (id_proveedor, id_producto)
+SELECT
+  (SELECT id_proveedor FROM proveedores WHERE nombre = 'Distribuciones ACME S.L.') AS id_proveedor,
+  p.id_producto
+FROM productos p
+WHERE p.identificador_producto IN (
+  'TRUPOSEPT FP',
+  'TRUPOSEPT BA',
+  'TRUPONAT NF',
+  'TRUPOFIN CERA HF',
+  'TRUPOFIN CERA HS',
+  'TRUPOFIN CERA HP',
+  'TRUPOFIN CERA PW',
+  'TRUPOFIN CERA PV',
+  'TRUPOCRYL K-U-10',
+  'TRUPOFIN CERA DP',
+  'TRUPOCRYL AB',
+  'TRUPOCRYL A-10',
+  'TRUPOFIN CERA 3A',
+  'TRUPOCRYL A-18',
+  'TRUPONAT LA',
+  'TRUPOFIN CERA E',
+  'TRUPOFIN CERA P',
+  'TRUPOFIN CERA FP',
+  'TRUPOFIN CERA M',
+  'TRUPOFIN CERA K-A',
+  'TRUPOFIN CERA BT',
+  'TRUPOCRYL A-20',
+  'TRUPOFIN CERA KT 09',
+  'TRUPOFIN CERA KT 08',
+  'TRUPOFIN CERA W',
+  'TRUPOCRYL A-28',
+  'TRUPOCRYL K-U-310',
+  'TRUPOTAN MOW',
+  'TRUPOCRYL K-A-30',
+  'TRUPOCRYL A–90',     -- ojo: guion en-dash en tu texto original
+  'TRUPOTAN OM',
+  'TRUPOCRYL A-30',
+  'TRUPOCRYL K-U-27',
+  'TRUPOCRYL A-32',
+  'TRUPOFIN CERA D-80',
+  'TRUPOCRYL A-35',
+  'TRUPOFIN CERA A',
+  'TRUPOCRYL K-U-327',
+  'TRUPOTAN MON'
+);
+
+-- ============================================
+-- PROVEEDOR: Logística Central S.A.
+-- (Engrase, Hidrofugante, Desencalante, Remojo)
+-- ============================================
+INSERT INTO proveedor_producto (id_proveedor, id_producto)
+SELECT
+  (SELECT id_proveedor FROM proveedores WHERE nombre = 'Logística Central S.A.') AS id_proveedor,
+  p.id_producto
+FROM productos p
+WHERE p.identificador_producto IN (
+  'SOLVOTAN XS',
+  'TRUPOSYL TBK-E',
+  'TRUPON AP',
+  'TRUPOCAL AF',
+  'TRUPOSYL TBA',
+  'TRUPOSOL WBF',
+  'TRUPOSYL TBD',
+  'TRUPON BMF',
+  'TRUPON CST',
+  'TRUPON COL',
+  'TRUPOSIST S-BO',
+  'TRUPOSYL TBK',
+  'ANTIFOAM NSP',
+  'TRUPOWET SA',
+  'PASTOSOL HW',
+  'TRUPOCAL DE',
+  'SOLVOTAN TACTO',
+  'TRUPOTEC S',
+  'TRUPON DBS',
+  'TRUPOSYL ABS',
+  'TRUPON DB-80',
+  'TRUPON CM',
+  'TRUPOTEC T',
+  'PASTOSOL MD',
+  'TRUPOL RK',
+  'TRUPOSYL HBD',
+  'TRUPOSIST D',
+  'TRUPOWET PH',
+  'TRUPON PEM'
+);
+
+-- ============================================
+-- PROVEEDOR: Frutas del Campo
+-- (Rindente, Secuestrante, Tensoactivo, Deslizante)
+-- ============================================
+INSERT INTO proveedor_producto (id_proveedor, id_producto)
+SELECT
+  (SELECT id_proveedor FROM proveedores WHERE nombre = 'Frutas del Campo') AS id_proveedor,
+  p.id_producto
+FROM productos p
+WHERE p.identificador_producto IN (
+  'PASTOSOL KC',
+  'PASTOSOL DG',
+  'TRUPOZYM AX',
+  'TRUKALIN K',
+  'TRUPOZYM AB',
+  'PASTOSOL F',
+  'TRUPOZYM CL',
+  'TRUPOSLIP P',
+  'TRUPOZYM CN',
+  'PASTOSOL BCN',
+  'TRUPOZYM CB',
+  'TRUPOZYM CH'
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

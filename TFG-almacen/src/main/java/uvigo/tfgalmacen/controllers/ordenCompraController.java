@@ -346,7 +346,8 @@ public class ordenCompraController implements Initializable {
             ventana_alerta();
         } else {
             OrdenCompra oc = new OrdenCompra(palets_oc, proveedores_oc);
-            oc.crearOrdenCompra(Main.connection, "");
+            oc.crearCodigoOrdenCompra(Main.connection, "");
+            oc.insertarDetalleOrdenCompraPorCodigo(Main.connection);
             System.out.println(oc);
         }
 
