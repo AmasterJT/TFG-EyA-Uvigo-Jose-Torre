@@ -27,6 +27,7 @@ import uvigo.tfgalmacen.database.ProveedorProductoDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -103,7 +104,13 @@ public class ordenCompraController implements Initializable {
         });
 
         if (generar_compra_btn != null) {
-            generar_compra_btn.setOnAction(_ -> generarCompra());
+            generar_compra_btn.setOnAction(_ -> {
+                try {
+                    generarCompra();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
 
         agregar_palet_oc_btn.setOnAction(_ -> agregarItemFXML());
@@ -300,7 +307,7 @@ public class ordenCompraController implements Initializable {
         }
     }
 
-    private void generarCompra() {
+    private void generarCompra() throws SQLException {
         palets_oc.clear();
         proveedores_oc.clear();
 
@@ -339,6 +346,7 @@ public class ordenCompraController implements Initializable {
             ventana_alerta();
         } else {
             OrdenCompra oc = new OrdenCompra(palets_oc, proveedores_oc);
+            oc.crearOrdenCompra(Main.connection, "");
             System.out.println(oc);
         }
 
