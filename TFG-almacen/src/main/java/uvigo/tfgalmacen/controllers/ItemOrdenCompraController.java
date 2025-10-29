@@ -20,8 +20,6 @@ public class ItemOrdenCompraController {
     @FXML
     private HBox background_Hbox;
 
-    @FXML
-    private TextField cant_producto_text;
 
     @FXML
     private ComboBox<String> combo_balda_itemOc;
@@ -41,9 +39,6 @@ public class ItemOrdenCompraController {
     @FXML
     private Label nombre_proveedor_label;
 
-    public TextField get_cant_producto_text() {
-        return cant_producto_text;
-    }
 
     public ComboBox<String> get_balda_itemOc() {
         return combo_balda_itemOc;
@@ -69,18 +64,6 @@ public class ItemOrdenCompraController {
         this.esta_palet_añadido = esta_palet_añadido;
     }
 
-    private int cantidad = 0;
-    private int estanteria = 0;
-    private int balda = 0;
-    private int posicion = 0;
-    private boolean delante = false;
-
-    public List<posiciones_disponibles> posiciones_libres_almacen = null;
-
-
-    public String getCant_producto_text() {
-        return cant_producto_text.getText();
-    }
 
     public String getCombo_balda_itemOc() {
         return combo_balda_itemOc.getValue();
@@ -119,13 +102,13 @@ public class ItemOrdenCompraController {
         return nombre_proveedor_label.getText();
     }
 
-    public Palet crear_palet(String proveedor, String producto, int cantidad_producto, int estanteria, int balda, int posicion, boolean delante) {
-        
+    public Palet crear_palet(String proveedor, String producto, int estanteria, int balda, int posicion, boolean delante) {
+
         String green_color_back = "-fx-background-color: #056705;";
         background_Hbox.setStyle(green_color_back);
         esta_palet_añadido = true;
 
-        return new Palet(producto, cantidad_producto, estanteria, balda, posicion, delante);
+        return new Palet(producto, estanteria, balda, posicion, delante);
 
     }
 
@@ -142,16 +125,6 @@ public class ItemOrdenCompraController {
         );
     }
 
-
-    class posiciones_disponibles {
-
-        int estanteria;
-        int balda;
-        int posicion;
-        boolean dealnte;
-
-
-    }
 
 }
 

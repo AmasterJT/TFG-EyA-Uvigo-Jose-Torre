@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import uvigo.tfgalmacen.database.ProductoDAO;
 import uvigo.tfgalmacen.utils.WindowResizer;
 
 import java.sql.Connection;

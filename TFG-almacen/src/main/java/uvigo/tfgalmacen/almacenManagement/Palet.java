@@ -73,17 +73,14 @@ public class Palet {
 
     public Palet(
             String idProducto,
-            int cantidadProducto,
             int estanteria,
             int balda,
             int posicion,
             boolean delante
     ) {
-        this.alto = this.ancho = this.idPalet = this.largo = 0;
+        this.alto = this.ancho = this.cantidadProducto = this.idPalet = this.largo = 0;
 
         this.idProducto = idProducto;
-        this.cantidadProducto = cantidadProducto;
-
 
         this.estanteria = estanteria;
         this.balda = balda;

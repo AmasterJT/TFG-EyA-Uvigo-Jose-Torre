@@ -317,19 +317,18 @@ public class ordenCompraController implements Initializable {
                 try {
                     String proveedor = ctrl.get_proveedor_nombre();
                     String producto = ctrl.get_producto_nombre();
-                    String cantidad = ctrl.getCant_producto_text();
                     String estanteria = ctrl.getCombo_estanteria_itemOc();
                     String balda = ctrl.getCombo_balda_itemOc();
                     String posicion = ctrl.getCombo_posicion_itemOc();
                     boolean delante = ctrl.getDelante_checkBox();
 
-                    if (!validar_datos_en_blanco(ctrl, cantidad, estanteria, balda, posicion, delante) || !validar_palets_misma_posicion(ctrl, estanteria, balda, posicion, delante)) {
+                    if (!validar_datos_en_blanco(ctrl, estanteria, balda, posicion, delante) || !validar_palets_misma_posicion(ctrl, estanteria, balda, posicion, delante)) {
                         TODO_PALETS_OK = false;
                         continue;
                     }
                     Proveedor proveedor_oc = getProveedorPorNombre(proveedor);
 
-                    Palet palet_oc = ctrl.crear_palet(proveedor, producto, Integer.parseInt(cantidad), Integer.parseInt(estanteria), Integer.parseInt(balda), Integer.parseInt(posicion), delante);
+                    Palet palet_oc = ctrl.crear_palet(proveedor, producto, Integer.parseInt(estanteria), Integer.parseInt(balda), Integer.parseInt(posicion), delante);
 
                     palets_oc.add(palet_oc);
                     proveedores_oc.add(proveedor_oc);
@@ -378,15 +377,11 @@ public class ordenCompraController implements Initializable {
         TODO_PALETS_OK = true;
     }
 
-    private boolean validar_datos_en_blanco(ItemOrdenCompraController ctrl, String cantidad, String estanteria, String balda, String posicion, boolean delante) {
+    private boolean validar_datos_en_blanco(ItemOrdenCompraController ctrl, String estanteria, String balda, String posicion, boolean delante) {
 
         int fail = 0;
         // Validación simple por si el usuario dejó algo sin seleccionar
-        if (cantidad == null || cantidad.isBlank()) {
-            LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
-            shake(ctrl.get_cant_producto_text(), SHAKE_DURATION);
-            fail++;
-        }
+
         if (estanteria == null || estanteria.isBlank()) {
             LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
             shake(ctrl.get_combo_estanteria_itemOc(), SHAKE_DURATION);

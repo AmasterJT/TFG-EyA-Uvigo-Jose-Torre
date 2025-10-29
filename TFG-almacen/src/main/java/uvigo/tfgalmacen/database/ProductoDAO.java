@@ -42,7 +42,8 @@ public class ProductoDAO {
                 String tipo_producto = resultSet.getString("tipo_producto");
 
 
-                System.out.println( ORANGE + "ID: " + RESET + id_producto + ", " + ORANGE + "Nombre: " + RESET + nombre + ORANGE + ", Descripción: " + RESET + descripcion + ", " + ORANGE +  "Tipo_producto: " + RESET + tipo_producto);
+                //System.out.println( ORANGE + "ID: " + RESET + id_producto + ", " + ORANGE + "Nombre: " + RESET + nombre + ORANGE + ", Descripción: " + RESET + descripcion + ", " + ORANGE +  "Tipo_producto: " + RESET + tipo_producto);
+                System.out.println(nombre);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,11 +89,11 @@ public class ProductoDAO {
     // Obtener el color del tipo de producto por identificador_producto
     public static String getColorByIdentificadorProducto(Connection connection, String identificadorProducto) {
         String sql = """
-        SELECT t.color
-        FROM productos p
-        JOIN tipos t ON p.tipo_producto = t.id_tipo
-        WHERE p.identificador_producto = ?
-        """;
+                SELECT t.color
+                FROM productos p
+                JOIN tipos t ON p.tipo_producto = t.id_tipo
+                WHERE p.identificador_producto = ?
+                """;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, identificadorProducto);

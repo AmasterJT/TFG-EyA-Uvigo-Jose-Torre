@@ -422,12 +422,20 @@ CREATE TABLE productos (
 );
 
 CREATE TABLE proveedor_producto (
-    id_proveedor INT NOT NULL,
-    id_producto INT NOT NULL,
-    precio DECIMAL(10,2) NULL,   -- opcional: precio acordado con ese proveedor
+    id_proveedor INT NOT NULL,                      -- FK -> proveedores.id_proveedor
+    id_producto  INT NOT NULL,                      -- FK -> productos.id_producto
+
+    precio DECIMAL(10,2) NULL,                      -- Precio acordado con ese proveedor (opcional)
+    unidades_por_palet INT NOT NULL DEFAULT 1,      -- Nº unidades del producto por palet para ese proveedor
+
     PRIMARY KEY (id_proveedor, id_producto),
-    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor),
+
+    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor)
+        ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+
+    CONSTRAINT chk_unidades_por_palet CHECK (unidades_por_palet > 0)
 );
 
 
@@ -805,14 +813,53 @@ INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('TRUPOZYM 
 
 
 
--- ============================================
--- PROVEEDOR: Distribuciones ACME S.L.
--- (Conservante, Cera, Resina, Calero, Curtición)
--- ============================================
-INSERT INTO proveedor_producto (id_proveedor, id_producto)
+INSERT INTO proveedor_producto (id_proveedor, id_producto, precio, unidades_por_palet)
 SELECT
   (SELECT id_proveedor FROM proveedores WHERE nombre = 'Distribuciones ACME S.L.') AS id_proveedor,
-  p.id_producto
+  p.id_producto,
+  NULL AS precio,
+  CASE p.identificador_producto
+    WHEN 'TRUPOSEPT FP'        THEN 112
+    WHEN 'TRUPOSEPT BA'        THEN 118
+    WHEN 'TRUPONAT NF'         THEN 96
+    WHEN 'TRUPOFIN CERA HF'    THEN 125
+    WHEN 'TRUPOFIN CERA HS'    THEN 110
+    WHEN 'TRUPOFIN CERA HP'    THEN 130
+    WHEN 'TRUPOFIN CERA PW'    THEN 108
+    WHEN 'TRUPOFIN CERA PV'    THEN 99
+    WHEN 'TRUPOCRYL K-U-10'    THEN 115
+    WHEN 'TRUPOFIN CERA DP'    THEN 104
+    WHEN 'TRUPOCRYL AB'        THEN 120
+    WHEN 'TRUPOCRYL A-10'      THEN 134
+    WHEN 'TRUPOFIN CERA 3A'    THEN 92
+    WHEN 'TRUPOCRYL A-18'      THEN 138
+    WHEN 'TRUPONAT LA'         THEN 101
+    WHEN 'TRUPOFIN CERA E'     THEN 124
+    WHEN 'TRUPOFIN CERA P'     THEN 99
+    WHEN 'TRUPOFIN CERA FP'    THEN 113
+    WHEN 'TRUPOFIN CERA M'     THEN 89
+    WHEN 'TRUPOFIN CERA K-A'   THEN 126
+    WHEN 'TRUPOFIN CERA BT'    THEN 132
+    WHEN 'TRUPOCRYL A-20'      THEN 106
+    WHEN 'TRUPOFIN CERA KT 09' THEN 98
+    WHEN 'TRUPOFIN CERA KT 08' THEN 141
+    WHEN 'TRUPOFIN CERA W'     THEN 107
+    WHEN 'TRUPOCRYL A-28'      THEN 139
+    WHEN 'TRUPOCRYL K-U-310'   THEN 95
+    WHEN 'TRUPOTAN MOW'        THEN 122
+    WHEN 'TRUPOCRYL K-A-30'    THEN 118
+    WHEN 'TRUPOCRYL A–90'      THEN 127  -- ojo: revisa el guion en tu BD
+    WHEN 'TRUPOTAN OM'         THEN 91
+    WHEN 'TRUPOCRYL A-30'      THEN 135
+    WHEN 'TRUPOCRYL K-U-27'    THEN 97
+    WHEN 'TRUPOCRYL A-32'      THEN 121
+    WHEN 'TRUPOFIN CERA D-80'  THEN 105
+    WHEN 'TRUPOCRYL A-35'      THEN 138
+    WHEN 'TRUPOFIN CERA A'     THEN 102
+    WHEN 'TRUPOCRYL K-U-327'   THEN 129
+    WHEN 'TRUPOTAN MON'        THEN 100
+    ELSE 110
+  END AS unidades_por_palet
 FROM productos p
 WHERE p.identificador_producto IN (
   'TRUPOSEPT FP',
@@ -844,7 +891,7 @@ WHERE p.identificador_producto IN (
   'TRUPOCRYL K-U-310',
   'TRUPOTAN MOW',
   'TRUPOCRYL K-A-30',
-  'TRUPOCRYL A–90',     -- ojo: guion en-dash en tu texto original
+  'TRUPOCRYL A–90',
   'TRUPOTAN OM',
   'TRUPOCRYL A-30',
   'TRUPOCRYL K-U-27',
@@ -856,71 +903,152 @@ WHERE p.identificador_producto IN (
   'TRUPOTAN MON'
 );
 
--- ============================================
--- PROVEEDOR: Logística Central S.A.
--- (Engrase, Hidrofugante, Desencalante, Remojo)
--- ============================================
-INSERT INTO proveedor_producto (id_proveedor, id_producto)
+
+
+-- LOGÍSTICA CENTRAL S.A.
+INSERT INTO proveedor_producto (id_proveedor, id_producto, precio, unidades_por_palet)
 SELECT
   (SELECT id_proveedor FROM proveedores WHERE nombre = 'Logística Central S.A.') AS id_proveedor,
-  p.id_producto
+  p.id_producto,
+  NULL AS precio,
+  CASE p.identificador_producto
+  WHEN 'SOLVOTAN XS'        THEN 104
+  WHEN 'TRUPOSYL TBK-E'     THEN 90
+  WHEN 'TRUPON AP'          THEN 128
+  WHEN 'TRUPOCAL AF'        THEN 100
+  WHEN 'TRUPOSYL TBA'       THEN 114
+  WHEN 'TRUPOSOL WBF'       THEN 132
+  WHEN 'TRUPOSYL TBD'       THEN 96
+  WHEN 'TRUPON BMF'         THEN 118
+  WHEN 'TRUPON CST'         THEN 106
+  WHEN 'TRUPON COL'         THEN 122
+  WHEN 'TRUPOSIST S-BO'     THEN 94
+  WHEN 'TRUPOSYL TBK'       THEN 108
+  WHEN 'ANTIFOAM NSP'       THEN 120
+  WHEN 'TRUPOWET SA'        THEN 88
+  WHEN 'PASTOSOL HW'        THEN 124
+  WHEN 'TRUPOCAL DE'        THEN 92
+  WHEN 'SOLVOTAN TACTO'     THEN 116
+  WHEN 'TRUPOTEC S'         THEN 98
+  WHEN 'TRUPON DBS'         THEN 130
+  WHEN 'TRUPOSYL ABS'       THEN 102
+  WHEN 'TRUPON DB-80'       THEN 112
+  WHEN 'TRUPON CM'          THEN 126
+  WHEN 'TRUPOTEC T'         THEN 100
+  WHEN 'PASTOSOL MD'        THEN 108
+  WHEN 'TRUPOL RK'          THEN 90
+  WHEN 'TRUPOSYL HBD'       THEN 134
+  WHEN 'TRUPOSIST D'        THEN 96
+  WHEN 'TRUPOWET PH'        THEN 118
+  WHEN 'TRUPON PEM'         THEN 124
+  ELSE 110
+END AS unidades_por_palet
 FROM productos p
 WHERE p.identificador_producto IN (
-  'SOLVOTAN XS',
-  'TRUPOSYL TBK-E',
-  'TRUPON AP',
-  'TRUPOCAL AF',
-  'TRUPOSYL TBA',
-  'TRUPOSOL WBF',
-  'TRUPOSYL TBD',
-  'TRUPON BMF',
-  'TRUPON CST',
-  'TRUPON COL',
-  'TRUPOSIST S-BO',
-  'TRUPOSYL TBK',
-  'ANTIFOAM NSP',
-  'TRUPOWET SA',
-  'PASTOSOL HW',
-  'TRUPOCAL DE',
-  'SOLVOTAN TACTO',
-  'TRUPOTEC S',
-  'TRUPON DBS',
-  'TRUPOSYL ABS',
-  'TRUPON DB-80',
-  'TRUPON CM',
-  'TRUPOTEC T',
-  'PASTOSOL MD',
-  'TRUPOL RK',
-  'TRUPOSYL HBD',
-  'TRUPOSIST D',
-  'TRUPOWET PH',
-  'TRUPON PEM'
+  'TRUPOSEPT FP',
+  'TRUPOSEPT BA',
+  'TRUPONAT NF',
+  'TRUPOFIN CERA HF',
+  'TRUPOFIN CERA HS',
+  'TRUPOFIN CERA HP',
+  'TRUPOFIN CERA PW',
+  'TRUPOFIN CERA PV',
+  'TRUPOCRYL K-U-10',
+  'TRUPOFIN CERA DP',
+  'TRUPOCRYL AB',
+  'TRUPOCRYL A-10',
+  'TRUPOFIN CERA 3A',
+  'TRUPOCRYL A-18',
+  'TRUPONAT LA',
+  'TRUPOFIN CERA E',
+  'TRUPOFIN CERA P',
+  'TRUPOFIN CERA FP',
+  'TRUPOFIN CERA M',
+  'TRUPOFIN CERA K-A',
+  'TRUPOFIN CERA BT',
+  'TRUPOCRYL A-20',
+  'TRUPOFIN CERA KT 09',
+  'TRUPOFIN CERA KT 08',
+  'TRUPOFIN CERA W',
+  'TRUPOCRYL A-28',
+  'TRUPOCRYL K-U-310',
+  'TRUPOTAN MOW',
+  'TRUPOCRYL K-A-30',
+  'TRUPOCRYL A–90',
+  'TRUPOTAN OM',
+  'TRUPOCRYL A-30',
+  'TRUPOCRYL K-U-27',
+  'TRUPOCRYL A-32',
+  'TRUPOFIN CERA D-80',
+  'TRUPOCRYL A-35',
+  'TRUPOFIN CERA A',
+  'TRUPOCRYL K-U-327',
+  'TRUPOTAN MON'
 );
 
--- ============================================
--- PROVEEDOR: Frutas del Campo
--- (Rindente, Secuestrante, Tensoactivo, Deslizante)
--- ============================================
-INSERT INTO proveedor_producto (id_proveedor, id_producto)
+
+INSERT INTO proveedor_producto (id_proveedor, id_producto, precio, unidades_por_palet)
 SELECT
   (SELECT id_proveedor FROM proveedores WHERE nombre = 'Frutas del Campo') AS id_proveedor,
-  p.id_producto
+  p.id_producto,
+  NULL AS precio,
+  CASE p.identificador_producto
+  WHEN 'PASTOSOL KC'        THEN 84
+  WHEN 'PASTOSOL DG'        THEN 92
+  WHEN 'TRUPOZYM AX'        THEN 88
+  WHEN 'TRUKALIN K'         THEN 96
+  WHEN 'TRUPOZYM AB'        THEN 100
+  WHEN 'PASTOSOL F'         THEN 86
+  WHEN 'TRUPOZYM CL'        THEN 98
+  WHEN 'TRUPOSLIP P'        THEN 90
+  WHEN 'TRUPOZYM CN'        THEN 94
+  WHEN 'PASTOSOL BCN'       THEN 102
+  WHEN 'TRUPOZYM CB'        THEN 88
+  WHEN 'TRUPOZYM CH'        THEN 96
+  ELSE 90
+END AS unidades_por_palet
 FROM productos p
 WHERE p.identificador_producto IN (
-  'PASTOSOL KC',
-  'PASTOSOL DG',
-  'TRUPOZYM AX',
-  'TRUKALIN K',
-  'TRUPOZYM AB',
-  'PASTOSOL F',
-  'TRUPOZYM CL',
-  'TRUPOSLIP P',
-  'TRUPOZYM CN',
-  'PASTOSOL BCN',
-  'TRUPOZYM CB',
-  'TRUPOZYM CH'
+  'TRUPOSEPT FP',
+  'TRUPOSEPT BA',
+  'TRUPONAT NF',
+  'TRUPOFIN CERA HF',
+  'TRUPOFIN CERA HS',
+  'TRUPOFIN CERA HP',
+  'TRUPOFIN CERA PW',
+  'TRUPOFIN CERA PV',
+  'TRUPOCRYL K-U-10',
+  'TRUPOFIN CERA DP',
+  'TRUPOCRYL AB',
+  'TRUPOCRYL A-10',
+  'TRUPOFIN CERA 3A',
+  'TRUPOCRYL A-18',
+  'TRUPONAT LA',
+  'TRUPOFIN CERA E',
+  'TRUPOFIN CERA P',
+  'TRUPOFIN CERA FP',
+  'TRUPOFIN CERA M',
+  'TRUPOFIN CERA K-A',
+  'TRUPOFIN CERA BT',
+  'TRUPOCRYL A-20',
+  'TRUPOFIN CERA KT 09',
+  'TRUPOFIN CERA KT 08',
+  'TRUPOFIN CERA W',
+  'TRUPOCRYL A-28',
+  'TRUPOCRYL K-U-310',
+  'TRUPOTAN MOW',
+  'TRUPOCRYL K-A-30',
+  'TRUPOCRYL A–90',
+  'TRUPOTAN OM',
+  'TRUPOCRYL A-30',
+  'TRUPOCRYL K-U-27',
+  'TRUPOCRYL A-32',
+  'TRUPOFIN CERA D-80',
+  'TRUPOCRYL A-35',
+  'TRUPOFIN CERA A',
+  'TRUPOCRYL K-U-327',
+  'TRUPOTAN MON'
 );
-
 
 
 
