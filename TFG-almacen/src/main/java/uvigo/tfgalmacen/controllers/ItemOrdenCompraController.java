@@ -7,10 +7,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
+import uvigo.tfgalmacen.almacenManagement.Palet;
 
 import java.util.List;
 
+import static uvigo.tfgalmacen.utils.TerminalColors.GREEN;
+
 public class ItemOrdenCompraController {
+
+    private boolean esta_palet_añadido = false;
+
+    @FXML
+    private HBox background_Hbox;
 
     @FXML
     private TextField cant_producto_text;
@@ -53,6 +61,14 @@ public class ItemOrdenCompraController {
         return delante_checkBox;
     }
 
+    public boolean isEsta_palet_añadido() {
+        return esta_palet_añadido;
+    }
+
+    public void setEsta_palet_añadido(boolean esta_palet_añadido) {
+        this.esta_palet_añadido = esta_palet_añadido;
+    }
+
     private int cantidad = 0;
     private int estanteria = 0;
     private int balda = 0;
@@ -82,6 +98,11 @@ public class ItemOrdenCompraController {
         return delante_checkBox.isSelected();
     }
 
+    public void setBackground_Hbox(String background_color) {
+        String green_color_back = "-fx-background-color: " + background_color + ";";
+        background_Hbox.setStyle(green_color_back);
+    }
+
 
     public void set_basic_info(String proveedor, String producto) {
         nombre_proveedor_label.setText(proveedor);
@@ -90,18 +111,21 @@ public class ItemOrdenCompraController {
         init_comboBoxes();
     }
 
-    public void crear_palet(String cantidad_producto, String estanteria, String balda, String posicion, boolean delante) {
-        this.cantidad = Integer.parseInt(cantidad_producto);
-        this.estanteria = Integer.parseInt(estanteria);
-        this.balda = Integer.parseInt(balda);
-        this.posicion = Integer.parseInt(posicion);
-        this.delante = delante;
-        System.out.println("Palet: "
-                + "cantidad: " + cantidad
-                + " estanteria: " + estanteria
-                + " balda: " + balda
-                + " posicion: " + posicion
-                + " delante: " + delante);
+    public String get_producto_nombre() {
+        return nombre_producto_label.getText();
+    }
+
+    public String get_proveedor_nombre() {
+        return nombre_proveedor_label.getText();
+    }
+
+    public Palet crear_palet(String proveedor, String producto, int cantidad_producto, int estanteria, int balda, int posicion, boolean delante) {
+        
+        String green_color_back = "-fx-background-color: #056705;";
+        background_Hbox.setStyle(green_color_back);
+        esta_palet_añadido = true;
+
+        return new Palet(producto, cantidad_producto, estanteria, balda, posicion, delante);
 
     }
 

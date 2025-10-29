@@ -24,6 +24,7 @@ import uvigo.tfgalmacen.User;
 import uvigo.tfgalmacen.database.DataConfig;
 import uvigo.tfgalmacen.database.UsuarioDAO;
 import uvigo.tfgalmacen.database.RolePermissionDAO;
+import uvigo.tfgalmacen.utils.WindowResizer;
 
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
@@ -71,7 +72,7 @@ public class loginController implements Initializable {
                 Scene newScene = new Scene(newRoot);
 
                 WindowMovement(newRoot, stage);
-                enableWindowResize(newRoot, stage);
+                WindowResizer.attach(newRoot, stage, newScene);
 
                 stage.setScene(newScene);
                 stage.centerOnScreen();

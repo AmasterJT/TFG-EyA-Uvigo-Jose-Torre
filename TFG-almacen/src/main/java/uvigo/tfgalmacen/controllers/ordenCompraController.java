@@ -20,6 +20,7 @@ import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Proveedor;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
+import uvigo.tfgalmacen.almacenManagement.Palet;
 import uvigo.tfgalmacen.almacenManagement.Producto;
 import uvigo.tfgalmacen.database.ProveedorProductoDAO;
 
@@ -31,9 +32,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.shake;
+
 public class ordenCompraController implements Initializable {
 
     private static final Logger LOGGER = Logger.getLogger(ordenCompraController.class.getName());
+    private boolean TODO_PALETS_OK = true;
 
     // ----------------------------
     // Constantes / Placeholders
@@ -41,6 +45,8 @@ public class ordenCompraController implements Initializable {
     private static final String PLACEHOLDER_PROVEEDOR = "Seleccionar proveedor";
     private static final String PLACEHOLDER_PRODUCTO = "Seleccionar producto";
     private static final Duration SHAKE_DURATION = Duration.millis(50);
+
+    private final ArrayList<Palet> palets_oc = new ArrayList<>();
 
     // ----------------------------
     // FXML
@@ -78,7 +84,6 @@ public class ordenCompraController implements Initializable {
         inicializarComboBoxes();
         encadenarFiltrosProveedorProductos();
         configurarListViewConMenuContextual();
-        configurarAcciones();
 
         // No dejar selección inicial en la lista
         javafx.application.Platform.runLater(() ->
@@ -98,6 +103,9 @@ public class ordenCompraController implements Initializable {
         if (generar_compra_btn != null) {
             generar_compra_btn.setOnAction(_ -> generarCompra());
         }
+
+        agregar_palet_oc_btn.setOnAction(_ -> agregarItemFXML());
+
     }
 
     private void construirCacheProveedores() {
@@ -241,9 +249,6 @@ public class ordenCompraController implements Initializable {
         return menu;
     }
 
-    private void configurarAcciones() {
-        agregar_palet_oc_btn.setOnAction(_ -> agregarItemFXML());
-    }
 
     // ----------------------------
     // Acciones
@@ -256,8 +261,8 @@ public class ordenCompraController implements Initializable {
         if (isInvalidSelection(proveedorSel, PLACEHOLDER_PROVEEDOR) ||
                 isInvalidSelection(productoSel, PLACEHOLDER_PRODUCTO)) {
 
-            if (isInvalidSelection(proveedorSel, PLACEHOLDER_PROVEEDOR)) shake(combo_proveedor_oc);
-            if (isInvalidSelection(productoSel, PLACEHOLDER_PRODUCTO)) shake(combo_producto_oc);
+            if (isInvalidSelection(proveedorSel, PLACEHOLDER_PROVEEDOR)) shake(combo_proveedor_oc, SHAKE_DURATION);
+            if (isInvalidSelection(productoSel, PLACEHOLDER_PRODUCTO)) shake(combo_producto_oc, SHAKE_DURATION);
             // parpadearErrorWindowBar();
             LOGGER.fine("No se añadió ítem: selección inválida. Proveedor='" + proveedorSel + "', Producto='" + productoSel + "'");
             return;
@@ -294,12 +299,14 @@ public class ordenCompraController implements Initializable {
     }
 
     private void generarCompra() {
-        int ok = 0, fail = 0;
+        palets_oc.clear();
 
         for (Parent node : list_palets_agregados_oc.getItems()) {
             Object ud = node.getUserData();
             if (ud instanceof ItemOrdenCompraController ctrl) {
                 try {
+                    String proveedor = ctrl.get_proveedor_nombre();
+                    String producto = ctrl.get_producto_nombre();
                     String cantidad = ctrl.getCant_producto_text();
                     String estanteria = ctrl.getCombo_estanteria_itemOc();
                     String balda = ctrl.getCombo_balda_itemOc();
@@ -307,24 +314,46 @@ public class ordenCompraController implements Initializable {
                     boolean delante = ctrl.getDelante_checkBox();
 
                     if (!validar_palets(ctrl, cantidad, estanteria, balda, posicion)) {
-                        fail++;
+                        TODO_PALETS_OK = false;
                         continue;
                     }
 
-                    ctrl.crear_palet(cantidad, estanteria, balda, posicion, delante);
-                    ok++;
+                    Palet palet_oc = ctrl.crear_palet(proveedor, producto, Integer.parseInt(cantidad), Integer.parseInt(estanteria), Integer.parseInt(balda), Integer.parseInt(posicion), delante);
+
+                    palets_oc.add(palet_oc);
                 } catch (Exception ex) {
-                    fail++;
                     LOGGER.log(Level.SEVERE, "Fallo al crear palet de un ítem.", ex);
                 }
             } else {
                 // No encontramos controller en el nodo
-                fail++;
                 LOGGER.warning("Nodo en ListView sin controller válido (userData).");
             }
         }
 
-        LOGGER.info("Generar compra → Palets creados OK=" + ok + " | fallos=" + fail);
+        if (!TODO_PALETS_OK) {
+            Alert confirmacion = new Alert(Alert.AlertType.ERROR);
+            confirmacion.setTitle("Contenido no válido");
+            confirmacion.setHeaderText("Error al introducir los datos");
+            confirmacion.setContentText("Es necesario rellenar todos los campos para pode generar la orden de compra");
+
+            // Aplicar estilo (opcional)
+            DialogPane dialogPane = confirmacion.getDialogPane();
+            try {
+                dialogPane.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/uvigo/tfgalmacen/Styles.css")).toExternalForm()
+                );
+                dialogPane.getStyleClass().add("alert-dialog");
+            } catch (Exception ex) {
+                LOGGER.log(Level.FINE, "No se pudo cargar Styles.css para el diálogo de confirmación.", ex);
+            }
+
+            confirmacion.showAndWait();
+        }
+
+        System.out.println(palets_oc);
+
+
+        // LOGGER.info("Generar compra → Palets creados OK=" + ok + " | fallos=" + fail);
         // (Opcional) si todo OK, limpiar:
         // if (fail == 0) list_palets_agregados_oc.getItems().clear();
     }
@@ -335,24 +364,30 @@ public class ordenCompraController implements Initializable {
         // Validación simple por si el usuario dejó algo sin seleccionar
         if (cantidad == null || cantidad.isBlank()) {
             LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
-            shake(ctrl.get_cant_producto_text());
+            shake(ctrl.get_cant_producto_text(), SHAKE_DURATION);
             fail++;
         }
         if (estanteria == null || estanteria.isBlank()) {
             LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
-            shake(ctrl.get_combo_estanteria_itemOc());
+            shake(ctrl.get_combo_estanteria_itemOc(), SHAKE_DURATION);
             fail++;
         }
         if (balda == null || balda.isBlank()) {
             LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
-            shake(ctrl.get_balda_itemOc());
+            shake(ctrl.get_balda_itemOc(), SHAKE_DURATION);
             fail++;
         }
         if (posicion == null || posicion.isBlank()) {
             LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
-            shake(ctrl.get_combo_posicion_itemOc());
+            shake(ctrl.get_combo_posicion_itemOc(), SHAKE_DURATION);
             fail++;
         }
+
+        if (fail != 0) {
+            ctrl.setBackground_Hbox("#B09000");
+        }
+
+
         return fail == 0;
     }
 
@@ -423,14 +458,6 @@ public class ordenCompraController implements Initializable {
         return !isValidSelection(value, placeholder);
     }
 
-    private void shake(javafx.scene.Node node) {
-        TranslateTransition tt = new TranslateTransition(SHAKE_DURATION, node);
-        tt.setFromX(0);
-        tt.setByX(4);
-        tt.setAutoReverse(true);
-        tt.setCycleCount(2);
-        tt.play();
-    }
 
     private void parpadearErrorWindowBar() {
         if (windowBar == null) return;

@@ -70,22 +70,22 @@ public class Palet {
 
     public Palet(
             String idProducto,
-            String cantidadProducto,
+            int cantidadProducto,
             int estanteria,
             int balda,
-            String posicion,
-            String delante
+            int posicion,
+            boolean delante
     ) {
         this.alto = this.ancho = this.idPalet = this.largo = 0;
 
         this.idProducto = idProducto;
-        this.cantidadProducto = Integer.parseInt(cantidadProducto);
+        this.cantidadProducto = cantidadProducto;
 
 
         this.estanteria = estanteria;
         this.balda = balda;
-        this.posicion = Integer.parseInt(posicion);
-        this.delante = !delante.equals("false");
+        this.posicion = posicion;
+        this.delante = delante;
 
     }
 
@@ -280,18 +280,6 @@ public class Palet {
                 ColorProducto);
     }
 
-    @Override
-    public String toString() {
-        return TerminalColors.CYAN + "Palet: id:" + this.getIdPalet() +
-                " alto:" + this.getAlto() +
-                " ancho:" + this.getAncho() +
-                " largo:" + this.getLargo() +
-                " CantidadProducto:" + this.getCantidadProducto() +
-                " IdProducto:" + this.getIdProducto() +
-                " (" + this.getEstanteria() + ";" + this.getBalda() + "; " + this.getPosicion() + "; " + this.isDelante() + ")"
-                + TerminalColors.RESET;
-    }
-
 
     public StringProperty altoProperty() {
         return new SimpleStringProperty(String.valueOf(alto));
@@ -341,4 +329,18 @@ public class Palet {
     public Producto getProducto() {
         return producto;
     }
+
+
+    @Override
+    public String toString() {
+        return TerminalColors.CYAN + "Palet: id:" + this.getIdPalet() +
+                " CantidadProducto:" + this.getCantidadProducto() +
+                " IdProducto:" + this.getIdProducto() +
+                " (" + this.getEstanteria() + ";" + this.getBalda() + "; " + this.getPosicion() + "; " + this.isDelante() + ")" +
+                " alto:" + this.getAlto() +
+                " ancho:" + this.getAncho() +
+                " largo:" + this.getLargo() +
+                TerminalColors.RESET;
+    }
+
 }

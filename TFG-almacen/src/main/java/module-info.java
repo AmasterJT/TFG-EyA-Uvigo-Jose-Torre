@@ -6,7 +6,8 @@ module uvigo.tfgalmacen {
     requires org.jetbrains.annotations;
     requires javafx.graphics;
     requires java.logging;
-    
+    requires javafx.base;
+
 
     opens uvigo.tfgalmacen to javafx.fxml;
     exports uvigo.tfgalmacen;
