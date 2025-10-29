@@ -2,7 +2,6 @@ package uvigo.tfgalmacen.controllers;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -18,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
+import uvigo.tfgalmacen.OrdenCompra;
 import uvigo.tfgalmacen.Proveedor;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Palet;
@@ -32,6 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import static uvigo.tfgalmacen.Proveedor.getProveedorPorNombre;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.shake;
 
 public class ordenCompraController implements Initializable {
@@ -47,6 +48,7 @@ public class ordenCompraController implements Initializable {
     private static final Duration SHAKE_DURATION = Duration.millis(50);
 
     private final ArrayList<Palet> palets_oc = new ArrayList<>();
+    private final ArrayList<Proveedor> proveedores_oc = new ArrayList<>();
 
     // ----------------------------
     // FXML
@@ -300,6 +302,7 @@ public class ordenCompraController implements Initializable {
 
     private void generarCompra() {
         palets_oc.clear();
+        proveedores_oc.clear();
 
         for (Parent node : list_palets_agregados_oc.getItems()) {
             Object ud = node.getUserData();
@@ -313,14 +316,16 @@ public class ordenCompraController implements Initializable {
                     String posicion = ctrl.getCombo_posicion_itemOc();
                     boolean delante = ctrl.getDelante_checkBox();
 
-                    if (!validar_palets(ctrl, cantidad, estanteria, balda, posicion)) {
+                    if (!validar_datos_en_blanco(ctrl, cantidad, estanteria, balda, posicion, delante) || !validar_palets_misma_posicion(ctrl, estanteria, balda, posicion, delante)) {
                         TODO_PALETS_OK = false;
                         continue;
                     }
+                    Proveedor proveedor_oc = getProveedorPorNombre(proveedor);
 
                     Palet palet_oc = ctrl.crear_palet(proveedor, producto, Integer.parseInt(cantidad), Integer.parseInt(estanteria), Integer.parseInt(balda), Integer.parseInt(posicion), delante);
 
                     palets_oc.add(palet_oc);
+                    proveedores_oc.add(proveedor_oc);
                 } catch (Exception ex) {
                     LOGGER.log(Level.SEVERE, "Fallo al crear palet de un ítem.", ex);
                 }
@@ -331,34 +336,40 @@ public class ordenCompraController implements Initializable {
         }
 
         if (!TODO_PALETS_OK) {
-            Alert confirmacion = new Alert(Alert.AlertType.ERROR);
-            confirmacion.setTitle("Contenido no válido");
-            confirmacion.setHeaderText("Error al introducir los datos");
-            confirmacion.setContentText("Es necesario rellenar todos los campos para pode generar la orden de compra");
-
-            // Aplicar estilo (opcional)
-            DialogPane dialogPane = confirmacion.getDialogPane();
-            try {
-                dialogPane.getStylesheets().add(
-                        Objects.requireNonNull(getClass().getResource("/uvigo/tfgalmacen/Styles.css")).toExternalForm()
-                );
-                dialogPane.getStyleClass().add("alert-dialog");
-            } catch (Exception ex) {
-                LOGGER.log(Level.FINE, "No se pudo cargar Styles.css para el diálogo de confirmación.", ex);
-            }
-
-            confirmacion.showAndWait();
+            ventana_alerta();
+        } else {
+            OrdenCompra oc = new OrdenCompra(palets_oc, proveedores_oc);
+            System.out.println(oc);
         }
-
-        System.out.println(palets_oc);
-
 
         // LOGGER.info("Generar compra → Palets creados OK=" + ok + " | fallos=" + fail);
         // (Opcional) si todo OK, limpiar:
         // if (fail == 0) list_palets_agregados_oc.getItems().clear();
     }
 
-    private boolean validar_palets(ItemOrdenCompraController ctrl, String cantidad, String estanteria, String balda, String posicion) {
+    public void ventana_alerta() {
+
+        Alert confirmacion = new Alert(Alert.AlertType.ERROR);
+        confirmacion.setTitle("Contenido no válido");
+        confirmacion.setHeaderText("Error al introducir los datos");
+        confirmacion.setContentText("Es necesario rellenar todos los campos para pode generar la orden de compra");
+
+        // Aplicar estilo (opcional)
+        DialogPane dialogPane = confirmacion.getDialogPane();
+        try {
+            dialogPane.getStylesheets().add(
+                    Objects.requireNonNull(getClass().getResource("/uvigo/tfgalmacen/Styles.css")).toExternalForm()
+            );
+            dialogPane.getStyleClass().add("alert-dialog");
+        } catch (Exception ex) {
+            LOGGER.log(Level.FINE, "No se pudo cargar Styles.css para el diálogo de confirmación.", ex);
+        }
+
+        confirmacion.showAndWait();
+        TODO_PALETS_OK = true;
+    }
+
+    private boolean validar_datos_en_blanco(ItemOrdenCompraController ctrl, String cantidad, String estanteria, String balda, String posicion, boolean delante) {
 
         int fail = 0;
         // Validación simple por si el usuario dejó algo sin seleccionar
@@ -381,6 +392,34 @@ public class ordenCompraController implements Initializable {
             LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
             shake(ctrl.get_combo_posicion_itemOc(), SHAKE_DURATION);
             fail++;
+        }
+
+
+        if (fail != 0) {
+            ctrl.setBackground_Hbox("#B09000");
+        }
+
+
+        return fail == 0;
+    }
+
+
+    private boolean validar_palets_misma_posicion(ItemOrdenCompraController ctrl, String estanteria, String balda, String posicion, boolean delante) {
+
+        int fail = 0;
+
+        for (Palet p : palets_oc) {
+            assert estanteria != null;
+            if (p.getEstanteria() == Integer.parseInt(estanteria)) {
+                assert balda != null;
+                if (p.getBalda() == Integer.parseInt(balda)) {
+                    assert posicion != null;
+                    if (p.getPosicion() == Integer.parseInt(posicion) && p.isDelante() == delante) {
+                        fail++;
+                    }
+                }
+            }
+
         }
 
         if (fail != 0) {

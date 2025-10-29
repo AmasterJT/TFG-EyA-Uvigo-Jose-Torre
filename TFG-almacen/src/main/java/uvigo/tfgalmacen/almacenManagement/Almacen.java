@@ -70,7 +70,6 @@ public class Almacen {
      */
     public static ArrayList<Tipo> TodosTipos = null;
 
-
     /**
      * Lista estática que almacena todos los proveedores cargados.
      */

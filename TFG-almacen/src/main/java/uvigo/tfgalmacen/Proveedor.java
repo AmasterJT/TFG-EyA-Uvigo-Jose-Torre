@@ -1,6 +1,10 @@
 package uvigo.tfgalmacen;
 
+import uvigo.tfgalmacen.almacenManagement.Almacen;
+
 import java.sql.*;
+
+import static uvigo.tfgalmacen.almacenManagement.Almacen.TodosProveedores;
 
 /**
  * Clase que representa un proveedor del sistema.
@@ -189,6 +193,19 @@ public class Proveedor {
             e.printStackTrace();
             return false;
         }
+    }
+
+
+    public static Proveedor getProveedorPorNombre(String nombreBuscado) {
+        if (nombreBuscado == null || nombreBuscado.isBlank() || TodosProveedores == null) {
+            return null;
+        }
+
+        return TodosProveedores.stream()
+                .filter(p -> p != null && p.getNombre() != null)
+                .filter(p -> p.getNombre().equalsIgnoreCase(nombreBuscado.trim()))
+                .findFirst()
+                .orElse(null);
     }
 
 
