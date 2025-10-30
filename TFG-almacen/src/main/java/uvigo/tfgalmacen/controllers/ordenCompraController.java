@@ -329,6 +329,9 @@ public class ordenCompraController implements Initializable {
                     Proveedor proveedor_oc = getProveedorPorNombre(proveedor);
 
                     Palet palet_oc = ctrl.crear_palet(proveedor, producto, Integer.parseInt(estanteria), Integer.parseInt(balda), Integer.parseInt(posicion), delante);
+                    palet_oc.setCantidadProducto(proveedor_oc.getUnidadesPorPaletDefault(producto));
+                    System.out.println(proveedor_oc.getUnidadesPorPaletDefault(producto));
+
 
                     palets_oc.add(palet_oc);
                     proveedores_oc.add(proveedor_oc);

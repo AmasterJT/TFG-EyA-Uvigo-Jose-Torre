@@ -3,6 +3,8 @@ package uvigo.tfgalmacen;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.almacenManagement.Almacen.TodosProveedores;
 
@@ -11,6 +13,7 @@ import static uvigo.tfgalmacen.almacenManagement.Almacen.TodosProveedores;
  * Cada instancia contiene los datos almacenados en la tabla 'proveedores'.
  */
 public class Proveedor {
+    private static final Logger LOGGER = Logger.getLogger(Proveedor.class.getName());
 
     // ============================
     // ATRIBUTOS (coinciden con la BD)
@@ -174,11 +177,12 @@ public class Proveedor {
      */
     public boolean tieneProductoPorIdentificador(String identificadorProducto, Connection connection) {
         String sql = """
-                    SELECT 1
-                    FROM proveedor_producto pp
-                    INNER JOIN productos p ON pp.id_producto = p.id_producto
-                    WHERE pp.id_proveedor = ? AND p.identificador_producto = ?
-                    LIMIT 1
+                SELECT pp.unidades_por_palet AS unidades_por_palet_default
+                FROM proveedor_producto pp
+                JOIN productos p ON p.id_producto = pp.id_producto
+                WHERE pp.id_proveedor = ?            -- id del proveedor elegido
+                AND p.identificador_producto = ?;  -- p.ej. "SOLVOTAN XS"
+                
                 """;
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -208,6 +212,36 @@ public class Proveedor {
                 .orElse(null);
     }
 
+
+    public int getUnidadesPorPaletDefault(String nombreProducto) {
+        if (nombreProducto == null || nombreProducto.isBlank()) {
+            return -1; // Valor de error o sin datos
+        }
+
+        int unidades = -1;
+
+        String sql = """
+                    SELECT pp.unidades_por_palet_default
+                    FROM proveedor_producto pp
+                    INNER JOIN productos p ON pp.id_producto = p.id_producto
+                    WHERE pp.id_proveedor = ? AND p.identificador_producto = ?
+                """;
+        try (PreparedStatement stmt = Main.connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, this.idProveedor); // usa tu getter si el campo es privado
+            stmt.setString(2, nombreProducto);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    unidades = rs.getInt("unidades_por_palet_default");
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al obtener unidades_por_palet para el producto: " + nombreProducto, e);
+        }
+
+        return unidades;
+    }
 
     // ============================
     // MÉTODOS AUXILIARES

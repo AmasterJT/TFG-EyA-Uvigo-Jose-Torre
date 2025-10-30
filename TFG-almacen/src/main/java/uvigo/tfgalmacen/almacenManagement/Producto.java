@@ -6,7 +6,7 @@ import uvigo.tfgalmacen.utils.TerminalColors;
 public class Producto {
     private String identificadorProducto, idTipo;
     private int numPalets = 0, cantidadDeProducto = 0;
-
+    private int index_BDD = 0;
     public Tipo tipo = null;
 
     // =========================CONSTRUCTORES===============================
@@ -14,9 +14,25 @@ public class Producto {
         this.identificadorProducto = idProducto;
         this.idTipo = idTipo;
     }
+
+    public Producto(int indexBDD, String idProducto, String idTipo) {
+        this.identificadorProducto = idProducto;
+        this.idTipo = idTipo;
+        this.index_BDD = indexBDD;
+    }
     //======================================================================
 
     //=======================GETTERS Y SETTERS =============================
+
+
+    public int getIndex_BDD() {
+        return index_BDD;
+    }
+
+    public void setIndex_BDD(int index_BDD) {
+        this.index_BDD = index_BDD;
+    }
+
     public String getIdTipo() {
         return idTipo;
     }
@@ -52,7 +68,8 @@ public class Producto {
 
     @Override
     public String toString() {
-        return TerminalColors.AMARILLO + "Producto: " + "id:" + this.getIdentificadorProducto() +
+        return "ID_BDD " + index_BDD +
+                TerminalColors.AMARILLO + "Producto: " + "id:" + this.getIdentificadorProducto() +
                 " tipo:" + this.getIdTipo() +
                 " Palets: " + this.getNumPalets() +
                 " Cantidad de producto: " + this.getCantidadDeProducto() + TerminalColors.RESET;

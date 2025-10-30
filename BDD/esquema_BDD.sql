@@ -6,6 +6,22 @@ create database  tfg_almacenDB;
 
 use tfg_almacenDB;
 
+
+-- =======================================
+-- TABLA DE PROVEEDORES
+-- =======================================
+CREATE TABLE proveedores (
+    id_proveedor INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(150) NOT NULL,
+    direccion VARCHAR(200),
+    telefono VARCHAR(20),
+    email VARCHAR(100) UNIQUE,
+    nif_cif VARCHAR(20) UNIQUE,   -- Identificación fiscal
+    contacto VARCHAR(100),        -- Persona de contacto
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 -- Creación de la tabla permisos_usuarios
 CREATE TABLE
     permisos_usuarios (
@@ -372,6 +388,7 @@ usuarios (
 	email VARCHAR(100) NOT NULL UNIQUE,
 	contraseña VARCHAR(255) NOT NULL,
 	id_rol INT,
+	activo INT,
 	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (id_rol) REFERENCES roles (id_rol)
 );
@@ -394,16 +411,34 @@ CREATE TABLE tipos (
 );
 
 
--- Creación de la tabla productos
 CREATE TABLE productos (
     id_producto INT PRIMARY KEY AUTO_INCREMENT,
-    identificador_producto VARCHAR(100) NOT NULL UNIQUE ,
+    identificador_producto VARCHAR(100) NOT NULL UNIQUE,
     tipo_producto VARCHAR(50) NOT NULL,
     descripcion TEXT,
     precio DECIMAL(10, 2),
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (tipo_producto) REFERENCES tipos(id_tipo)
-    );
+);
+
+CREATE TABLE proveedor_producto (
+    id_proveedor INT NOT NULL,                      -- FK -> proveedores.id_proveedor
+    id_producto  INT NOT NULL,                      -- FK -> productos.id_producto
+
+    precio DECIMAL(10,2) NULL,                      -- Precio acordado con ese proveedor (opcional)
+    unidades_por_palet_default INT NOT NULL DEFAULT 1,      -- Nº unidades del producto por palet para ese proveedor
+
+    PRIMARY KEY (id_proveedor, id_producto),
+
+    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+
+    CONSTRAINT chk_unidades_por_palet CHECK (unidades_por_palet_default > 0)
+);
+
+
 
 -- Creación de la tabla palets
 CREATE TABLE palets (
@@ -436,19 +471,23 @@ CREATE TABLE
         FOREIGN KEY (id_palet) REFERENCES palets (id_palet)
     );
 
--- Creación de la tabla pedidos
 CREATE TABLE pedidos (
     id_pedido INT PRIMARY KEY AUTO_INCREMENT,
     codigo_referencia VARCHAR(50) UNIQUE,
     id_usuario INT NULL,
     id_cliente INT NOT NULL,
     fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_entrega DATE NOT NULL,
     estado ENUM (
         'Pendiente',
         'Completado',
         'En proceso',
         'Cancelado'
     ) NOT NULL,
+    hora_salida ENUM (
+        'primera_hora',
+        'segunda_hora'
+    ),
     FOREIGN KEY (id_cliente) REFERENCES clientes (id_cliente),
     FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario)
 );
@@ -515,6 +554,103 @@ BEGIN
             NEW.apellido
         ));
     END IF;
+END;
+//
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+/* ===========================
+   CABECERA: ORDEN DE COMPRA
+   =========================== */
+CREATE TABLE orden_compra (
+    id_oc INT PRIMARY KEY AUTO_INCREMENT,
+    codigo_referencia VARCHAR(50) UNIQUE,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    observaciones TEXT NULL
+);
+
+-- Generar código OC-YYYYMMDD-XXXXXX (hex consecutivo por día)
+DELIMITER //
+CREATE TRIGGER generar_codigo_orden_compra
+BEFORE INSERT ON orden_compra
+FOR EACH ROW
+BEGIN
+    DECLARE secuencia_diaria INT;
+    DECLARE secuencia_hex VARCHAR(10);
+    IF NEW.fecha_creacion IS NULL THEN
+        SET NEW.fecha_creacion = CURRENT_TIMESTAMP;
+    END IF;
+
+    SELECT COUNT(*) + 1 INTO secuencia_diaria
+    FROM orden_compra
+    WHERE DATE(fecha_creacion) = DATE(NEW.fecha_creacion);
+
+    SET secuencia_hex = LPAD(HEX(secuencia_diaria), 6, '0');
+    SET NEW.codigo_referencia = CONCAT('OC-', DATE_FORMAT(NEW.fecha_creacion, '%Y%m%d'), '-', secuencia_hex);
+END;
+//
+DELIMITER ;
+
+CREATE INDEX idx_oc_fecha ON orden_compra (fecha_creacion);
+CREATE INDEX idx_oc_codigo ON orden_compra (codigo_referencia);
+
+
+/* =====================================
+   DETALLE: LÍNEAS DE LA ORDEN DE COMPRA
+   - Cada fila representa UN palet planificado
+   - Se liga por id_oc a la cabecera
+   - Se especifica proveedor de esa línea
+   - Se especifica producto, cantidad y ubicación (tentativa)
+   ===================================== */
+CREATE TABLE detalle_orden_compra (
+    id_detalle_oc INT PRIMARY KEY AUTO_INCREMENT,
+    id_oc INT NOT NULL,                      -- FK a cabecera
+    id_proveedor INT NOT NULL,               -- proveedor de esta línea
+    id_producto INT NOT NULL,                -- producto a pedir (productos.id_producto)
+    cantidad INT NOT NULL CHECK (cantidad > 0),
+
+    -- Ubicación tentativa (pueden dejarse NULL si no se conoce aún)
+    estanteria INT NULL,
+    balda INT NULL,
+    posicion INT NULL,
+    delante BOOLEAN NULL,
+
+    -- Integridad referencial
+    FOREIGN KEY (id_oc) REFERENCES orden_compra(id_oc),
+    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor),
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
+
+    -- Garantiza que el proveedor realmente suministra ese producto
+    FOREIGN KEY (id_proveedor, id_producto) REFERENCES proveedor_producto(id_proveedor, id_producto)
+);
+
+CREATE INDEX idx_doc_oc       ON detalle_orden_compra (id_oc);
+CREATE INDEX idx_doc_prov     ON detalle_orden_compra (id_proveedor);
+CREATE INDEX idx_doc_prod     ON detalle_orden_compra (id_producto);
+
+
+
+DELIMITER //
+CREATE PROCEDURE crear_orden_compra(
+  IN  p_observaciones TEXT,
+  OUT p_id_oc INT,
+  OUT p_codigo_referencia VARCHAR(50)
+)
+BEGIN
+  INSERT INTO orden_compra (observaciones) VALUES (p_observaciones);
+  SET p_id_oc = LAST_INSERT_ID();
+
+  SELECT codigo_referencia
+    INTO p_codigo_referencia
+  FROM orden_compra
+  WHERE id_oc = p_id_oc;
 END;
 //
 DELIMITER ;

@@ -217,6 +217,7 @@ public class Almacen {
             while (rs.next()) {
 
                 productos.add(new Producto(
+                        rs.getInt("id_producto"),
                         rs.getString("identificador_producto"),
                         rs.getString("tipo_producto")
                 ));
