@@ -384,7 +384,8 @@ usuarios (
 	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
 	user_name VARCHAR(100) NOT NULL,
 	nombre VARCHAR(100) NOT NULL,
-	apellido VARCHAR(100) NOT NULL,
+	apellido1 VARCHAR(100) NOT NULL,
+	apellido2 VARCHAR(100) NOT NULL,
 	email VARCHAR(100) NOT NULL UNIQUE,
 	contraseña VARCHAR(255) NOT NULL,
 	id_rol INT,
@@ -551,7 +552,7 @@ BEGIN
     IF NEW.user_name IS NULL OR NEW.user_name = '' THEN
         SET NEW.user_name = LOWER(CONCAT(
             LEFT(NEW.nombre, 1),
-            NEW.apellido
+            NEW.apellido1
         ));
     END IF;
 END;
@@ -679,26 +680,26 @@ VALUES
 
 
 -- Insertamos usuarios para tener todos los roles (con activo)
-INSERT INTO usuarios (user_name, nombre, apellido, email, contraseña, id_rol, activo) VALUES
-('AdLo', 'Admin', 'Lopez', 'admin@almacen.com', 'admin', 1, 1), -- SysAdmin (dentro)
-('JuPe', 'Juan', 'Perez', 'juan.perez@almacen.com', 'juan123', 2, 1), -- Gestor Almacén (dentro)
-('MaLo', 'Maria', 'Lopez', 'maria.lopez@almacen.com', 'maria123', 3, 1), -- Supervisor (dentro)
-('CaDi', 'Carlos', 'Diaz', 'carlos.diaz@almacen.com', 'carlos123', 4, 1), -- Operario (dentro)
-('LuGo', 'Luisa', 'Gomez', 'luisa.gomez@almacen.com', 'luisa123', 5, 0), -- Mantenimiento (fuera)
-('AnTo', 'Ana', 'Torres', 'ana.torres@almacen.com', 'ana123', 6, 0);   -- Administración (fuera)
+INSERT INTO usuarios (user_name, nombre, apellido1, apellido2, email, contraseña, id_rol, activo) VALUES
+('AdLo', 'Admin', 'Lopez', 'Lopez', 'admin@almacen.com', 'admin', 1, 1), -- SysAdmin (dentro)
+('JuPe', 'Juan', 'Perez', 'Gomez', 'juan.perez@almacen.com', 'juan123', 2, 1), -- Gestor Almacén (dentro)
+('MaLo', 'Maria', 'Lopez', 'Lopez', 'maria.lopez@almacen.com', 'maria123', 3, 1), -- Supervisor (dentro)
+('CaDi', 'Carlos', 'Diaz', 'Gomez', 'carlos.diaz@almacen.com', 'carlos123', 4, 1), -- Operario (dentro)
+('LuGo', 'Luisa', 'Gomez', 'Lopez', 'luisa.gomez@almacen.com', 'luisa123', 5, 0), -- Mantenimiento (fuera)
+('AnTo', 'Ana', 'Torres','Ortega', 'ana.torres@almacen.com', 'ana123', 6, 0);   -- Administración (fuera)
 
 -- Insertamos operarios (el trigger sigue generando user_name); añadimos activo al final
-INSERT INTO usuarios (nombre, apellido, email, contraseña, id_rol, activo) VALUES
-('Luis',   'Fernandez', 'luis.fernandez@almacen.com',   'luis123',   4, 1),
-('Sofia',  'Martinez',  'sofia.martinez@almacen.com',   'sofia123',  4, 0),
-('Javier', 'Romero',    'javier.romero@almacen.com',    'javier123', 4, 1),
-('Claudia','Hernandez', 'claudia.hernandez@almacen.com','claudia123',4, 0),
-('Pablo',  'Ruiz',      'pablo.ruiz@almacen.com',       'pablo123',  4, 1),
-('Andrea', 'Castro',    'andrea.castro@almacen.com',    'andrea123', 4, 0),
-('Diego',  'Navarro',   'diego.navarro@almacen.com',    'diego123',  4, 1),
-('Valeria','Ortega',    'valeria.ortega@almacen.com',   'valeria123',4, 0),
-('Miguel', 'Ramos',     'miguel.ramos@almacen.com',     'miguel123', 4, 1),
-('Isabel', 'Vargas',    'isabel.vargas@almacen.com',    'isabel123', 4, 0);
+INSERT INTO usuarios (nombre, apellido1, apellido2, email, contraseña, id_rol, activo) VALUES
+('Luis',   'Fernandez', 'Gomez', 'luis.fernandez@almacen.com',   'luis123',   4, 1),
+('Sofia',  'Martinez', 'Gomez',  'sofia.martinez@almacen.com',   'sofia123',  4, 0),
+('Javier', 'Romero', 'Castro',    'javier.romero@almacen.com',    'javier123', 4, 1),
+('Claudia','Hernandez', 'Castro', 'claudia.hernandez@almacen.com','claudia123',4, 0),
+('Pablo',  'Ruiz','Ortega',      'pablo.ruiz@almacen.com',       'pablo123',  4, 1),
+('Andrea', 'Castro', 'Rogriguez',    'andrea.castro@almacen.com',    'andrea123', 4, 0),
+('Diego',  'Navarro','Ortega',   'diego.navarro@almacen.com',    'diego123',  4, 1),
+('Valeria','Ortega', 'Rogriguez',    'valeria.ortega@almacen.com',   'valeria123',4, 0),
+('Miguel', 'Ramos', 'Gomez',     'miguel.ramos@almacen.com',     'miguel123', 4, 1),
+('Isabel', 'Vargas', 'Castro',    'isabel.vargas@almacen.com',    'isabel123', 4, 0);
 
 
 INSERT INTO tipos (id_tipo, color) VALUES ('Tensoactivo', '0.8,0,0');

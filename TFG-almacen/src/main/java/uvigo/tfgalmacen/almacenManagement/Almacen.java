@@ -2,11 +2,17 @@ package uvigo.tfgalmacen.almacenManagement;
 
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Proveedor;
+import uvigo.tfgalmacen.controllers.loginController;
 import uvigo.tfgalmacen.database.DatabaseConnection;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.sql.*;
 
 import java.util.ArrayList;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -15,6 +21,31 @@ import java.util.ArrayList;
  * y mostrar datos en consola.
  */
 public class Almacen {
+
+    private static final Logger LOGGER = Logger.getLogger(Almacen.class.getName());
+
+
+    static {
+        // Sube el nivel del logger
+        LOGGER.setLevel(Level.ALL);
+
+        // Evita que use los handlers del padre (que suelen estar en INFO con SimpleFormatter)
+        LOGGER.setUseParentHandlers(false);
+
+        // Crea un ConsoleHandler propio con tu ColorFormatter
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);                 // ¡importante!
+        ch.setFormatter(new ColorFormatter());  // tu formatter con colores/emoji
+        LOGGER.addHandler(ch);
+
+        // (Opcional) Si quieres también afectar al root logger:
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL); // si decides mantenerlos
+        }
+    }
+
+
     /**
      * Número de estanterías en el almacén.
      */
@@ -102,7 +133,7 @@ public class Almacen {
 
             if (conexion != null) {
 
-                System.out.println("✅ ALMACEN GENERADO CORRECTAMENTE.");
+                LOGGER.fine("ALMACEN GENERADO CORRECTAMENTE.");
                 // Se comenta la carga desde XML pero se carga desde base de datos:
                 // ExtractXMLinfo.extraerDatosDeXML(conexion, archivoXML);
 
@@ -147,7 +178,7 @@ public class Almacen {
             }
 
         } catch (Exception e) {
-            System.err.println("❌ Error leyendo proveedores: " + e.getMessage());
+            LOGGER.warning("Error leyendo proveedores: " + e.getMessage());
         }
 
         return proveedores;
@@ -194,7 +225,7 @@ public class Almacen {
             }
 
         } catch (Exception e) {
-            System.err.println("❌ Error leyendo palets: " + e.getMessage());
+            LOGGER.warning("Error leyendo palets: " + e.getMessage());
         }
 
         return palets;
@@ -232,7 +263,7 @@ public class Almacen {
             }
 
         } catch (Exception e) {
-            System.err.println("❌ Error leyendo productos: " + e.getMessage());
+            LOGGER.warning("Error leyendo productos: " + e.getMessage());
         }
 
         return productos;
@@ -259,7 +290,7 @@ public class Almacen {
             }
 
         } catch (Exception e) {
-            System.err.println("❌ Error leyendo tipos: " + e.getMessage());
+            LOGGER.warning("Error leyendo tipos: " + e.getMessage());
         }
 
         return tipos;

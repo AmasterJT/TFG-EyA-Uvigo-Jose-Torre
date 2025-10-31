@@ -13,16 +13,39 @@ import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.ProductoPedido;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoReferencia;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.limpiarGridPane;
 
 public class DetallesPedidoController {
+
+    // 🧩 Logger con colores personalizados
+    private static final Logger LOGGER = Logger.getLogger(DetallesPedidoController.class.getName());
+
+    static {
+        LOGGER.setLevel(Level.ALL);
+        LOGGER.setUseParentHandlers(false);
+
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.setLevel(Level.ALL);
+        consoleHandler.setFormatter(new ColorFormatter());
+        LOGGER.addHandler(consoleHandler);
+
+        // Opcional: ajustar también el root logger (evita silencios en handlers)
+        for (Handler h : Logger.getLogger("").getHandlers()) {
+            h.setLevel(Level.ALL);
+        }
+    }
 
     @FXML
     private Button ExitButton;
@@ -50,53 +73,51 @@ public class DetallesPedidoController {
     @FXML
     private Label estado_pedido_detalle_label;
 
+    private List<ProductoPedido> productos_del_pedido;
 
-    private List <ProductoPedido> productos_del_pedido;
-
-    /** Número de columnas del grid de pedidos. */
+    /**
+     * Número de columnas del grid de pedidos.
+     */
     private final int COLUMS = 1;
+
+    public static List<ItemDetallesPedidoController> allItemControllers = new ArrayList<>();
 
 
     public void initialize() {
-        // Llenar usuarios desde la base de datos
-
         ExitButton.setOnMouseClicked(event -> {
-
             Stage stage = (Stage) ExitButton.getScene().getWindow();
+            LOGGER.info("Ventana de detalles de pedido cerrada.");
             stage.close();
         });
-
-
     }
 
-
-    public void setData(Pedido pedido_para_detallar, Connection connection)  {
+    public void setData(Pedido pedido_para_detallar, Connection connection) {
         this.pedido_para_detallar = pedido_para_detallar;
 
         codigo_referencia_pedido_detalle_label.setText(pedido_para_detallar.getCodigo_referencia());
         estado_pedido_detalle_label.setText(pedido_para_detallar.getEstado());
 
-        productos_del_pedido = getProductosPorCodigoReferencia(Main.connection, pedido_para_detallar.getCodigo_referencia());
+        productos_del_pedido = getProductosPorCodigoReferencia(
+                Main.connection,
+                pedido_para_detallar.getCodigo_referencia()
+        );
 
+        LOGGER.info("Renderizando productos del pedido: " + pedido_para_detallar.getCodigo_referencia());
         renderizarProductos(productos_del_pedido, grid_pendientes);
-
     }
 
-    public static  List<ItemDetallesPedidoController> allItemControllers = new ArrayList<>();
-
-    private void renderizarProductos(List <ProductoPedido> productos_del_pedido, GridPane grid) {
+    private void renderizarProductos(List<ProductoPedido> productos_del_pedido, GridPane grid) {
         limpiarGridPane(grid);
-
-
         int column = 0, row = 1;
+
         try {
-            for (ProductoPedido procuto_del_pedido : productos_del_pedido) {
+            for (ProductoPedido producto_del_pedido : productos_del_pedido) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemDetallesPedido.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
-                ItemDetallesPedidoController itemController = fxmlLoader.getController();
-                itemController.setData(procuto_del_pedido);
 
-                allItemControllers.add(itemController); // ✅ Guardamos cada controller
+                ItemDetallesPedidoController itemController = fxmlLoader.getController();
+                itemController.setData(producto_del_pedido);
+                allItemControllers.add(itemController);
 
                 if (column == COLUMS) {
                     column = 0;
@@ -106,11 +127,11 @@ public class DetallesPedidoController {
                 grid.add(anchorPane, column++, row);
                 GridPane.setMargin(anchorPane, new Insets(10));
             }
+
+            LOGGER.fine("Productos renderizados correctamente: " + productos_del_pedido.size());
+
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error al cargar itemDetallesPedido.fxml o al renderizar productos.", e);
         }
-
     }
-
-
 }

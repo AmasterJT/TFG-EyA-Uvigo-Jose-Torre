@@ -1,7 +1,5 @@
 package uvigo.tfgalmacen.controllers;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -12,10 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.OrdenCompra;
 import uvigo.tfgalmacen.Proveedor;
@@ -23,22 +18,47 @@ import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Palet;
 import uvigo.tfgalmacen.almacenManagement.Producto;
 import uvigo.tfgalmacen.database.ProveedorProductoDAO;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static uvigo.tfgalmacen.Proveedor.getProveedorPorNombre;
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.shake;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class ordenCompraController implements Initializable {
 
     private static final Logger LOGGER = Logger.getLogger(ordenCompraController.class.getName());
+
+    static {
+        // Sube el nivel del logger
+        LOGGER.setLevel(Level.ALL);
+
+        // Evita que use los handlers del padre (que suelen estar en INFO con SimpleFormatter)
+        LOGGER.setUseParentHandlers(false);
+
+        // Crea un ConsoleHandler propio con tu ColorFormatter
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);                 // ¡importante!
+        ch.setFormatter(new ColorFormatter());  // tu formatter con colores/emoji
+        LOGGER.addHandler(ch);
+
+        // (Opcional) Si quieres también afectar al root logger:
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL); // si decides mantenerlos
+        }
+    }
+
+
     private boolean TODO_PALETS_OK = true;
 
     // ----------------------------
@@ -46,7 +66,6 @@ public class ordenCompraController implements Initializable {
     // ----------------------------
     private static final String PLACEHOLDER_PROVEEDOR = "Seleccionar proveedor";
     private static final String PLACEHOLDER_PRODUCTO = "Seleccionar producto";
-    private static final Duration SHAKE_DURATION = Duration.millis(50);
 
     private final ArrayList<Palet> palets_oc = new ArrayList<>();
     private final ArrayList<Proveedor> proveedores_oc = new ArrayList<>();
@@ -57,8 +76,6 @@ public class ordenCompraController implements Initializable {
     @FXML
     private Button ExitButton;
     @FXML
-    private AnchorPane Pane;
-    @FXML
     private Button agregar_palet_oc_btn;
     @FXML
     private ComboBox<String> combo_producto_oc;
@@ -68,8 +85,6 @@ public class ordenCompraController implements Initializable {
     private Button generar_compra_btn;
     @FXML
     public ListView<Parent> list_palets_agregados_oc;
-    @FXML
-    private HBox windowBar;
 
     // ----------------------------
     // Estado
@@ -123,7 +138,7 @@ public class ordenCompraController implements Initializable {
                 .collect(Collectors.toMap(
                         Proveedor::getNombre,
                         p -> p,
-                        (a, b) -> a,
+                        (a, _) -> a,
                         LinkedHashMap::new
                 ));
         LOGGER.fine(() -> "Proveedores cacheados: " + proveedorPorNombre.keySet());
@@ -144,7 +159,7 @@ public class ordenCompraController implements Initializable {
     private void encadenarFiltrosProveedorProductos() {
         combo_proveedor_oc.getSelectionModel()
                 .selectedItemProperty()
-                .addListener((obs, oldVal, nuevoProveedorNombre) -> {
+                .addListener((_, _, nuevoProveedorNombre) -> {
                     LOGGER.fine(() -> "Proveedor seleccionado: " + nuevoProveedorNombre);
                     filtrarProductosPorProveedorAsync(nuevoProveedorNombre);
                 });
@@ -205,7 +220,7 @@ public class ordenCompraController implements Initializable {
         final MenuItem borrarTodo = new MenuItem("Borrar todo");
 
         // --- Acción eliminar elemento seleccionado ---
-        eliminar.setOnAction(e -> {
+        eliminar.setOnAction(_ -> {
             int index = lv.getSelectionModel().getSelectedIndex();
             if (index >= 0) {
                 lv.getItems().remove(index);
@@ -216,34 +231,14 @@ public class ordenCompraController implements Initializable {
         });
 
         // --- Acción borrar todo (con confirmación) ---
-        borrarTodo.setOnAction(e -> {
+        borrarTodo.setOnAction(_ -> {
             if (lv.getItems().isEmpty()) {
                 return;
             }
 
-            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacion.setTitle("Confirmar borrado");
-            confirmacion.setHeaderText("¿Seguro que deseas borrar todos los ítems?");
-            confirmacion.setContentText("Esta acción eliminará permanentemente todos los elementos de la lista.");
+            Optional<ButtonType> resultado = ventana_error("Confirmar borrado", "¿Seguro que deseas borrar todos los ítems?", "Esta acción eliminará permanentemente todos los elementos de la lista.", "Si, borrar todo");
 
-            // Personalizar botones
-            ButtonType btnSi = new ButtonType("Sí, borrar todo", ButtonBar.ButtonData.OK_DONE);
-            ButtonType btnNo = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-            confirmacion.getButtonTypes().setAll(btnSi, btnNo);
-
-            // Aplicar estilo (opcional)
-            DialogPane dialogPane = confirmacion.getDialogPane();
-            try {
-                dialogPane.getStylesheets().add(
-                        Objects.requireNonNull(getClass().getResource("/uvigo/tfgalmacen/Styles.css")).toExternalForm()
-                );
-                dialogPane.getStyleClass().add("alert-dialog");
-            } catch (Exception ex) {
-                LOGGER.log(Level.FINE, "No se pudo cargar Styles.css para el diálogo de confirmación.", ex);
-            }
-
-            Optional<ButtonType> resultado = confirmacion.showAndWait();
-            if (resultado.isPresent() && resultado.get() == btnSi) {
+            if (resultado.isPresent() && resultado.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 lv.getItems().clear();
                 lv.getSelectionModel().clearSelection();
                 LOGGER.info("Se han borrado todos los ítems del ListView.");
@@ -322,7 +317,7 @@ public class ordenCompraController implements Initializable {
                     String posicion = ctrl.getCombo_posicion_itemOc();
                     boolean delante = ctrl.getDelante_checkBox();
 
-                    if (!validar_datos_en_blanco(ctrl, estanteria, balda, posicion, delante) || !validar_palets_misma_posicion(ctrl, estanteria, balda, posicion, delante)) {
+                    if (!validar_datos_en_blanco(ctrl, estanteria, balda, posicion) || !validar_palets_misma_posicion(ctrl, estanteria, balda, posicion, delante)) {
                         TODO_PALETS_OK = false;
                         continue;
                     }
@@ -345,7 +340,8 @@ public class ordenCompraController implements Initializable {
         }
 
         if (!TODO_PALETS_OK) {
-            ventana_alerta();
+            System.out.println("-----------------------------");
+            alerta();
         } else {
             OrdenCompra oc = new OrdenCompra(palets_oc, proveedores_oc);
             oc.crearCodigoOrdenCompra(Main.connection, "");
@@ -358,29 +354,12 @@ public class ordenCompraController implements Initializable {
         // if (fail == 0) list_palets_agregados_oc.getItems().clear();
     }
 
-    public void ventana_alerta() {
-
-        Alert confirmacion = new Alert(Alert.AlertType.ERROR);
-        confirmacion.setTitle("Contenido no válido");
-        confirmacion.setHeaderText("Error al introducir los datos");
-        confirmacion.setContentText("Es necesario rellenar todos los campos para pode generar la orden de compra");
-
-        // Aplicar estilo (opcional)
-        DialogPane dialogPane = confirmacion.getDialogPane();
-        try {
-            dialogPane.getStylesheets().add(
-                    Objects.requireNonNull(getClass().getResource("/uvigo/tfgalmacen/Styles.css")).toExternalForm()
-            );
-            dialogPane.getStyleClass().add("alert-dialog");
-        } catch (Exception ex) {
-            LOGGER.log(Level.FINE, "No se pudo cargar Styles.css para el diálogo de confirmación.", ex);
-        }
-
-        confirmacion.showAndWait();
+    public void alerta() {
+        ventana_warning("Contenido no válido", "Error al introducir los datos", "Es necesario rellenar todos los campos para pode generar la orden de compra");
         TODO_PALETS_OK = true;
     }
 
-    private boolean validar_datos_en_blanco(ItemOrdenCompraController ctrl, String estanteria, String balda, String posicion, boolean delante) {
+    private boolean validar_datos_en_blanco(ItemOrdenCompraController ctrl, String estanteria, String balda, String posicion) {
 
         int fail = 0;
         // Validación simple por si el usuario dejó algo sin seleccionar
@@ -502,22 +481,6 @@ public class ordenCompraController implements Initializable {
 
     private static boolean isInvalidSelection(String value, String placeholder) {
         return !isValidSelection(value, placeholder);
-    }
-
-
-    private void parpadearErrorWindowBar() {
-        if (windowBar == null) return;
-
-        final String original = windowBar.getStyle();
-        Timeline t = new Timeline(
-                new KeyFrame(Duration.ZERO, e -> windowBar.setStyle("-fx-background-color:rgba(62,36,17,0.47);")),
-                new KeyFrame(Duration.millis(80), e -> windowBar.setStyle("-fx-background-color:#3e2411;")),
-                new KeyFrame(Duration.millis(160), e -> windowBar.setStyle("-fx-background-color:rgba(62,36,17,0.47);")),
-                new KeyFrame(Duration.millis(240), e -> windowBar.setStyle("-fx-background-color:#3e2411;"))
-        );
-        t.setCycleCount(3);
-        t.setOnFinished(e -> windowBar.setStyle(original));
-        t.play();
     }
 
     // ----------------------------

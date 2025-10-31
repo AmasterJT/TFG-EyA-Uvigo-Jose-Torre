@@ -5,6 +5,8 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -16,12 +18,22 @@
             <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
+                  <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/factory-50.png" />
+                     </image>
+                  </ImageView>
                         <Label fx:id="nombre_proveedor_label" style="-fx-font-size: 11;" text="PROVEEDOR:" textFill="#d0d0d0">
                             <font>
                                 <Font name="System Bold" size="10.0" />
                             </font>
                         </Label>
                   <Region minWidth="20.0" HBox.hgrow="ALWAYS" />
+                  <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/palet_white_icon.png" />
+                     </image>
+                  </ImageView>
                         <Label fx:id="nombre_producto_label" style="-fx-font-size: 11;" text="TRUPOFIN CERA HF" textFill="#d0d0d0">
                             <font>
                                 <Font size="10.0" />

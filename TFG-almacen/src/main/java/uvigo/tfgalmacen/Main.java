@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import uvigo.tfgalmacen.database.ProductoDAO;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 import uvigo.tfgalmacen.utils.WindowResizer;
 
 import java.sql.Connection;
@@ -15,17 +16,40 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.database.DatabaseConnection.connect;
 import static uvigo.tfgalmacen.database.DatabaseConnection.close;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 
 import uvigo.tfgalmacen.database.PedidoDAO;
 
 public class Main extends Application {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
+    static {
+        // Sube el nivel del logger
+        LOGGER.setLevel(Level.ALL);
+
+        // Evita que use los handlers del padre (que suelen estar en INFO con SimpleFormatter)
+        LOGGER.setUseParentHandlers(false);
+
+        // Crea un ConsoleHandler propio con tu ColorFormatter
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);                 // ¡importante!
+        ch.setFormatter(new ColorFormatter());  // tu formatter con colores/emoji
+        LOGGER.addHandler(ch);
+
+        // (Opcional) Si quieres también afectar al root logger:
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL); // si decides mantenerlos
+        }
+    }
 
     /**
      * Conexión compartida (si prefieres, muévela a un “ConnectionProvider” o usa un pool).
@@ -65,14 +89,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/uvigo/tfgalmacen/loginWindow.fxml"));
         Parent root = fxmlLoader.load();
 
-        Scene scene = new Scene(root);
-        stage.initStyle(StageStyle.UNDECORATED);
-
-        // Movimiento y redimensionado (con la utilidad optimizada)
-        WindowMovement(root, stage);
-        WindowResizer.attach(root, stage, scene);
-
-        stage.setScene(scene);
+        stage = crearStageBasico(root);
         stage.show();
     }
 

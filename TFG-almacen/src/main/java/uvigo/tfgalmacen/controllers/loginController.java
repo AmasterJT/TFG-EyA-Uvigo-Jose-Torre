@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.*;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,13 +20,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
-
 import uvigo.tfgalmacen.User;
-import uvigo.tfgalmacen.database.DataConfig;
 import uvigo.tfgalmacen.database.UsuarioDAO;
-import uvigo.tfgalmacen.database.RolePermissionDAO;
 import uvigo.tfgalmacen.utils.WindowResizer;
 
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
@@ -31,7 +33,35 @@ import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 import static uvigo.tfgalmacen.database.UsuarioDAO.SQLcheckUser;
 
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import uvigo.tfgalmacen.utils.ColorFormatter;
+
 public class loginController implements Initializable {
+
+    private static final Logger LOGGER = Logger.getLogger(loginController.class.getName());
+
+
+    static {
+        // Sube el nivel del logger
+        LOGGER.setLevel(Level.ALL);
+
+        // Evita que use los handlers del padre (que suelen estar en INFO con SimpleFormatter)
+        LOGGER.setUseParentHandlers(false);
+
+        // Crea un ConsoleHandler propio con tu ColorFormatter
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);                 // ¡importante!
+        ch.setFormatter(new ColorFormatter());  // tu formatter con colores/emoji
+        LOGGER.addHandler(ch);
+
+        // (Opcional) Si quieres también afectar al root logger:
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL); // si decides mantenerlos
+        }
+    }
 
     public static final boolean IS_RESIZABLE = false;
 
@@ -51,24 +81,17 @@ public class loginController implements Initializable {
 
     @FXML
     void login(ActionEvent event) {
-        System.out.println("⏳ loginnnnn");
-
 
         if (SQLcheckUser(Main.connection, username.getText(), password.getText())) {
-            System.out.println(VERDE + "✅ login correcto" + RESET);
+            LOGGER.fine("Login correcto para el usuario: " + username.getText());
 
             Main.currentUser = new User(username.getText(), password.getText(), Main.connection);
 
-
             try {
-                // Carga la nueva escena desde otro archivo FXML
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("/uvigo/tfgalmacen/main.fxml"));
                 Parent newRoot = loader.load();
 
-                // Obtiene la referencia del Stage actual
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-                // Configura la nueva escena en el Stage
                 Scene newScene = new Scene(newRoot);
 
                 WindowMovement(newRoot, stage);
@@ -78,50 +101,54 @@ public class loginController implements Initializable {
                 stage.centerOnScreen();
                 stage.show();
 
+                LOGGER.fine("Escena principal cargada correctamente.");
 
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.warning("Error cargando la escena principal");
             }
 
         } else {
-            System.out.println(ROJO + "❌ login incorrecto" + RESET);
+            LOGGER.warning("Login incorrecto para el usuario: " + username.getText());
+            shake(username, SHAKE_DURATION);
+            shake(password, SHAKE_DURATION);
         }
 
-        System.out.println(CYAN + "Usuario Activo: " + RESET + Main.currentUser.getName() + ", " +
-                CYAN + "ROL: " + RESET + Main.currentUser.getRole());
-
-        if (Main.currentUser.getRole().equals("SysAdmin")) {
-
+        if (Main.currentUser != null) {
+            LOGGER.info(() -> "Usuario activo: " + Main.currentUser.getName() +
+                    " | Rol: " + Main.currentUser.getRole());
         }
     }
 
     @FXML
     void showRegisterStage(MouseEvent event) {
-        System.out.println("peticion de registro");
+        LOGGER.info("Petición de registro recibida.");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loginExitButton.setOnMouseClicked(event -> {
+
+        loginExitButton.setOnMouseClicked(_ -> {
+            LOGGER.info("Cerrando aplicación desde el botón de salida.");
             System.exit(0);
         });
 
-        // Configurar acción de ENTER en el campo username.
-        username.setOnKeyPressed(event -> {
+        // Configurar ENTER para username y password
+        EventHandler<KeyEvent> onEnterPressed = event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                loginButton.requestFocus(); // Hace foco en el botón.
-                loginButton.fire(); // Simula el clic en el botón.
-            }
-        });
+                loginButton.getStyleClass().add("hover-simulated");
+                loginButton.requestFocus();
+                loginButton.fire();
 
-        // Configurar acción de ENTER en el campo password.
-        password.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                loginButton.requestFocus(); // Hace foco en el botón.
-                loginButton.fire(); // Simula el clic en el botón.
+                // Quitar el efecto de hover tras 150 ms
+                PauseTransition delay = new PauseTransition(Duration.millis(150));
+                delay.setOnFinished(e -> loginButton.getStyleClass().remove("hover-simulated"));
+                delay.play();
             }
-        });
+        };
+
+        username.setOnKeyPressed(onEnterPressed);
+        password.setOnKeyPressed(onEnterPressed);
+
+        //LOGGER.info("Controlador de login inicializado correctamente.");
     }
-
 }
-

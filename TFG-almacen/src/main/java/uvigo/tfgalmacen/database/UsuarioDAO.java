@@ -127,7 +127,7 @@ public class UsuarioDAO {
     }
 
     // Obtener el nombre completo del usuario por ID
-    private static final String GET_USERNAME_BY_ID_SQL = "SELECT nombre, apellido FROM usuarios WHERE id_usuario = ?";
+    private static final String GET_USERNAME_BY_ID_SQL = "SELECT nombre, apellido1 FROM usuarios WHERE id_usuario = ?";
 
     public static String getNombreUsuarioById(Connection connection, int id_usuario) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_USERNAME_BY_ID_SQL)) {
@@ -137,7 +137,7 @@ public class UsuarioDAO {
 
             if (resultSet.next()) {
                 String nombre = resultSet.getString("nombre");
-                String apellido = resultSet.getString("apellido");
+                String apellido = resultSet.getString("apellido1");
                 return nombre + " " + apellido;
             } else {
                 return null; // Usuario no encontrado
@@ -177,7 +177,7 @@ public class UsuarioDAO {
     public static List<User> getAllUsers(Connection connection) {
         List<User> usuarios = new ArrayList<>();
 
-        String sql = "SELECT id_usuario, user_name, nombre, apellido, email FROM usuarios";
+        String sql = "SELECT id_usuario, user_name, nombre, apellido1, email FROM usuarios";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
@@ -186,7 +186,7 @@ public class UsuarioDAO {
                 int id_usuario = rs.getInt("id_usuario");
                 String username = rs.getString("user_name");
                 String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
+                String apellido = rs.getString("apellido1");
                 String email = rs.getString("email");
 
                 User user = new User(id_usuario, username, nombre, apellido, email, connection);
@@ -217,10 +217,6 @@ public class UsuarioDAO {
             return null;
         }
     }
-
-
-
-
 
 
 }

@@ -34,8 +34,6 @@ public class almacenController implements Initializable {
 
     // Cámara y estado del ratón
     private PerspectiveCamera camara;
-    private double ratonX, ratonY;
-    private double ratonXVentanaAntes, ratonYVentanaAntes;
 
     private final ArrayList<String> todosLosProductos = new ArrayList<>();
 
@@ -49,7 +47,6 @@ public class almacenController implements Initializable {
     private ComboBox<String> comboTipoAlmacen;
 
 
-
     @FXML
     private Label contenidoLabel;
 
@@ -59,11 +56,7 @@ public class almacenController implements Initializable {
     private Label tipoProductoLabel;
 
     @FXML
-    private AnchorPane infoCardAlmacen;
-
-    @FXML
     private Label nombreProductoLabel;
-
 
 
     /**
@@ -84,10 +77,9 @@ public class almacenController implements Initializable {
         almacen.GenerarAlmacen();
 
         // Se crea una instancia nueva que contiene la SubScene con todo renderizado
-        almacenController almacen3DController = new almacenController();
-        SubScene subEscena = this.crearVistaAlmacen(almacenContainer, almacen);
+        SubScene subEscena = this.crearVistaAlmacen(almacen);
 
-        subEscena.setOnMouseEntered(e -> subEscena.requestFocus());
+        subEscena.setOnMouseEntered(_ -> subEscena.requestFocus());
 
         // Envuelve la SubScene para que se redimensione automáticamente
         BorderPane content = new BorderPane();
@@ -113,7 +105,6 @@ public class almacenController implements Initializable {
         comboTipoAlmacen.setValue("Todos");
 
 
-
         todosLosProductos.add("Todos");
         for (Producto producto : Almacen.TodosProductos) {
             todosLosProductos.add(producto.getIdentificadorProducto());
@@ -126,7 +117,7 @@ public class almacenController implements Initializable {
     /**
      * Crea la vista del almacén 3D a partir del objeto `Almacen`.
      */
-    public SubScene crearVistaAlmacen(AnchorPane container, Almacen almacen) {
+    public SubScene crearVistaAlmacen(Almacen almacen) {
         grupo3D.getChildren().add(grupoEjes);
         showAxis(true);  // Mostrar ejes X, Y, Z
 
@@ -135,7 +126,7 @@ public class almacenController implements Initializable {
             //int offsetEstanteria = (k >= 2) ? 3700 : 0;
             for (int i = 0; i < 8; i++) {
                 //Box balda = MisElementoGraficos.CreaParalelepipedo(3600, 100, 36300, 0, -6300 * k + offsetEstanteria, 2000 * i, Color.web("#2F3A32"));
-                Box balda = MisElementoGraficos.CreaParalelepipedo(3350, 100, 36300, 0, -6300 * k , 2000 * i, Color.web("#2F3A32"));
+                Box balda = MisElementoGraficos.CreaParalelepipedo(3350, 100, 36300, 0, -6300 * k, 2000 * i, Color.web("#2F3A32"));
                 if (gruposBaldas[k].getChildren().size() <= 7) gruposBaldas[k].getChildren().add(balda);
 
                 // Agrega palets adelante y atrás
@@ -189,30 +180,30 @@ public class almacenController implements Initializable {
         );
 
         // Configurar eventos de interacción
-        configurarEventos(subEscena3D, almacen);
+        configurarEventos(subEscena3D);
 
 
         // Añadir múltiples luces para cubrir desde varios ángulos
 
         int translate = 2;
         PointLight luz1 = new PointLight(Color.web("#2F3A32"));
-        luz1.setTranslateX(10000*translate);
-        luz1.setTranslateY(20000*translate);
-        luz1.setTranslateZ(30000*translate);
+        luz1.setTranslateX(10000 * translate);
+        luz1.setTranslateY(20000 * translate);
+        luz1.setTranslateZ(30000 * translate);
 
         PointLight luz2 = new PointLight(Color.web("#2F3A32"));
-        luz2.setTranslateX(-10000*translate);
-        luz2.setTranslateY(20000*translate);
-        luz2.setTranslateZ(-30000*translate);
+        luz2.setTranslateX(-10000 * translate);
+        luz2.setTranslateY(20000 * translate);
+        luz2.setTranslateZ(-30000 * translate);
 
         PointLight luz3 = new PointLight(Color.web("#2F3A32"));
         luz3.setTranslateX(0);
-        luz3.setTranslateY(-20000*translate);
+        luz3.setTranslateY(-20000 * translate);
         luz3.setTranslateZ(0);
 
         PointLight luz4 = new PointLight(Color.web("#2F3A32"));
         luz4.setTranslateX(0);
-        luz4.setTranslateY(30000*translate);
+        luz4.setTranslateY(30000 * translate);
         luz4.setTranslateZ(0);
 
         //AmbientLight luzAmbiente = new AmbientLight(new Color(0.4, 0.4, 0.4, 1));
@@ -285,13 +276,14 @@ public class almacenController implements Initializable {
         grupo3D.getChildren().addAll(luz1, luz2, luz3, luz4);
 
     }
-    private void configurarEventos(SubScene escena, Almacen almacen) {
+
+    private void configurarEventos(SubScene escena) {
         configurarEventosTeclado(escena);
         configurarEventosScroll(escena);
-        configurarEventosMouseClick(escena, almacen);
+        configurarEventosMouseClick(escena);
         configurarEventosMousePress(escena);
-        configurarComboTipo(almacen);
-        configurarComboProducto(almacen);
+        configurarComboTipo();
+        configurarComboProducto();
     }
 
     private void configurarEventosTeclado(SubScene escena) {
@@ -334,13 +326,11 @@ public class almacenController implements Initializable {
     }
 
     private void configurarEventosMousePress(SubScene escena) {
-        escena.setOnMousePressed(event -> {
-            ratonXVentanaAntes = event.getSceneX();
-            ratonYVentanaAntes = event.getSceneY();
+        escena.setOnMousePressed(_ -> {
         });
     }
 
-    private void configurarEventosMouseClick(SubScene escena, Almacen almacen) {
+    private void configurarEventosMouseClick(SubScene escena) {
         escena.setOnMouseClicked(event -> {
             Node node = event.getPickResult().getIntersectedNode();
             if (node instanceof Box) {
@@ -357,21 +347,21 @@ public class almacenController implements Initializable {
         });
     }
 
-    private void configurarComboTipo(Almacen almacen) {
+    private void configurarComboTipo() {
         comboTipoAlmacen.setOnAction(_ -> {
             String tipoSeleccionado = comboTipoAlmacen.getSelectionModel().getSelectedItem();
 
             if (!tipoSeleccionado.equals("Todos")) {
-                actualizarComboProductoFiltrado(almacen, tipoSeleccionado);
-                actualizarVisibilidadPorTipo(almacen, tipoSeleccionado);
+                actualizarComboProductoFiltrado(tipoSeleccionado);
+                actualizarVisibilidadPorTipo(tipoSeleccionado);
             } else {
-                mostrarTodosProductos(almacen);
-                mostrarTodosPalets(almacen);
+                mostrarTodosProductos();
+                mostrarTodosPalets();
             }
         });
     }
 
-    private void actualizarComboProductoFiltrado(Almacen almacen, String tipoSeleccionado) {
+    private void actualizarComboProductoFiltrado(String tipoSeleccionado) {
         List<String> productosFiltrados = new ArrayList<>();
         productosFiltrados.add("Todos");
 
@@ -385,7 +375,7 @@ public class almacenController implements Initializable {
         comboProductoAlmacen.setValue(productosFiltrados.getFirst());
     }
 
-    private void actualizarVisibilidadPorTipo(Almacen almacen, String tipoSeleccionado) {
+    private void actualizarVisibilidadPorTipo(String tipoSeleccionado) {
         for (Palet palet : Almacen.TodosPalets) {
             boolean visible = palet.getIdTipo().equals(tipoSeleccionado);
             palet.getProductBox().setVisible(visible);
@@ -393,7 +383,7 @@ public class almacenController implements Initializable {
         }
     }
 
-    private void mostrarTodosProductos(Almacen almacen) {
+    private void mostrarTodosProductos() {
         todosLosProductos.clear();
 
         for (Producto producto : Almacen.TodosProductos) {
@@ -405,7 +395,7 @@ public class almacenController implements Initializable {
         comboProductoAlmacen.setValue("Todos");
     }
 
-    private void mostrarTodosPalets(Almacen almacen) {
+    private void mostrarTodosPalets() {
         for (Palet palet : Almacen.TodosPalets) {
             palet.getProductBox().setVisible(true);
             palet.getPaletBox().setVisible(true);
@@ -413,34 +403,33 @@ public class almacenController implements Initializable {
     }
 
 
-
-    private void configurarComboProducto(Almacen almacen) {
+    private void configurarComboProducto() {
         comboProductoAlmacen.setOnAction(_ -> {
             try {
                 String productoSeleccionado = comboProductoAlmacen.getSelectionModel().getSelectedItem();
 
                 if (!productoSeleccionado.equals("Todos")) {
-                    for (Producto producto : almacen.TodosProductos) {
+                    for (Producto producto : Almacen.TodosProductos) {
                         if (producto.getIdentificadorProducto().equals(productoSeleccionado)) break;
                     }
 
-                    for (Palet palet : almacen.TodosPalets) {
+                    for (Palet palet : Almacen.TodosPalets) {
                         boolean visible = palet.getIdProducto().equals(productoSeleccionado);
                         palet.getProductBox().setVisible(visible);
                         palet.getPaletBox().setVisible(visible);
                     }
                 } else {
                     String tipoSeleccionado = comboTipoAlmacen.getSelectionModel().getSelectedItem();
-                    for (Palet palet : almacen.TodosPalets) {
+                    for (Palet palet : Almacen.TodosPalets) {
                         boolean visible = palet.getIdTipo().equals(tipoSeleccionado);
                         palet.getProductBox().setVisible(visible);
                         palet.getPaletBox().setVisible(visible);
                     }
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         });
     }
-
 
 
     /**

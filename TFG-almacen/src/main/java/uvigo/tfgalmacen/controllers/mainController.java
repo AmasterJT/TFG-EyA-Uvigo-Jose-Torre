@@ -15,20 +15,44 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import uvigo.tfgalmacen.Main;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.WindowMovement;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 
 
 public class mainController implements Initializable {
 
     private static final Logger LOGGER = Logger.getLogger(mainController.class.getName());
+
+    static {
+        // Sube el nivel del logger
+        LOGGER.setLevel(Level.ALL);
+
+        // Evita que use los handlers del padre (que suelen estar en INFO con SimpleFormatter)
+        LOGGER.setUseParentHandlers(false);
+
+        // Crea un ConsoleHandler propio con tu ColorFormatter
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);                 // ¡importante!
+        ch.setFormatter(new ColorFormatter());  // tu formatter con colores/emoji
+        LOGGER.addHandler(ch);
+
+        // (Opcional) Si quieres también afectar al root logger:
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL); // si decides mantenerlos
+        }
+    }
 
 
     @FXML
@@ -123,22 +147,13 @@ public class mainController implements Initializable {
 
     }
 
-    private @NotNull Stage crearStageBasico(Parent root) {
-        Stage stage = new Stage();
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("Orden de compra");
-        stage.setScene(new Scene(root));
-        WindowMovement(root, stage);
-        return stage;
-    }
-
 
     private void abrirVentanaOrdenCompra() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/orden_compra.fxml"));
             Parent root = loader.load();
 
-            Stage ventanaOrdenCompra = crearStageBasico(root);
+            Stage ventanaOrdenCompra = crearStageBasico(root, "Orden de compra");
 
             Stage ventanaPadre = (Stage) orden_compra_btn.getScene().getWindow();
 
@@ -241,13 +256,14 @@ public class mainController implements Initializable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+
         }
     }
 
     private void slideMenu(boolean show) {
         TranslateTransition slide = new TranslateTransition(Duration.seconds(0.4), Slider);
         slide.setToX(show ? 0 : -176);
-        slide.setOnFinished(e -> {
+        slide.setOnFinished(_ -> {
             MenuButton.setVisible(!show);
             MenuBackButton.setVisible(show);
         });

@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.database.PedidoDAO;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 import uvigo.tfgalmacen.utils.windowComponentAndFuncionalty;
 
 import java.io.IOException;
@@ -26,14 +27,38 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_warning;
 
 public class pedidosController {
 
     private static final Logger LOGGER = Logger.getLogger(pedidosController.class.getName());
+
+    static {
+        // Sube el nivel del logger
+        LOGGER.setLevel(Level.ALL);
+
+        // Evita que use los handlers del padre (que suelen estar en INFO con SimpleFormatter)
+        LOGGER.setUseParentHandlers(false);
+
+        // Crea un ConsoleHandler propio con tu ColorFormatter
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);                 // ¡importante!
+        ch.setFormatter(new ColorFormatter());  // tu formatter con colores/emoji
+        LOGGER.addHandler(ch);
+
+        // (Opcional) Si quieres también afectar al root logger:
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL); // si decides mantenerlos
+        }
+    }
+
 
     private static final List<String> ESTADOS_DEL_PEDIDO = List.of("Pendiente", "En proceso", "Cancelado", "Completado");
     private static final String ESTADO_PENDIENTE = ESTADOS_DEL_PEDIDO.getFirst();
@@ -175,7 +200,8 @@ public class pedidosController {
         List<Pedido> pendientes = getPedidosSeleccionados(ESTADO_PENDIENTE);
 
         if (pendientes.isEmpty()) {
-            mostrarAlertaAdvertencia("No se ha seleccionado ningún pedido pendiente");
+            ventana_warning("Advertencia", null, "No se ha seleccionado ningún pedido pendiente");
+
             return;
         }
 
@@ -200,7 +226,7 @@ public class pedidosController {
         List<Pedido> seleccionados = getPedidosSeleccionados(null);
 
         if (seleccionados.isEmpty()) {
-            mostrarAlertaAdvertencia("No se ha seleccionado ningún pedido");
+            ventana_warning("Advertencia", null, "No se ha seleccionado ningún pedido");
             return;
         }
 
@@ -208,14 +234,16 @@ public class pedidosController {
     }
 
     private void verDetallesPedidoFiltro(String estadoFiltro) {
-        LOGGER.fine(() -> "Abrir detalles con filtro estado=" + estadoFiltro);
         List<Pedido> seleccionados = getPedidosSeleccionados(estadoFiltro);
 
         if (seleccionados.isEmpty()) {
-            mostrarAlertaAdvertencia("No se ha seleccionado ningún pedido");
+            ventana_warning("Advertencia", null, "No se ha seleccionado ningún pedido");
+
+            LOGGER.warning(() -> "No se seleccionó ningun pedido");
             return;
         }
 
+        LOGGER.info(() -> "Abrir detalles con filtro estado=" + estadoFiltro);
         abrirVentanasDetalle(seleccionados);
     }
 
@@ -249,10 +277,11 @@ public class pedidosController {
     }
 
     private void mostrarAlertaAdvertencia(String mensaje) {
-        Alert alerta = new Alert(Alert.AlertType.WARNING);
+        /*Alert alerta = new Alert(Alert.AlertType.WARNING);
         alerta.setTitle("Advertencia");
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
         alerta.showAndWait();
+*/
     }
 }

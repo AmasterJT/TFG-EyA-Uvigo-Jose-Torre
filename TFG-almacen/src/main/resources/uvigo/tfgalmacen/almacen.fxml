@@ -49,41 +49,64 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="320.0" style="-fx-border-color: #FFF; -fx-border-width: 4; -fx-border-radius: 15;">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="320.0" spacing="20.0" style="-fx-border-color: #FFF; -fx-border-width: 4; -fx-border-radius: 15;">
                            <children>
-                              <VBox alignment="CENTER_RIGHT" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <VBox alignment="CENTER" spacing="20.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
                                        <children>
-                                          <Label styleClass="texto-label" stylesheets="@Styles.css" text="ID Palet:" />
-                                          <Label fx:id="idPalelLabel" prefWidth="150.0" text="Label" textFill="WHITE" />
+                                          <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="116.0" style="-fx-border-color: white; -fx-border-width: 0 0 1 0;" styleClass="texto-label" stylesheets="@Styles.css" text="ID Palet:" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
                                        <children>
-                                          <Label styleClass="texto-label" stylesheets="@Styles.css" text="Producto:" />
-                                          <Label fx:id="nombreProductoLabel" prefWidth="150.0" text="Label" textFill="WHITE" />
+                                          <Label maxWidth="1.7976931348623157E308" prefHeight="26.0" style="-fx-border-color: white; -fx-border-width: 0 0 1 0;" styleClass="texto-label" stylesheets="@Styles.css" text="Producto:" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" spacing="10.0">
                                        <children>
-                                          <Label prefHeight="18.0" prefWidth="116.0" styleClass="texto-label" stylesheets="@Styles.css" text="Tipo Producto:" />
-                                          <Label fx:id="tipoProductoLabel" prefWidth="130.0" text="Label" textFill="WHITE" />
+                                          <Label maxHeight="26.0" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="116.0" style="-fx-border-color: white; -fx-border-width: 0 0 1 0;" styleClass="texto-label" stylesheets="@Styles.css" text="Tipo Producto:" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
                                        <children>
-                                          <Label styleClass="texto-label" stylesheets="@Styles.css" text="Contenido:" />
-                                          <Label fx:id="contenidoLabel" prefWidth="150.0" text="Label" textFill="WHITE" />
+                                          <Label maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="119.0" style="-fx-border-color: white; -fx-border-width: 0 0 1 0;" styleClass="texto-label" stylesheets="@Styles.css" text="Contenido:" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                  </children>
-                                 <padding>
-                                    <Insets left="30.0" top="20.0" />
-                                 </padding>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="164.0" prefWidth="116.0" spacing="20.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
+                                       <children>
+                                          <Label fx:id="idPalelLabel" prefHeight="26.0" prefWidth="150.0" text="Label" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
+                                       <children>
+                                          <Label fx:id="nombreProductoLabel" prefHeight="26.0" prefWidth="150.0" text="Label" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                       <children>
+                                          <Label fx:id="tipoProductoLabel" prefHeight="26.0" prefWidth="130.0" text="Label" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
+                                       <children>
+                                          <Label fx:id="contenidoLabel" prefHeight="26.0" prefWidth="150.0" text="Label" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
                               </VBox>
                            </children>
-                        </AnchorPane>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets left="15.0" right="15.0" />
