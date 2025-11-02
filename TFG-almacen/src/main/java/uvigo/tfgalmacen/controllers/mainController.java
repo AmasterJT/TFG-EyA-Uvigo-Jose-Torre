@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.utils.ColorFormatter;
@@ -72,19 +73,18 @@ public class mainController implements Initializable {
     private Label MenuButton;
     @FXML
     private Label MenuBackButton;
-    @FXML
-    private Label welcomeText;
+
     @FXML
     private Label roleLabel;
 
     @FXML
     private BorderPane BorderPane;
-    @FXML
-    private AnchorPane root;
-    @FXML
-    private AnchorPane almacenContainer;
+
     @FXML
     AnchorPane Slider;
+
+    @FXML
+    private AnchorPane root;
 
     @FXML
     private Button ajustesButton;
@@ -134,6 +134,8 @@ public class mainController implements Initializable {
             // Bloquear la ventana padre
             ventanaOrdenCompra.initOwner(ventanaPadre);
             ventanaOrdenCompra.initModality(Modality.WINDOW_MODAL);
+            ventanaOrdenCompra.initStyle(StageStyle.TRANSPARENT);
+
 
             ventanaOrdenCompra.showAndWait();
 

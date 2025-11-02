@@ -12,6 +12,8 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -215,12 +217,32 @@ public class windowComponentAndFuncionalty {
 
     // Versión completa
     public static @NotNull Stage crearStageBasico(Parent root, boolean movement, String title) {
-        Stage stage = new Stage();
-        stage.initStyle(StageStyle.UNDECORATED);
+        // Crear escena con fondo transparente
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+
+        // Crear ventana transparente
+        Stage stage = new Stage(StageStyle.TRANSPARENT);
+        stage.setScene(scene);
         stage.setTitle(title == null ? "" : title);
-        stage.setScene(new Scene(root));
+
+        // Activar movimiento si aplica
         if (movement) WindowMovement(root, stage);
+
+        // Recortar el contenido con esquinas redondeadas (10px)
+        Rectangle clip = new Rectangle();
+        clip.setArcWidth(20);
+        clip.setArcHeight(20);
+        root.setClip(clip);
+
+        // Ajustar clip dinámicamente al tamaño de la ventana
+        root.layoutBoundsProperty().addListener((obs, oldVal, newVal) -> {
+            clip.setWidth(newVal.getWidth());
+            clip.setHeight(newVal.getHeight());
+        });
+
         return stage;
     }
+
 
 }

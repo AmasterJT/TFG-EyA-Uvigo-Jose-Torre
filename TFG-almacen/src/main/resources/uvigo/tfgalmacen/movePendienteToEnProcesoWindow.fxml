@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.MovePendienteToEnProcesoController">
+<AnchorPane styleClass="principalWindow" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.MovePendienteToEnProcesoController">
    <children>
-      <BorderPane>
+      <BorderPane styleClass="backgroundScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #e8d2c3;" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" spacing="10.0" styleClass="backgroundScene" BorderPane.alignment="CENTER">
                <children>
                   <Label text="TRAMITAR PEDIDO">
                      <font>
@@ -27,8 +27,8 @@
                   </Label>
                   <VBox alignment="TOP_CENTER" spacing="30.0">
                      <children>
-                        <ComboBox fx:id="combo_pedido_update" prefWidth="300.0" promptText="PEDIDOS" />
-                        <ComboBox fx:id="combo_usuario_update" prefWidth="300.0" promptText="OPERARIO" />
+                        <ComboBox fx:id="combo_pedido_update" prefWidth="300.0" promptText="PEDIDOS" styleClass="mptep-combo" />
+                        <ComboBox fx:id="combo_usuario_update" prefWidth="300.0" promptText="OPERARIO" styleClass="mptep-combo" />
                      </children>
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" spacing="15.0">
@@ -75,6 +75,9 @@
                      <image>
                         <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg" />
                      </image>
+                     <HBox.margin>
+                        <Insets left="5.0" right="10.0" />
+                     </HBox.margin>
                   </ImageView>
                </children>
             </HBox>

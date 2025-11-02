@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.User;
@@ -93,12 +94,25 @@ public class loginController implements Initializable {
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene newScene = new Scene(newRoot);
+                newScene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 
                 WindowMovement(newRoot, stage);
                 //WindowResizer.attach(newRoot, stage, newScene);
 
                 stage.setScene(newScene);
                 stage.centerOnScreen();
+
+
+                stage.setOnShown(e -> {
+                    // fuerza cálculo CSS/layout antes de ajustar
+                    newRoot.applyCss();
+                    newRoot.layout();
+                    stage.sizeToScene();
+                });
+
+                System.out.println(stage.getHeight());
+                System.out.println(stage.getWidth());
+
                 stage.show();
 
                 LOGGER.fine("Escena principal cargada correctamente.");

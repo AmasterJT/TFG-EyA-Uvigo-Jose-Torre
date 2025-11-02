@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" prefHeight="641.0" prefWidth="732.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ordenCompraController">
+<AnchorPane fx:id="Pane" prefHeight="641.0" prefWidth="732.0" styleClass="principalWindow" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ordenCompraController">
     <children>
-        <BorderPane style="-fx-background-radius: 5; -fx-border-radius: 5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane styleClass="backgroundScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
-                <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #e8d2c3;" BorderPane.alignment="CENTER">
+                <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
                     <children>
                         <HBox alignment="CENTER">
                             <children>
@@ -128,11 +128,17 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
                   </Label>
                   <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg" />
                      </image>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
                   </ImageView>
                     </children>
                 </HBox>

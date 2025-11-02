@@ -1,5 +1,40 @@
 @import "MFXColors.css";
 
+.principalWindow {
+    -fx-background-color: -amaster-dark-blue !important;
+    -fx-border-color: -amaster-dark-blue !important;
+    -fx-border-width: 2;
+
+    -fx-border-radius: 10 !important;
+    -fx-background-radius: 10 !important;
+}
+
+.loginLeftBackground {
+    -fx-background-color: -amaster-dark-blue !important;
+}
+
+.loginRightBackground {
+    -fx-background-color: -amaster-gray2 !important;
+}
+
+.exitlogin {
+    -fx-background-color: -amaster-gray2 !important;
+
+}
+
+.exitlogin:hover {
+    -fx-background-color: #eb4034 !important;
+    -fx-border-color: #eb4034 !important;
+}
+
+.exitlogin:pressed {
+    -fx-background-color: #e36259 !important;
+}
+
+
+.backgroundScene {
+    -fx-background-color: -amaster-light-gray !important;
+}
 
 .windowBar {
     -fx-background-color: -amaster-dark-blue !important;
@@ -7,13 +42,48 @@
 
 
 .toolBar {
-    -fx-background-color: -amaster-light-brown;
+    -fx-background-color: -amaster-dark-brown !important;
 
 }
 
-.slider {
-    -fx-background-color: -amaster-brown;
+.menuItem {
+    -fx-background-color: -amaster-dark-brown !important;
+    -fx-border-width: 0px 0px 3px 0px;
+}
 
+.menuItem:hover {
+    -fx-border-color: -amaster-light-brown;
+    -fx-border-width: 0px 0px 3px 0px;
+}
+
+
+.slider {
+    -fx-background-color: -amaster-brown !important;
+
+}
+
+.sidebarItem {
+    -fx-background-color: -amaster-brown !important;
+}
+
+.sidebarItem:hover {
+    -fx-background-color: -amaster-light-brown !important;
+}
+
+
+.pendientePedido {
+    -fx-background-color: -amaster-gray2 !important;
+    -fx-border-color: -amaster-dark-blue !important;
+}
+
+.pendienteEnCurso {
+    -fx-background-color: -pedido-en-curso-color !important;
+    -fx-border-color: -amaster-dark-blue !important;
+}
+
+
+.combo-box.mptep-combo .cell:selected {
+    -fx-text-fill: #1a1a1a !important;
 }
 
 
@@ -69,17 +139,6 @@
 }
 
 
-.menuItem:hover {
-    -fx-border-color: #660099;
-    -fx-border-width: 0px 0px 3px 0px;
-}
-
-.sidebarItem:hover {
-    -fx-background-color: #146886;
-    -fx-border-color: WHITE;
-    -fx-border-width: 0px 0px 0px 3px;
-}
-
 .exitItem {
     -fx-background-color: -amaster-dark-blue !important;
 }
@@ -99,13 +158,16 @@
 }
 
 .loginText {
-    -fx-text-fill: white;
+    -fx-text-fill: -amaster-light-brown;
+}
+
+.loginBtn {
+    -fx-background-color: -amaster-dark-blue;
+    -fx-background-radius: 4;
 }
 
 .loginBtn:hover {
-    -fx-background-color: #146886;
-    -fx-border-color: RED;
-    -fx-border-width: 1px 1px 1px 1px;
+    -fx-background-color: -amaster-blue;
 }
 
 .mfx-checkbox {
@@ -350,18 +412,18 @@
 }
 
 
-.item-pedido-pendiente {
-    -fx-text-fill: white;
+.item-pedido-en-curso {
+    -fx-text-fill: black;
     -fx-font-family: "David Libre Regular";
-    -fx-font-size: 16px;
-    -fx-background-color: -pedido-pendiente-color;
+    -fx-font-size: 10px !important;
+    -fx-border-color: -amaster-dark-blue2;
 }
 
-.item-pedido-en-curso {
-    -fx-text-fill: white;
+
+.item-pedido-en-curso .label {
+    -fx-text-fill: black;
     -fx-font-family: "David Libre Regular";
-    -fx-font-size: 16px;
-    -fx-background-color: -pedido-en-curso-color;
+    -fx-font-size: 12px;
 }
 
 .indicador-item-pedido-pendiente {

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1400.0" style="-fx-background-color: #e8d2c3;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.pedidosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1400.0" styleClass="backgroundScene" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.pedidosController">
     <children>
       <VBox prefHeight="695.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,15 +24,15 @@
                   <Button fx:id="ver_detalles_pedido_btn" mnemonicParsing="false" text="VER PEDIDOS" />
                </children>
             </HBox>
-              <HBox alignment="CENTER" prefWidth="1400.0" spacing="20.0">
+              <HBox alignment="CENTER" prefWidth="1400.0" spacing="10.0">
                   <children>
-                  <VBox alignment="CENTER">
+                  <VBox alignment="CENTER" prefHeight="670.0" prefWidth="650.0">
                      <children>
-                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #804012; -fx-background-radius: 15 15 0 0; -fx-border-radius: 15 15 0 0; -fx-border-width: 3 3 0 3; -fx-border-color: #3E2411;" text="PEDIDIOS PENDIENTES" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-radius: 15 15 0 0; -fx-border-radius: 15 15 0 0; -fx-border-width: 3 3 0 3; -fx-border-color: #3E2411;" styleClass="pendientePedido" text="PEDIDIOS PENDIENTES" textAlignment="CENTER" textFill="WHITE">
                            <padding>
                               <Insets top="10.0" />
                            </padding></Label>
-                        <HBox alignment="BASELINE_CENTER" style="-fx-background-color: #804012; -fx-border-width: 0 3 0 3; -fx-border-color: #3E2411;">
+                        <HBox alignment="BASELINE_CENTER" style="-fx-border-width: 0 3 0 3; -fx-border-color: #3E2411;" styleClass="pendientePedido">
                            <children>
                               <Button fx:id="clear_pendientes_btn" mnemonicParsing="false" text="quitar seleccion">
                                  <HBox.margin>
@@ -50,7 +50,7 @@
                               <Insets bottom="10.0" />
                            </padding>
                         </HBox>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #804012; -fx-background-radius: 0 0 15 15; -fx-border-width: 0 3 3 3; -fx-border-color: #3E2411; -fx-border-radius: 0 0 15 15;">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-radius: 0 0 15 15; -fx-border-width: 0 3 3 3; -fx-border-color: #3E2411; -fx-border-radius: 0 0 15 15;" styleClass="pendientePedido">
                            <children>
                               <ScrollPane fx:id="pedidiosEnCursoScroll" fitToHeight="true" fitToWidth="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <content>
@@ -102,13 +102,13 @@
                         </Button>
                           </children>
                       </VBox>
-                  <VBox alignment="CENTER">
+                  <VBox alignment="CENTER" prefWidth="650.0">
                      <children>
-                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #DB9F75; -fx-background-radius: 15 15 0 0; -fx-border-color: #3E2411; -fx-border-width: 3 3 0 3; -fx-border-radius: 15 15 0 0;" text="PEDIDOS A REALIZAR HOY">
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-radius: 15 15 0 0; -fx-border-width: 3 3 0 3; -fx-border-radius: 15 15 0 0;" styleClass="pendienteEnCurso" text="PEDIDOS A REALIZAR HOY">
                            <padding>
                               <Insets top="10.0" />
                            </padding></Label>
-                        <HBox style="-fx-background-color: #DB9F75; -fx-border-color: #3E2411; -fx-border-width: 0 3 0 3;">
+                        <HBox style="-fx-border-color: #3E2411; -fx-border-width: 0 3 0 3;" styleClass="pendienteEnCurso">
                            <children>
                               <Button fx:id="clear_en_proceso_btn" mnemonicParsing="false" text="quitar seleccion">
                                  <HBox.margin>
@@ -126,9 +126,9 @@
                               <Insets bottom="10.0" />
                            </padding>
                         </HBox>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #DB9F75; -fx-background-radius: 0 0 15 15; -fx-border-radius: 0 0 15 15; -fx-border-color: #3E2411; -fx-border-width: 0 3 3 3;">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-radius: 0 0 15 15; -fx-border-radius: 0 0 15 15; -fx-border-width: 0 3 3 3;" styleClass="pendienteEnCurso">
                            <children>
-                              <ScrollPane fx:id="pedidiosPendientesScroll" fitToHeight="true" fitToWidth="true">
+                              <ScrollPane fx:id="pedidiosPendientesScroll" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <content>
                                     <VBox alignment="CENTER" prefHeight="580.0" prefWidth="630.0">
                                        <children>

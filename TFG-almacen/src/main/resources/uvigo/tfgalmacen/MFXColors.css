@@ -33,16 +33,24 @@
     -mfx-text-disabled: rgba(0, 0, 0, 0.38);
 
 
+    -amaster-dark-blue2: #183e55;
     -amaster-dark-blue: #053147;
-    -amaster-dark-gray: #2F3A32;
-    -amaster-gray: #545748;
+    -amaster-blue: #006f84;
+
+
+    -amaster-deep-dark-gray: #394955;
+    -amaster-dark-gray: #394955;
+    -amaster-gray2: #6b6b6b;
+    -amaster-gray: #9cadbc;
+    -amaster-light-gray: #f1f1e6;
+
     -amaster-light-brown: #DB9F75;
-    -amaster-brown: #804012;
-    -amaster-dark-brown: #3E2411;
+    -amaster-brown: #877056;
+    -amaster-dark-brown: #544029;
 
 
-    -pedido-pendiente-color: #bfbfbf;
-    -pedido-en-curso-color: #2F3A32;
+    -pedido-pendiente-color: #2F3A32;
+    -pedido-en-curso-color: #bfbfbf;
     -pedido-cancelado-color: #ed8080;
 
     -indicador-pedido-pendiente-color: #bfbfbf;

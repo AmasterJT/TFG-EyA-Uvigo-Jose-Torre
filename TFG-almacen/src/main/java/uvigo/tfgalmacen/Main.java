@@ -101,34 +101,6 @@ public class Main extends Application {
         LOGGER.info("Aplicación detenida y conexión cerrada.");
     }
 
-    /**
-     * Permite mover la ventana arrastrando un contenedor con fx:id="windowBar".
-     * Si el nodo no existe, registra un warning y continúa (para evitar romper la app).
-     */
-    private void WindowMovement(Parent root, Stage stage) {
-        HBox windowBar = null;
-        try {
-            windowBar = (HBox) root.lookup("#windowBar");
-        } catch (Exception e) {
-            // lookup lanzó algo raro; lo registramos, pero no detenemos la app
-            LOGGER.log(Level.WARNING, "Error al hacer lookup de #windowBar", e);
-        }
-
-        if (windowBar == null) {
-            LOGGER.warning("No se encontró el nodo con fx:id='windowBar'. El arrastre de ventana estará deshabilitado.");
-            return;
-        }
-
-        windowBar.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-
-        windowBar.setOnMouseDragged(event -> {
-            stage.setX(event.getScreenX() - xOffset);
-            stage.setY(event.getScreenY() - yOffset);
-        });
-    }
 
     public static void main(String[] args) {
         // Si quieres dejar pruebas de consola, protégelas con try/catch y logs.

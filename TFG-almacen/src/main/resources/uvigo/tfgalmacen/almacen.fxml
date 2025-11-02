@@ -8,15 +8,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.almacenController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.almacenController">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1000.0" style="-fx-background-color: #F3E;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="990.0">
          <children>
-            <VBox alignment="CENTER">
+            <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane fx:id="almacenContainer" prefHeight="694.0" prefWidth="1000.0">
+                  <AnchorPane fx:id="almacenContainer" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-14.0" layoutY="-8.0" prefHeight="706.0" prefWidth="1017.0" text="Page almacen" textFill="WHITE" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="-14.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="-8.0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-14.0" layoutY="-8.0" styleClass="backgroundScene" text="Page almacen" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font />
                            </font>
@@ -27,9 +27,9 @@
             </VBox>
          </children>
       </AnchorPane>
-      <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="400.0">
+      <VBox alignment="CENTER" fillWidth="false" styleClass="backgroundScene" HBox.hgrow="ALWAYS">
          <children>
-            <AnchorPane fx:id="infoCardAlmacen" prefHeight="470.0" prefWidth="350.0" style="-fx-background-color: #2F3A32; -fx-border-radius: 15; -fx-background-radius: 15;" styleClass="shadow" stylesheets="@Styles.css">
+            <AnchorPane fx:id="infoCardAlmacen" style="-fx-background-color: #2F3A32; -fx-border-radius: 15; -fx-background-radius: 15;" styleClass="shadow" stylesheets="@Styles.css">
                <children>
                   <VBox alignment="CENTER_LEFT" fillWidth="false" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -115,8 +115,14 @@
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
-               </VBox.margin></AnchorPane>
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding></AnchorPane>
          </children>
+         <padding>
+            <Insets left="30.0" right="30.0" />
+         </padding>
       </VBox>
    </children>
 </HBox>
