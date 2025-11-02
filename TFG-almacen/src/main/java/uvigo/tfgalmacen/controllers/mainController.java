@@ -157,6 +157,8 @@ public class mainController implements Initializable {
             BorderPane.setCenter(parent);
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "Error cargando FXML: " + fileName, ex);
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
     }
 

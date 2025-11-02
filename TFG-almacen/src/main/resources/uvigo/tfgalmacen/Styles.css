@@ -70,6 +70,10 @@
     -fx-background-color: -amaster-light-brown !important;
 }
 
+.sidebarItem:selected {
+    -fx-background-color: -amaster-dark-blue z !important;
+}
+
 
 .pendientePedido {
     -fx-background-color: -amaster-gray2 !important;
