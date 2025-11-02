@@ -1,18 +1,42 @@
 package uvigo.tfgalmacen.database;
 
 
+import uvigo.tfgalmacen.utils.ColorFormatter;
+import uvigo.tfgalmacen.utils.windowComponentAndFuncionalty;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class DatabaseConnection {
 
-    // Colores ANSI para consola
-    private static final String RESET = "\033[0m";  // Resetea el color
-    private static final String GREEN = "\033[32m"; // Verde
-    private static final String RED = "\033[31m";   // Rojo
-    private static final String ORANGE = "\033[34m";  // Azul
+    private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class.getName());
+
+
+    static {
+        // Sube el nivel del logger
+        LOGGER.setLevel(Level.ALL);
+
+        // Evita que use los handlers del padre (que suelen estar en INFO con SimpleFormatter)
+        LOGGER.setUseParentHandlers(false);
+
+        // Crea un ConsoleHandler propio con tu ColorFormatter
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);                 // ¡importante!
+        ch.setFormatter(new ColorFormatter());  // tu formatter con colores/emoji
+        LOGGER.addHandler(ch);
+
+        // (Opcional) Si quieres también afectar al root logger:
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL); // si decides mantenerlos
+        }
+    }
 
     static String URL = DataConfig.URL;
     static String USER = DataConfig.USER;
@@ -30,15 +54,15 @@ public class DatabaseConnection {
             // Establecer la conexión
             Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 
-            System.out.println("✅ " + GREEN + "CONEXIÓN EXITOSA A LA BASE DE DATOS" + RESET);
+            LOGGER.fine("CONEXIÓN EXITOSA A LA BASE DE DATOS");
 
             isConnected = true;
             return connection;
         } catch (ClassNotFoundException e) {
-            System.err.println("❌ Driver no encontrado: " + e.getMessage());
+            LOGGER.severe("Driver no encontrado: " + e.getMessage());
             throw new SQLException("No se pudo cargar el driver de MySQL", e);
         } catch (SQLException e) {
-            System.err.println("❌ Error de conexión: " + e.getMessage());
+            LOGGER.severe("Error de conexión: \n" + e.getMessage());
             throw e;
         }
     }
@@ -48,10 +72,10 @@ public class DatabaseConnection {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
                 isConnected = false;
-                System.out.println("⚠️ " + ORANGE + "CONEXIÓN CERRADA" + RESET);
+                LOGGER.warning("CONEXIÓN CERRADA");
             }
         } catch (SQLException e) {
-            System.err.println("❌ Error cerrando la conexión: " + e.getMessage());
+            LOGGER.severe("Error cerrando la conexión: \" + e.getMessage()");
         }
     }
 

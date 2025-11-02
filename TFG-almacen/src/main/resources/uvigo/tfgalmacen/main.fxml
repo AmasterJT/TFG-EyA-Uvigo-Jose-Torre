@@ -9,16 +9,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1560.0" style="-fx-border-radius: 40px !important; -fx-background-color: #EEE;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.mainController">
-   <BorderPane fx:id="BorderPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-border-radius: 40;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1560.0" style="-fx-background-color: #EEE; -fx-border-width: 1; -fx-border-color: black;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.mainController">
+   <BorderPane fx:id="BorderPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEE; -fx-border-radius: 40;" styleClass="toolBar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <top>
-         <AnchorPane fx:id="topBar" prefHeight="85.0" prefWidth="200.0" style="-fx-background-color: #db9f75;">
+         <AnchorPane fx:id="topBar" prefHeight="85.0" prefWidth="200.0" styleClass="toolBar">
             <children>
-            <HBox fx:id="windowBar" alignment="CENTER_LEFT" layoutX="192.0" layoutY="-25.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" style="-fx-background-color: #3e2411;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <Button fx:id="ExitButton" maxHeight="40.0" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-radius: 0px; -fx-background-color: #3e2411;" styleClass="exitItem" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
+            <HBox fx:id="windowBar" alignment="CENTER_LEFT" layoutX="192.0" layoutY="-25.0" nodeOrientation="RIGHT_TO_LEFT" styleClass="windowBar" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <Button fx:id="ExitButton" graphicTextGap="0.0" mnemonicParsing="false" styleClass="exitItem" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
                   <cursor>
                      <Cursor fx:constant="HAND" />
                   </cursor>
@@ -29,7 +30,7 @@
                      <Insets />
                   </HBox.margin>
                </Button>
-                  <Button fx:id="fullScreenBtn" maxWidth="35.0" minHeight="41.0" minWidth="-Infinity" mnemonicParsing="false" prefWidth="37.0" style="-fx-background-radius: 0px; -fx-background-color: #3e2411;" styleClass="topbarItem" textFill="WHITE">
+                  <Button fx:id="minimizeButton" maxWidth="35.0" minWidth="-Infinity" mnemonicParsing="false" prefWidth="37.0" styleClass="exitItem" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -37,14 +38,28 @@
                         <Font name="System Bold" size="17.0" />
                      </font>
                      <graphic>
-                        <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <Image url="@../../icons/fullscreen.png" />
+                        <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="exitItem">
+                           <Image url="@../../icons/minimize-48.png" />
                         </ImageView>
                      </graphic>
                      <HBox.margin>
                         <Insets top="-1.0" />
                      </HBox.margin>
                   </Button>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label contentDisplay="RIGHT" text="TFG JTTP " textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0" HBox.hgrow="ALWAYS">
+                     <image>
+                        <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ImageView>
 
             </HBox>
             <HBox fx:id="toolBar" alignment="CENTER" layoutX="80.0" layoutY="-11.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="90.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
@@ -146,11 +161,14 @@
          </AnchorPane>
       </top>
       <left>
-         <AnchorPane fx:id="Slider" prefHeight="362.0" prefWidth="160.0" style="-fx-background-color: #804012;" BorderPane.alignment="CENTER">
-            <ImageView fitHeight="82.0" fitWidth="80.0" layoutX="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
-               <Image url="@../../icons/user.png" />
-            </ImageView>
-            <VBox layoutX="48.0" layoutY="41.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #804012;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+         <AnchorPane fx:id="Slider" prefHeight="362.0" prefWidth="160.0" style="-fx-background-color: #804012;">
+            <VBox alignment="CENTER" layoutX="48.0" layoutY="41.0" prefHeight="200.0" prefWidth="150.0" styleClass="slider" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <ImageView fitHeight="100.0" fitWidth="208.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../../icons/logo_uvigo.png" />
+                  <VBox.margin>
+                     <Insets bottom="20.0" top="20.0" />
+                  </VBox.margin>
+               </ImageView>
                <Button fx:id="almacenButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012; -fx-font-weight: bold;" styleClass="sidebarItem" text="ALMACEN" textFill="WHITE">
                   <graphic>
                      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -212,36 +230,30 @@
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Button>
-            </VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="99.0" prefWidth="160.0" style="-fx-background-color: #804012;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <Button fx:id="ajustesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
-                     <graphic>
-                        <ImageView fx:id="ajustesBtn" fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../icons/setting.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-               </children>
+               <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+               <Button fx:id="ajustesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
+                  <graphic>
+                     <ImageView fx:id="ajustesBtn" fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../icons/setting.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Button>
             </VBox>
          </AnchorPane>
       </left>
       <center>
-         <AnchorPane fx:id="almacenContainer" prefHeight="858.0" prefWidth="1300.0" style="-fx-background-color: #EEE;" BorderPane.alignment="CENTER" />
+         <AnchorPane fx:id="almacenContainer" prefHeight="858.0" prefWidth="1300.0" style="-fx-background-color: #e8d2c3;" BorderPane.alignment="CENTER" />
       </center>
       <bottom>
-         <AnchorPane prefHeight="20.0" style="-fx-background-color: #3e2411;" BorderPane.alignment="CENTER">
+         <AnchorPane prefHeight="20.0" styleClass="windowBar" BorderPane.alignment="CENTER">
             <children>
                <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0">
                   <children>

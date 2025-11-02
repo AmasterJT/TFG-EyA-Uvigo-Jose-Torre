@@ -4,15 +4,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import uvigo.tfgalmacen.Main;
@@ -206,14 +203,14 @@ public class pedidosController {
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/MovePendienteToEnProceso.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/movePendienteToEnProcesoWindow.fxml"));
             AnchorPane pane = loader.load();
 
             MovePendienteToEnProcesoController controller = loader.getController();
             controller.setData(pendientes, Main.connection);
 
 
-            Stage stage = crearStageBasico("Asignar pedido a usuario", pane, true);
+            Stage stage = crearStageBasico(pane, true, "Asignar pedido a usuario");
             stage.setOnHidden(_ -> redibujar());
             stage.show();
 
@@ -250,13 +247,13 @@ public class pedidosController {
     private void abrirVentanasDetalle(@NotNull List<Pedido> pedidos) {
         for (Pedido pedido : pedidos) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/detallesPedidoView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/detallesPedidoWindow.fxml"));
                 AnchorPane pane = loader.load();
 
                 DetallesPedidoController controller = loader.getController();
                 controller.setData(pedido, Main.connection);
 
-                Stage stage = crearStageBasico("Detalles del pedido: " + pedido.getCodigo_referencia(), pane, true);
+                Stage stage = crearStageBasico(pane, true, "Detalles del pedido: " + pedido.getCodigo_referencia());
                 stage.setOnHidden(_ -> redibujar());
                 stage.show();
 

@@ -110,9 +110,9 @@
                 </VBox>
             </center>
             <top>
-                <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" style="-fx-background-color: #3e2411;" BorderPane.alignment="CENTER">
+                <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" styleClass="windowBar" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #3e2411;" styleClass="exitItem" stylesheets="@Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
+                        <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="exitItem" stylesheets="@Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
@@ -123,11 +123,22 @@
                                 <Insets />
                             </HBox.margin>
                         </Button>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label contentDisplay="RIGHT" text="TFG JTTP " textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg" />
+                     </image>
+                  </ImageView>
                     </children>
                 </HBox>
             </top>
             <bottom>
-                <AnchorPane prefHeight="20.0" style="-fx-background-color: #3e2411;" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="20.0" styleClass="windowBar" BorderPane.alignment="CENTER">
                     <children>
                         <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0" />
                     </children>

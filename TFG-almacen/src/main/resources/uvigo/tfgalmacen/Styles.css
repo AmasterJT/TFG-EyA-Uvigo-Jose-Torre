@@ -1,5 +1,22 @@
 @import "MFXColors.css";
 
+
+.windowBar {
+    -fx-background-color: -amaster-dark-blue !important;
+}
+
+
+.toolBar {
+    -fx-background-color: -amaster-light-brown;
+
+}
+
+.slider {
+    -fx-background-color: -amaster-brown;
+
+}
+
+
 /* Solo esta lista */
 .oc-list {
     -fx-background-color: transparent;
@@ -62,6 +79,11 @@
     -fx-border-color: WHITE;
     -fx-border-width: 0px 0px 0px 3px;
 }
+
+.exitItem {
+    -fx-background-color: -amaster-dark-blue !important;
+}
+
 
 .exitItem:hover {
     -fx-background-color: #eb4034 !important;

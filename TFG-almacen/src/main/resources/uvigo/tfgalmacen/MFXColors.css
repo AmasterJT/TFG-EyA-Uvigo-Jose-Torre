@@ -33,7 +33,7 @@
     -mfx-text-disabled: rgba(0, 0, 0, 0.38);
 
 
-    -amaster-dark-blue: #112524;
+    -amaster-dark-blue: #053147;
     -amaster-dark-gray: #2F3A32;
     -amaster-gray: #545748;
     -amaster-light-brown: #DB9F75;
@@ -46,6 +46,6 @@
     -pedido-cancelado-color: #ed8080;
 
     -indicador-pedido-pendiente-color: #bfbfbf;
-    -indicador-pedido-en-curso-color: #4bb030;
+    -indicador-pedido-en-curso-color: #6b6b6b;
     -indicador-pedido-cancelado-color: #9e3a2c;
 }

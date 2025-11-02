@@ -95,7 +95,7 @@ public class loginController implements Initializable {
                 Scene newScene = new Scene(newRoot);
 
                 WindowMovement(newRoot, stage);
-                WindowResizer.attach(newRoot, stage, newScene);
+                //WindowResizer.attach(newRoot, stage, newScene);
 
                 stage.setScene(newScene);
                 stage.centerOnScreen();
@@ -104,7 +104,7 @@ public class loginController implements Initializable {
                 LOGGER.fine("Escena principal cargada correctamente.");
 
             } catch (IOException e) {
-                LOGGER.warning("Error cargando la escena principal");
+                LOGGER.warning("Error cargando la escena principal" + e.getMessage());
             }
 
         } else {

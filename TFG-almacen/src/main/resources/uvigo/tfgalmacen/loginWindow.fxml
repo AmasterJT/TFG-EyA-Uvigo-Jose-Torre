@@ -93,7 +93,7 @@
             <Insets left="40.0" right="40.0" />
          </padding>
       </VBox>
-      <Button fx:id="loginExitButton" layoutX="260.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0px; -fx-background-color: #db9f75;" styleClass="exitItem" text="⨉" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Button fx:id="loginExitButton" layoutX="260.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0px; -fx-background-color: #db9f75;" text="⨉" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

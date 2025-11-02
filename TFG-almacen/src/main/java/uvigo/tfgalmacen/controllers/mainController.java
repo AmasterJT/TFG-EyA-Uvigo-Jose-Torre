@@ -11,9 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.jetbrains.annotations.NotNull;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
@@ -26,9 +24,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.WindowMovement;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
-
 
 public class mainController implements Initializable {
 
@@ -54,86 +50,62 @@ public class mainController implements Initializable {
         }
     }
 
-
     @FXML
     AnchorPane topBar;
-
     @FXML
     HBox windowBar;
 
     @FXML
     private Button inventarioButton;
-
     @FXML
     private Button pedidosButton;
-
     @FXML
     private Button almacenButton;
-
     @FXML
     private Button recepcionButton;
-
     @FXML
     private Button ExitButton;
-
     @FXML
-    private Button openExcelButton;
+    private Button minimizeButton;
 
     @FXML
     private Label MenuButton;
-
     @FXML
     private Label MenuBackButton;
-
     @FXML
     private Label welcomeText;
-
     @FXML
     private Label roleLabel;
 
     @FXML
     private BorderPane BorderPane;
-
     @FXML
     private AnchorPane root;
-
     @FXML
     private AnchorPane almacenContainer;
-
     @FXML
     AnchorPane Slider;
 
     @FXML
     private Button ajustesButton;
-
-
     @FXML
     private Button orden_compra_btn;
 
-
     private Button activeScene = null;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         ExitButton.setOnMouseClicked(_ -> Platform.exit());
+        minimizeButton.setOnAction(_ -> minimizarVentana());
+
 
         almacenButton.setOnMouseClicked(_ -> loadAlmacenView());
-
         inventarioButton.setOnMouseClicked(_ -> loadInventarioView());
-
         pedidosButton.setOnMouseClicked(_ -> loadPedidosView());
-
         recepcionButton.setOnMouseClicked(_ -> loadRecepcionView());
-
         ajustesButton.setOnMouseClicked(_ -> loadAjustesView());
-
         orden_compra_btn.setOnMouseClicked(_ -> abrirVentanaOrdenCompra());
-
-
-        // MenuBackButton.setOnMouseClicked(_ -> slideMenu(false));
-        // MenuButton.setOnMouseClicked(_ -> slideMenu(true));
 
         // Por defecto carga la vista de almacen
         loadAlmacenView();
@@ -143,14 +115,16 @@ public class mainController implements Initializable {
         } else {
             roleLabel.setText("NO ROL");
         }
-
-
     }
 
+    private void minimizarVentana() {
+        Stage stage = (Stage) minimizeButton.getScene().getWindow();
+        stage.setIconified(true);
+    }
 
     private void abrirVentanaOrdenCompra() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/orden_compra.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/ordenCompraWindow.fxml"));
             Parent root = loader.load();
 
             Stage ventanaOrdenCompra = crearStageBasico(root, "Orden de compra");
@@ -168,25 +142,19 @@ public class mainController implements Initializable {
         }
     }
 
-
     //------------------------------------------------------------------------------------------------------------------
-
     //                                   APARTADOS DEL MAIN CONTROLLER
-
     //------------------------------------------------------------------------------------------------------------------
 
     @FXML
     private void loadFXML(String fileName) {
-        Parent parent;
         try {
             String PATH = "/uvigo/tfgalmacen/" + fileName + ".fxml";
             FXMLLoader loader = new FXMLLoader(getClass().getResource(PATH));
-            parent = loader.load();
-
+            Parent parent = loader.load();
             BorderPane.setCenter(parent);
-
         } catch (IOException ex) {
-            Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, "Error cargando FXML: " + fileName, ex);
         }
     }
 
@@ -220,13 +188,9 @@ public class mainController implements Initializable {
         marcarBotonActivo(ajustesButton);
     }
 
-
     //------------------------------------------------------------------------------------------------------------------
-
     //                                        Funciones adicionales
-
     //------------------------------------------------------------------------------------------------------------------
-
 
     @FXML
     private void openXmlInExcel() {
@@ -234,29 +198,25 @@ public class mainController implements Initializable {
         File folder = new File("output_files/");
 
         if (!folder.exists() || !folder.isDirectory()) {
-            System.out.println("Directorio no encontrado.");
+            LOGGER.warning("Directorio no encontrado: " + folder.getAbsolutePath());
             return;
         }
 
         File[] xmlFiles = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".xml"));
 
         if (xmlFiles == null || xmlFiles.length == 0) {
-            System.out.println("No se encontraron archivos XML.");
+            LOGGER.info("No se encontraron archivos XML en: " + folder.getAbsolutePath());
             return;
         }
 
         try {
             for (File xmlFile : xmlFiles) {
-                // Usa el comando por defecto del sistema para abrir el archivo con la aplicación asociada (Excel si está bien asociado).
-                //Desktop.getDesktop().open(xmlFile);
-
-                // Construir el comando para abrir cada archivo XML con Excel
                 String command = excelPath + " \"" + xmlFile.getAbsolutePath() + "\"";
                 Runtime.getRuntime().exec(command);
+                LOGGER.fine("Abriendo en Excel: " + xmlFile.getName());
             }
         } catch (IOException e) {
-            e.printStackTrace();
-
+            LOGGER.log(Level.SEVERE, "Error abriendo XML en Excel", e);
         }
     }
 
@@ -270,11 +230,10 @@ public class mainController implements Initializable {
         slide.play();
     }
 
-
     private void marcarBotonActivo(Button botonSeleccionado) {
         // Estilo para botón activo
         String estiloActivo = "-fx-background-color: #2E2E2E; -fx-text-fill: white;";
-        // Estilo para botón inactivo (vacío o el que uses por defecto)
+        // Estilo para botón inactivo
         String estiloNormal = "-fx-background-color: #804012; -fx-text-fill: white;";
 
         // Aplicar estilos condicionalmente
@@ -286,6 +245,4 @@ public class mainController implements Initializable {
         // Actualizar referencia del botón activo
         activeScene = botonSeleccionado;
     }
-
-
 }

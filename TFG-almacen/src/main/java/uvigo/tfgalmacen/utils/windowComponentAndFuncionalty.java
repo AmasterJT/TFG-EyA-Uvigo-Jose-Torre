@@ -68,18 +68,6 @@ public class windowComponentAndFuncionalty {
     public static final Duration SHAKE_DURATION = Duration.millis(50);
 
 
-    public static @NotNull Stage crearStageBasico(String titulo, AnchorPane root, boolean habilitarMovimientoVentana) {
-        Stage stage = new Stage();
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle(titulo);
-        stage.setScene(new Scene(root));
-        if (habilitarMovimientoVentana) {
-            WindowMovement(root, stage);
-        }
-        return stage;
-    }
-
-
     /**
      * Configura el movimiento de la ventana para permitir que el usuario la arrastre desde un área específica.
      *

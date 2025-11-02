@@ -5,14 +5,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.MovePendienteToEnProcesoController">
+<AnchorPane stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.MovePendienteToEnProcesoController">
    <children>
       <BorderPane>
          <center>
@@ -50,9 +52,9 @@
             </VBox>
          </center>
          <top>
-            <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" style="-fx-background-color: #3e2411;" BorderPane.alignment="CENTER">
+            <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" styleClass="windowBar" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0px; -fx-background-color: #3e2411;" styleClass="exitItem" stylesheets="@Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="exitItem" stylesheets="@Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -63,11 +65,22 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label contentDisplay="RIGHT" text="TFG JTTP " textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg" />
+                     </image>
+                  </ImageView>
                </children>
             </HBox>
          </top>
          <bottom>
-            <AnchorPane prefHeight="20.0" style="-fx-background-color: #3e2411;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="20.0" styleClass="windowBar" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0" />
                </children>
