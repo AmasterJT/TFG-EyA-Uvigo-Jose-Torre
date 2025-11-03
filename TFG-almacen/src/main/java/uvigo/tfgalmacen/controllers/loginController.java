@@ -29,6 +29,7 @@ import uvigo.tfgalmacen.User;
 import uvigo.tfgalmacen.database.UsuarioDAO;
 import uvigo.tfgalmacen.utils.WindowResizer;
 
+import static uvigo.tfgalmacen.RutasFxml.MAIN_FXML;
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 import static uvigo.tfgalmacen.database.UsuarioDAO.SQLcheckUser;
@@ -64,9 +65,6 @@ public class loginController implements Initializable {
         }
     }
 
-    public static final boolean IS_RESIZABLE = false;
-
-    public static List<User> allUsers;
 
     @FXML
     private Button loginButton;
@@ -89,7 +87,7 @@ public class loginController implements Initializable {
             Main.currentUser = new User(username.getText(), password.getText(), Main.connection);
 
             try {
-                FXMLLoader loader = new FXMLLoader(Main.class.getResource("/uvigo/tfgalmacen/main.fxml"));
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource(MAIN_FXML));
                 Parent newRoot = loader.load();
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -119,6 +117,7 @@ public class loginController implements Initializable {
 
             } catch (IOException e) {
                 LOGGER.warning("Error cargando la escena principal" + e.getMessage());
+                e.printStackTrace();
             }
 
         } else {

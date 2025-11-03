@@ -49,13 +49,13 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="320.0" spacing="20.0" style="-fx-border-color: #FFF; -fx-border-width: 4; -fx-border-radius: 15;">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="320.0" spacing="10.0" style="-fx-border-color: #FFF; -fx-border-width: 4; -fx-border-radius: 15;">
                            <children>
                               <VBox alignment="CENTER" spacing="20.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
                                        <children>
-                                          <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="116.0" style="-fx-border-color: white; -fx-border-width: 0 0 1 0;" styleClass="texto-label" stylesheets="@Styles.css" text="ID Palet:" HBox.hgrow="ALWAYS" />
+                                          <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="21.0" prefWidth="105.0" style="-fx-border-color: white; -fx-border-width: 0 0 1 0;" styleClass="texto-label" stylesheets="@Styles.css" text="ID Palet:" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
@@ -75,7 +75,7 @@
                                     </HBox>
                                  </children>
                                  <HBox.margin>
-                                    <Insets bottom="20.0" left="20.0" top="20.0" />
+                                    <Insets bottom="20.0" left="30.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="164.0" prefWidth="116.0" spacing="20.0">
@@ -102,7 +102,7 @@
                                     </HBox>
                                  </children>
                                  <HBox.margin>
-                                    <Insets bottom="20.0" right="20.0" top="20.0" />
+                                    <Insets bottom="20.0" right="30.0" top="20.0" />
                                  </HBox.margin>
                               </VBox>
                            </children>

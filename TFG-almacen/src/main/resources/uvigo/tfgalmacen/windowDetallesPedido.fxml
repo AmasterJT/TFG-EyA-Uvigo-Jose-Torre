@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="641.0" prefWidth="617.0" styleClass="principalWindow" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.DetallesPedidoController">
+<AnchorPane prefHeight="641.0" prefWidth="632.0" styleClass="principalWindow" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.DetallesPedidoController">
    <children>
       <BorderPane styleClass="transparent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -54,7 +54,7 @@
                   </HBox>
                   <VBox alignment="CENTER" spacing="30.0">
                      <children>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #222; -fx-background-radius: 10;">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" styleClass="pendientePedido">
                            <children>
                               <ScrollPane fx:id="pedidiosEnCursoScroll" fitToHeight="true" fitToWidth="true" styleClass="transparent" stylesheets="@Styles.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                  <content>

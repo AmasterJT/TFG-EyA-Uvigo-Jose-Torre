@@ -3,29 +3,22 @@ package uvigo.tfgalmacen;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import uvigo.tfgalmacen.database.ProductoDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
-import uvigo.tfgalmacen.utils.WindowResizer;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.RutasFxml.WINDOW_LOGIN_FXML;
 import static uvigo.tfgalmacen.database.DatabaseConnection.connect;
 import static uvigo.tfgalmacen.database.DatabaseConnection.close;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
-
-import uvigo.tfgalmacen.database.PedidoDAO;
 
 public class Main extends Application {
 
@@ -86,7 +79,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/uvigo/tfgalmacen/loginWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(WINDOW_LOGIN_FXML));
         Parent root = fxmlLoader.load();
 
         stage = crearStageBasico(root);

@@ -29,6 +29,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.RutasFxml.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_warning;
 
@@ -147,7 +148,7 @@ public class pedidosController {
         try {
             int row = 0;
             for (Pedido pedido : pedidos) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemPedidos.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(ITEM_PEDIDO_FXML));
                 AnchorPane pane = loader.load();
 
                 ItemPedidoController controller = loader.getController();
@@ -203,7 +204,7 @@ public class pedidosController {
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/movePendienteToEnProcesoWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_MOVE_PENDIENTE_TO_EN_PROCESO_FXML));
             AnchorPane pane = loader.load();
 
             MovePendienteToEnProcesoController controller = loader.getController();
@@ -247,7 +248,7 @@ public class pedidosController {
     private void abrirVentanasDetalle(@NotNull List<Pedido> pedidos) {
         for (Pedido pedido : pedidos) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/detallesPedidoWindow.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_DETALLES_PEDIDO_FXML));
                 AnchorPane pane = loader.load();
 
                 DetallesPedidoController controller = loader.getController();

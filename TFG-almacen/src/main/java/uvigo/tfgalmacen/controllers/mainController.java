@@ -25,6 +25,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.RutasFxml.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 
 public class mainController implements Initializable {
@@ -124,7 +125,7 @@ public class mainController implements Initializable {
 
     private void abrirVentanaOrdenCompra() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/ordenCompraWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_ORDEN_COMPRA_FXML));
             Parent root = loader.load();
 
             Stage ventanaOrdenCompra = crearStageBasico(root, "Orden de compra");
@@ -149,14 +150,14 @@ public class mainController implements Initializable {
     //------------------------------------------------------------------------------------------------------------------
 
     @FXML
-    private void loadFXML(String fileName) {
+    private void loadFXML(String PATH) {
         try {
-            String PATH = "/uvigo/tfgalmacen/" + fileName + ".fxml";
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(PATH));
             Parent parent = loader.load();
             BorderPane.setCenter(parent);
         } catch (IOException ex) {
-            LOGGER.log(Level.SEVERE, "Error cargando FXML: " + fileName, ex);
+            LOGGER.log(Level.SEVERE, "Error cargando FXML: " + PATH, ex);
             System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
@@ -164,31 +165,31 @@ public class mainController implements Initializable {
 
     @FXML
     private void loadAlmacenView() {
-        loadFXML("almacen");
+        loadFXML(APARTADO_ALMACEN_FXML);
         marcarBotonActivo(almacenButton);
     }
 
     @FXML
     private void loadInventarioView() {
-        loadFXML("inventario");
+        loadFXML(APARTADO_INVENTARIO_FXML);
         marcarBotonActivo(inventarioButton);
     }
 
     @FXML
     private void loadPedidosView() {
-        loadFXML("pedidos");
+        loadFXML(APARTADO_PEDIDOS_FXML);
         marcarBotonActivo(pedidosButton);
     }
 
     @FXML
     private void loadRecepcionView() {
-        loadFXML("recepcion");
+        loadFXML(APARTADO_RECEPCION_FXML);
         marcarBotonActivo(recepcionButton);
     }
 
     @FXML
     private void loadAjustesView() {
-        loadFXML("ajustes");
+        loadFXML(APARTADO_AJUSTES_FXML);
         marcarBotonActivo(ajustesButton);
     }
 
@@ -236,7 +237,7 @@ public class mainController implements Initializable {
 
     private void marcarBotonActivo(Button botonSeleccionado) {
         // Estilo para botón activo
-        String estiloActivo = "-fx-background-color: #2E2E2E; -fx-text-fill: white;";
+        String estiloActivo = "-fx-background-color: red; -fx-text-fill: white;";
         // Estilo para botón inactivo
         String estiloNormal = "-fx-background-color: #804012; -fx-text-fill: white;";
 

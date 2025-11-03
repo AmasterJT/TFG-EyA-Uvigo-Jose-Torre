@@ -24,6 +24,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.RutasFxml.ITEM_DETALLE_PEDIDO_FXML;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoReferencia;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.limpiarGridPane;
 
@@ -112,7 +113,7 @@ public class DetallesPedidoController {
 
         try {
             for (ProductoPedido producto_del_pedido : productos_del_pedido) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemDetallesPedido.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ITEM_DETALLE_PEDIDO_FXML));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 ItemDetallesPedidoController itemController = fxmlLoader.getController();

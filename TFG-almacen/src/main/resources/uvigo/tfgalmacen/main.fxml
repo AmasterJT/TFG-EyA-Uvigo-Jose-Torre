@@ -30,7 +30,7 @@
                      <Insets />
                   </HBox.margin>
                </Button>
-                  <Button fx:id="minimizeButton" maxWidth="35.0" minWidth="-Infinity" mnemonicParsing="false" prefWidth="37.0" styleClass="exitItem" textFill="WHITE">
+                  <Button fx:id="minimizeButton" maxWidth="35.0" minWidth="-Infinity" mnemonicParsing="false" prefWidth="37.0" styleClass="minimizeItem" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

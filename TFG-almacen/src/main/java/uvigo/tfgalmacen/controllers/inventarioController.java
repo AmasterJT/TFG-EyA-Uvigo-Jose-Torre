@@ -28,6 +28,8 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.RutasFxml.ITEM_INVENTARIO_FXML;
+
 /**
  * Clase controladora para la gestión del inventario.
  */
@@ -234,7 +236,7 @@ public class inventarioController implements Initializable {
         try {
             for (int i = inicio; i < fin; i++) {
                 Palet palet = palets.get(i);
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemInventario.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ITEM_INVENTARIO_FXML));
                 AnchorPane anchorPane = fxmlLoader.load();
                 ItemInventarioController itemController = fxmlLoader.getController();
                 itemController.setData(palet);
@@ -447,7 +449,7 @@ public class inventarioController implements Initializable {
             for (int i = inicio; i < fin; i++) {
                 Palet palet = palets.get(i);
 
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemInventario.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ITEM_INVENTARIO_FXML));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 ItemInventarioController itemController = fxmlLoader.getController();

@@ -2,7 +2,7 @@
 
 .principalWindow {
     -fx-background-color: -amaster-dark-blue !important;
-    -fx-border-color: -amaster-dark-blue !important;
+    -fx-border-color: -amaster-dark-blue3 !important;
     -fx-border-width: 2;
 
     -fx-border-radius: 10 !important;
@@ -143,14 +143,35 @@
 }
 
 
+.minimizeItem {
+    -fx-background-color: -amaster-dark-blue !important;
+}
+
+
+.minimizeItem:hover {
+    -fx-background-color: -amaster-deep-dark-gray !important;
+    -fx-border-color: -amaster-deep-dark-gray !important;
+    -fx-border-width: 1 0 1 0;
+}
+
+.minimizeItem:pressed {
+    -fx-background-color: -amaster-dark-blue2 !important;
+    -fx-border-width: 1 0 0 0;
+}
+
+
 .exitItem {
     -fx-background-color: -amaster-dark-blue !important;
+    -fx-border-width: 1 0 0 0;
 }
 
 
 .exitItem:hover {
     -fx-background-color: #eb4034 !important;
     -fx-border-color: #eb4034 !important;
+    -fx-background-radius: 5 0 0 0;
+    -fx-border-radius: 5 0 0 0;
+    -fx-border-width: 1 0 0 0;
 }
 
 .exitItem:pressed {
@@ -337,7 +358,7 @@
 .texto-label {
     -fx-text-fill: white;
     -fx-font-family: "David Libre Regular";
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
 }
 
 

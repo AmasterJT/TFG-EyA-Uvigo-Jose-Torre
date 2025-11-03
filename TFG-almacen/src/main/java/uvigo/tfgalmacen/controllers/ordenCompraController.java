@@ -32,6 +32,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static uvigo.tfgalmacen.Proveedor.getProveedorPorNombre;
+import static uvigo.tfgalmacen.RutasFxml.ITEM_ORDEN_COMPRA_FXML;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class ordenCompraController implements Initializable {
@@ -273,7 +274,7 @@ public class ordenCompraController implements Initializable {
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uvigo/tfgalmacen/itemOrdenCompra.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ITEM_ORDEN_COMPRA_FXML));
             Parent itemRoot = loader.load();
 
             ItemOrdenCompraController ctrl = loader.getController();
