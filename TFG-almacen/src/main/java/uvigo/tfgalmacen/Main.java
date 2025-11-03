@@ -17,6 +17,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.RutasFicheros.CSS_COLORS;
 import static uvigo.tfgalmacen.RutasFicheros.WINDOW_LOGIN_FXML;
 import static uvigo.tfgalmacen.database.DatabaseConnection.connect;
 import static uvigo.tfgalmacen.database.DatabaseConnection.close;
@@ -82,8 +83,7 @@ public class Main extends Application {
             LOGGER.log(Level.SEVERE, "Error inicializando la conexión a BD", e);
         }
 
-        colors = loadColors("/uvigo/tfgalmacen/MFXColors.css");
-        System.out.println(colors);
+        colors = loadColors(CSS_COLORS);
     }
 
     @Override

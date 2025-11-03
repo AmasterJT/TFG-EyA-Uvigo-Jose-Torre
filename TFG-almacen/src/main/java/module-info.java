@@ -8,7 +8,6 @@ module uvigo.tfgalmacen {
     requires java.logging;
     requires javafx.base;
 
-
     opens uvigo.tfgalmacen to javafx.fxml;
     exports uvigo.tfgalmacen;
     exports uvigo.tfgalmacen.almacenManagement;
