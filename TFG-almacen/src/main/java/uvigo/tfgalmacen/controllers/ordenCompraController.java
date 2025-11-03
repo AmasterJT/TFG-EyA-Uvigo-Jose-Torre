@@ -366,17 +366,17 @@ public class ordenCompraController implements Initializable {
         // Validación simple por si el usuario dejó algo sin seleccionar
 
         if (estanteria == null || estanteria.isBlank()) {
-            LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
+            LOGGER.warning("Ítem omitido por datos incompletos (estanteria).");
             shake(ctrl.get_combo_estanteria_itemOc(), SHAKE_DURATION);
             fail++;
         }
         if (balda == null || balda.isBlank()) {
-            LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
+            LOGGER.warning("Ítem omitido por datos incompletos (balda).");
             shake(ctrl.get_balda_itemOc(), SHAKE_DURATION);
             fail++;
         }
         if (posicion == null || posicion.isBlank()) {
-            LOGGER.warning("Ítem omitido por datos incompletos (cantidad/ubicación).");
+            LOGGER.warning("Ítem omitido por datos incompletos (posicion).");
             shake(ctrl.get_combo_posicion_itemOc(), SHAKE_DURATION);
             fail++;
         }
@@ -473,16 +473,6 @@ public class ordenCompraController implements Initializable {
         new Thread(task, "FiltrarProductosProveedor").start();
     }
 
-    // ----------------------------
-    // Utilidades de UI
-    // ----------------------------
-    private static boolean isValidSelection(String value, String placeholder) {
-        return value != null && !value.isBlank() && !value.equals(placeholder);
-    }
-
-    private static boolean isInvalidSelection(String value, String placeholder) {
-        return !isValidSelection(value, placeholder);
-    }
 
     // ----------------------------
     // DTO (reservado para cuando quieras data-driven)

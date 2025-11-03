@@ -86,10 +86,43 @@
 }
 
 
-.combo-box.mptep-combo .cell:selected {
-    -fx-text-fill: #1a1a1a !important;
+/* ==========================
+   COMBOBOX ESTILO MPTEP
+   ========================== */
+
+/* Estilo base del ComboBox (cerrado) */
+.combo-box.mptep-combo {
+    -fx-text-fill: black;
 }
 
+/* Celda seleccionada visible en el ComboBox cerrado */
+.combo-box.mptep-combo .list-cell:selected,
+.combo-box.mptep-combo .cell:selected {
+    -fx-text-fill: black !important;
+}
+
+/* ======== Desplegable (popup) ======== */
+
+/* Celda normal dentro del desplegable */
+.combo-box.mptep-combo .combo-box-popup .list-view .list-cell {
+
+    -fx-background-color: -amaster-dark-gray;
+    -fx-border-color: transparent transparent #5e5e5e transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-text-fill: white;
+}
+
+/* Hover dentro del desplegable */
+.combo-box.mptep-combo .combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: -amaster-dark-blue;
+    -fx-text-fill: white !important;
+}
+
+/* Celda seleccionada dentro del desplegable */
+.combo-box.mptep-combo .combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: -amaster-dark-blue;
+    -fx-text-fill: white !important;
+}
 
 /* Solo esta lista */
 .oc-list {

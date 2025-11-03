@@ -118,6 +118,18 @@ public class windowComponentAndFuncionalty {
         tt.play();
     }
 
+
+    // ----------------------------
+    // Utilidades de UI
+    // ----------------------------
+    private static boolean isValidSelection(String value, String placeholder) {
+        return value != null && !value.isBlank() && !value.equals(placeholder);
+    }
+
+    public static boolean isInvalidSelection(String value, String placeholder) {
+        return !isValidSelection(value, placeholder);
+    }
+
     public static void parpadearErrorWindowBar(HBox windowBar) {
         if (windowBar == null) return;
 

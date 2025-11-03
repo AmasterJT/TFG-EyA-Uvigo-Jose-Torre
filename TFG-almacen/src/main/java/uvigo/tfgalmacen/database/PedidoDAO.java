@@ -146,10 +146,10 @@ public class PedidoDAO {
 
     private static final String UPDATE_ESTADO_PEDIDO_SQL = "UPDATE pedidos SET estado = ?, hora_salida = ? WHERE id_pedido = ?";
 
-    public static boolean updateEstadoPedido(Connection connection, int idPedido, String nuevoEstado, String hora_salida_nueva) {
+    public static void updateEstadoPedido(Connection connection, int idPedido, String nuevoEstado, String hora_salida_nueva) {
         if (connection == null) {
             System.err.println("❌ Conexión nula al actualizar el pedido.");
-            return false;
+            return;
         }
 
         // Validación rápida para evitar errores de ENUM en MySQL
@@ -158,11 +158,11 @@ public class PedidoDAO {
 
         if (!ESTADOS_VALIDOS.contains(nuevoEstado)) {
             System.err.println("❌ Estado no válido: " + nuevoEstado);
-            return false;
+            return;
         }
         if (hora_salida_nueva != null && !hora_salida_nueva.isBlank() && !HORAS_VALIDAS.contains(hora_salida_nueva)) {
             System.err.println("❌ hora_salida no válida: " + hora_salida_nueva);
-            return false;
+            return;
         }
 
         try (PreparedStatement ps = connection.prepareStatement(UPDATE_ESTADO_PEDIDO_SQL)) {
@@ -182,14 +182,11 @@ public class PedidoDAO {
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 System.out.println("✅ Estado/hora_salida actualizados (id_pedido=" + idPedido + ").");
-                return true;
             } else {
                 System.out.println("⚠️ No se encontró pedido con id=" + idPedido + ".");
-                return false;
             }
         } catch (SQLException e) {
             System.err.println("❌ Error actualizando pedido: " + e.getMessage());
-            return false;
         }
     }
 

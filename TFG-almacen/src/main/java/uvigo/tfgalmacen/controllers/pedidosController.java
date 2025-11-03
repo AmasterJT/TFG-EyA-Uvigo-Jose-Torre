@@ -99,6 +99,7 @@ public class pedidosController {
         configurarScrollsYGrids();
         redibujar();
 
+
         // Handlers null-safe para evitar NPE si el FXML no inyecta el control
         if (move_to_en_proceso_btn != null) {
             move_to_en_proceso_btn.setOnAction(_ -> handleMoveToEnProcesoClick());
