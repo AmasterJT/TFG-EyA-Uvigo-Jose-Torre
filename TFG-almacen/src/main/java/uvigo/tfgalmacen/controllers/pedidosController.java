@@ -208,7 +208,7 @@ public class pedidosController {
             AnchorPane pane = loader.load();
 
             MovePendienteToEnProcesoController controller = loader.getController();
-            controller.setData(pendientes, Main.connection);
+            controller.setData(pendientes);
 
 
             Stage stage = crearStageBasico(pane, true, "Asignar pedido a usuario");
@@ -273,13 +273,5 @@ public class pedidosController {
             renderizarPedidos(PedidoDAO.getPedidosEnProceso(Main.connection), grid_en_curso);
         });
     }
-
-    private void mostrarAlertaAdvertencia(String mensaje) {
-        /*Alert alerta = new Alert(Alert.AlertType.WARNING);
-        alerta.setTitle("Advertencia");
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
-*/
-    }
+    
 }

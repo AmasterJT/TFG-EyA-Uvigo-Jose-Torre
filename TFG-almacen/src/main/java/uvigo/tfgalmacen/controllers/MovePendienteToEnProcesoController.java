@@ -46,8 +46,6 @@ public class MovePendienteToEnProcesoController {
     private Button aplicar_nuevo_estado_btn;
 
 
-    private List<Pedido> pedidosSeleccionados;
-
     public void initialize() {
 
         // Llenar usuarios desde la base de datos
@@ -60,8 +58,6 @@ public class MovePendienteToEnProcesoController {
 
 
         aplicar_nuevo_estado_btn.setOnMouseClicked(_ -> actualizarPedido(combo_pedido_update.getValue(), combo_usuario_update.getValue()));
-
-
     }
 
     private void setUsers() {
@@ -134,8 +130,8 @@ public class MovePendienteToEnProcesoController {
     }
 
 
-    public void setData(List<Pedido> pedidosSeleccionados, Connection connection) {
-        this.pedidosSeleccionados = pedidosSeleccionados;
+    public void setData(List<Pedido> pedidosSeleccionados) {
+
 
         // Establece los pedidos en el ComboBox
         combo_pedido_update.setItems(FXCollections.observableArrayList(pedidosSeleccionados));

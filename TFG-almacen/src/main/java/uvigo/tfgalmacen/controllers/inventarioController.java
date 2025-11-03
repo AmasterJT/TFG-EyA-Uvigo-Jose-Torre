@@ -466,8 +466,15 @@ public class inventarioController implements Initializable {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error aplicando filtros", e);
         }
-        total_paginas_inventario = (int) Math.ceil((double) paletsMostrados.size() / NUM_ITEMS_GRID)
-        ;
+        total_paginas_inventario = (int) Math.ceil((double) paletsMostrados.size() / NUM_ITEMS_GRID);
+
+        if (total_paginas_inventario == 1) {
+            anteriorButton.setDisable(true);
+            siguienteButton.setDisable(true);
+        } else {
+            anteriorButton.setDisable(false);
+            siguienteButton.setDisable(false);
+        }
     }
 
 
