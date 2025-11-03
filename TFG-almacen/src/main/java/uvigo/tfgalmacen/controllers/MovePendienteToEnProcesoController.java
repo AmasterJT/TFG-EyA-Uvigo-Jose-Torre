@@ -57,7 +57,11 @@ public class MovePendienteToEnProcesoController {
             Stage stage = (Stage) ExitButton.getScene().getWindow();
             stage.close();
         });
+
+
         aplicar_nuevo_estado_btn.setOnMouseClicked(_ -> actualizarPedido(combo_pedido_update.getValue(), combo_usuario_update.getValue()));
+
+
     }
 
     private void setUsers() {
@@ -121,6 +125,12 @@ public class MovePendienteToEnProcesoController {
                 " (" + pedido.getId_usuario() + ")");
 
         combo_pedido_update.getItems().remove(pedido);
+
+        if (combo_pedido_update.getItems().isEmpty()) {
+            // Cierra la ventana si no quedan más pedidos
+            Stage stage = (Stage) aplicar_nuevo_estado_btn.getScene().getWindow();
+            stage.close();
+        }
     }
 
 
@@ -146,6 +156,8 @@ public class MovePendienteToEnProcesoController {
                         .orElse(null);
             }
         });
+
+        combo_pedido_update.getSelectionModel().selectFirst();
     }
 
 }

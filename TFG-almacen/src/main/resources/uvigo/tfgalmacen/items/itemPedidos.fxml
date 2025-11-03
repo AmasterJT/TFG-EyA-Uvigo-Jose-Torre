@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefWidth="606.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="item-pedido-en-curso"
-            stylesheets="@../Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="uvigo.tfgalmacen.controllers.ItemPedidoController">
     <children>
         <VBox fx:id="vertical_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

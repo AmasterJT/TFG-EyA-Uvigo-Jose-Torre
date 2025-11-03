@@ -9,7 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -18,22 +17,14 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import uvigo.tfgalmacen.User;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.util.*;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class windowComponentAndFuncionalty {
@@ -171,7 +162,7 @@ public class windowComponentAndFuncionalty {
         try {
             dialogPane.getStylesheets().add(
                     Objects.requireNonNull(windowComponentAndFuncionalty.class
-                                    .getResource("/uvigo/tfgalmacen/Styles.css"))
+                                    .getResource("/uvigo/tfgalmacen/css/Styles.css"))
                             .toExternalForm()
             );
             dialogPane.getStyleClass().add("alert-dialog");
@@ -194,7 +185,7 @@ public class windowComponentAndFuncionalty {
         DialogPane dialogPane = alerta.getDialogPane();
         try {
             dialogPane.getStylesheets().add(
-                    Objects.requireNonNull(windowComponentAndFuncionalty.class.getResource("/uvigo/tfgalmacen/Styles.css")).toExternalForm()
+                    Objects.requireNonNull(windowComponentAndFuncionalty.class.getResource("/uvigo/tfgalmacen/css/Styles.css")).toExternalForm()
             );
             dialogPane.getStyleClass().add("alert-dialog");
         } catch (Exception ex) {

@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="backgroundAnchorPane" prefHeight="193.0" prefWidth="180.0"
-            style="-fx-border-radius: 5; -fx-background-color: #8a8a8a;" stylesheets="@../Styles.css"
+            style="-fx-border-radius: 5; -fx-background-color: #8a8a8a;" stylesheets="@../css/Styles.css"
             xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="uvigo.tfgalmacen.controllers.ItemInventarioController">
     <children>

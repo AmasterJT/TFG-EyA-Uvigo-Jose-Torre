@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="695.0" prefWidth="1400.0" styleClass="backgroundScene" stylesheets="@Styles.css"
+<AnchorPane prefHeight="695.0" prefWidth="1400.0" styleClass="backgroundScene" stylesheets="@css/Styles.css"
             xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="uvigo.tfgalmacen.controllers.pedidosController">
     <children>

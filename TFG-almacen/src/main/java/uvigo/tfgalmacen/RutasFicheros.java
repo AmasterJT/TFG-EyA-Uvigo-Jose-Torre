@@ -22,6 +22,6 @@ public class RutasFicheros {
     public static final String ITEM_PEDIDO_FXML = "/uvigo/tfgalmacen/items/itemPedidos.fxml";
 
 
-    public static final String CSS_COLORS = "/uvigo/tfgalmacen/MFXColors.css";
+    public static final String CSS_COLORS = "/uvigo/tfgalmacen/css/Colors.css";
 
 }

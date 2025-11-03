@@ -14,81 +14,90 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="principalWindow" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.MovePendienteToEnProcesoController">
-   <children>
-      <BorderPane styleClass="backgroundScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <VBox alignment="CENTER" spacing="10.0" styleClass="backgroundScene" BorderPane.alignment="CENTER">
-               <children>
-                  <Label text="TRAMITAR PEDIDO">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <VBox alignment="TOP_CENTER" spacing="30.0">
-                     <children>
-                        <ComboBox fx:id="combo_pedido_update" prefWidth="300.0" promptText="PEDIDOS" styleClass="mptep-combo" />
-                        <ComboBox fx:id="combo_usuario_update" prefWidth="300.0" promptText="OPERARIO" styleClass="mptep-combo" />
-                     </children>
-                  </VBox>
-                  <HBox alignment="CENTER_RIGHT" spacing="15.0">
-                     <children>
-                        <Button fx:id="aplicar_nuevo_estado_btn" mnemonicParsing="false" text="aplicar" />
-                     </children>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="20.0" />
-                     </VBox.margin>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </VBox>
-         </center>
-         <top>
-            <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" styleClass="windowBar" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="exitItem" stylesheets="@Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="System Bold" size="17.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <Label contentDisplay="RIGHT" text="TFG JTTP " textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg" />
-                     </image>
-                     <HBox.margin>
-                        <Insets left="5.0" right="10.0" />
-                     </HBox.margin>
-                  </ImageView>
-               </children>
-            </HBox>
-         </top>
-         <bottom>
-            <AnchorPane prefHeight="20.0" styleClass="windowBar" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0" />
-               </children>
-            </AnchorPane>
-         </bottom>
-      </BorderPane>
-   </children>
+<AnchorPane styleClass="principalWindow" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="uvigo.tfgalmacen.controllers.MovePendienteToEnProcesoController">
+    <children>
+        <BorderPane styleClass="backgroundScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <VBox alignment="CENTER" spacing="10.0" styleClass="backgroundScene" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label text="TRAMITAR PEDIDO">
+                            <font>
+                                <Font name="System Bold" size="15.0"/>
+                            </font>
+                        </Label>
+                        <VBox alignment="TOP_CENTER" spacing="30.0">
+                            <children>
+                                <ComboBox fx:id="combo_pedido_update" prefWidth="300.0" promptText="PEDIDOS"
+                                          styleClass="mptep-combo"/>
+                                <ComboBox fx:id="combo_usuario_update" prefWidth="300.0" promptText="OPERARIO"
+                                          styleClass="mptep-combo"/>
+                            </children>
+                        </VBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                            <children>
+                                <Button fx:id="aplicar_nuevo_estado_btn" mnemonicParsing="false" text="aplicar"/>
+                            </children>
+                            <padding>
+                                <Insets left="10.0"/>
+                            </padding>
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" top="20.0"/>
+                            </VBox.margin>
+                            <opaqueInsets>
+                                <Insets/>
+                            </opaqueInsets>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                </VBox>
+            </center>
+            <top>
+                <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0"
+                      styleClass="windowBar" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity"
+                                mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="exitItem"
+                                stylesheets="@css/Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                            <font>
+                                <Font name="System Bold" size="17.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                        </Button>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label contentDisplay="RIGHT" text="TFG JTTP " textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </Label>
+                        <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg"/>
+                            </image>
+                            <HBox.margin>
+                                <Insets left="5.0" right="10.0"/>
+                            </HBox.margin>
+                        </ImageView>
+                    </children>
+                </HBox>
+            </top>
+            <bottom>
+                <AnchorPane prefHeight="20.0" styleClass="windowBar" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0"/>
+                    </children>
+                </AnchorPane>
+            </bottom>
+        </BorderPane>
+    </children>
 </AnchorPane>

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="item-pedido-en-curso"
-            stylesheets="@../Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="uvigo.tfgalmacen.controllers.ItemOrdenCompraController">
     <children>
         <HBox fx:id="background_Hbox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0"
