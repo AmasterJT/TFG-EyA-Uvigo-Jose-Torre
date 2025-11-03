@@ -25,7 +25,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.RutasFxml.*;
+import static uvigo.tfgalmacen.RutasFicheros.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 
 public class mainController implements Initializable {
@@ -132,6 +132,7 @@ public class mainController implements Initializable {
 
             Stage ventanaPadre = (Stage) orden_compra_btn.getScene().getWindow();
 
+
             // Bloquear la ventana padre
             ventanaOrdenCompra.initOwner(ventanaPadre);
             ventanaOrdenCompra.initModality(Modality.WINDOW_MODAL);
@@ -152,7 +153,6 @@ public class mainController implements Initializable {
     @FXML
     private void loadFXML(String PATH) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource(PATH));
             Parent parent = loader.load();
             BorderPane.setCenter(parent);
@@ -237,9 +237,12 @@ public class mainController implements Initializable {
 
     private void marcarBotonActivo(Button botonSeleccionado) {
         // Estilo para botón activo
-        String estiloActivo = "-fx-background-color: red; -fx-text-fill: white;";
+
+        String colorActivo = Main.colors.get("-amaster-dark-brown");
+        String estiloActivo = String.format("-fx-background-color: %s !important; -fx-text-fill: white;", colorActivo);
         // Estilo para botón inactivo
-        String estiloNormal = "-fx-background-color: #804012; -fx-text-fill: white;";
+        String colorNormal = Main.colors.get("-amaster-brown");
+        String estiloNormal = String.format("-fx-background-color: %s !important; -fx-text-fill: white;", colorNormal);
 
         // Aplicar estilos condicionalmente
         almacenButton.setStyle(botonSeleccionado == almacenButton ? estiloActivo : estiloNormal);

@@ -29,7 +29,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.RutasFxml.*;
+import static uvigo.tfgalmacen.RutasFicheros.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_warning;
 

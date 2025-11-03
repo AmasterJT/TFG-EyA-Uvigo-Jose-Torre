@@ -28,7 +28,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.RutasFxml.ITEM_INVENTARIO_FXML;
+import static uvigo.tfgalmacen.RutasFicheros.ITEM_INVENTARIO_FXML;
 
 /**
  * Clase controladora para la gestión del inventario.

@@ -24,7 +24,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.RutasFxml.ITEM_DETALLE_PEDIDO_FXML;
+import static uvigo.tfgalmacen.RutasFicheros.ITEM_DETALLE_PEDIDO_FXML;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoReferencia;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.limpiarGridPane;
 

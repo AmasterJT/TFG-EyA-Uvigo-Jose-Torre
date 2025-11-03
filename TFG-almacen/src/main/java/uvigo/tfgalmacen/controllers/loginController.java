@@ -3,7 +3,6 @@ package uvigo.tfgalmacen.controllers;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.*;
 
@@ -22,15 +21,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.User;
-import uvigo.tfgalmacen.database.UsuarioDAO;
-import uvigo.tfgalmacen.utils.WindowResizer;
 
-import static uvigo.tfgalmacen.RutasFxml.MAIN_FXML;
-import static uvigo.tfgalmacen.utils.TerminalColors.*;
+import static uvigo.tfgalmacen.RutasFicheros.MAIN_FXML;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 import static uvigo.tfgalmacen.database.UsuarioDAO.SQLcheckUser;
 
@@ -107,9 +102,6 @@ public class loginController implements Initializable {
                     newRoot.layout();
                     stage.sizeToScene();
                 });
-
-                System.out.println(stage.getHeight());
-                System.out.println(stage.getWidth());
 
                 stage.show();
 

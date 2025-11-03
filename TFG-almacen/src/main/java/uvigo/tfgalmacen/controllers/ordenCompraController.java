@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static uvigo.tfgalmacen.Proveedor.getProveedorPorNombre;
-import static uvigo.tfgalmacen.RutasFxml.ITEM_ORDEN_COMPRA_FXML;
+import static uvigo.tfgalmacen.RutasFicheros.ITEM_ORDEN_COMPRA_FXML;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class ordenCompraController implements Initializable {

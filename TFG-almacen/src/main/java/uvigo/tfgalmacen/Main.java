@@ -4,20 +4,23 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
+import org.w3c.dom.ls.LSOutput;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.RutasFxml.WINDOW_LOGIN_FXML;
+import static uvigo.tfgalmacen.RutasFicheros.WINDOW_LOGIN_FXML;
 import static uvigo.tfgalmacen.database.DatabaseConnection.connect;
 import static uvigo.tfgalmacen.database.DatabaseConnection.close;
+import static uvigo.tfgalmacen.utils.CssColorLoader.loadColors;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 
 public class Main extends Application {
@@ -43,6 +46,9 @@ public class Main extends Application {
             h.setLevel(Level.ALL); // si decides mantenerlos
         }
     }
+
+    public static Map<String, String> colors;
+
 
     /**
      * Conexión compartida (si prefieres, muévela a un “ConnectionProvider” o usa un pool).
@@ -75,6 +81,9 @@ public class Main extends Application {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error inicializando la conexión a BD", e);
         }
+
+        colors = loadColors("/uvigo/tfgalmacen/MFXColors.css");
+        System.out.println(colors);
     }
 
     @Override

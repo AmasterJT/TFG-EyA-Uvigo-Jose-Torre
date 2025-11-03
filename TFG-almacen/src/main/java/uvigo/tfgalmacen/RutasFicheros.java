@@ -1,6 +1,6 @@
 package uvigo.tfgalmacen;
 
-public class RutasFxml {
+public class RutasFicheros {
 
     public static final String MAIN_FXML = "/uvigo/tfgalmacen/main.fxml";
 
@@ -20,5 +20,8 @@ public class RutasFxml {
     public static final String ITEM_INVENTARIO_FXML = "/uvigo/tfgalmacen/items/itemInventario.fxml";
     public static final String ITEM_ORDEN_COMPRA_FXML = "/uvigo/tfgalmacen/items/itemOrdenCompra.fxml";
     public static final String ITEM_PEDIDO_FXML = "/uvigo/tfgalmacen/items/itemPedidos.fxml";
+
+
+    public static final String CSS_COLORS = "/uvigo/tfgalmacen/MFXColors.css";
 
 }
