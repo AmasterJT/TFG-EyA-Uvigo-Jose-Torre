@@ -52,7 +52,7 @@ public class DetallesPedidoController {
     private Button ExitButton;
 
     @FXML
-    private Button aplicar_nuevo_estado_btn;
+    private Button minimizeButton;
 
     @FXML
     private Button aplicar_nuevo_estado_btn1;
@@ -90,6 +90,13 @@ public class DetallesPedidoController {
             LOGGER.info("Ventana de detalles de pedido cerrada.");
             stage.close();
         });
+
+        minimizeButton.setOnAction(_ -> minimizarVentana());
+    }
+
+    private void minimizarVentana() {
+        Stage stage = (Stage) minimizeButton.getScene().getWindow();
+        stage.setIconified(true);
     }
 
     public void setData(Pedido pedido_para_detallar, Connection connection) {

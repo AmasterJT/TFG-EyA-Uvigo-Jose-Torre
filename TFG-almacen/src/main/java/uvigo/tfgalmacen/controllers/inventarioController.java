@@ -1,8 +1,3 @@
-/**
- * Controlador para la vista de inventario.
- * Gestiona la carga, visualización y filtrado de los palets disponibles en el almacén
- * mediante un GridPane y ComboBoxes de filtros.
- */
 package uvigo.tfgalmacen.controllers;
 
 import javafx.collections.FXCollections;
@@ -20,85 +15,58 @@ import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static uvigo.tfgalmacen.RutasFicheros.ITEM_INVENTARIO_FXML;
 
 /**
- * Clase controladora para la gestión del inventario.
+ * Controlador para la vista de inventario.
+ * Gestiona la carga, visualización y filtrado de los palets disponibles en el almacén
+ * mediante un GridPane y ComboBoxes de filtros.
  */
 public class inventarioController implements Initializable {
 
-    /**
-     * Logger para registrar errores y eventos.
-     */
+    // ---------------------- Logger ----------------------
     private static final Logger LOGGER = Logger.getLogger(inventarioController.class.getName());
 
     static {
-        // Sube el nivel del logger
         LOGGER.setLevel(Level.ALL);
-
-        // Evita que use los handlers del padre (que suelen estar en INFO con SimpleFormatter)
         LOGGER.setUseParentHandlers(false);
-
-        // Crea un ConsoleHandler propio con tu ColorFormatter
         ConsoleHandler ch = new ConsoleHandler();
-        ch.setLevel(Level.ALL);                 // ¡importante!
-        ch.setFormatter(new ColorFormatter());  // tu formatter con colores/emoji
+        ch.setLevel(Level.ALL);
+        ch.setFormatter(new ColorFormatter());
         LOGGER.addHandler(ch);
-
-        // (Opcional) Si quieres también afectar al root logger:
         Logger root = Logger.getLogger("");
         for (Handler h : root.getHandlers()) {
-            h.setLevel(Level.ALL); // si decides mantenerlos
+            h.setLevel(Level.ALL);
         }
     }
 
-    /**
-     * Lista auxiliar para almacenar todos los productos.
-     */
-    private final ArrayList<String> todosLosProductos = new ArrayList<>();
+    // ---------------------- Constantes UI ----------------------
+    private static final String OPC_TODOS = "Todos";
+    private static final List<String> OPC_DELANTE = List.of(OPC_TODOS, "Delante", "Detrás");
 
-    /**
-     * Número de columnas del grid de palets.
-     */
-    private final int COLUMS = 6;
+    private static final int COLUMNS = 7;
+    private static final int ROWS = 7;
+    private static final int ITEMS_PER_PAGE = COLUMNS * ROWS;
 
-    /**
-     * Número de filas del grid de palets.
-     */
-    private final int ROWS = 7;
+    // Rango fijo de estanterías/baldas/posiciones
+    private static final List<String> ESTANTERIAS = List.of("1", "2", "3", "4");
+    private static final List<String> BALDAS = IntStream.rangeClosed(1, 8).mapToObj(String::valueOf).collect(Collectors.toList());
+    private static final List<String> POSICIONES = IntStream.rangeClosed(1, 24).mapToObj(String::valueOf).collect(Collectors.toList());
 
-    /**
-     * Número máximo de items a mostrar en el grid.
-     */
-    private final int NUM_ITEMS_GRID = COLUMS * ROWS;
+    // ---------------------- Estado ----------------------
+    private List<Palet> filteredPalets = new ArrayList<>();
+    private int currentPage = 0;
+    private int totalPages = 1;
 
-    /**
-     * Número de palets a mostrar.
-     */
-    private int NUM_PALETS = 0;
-
-    /**
-     * Página actual del inventario.
-     */
-    private int paginaActual = 0;
-
-    /**
-     * Total de páginas de inventario calculado según los filtros.
-     */
-    private int total_paginas_inventario = 0;
-
-    private List<Palet> paletsMostrados = new ArrayList<>();
-
-
-    // Filtros y controles visuales
+    // ---------------------- FXML ----------------------
     @FXML
     private ComboBox<String> estanteriaComboBox;
     @FXML
@@ -111,10 +79,12 @@ public class inventarioController implements Initializable {
     private ComboBox<String> tipoComboBox;
     @FXML
     private ComboBox<String> delanteComboBox;
+
     @FXML
     private GridPane grid;
     @FXML
     private ScrollPane scroll;
+
     @FXML
     private Button buscarButton;
     @FXML
@@ -123,331 +93,174 @@ public class inventarioController implements Initializable {
     private Button siguienteButton;
     @FXML
     private Button anteriorButton;
+
     @FXML
     private Label current_page_label;
 
-    /**
-     * Inicializa la interfaz de inventario:
-     * - Configura scroll, grid y ComboBoxes.
-     * - Carga los datos de los palets desde el almacén.
-     * - Asocia eventos para filtrar productos según el tipo o selección directa.
-     *
-     * @param url            URL de inicialización
-     * @param resourceBundle Recursos de internacionalización
-     */
+    // ---------------------- Ciclo de vida ----------------------
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configurarScrollYGrid();
         inicializarComboBoxes();
-        renderizarPalets(Almacen.TodosPalets);
         configurarEventosComboBoxes();
-        incializarBotones();
+        inicializarBotones();
+
+        // Estado inicial: sin filtros → todos los palets
+        aplicarFiltros();
     }
 
-    /**
-     * Inicializa los botones de búsqueda y reset.
-     * Asigna tooltips y acciones a los botones.
-     */
-    private void incializarBotones() {
-        Tooltip buscarTooltip = new Tooltip("Aplicar filtros");
-        buscarButton.setTooltip(buscarTooltip);
-        buscarButton.setOnAction(_ -> aplicarFiltros());
-
-        Tooltip resetTooltip = new Tooltip("Quitar filtros");
-        inventory_reset_button.setTooltip(resetTooltip);
-        inventory_reset_button.setOnAction(_ -> resetFiltros());
-
-        siguienteButton.setOnAction(_ -> siguientePagina());
-        anteriorButton.setOnAction(_ -> anteriorPagina());
-    }
-
-    /**
-     * Resetea los filtros aplicados y vuelve a mostrar todos los palets.
-     */
-    private void resetFiltros() {
-        paginaActual = 0;
-        inicializarComboBoxes();
-        paletsMostrados = Almacen.TodosPalets;
-        renderizarPalets(paletsMostrados);
-    }
-
-    /**
-     * Configura el comportamiento del scroll y el grid.
-     */
+    // ---------------------- Setup UI ----------------------
     private void configurarScrollYGrid() {
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         grid.prefWidthProperty().bind(scroll.widthProperty());
     }
 
-    /**
-     * Inicializa los ComboBoxes de filtros con valores posibles.
-     */
     private void inicializarComboBoxes() {
-        productoComboBox.getItems().add("Todos");
-        tipoComboBox.getItems().add("Todos");
-        delanteComboBox.getItems().add("Todos");
-        estanteriaComboBox.getItems().add("Todos");
-        baldaComboBox.getItems().add("Todos");
-        posicionComboBox.getItems().add("Todos");
+        // Limpia y añade "Todos" + valores
+        productoComboBox.getItems().setAll(OPC_TODOS);
+        tipoComboBox.getItems().setAll(OPC_TODOS);
+        delanteComboBox.getItems().setAll(OPC_DELANTE);
 
-        // Añade productos y tipos únicos
-        for (Palet palet : Almacen.TodosPalets) {
-            String idProducto = palet.getIdProducto();
-            String tipo = palet.getProducto().getTipo().getIdTipo();
-            if (!productoComboBox.getItems().contains(idProducto)) productoComboBox.getItems().add(idProducto);
-            if (!tipoComboBox.getItems().contains(tipo)) tipoComboBox.getItems().add(tipo);
-        }
+        estanteriaComboBox.getItems().setAll(OPC_TODOS);
+        estanteriaComboBox.getItems().addAll(ESTANTERIAS);
 
-        // Añade valores fijos para estantería, balda, posición y delante/detrás
-        estanteriaComboBox.getItems().addAll("1", "2", "3", "4");
-        delanteComboBox.getItems().addAll("Delante", "Detrás");
-        baldaComboBox.getItems().addAll(
-                java.util.stream.IntStream.rangeClosed(1, 8).mapToObj(String::valueOf).toList()
-        );
-        posicionComboBox.getItems().addAll(
-                java.util.stream.IntStream.rangeClosed(1, 24).mapToObj(String::valueOf).toList()
-        );
+        baldaComboBox.getItems().setAll(OPC_TODOS);
+        baldaComboBox.getItems().addAll(BALDAS);
 
-        // Selecciona el primer valor por defecto
-        productoComboBox.getSelectionModel().selectFirst();
+        posicionComboBox.getItems().setAll(OPC_TODOS);
+        posicionComboBox.getItems().addAll(POSICIONES);
+
+        // Añadir productos y tipos únicos (de los palets/productos en catálogo)
+        Set<String> tipos = Almacen.TodosProductos.stream()
+                .map(p -> p.getTipo().getIdTipo())
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+        tipoComboBox.getItems().addAll(tipos);
+
+        Set<String> idsProducto = Almacen.TodosProductos.stream()
+                .map(Producto::getIdentificadorProducto)
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+        productoComboBox.getItems().addAll(idsProducto);
+
+        // Seleccionar primera opción
         tipoComboBox.getSelectionModel().selectFirst();
+        productoComboBox.getSelectionModel().selectFirst();
         delanteComboBox.getSelectionModel().selectFirst();
         estanteriaComboBox.getSelectionModel().selectFirst();
         baldaComboBox.getSelectionModel().selectFirst();
         posicionComboBox.getSelectionModel().selectFirst();
     }
 
-
-    /**
-     * Renderiza una lista de palets en el GridPane.
-     *
-     * @param palets Lista de palets a mostrar
-     */
-    private void renderizarPalets(List<Palet> palets) {
-        paletsMostrados = palets;
-        limpiarGridPane(grid);
-        int totalPalets = palets.size();
-        NUM_PALETS = totalPalets;
-        int inicio = paginaActual * NUM_ITEMS_GRID;
-        int fin = Math.min(inicio + NUM_ITEMS_GRID, totalPalets);
-
-        int column = 0, row = 1;
-        try {
-            for (int i = inicio; i < fin; i++) {
-                Palet palet = palets.get(i);
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ITEM_INVENTARIO_FXML));
-                AnchorPane anchorPane = fxmlLoader.load();
-                ItemInventarioController itemController = fxmlLoader.getController();
-                itemController.setData(palet);
-
-                if (column == COLUMS) {
-                    column = 0;
-                    row++;
-                }
-                grid.add(anchorPane, column++, row);
-                GridPane.setMargin(anchorPane, new Insets(10));
-                NUM_PALETS++;
-            }
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error cargando los palets en el grid", e);
-        }
-        actualizarBotonesNavegacion(totalPalets);
-        total_paginas_inventario = (int) Math.ceil((double) totalPalets / NUM_ITEMS_GRID);
-
-
-        actualizarLabelPagina();
-    }
-
-    /**
-     * Navega a la siguiente página de palets en el GridPane.
-     * Incrementa la página actual y renderiza los palets correspondientes.
-     */
-    @FXML
-    private void siguientePagina() {
-        paginaActual++;
-        renderizarPalets(paletsMostrados);
-        System.out.println(paletsMostrados.size());
-
-        actualizarLabelPagina();
-    }
-
-    /**
-     * Navega a la página anterior de palets en el GridPane.
-     * Decrementa la página actual y renderiza los palets correspondientes.
-     */
-    @FXML
-    private void anteriorPagina() {
-        if (paginaActual > 0) {
-            paginaActual--;
-            renderizarPalets(paletsMostrados);
-
-            actualizarLabelPagina();
-        }
-    }
-
-    /**
-     * Actualiza el estado de los botones de navegación según la página actual y el total de palets.
-     * Deshabilita el botón "Anterior" si estamos en la primera página
-     * y el botón "Siguiente" si no hay más palets para mostrar.
-     *
-     * @param totalPalets Total de palets disponibles
-     */
-    private void actualizarBotonesNavegacion(int totalPalets) {
-        anteriorButton.setDisable(paginaActual == 0);
-        siguienteButton.setDisable((paginaActual + 1) * NUM_ITEMS_GRID >= totalPalets);
-    }
-
-    /**
-     * Configura los eventos de los ComboBoxes para filtrar por tipo o producto.
-     */
     private void configurarEventosComboBoxes() {
-        tipoComboBox.setOnAction(_ -> filtrarPorTipo());
-        productoComboBox.setOnAction(_ -> filtrarPorProducto());
+        // Cambiar tipo → repoblar productos y aplicar
+        tipoComboBox.setOnAction(_ -> {
+            repoblarProductosPorTipo();
+            //plicarFiltros();
+        });
+
+        // Cambiar producto → aplicar filtros
+        //productoComboBox.setOnAction(_ -> aplicarFiltros());
+
+        // Otros combos → aplicar filtros al pulsar "Buscar" (para no saturar)
+        // Si quieres que sean reactivos, descomenta:
+        // estanteriaComboBox.setOnAction(_ -> aplicarFiltros());
+        // baldaComboBox.setOnAction(_ -> aplicarFiltros());
+        // posicionComboBox.setOnAction(_ -> aplicarFiltros());
+        // delanteComboBox.setOnAction(_ -> aplicarFiltros());
     }
 
-    /**
-     * Filtra los productos según el tipo seleccionado y actualiza el ComboBox de productos.
-     */
-    private void filtrarPorTipo() {
-        String tipoSeleccionado = tipoComboBox.getSelectionModel().getSelectedItem();
-        if (!tipoSeleccionado.equals("Todos")) {
-            ArrayList<String> productosFiltrados = new ArrayList<>();
-            productosFiltrados.add("Todos");
-            for (Producto producto : Almacen.TodosProductos) {
-                if (producto.getIdTipo().equals(tipoSeleccionado)) {
-                    productosFiltrados.add(producto.getIdentificadorProducto());
-                }
-            }
-            productoComboBox.setItems(FXCollections.observableArrayList(productosFiltrados));
-            productoComboBox.setValue(productosFiltrados.getFirst());
-            mostrarPaletsPorTipo(tipoSeleccionado);
+    private void inicializarBotones() {
+        buscarButton.setTooltip(new Tooltip("Aplicar filtros"));
+        buscarButton.setOnAction(_ -> aplicarFiltros());
+
+        inventory_reset_button.setTooltip(new Tooltip("Quitar filtros"));
+        inventory_reset_button.setOnAction(_ -> resetFiltros());
+
+        siguienteButton.setOnAction(_ -> siguientePagina());
+        anteriorButton.setOnAction(_ -> anteriorPagina());
+    }
+
+    private void repoblarProductosPorTipo() {
+        String tipo = tipoComboBox.getValue();
+        List<String> productos = new ArrayList<>();
+        productos.add(OPC_TODOS);
+
+        if (tipo == null || OPC_TODOS.equals(tipo)) {
+            productos.addAll(
+                    Almacen.TodosProductos.stream()
+                            .map(Producto::getIdentificadorProducto)
+                            .collect(Collectors.toCollection(LinkedHashSet::new))
+            );
         } else {
-            todosLosProductos.clear();
-            for (Producto producto : Almacen.TodosProductos) {
-                todosLosProductos.add(producto.getIdentificadorProducto());
-            }
-            todosLosProductos.add("Todos");
-            productoComboBox.setItems(FXCollections.observableArrayList(todosLosProductos));
-            productoComboBox.setValue("Todos");
-            mostrarTodosLosPalets();
+            productos.addAll(
+                    Almacen.TodosProductos.stream()
+                            .filter(p -> tipo.equals(p.getTipo().getIdTipo()))
+                            .map(Producto::getIdentificadorProducto)
+                            .collect(Collectors.toCollection(LinkedHashSet::new))
+            );
         }
+
+        productoComboBox.setItems(FXCollections.observableArrayList(productos));
+        productoComboBox.getSelectionModel().selectFirst();
     }
 
-    /**
-     * Filtra los palets según el producto seleccionado.
-     */
-    private void filtrarPorProducto() {
-        String productoSeleccionado = productoComboBox.getSelectionModel().getSelectedItem();
-        if (productoSeleccionado != null && !productoSeleccionado.equals("Todos")) {
-            for (Palet palet : Almacen.TodosPalets) {
-                boolean visible = palet.getIdProducto().equals(productoSeleccionado);
-                palet.getProductBox().setVisible(visible);
-                palet.getPaletBox().setVisible(visible);
-            }
-        } else {
-            String tipoSeleccionado = tipoComboBox.getSelectionModel().getSelectedItem();
-            mostrarPaletsPorTipo(tipoSeleccionado);
-        }
+    private void resetFiltros() {
+        currentPage = 0;
+        inicializarComboBoxes();
+        aplicarFiltros();
     }
 
-    /**
-     * Muestra solo los palets del tipo seleccionado.
-     *
-     * @param tipoSeleccionado Tipo de producto seleccionado
-     */
-    private void mostrarPaletsPorTipo(String tipoSeleccionado) {
-        for (Palet palet : Almacen.TodosPalets) {
-            boolean visible = palet.getIdTipo().equals(tipoSeleccionado) || tipoSeleccionado.equals("Todos");
-            palet.getProductBox().setVisible(visible);
-            palet.getPaletBox().setVisible(visible);
-        }
-    }
-
-    /**
-     * Muestra todos los palets disponibles.
-     */
-    private void mostrarTodosLosPalets() {
-        for (Palet palet : Almacen.TodosPalets) {
-            palet.getProductBox().setVisible(true);
-            palet.getPaletBox().setVisible(true);
-        }
-    }
-
-    /**
-     * Elimina todo el contenido del GridPane.
-     *
-     * @param gridPane GridPane a limpiar
-     */
-    public void limpiarGridPane(GridPane gridPane) {
-        gridPane.getChildren().clear();
-        gridPane.getColumnConstraints().clear();
-        gridPane.getRowConstraints().clear();
-    }
-
-    /**
-     * Aplica los filtros seleccionados en los ComboBoxes
-     * para mostrar solo los palets que cumplen las condiciones.
-     */
+    // ---------------------- Filtro + Render -------------------º---
     private void aplicarFiltros() {
-        NUM_PALETS = 0;
-        paginaActual = 0;
-        limpiarGridPane(grid);
-
-        paletsMostrados = filtrarPalets(); // <-- Guardar para la paginación
-
-        agregarPaletsAGrid(paletsMostrados);
-        total_paginas_inventario = (int) Math.ceil((double) paletsMostrados.size() / NUM_ITEMS_GRID);
-
-        actualizarLabelPagina();
-
+        currentPage = 0;
+        filteredPalets = filtrarPalets();
+        calcularTotalPaginas();
+        renderizarPagina();
     }
 
-    /**
-     * Filtra la lista de palets según los valores seleccionados en los ComboBoxes.
-     *
-     * @return Lista de palets que cumplen los filtros
-     */
     private List<Palet> filtrarPalets() {
-
         String estanteria = estanteriaComboBox.getValue();
         String balda = baldaComboBox.getValue();
         String posicion = posicionComboBox.getValue();
         String producto = productoComboBox.getValue();
-        String tipoProducto = tipoComboBox.getValue();
+        String tipoProd = tipoComboBox.getValue();
         String delante = delanteComboBox.getValue();
 
-        List<Palet> resultado = new ArrayList<>();
-        for (Palet palet : Almacen.TodosPalets) {
-            if ((estanteria == null || estanteria.equals("Todos") || palet.getEstanteria() == Integer.parseInt(estanteria)) &&
-                    (balda == null || balda.equals("Todos") || palet.getBalda() == Integer.parseInt(balda)) &&
-                    (posicion == null || posicion.equals("Todos") || palet.getPosicion() == Integer.parseInt(posicion)) &&
-                    (producto == null || producto.equals("Todos") || producto.equals(palet.getIdProducto())) &&
-                    (tipoProducto == null || tipoProducto.equals("Todos") || tipoProducto.equals(palet.getProducto().getTipo().getIdTipo())) &&
-                    (delante == null || delante.equals("Todos") || palet.isDelante() == delante.equalsIgnoreCase("Delante"))) {
-                resultado.add(palet);
-                NUM_PALETS++;
-            }
-        }
-        return resultado;
+        return Almacen.TodosPalets.stream()
+                .filter(p -> matchesIntFilter(p.getEstanteria(), estanteria))
+                .filter(p -> matchesIntFilter(p.getBalda(), balda))
+                .filter(p -> matchesIntFilter(p.getPosicion(), posicion))
+                .filter(p -> OPC_TODOS.equals(producto) || producto == null || producto.equals(p.getIdProducto()))
+                .filter(p -> OPC_TODOS.equals(tipoProd) || tipoProd == null || tipoProd.equals(p.getProducto().getTipo().getIdTipo()))
+                .filter(p -> {
+                    if (delante == null || OPC_TODOS.equals(delante)) return true;
+                    boolean isDelante = "Delante".equalsIgnoreCase(delante);
+                    return p.isDelante() == isDelante;
+                })
+                .collect(Collectors.toList());
     }
 
-    /**
-     * Agrega los palets filtrados al GridPane para su visualización.
-     *
-     * @param palets Lista de palets a agregar
-     */
-    private void agregarPaletsAGrid(List<Palet> palets) {
-        int inicio = paginaActual * NUM_ITEMS_GRID;
-        int fin = Math.min(inicio + NUM_ITEMS_GRID, palets.size());
-        int column = 0;
+    private static boolean matchesIntFilter(int value, String filter) {
+        if (filter == null || OPC_TODOS.equals(filter)) return true;
+        try {
+            return value == Integer.parseInt(filter);
+        } catch (NumberFormatException e) {
+            return true; // si algo raro llega, no filtra por ese campo
+        }
+    }
+
+    private void renderizarPagina() {
+        limpiarGridPane(grid);
+
+        int fromIndex = currentPage * ITEMS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + ITEMS_PER_PAGE, filteredPalets.size());
+
+        int col = 0;
         int row = 1;
 
-        NUM_PALETS = palets.size();
-
         try {
-            for (int i = inicio; i < fin; i++) {
-                Palet palet = palets.get(i);
+            for (int i = fromIndex; i < toIndex; i++) {
+                Palet palet = filteredPalets.get(i);
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ITEM_INVENTARIO_FXML));
                 AnchorPane anchorPane = fxmlLoader.load();
@@ -455,31 +268,51 @@ public class inventarioController implements Initializable {
                 ItemInventarioController itemController = fxmlLoader.getController();
                 itemController.setData(palet);
 
-                if (column == COLUMS) {
-                    column = 0;
+                if (col == COLUMNS) {
+                    col = 0;
                     row++;
                 }
-
-                grid.add(anchorPane, column++, row);
+                grid.add(anchorPane, col++, row);
                 GridPane.setMargin(anchorPane, new Insets(10));
             }
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error aplicando filtros", e);
+            LOGGER.log(Level.SEVERE, "Error renderizando la página del inventario", e);
         }
-        total_paginas_inventario = (int) Math.ceil((double) paletsMostrados.size() / NUM_ITEMS_GRID);
 
-        if (total_paginas_inventario == 1) {
-            anteriorButton.setDisable(true);
-            siguienteButton.setDisable(true);
-        } else {
-            anteriorButton.setDisable(false);
-            siguienteButton.setDisable(false);
+        actualizarNavegacionYPagina();
+    }
+
+    private void calcularTotalPaginas() {
+        totalPages = Math.max(1, (int) Math.ceil((double) filteredPalets.size() / ITEMS_PER_PAGE));
+    }
+
+    private void actualizarNavegacionYPagina() {
+        anteriorButton.setDisable(currentPage <= 0);
+        siguienteButton.setDisable(currentPage >= totalPages - 1);
+        current_page_label.setText((currentPage + 1) + "/" + totalPages);
+    }
+
+    // ---------------------- Paginación ----------------------
+    @FXML
+    private void siguientePagina() {
+        if (currentPage < totalPages - 1) {
+            currentPage++;
+            renderizarPagina();
         }
     }
 
+    @FXML
+    private void anteriorPagina() {
+        if (currentPage > 0) {
+            currentPage--;
+            renderizarPagina();
+        }
+    }
 
-    private void actualizarLabelPagina() {
-        int pag = paginaActual + 1;
-        current_page_label.setText(pag + "/" + total_paginas_inventario);
+    // ---------------------- Util ----------------------
+    private void limpiarGridPane(GridPane gridPane) {
+        gridPane.getChildren().clear();
+        gridPane.getColumnConstraints().clear();
+        gridPane.getRowConstraints().clear();
     }
 }

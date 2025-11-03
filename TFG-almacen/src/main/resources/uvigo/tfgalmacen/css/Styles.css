@@ -589,3 +589,27 @@
 .alert-dialog .button-bar .button:hover {
     -fx-background-color: #e3bfa6;
 }
+
+
+.textfield-normal {
+    -fx-background-color: transparent;
+    -fx-border-color: #404040;
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
+}
+
+.textfield-error {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-text-fill: white;
+    -fx-border-color: #ff4d4f;
+}
+
+.label-normal {
+    -fx-text-fill: white;
+}
+
+.label-error {
+    -fx-text-fill: #ff4d4f;
+}

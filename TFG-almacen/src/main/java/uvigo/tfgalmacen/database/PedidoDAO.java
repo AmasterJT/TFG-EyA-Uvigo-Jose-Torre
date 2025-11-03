@@ -53,12 +53,13 @@ public class PedidoDAO {
 
     /**
      * Obtiene una lista de todos los pedidos con todos sus datos.
+     *
      * @param connection La conexión a la base de datos.
      * @return Una lista de objetos Pedido con todos sus datos.
      */
     public static List<Pedido> getPedidosAllData(Connection connection) {
 
-        List<Pedido> pedidos= new ArrayList<>();
+        List<Pedido> pedidos = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PEDIDOS_SQL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -103,8 +104,9 @@ public class PedidoDAO {
 
     /**
      * Método genérico para obtener una lista de pedidos filtrados por estado.
+     *
      * @param connection La conexión a la base de datos.
-     * @param estado El estado del pedido que se desea filtrar.
+     * @param estado     El estado del pedido que se desea filtrar.
      * @return Una lista de objetos Pedido que coinciden con el estado especificado.
      */
     private static List<Pedido> getPedidosPorEstado(Connection connection, String estado) {
@@ -142,31 +144,58 @@ public class PedidoDAO {
     }
 
 
+    private static final String UPDATE_ESTADO_PEDIDO_SQL = "UPDATE pedidos SET estado = ?, hora_salida = ? WHERE id_pedido = ?";
 
-    private static final String UPDATE_ESTADO_PEDIDO_SQL = "UPDATE pedidos SET estado = ? WHERE id_pedido = ?";
+    public static boolean updateEstadoPedido(Connection connection, int idPedido, String nuevoEstado, String hora_salida_nueva) {
+        if (connection == null) {
+            System.err.println("❌ Conexión nula al actualizar el pedido.");
+            return false;
+        }
 
-    public static boolean updateEstadoPedido(Connection connection, int idPedido, String nuevoEstado) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ESTADO_PEDIDO_SQL)) {
-            preparedStatement.setString(1, nuevoEstado);  // nuevo estado: "Pendiente", "En proceso", etc.
-            preparedStatement.setInt(2, idPedido);        // ID del pedido a modificar
+        // Validación rápida para evitar errores de ENUM en MySQL
+        final List<String> ESTADOS_VALIDOS = List.of("Pendiente", "Completado", "En proceso", "Cancelado");
+        final List<String> HORAS_VALIDAS = List.of("primera_hora", "segunda_hora");
 
-            int rowsUpdated = preparedStatement.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("✅ Estado del pedido actualizado correctamente.");
+        if (!ESTADOS_VALIDOS.contains(nuevoEstado)) {
+            System.err.println("❌ Estado no válido: " + nuevoEstado);
+            return false;
+        }
+        if (hora_salida_nueva != null && !hora_salida_nueva.isBlank() && !HORAS_VALIDAS.contains(hora_salida_nueva)) {
+            System.err.println("❌ hora_salida no válida: " + hora_salida_nueva);
+            return false;
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(UPDATE_ESTADO_PEDIDO_SQL)) {
+            // 1) estado
+            ps.setString(1, nuevoEstado);
+
+            // 2) hora_salida (ENUM nullable)
+            if (hora_salida_nueva == null || hora_salida_nueva.isBlank()) {
+                ps.setNull(2, java.sql.Types.VARCHAR);
+            } else {
+                ps.setString(2, hora_salida_nueva);
+            }
+
+            // 3) id_pedido
+            ps.setInt(3, idPedido);
+
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                System.out.println("✅ Estado/hora_salida actualizados (id_pedido=" + idPedido + ").");
                 return true;
             } else {
-                System.out.println("⚠️ No se encontró ningún pedido con ese ID.");
+                System.out.println("⚠️ No se encontró pedido con id=" + idPedido + ".");
                 return false;
             }
         } catch (SQLException e) {
-            System.err.println("❌ Error actualizando el estado del pedido: " + e.getMessage());
+            System.err.println("❌ Error actualizando pedido: " + e.getMessage());
             return false;
         }
     }
 
 
-
     private static final String UPDATE_USUARIO_PEDIDO_SQL = "UPDATE pedidos SET id_usuario = ? WHERE id_pedido = ?";
+
     // PedidoDAO.updateUsuarioPedido(connection, 12, 5);  // Asignar el usuario con ID 5 al pedido con ID 12
     public static boolean updateUsuarioPedido(Connection connection, int idPedido, int nuevoIdUsuario) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USUARIO_PEDIDO_SQL)) {

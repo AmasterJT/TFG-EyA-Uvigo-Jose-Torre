@@ -9,7 +9,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import uvigo.tfgalmacen.Main;
@@ -173,9 +175,7 @@ public class pedidosController {
                     Objects.equals(estadoFiltro, pedido.getEstado());
 
             if (controller.isSelected() && pasaFiltro) {
-                if (seleccionados.add(pedido)) {
-                    controller.setSelected(false); // des-selecciono al recogerlo
-                }
+                seleccionados.add(pedido);
             }
         }
         return new ArrayList<>(seleccionados);
@@ -213,10 +213,21 @@ public class pedidosController {
 
             Stage stage = crearStageBasico(pane, true, "Asignar pedido a usuario");
             stage.setOnHidden(_ -> redibujar());
-            stage.show();
+
+            Stage ventanaPadre = (Stage) move_to_en_proceso_btn.getScene().getWindow();
+
+
+            // Bloquear la ventana padre
+            stage.initOwner(ventanaPadre);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initStyle(StageStyle.TRANSPARENT);
+
+
+            stage.showAndWait();
 
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de movimiento de pedidos", e);
+            e.printStackTrace();
         }
     }
 
@@ -260,6 +271,7 @@ public class pedidosController {
 
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de detalles del pedido", e);
+                e.printStackTrace();
             }
         }
     }
@@ -273,5 +285,5 @@ public class pedidosController {
             renderizarPedidos(PedidoDAO.getPedidosEnProceso(Main.connection), grid_en_curso);
         });
     }
-    
+
 }
