@@ -17,6 +17,7 @@ import uvigo.tfgalmacen.database.PedidoDAO;
 import java.util.List;
 
 import static uvigo.tfgalmacen.database.UsuarioDAO.getAllUsers;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.SHAKE_DURATION;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.shake;
 // importa tus utilidades donde tengas shake(...) e isInvalidSelection(...)
 // import static tu.paquete.UIUtils.shake;
@@ -96,7 +97,7 @@ public class MovePendienteToEnProcesoController {
         //    Regla: si NO hay usuario seleccionado, no hacemos nada y hacemos shake.
         if (usuarioSeleccionado == null) {
             // usa tus utilidades:
-            shake(combo_usuario_update, Duration.millis(140));
+            shake(combo_usuario_update, SHAKE_DURATION);
             return;
         }
 

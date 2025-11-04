@@ -58,6 +58,8 @@ public class mainController implements Initializable {
     HBox windowBar;
 
     @FXML
+    private Button esconder_ajustes_btn;
+    @FXML
     private Button inventarioButton;
     @FXML
     private Button pedidosButton;
@@ -69,12 +71,15 @@ public class mainController implements Initializable {
     private Button ExitButton;
     @FXML
     private Button minimizeButton;
+    @FXML
+    private Button ajustesButton;
+    @FXML
+    private Button orden_compra_btn;
 
     @FXML
     private Label MenuButton;
     @FXML
     private Label MenuBackButton;
-
     @FXML
     private Label roleLabel;
 
@@ -82,20 +87,21 @@ public class mainController implements Initializable {
     private BorderPane BorderPane;
 
     @FXML
-    AnchorPane Slider;
-
-    @FXML
     private AnchorPane root;
 
     @FXML
-    private Button ajustesButton;
-    @FXML
-    private Button orden_compra_btn;
+    private AnchorPane slider;
+
 
     private Button activeScene = null;
 
+    private boolean sliderVisible = true;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        slideMenu(false);
 
         ExitButton.setOnMouseClicked(_ -> Platform.exit());
         minimizeButton.setOnAction(_ -> minimizarVentana());
@@ -107,6 +113,7 @@ public class mainController implements Initializable {
         recepcionButton.setOnMouseClicked(_ -> loadRecepcionView());
         ajustesButton.setOnMouseClicked(_ -> loadAjustesView());
         orden_compra_btn.setOnMouseClicked(_ -> abrirVentanaOrdenCompra());
+        esconder_ajustes_btn.setOnMouseClicked(_ -> slideMenu(false));
 
         // Por defecto carga la vista de almacen
         loadAlmacenView();
@@ -189,7 +196,9 @@ public class mainController implements Initializable {
 
     @FXML
     private void loadAjustesView() {
-        loadFXML(APARTADO_AJUSTES_FXML);
+        slideMenu(sliderVisible);
+
+        //loadFXML(APARTADO_AJUSTES_FXML);
         marcarBotonActivo(ajustesButton);
     }
 
@@ -226,12 +235,20 @@ public class mainController implements Initializable {
     }
 
     private void slideMenu(boolean show) {
-        TranslateTransition slide = new TranslateTransition(Duration.seconds(0.4), Slider);
-        slide.setToX(show ? 0 : -176);
-        slide.setOnFinished(_ -> {
-            MenuButton.setVisible(!show);
-            MenuBackButton.setVisible(show);
-        });
+        double anchoSlider = slider.getWidth(); // obtiene el ancho real del panel
+        TranslateTransition slide = new TranslateTransition(Duration.millis(400), slider);
+
+        if (show) {
+            slide.setToX(anchoSlider + 10); // vuelve a su posición original
+            sliderVisible = false;
+            LOGGER.log(Level.INFO, "➡️ Abriendo slider");
+
+        } else {
+            slide.setToX(-anchoSlider - 10); // se mueve hacia fuera (izquierda)
+            sliderVisible = true;
+            LOGGER.log(Level.INFO, "⬅️ cerrando slider");
+        }
+
         slide.play();
     }
 

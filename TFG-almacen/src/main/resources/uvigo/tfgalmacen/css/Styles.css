@@ -27,6 +27,7 @@
     -fx-border-color: #eb4034 !important;
 }
 
+
 .exitlogin:pressed {
     -fx-background-color: #e36259 !important;
 }
@@ -645,4 +646,16 @@
 
 .label-error {
     -fx-text-fill: #ff4d4f;
+}
+
+
+.cambiarContrasena {
+    -fx-background-color: rgba(0, 0, 0, 0) !important;
+    -fx-text-fill: -amaster-gray !important;
+    -fx-cursor: hand !important;
+}
+
+.cambiarContrasena:hover {
+    -fx-background-color: rgba(0, 0, 0, 0) !important;
+    -fx-text-fill: -amaster-blue !important;
 }

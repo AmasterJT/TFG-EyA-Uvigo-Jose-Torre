@@ -208,6 +208,25 @@ public class windowComponentAndFuncionalty {
     }
 
 
+    public static boolean ventana_confirmacion(String title, String content) {
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle(title);
+        alerta.setHeaderText(null);
+        alerta.setContentText(content);
+        // Aplicar estilo (opcional)
+        DialogPane dialogPane = alerta.getDialogPane();
+        try {
+            dialogPane.getStylesheets().add(
+                    Objects.requireNonNull(windowComponentAndFuncionalty.class.getResource("/uvigo/tfgalmacen/css/Styles.css")).toExternalForm()
+            );
+            dialogPane.getStyleClass().add("alert-dialog");
+        } catch (Exception ex) {
+            LOGGER.log(Level.FINE, "No se pudo cargar Styles.css para el diálogo de confirmación.", ex);
+        }
+        Optional<ButtonType> result = alerta.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
+    }
+
     // Versión básica
     public static @NotNull Stage crearStageBasico(Parent root) {
         return crearStageBasico(root, true, "");
