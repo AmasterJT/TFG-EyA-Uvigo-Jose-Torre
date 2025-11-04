@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -54,46 +55,94 @@ public class mainController implements Initializable {
     }
 
     @FXML
-    AnchorPane topBar;
+    private BorderPane BorderPane;
+
     @FXML
-    HBox windowBar;
+    private Button ExitButton;
+
+    @FXML
+    private Label MenuBackButton;
+
+    @FXML
+    private Label MenuButton;
+
+    @FXML
+    private ImageView ajustesBtn;
+
+    @FXML
+    private Button ajustesButton;
+
+    @FXML
+    private Button ajustes_crear_pedido_btn;
+
+    @FXML
+    private Button ajustes_crear_usuario_btn;
+
+    @FXML
+    private Button ajustes_editar_pedido_btn;
+
+    @FXML
+    private Button ajustes_editar_usuario_btn;
+
+    @FXML
+    private Button ajustes_eliminar_pedido_btn;
+
+    @FXML
+    private Button ajustes_eliminar_usuario_btn;
+
+    @FXML
+    private Button almacenButton;
+
+    @FXML
+    private AnchorPane almacenContainer;
 
     @FXML
     private Button cerrarSesionBtn;
+
     @FXML
     private Button esconder_ajustes_btn;
+
+    @FXML
+    private Label estadoConexionLabel;
+
     @FXML
     private Button inventarioButton;
-    @FXML
-    private Button pedidosButton;
-    @FXML
-    private Button almacenButton;
-    @FXML
-    private Button recepcionButton;
-    @FXML
-    private Button ExitButton;
+
     @FXML
     private Button minimizeButton;
-    @FXML
-    private Button ajustesButton;
+
     @FXML
     private Button orden_compra_btn;
 
     @FXML
-    private Label MenuButton;
-    @FXML
-    private Label MenuBackButton;
-    @FXML
-    private Label roleLabel;
+    private Button pedidosButton;
 
     @FXML
-    private BorderPane BorderPane;
+    private Button probarConexionBtn;
+
+    @FXML
+    private Button recepcionButton;
+
+    @FXML
+    private Label roleLabel;
 
     @FXML
     private AnchorPane root;
 
     @FXML
     private AnchorPane slider;
+
+    @FXML
+    private HBox toolBar;
+
+    @FXML
+    private AnchorPane topBar;
+
+    @FXML
+    private Label usuarioActualLabel;
+
+    @FXML
+    private HBox windowBar;
 
 
     private Button activeScene = null;
@@ -116,6 +165,7 @@ public class mainController implements Initializable {
         recepcionButton.setOnMouseClicked(_ -> loadRecepcionView());
         ajustesButton.setOnMouseClicked(_ -> loadAjustesView());
         orden_compra_btn.setOnMouseClicked(_ -> abrirVentanaOrdenCompra());
+        ajustes_crear_usuario_btn.setOnMouseClicked(_ -> abrirVentanaCrearUsuario());
 
         esconder_ajustes_btn.setOnMouseClicked(_ -> slideMenu(false));
 
@@ -160,6 +210,32 @@ public class mainController implements Initializable {
             LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de orden de compra", e);
         }
     }
+
+
+    private void abrirVentanaCrearUsuario() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_AJUSTES_USUARIOS_FXML));
+            Parent root = loader.load();
+
+            Stage ventanaUsuario = crearStageBasico(root, "Crear Usuario");
+
+            Stage ventanaPadre = (Stage) orden_compra_btn.getScene().getWindow();
+
+
+            // Bloquear la ventana padre
+            ventanaUsuario.initOwner(ventanaPadre);
+            ventanaUsuario.initModality(Modality.WINDOW_MODAL);
+            ventanaUsuario.initStyle(StageStyle.TRANSPARENT);
+
+
+            ventanaUsuario.showAndWait();
+
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de crear usuario", e);
+            e.printStackTrace();
+        }
+    }
+
 
     //------------------------------------------------------------------------------------------------------------------
     //                                   APARTADOS DEL MAIN CONTROLLER

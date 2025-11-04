@@ -666,12 +666,32 @@
 }
 
 
-.slider .backButton {
+.slider .button {
     -fx-background-color: transparent !important;
+    -fx-text-fill: white !important;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
     -fx-border-color: transparent !important;
 }
 
-.slider .backButton:hover {
+.slider .button:hover {
     -fx-background-color: -amaster-deep-dark-gray !important;
+    -fx-text-fill: white !important;
+    -fx-effect: dropshadow(gaussian, rgb(61, 65, 75), 50, 0.1, 0, 0);
+    -fx-cursor: hand;
+}
+
+
+.slider .itemButton {
+    -fx-background-color: -amaster-deep-dark-gray !important;
+    -fx-text-fill: white !important;
+    -fx-border-color: transparent !important;
+}
+
+.slider .itemButton:hover {
+    -fx-border-color: white !important;
+    -fx-border-width: 1;
+    -fx-text-fill: white !important;
+    -fx-effect: dropshadow(gaussian, rgb(61, 65, 75), 50, 0.1, 0, 0);
     -fx-cursor: hand;
 }
