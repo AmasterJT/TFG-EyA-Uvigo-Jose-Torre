@@ -58,7 +58,7 @@
 }
 
 
-.slider {
+.leftPanel {
     -fx-background-color: -amaster-brown !important;
 
 }
@@ -658,4 +658,20 @@
 .cambiarContrasena:hover {
     -fx-background-color: rgba(0, 0, 0, 0) !important;
     -fx-text-fill: -amaster-blue !important;
+}
+
+
+.slider {
+    -fx-background-color: -amaster-dark-gray !important;
+}
+
+
+.slider .backButton {
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
+}
+
+.slider .backButton:hover {
+    -fx-background-color: -amaster-deep-dark-gray !important;
+    -fx-cursor: hand;
 }

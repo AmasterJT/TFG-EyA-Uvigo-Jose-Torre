@@ -102,7 +102,7 @@ public class Main extends Application {
         connection = null;
         LOGGER.info("Aplicación detenida y conexión cerrada.");
     }
-
+    
 
     public static void main(String[] args) {
         // Si quieres dejar pruebas de consola, protégelas con try/catch y logs.

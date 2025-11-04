@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.RutasFicheros.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_confirmacion;
 
 public class mainController implements Initializable {
 
@@ -57,6 +58,8 @@ public class mainController implements Initializable {
     @FXML
     HBox windowBar;
 
+    @FXML
+    private Button cerrarSesionBtn;
     @FXML
     private Button esconder_ajustes_btn;
     @FXML
@@ -113,7 +116,12 @@ public class mainController implements Initializable {
         recepcionButton.setOnMouseClicked(_ -> loadRecepcionView());
         ajustesButton.setOnMouseClicked(_ -> loadAjustesView());
         orden_compra_btn.setOnMouseClicked(_ -> abrirVentanaOrdenCompra());
+
         esconder_ajustes_btn.setOnMouseClicked(_ -> slideMenu(false));
+
+        if (cerrarSesionBtn != null) {
+            cerrarSesionBtn.setOnAction(_ -> cerrarSesion());
+        }
 
         // Por defecto carga la vista de almacen
         loadAlmacenView();
@@ -269,5 +277,43 @@ public class mainController implements Initializable {
 
         // Actualizar referencia del botón activo
         activeScene = botonSeleccionado;
+    }
+
+
+    /**
+     * Cierra la sesión del usuario actual y vuelve a la ventana de login.
+     */
+    private void cerrarSesion() {
+
+        if (!ventana_confirmacion("Confirmar cierre de sesión", "¿Seguro que deseas cerrar tu sesión?")) {
+            return;
+        }
+
+        try {
+            LOGGER.info("🟡 Cerrando sesión del usuario actual...");
+
+            // Limpiar usuario actual
+            Main.currentUser = null;
+
+            // Obtener ventana actual (main)
+            Stage ventanaPrincipal = (Stage) cerrarSesionBtn.getScene().getWindow();
+
+            // Cargar ventana login
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_LOGIN_FXML));
+            Parent root = loader.load();
+
+            Stage loginStage = crearStageBasico(root, true, "Inicio de sesión");
+            loginStage.initStyle(StageStyle.TRANSPARENT);
+
+            // Mostrar login y cerrar la actual
+            loginStage.show();
+            ventanaPrincipal.close();
+
+            LOGGER.fine("Sesión cerrada correctamente, regresando a ventana de login.");
+
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "❌ Error al intentar cerrar sesión y volver al login.", e);
+            e.printStackTrace(); // opcional: conserva trazas de depuración
+        }
     }
 }

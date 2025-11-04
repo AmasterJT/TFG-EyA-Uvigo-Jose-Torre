@@ -161,8 +161,8 @@
             </AnchorPane>
         </top>
         <left>
-            <AnchorPane prefHeight="362.0" prefWidth="160.0">
-                <VBox alignment="CENTER" layoutX="48.0" layoutY="41.0" prefHeight="200.0" prefWidth="150.0" styleClass="slider" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane prefHeight="362.0" prefWidth="160.0" styleClass="leftPanel">
+                <VBox alignment="CENTER" layoutX="48.0" layoutY="41.0" prefHeight="200.0" prefWidth="150.0" styleClass="leftPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <ImageView fitHeight="100.0" fitWidth="208.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../../icons/logo_uvigo.png" />
                         <VBox.margin>
@@ -264,9 +264,72 @@
             </AnchorPane>
         </bottom>
     </BorderPane>
-   <AnchorPane fx:id="slider" prefWidth="200.0" style="-fx-background-color: red;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="-210.0" AnchorPane.topAnchor="85.0">
-      <children>
-         <Button fx:id="esconder_ajustes_btn" layoutX="64.0" layoutY="451.0" mnemonicParsing="false" text="Button" />
-      </children>
-   </AnchorPane>
+    <AnchorPane fx:id="slider" prefWidth="200.0" styleClass="slider" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="-210.0" AnchorPane.topAnchor="85.0">
+        <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                <children>
+                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="texto-label" text="Ajustes de la aplicación" />
+                    <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                        <children>
+                            <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #222; -fx-background-radius: 15;">
+                                <children>
+                                    <Label alignment="CENTER" styleClass="texto-label" text="CREAR PEDIDO" VBox.vgrow="ALWAYS" />
+                                    <Label alignment="CENTER" styleClass="texto-label" text="ELIMINAR PEDIDO" />
+                                    <Label alignment="CENTER" styleClass="texto-label" text="EDITAR PEDIDO" />
+                                </children>
+                                <padding>
+                                    <Insets bottom="10.0" top="10.0" />
+                                </padding>
+                            </VBox>
+                            <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #222; -fx-background-radius: 15;">
+                                <children>
+                                    <Label alignment="CENTER" styleClass="texto-label" text="Usuarios" />
+                                    <Label fx:id="usuarioActualLabel" styleClass="texto-label" text="Usuario actual: ---" />
+                                    <Button fx:id="cerrarSesionBtn" text="Cerrar sesión" />
+                                    <Label alignment="CENTER" styleClass="texto-label" text="CREAR USUARIO" />
+                                    <Label alignment="CENTER" styleClass="texto-label" text="EDITAR USUARIO" />
+                                    <Label alignment="CENTER" styleClass="texto-label" text="ELIMINAR USUARIO" />
+                                </children>
+                                <padding>
+                                    <Insets bottom="10.0" top="10.0" />
+                                </padding>
+                            </VBox>
+                            <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #222; -fx-background-radius: 15;">
+                                <children>
+                                    <Label alignment="CENTER" styleClass="texto-label" text="Inventario" />
+                                    <Label fx:id="estadoConexionLabel" styleClass="texto-label" text="Estado: Conectando..." />
+                                    <Button fx:id="probarConexionBtn" text="Probar conexión" />
+                                </children>
+                                <padding>
+                                    <Insets bottom="10.0" top="10.0" />
+                                </padding>
+                            </VBox>
+                            <Button fx:id="esconder_ajustes_btn" mnemonicParsing="false" styleClass="backButton">
+                                <VBox.margin>
+                                    <Insets bottom="1.0" />
+                                </VBox.margin>
+                            </Button>
+                        </children>
+                        <VBox.margin>
+                            <Insets left="10.0" right="10.0" />
+                        </VBox.margin>
+                    </VBox>
+                    <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                    <Button fx:id="esconder_ajustes_btn" mnemonicParsing="false" styleClass="backButton">
+                        <graphic>
+                            <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../../icons/arrows/icons8-left-arrow-64.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                        <VBox.margin>
+                            <Insets bottom="1.0" />
+                        </VBox.margin>
+                    </Button>
+                </children>
+            </VBox>
+        </children>
+    </AnchorPane>
 </AnchorPane>
