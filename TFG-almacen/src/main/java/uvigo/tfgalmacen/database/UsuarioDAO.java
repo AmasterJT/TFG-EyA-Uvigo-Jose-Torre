@@ -250,10 +250,10 @@ public class UsuarioDAO {
     }
 
     // Obtener el nombre completo del usuario por ID
-    private static final String GET_USERNAME_BY_ID_SQL = "SELECT nombre, apellido1 FROM usuarios WHERE id_usuario = ?";
+    private static final String GET_NAME_BY_ID_SQL = "SELECT nombre, apellido1 FROM usuarios WHERE id_usuario = ?";
 
     public static String getNombreUsuarioById(Connection connection, int id_usuario) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_USERNAME_BY_ID_SQL)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_NAME_BY_ID_SQL)) {
             preparedStatement.setInt(1, id_usuario);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -262,6 +262,26 @@ public class UsuarioDAO {
                 String nombre = resultSet.getString("nombre");
                 String apellido = resultSet.getString("apellido1");
                 return nombre + " " + apellido;
+            } else {
+                return null; // Usuario no encontrado
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null; // Error en la base de datos
+        }
+    }
+
+
+    private static final String GET_USERNAME_BY_ID_SQL = "SELECT user_name FROM usuarios WHERE id_usuario = ?";
+
+    public static String getUsernameById(Connection connection, int id_usuario) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_USERNAME_BY_ID_SQL)) {
+            preparedStatement.setInt(1, id_usuario);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("user_name");
             } else {
                 return null; // Usuario no encontrado
             }
@@ -385,6 +405,79 @@ public class UsuarioDAO {
 
         return false;
     }
+
+
+    // === 3) Eliminar usuario por username ===
+    public static boolean deleteUserByUsername(Connection connection, String username) {
+        final String SQL = "DELETE FROM usuarios WHERE user_name = ?";
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setString(1, username);
+            int rows = ps.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            System.err.println("Error eliminando usuario '" + username + "': " + e.getMessage());
+            return false;
+        }
+    }
+
+
+    public static List<UserLite> getAllUsersExcept(Connection conn, int excludeUserId) {
+        final String SQL = "SELECT id_usuario, user_name, nombre, apellido1, apellido2 " +
+                "FROM usuarios WHERE id_usuario <> ?";
+        List<UserLite> lista = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(SQL)) {
+            ps.setInt(1, excludeUserId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(new UserLite(
+                            rs.getInt("id_usuario"),
+                            rs.getString("user_name"),
+                            rs.getString("nombre"),
+                            rs.getString("apellido1"),
+                            rs.getString("apellido2")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            java.util.logging.Logger.getLogger(UsuarioDAO.class.getName())
+                    .log(java.util.logging.Level.SEVERE, "Error en getAllUsersExcept", e);
+        }
+        return lista;
+    }
+
+    public static class UserLite {
+        public final int id;
+        public final String username;
+        public final String nombre;
+        public final String ap1;
+        public final String ap2;
+
+        public UserLite(int id, String username, String nombre, String ap1, String ap2) {
+            this.id = id;
+            this.username = username;
+            this.nombre = nombre;
+            this.ap1 = ap1;
+            this.ap2 = ap2;
+        }
+
+        @Override
+        public String toString() {
+            return username + " - " + nombre + " " + ap1;
+        }
+    }
+
+
+    // En UsuarioDAO
+    public static boolean deleteUserByUsernameThrows(Connection conn, String username) throws SQLException {
+        final String SQL = "DELETE FROM usuarios WHERE user_name = ?";
+        try (PreparedStatement ps = conn.prepareStatement(SQL)) {
+            ps.setString(1, username);
+            int n = ps.executeUpdate();
+            return n > 0;
+        }
+        // No catch aquí: dejamos que la SQLException suba al caller
+    }
+
 }
 
 

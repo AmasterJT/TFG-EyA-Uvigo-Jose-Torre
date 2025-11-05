@@ -15,15 +15,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="principalWindow" stylesheets="@../../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadosAjustesControllers.windowAjustesEditarUsuariosController">
+<AnchorPane styleClass="principalWindow" stylesheets="@../../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadosAjustesControllers.windowAjustesEliminarUsuariosController">
     <children>
         <BorderPane layoutX="10.0" layoutY="10.0" styleClass="backgroundScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
-                <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+                <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="BOTTOM_RIGHT">
                     <children>
                         <HBox alignment="CENTER">
                             <children>
-                                <Label text="EDITAR USUARIO">
+                                <Label text="ELIMINAR USUARIO">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
@@ -49,7 +49,7 @@
                                 <HBox alignment="CENTER_RIGHT" spacing="15.0">
                                     <children>
                                         <Label styleClass="texto-label" text="Username" />
-                                        <ComboBox fx:id="usernameEdit_comboBox" maxWidth="220.0" HBox.hgrow="ALWAYS" />
+                                        <ComboBox fx:id="usernameEliminar_comboBox" maxWidth="220.0" HBox.hgrow="ALWAYS" />
                                     </children>
                                     <VBox.margin>
                                         <Insets left="30.0" right="30.0" />
@@ -69,9 +69,9 @@
                                         </VBox>
                                         <VBox spacing="15.0">
                                             <children>
-                                                <TextField fx:id="nombreEdit_text" maxWidth="220.0" minWidth="220.0" styleClass="create-user-password-field-normal" text="Jose Tomas" />
-                                                <TextField fx:id="apellido1Edit_text" maxWidth="220.0" styleClass="create-user-password-field-normal" text="Torre" />
-                                                <TextField fx:id="apellido2Edit_text" maxWidth="220.0" styleClass="create-user-password-field-normal" text="Pedroarena" />
+                                                <TextField fx:id="nombreEliminar_text" editable="false" maxWidth="220.0" minWidth="220.0" styleClass="create-user-password-field-normal" text="Jose Tomas" />
+                                                <TextField fx:id="apellido1Eliminar_text" editable="false" maxWidth="220.0" styleClass="create-user-password-field-normal" text="Torre" />
+                                                <TextField fx:id="apellido2Eliminar_text" editable="false" maxWidth="220.0" styleClass="create-user-password-field-normal" text="Pedroarena" />
                                             </children>
                                         </VBox>
                                     </children>
@@ -110,8 +110,8 @@
                                         </VBox>
                                         <VBox maxHeight="1.7976931348623157E308" prefHeight="68.0" spacing="15.0">
                                             <children>
-                                                <TextField fx:id="emailEdit_text" maxWidth="220.0" prefWidth="220.0" styleClass="create-user-password-field-normal" />
-                                                <ComboBox fx:id="rolesEdit_comboBox" maxWidth="220.0" />
+                                                <TextField fx:id="emailEliminar_text" editable="false" maxWidth="220.0" prefWidth="220.0" styleClass="create-user-password-field-normal" />
+                                    <TextField fx:id="rolesEliminar_text" editable="false" maxWidth="220.0" prefWidth="220.0" styleClass="create-user-password-field-normal" />
                                             </children>
                                             <HBox.margin>
                                                 <Insets />
@@ -126,31 +126,19 @@
                         </VBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                             <children>
-                                <Button fx:id="guardar_cambios_btn1" mnemonicParsing="false" prefHeight="30.0" prefWidth="159.0" styleClass="generar_compra" text="GUARDAR CAMBIOS" textFill="WHITE">
+                                <Button fx:id="eliminarUsuario_btn" mnemonicParsing="false" prefHeight="30.0" styleClass="eliminar-usuario" text="ELIMINAR" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                     <graphic>
                                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../../../icons/save-50.png" />
+                                                <Image url="@../../../../icons/delete-64.png" />
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </Button>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Button fx:id="refreshUsers_btn" mnemonicParsing="false" prefWidth="50.0" styleClass="inventory-reset-button">
-                           <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../icons/reset.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
+                                <Region HBox.hgrow="ALWAYS" />
                             </children>
                             <VBox.margin>
                                 <Insets />

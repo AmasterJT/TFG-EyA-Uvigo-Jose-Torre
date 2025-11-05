@@ -1,0 +1,13 @@
+@import "Colors.css";
+
+
+.eliminar-usuario {
+    -fx-background-color: -indicador-pedido-cancelado-color;
+    -fx-text-fill: white;
+    -fx-background-radius: 6; /* opcional */
+    -fx-cursor: hand; /* opcional */
+}
+
+.eliminar-usuario:hover {
+    -fx-background-color: -indicador-pedido-en-curso-color;
+}

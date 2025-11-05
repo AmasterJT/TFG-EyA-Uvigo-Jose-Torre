@@ -2,10 +2,7 @@ package uvigo.tfgalmacen.database;
 
 import uvigo.tfgalmacen.Pedido;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -212,5 +209,6 @@ public class PedidoDAO {
             return false;
         }
     }
+
 
 }

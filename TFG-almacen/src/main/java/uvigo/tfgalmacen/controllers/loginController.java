@@ -108,6 +108,7 @@ public class loginController implements Initializable {
 
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, "Error cargando la escena principal", e);
+                e.printStackTrace();
             }
 
         } else {

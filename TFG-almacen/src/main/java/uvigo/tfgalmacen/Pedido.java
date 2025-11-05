@@ -53,6 +53,7 @@ public class Pedido implements Comparable<Pedido> {
 
     }
 
+
     private void setDataEstado(String estado) {
         switch (estado) {
             case "Pendiente" -> {

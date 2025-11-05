@@ -379,20 +379,22 @@ CREATE TABLE
 
 
 -- Creación de la tabla usuarios
-CREATE TABLE
-usuarios (
-	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-	user_name VARCHAR(100) NOT NULL,
-	nombre VARCHAR(100) NOT NULL,
-	apellido1 VARCHAR(100) NOT NULL,
-	apellido2 VARCHAR(100) NOT NULL,
-	email VARCHAR(100) NOT NULL UNIQUE,
-	contraseña VARCHAR(255) NOT NULL,
-	id_rol INT,
-	activo INT,
-	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (id_rol) REFERENCES roles (id_rol)
+CREATE TABLE usuarios (
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    user_name VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    apellido1 VARCHAR(100) NOT NULL,
+    apellido2 VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    contraseña VARCHAR(255) NOT NULL,
+    id_rol INT,
+    activo INT,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_rol) REFERENCES roles (id_rol)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
+
 
 -- Creación de la tabla clientes
 CREATE TABLE clientes (
@@ -655,6 +657,15 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+
+
+
+
+
+
+
+
 
 
 

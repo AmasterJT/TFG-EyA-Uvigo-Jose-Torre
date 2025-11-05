@@ -23,7 +23,10 @@ public class windowAjustesEditarUsuariosController {
     private static final Logger LOGGER = Logger.getLogger(windowAjustesEditarUsuariosController.class.getName());
 
     @FXML
-    private Button ExitButton1;
+    private Button ExitButton;
+    @FXML
+    private Button refreshUsers_btn; // nuevo
+
 
     @FXML
     private TextField nombreEdit_text;
@@ -77,7 +80,9 @@ public class windowAjustesEditarUsuariosController {
         guardar_cambios_btn1.setOnAction(_ -> onGuardarCambios());
 
         // Botón cerrar
-        ExitButton1.setOnMouseClicked(_ -> cerrarVentana());
+        ExitButton.setOnMouseClicked(_ -> cerrarVentana());
+
+        refreshUsers_btn.setOnMouseClicked(_ -> onRefrescarClick());
     }
 
     // ---------------- Carga inicial ----------------
@@ -246,6 +251,26 @@ public class windowAjustesEditarUsuariosController {
         }
     }
 
+    private void onRefrescarClick() {
+        // Guarda la selección actual (si existe)
+        String seleccionado = usernameEdit_comboBox.getValue();
+
+        // Recarga usuarios y roles
+        cargarUsernamesYCache();   // ya la tienes
+        // Si quieres refrescar roles desde BD cada vez, descomenta:
+        // cargarRoles();
+
+        // Vuelve a seleccionar el usuario si sigue existiendo, si no, limpia
+        if (seleccionado != null && cacheUsuarios.containsKey(seleccionado)) {
+            usernameEdit_comboBox.getSelectionModel().select(seleccionado);
+            cargarDatosUsuarioDesdeCache(seleccionado);
+        } else {
+            // Usuario ya no existe: limpiar UI
+            usernameEdit_comboBox.getSelectionModel().clearSelection();
+            limpiarCampos();
+        }
+    }
+
     // ---------------- Utilidades ----------------
 
     private void limpiarCampos() {
@@ -258,7 +283,7 @@ public class windowAjustesEditarUsuariosController {
     }
 
     private void cerrarVentana() {
-        Stage s = (Stage) ExitButton1.getScene().getWindow();
+        Stage s = (Stage) ExitButton.getScene().getWindow();
         s.close();
     }
 

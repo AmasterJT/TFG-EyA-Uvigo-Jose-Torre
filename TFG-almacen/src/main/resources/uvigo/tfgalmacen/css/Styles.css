@@ -4,6 +4,8 @@
 
 @import "password.css";
 
+@import "buttons.css";
+
 .principalWindow {
     -fx-background-color: -amaster-dark-blue !important;
     -fx-border-color: -amaster-dark-blue3 !important;

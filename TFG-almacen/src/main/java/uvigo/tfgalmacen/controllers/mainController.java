@@ -142,6 +142,7 @@ public class mainController implements Initializable {
         orden_compra_btn.setOnMouseClicked(_ -> abrirVentanaOrdenCompra());
         ajustes_crear_usuario_btn.setOnMouseClicked(_ -> abrirVentanaCrearUsuario());
         ajustes_editar_usuario_btn.setOnMouseClicked(_ -> abrirVentanaEditarUsuario());
+        ajustes_eliminar_usuario_btn.setOnMouseClicked(_ -> abrirVentanaEliminarUsuario());
 
         esconder_ajustes_btn.setOnMouseClicked(_ -> slideMenu(false));
 
@@ -239,6 +240,11 @@ public class mainController implements Initializable {
     private void abrirVentanaEditarUsuario() {
         Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
         openWindowAsync(WINDOW_AJUSTES_EDITAR_USUARIOS_FXML, "Editar Usuario", owner);
+    }
+
+    private void abrirVentanaEliminarUsuario() {
+        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
+        openWindowAsync(WINDOW_AJUSTES_ELIMINAR_USUARIOS_FXML, "Eliminar Usuario", owner);
     }
 
     // ---------------------- Navegación secciones ----------------------
