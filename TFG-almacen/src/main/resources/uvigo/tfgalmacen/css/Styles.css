@@ -2,6 +2,8 @@
 
 @import "slider.css";
 
+@import "password_field.css";
+
 .principalWindow {
     -fx-background-color: -amaster-dark-blue !important;
     -fx-border-color: -amaster-dark-blue3 !important;

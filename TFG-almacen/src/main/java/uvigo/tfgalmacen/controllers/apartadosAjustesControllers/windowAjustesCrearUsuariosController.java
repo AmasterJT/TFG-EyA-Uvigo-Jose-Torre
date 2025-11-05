@@ -15,13 +15,19 @@ import uvigo.tfgalmacen.User;
 import uvigo.tfgalmacen.database.RolePermissionDAO;
 import uvigo.tfgalmacen.database.UsuarioDAO;
 
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.SHAKE_DURATION;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.shake;
+
 public class windowAjustesCrearUsuariosController {
 
     private static final Logger LOGGER = Logger.getLogger(windowAjustesCrearUsuariosController.class.getName());
 
+    private static final String PF_NORMAL = "create-user-password-field-normal";
+    private static final String PF_ERROR = "create-user-password-field-error";
+
+
     @FXML
     private Button ExitButton;
-
     @FXML
     private TextField apellido1_text;
     @FXML
@@ -31,7 +37,7 @@ public class windowAjustesCrearUsuariosController {
     @FXML
     private PasswordField confirm_crear_contrasena_text;
     @FXML
-    private PasswordField crear_contrasen_text;
+    private PasswordField crear_contrasena_text;
     @FXML
     private TextField email_text;
     @FXML
@@ -62,7 +68,19 @@ public class windowAjustesCrearUsuariosController {
 
         // Limpia estilos de error al escribir
         attachClearErrorOnTyping(username_text, nombre_text, apellido1_text, apellido2_text, email_text);
-        attachClearErrorOnTyping(crear_contrasen_text, confirm_crear_contrasena_text);
+        attachClearErrorOnTyping(crear_contrasena_text, confirm_crear_contrasena_text);
+
+
+        crear_contrasena_text.focusedProperty().addListener((obs, was, isNow) -> {
+            if (isNow) setErrorState(crear_contrasena_text, false);
+        });
+        crear_contrasena_text.setOnMouseClicked(_ -> setErrorState(crear_contrasena_text, false));
+
+        confirm_crear_contrasena_text.focusedProperty().addListener((obs, was, isNow) -> {
+            if (isNow) setErrorState(confirm_crear_contrasena_text, false);
+        });
+        confirm_crear_contrasena_text.setOnMouseClicked(_ -> setErrorState(confirm_crear_contrasena_text, false));
+
     }
 
     // ---------------------------------------------------------------------
@@ -87,13 +105,13 @@ public class windowAjustesCrearUsuariosController {
 
         if (idRol <= 0) {
             showWarn("Rol no válido", "Selecciona un rol válido.");
-            markError(roles_comboBox);
+            setErrorState(roles_comboBox, true);
             return;
         }
         nuevo.setIdRol(idRol);
 
         // Password en variable (NO meterla en el objeto User)
-        String rawPassword = crear_contrasen_text.getText();
+        String rawPassword = crear_contrasena_text.getText();
 
         try {
             // Ajusta el nombre del método según tu DAO real.
@@ -142,47 +160,47 @@ public class windowAjustesCrearUsuariosController {
     private boolean validarFormulario() {
         boolean ok = true;
         clearErrors(username_text, nombre_text, apellido1_text, apellido2_text, email_text);
-        clearErrors(crear_contrasen_text, confirm_crear_contrasena_text);
+        clearErrors(crear_contrasena_text, confirm_crear_contrasena_text);
         clearErrors(roles_comboBox);
 
         if (isBlank(username_text)) {
             ok = false;
-            markError(username_text);
+            setErrorState(username_text, true);
         }
         if (isBlank(nombre_text)) {
             ok = false;
-            markError(nombre_text);
+            setErrorState(nombre_text, true);
         }
         if (isBlank(apellido1_text)) {
             ok = false;
-            markError(apellido1_text);
+            setErrorState(apellido1_text, true);
         }
         if (isBlank(apellido2_text)) {
             ok = false;
-            markError(apellido2_text);
+            setErrorState(apellido2_text, true);
         }
         if (isBlank(email_text) || !emailValido(s(email_text))) {
             ok = false;
-            markError(email_text);
+            setErrorState(email_text, true);
         }
 
-        String pass1 = crear_contrasen_text.getText();
+        String pass1 = crear_contrasena_text.getText();
         String pass2 = confirm_crear_contrasena_text.getText();
         if (pass1 == null || pass1.isBlank() || pass2 == null || pass2.isBlank()) {
             ok = false;
-            markError(crear_contrasen_text);
-            markError(confirm_crear_contrasena_text);
+            setErrorState(crear_contrasena_text, true);
+            setErrorState(confirm_crear_contrasena_text, true);
         } else if (!Objects.equals(pass1, pass2)) {
             ok = false;
-            markError(crear_contrasen_text);
-            markError(confirm_crear_contrasena_text);
+            setErrorState(crear_contrasena_text, true);
+            setErrorState(confirm_crear_contrasena_text, true);
             showWarn("Contraseñas", "Las contraseñas no coinciden.");
         }
 
         String rol = roles_comboBox.getSelectionModel().getSelectedItem();
         if (rol == null || rol.isBlank()) {
             ok = false;
-            markError(roles_comboBox);
+            setErrorState(roles_comboBox, true);
         }
 
         if (!ok) showWarn("Campos requeridos", "Revisa los campos marcados en rojo.");
@@ -204,11 +222,11 @@ public class windowAjustesCrearUsuariosController {
         apellido1_text.clear();
         apellido2_text.clear();
         email_text.clear();
-        crear_contrasen_text.clear();
+        crear_contrasena_text.clear();
         confirm_crear_contrasena_text.clear();
 
         clearErrors(username_text, nombre_text, apellido1_text, apellido2_text, email_text);
-        clearErrors(crear_contrasen_text, confirm_crear_contrasena_text);
+        clearErrors(crear_contrasena_text, confirm_crear_contrasena_text);
         clearErrors(roles_comboBox);
 
         if (!roles_comboBox.getItems().isEmpty()) {
@@ -231,10 +249,15 @@ public class windowAjustesCrearUsuariosController {
         }
     }
 
-    private void markError(Control c) {
+    private void setErrorState(Control c, boolean error) {
         if (c == null) return;
-        if (!c.getStyleClass().contains("textfield-error")) {
-            c.getStyleClass().add("textfield-error");
+        else c.getStyleClass().removeAll(PF_NORMAL, PF_ERROR);
+
+
+        if (!c.getStyleClass().contains(PF_ERROR)) {
+
+            c.getStyleClass().add(error ? PF_ERROR : PF_NORMAL);
+            if (error) shake(c, SHAKE_DURATION);
         }
     }
 
