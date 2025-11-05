@@ -14,6 +14,104 @@ public class UsuarioDAO {
     // Crear usuario
     private static final String INSERT_USER_SQL = "INSERT INTO usuarios (user_name, nombre, apellido1, apellido2, email, contraseña, id_rol, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
+
+    // 1) Obtener todos los usernames (activos o todos, como prefieras)
+    private static final String SQL_ALL_USERNAMES = """
+                SELECT user_name
+                FROM usuarios
+                ORDER BY user_name
+            """;
+
+    public static List<String> getAllUsernames(Connection c) {
+        List<String> res = new ArrayList<>();
+        try (PreparedStatement ps = c.prepareStatement(SQL_ALL_USERNAMES);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) res.add(rs.getString(1));
+        } catch (SQLException e) {
+            System.err.println("getAllUsernames: " + e.getMessage());
+        }
+        return res;
+    }
+
+    // 2) Obtener un usuario por username
+    private static final String SQL_USER_BY_USERNAME = """
+                SELECT u.user_name, u.nombre, u.apellido1, u.apellido2, u.email, u.id_rol
+                FROM usuarios u
+                WHERE u.user_name = ?
+                LIMIT 1
+            """;
+
+    public static User getUserByUsername(Connection c, String username) {
+        try (PreparedStatement ps = c.prepareStatement(SQL_USER_BY_USERNAME)) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    User u = new User(
+                            rs.getString("user_name"),
+                            rs.getString("nombre"),
+                            rs.getString("apellido1"),
+                            rs.getString("apellido2"),
+                            rs.getString("email"),
+                            rs.getInt("id_rol")
+                    );
+                    return u;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("getUserByUsername: " + e.getMessage());
+        }
+        return null;
+    }
+
+    // 3) Actualizar perfil de usuario (sin cambiar password desde aquí)
+    private static final String SQL_UPDATE_USER_PROFILE = """
+                UPDATE usuarios
+                SET nombre = ?,
+                    apellido1 = ?,
+                    apellido2 = ?,
+                    email = ?,
+                    id_rol = ?
+                WHERE user_name = ?
+            """;
+
+    public static boolean updateUserProfile(Connection c,
+                                            String username,
+                                            String nombre,
+                                            String apellido1,
+                                            String apellido2,
+                                            String email,
+                                            int idRol) {
+        try (PreparedStatement ps = c.prepareStatement(SQL_UPDATE_USER_PROFILE)) {
+            ps.setString(1, nombre);
+            ps.setString(2, apellido1);
+            ps.setString(3, apellido2);
+            ps.setString(4, email);
+            ps.setInt(5, idRol);
+            ps.setString(6, username);
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("updateUserProfile: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // (Opcional) Cambiar contraseña si más adelante lo necesitas
+    private static final String SQL_UPDATE_PASSWORD = """
+                UPDATE usuarios SET contraseña = ? WHERE user_name = ?
+            """;
+
+    public static boolean updatePassword(Connection c, String username, String hashPassword) {
+        try (PreparedStatement ps = c.prepareStatement(SQL_UPDATE_PASSWORD)) {
+            ps.setString(1, hashPassword);
+            ps.setString(2, username);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("updatePassword: " + e.getMessage());
+            return false;
+        }
+    }
+
     public static void createUser(Connection connection, String user_name, String nombre, String apellido1, String apellido2, String email, String password, int id_rol) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
             preparedStatement.setString(1, user_name);
@@ -202,7 +300,7 @@ public class UsuarioDAO {
     public static List<User> getAllUsers(Connection connection) {
         List<User> usuarios = new ArrayList<>();
 
-        String sql = "SELECT id_usuario, user_name, nombre, apellido1, apellido2, email FROM usuarios";
+        String sql = "SELECT id_usuario, user_name, nombre, apellido1, apellido2, email, id_rol FROM usuarios";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
@@ -246,6 +344,47 @@ public class UsuarioDAO {
     }
 
 
+    /**
+     * Comprueba si un usuario ya existe en la base de datos por su nombre de usuario.
+     *
+     * @param connection conexión activa a la base de datos.
+     * @param username   nombre de usuario que se desea comprobar.
+     * @return true si el usuario existe, false en caso contrario o si ocurre un error.
+     */
+    public static boolean userExists(Connection connection, String username) {
+        String sql = "SELECT COUNT(*) AS total FROM usuarios WHERE LOWER(user_name) = LOWER(?)";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, username.trim());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total") > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error comprobando existencia del usuario: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+
+    public static boolean emailExists(Connection connection, String email) {
+        String sql = "SELECT COUNT(*) AS total FROM usuarios WHERE LOWER(email) = LOWER(?)";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, email.trim());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total") > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error comprobando existencia del email: " + e.getMessage());
+        }
+
+        return false;
+    }
 }
 
 

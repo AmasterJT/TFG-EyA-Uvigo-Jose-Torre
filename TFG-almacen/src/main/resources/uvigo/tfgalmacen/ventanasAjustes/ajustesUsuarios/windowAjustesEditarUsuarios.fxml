@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="624.0" prefWidth="424.0" styleClass="principalWindow" stylesheets="@../../css/Styles.css"
-            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="uvigo.tfgalmacen.controllers.apartadosAjustesControllers.windowAjustesUsuariosController">
+<AnchorPane styleClass="principalWindow" stylesheets="@../../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="uvigo.tfgalmacen.controllers.apartadosAjustesControllers.windowAjustesEditarUsuariosController">
     <children>
         <BorderPane layoutX="10.0" layoutY="10.0" styleClass="backgroundScene" AnchorPane.bottomAnchor="0.0"
                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -26,7 +26,7 @@
                     <children>
                         <HBox alignment="CENTER">
                             <children>
-                                <Label text="AJUSTES DE USUARIOS">
+                                <Label text="EDITAR USUARIO">
                                     <font>
                                         <Font name="System Bold" size="15.0"/>
                                     </font>
@@ -36,7 +36,7 @@
                                 <Insets bottom="10.0"/>
                             </VBox.margin>
                         </HBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="630.0" spacing="30.0"
+                        <VBox alignment="TOP_CENTER" spacing="30.0"
                               style="-fx-background-color: #222; -fx-background-radius: 10;">
                             <padding>
                                 <Insets top="10.0"/>
@@ -53,18 +53,15 @@
                                 <HBox alignment="CENTER_RIGHT" spacing="15.0">
                                     <children>
                                         <Label styleClass="texto-label" text="Username"/>
-                                        <TextField fx:id="username_text" prefWidth="205.0"
-                                                   style="-fx-background-color: #333; -fx-text-fill: white;"
-                                                   styleClass="transparent" text="AmsterJT"/>
+                                        <ComboBox fx:id="usernameEdit_comboBox" maxWidth="220.0" HBox.hgrow="ALWAYS"/>
                                     </children>
                                     <VBox.margin>
                                         <Insets left="30.0" right="30.0"/>
                                     </VBox.margin>
                                 </HBox>
-                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                <HBox alignment="CENTER_RIGHT">
                                     <children>
-                                        <VBox maxWidth="135.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0"
-                                              HBox.hgrow="ALWAYS">
+                                        <VBox spacing="15.0">
                                             <children>
                                                 <Label alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308"
                                                        minHeight="26.0" styleClass="texto-label" text="Nombre"/>
@@ -79,17 +76,15 @@
                                                 <Insets right="20.0"/>
                                             </padding>
                                         </VBox>
-                                        <VBox maxHeight="1.7976931348623157E308" spacing="15.0" HBox.hgrow="ALWAYS">
+                                        <VBox spacing="15.0">
                                             <children>
-                                                <TextField fx:id="nombre_text"
-                                                           style="-fx-background-color: #333; -fx-text-fill: white;"
-                                                           styleClass="transparent" text="Jose Tomas"/>
-                                                <TextField fx:id="apellido1_text"
-                                                           style="-fx-background-color: #333; -fx-text-fill: white;"
-                                                           styleClass="transparent" text="Torre"/>
-                                                <TextField fx:id="apellido2_text"
-                                                           style="-fx-background-color: #333; -fx-text-fill: white;"
-                                                           styleClass="transparent" text="Pedroarena"/>
+                                                <TextField fx:id="nombreEdit_text" maxWidth="220.0" minWidth="220.0"
+                                                           styleClass="email-disable" text="Jose Tomas"/>
+                                                <TextField fx:id="apellido1Edit_text" maxWidth="220.0"
+                                                           styleClass="email-disable" text="Torre"/>
+                                                <TextField fx:id="apellido2Edit_text" maxWidth="220.0"
+                                                           styleClass="create-user-password-field-normal"
+                                                           text="Pedroarena"/>
                                             </children>
                                         </VBox>
                                     </children>
@@ -97,7 +92,7 @@
                                         <Insets left="30.0" right="30.0"/>
                                     </VBox.margin>
                                 </HBox>
-                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                <HBox alignment="CENTER_RIGHT" prefHeight="68.0">
                                     <children>
                                         <VBox maxWidth="135.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0"
                                               HBox.hgrow="ALWAYS">
@@ -133,12 +128,11 @@
                                                 <Insets right="20.0"/>
                                             </padding>
                                         </VBox>
-                                        <VBox maxHeight="1.7976931348623157E308" spacing="15.0" HBox.hgrow="ALWAYS">
+                                        <VBox maxHeight="1.7976931348623157E308" prefHeight="68.0" spacing="15.0">
                                             <children>
-                                                <TextField fx:id="email_text"
-                                                           style="-fx-background-color: #333; -fx-text-fill: white;"
-                                                           styleClass="transparent" text="jotorre@alumnos.uvigo.es"/>
-                                                <ComboBox fx:id="roles_comboBox" maxWidth="1.7976931348623157E308"/>
+                                                <TextField fx:id="emailEdit_text" maxWidth="220.0" prefWidth="220.0"
+                                                           styleClass="create-user-password-field-normal"/>
+                                                <ComboBox fx:id="rolesEdit_comboBox" maxWidth="220.0"/>
                                             </children>
                                             <HBox.margin>
                                                 <Insets/>
@@ -146,25 +140,14 @@
                                         </VBox>
                                     </children>
                                     <VBox.margin>
-                                        <Insets left="30.0" right="30.0"/>
+                                        <Insets bottom="20.0" left="30.0" right="30.0"/>
                                     </VBox.margin>
-                                </HBox>
-                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                    <children>
-                                        <Button fx:id="cambiar_password_btn" mnemonicParsing="false" prefHeight="30.0"
-                                                prefWidth="150.0" styleClass="cambiarContrasena"
-                                                text="Cambiar contraseña" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="12.0"/>
-                                            </font>
-                                        </Button>
-                                    </children>
                                 </HBox>
                             </children>
                         </VBox>
-                        <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
                             <children>
-                                <Button fx:id="guardar_cambios_btn" mnemonicParsing="false" prefHeight="30.0"
+                                <Button fx:id="guardar_cambios_btn1" mnemonicParsing="false" prefHeight="30.0"
                                         prefWidth="159.0" styleClass="generar_compra" text="GUARDAR CAMBIOS"
                                         textFill="WHITE">
                                     <font>
@@ -197,7 +180,7 @@
                 <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0"
                       styleClass="windowBar" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity"
+                        <Button fx:id="ExitButton1" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity"
                                 mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="exitItem"
                                 stylesheets="@../../css/Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
                             <cursor>
@@ -232,7 +215,7 @@
                 </HBox>
             </top>
             <bottom>
-                <AnchorPane prefHeight="0.0" prefWidth="650.0" styleClass="windowBar" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="0.0" styleClass="windowBar" BorderPane.alignment="CENTER">
                     <children>
                         <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0"/>
                     </children>

@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Objects;
@@ -167,7 +168,10 @@ public class windowAjustesCrearUsuariosController {
     private void onGuardarUsuario() {
         // Validar
         if (!validarFormulario()) return;
+        if (UsuarioDAO.userExists(Main.connection, username_text.getText())) return;
+        if (UsuarioDAO.emailExists(Main.connection, email_text.getText())) return;
 
+        //¿que pasa con el email si dos usuaios de llaman igual?
         String rolNombre = roles_comboBox.getSelectionModel().getSelectedItem();
         int idRol = RolePermissionDAO.getRoleIdByName(Main.connection, rolNombre);
 

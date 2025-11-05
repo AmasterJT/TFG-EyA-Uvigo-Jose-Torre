@@ -173,7 +173,7 @@
                         </VBox>
                         <HBox alignment="CENTER_RIGHT" spacing="15.0">
                             <children>
-                                <Button fx:id="guardar_cambios_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="159.0" styleClass="generar_compra" text="GUARDAR CAMBIOS" textFill="WHITE">
+                                <Button fx:id="guardar_cambios_btn" mnemonicParsing="false" prefHeight="30.0" styleClass="generar_compra" text="CREAR USUARIO" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font>
