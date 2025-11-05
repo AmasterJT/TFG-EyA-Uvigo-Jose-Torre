@@ -384,7 +384,8 @@ usuarios (
 	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
 	user_name VARCHAR(100) NOT NULL,
 	nombre VARCHAR(100) NOT NULL,
-	apellido VARCHAR(100) NOT NULL,
+	apellido1 VARCHAR(100) NOT NULL,
+	apellido2 VARCHAR(100) NOT NULL,
 	email VARCHAR(100) NOT NULL UNIQUE,
 	contraseña VARCHAR(255) NOT NULL,
 	id_rol INT,
@@ -551,7 +552,7 @@ BEGIN
     IF NEW.user_name IS NULL OR NEW.user_name = '' THEN
         SET NEW.user_name = LOWER(CONCAT(
             LEFT(NEW.nombre, 1),
-            NEW.apellido
+            NEW.apellido1
         ));
     END IF;
 END;
@@ -654,3 +655,11 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+
+
+
+
+
+
+

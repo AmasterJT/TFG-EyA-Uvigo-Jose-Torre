@@ -9,13 +9,18 @@ import java.sql.Connection;
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
 
 public class User {
-    public int id_usuario;
-    public String username;
-    public String name;
-    public String apellido;
-    public String email;
-    public String role;
-    public int idRol;
+    private int id_usuario;
+    private String username;
+    private String name;
+    private String apellido1;
+    private String apellido2;
+    private String email;
+    private String role;
+    private int idRol;
+
+    public User() {
+
+    }
 
     public User(String name, String password, Connection conection) {
         this.name = name;
@@ -23,14 +28,31 @@ public class User {
         this.role = RolePermissionDAO.getRoleNameById(conection, idRol);
     }
 
-    public User(int id_usuario, String username, String nombre, String apellido, String email, Connection conection) {
-        this.id_usuario = id_usuario;
+    public User(String username, String nombre, String apellido1, String apellido2, String email, int idRol) {
         this.username = username;
         this.name = nombre;
-        this.apellido = apellido;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
         this.email = email;
+        this.idRol = idRol;
     }
 
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getName() {
         return name;
@@ -38,6 +60,30 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getApellido1() {
+        return apellido1;
+    }
+
+    public void setApellido1(String apellido1) {
+        this.apellido1 = apellido1;
+    }
+
+    public String getApellido2() {
+        return apellido2;
+    }
+
+    public void setApellido2(String apellido2) {
+        this.apellido2 = apellido2;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRole() {
@@ -48,8 +94,12 @@ public class User {
         this.role = role;
     }
 
-    public String getApellido(){
-        return this.apellido;
+    public int getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
     }
 
     @Override

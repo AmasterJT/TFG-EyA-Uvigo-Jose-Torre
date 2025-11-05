@@ -12,14 +12,18 @@ import java.util.List;
 public class UsuarioDAO {
 
     // Crear usuario
-    private static final String INSERT_USER_SQL = "INSERT INTO usuarios (nombre, email, contraseña, id_rol) VALUES (?, ?, ?, ?)";
+    private static final String INSERT_USER_SQL = "INSERT INTO usuarios (user_name, nombre, apellido1, apellido2, email, contraseña, id_rol, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-    public static void createUser(Connection connection, String nombre, String email, String password, int id_rol) {
+    public static void createUser(Connection connection, String user_name, String nombre, String apellido1, String apellido2, String email, String password, int id_rol) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
-            preparedStatement.setString(1, nombre);
-            preparedStatement.setString(2, email);
-            preparedStatement.setString(3, password);
-            preparedStatement.setInt(4, id_rol);
+            preparedStatement.setString(1, user_name);
+            preparedStatement.setString(2, nombre);
+            preparedStatement.setString(3, apellido1);
+            preparedStatement.setString(4, apellido2);
+            preparedStatement.setString(5, email);
+            preparedStatement.setString(6, password);
+            preparedStatement.setInt(7, id_rol);
+            preparedStatement.setInt(8, 0);
 
             int result = preparedStatement.executeUpdate();
             if (result > 0) {
@@ -28,6 +32,27 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean createUser(Connection connection, User nuevo_usuario, String password, int id_rol) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
+            preparedStatement.setString(1, nuevo_usuario.getUsername());
+            preparedStatement.setString(2, nuevo_usuario.getName());
+            preparedStatement.setString(3, nuevo_usuario.getApellido1());
+            preparedStatement.setString(4, nuevo_usuario.getApellido2());
+            preparedStatement.setString(5, nuevo_usuario.getEmail());
+            preparedStatement.setString(6, password);
+            preparedStatement.setInt(7, id_rol);
+            preparedStatement.setInt(8, 0);
+
+            int result = preparedStatement.executeUpdate();
+            if (result > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     // Leer todos los usuarios
@@ -177,7 +202,7 @@ public class UsuarioDAO {
     public static List<User> getAllUsers(Connection connection) {
         List<User> usuarios = new ArrayList<>();
 
-        String sql = "SELECT id_usuario, user_name, nombre, apellido1, email FROM usuarios";
+        String sql = "SELECT id_usuario, user_name, nombre, apellido1, apellido2, email FROM usuarios";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
@@ -186,10 +211,12 @@ public class UsuarioDAO {
                 int id_usuario = rs.getInt("id_usuario");
                 String username = rs.getString("user_name");
                 String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido1");
+                String apellido1 = rs.getString("apellido1");
+                String apellido2 = rs.getString("apellido2");
                 String email = rs.getString("email");
+                int rol = rs.getInt("id_rol");
 
-                User user = new User(id_usuario, username, nombre, apellido, email, connection);
+                User user = new User(username, nombre, apellido1, apellido2, email, rol);
                 usuarios.add(user);
             }
 

@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.User;
@@ -82,7 +81,7 @@ public class MovePendienteToEnProcesoController {
         combo_usuario_update.setConverter(new StringConverter<>() {
             @Override
             public String toString(User user) {
-                return (user == null) ? "" : (user.getName() + " " + user.getApellido());
+                return (user == null) ? "" : (user.getName() + " " + user.getApellido1());
             }
 
             @Override

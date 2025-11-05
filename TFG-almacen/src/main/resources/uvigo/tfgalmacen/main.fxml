@@ -284,7 +284,7 @@
             </AnchorPane>
         </left>
         <center>
-            <AnchorPane fx:id="almacenContainer" prefHeight="858.0" prefWidth="1300.0" styleClass="backgroundScene"
+            <AnchorPane fx:id="almacenContainer" prefHeight="695.0" prefWidth="1400.0" styleClass="backgroundScene"
                         BorderPane.alignment="CENTER"/>
         </center>
         <bottom>

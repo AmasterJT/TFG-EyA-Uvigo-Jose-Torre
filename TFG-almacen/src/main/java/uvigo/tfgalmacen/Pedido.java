@@ -30,7 +30,6 @@ public class Pedido implements Comparable<Pedido> {
     private final String horaSalida;
 
 
-
     private String colorEstadoHEX;
 
 
@@ -42,7 +41,7 @@ public class Pedido implements Comparable<Pedido> {
         this.id_cliente = id_cliente;
         this.id_usuario = id_usuario;
         this.estado = estado;
-        this.fechaPedidoRaw =fechaPedidoRaw;
+        this.fechaPedidoRaw = fechaPedidoRaw;
         this.fechaPedido = LocalDateTime.parse(fechaPedidoRaw, FORMATTER);
         this.horaSalida = hora_salida;
 
@@ -79,7 +78,6 @@ public class Pedido implements Comparable<Pedido> {
 
         return ClientesDAO.getNombreClienteById(Main.connection, idCliente);
     }
-
 
 
     public String getCodigo_referencia() {
@@ -119,10 +117,8 @@ public class Pedido implements Comparable<Pedido> {
     }
 
     public void setUsuario(User nombre_usuario) {
-        this.id_usuario = UsuarioDAO.getIdUsuarioByNombre(Main.connection, nombre_usuario.username);
+        this.id_usuario = UsuarioDAO.getIdUsuarioByNombre(Main.connection, nombre_usuario.getUsername());
     }
-
-
 
 
     @Override

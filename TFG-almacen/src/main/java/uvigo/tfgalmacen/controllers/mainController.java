@@ -2,14 +2,17 @@ package uvigo.tfgalmacen.controllers;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.*;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -21,6 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -32,132 +37,102 @@ import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_confi
 
 public class mainController implements Initializable {
 
+    // ======================= Logger =======================
     private static final Logger LOGGER = Logger.getLogger(mainController.class.getName());
 
     static {
-        // Sube el nivel del logger
         LOGGER.setLevel(Level.ALL);
-
-        // Evita que use los handlers del padre (que suelen estar en INFO con SimpleFormatter)
         LOGGER.setUseParentHandlers(false);
-
-        // Crea un ConsoleHandler propio con tu ColorFormatter
         ConsoleHandler ch = new ConsoleHandler();
-        ch.setLevel(Level.ALL);                 // ¡importante!
-        ch.setFormatter(new ColorFormatter());  // tu formatter con colores/emoji
+        ch.setLevel(Level.ALL);
+        ch.setFormatter(new ColorFormatter());
         LOGGER.addHandler(ch);
 
-        // (Opcional) Si quieres también afectar al root logger:
         Logger root = Logger.getLogger("");
         for (Handler h : root.getHandlers()) {
-            h.setLevel(Level.ALL); // si decides mantenerlos
+            h.setLevel(Level.ALL);
         }
     }
 
+    // ======================= Carga en segundo plano =======================
+    // Java 21+: hilos virtuales. Si usas una versión anterior, reemplaza por newFixedThreadPool(4)
+    private static final ExecutorService FX_BG_EXEC = Executors.newVirtualThreadPerTaskExecutor();
+
+    // ======================= FXML =======================
     @FXML
     private BorderPane BorderPane;
-
     @FXML
     private Button ExitButton;
-
     @FXML
     private Label MenuBackButton;
-
     @FXML
     private Label MenuButton;
-
     @FXML
     private ImageView ajustesBtn;
-
     @FXML
     private Button ajustesButton;
-
     @FXML
     private Button ajustes_crear_pedido_btn;
-
     @FXML
     private Button ajustes_crear_usuario_btn;
-
     @FXML
     private Button ajustes_editar_pedido_btn;
-
     @FXML
     private Button ajustes_editar_usuario_btn;
-
     @FXML
     private Button ajustes_eliminar_pedido_btn;
-
     @FXML
     private Button ajustes_eliminar_usuario_btn;
-
     @FXML
     private Button almacenButton;
-
     @FXML
     private AnchorPane almacenContainer;
-
     @FXML
     private Button cerrarSesionBtn;
-
     @FXML
     private Button esconder_ajustes_btn;
-
     @FXML
     private Label estadoConexionLabel;
-
     @FXML
     private Button inventarioButton;
-
     @FXML
     private Button minimizeButton;
-
     @FXML
     private Button orden_compra_btn;
-
     @FXML
     private Button pedidosButton;
-
     @FXML
     private Button probarConexionBtn;
-
     @FXML
     private Button recepcionButton;
-
     @FXML
     private Label roleLabel;
-
     @FXML
     private AnchorPane root;
-
     @FXML
     private AnchorPane slider;
-
     @FXML
     private HBox toolBar;
-
     @FXML
     private AnchorPane topBar;
-
     @FXML
     private Label usuarioActualLabel;
-
     @FXML
     private HBox windowBar;
 
-
+    // ======================= Estado =======================
     private Button activeScene = null;
-
     private boolean sliderVisible = true;
 
-
+    // ======================= Ciclo de vida =======================
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Oculta el slider de inicio
         slideMenu(false);
 
         ExitButton.setOnMouseClicked(_ -> Platform.exit());
         minimizeButton.setOnAction(_ -> minimizarVentana());
-
 
         almacenButton.setOnMouseClicked(_ -> loadAlmacenView());
         inventarioButton.setOnMouseClicked(_ -> loadInventarioView());
@@ -173,7 +148,7 @@ public class mainController implements Initializable {
             cerrarSesionBtn.setOnAction(_ -> cerrarSesion());
         }
 
-        // Por defecto carga la vista de almacen
+        // Por defecto carga la vista de almacen (asíncrono)
         loadAlmacenView();
 
         if (Main.currentUser != null) {
@@ -183,116 +158,118 @@ public class mainController implements Initializable {
         }
     }
 
+    // ======================= Utilidades asíncronas =======================
+
+    /**
+     * Carga un FXML en background y lo sitúa en el centro del BorderPane.
+     */
+    private void loadFXMLAsync(String path) {
+        Task<Parent> task = new Task<>() {
+            @Override
+            protected Parent call() throws Exception {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+                return loader.load();
+            }
+        };
+
+        task.setOnSucceeded(_ -> {
+            Parent parent = task.getValue();
+            BorderPane.setCenter(parent);
+            LOGGER.fine(() -> "Cargado FXML async: " + path);
+        });
+
+        task.setOnFailed(_ -> {
+            Throwable ex = task.getException();
+            LOGGER.log(Level.SEVERE, "❌ Error cargando FXML: " + path, ex);
+        });
+
+        FX_BG_EXEC.submit(task);
+    }
+
+    /**
+     * Abre una ventana modal cargando el FXML en background.
+     */
+    private void openWindowAsync(String fxmlPath, String title, Stage owner) {
+        Task<Parent> task = new Task<>() {
+            @Override
+            protected Parent call() throws Exception {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+                return loader.load();
+            }
+        };
+
+        task.setOnSucceeded(_ -> {
+            Parent root = task.getValue();
+            Stage win = crearStageBasico(root, true, title);
+            if (owner != null) {
+                win.initOwner(owner);
+                win.initModality(Modality.WINDOW_MODAL);
+                win.initStyle(StageStyle.TRANSPARENT);
+            }
+            win.showAndWait();
+            LOGGER.fine(() -> "Ventana abierta: " + title);
+        });
+
+        task.setOnFailed(_ -> {
+            Throwable ex = task.getException();
+            LOGGER.log(Level.SEVERE, "❌ No se pudo abrir la ventana: " + title, ex);
+        });
+
+        FX_BG_EXEC.submit(task);
+    }
+
+    // ======================= Acciones UI =======================
+
     private void minimizarVentana() {
         Stage stage = (Stage) minimizeButton.getScene().getWindow();
         stage.setIconified(true);
     }
 
     private void abrirVentanaOrdenCompra() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_ORDEN_COMPRA_FXML));
-            Parent root = loader.load();
-
-            Stage ventanaOrdenCompra = crearStageBasico(root, "Orden de compra");
-
-            Stage ventanaPadre = (Stage) orden_compra_btn.getScene().getWindow();
-
-
-            // Bloquear la ventana padre
-            ventanaOrdenCompra.initOwner(ventanaPadre);
-            ventanaOrdenCompra.initModality(Modality.WINDOW_MODAL);
-            ventanaOrdenCompra.initStyle(StageStyle.TRANSPARENT);
-
-
-            ventanaOrdenCompra.showAndWait();
-
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de orden de compra", e);
-        }
+        Stage owner = (Stage) orden_compra_btn.getScene().getWindow();
+        openWindowAsync(WINDOW_ORDEN_COMPRA_FXML, "Orden de compra", owner);
     }
-
 
     private void abrirVentanaCrearUsuario() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_AJUSTES_USUARIOS_FXML));
-            Parent root = loader.load();
-
-            Stage ventanaUsuario = crearStageBasico(root, "Crear Usuario");
-
-            Stage ventanaPadre = (Stage) orden_compra_btn.getScene().getWindow();
-
-
-            // Bloquear la ventana padre
-            ventanaUsuario.initOwner(ventanaPadre);
-            ventanaUsuario.initModality(Modality.WINDOW_MODAL);
-            ventanaUsuario.initStyle(StageStyle.TRANSPARENT);
-
-
-            ventanaUsuario.showAndWait();
-
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de crear usuario", e);
-            e.printStackTrace();
-        }
+        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
+        openWindowAsync(WINDOW_AJUSTES_CREAR_USUARIOS_FXML, "Crear Usuario", owner);
     }
 
-
-    //------------------------------------------------------------------------------------------------------------------
-    //                                   APARTADOS DEL MAIN CONTROLLER
-    //------------------------------------------------------------------------------------------------------------------
-
-    @FXML
-    private void loadFXML(String PATH) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(PATH));
-            Parent parent = loader.load();
-            BorderPane.setCenter(parent);
-        } catch (IOException ex) {
-            LOGGER.log(Level.SEVERE, "Error cargando FXML: " + PATH, ex);
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
-        }
-    }
-
+    // ---------------------- Navegación secciones ----------------------
     @FXML
     private void loadAlmacenView() {
-        loadFXML(APARTADO_ALMACEN_FXML);
+        loadFXMLAsync(APARTADO_ALMACEN_FXML);
         marcarBotonActivo(almacenButton);
     }
 
     @FXML
     private void loadInventarioView() {
-        loadFXML(APARTADO_INVENTARIO_FXML);
+        loadFXMLAsync(APARTADO_INVENTARIO_FXML);
         marcarBotonActivo(inventarioButton);
     }
 
     @FXML
     private void loadPedidosView() {
-        loadFXML(APARTADO_PEDIDOS_FXML);
+        loadFXMLAsync(APARTADO_PEDIDOS_FXML);
         marcarBotonActivo(pedidosButton);
     }
 
     @FXML
     private void loadRecepcionView() {
-        loadFXML(APARTADO_RECEPCION_FXML);
+        loadFXMLAsync(APARTADO_RECEPCION_FXML);
         marcarBotonActivo(recepcionButton);
     }
 
     @FXML
     private void loadAjustesView() {
         slideMenu(sliderVisible);
-
-        //loadFXML(APARTADO_AJUSTES_FXML);
         marcarBotonActivo(ajustesButton);
     }
 
-    //------------------------------------------------------------------------------------------------------------------
-    //                                        Funciones adicionales
-    //------------------------------------------------------------------------------------------------------------------
-
+    // ======================= Otros =======================
     @FXML
     private void openXmlInExcel() {
-        String excelPath = "\"C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\EXCEL.EXE\"";
+        String excelPath = "\"C:\\\\Program Files (x86)\\\\Microsoft Office\\\\root\\\\Office16\\\\EXCEL.EXE\"";
         File folder = new File("output_files/");
 
         if (!folder.exists() || !folder.isDirectory()) {
@@ -318,43 +295,48 @@ public class mainController implements Initializable {
         }
     }
 
+    /**
+     * Muestra/Oculta el slider lateral con animación.
+     */
     private void slideMenu(boolean show) {
-        double anchoSlider = slider.getWidth(); // obtiene el ancho real del panel
-        TranslateTransition slide = new TranslateTransition(Duration.millis(400), slider);
-
-        if (show) {
-            slide.setToX(anchoSlider + 10); // vuelve a su posición original
-            sliderVisible = false;
-            LOGGER.log(Level.INFO, "➡️ Abriendo slider");
-
-        } else {
-            slide.setToX(-anchoSlider - 10); // se mueve hacia fuera (izquierda)
-            sliderVisible = true;
-            LOGGER.log(Level.INFO, "⬅️ cerrando slider");
+        // Asegura medidas reales en el primer uso
+        double anchoSlider = slider.getWidth();
+        if (anchoSlider <= 1) {
+            slider.applyCss();
+            slider.layout();
+            anchoSlider = slider.getWidth();
         }
 
+        TranslateTransition slide = new TranslateTransition(Duration.millis(400), slider);
+        if (show) {
+            slide.setToX(anchoSlider + 10);
+            sliderVisible = false;
+            LOGGER.log(Level.INFO, "➡️ Abriendo slider");
+        } else {
+            slide.setToX(-anchoSlider - 10);
+            sliderVisible = true;
+            LOGGER.log(Level.INFO, "⬅️ Cerrando slider");
+        }
         slide.play();
     }
 
+    /**
+     * Marca botón activo con colores de tu mapa de colores cargado en Main.colors
+     */
     private void marcarBotonActivo(Button botonSeleccionado) {
-        // Estilo para botón activo
+        String colorActivo = Main.colors.getOrDefault("-amaster-dark-brown", "#5a3b23");
+        String colorNormal = Main.colors.getOrDefault("-amaster-brown", "#804012");
 
-        String colorActivo = Main.colors.get("-amaster-dark-brown");
         String estiloActivo = String.format("-fx-background-color: %s !important; -fx-text-fill: white;", colorActivo);
-        // Estilo para botón inactivo
-        String colorNormal = Main.colors.get("-amaster-brown");
         String estiloNormal = String.format("-fx-background-color: %s !important; -fx-text-fill: white;", colorNormal);
 
-        // Aplicar estilos condicionalmente
         almacenButton.setStyle(botonSeleccionado == almacenButton ? estiloActivo : estiloNormal);
         inventarioButton.setStyle(botonSeleccionado == inventarioButton ? estiloActivo : estiloNormal);
         pedidosButton.setStyle(botonSeleccionado == pedidosButton ? estiloActivo : estiloNormal);
         recepcionButton.setStyle(botonSeleccionado == recepcionButton ? estiloActivo : estiloNormal);
 
-        // Actualizar referencia del botón activo
         activeScene = botonSeleccionado;
     }
-
 
     /**
      * Cierra la sesión del usuario actual y vuelve a la ventana de login.
@@ -366,22 +348,17 @@ public class mainController implements Initializable {
         }
 
         try {
-            LOGGER.info("🟡 Cerrando sesión del usuario actual...");
-
-            // Limpiar usuario actual
+            LOGGER.info("Cerrando sesión del usuario actual...");
             Main.currentUser = null;
 
-            // Obtener ventana actual (main)
             Stage ventanaPrincipal = (Stage) cerrarSesionBtn.getScene().getWindow();
 
-            // Cargar ventana login
             FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_LOGIN_FXML));
             Parent root = loader.load();
 
             Stage loginStage = crearStageBasico(root, true, "Inicio de sesión");
             loginStage.initStyle(StageStyle.TRANSPARENT);
 
-            // Mostrar login y cerrar la actual
             loginStage.show();
             ventanaPrincipal.close();
 
@@ -389,7 +366,6 @@ public class mainController implements Initializable {
 
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "❌ Error al intentar cerrar sesión y volver al login.", e);
-            e.printStackTrace(); // opcional: conserva trazas de depuración
         }
     }
 }
