@@ -2,7 +2,7 @@
 
 @import "slider.css";
 
-@import "password_field.css";
+@import "password.css";
 
 .principalWindow {
     -fx-background-color: -amaster-dark-blue !important;
@@ -650,16 +650,4 @@
 
 .label-error {
     -fx-text-fill: #ff4d4f;
-}
-
-
-.cambiarContrasena {
-    -fx-background-color: rgba(0, 0, 0, 0) !important;
-    -fx-text-fill: -amaster-gray !important;
-    -fx-cursor: hand !important;
-}
-
-.cambiarContrasena:hover {
-    -fx-background-color: rgba(0, 0, 0, 0) !important;
-    -fx-text-fill: -amaster-blue !important;
 }

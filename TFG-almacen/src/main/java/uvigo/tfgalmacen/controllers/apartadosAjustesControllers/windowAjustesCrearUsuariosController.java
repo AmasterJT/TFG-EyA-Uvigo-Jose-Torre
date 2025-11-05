@@ -1,15 +1,21 @@
 package uvigo.tfgalmacen.controllers.apartadosAjustesControllers;
 
+import javafx.animation.PauseTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.text.Normalizer;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.User;
 import uvigo.tfgalmacen.database.RolePermissionDAO;
@@ -25,6 +31,7 @@ public class windowAjustesCrearUsuariosController {
     private static final String PF_NORMAL = "create-user-password-field-normal";
     private static final String PF_ERROR = "create-user-password-field-error";
 
+    private static final String EMAIL_DOMAIN = "almacen.com";
 
     @FXML
     private Button ExitButton;
@@ -33,7 +40,7 @@ public class windowAjustesCrearUsuariosController {
     @FXML
     private TextField apellido2_text;
     @FXML
-    private Button cambiar_password_btn; // (si quieres, puedes usarlo para mostrar/ocultar las PasswordField)
+    private Button cambiar_password_btn;
     @FXML
     private PasswordField confirm_crear_contrasena_text;
     @FXML
@@ -45,7 +52,7 @@ public class windowAjustesCrearUsuariosController {
     @FXML
     private TextField nombre_text;
     @FXML
-    private ComboBox<String> roles_comboBox;   // <- tipo correcto
+    private ComboBox<String> roles_comboBox;
     @FXML
     private TextField username_text;
     @FXML
@@ -55,6 +62,20 @@ public class windowAjustesCrearUsuariosController {
     public void initialize() {
         // Cargar roles
         cargarRoles();
+
+        // Email solo lectura (lo generamos nosotros)
+        if (email_text != null) {
+            email_text.setEditable(false);
+            email_text.setFocusTraversable(false);
+        }
+
+        // Generación automática del email cuando cambien nombre o primer apellido
+        if (nombre_text != null) {
+            nombre_text.textProperty().addListener((obs, ov, nv) -> generarEmailSiProcede());
+        }
+        if (apellido1_text != null) {
+            apellido1_text.textProperty().addListener((obs, ov, nv) -> generarEmailSiProcede());
+        }
 
         // Botón cerrar ventana
         if (ExitButton != null) {
@@ -70,7 +91,6 @@ public class windowAjustesCrearUsuariosController {
         attachClearErrorOnTyping(username_text, nombre_text, apellido1_text, apellido2_text, email_text);
         attachClearErrorOnTyping(crear_contrasena_text, confirm_crear_contrasena_text);
 
-
         crear_contrasena_text.focusedProperty().addListener((obs, was, isNow) -> {
             if (isNow) setErrorState(crear_contrasena_text, false);
         });
@@ -81,12 +101,69 @@ public class windowAjustesCrearUsuariosController {
         });
         confirm_crear_contrasena_text.setOnMouseClicked(_ -> setErrorState(confirm_crear_contrasena_text, false));
 
+        // ENTER en username/password dispara login con micro-hover en botón
+        EventHandler<KeyEvent> onEnterPressed = event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                guardar_cambios_btn.getStyleClass().add("hover-simulated");
+                guardar_cambios_btn.requestFocus();
+                guardar_cambios_btn.fire();
+
+                PauseTransition delay = new PauseTransition(Duration.millis(150));
+                delay.setOnFinished(e -> guardar_cambios_btn.getStyleClass().remove("hover-simulated"));
+                delay.play();
+            }
+        };
+        username_text.setOnKeyPressed(onEnterPressed);
+        nombre_text.setOnKeyPressed(onEnterPressed);
+        apellido1_text.setOnKeyPressed(onEnterPressed);
+        apellido2_text.setOnKeyPressed(onEnterPressed);
+        crear_contrasena_text.setOnKeyPressed(onEnterPressed);
+        confirm_crear_contrasena_text.setOnKeyPressed(onEnterPressed);
+
+        limpiarFormulario();
+    }
+
+    // ---------------------------------------------------------------------
+    // Generación automática de email
+    // ---------------------------------------------------------------------
+    private void generarEmailSiProcede() {
+        String nombre = safeText(nombre_text);
+        String apellido1 = safeText(apellido1_text);
+
+        if (!nombre.isBlank() && !apellido1.isBlank()) {
+            String primerNombre = extraerPrimerNombre(nombre);
+            String userPart = normalizarAlfanumerico(primerNombre + apellido1).toLowerCase();
+            if (!userPart.isBlank()) {
+                String email = userPart + "@" + EMAIL_DOMAIN;
+                email_text.setText(email);
+                // Si había error marcado por estar vacío, lo limpiamos
+                clearErrors(email_text);
+            }
+        } else {
+            // Si falta alguno, limpiamos el email (opcional)
+            email_text.clear();
+        }
+    }
+
+    private String extraerPrimerNombre(String nombreCompleto) {
+        String[] partes = nombreCompleto.trim().split("\\s+");
+        return partes.length > 0 ? partes[0] : nombreCompleto.trim();
+    }
+
+    private String normalizarAlfanumerico(String s) {
+        // Quitar acentos y caracteres no ASCII, y dejar solo [a-zA-Z0-9]
+        String sinAcentos = Normalizer.normalize(s, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        return sinAcentos.replaceAll("[^A-Za-z0-9]", "");
+    }
+
+    private String safeText(TextInputControl t) {
+        return (t == null || t.getText() == null) ? "" : t.getText().trim();
     }
 
     // ---------------------------------------------------------------------
     // Acciones
     // ---------------------------------------------------------------------
-
     private void onGuardarUsuario() {
         // Validar
         if (!validarFormulario()) return;
@@ -95,13 +172,14 @@ public class windowAjustesCrearUsuariosController {
         int idRol = RolePermissionDAO.getRoleIdByName(Main.connection, rolNombre);
 
         // Construir objeto User SIN contraseña
-        User nuevo = new User(username_text.getText(),
+        User nuevo = new User(
+                username_text.getText(),
                 nombre_text.getText(),
                 apellido1_text.getText(),
                 apellido2_text.getText(),
                 email_text.getText(),
-                idRol);
-
+                idRol
+        );
 
         if (idRol <= 0) {
             showWarn("Rol no válido", "Selecciona un rol válido.");
@@ -110,15 +188,10 @@ public class windowAjustesCrearUsuariosController {
         }
         nuevo.setIdRol(idRol);
 
-        // Password en variable (NO meterla en el objeto User)
+        // Password (NO en el objeto)
         String rawPassword = crear_contrasena_text.getText();
 
         try {
-            // Ajusta el nombre del método según tu DAO real.
-
-            System.out.println(nuevo);
-            System.out.println(rawPassword);
-            System.out.println(idRol);
             boolean ok = UsuarioDAO.createUser(Main.connection, nuevo, rawPassword, idRol);
 
             if (ok) {
@@ -141,7 +214,6 @@ public class windowAjustesCrearUsuariosController {
     // ---------------------------------------------------------------------
     // Carga de datos
     // ---------------------------------------------------------------------
-
     private void cargarRoles() {
         try {
             List<String> roles = RolePermissionDAO.getAllRoleNames(Main.connection);
@@ -156,7 +228,6 @@ public class windowAjustesCrearUsuariosController {
     // ---------------------------------------------------------------------
     // Validaciones
     // ---------------------------------------------------------------------
-
     private boolean validarFormulario() {
         boolean ok = true;
         clearErrors(username_text, nombre_text, apellido1_text, apellido2_text, email_text);
@@ -179,7 +250,9 @@ public class windowAjustesCrearUsuariosController {
             ok = false;
             setErrorState(apellido2_text, true);
         }
-        if (isBlank(email_text) || !emailValido(s(email_text))) {
+
+        // email debe estar generado
+        if (isBlank(email_text) || !emailValido(email_text.getText())) {
             ok = false;
             setErrorState(email_text, true);
         }
@@ -208,14 +281,12 @@ public class windowAjustesCrearUsuariosController {
     }
 
     private boolean emailValido(String email) {
-        // Validación simple; ajusta si necesitas algo más estricto
-        return email.contains("@") && email.contains(".");
+        return email != null && email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
     }
 
     // ---------------------------------------------------------------------
     // Utilidades UI
     // ---------------------------------------------------------------------
-
     private void limpiarFormulario() {
         username_text.clear();
         nombre_text.clear();
@@ -244,29 +315,19 @@ public class windowAjustesCrearUsuariosController {
     private void clearErrors(Control... controls) {
         for (Control c : controls) {
             if (c == null) continue;
-            c.getStyleClass().remove("textfield-error");
-            c.getStyleClass().remove("label-error");
+            c.getStyleClass().remove(PF_ERROR);
         }
     }
 
     private void setErrorState(Control c, boolean error) {
         if (c == null) return;
-        else c.getStyleClass().removeAll(PF_NORMAL, PF_ERROR);
-
-
-        if (!c.getStyleClass().contains(PF_ERROR)) {
-
-            c.getStyleClass().add(error ? PF_ERROR : PF_NORMAL);
-            if (error) shake(c, SHAKE_DURATION);
-        }
+        c.getStyleClass().removeAll(PF_NORMAL, PF_ERROR);
+        c.getStyleClass().add(error ? PF_ERROR : PF_NORMAL);
+        if (error) shake(c, SHAKE_DURATION);
     }
 
     private boolean isBlank(TextInputControl t) {
         return t == null || t.getText() == null || t.getText().isBlank();
-    }
-
-    private String s(TextInputControl t) {
-        return t == null ? "" : t.getText().trim();
     }
 
     private void showWarn(String title, String content) {

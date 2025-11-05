@@ -56,7 +56,7 @@
                                         <Insets left="30.0" right="30.0" />
                                     </VBox.margin>
                                 </HBox>
-                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                                     <children>
                                         <VBox maxWidth="135.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" HBox.hgrow="ALWAYS">
                                             <children>
@@ -68,11 +68,11 @@
                                                 <Insets right="20.0" />
                                             </padding>
                                         </VBox>
-                                        <VBox maxHeight="1.7976931348623157E308" spacing="15.0" HBox.hgrow="ALWAYS">
+                                        <VBox maxHeight="1.7976931348623157E308" spacing="15.0">
                                             <children>
-                                                <TextField fx:id="nombre_text" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" text="Jose Tomas" />
-                                                <TextField fx:id="apellido1_text" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" text="Torre" />
-                                                <TextField fx:id="apellido2_text" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" text="Pedroarena" />
+                                                <TextField fx:id="nombre_text" maxWidth="220.0" minWidth="220.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" text="Jose Tomas" />
+                                                <TextField fx:id="apellido1_text" maxWidth="220.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" text="Torre" />
+                                                <TextField fx:id="apellido2_text" maxWidth="220.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" text="Pedroarena" />
                                             </children>
                                         </VBox>
                                     </children>
@@ -80,7 +80,7 @@
                                         <Insets left="30.0" right="30.0" />
                                     </VBox.margin>
                                 </HBox>
-                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                <HBox alignment="CENTER_RIGHT" prefHeight="68.0">
                                     <children>
                                         <VBox maxWidth="135.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" HBox.hgrow="ALWAYS">
                                             <children>
@@ -109,10 +109,10 @@
                                                 <Insets right="20.0" />
                                             </padding>
                                         </VBox>
-                                        <VBox maxHeight="1.7976931348623157E308" spacing="15.0" HBox.hgrow="ALWAYS">
+                                        <VBox maxHeight="1.7976931348623157E308" prefHeight="68.0" spacing="15.0">
                                             <children>
-                                                <TextField fx:id="email_text" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" text="jotorre@alumnos.uvigo.es" />
-                                                <ComboBox fx:id="roles_comboBox" maxWidth="1.7976931348623157E308" />
+                                                <TextField fx:id="email_text" maxWidth="220.0" prefWidth="220.0" styleClass="email-disable" />
+                                                <ComboBox fx:id="roles_comboBox" maxWidth="220.0" />
                                             </children>
                                             <HBox.margin>
                                                 <Insets />
@@ -166,17 +166,8 @@
                                         </VBox>
                                     </children>
                                     <VBox.margin>
-                                        <Insets left="30.0" right="30.0" />
+                                        <Insets bottom="20.0" left="30.0" right="30.0" />
                                     </VBox.margin>
-                                </HBox>
-                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                    <children>
-                                        <Button fx:id="cambiar_password_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="cambiarContrasena" text="Cambiar contraseña" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="12.0" />
-                                            </font>
-                                        </Button>
-                                    </children>
                                 </HBox>
                             </children>
                         </VBox>
