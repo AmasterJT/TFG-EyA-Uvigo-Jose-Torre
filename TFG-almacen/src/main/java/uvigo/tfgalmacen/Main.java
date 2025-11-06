@@ -12,13 +12,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.RutasFicheros.CSS_COLORS;
-import static uvigo.tfgalmacen.RutasFicheros.WINDOW_LOGIN_FXML;
+import static uvigo.tfgalmacen.RutasFicheros.*;
 import static uvigo.tfgalmacen.database.DatabaseConnection.connect;
 import static uvigo.tfgalmacen.database.DatabaseConnection.close;
 import static uvigo.tfgalmacen.utils.CssColorLoader.loadColors;
@@ -91,7 +91,16 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(WINDOW_LOGIN_FXML));
         Parent root = fxmlLoader.load();
 
+
         stage = crearStageBasico(root);
+        // 🔹 Añadir icono a la ventana
+        stage.getIcons().add(
+                new javafx.scene.image.Image(
+                        Objects.requireNonNull(getClass().getResourceAsStream(APP_ICON))
+                )
+        );
+
+
         stage.show();
     }
 
@@ -102,7 +111,7 @@ public class Main extends Application {
         connection = null;
         LOGGER.info("Aplicación detenida y conexión cerrada.");
     }
-    
+
 
     public static void main(String[] args) {
         // Si quieres dejar pruebas de consola, protégelas con try/catch y logs.
@@ -116,6 +125,7 @@ public class Main extends Application {
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Error en bloque de pre-lanzamiento (opcional)", e);
         }
+
 
         launch(); // Arranca JavaFX
     }

@@ -37,6 +37,15 @@ public class User {
         this.idRol = idRol;
     }
 
+    public User(int id_usuario, String username, String nombre, String apellido1, String apellido2, String email, int idRol) {
+        this.id_usuario = id_usuario;
+        this.username = username;
+        this.name = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.email = email;
+        this.idRol = idRol;
+    }
 
     public int getId_usuario() {
         return id_usuario;
@@ -100,6 +109,10 @@ public class User {
 
     public void setIdRol(int idRol) {
         this.idRol = idRol;
+    }
+
+    public String getFullName() {
+        return name + " " + apellido1 + " " + apellido2;
     }
 
     @Override

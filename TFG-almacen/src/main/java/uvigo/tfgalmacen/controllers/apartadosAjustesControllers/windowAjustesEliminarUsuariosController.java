@@ -1,9 +1,7 @@
 package uvigo.tfgalmacen.controllers.apartadosAjustesControllers;
 
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -14,8 +12,9 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.Objects;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,12 +22,11 @@ import javafx.stage.StageStyle;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.User;
-import uvigo.tfgalmacen.controllers.MovePendienteToEnProcesoController;
 import uvigo.tfgalmacen.database.RolePermissionDAO;
 import uvigo.tfgalmacen.database.UsuarioDAO;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import static uvigo.tfgalmacen.RutasFicheros.WINDOW_AJUSTES_ACTUALIZAR_PEDIDO_ELIMINAR_USUARIOS_FXML;
-import static uvigo.tfgalmacen.RutasFicheros.WINDOW_MOVE_PENDIENTE_TO_EN_PROCESO_FXML;
 import static uvigo.tfgalmacen.controllers.pedidosController.ESTADOS_DEL_PEDIDO;
 import static uvigo.tfgalmacen.database.PedidoDAO.getPedidosAllData;
 import static uvigo.tfgalmacen.database.PedidoDAO.updateEstadoPedidoCanceladoCompletado;
@@ -37,6 +35,22 @@ import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 public class windowAjustesEliminarUsuariosController {
 
     private static final Logger LOGGER = Logger.getLogger(windowAjustesEliminarUsuariosController.class.getName());
+
+    static {
+        LOGGER.setLevel(Level.ALL);
+        LOGGER.setUseParentHandlers(false);
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);
+        ch.setFormatter(new ColorFormatter());
+        LOGGER.addHandler(ch);
+
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL);
+        }
+    }
+
+
     private static final String PLACEHOLDER_USUARIO = "Selecciona un usuario";
 
     @FXML
@@ -76,7 +90,7 @@ public class windowAjustesEliminarUsuariosController {
         cargarUsernamesYCache();
 
         // Listener de selección
-        usernameEliminar_comboBox.getSelectionModel().selectedItemProperty().addListener((obs, ov, nv) -> {
+        usernameEliminar_comboBox.getSelectionModel().selectedItemProperty().addListener((_, _, nv) -> {
             if (nv != null && !nv.isBlank()) {
                 cargarDatosUsuarioDesdeCache(nv);
             } else {
@@ -121,7 +135,7 @@ public class windowAjustesEliminarUsuariosController {
 
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error cargando usuarios para eliminar", e);
-            alertError("Error", "No fue posible cargar la lista de usuarios.");
+            alertError("No fue posible cargar la lista de usuarios.");
         }
     }
 
@@ -161,46 +175,43 @@ public class windowAjustesEliminarUsuariosController {
                         "\nSe eliminará el usuario '" + username + "'. Esta acción no se puede deshacer.");
 
         if (!confirmado) return;
-        List<Pedido> pedidos_asignados = new java.util.ArrayList<>();
 
         try {
             boolean ok = UsuarioDAO.deleteUserByUsername(Main.connection, username);
             if (ok) {
-                alertInfo("Usuario eliminado", "Se eliminó el usuario '" + username + "'.");
+                alertInfo("Se eliminó el usuario '" + username + "'.");
                 cargarUsernamesYCache();
             } else {
 
-                List<Pedido> pedidos = getPedidosAllData(Main.connection);
-                for (Pedido p : pedidos) {
-
-                    if (p.getId_usuario() > 0)
-                        if (UsuarioDAO.getUsernameById(Main.connection, p.getId_usuario()).equals(username)) {
-                            if (!p.getEstado().equals(ESTADOS_DEL_PEDIDO.get(2)) && !p.getEstado().equals(ESTADOS_DEL_PEDIDO.get(3))) {
-
-                                System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-                                System.out.println(p.getEstado());
-                                pedidos_asignados.add(p);
-                            } else {
-                                System.out.println("aaaaaaaaaaaaaaaaaaaa:   " + p.getId_pedido());
-                                updateEstadoPedidoCanceladoCompletado(Main.connection, p.getId_pedido());
-                            }
-                        }
-
-                    //System.out.println(p.getId_usuario() + "------" + p.getCodigo_referencia());
-                }
-                System.out.println(pedidos_asignados);
-
-                abrirVentanaEditarPedido(pedidos_asignados);
+                abrirVentanaEditarPedido(obtenerPedidosAsignadosAUsuario(username));
 
                 alertWarn("No eliminado", "No se pudo eliminar el usuario (verifica que exista).");
 
             }
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "El usuario " + username + " tiene pedidos asignados", e);
-
-
-            alertError("Error", "No fue posible eliminar el usuario.\n" + e.getMessage());
+            LOGGER.log(Level.SEVERE, "El usuario " + username + " tiene pedidos asignados", e.getStackTrace());
+            alertError("No fue posible eliminar el usuario.\n" + e.getMessage());
         }
+    }
+
+    private List<Pedido> obtenerPedidosAsignadosAUsuario(String username) {
+        List<Pedido> pedidosAsignados = new java.util.ArrayList<>();
+        try {
+            List<Pedido> todosLosPedidos = getPedidosAllData(Main.connection);
+            for (Pedido p : todosLosPedidos) {
+                if (p.getId_usuario() > 0)
+                    if (Objects.equals(UsuarioDAO.getUsernameById(Main.connection, p.getId_usuario()), username)) {
+                        if (!p.getEstado().equals(ESTADOS_DEL_PEDIDO.get(2)) && !p.getEstado().equals(ESTADOS_DEL_PEDIDO.get(3))) {
+                            pedidosAsignados.add(p);
+                        } else {
+                            updateEstadoPedidoCanceladoCompletado(Main.connection, p.getId_pedido());
+                        }
+                    }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error obteniendo pedidos asignados al usuario: " + username, e);
+        }
+        return pedidosAsignados;
     }
 
     private void limpiarCampos() {
@@ -224,16 +235,16 @@ public class windowAjustesEliminarUsuariosController {
         a.showAndWait();
     }
 
-    private void alertError(String t, String c) {
+    private void alertError(String c) {
         Alert a = new Alert(Alert.AlertType.ERROR, c, ButtonType.OK);
-        a.setTitle(t);
+        a.setTitle("Error");
         a.setHeaderText(null);
         a.showAndWait();
     }
 
-    private void alertInfo(String t, String c) {
+    private void alertInfo(String c) {
         Alert a = new Alert(Alert.AlertType.INFORMATION, c, ButtonType.OK);
-        a.setTitle(t);
+        a.setTitle("Usuario eliminado");
         a.setHeaderText(null);
         a.showAndWait();
     }
@@ -246,36 +257,6 @@ public class windowAjustesEliminarUsuariosController {
         return s == null ? "" : s;
     }
 
-
-    private void openWindowAsync(String fxmlPath, String title, Stage owner) {
-        Task<Parent> task = new Task<>() {
-            @Override
-            protected Parent call() throws Exception {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-                return loader.load();
-            }
-        };
-
-        task.setOnSucceeded(_ -> {
-            Parent root = task.getValue();
-            Stage win = crearStageBasico(root, true, title);
-            if (owner != null) {
-                win.initOwner(owner);
-                win.initModality(Modality.WINDOW_MODAL);
-                win.initStyle(StageStyle.TRANSPARENT);
-            }
-            win.showAndWait();
-            LOGGER.fine(() -> "Ventana abierta: " + title);
-        });
-
-        task.setOnFailed(_ -> {
-            Throwable ex = task.getException();
-            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana: " + title, ex);
-            ex.printStackTrace();
-        });
-
-        FX_BG_EXEC.submit(task);
-    }
 
     private void abrirVentanaEditarPedido(List<Pedido> pedidos_asignados) {
 
@@ -303,20 +284,11 @@ public class windowAjustesEliminarUsuariosController {
 
 
             stage.showAndWait();
-        } catch (IOException ee) {
-            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de actualizar de pedidos", ee);
-            ee.printStackTrace();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de actualizar de pedidos", e.getStackTrace());
         }
 
     }
-/*
-    private void abrirVentanaEditarPedido() {
-        Stage owner = (Stage) nombreEliminar_text.getScene().getWindow();
-        openWindowAsync(WINDOW_AJUSTES_ACTUALIZAR_PEDIDO_ELIMINAR_USUARIOS_FXML, "Actualizar Pedido", owner);
-    }
-*/
-
-    private static final ExecutorService FX_BG_EXEC = Executors.newVirtualThreadPerTaskExecutor();
 
 
 }

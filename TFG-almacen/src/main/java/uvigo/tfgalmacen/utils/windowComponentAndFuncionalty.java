@@ -19,13 +19,20 @@ import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import uvigo.tfgalmacen.User;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.util.*;
+import java.util.List;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.RutasFicheros.APP_ICON;
+
+import javafx.scene.image.Image;
+
+import java.net.URL;
 
 public class windowComponentAndFuncionalty {
 
@@ -97,7 +104,7 @@ public class windowComponentAndFuncionalty {
                 stage.setY(event.getScreenY() - yOffset);
             });
         } catch (Exception e) {
-            System.out.println("Error al buscar el nodo windowBar en el FXML");
+            LOGGER.warning("Error al buscar el nodo windowBar en el FXML");
         }
     }
 
@@ -253,10 +260,22 @@ public class windowComponentAndFuncionalty {
         stage.setScene(scene);
         stage.setTitle(title == null ? "" : title);
 
+        // 🔹 Icono (APP_ICON = ruta en resources, ej. "/uvigo/tfgalmacen/icons/app_icon.png")
+        try {
+            URL iconUrl = windowComponentAndFuncionalty.class.getResource(APP_ICON);
+            if (iconUrl != null) {
+                stage.getIcons().add(new Image(iconUrl.toExternalForm()));
+            } else {
+                LOGGER.warning("No se encontró el icono en APP_ICON: " + APP_ICON);
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.WARNING, "No se pudo cargar el icono de la app desde APP_ICON: " + APP_ICON, ex);
+        }
+
         // Activar movimiento si aplica
         if (movement) WindowMovement(root, stage);
 
-        // Recortar el contenido con esquinas redondeadas (10px)
+        // Recortar el contenido con esquinas redondeadas (20px)
         Rectangle clip = new Rectangle();
         clip.setArcWidth(20);
         clip.setArcHeight(20);

@@ -22,6 +22,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.database.PedidoDAO.updateUsuarioYHoraSalidaPedido;
 import static uvigo.tfgalmacen.database.UsuarioDAO.getAllUsers;
 
 public class windowActualizarPedidoDeUsuarioEliminadoController {
@@ -76,6 +77,9 @@ public class windowActualizarPedidoDeUsuarioEliminadoController {
     @FXML
     private HBox windowBar;
 
+
+    List<User> users;
+
     public void initialize() {
         setBloqueHorasEnvio();
 
@@ -106,7 +110,40 @@ public class windowActualizarPedidoDeUsuarioEliminadoController {
             Stage stage = (Stage) ExitButton.getScene().getWindow();
             stage.close();
         });
+
+
+        aplicar_nuevo_estado_btn.setOnMouseClicked(_ -> actualizarPedido());
     }
+
+    private void actualizarPedido() {
+        Pedido pedido_actualizar = combo_pedido_update.getValue();
+        User usuario_selecionado = combo_usuario_update.getValue();
+        String hora_salida = combo_hora_envio_update.getValue();
+
+        // Validaciones
+        if (pedido_actualizar == null) {
+            LOGGER.warning("No hay pedido seleccionado.");
+            return;
+        }
+        if (usuario_selecionado == null) { // el placeholder NO es un valor, null sí
+            LOGGER.warning("No hay usuario seleccionado.");
+            return;
+        }
+        if (hora_salida == null || hora_salida.isBlank()) {
+            LOGGER.warning("No hay hora de salida seleccionada.");
+            return;
+        }
+
+        int id_usuario = usuario_selecionado.getId_usuario();
+        int id_pedido = pedido_actualizar.getId_pedido();
+
+        updateUsuarioYHoraSalidaPedido(Main.connection, id_pedido, id_usuario, hora_salida);
+        LOGGER.info(() -> String.format(
+                "Actualizado pedido %d -> id_usuario=%d, hora_salida=%s",
+                id_pedido, id_usuario, hora_salida
+        ));
+    }
+
 
     private void setBloqueHorasEnvio() {
         combo_hora_envio_update.setItems(horas_envio);
@@ -115,7 +152,7 @@ public class windowActualizarPedidoDeUsuarioEliminadoController {
     }
 
     public void setUsers(String username) {
-        List<User> users = getAllUsers(Main.connection);
+        users = getAllUsers(Main.connection);
 
         // Quita del combo al usuario actual (si existe)
         users.removeIf(u -> u != null && username != null && username.equals(u.getUsername()));

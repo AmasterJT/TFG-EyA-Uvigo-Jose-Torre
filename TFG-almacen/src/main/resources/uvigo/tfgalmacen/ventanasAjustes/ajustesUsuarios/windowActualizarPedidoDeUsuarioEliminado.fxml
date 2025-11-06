@@ -28,7 +28,7 @@
                         <VBox alignment="TOP_CENTER" spacing="30.0">
                             <children>
                                 <ComboBox fx:id="combo_pedido_update" prefWidth="300.0" promptText="PEDIDOS" styleClass="mptep-combo" />
-                        <Label fx:id="estado_del_pedido" maxWidth="1.7976931348623157E308" style="-fx-border-color: black; -fx-background-color: light-grey; -fx-border-width: 0 0 1 0; -fx-text-fill: grey;" text="  ESTADO DEL PEDIDO" />
+                        <Label fx:id="estado_del_pedido" maxWidth="1.7976931348623157E308" style="-fx-border-color: black; -fx-border-width: 0 0 1 0; -fx-text-fill: grey;" text="  ESTADO DEL PEDIDO" />
                                 <ComboBox fx:id="combo_hora_envio_update" prefWidth="300.0" promptText="HORA DE ENVÍO" styleClass="mptep-combo" />
                                 <ComboBox fx:id="combo_usuario_update" prefWidth="300.0" promptText="OPERARIO" styleClass="mptep-combo" />
                             </children>

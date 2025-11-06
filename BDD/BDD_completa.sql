@@ -153,10 +153,8 @@ VALUES
     -- Administración
     (6, 1, 'inactivo'),
     -- Proveedor
-    (7, 1, 'inactivo'),
-    -- Cliente
-    (8, 1, 'inactivo');
-
+    (7, 1, 'inactivo')
+    
 -- Para "Gestión de Productos (CRUD)"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -174,10 +172,8 @@ VALUES
     -- Administración
     (6, 2, 'inactivo'),
     -- Proveedor
-    (7, 2, 'inactivo'),
-    -- Cliente
-    (8, 2, 'inactivo');
-
+    (7, 2, 'inactivo')
+    
 -- Para "Gestión de Inventario (stock, ubicación)"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -195,10 +191,8 @@ VALUES
     -- Administración
     (6, 3, 'ver'),
     -- Proveedor
-    (7, 3, 'inactivo'),
-    -- Cliente
-    (8, 3, 'inactivo');
-
+    (7, 3, 'inactivo')
+    
 -- Para "Registro de Entradas/Salidas de Productos"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -216,10 +210,8 @@ VALUES
     -- Administración
     (6, 4, 'inactivo'),
     -- Proveedor
-    (7, 4, 'inactivo'),
-    -- Cliente
-    (8, 4, 'inactivo');
-
+    (7, 4, 'inactivo')
+    
 -- Para "Gestión de Pedidos"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -237,10 +229,8 @@ VALUES
     -- Administración
     (6, 5, 'ver'),
     -- Proveedor
-    (7, 5, 'inactivo'),
-    -- Cliente
-    (8, 5, 'activo');
-
+    (7, 5, 'inactivo')
+    
 -- Para "Generación de Reportes (inventario, ventas)"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -258,10 +248,8 @@ VALUES
     -- Administración
     (6, 6, 'activo'),
     -- Proveedor
-    (7, 6, 'inactivo'),
-    -- Cliente
-    (8, 6, 'inactivo');
-
+    (7, 6, 'inactivo')
+    
 -- Para "Asignación de Tareas (Picking/Packing)"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -279,10 +267,8 @@ VALUES
     -- Administración
     (6, 7, 'inactivo'),
     -- Proveedor
-    (7, 7, 'inactivo'),
-    -- Cliente
-    (8, 7, 'inactivo');
-
+    (7, 7, 'inactivo')
+    
 -- Para "Acceso al Historial de Movimientos"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -300,10 +286,8 @@ VALUES
     -- Administración
     (6, 8, 'ver'),
     -- Proveedor
-    (7, 8, 'inactivo'),
-    -- Cliente
-    (8, 8, 'inactivo');
-
+    (7, 8, 'inactivo')
+    
 -- Para "Mantenimiento de Infraestructura"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -321,10 +305,8 @@ VALUES
     -- Administración
     (6, 9, 'inactivo'),
     -- Proveedor
-    (7, 9, 'inactivo'),
-    -- Cliente
-    (8, 9, 'inactivo');
-
+    (7, 9, 'inactivo')
+    
 -- Para "Gestión Financiera (compras/ventas)"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -342,10 +324,8 @@ VALUES
     -- Administración
     (6, 10, 'activo'),
     -- Proveedor
-    (7, 10, 'inactivo'),
-    -- Cliente
-    (8, 10, 'ver');
-
+    (7, 10, 'inactivo')
+    
 -- Para "Gestión de Incidencias"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -363,10 +343,8 @@ VALUES
     -- Administración
     (6, 11, 'inactivo'),
     -- Proveedor
-    (7, 11, 'inactivo'),
-    -- Cliente
-    (8, 11, 'inactivo');
-
+    (7, 11, 'inactivo')
+    
 -- Creación de la tabla estanterias
 CREATE TABLE
     estanterias (
@@ -2246,7 +2224,7 @@ INSERT INTO pedidos (id_usuario, id_cliente, estado, fecha_entrega, hora_salida)
 (NULL, 1, 'Pendiente', '2025-08-10', NULL),
 (NULL, 2, 'Pendiente', '2025-08-12', NULL),
 (NULL, 3, 'Pendiente', '2025-08-14', NULL),
-(NULL, 4, 'Pendiente', '2025-08-16', NULL),
+(NULL, 4, 'Pendiente', '2025-08-16', NULL),d
 (NULL, 5, 'Pendiente', '2025-08-18', NULL),
 
 (1, 1, 'En proceso', '2025-08-11', 'primera_hora'),

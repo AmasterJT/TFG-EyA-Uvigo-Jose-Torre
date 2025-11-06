@@ -334,7 +334,7 @@ public class UsuarioDAO {
                 String email = rs.getString("email");
                 int rol = rs.getInt("id_rol");
 
-                User user = new User(username, nombre, apellido1, apellido2, email, rol);
+                User user = new User(id_usuario, username, nombre, apellido1, apellido2, email, rol);
                 usuarios.add(user);
             }
 

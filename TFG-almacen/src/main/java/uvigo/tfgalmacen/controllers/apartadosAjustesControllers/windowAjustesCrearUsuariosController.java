@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,6 +23,7 @@ import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.User;
 import uvigo.tfgalmacen.database.RolePermissionDAO;
 import uvigo.tfgalmacen.database.UsuarioDAO;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.SHAKE_DURATION;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.shake;
@@ -28,6 +31,21 @@ import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.shake;
 public class windowAjustesCrearUsuariosController {
 
     private static final Logger LOGGER = Logger.getLogger(windowAjustesCrearUsuariosController.class.getName());
+
+    static {
+        LOGGER.setLevel(Level.ALL);
+        LOGGER.setUseParentHandlers(false);
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);
+        ch.setFormatter(new ColorFormatter());
+        LOGGER.addHandler(ch);
+
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL);
+        }
+    }
+
 
     private static final String PF_NORMAL = "create-user-password-field-normal";
     private static final String PF_ERROR = "create-user-password-field-error";
