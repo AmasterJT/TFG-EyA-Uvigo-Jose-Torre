@@ -211,4 +211,29 @@ public class PedidoDAO {
     }
 
 
+    private static final String UPDATE_ESTADO_PEDIDO_CANCELADO_COMPLETADO_SQL =
+            "UPDATE pedidos SET id_usuario = ? WHERE id_pedido = ?";
+
+    public static void updateEstadoPedidoCanceladoCompletado(Connection connection, int idPedido) {
+        if (connection == null) {
+            System.err.println("❌ Conexión nula al actualizar el pedido.");
+            return;
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(UPDATE_ESTADO_PEDIDO_CANCELADO_COMPLETADO_SQL)) {
+            ps.setNull(1, java.sql.Types.INTEGER);  // tipo de la columna
+            ps.setInt(2, idPedido);
+
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                System.out.println("✅ Estado/hora_salida actualizados (id_pedido=" + idPedido + ").");
+            } else {
+                System.out.println("⚠️ No se encontró pedido con id=" + idPedido + ".");
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error actualizando pedido: " + e.getMessage());
+        }
+    }
+
+
 }

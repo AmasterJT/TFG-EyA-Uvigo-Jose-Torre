@@ -31,6 +31,7 @@ import static uvigo.tfgalmacen.RutasFicheros.WINDOW_AJUSTES_ACTUALIZAR_PEDIDO_EL
 import static uvigo.tfgalmacen.RutasFicheros.WINDOW_MOVE_PENDIENTE_TO_EN_PROCESO_FXML;
 import static uvigo.tfgalmacen.controllers.pedidosController.ESTADOS_DEL_PEDIDO;
 import static uvigo.tfgalmacen.database.PedidoDAO.getPedidosAllData;
+import static uvigo.tfgalmacen.database.PedidoDAO.updateEstadoPedidoCanceladoCompletado;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class windowAjustesEliminarUsuariosController {
@@ -179,6 +180,9 @@ public class windowAjustesEliminarUsuariosController {
                                 System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
                                 System.out.println(p.getEstado());
                                 pedidos_asignados.add(p);
+                            } else {
+                                System.out.println("aaaaaaaaaaaaaaaaaaaa:   " + p.getId_pedido());
+                                updateEstadoPedidoCanceladoCompletado(Main.connection, p.getId_pedido());
                             }
                         }
 
