@@ -144,6 +144,8 @@ public class mainController implements Initializable {
         ajustes_editar_usuario_btn.setOnMouseClicked(_ -> abrirVentanaEditarUsuario());
         ajustes_eliminar_usuario_btn.setOnMouseClicked(_ -> abrirVentanaEliminarUsuario());
 
+        ajustes_crear_pedido_btn.setOnMouseClicked(_ -> abrirVentanaCrearPedido());
+
         esconder_ajustes_btn.setOnMouseClicked(_ -> slideMenu(false));
 
         if (cerrarSesionBtn != null) {
@@ -215,6 +217,7 @@ public class mainController implements Initializable {
         task.setOnFailed(_ -> {
             Throwable ex = task.getException();
             LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana: " + title, ex);
+            ex.printStackTrace();
         });
 
         FX_BG_EXEC.submit(task);
@@ -246,6 +249,12 @@ public class mainController implements Initializable {
         Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
         openWindowAsync(WINDOW_AJUSTES_ELIMINAR_USUARIOS_FXML, "Eliminar Usuario", owner);
     }
+
+    private void abrirVentanaCrearPedido() {
+        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
+        openWindowAsync(WINDOW_AJUSTES_CREAR_PEDIDOS_FXML, "Crear Pedido", owner);
+    }
+
 
     // ---------------------- Navegación secciones ----------------------
     @FXML

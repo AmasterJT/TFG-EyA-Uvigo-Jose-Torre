@@ -1,0 +1,171 @@
+@import "Colors.css";
+
+@import "comboBox.css";
+
+
+/* 2) Campo base del DatePicker (cuadro de texto + botón) */
+.date-picker {
+    -fx-background-color: transparent;
+    -fx-text-fill: -amaster-light-gray;
+}
+
+/* Caja de texto */
+.date-picker .text-field {
+    -fx-background-color: linear-gradient(to bottom,
+    derive(-amaster-deep-dark-gray, 8%),
+    derive(-amaster-deep-dark-gray, -3%));
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 10;
+    -fx-text-fill: -amaster-light-gray;
+    -fx-prompt-text-fill: derive(-amaster-gray, -20%);
+    -fx-highlight-fill: rgba(0,111,132,0.35);
+    -fx-highlight-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-padding: 6 10 6 12;
+    -fx-font-size: 12.5px;
+}
+
+.date-picker:hover .text-field {
+    -fx-background-color: linear-gradient(to bottom,
+    derive(-amaster-deep-dark-gray, 12%),
+    derive(-amaster-deep-dark-gray, 0%));
+}
+
+.date-picker:focused .text-field {
+    -fx-effect: dropshadow(gaussian, rgba(0,111,132,0.25), 8, 0.2, 0, 0);
+    -fx-border-color: -amaster-blue;
+    -fx-border-radius: 10;
+}
+
+/* Botón flecha */
+.date-picker .arrow-button {
+    -fx-background-color: -amaster-blue;
+    -fx-background-radius: 0 10 10 0;
+    -fx-padding: 0 10 0 10;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: derive(-amaster-blue, -10%);
+}
+
+.date-picker .arrow-button:pressed {
+    -fx-background-color: derive(-amaster-blue, -18%);
+}
+
+/* Icono de flecha */
+.date-picker .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
+/* Deshabilitado */
+.date-picker:disabled .text-field,
+.date-picker:disabled .arrow-button {
+    -fx-opacity: 0.55;
+}
+
+/* 3) Popup del calendario */
+.date-picker-popup {
+    -fx-background-color: -amaster-dark-gray, -amaster-deep-dark-gray;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 12;
+    -fx-padding: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 14, 0.25, 0, 3);
+    -fx-font-size: 12px;
+}
+
+/* Barra de mes/año */
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: linear-gradient(to bottom,
+    derive(-amaster-dark-blue, 8%),
+    derive(-amaster-dark-blue, -6%));
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 8 8 8 8;
+    -fx-text-fill: -amaster-light-gray;
+    -fx-border-color: transparent transparent rgba(255,255,255,0.06) transparent;
+}
+
+.date-picker-popup > .month-year-pane .label {
+    -fx-text-fill: -amaster-light-gray;
+    -fx-font-weight: bold;
+    -fx-font-size: 12.5px;
+}
+
+/* Botones de navegación (mes anterior/siguiente) */
+.date-picker-popup > .month-year-pane .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -amaster-light-gray;
+    -fx-background-radius: 8;
+    -fx-padding: 4 8;
+}
+
+.date-picker-popup > .month-year-pane .button:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+}
+
+.date-picker-popup > .month-year-pane .button:pressed {
+    -fx-background-color: rgba(255,255,255,0.14);
+}
+
+/* 4) Cabecera de días (L, M, X, …) */
+.date-picker-popup .day-name-cell {
+    -fx-background-color: derive(-amaster-dark-gray, 8%);
+    -fx-text-fill: -amaster-gray;
+    -fx-font-weight: bold;
+    -fx-padding: 6 0 6 0;
+}
+
+/* 5) Celdas de días */
+.date-picker-popup .calendar-grid .day-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -amaster-light-gray;
+    -fx-padding: 6;
+    -fx-background-radius: 8;
+    -fx-alignment: CENTER;
+}
+
+.date-picker-popup .calendar-grid .day-cell:hover {
+    -fx-background-color: rgba(255,255,255,0.06);
+}
+
+.date-picker-popup .calendar-grid .day-cell:focused {
+    -fx-background-insets: 0,1;
+    -fx-effect: dropshadow(gaussian, rgba(0,111,132,0.35), 8, 0.25, 0, 0);
+}
+
+/* Día seleccionado */
+.date-picker-popup .calendar-grid .day-cell:selected {
+    -fx-background-color: -amaster-blue;
+    -fx-text-fill: white;
+}
+
+/* Hoy (borde sutil en marrón claro para resaltar ligeramente) */
+.date-picker-popup .calendar-grid .day-cell:today {
+    -fx-background-color: rgba(219,159,117,0.10);
+    -fx-border-color: -amaster-light-brown;
+    -fx-border-radius: 8;
+    -fx-text-fill: -amaster-light-gray;
+}
+
+/* Días de otro mes */
+.date-picker-popup .calendar-grid .day-cell:disabled {
+    -fx-text-fill: derive(-amaster-gray2, 35%);
+    -fx-opacity: 0.65;
+}
+
+/* 6) Week numbers (si están activados) */
+.date-picker-popup .week-number-cell {
+    -fx-background-color: derive(-amaster-deep-dark-gray, -3%);
+    -fx-text-fill: -amaster-gray;
+    -fx-padding: 6 8;
+    -fx-background-radius: 8;
+}
+
+/* 7) Tooltip (si usas tooltips en el datepicker) */
+.tooltip {
+    -fx-background-color: -amaster-dark-gray;
+    -fx-text-fill: -amaster-light-gray;
+    -fx-background-radius: 8;
+    -fx-padding: 6 8 6 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 10, 0.3, 0, 2);
+    -fx-font-size: 12px;
+}

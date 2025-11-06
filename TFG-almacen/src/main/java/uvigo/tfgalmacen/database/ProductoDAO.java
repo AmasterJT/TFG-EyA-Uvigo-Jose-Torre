@@ -1,11 +1,43 @@
 package uvigo.tfgalmacen.database;
 
+import uvigo.tfgalmacen.utils.ColorFormatter;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ProductoDAO {
+
+    private static final Logger LOGGER = Logger.getLogger(ProductoDAO.class.getName());
+
+
+    static {
+        // Sube el nivel del logger
+        LOGGER.setLevel(Level.ALL);
+
+        // Evita que use los handlers del padre (que suelen estar en INFO con SimpleFormatter)
+        LOGGER.setUseParentHandlers(false);
+
+        // Crea un ConsoleHandler propio con tu ColorFormatter
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);                 // ¡importante!
+        ch.setFormatter(new ColorFormatter());  // tu formatter con colores/emoji
+        LOGGER.addHandler(ch);
+
+        // (Opcional) Si quieres también afectar al root logger:
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL); // si decides mantenerlos
+        }
+    }
+
 
     private static final String ORANGE = "\033[34m";
     private static final String RESET = "\033[0m";
@@ -110,5 +142,42 @@ public class ProductoDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    private static final String SELECT_ALL_PRODUCT_NAMES_SQL =
+            "SELECT identificador_producto FROM productos";
+
+    /**
+     * Obtiene todos los nombres (identificadores) de productos.
+     *
+     * @param connection conexión activa a la base de datos
+     * @return lista de nombres de productos
+     */
+    public static List<String> getAllProductNames(Connection connection) {
+        List<String> nombres = new ArrayList<>();
+
+        if (connection == null) {
+            LOGGER.warning("Conexión nula al intentar obtener los nombres de productos.");
+            return nombres;
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_ALL_PRODUCT_NAMES_SQL);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                String nombre = rs.getString("identificador_producto");
+                if (nombre != null) {
+                    nombres.add(nombre);
+                }
+            }
+
+            LOGGER.info("Productos cargados: " + nombres.size());
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al obtener los nombres de productos", e);
+        }
+
+        return nombres;
     }
 }

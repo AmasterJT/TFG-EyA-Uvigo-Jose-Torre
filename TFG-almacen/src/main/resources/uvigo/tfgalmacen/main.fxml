@@ -121,7 +121,7 @@
                         <Button mnemonicParsing="false" onAction="#openXmlInExcel" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="EXPORT" textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../../icons/data.png" />
+                                    <Image url="@../../icons/Export.png" />
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
@@ -246,6 +246,9 @@
                         <font>
                             <Font name="System Bold" size="12.0" />
                         </font>
+                  <padding>
+                     <Insets bottom="5.0" left="10.0" top="5.0" />
+                  </padding>
                     </Button>
                 </VBox>
             </AnchorPane>

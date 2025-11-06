@@ -35,7 +35,7 @@ public class almacenController implements Initializable {
     // Cámara y estado del ratón
     private PerspectiveCamera camara;
 
-    private final ArrayList<String> todosLosProductos = new ArrayList<>();
+    public final ArrayList<String> todosLosProductos = new ArrayList<>();
 
     @FXML
     private AnchorPane almacenContainer;

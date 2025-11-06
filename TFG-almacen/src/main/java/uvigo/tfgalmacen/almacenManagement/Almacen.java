@@ -1,5 +1,6 @@
 package uvigo.tfgalmacen.almacenManagement;
 
+import uvigo.tfgalmacen.Cliente;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Proveedor;
 import uvigo.tfgalmacen.controllers.loginController;
@@ -13,6 +14,8 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static uvigo.tfgalmacen.database.ClientesDAO.getAllClientes;
 
 
 /**
@@ -107,6 +110,9 @@ public class Almacen {
     public static ArrayList<Proveedor> TodosProveedores = null;
 
 
+    public static ArrayList<Cliente> TodosClientes = null;
+
+
     public Almacen(String archivoXML) {
         this.archivoXML = archivoXML;
     }
@@ -141,6 +147,7 @@ public class Almacen {
                 TodosProductos = obtenerProductosDesdeBD(conexion); // deberías implementar estas
                 TodosPalets = obtenerPaletsDesdeBD(conexion);
                 TodosProveedores = obtenerProveedoresDesdeBD(conexion);
+                TodosClientes = getAllClientes(conexion);
             }
 
         } catch (Exception ex) {

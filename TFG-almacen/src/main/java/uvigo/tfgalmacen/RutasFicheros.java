@@ -20,7 +20,8 @@ public class RutasFicheros {
     public static final String ITEM_ORDEN_COMPRA_FXML = "/uvigo/tfgalmacen/items/itemOrdenCompra.fxml";
     public static final String ITEM_PEDIDO_FXML = "/uvigo/tfgalmacen/items/itemPedidos.fxml";
 
-    public static final String WINDOW_AJUSTES_PEDIDOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesPedidos/windowAjustesPedidos.fxml";
+    public static final String WINDOW_AJUSTES_CREAR_PEDIDOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesPedidos/windowAjustesCrearPedidos.fxml";
+    public static final String WINDOW_AJUSTES_ITEM_CREAR_PEDIDOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesPedidos/itemCrearPedido.fxml";
 
     public static final String WINDOW_AJUSTES_CREAR_USUARIOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesUsuarios/windowAjustesCrearUsuarios.fxml";
     public static final String WINDOW_AJUSTES_EDITAR_USUARIOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesUsuarios/windowAjustesEditarUsuarios.fxml";

@@ -472,7 +472,7 @@ public class ordenCompraController implements Initializable {
 
         new Thread(task, "FiltrarProductosProveedor").start();
     }
-
+    
 
     // ----------------------------
     // DTO (reservado para cuando quieras data-driven)
