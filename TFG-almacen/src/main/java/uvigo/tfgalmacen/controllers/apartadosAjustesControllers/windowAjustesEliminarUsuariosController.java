@@ -29,6 +29,7 @@ import uvigo.tfgalmacen.database.UsuarioDAO;
 
 import static uvigo.tfgalmacen.RutasFicheros.WINDOW_AJUSTES_ACTUALIZAR_PEDIDO_ELIMINAR_USUARIOS_FXML;
 import static uvigo.tfgalmacen.RutasFicheros.WINDOW_MOVE_PENDIENTE_TO_EN_PROCESO_FXML;
+import static uvigo.tfgalmacen.controllers.pedidosController.ESTADOS_DEL_PEDIDO;
 import static uvigo.tfgalmacen.database.PedidoDAO.getPedidosAllData;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
@@ -173,7 +174,12 @@ public class windowAjustesEliminarUsuariosController {
 
                     if (p.getId_usuario() > 0)
                         if (UsuarioDAO.getUsernameById(Main.connection, p.getId_usuario()).equals(username)) {
-                            pedidos_asignados.add(p);
+                            if (!p.getEstado().equals(ESTADOS_DEL_PEDIDO.get(2)) && !p.getEstado().equals(ESTADOS_DEL_PEDIDO.get(3))) {
+
+                                System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+                                System.out.println(p.getEstado());
+                                pedidos_asignados.add(p);
+                            }
                         }
 
                     //System.out.println(p.getId_usuario() + "------" + p.getCodigo_referencia());
@@ -260,7 +266,8 @@ public class windowAjustesEliminarUsuariosController {
 
         task.setOnFailed(_ -> {
             Throwable ex = task.getException();
-            LOGGER.log(Level.SEVERE, "❌ No se pudo abrir la ventana: " + title, ex);
+            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana: " + title, ex);
+            ex.printStackTrace();
         });
 
         FX_BG_EXEC.submit(task);

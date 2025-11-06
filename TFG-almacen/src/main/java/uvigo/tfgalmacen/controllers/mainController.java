@@ -214,7 +214,7 @@ public class mainController implements Initializable {
 
         task.setOnFailed(_ -> {
             Throwable ex = task.getException();
-            LOGGER.log(Level.SEVERE, "❌ No se pudo abrir la ventana: " + title, ex);
+            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana: " + title, ex);
         });
 
         FX_BG_EXEC.submit(task);
