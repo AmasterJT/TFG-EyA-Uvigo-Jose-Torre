@@ -18,14 +18,14 @@
                   <Image url="@../../../../icons/product-48.png" />
                </image>
             </ImageView>
-            <ComboBox fx:id="combo_producto_crear_pedido" maxWidth="150.0" prefWidth="150.0" promptText="PRODUCTO" style="-fx-font-size: 11;" styleClass="custom-in-list" />
+            <ComboBox fx:id="combo_producto_crear_pedido" maxWidth="200.0" prefWidth="200.0" promptText="PRODUCTO" styleClass="item-crear-pedido-combo" />
             <Region maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
             <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../icons/hashtag-52.png" />
                </image>
             </ImageView>
-            <TextField maxWidth="100.0" prefWidth="100.0" styleClass="email-disable" text="CANTIDAD" />
+            <TextField alignment="CENTER" maxWidth="80.0" prefWidth="100.0" promptText="CANTIDAD" styleClass="email-disable" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
