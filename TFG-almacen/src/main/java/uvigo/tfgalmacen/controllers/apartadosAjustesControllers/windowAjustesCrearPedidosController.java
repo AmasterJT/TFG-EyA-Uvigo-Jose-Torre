@@ -16,7 +16,7 @@ import uvigo.tfgalmacen.almacenManagement.Producto;
 import uvigo.tfgalmacen.controllers.ItemOrdenCompraController;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
-import javafx.scene.input.ContextMenuEvent;
+import javafx.beans.binding.Bindings;
 
 
 import java.io.IOException;
@@ -81,29 +81,27 @@ public class windowAjustesCrearPedidosController {
 
     @FXML
     public void initialize() {
-        inicializarComboBoxes();
-        // Aserción de inyección correcta
-        if (list_productos_agregados_crear_pedido == null) {
-            throw new IllegalStateException("list_productos_agregados_crear_pedido no inyectado. Revisa fx:id='list_productos_agregados_crear_pedido' y el fx:controller.");
-        }
-        if (agregar_producto_btn == null) {
-            throw new IllegalStateException("agregar_producto_btn no inyectado. Revisa fx:id='agregar_producto_btn'.");
-        }
-
         ExitButton.setOnMouseClicked(_ -> {
             Stage stage = (Stage) ExitButton.getScene().getWindow();
             stage.close();
         });
 
-        // ListView de nodos gráficos
+        inicializarComboBoxes();
+        // ... tus checks de inyección y resto de código ...
+
         configurarListViewConMenuContextual();
 
+        // 🔒 Bloquear combo_clientes y fecha_entrega_pickerdate si la lista NO está vacía
+        combo_clientes.disableProperty().bind(
+                Bindings.isNotEmpty(list_productos_agregados_crear_pedido.getItems())
+        );
+        fecha_entrega_pickerdate.disableProperty().bind(
+                Bindings.isNotEmpty(list_productos_agregados_crear_pedido.getItems())
+        );
 
         agregar_producto_btn.setOnMouseClicked(_ -> agregarItemFXML());
         crear_pedidio_btn.setOnMouseClicked(_ -> onCrearPedidoClick());
-
     }
-
 
     private void configurarListViewConMenuContextual() {
         list_productos_agregados_crear_pedido.setCellFactory(lv -> {
@@ -198,7 +196,6 @@ public class windowAjustesCrearPedidosController {
             // ItemOrdenCrearPedidoController itemController = loader.getController(); // si necesitas setear datos
             list_productos_agregados_crear_pedido.getItems().add(itemRoot);
 
-            combo_clientes.disableProperty();
         } catch (IOException ex) {
             // Loguea el problema de carga del FXML del item
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "No se pudo cargar el item", ex);
