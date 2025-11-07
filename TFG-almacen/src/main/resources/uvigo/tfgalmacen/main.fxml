@@ -121,7 +121,7 @@
                         <Button mnemonicParsing="false" onAction="#openXmlInExcel" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="EXPORT" textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../../icons/Export.png" />
+                                    <Image url="@../../icons/download-64.png" />
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
@@ -182,6 +182,9 @@
                         <cursor>
                             <Cursor fx:constant="HAND" />
                         </cursor>
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
                     </Button>
                     <Button fx:id="inventarioButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="INVENTARIO" textFill="WHITE">
                         <graphic>

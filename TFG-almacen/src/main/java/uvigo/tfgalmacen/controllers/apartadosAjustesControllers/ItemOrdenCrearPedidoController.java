@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -43,18 +45,43 @@ public class ItemOrdenCrearPedidoController {
 
     private static final String PLACEHOLDER_PRODUCTOS = "Seleccionar productos";
 
+
     @FXML
-    private HBox background_Hbox;
+    private AnchorPane background;
+    ;
 
     @FXML
     private ComboBox<Producto> combo_producto_crear_pedido;
 
 
     @FXML
+    private TextField cantidad_producto;
+
+
+    @FXML
     public void initialize() {
+        
         inicializarComboBoxes();
 
     }
+
+
+    public TextField getCantidad_product() {
+        return cantidad_producto;
+    }
+
+    public void setCantidad_product(TextField cantidad_producto) {
+        this.cantidad_producto = cantidad_producto;
+    }
+
+    public ComboBox<Producto> getCombo_producto_crear_pedido() {
+        return combo_producto_crear_pedido;
+    }
+
+    public void setCombo_producto_crear_pedido(ComboBox<Producto> combo_producto_crear_pedido) {
+        this.combo_producto_crear_pedido = combo_producto_crear_pedido;
+    }
+
 
     private void inicializarComboBoxes() {
         // Texto que se muestra cuando no hay selección

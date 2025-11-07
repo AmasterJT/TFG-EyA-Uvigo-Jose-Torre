@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-<AnchorPane style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="oc-row-content" stylesheets="@../../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadosAjustesControllers.ItemOrdenCrearPedidoController">
+<AnchorPane fx:id="background" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="oc-row-content" stylesheets="@../../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadosAjustesControllers.ItemOrdenCrearPedidoController">
    <children>
       <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,7 +25,7 @@
                   <Image url="@../../../../icons/hashtag-52.png" />
                </image>
             </ImageView>
-            <TextField alignment="CENTER" maxWidth="80.0" prefWidth="100.0" promptText="CANTIDAD" styleClass="email-disable" />
+            <TextField fx:id="cantidad_producto" alignment="CENTER" maxWidth="80.0" prefWidth="100.0" promptText="CANTIDAD" styleClass="email-disable" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
