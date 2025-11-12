@@ -40,4 +40,46 @@ public class DetallesPedidoDAO {
 
         return productos;
     }
+
+
+    private static final String INSERT_DETALLE_SQL = """
+            INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido)
+            VALUES (?, ?, ?, FALSE)
+            """;
+
+    /**
+     * Inserta un producto dentro de un pedido en la tabla detalles_pedido.
+     *
+     * @param connection conexión abierta a la base de datos.
+     * @param idPedido   ID del pedido al que pertenece este detalle.
+     * @param idProducto ID del producto incluido en el pedido.
+     * @param cantidad   Cantidad solicitada de ese producto.
+     * @return true si se insertó correctamente, false en caso contrario.
+     */
+    public static boolean insertarDetallePedido(Connection connection,
+                                                int idPedido,
+                                                int idProducto,
+                                                int cantidad) {
+        if (connection == null) {
+            System.err.println("❌ Conexión nula al insertar detalle de pedido.");
+            return false;
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(INSERT_DETALLE_SQL)) {
+            ps.setInt(1, idPedido);
+            ps.setInt(2, idProducto);
+            ps.setInt(3, cantidad);
+
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                System.out.println("\t - ✅ Producto insertado correctamente (pedido=" + idPedido +
+                        ", producto=" + idProducto + ", cantidad=" + cantidad + ")");
+                return true;
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error al insertar detalle de pedido: " + e.getMessage());
+        }
+
+        return false;
+    }
 }

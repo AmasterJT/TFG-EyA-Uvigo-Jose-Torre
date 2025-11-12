@@ -4,13 +4,15 @@ import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.sql.Date;
+import java.util.*;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import java.time.LocalDate;
+
 
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
 
@@ -267,4 +269,86 @@ public class PedidoDAO {
             LOGGER.log(Level.SEVERE, "Error actualizando usuario y hora_salida del pedido (id=" + idPedido + ")", e);
         }
     }
+
+
+    private static final String SQL_INSERT =
+            "INSERT INTO pedidos (id_usuario, id_cliente, fecha_entrega, estado, hora_salida) " +
+                    "VALUES (?, ?, ?, 'Pendiente', ?)";
+
+    private static final String SQL_SELECT_CODIGO =
+            "SELECT codigo_referencia FROM pedidos WHERE id_pedido = ?";
+
+
+    /**
+     * Crea un pedido y devuelve el codigo_referencia generado por el trigger.
+     *
+     * @param conn         conexión abierta a MySQL (no se cierra aquí).
+     * @param idCliente    id del cliente (FK).
+     * @param fechaEntrega fecha de entrega (LocalDate).
+     * @return codigo_referencia generado, por ejemplo "PED-20251112-00000A".
+     * @throws SQLException si algo falla al insertar o recuperar el código.
+     */
+    public static Map<String, Integer> crearPedidoYObtenerCodigo(Connection conn,
+                                                                 int idCliente,
+                                                                 LocalDate fechaEntrega) throws SQLException {
+
+
+        Map<String, Integer> pedido_nuevo = new HashMap<>();
+
+        boolean prevAutoCommit = conn.getAutoCommit();
+        conn.setAutoCommit(false);
+
+        try (PreparedStatement psIns = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement psSel = conn.prepareStatement(SQL_SELECT_CODIGO)) {
+
+            // id_usuario -> NULL
+            psIns.setNull(1, Types.INTEGER);
+            // id_cliente
+            psIns.setInt(2, idCliente);
+            // fecha_entrega
+            psIns.setDate(3, Date.valueOf(fechaEntrega));
+            // hora_salida -> NULL
+            psIns.setNull(4, Types.VARCHAR);
+
+            int rows = psIns.executeUpdate();
+            if (rows != 1) {
+                conn.rollback();
+                throw new SQLException("La inserción de pedido no afectó exactamente a 1 fila.");
+            }
+
+            // id generado por AUTO_INCREMENT
+            int idPedido;
+            try (ResultSet rsKeys = psIns.getGeneratedKeys()) {
+                if (!rsKeys.next()) {
+                    conn.rollback();
+                    throw new SQLException("No se obtuvo id_pedido generado.");
+                }
+                idPedido = rsKeys.getInt(1);
+            }
+
+            // Recuperar el código que generó el trigger BEFORE INSERT
+            psSel.setInt(1, idPedido);
+            String codigo;
+            try (ResultSet rs = psSel.executeQuery()) {
+                if (!rs.next()) {
+                    conn.rollback();
+                    throw new SQLException("No se encontró el pedido recién insertado (id=" + idPedido + ").");
+                }
+                codigo = rs.getString(1);
+            }
+
+            conn.commit();
+            pedido_nuevo.put(codigo, idPedido);
+            return pedido_nuevo;
+
+
+        } catch (SQLException ex) {
+            conn.rollback();
+            throw ex;
+        } finally {
+            conn.setAutoCommit(prevAutoCommit);
+        }
+    }
+
+
 }

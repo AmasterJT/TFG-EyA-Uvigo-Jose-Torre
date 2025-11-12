@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Cliente;
+import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Producto;
 import uvigo.tfgalmacen.controllers.ItemOrdenCompraController;
@@ -20,14 +21,19 @@ import javafx.beans.binding.Bindings;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.lang.Integer.parseInt;
 import static uvigo.tfgalmacen.RutasFicheros.WINDOW_AJUSTES_ITEM_CREAR_PEDIDOS_FXML;
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_error;
+import static uvigo.tfgalmacen.database.DetallesPedidoDAO.insertarDetallePedido;
+import static uvigo.tfgalmacen.database.PedidoDAO.crearPedidoYObtenerCodigo;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class windowAjustesCrearPedidosController {
 
@@ -91,7 +97,7 @@ public class windowAjustesCrearPedidosController {
 
         configurarListViewConMenuContextual();
 
-        // 🔒 Bloquear combo_clientes y fecha_entrega_pickerdate si la lista NO está vacía
+        // Bloquear combo_clientes y fecha_entrega_pickerdate si la lista NO está vacía
         combo_clientes.disableProperty().bind(
                 Bindings.isNotEmpty(list_productos_agregados_crear_pedido.getItems())
         );
@@ -100,7 +106,13 @@ public class windowAjustesCrearPedidosController {
         );
 
         agregar_producto_btn.setOnMouseClicked(_ -> agregarItemFXML());
-        crear_pedidio_btn.setOnMouseClicked(_ -> onCrearPedidoClick());
+        crear_pedidio_btn.setOnMouseClicked(_ -> {
+            try {
+                onCrearPedidoClick();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private void configurarListViewConMenuContextual() {
@@ -183,8 +195,29 @@ public class windowAjustesCrearPedidosController {
         });
     }
 
+    public boolean validar_datos_en_blanco(ComboBox<Cliente> combo_clientes, DatePicker fecha_envio) {
+        boolean datos_en_blanco = true;
+
+
+        if (combo_clientes.getValue() == null || combo_clientes.getValue().getNombre().isBlank()) {
+            shake(combo_clientes, SHAKE_DURATION);
+            datos_en_blanco = false;
+        }
+
+        if (fecha_entrega_pickerdate.getValue() == null) {
+            shake(fecha_entrega_pickerdate, SHAKE_DURATION);
+            datos_en_blanco = false;
+        }
+
+        return datos_en_blanco;
+
+    }
 
     private void agregarItemFXML() {
+
+        if (!validar_datos_en_blanco(combo_clientes, fecha_entrega_pickerdate)) {
+            return;
+        }
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_AJUSTES_ITEM_CREAR_PEDIDOS_FXML));
@@ -195,6 +228,7 @@ public class windowAjustesCrearPedidosController {
 
             // ItemOrdenCrearPedidoController itemController = loader.getController(); // si necesitas setear datos
             list_productos_agregados_crear_pedido.getItems().add(itemRoot);
+            list_productos_agregados_crear_pedido.scrollTo(list_productos_agregados_crear_pedido.getItems().size() - 1);
 
         } catch (IOException ex) {
             // Loguea el problema de carga del FXML del item
@@ -206,11 +240,28 @@ public class windowAjustesCrearPedidosController {
 
 
     @FXML
-    private void onCrearPedidoClick() {
+    private void onCrearPedidoClick() throws SQLException {
         System.out.println("=== Creando pedido ===");
 
         String nombre_cliente = combo_clientes.getSelectionModel().getSelectedItem().getNombre();
         int id_cliente = combo_clientes.getSelectionModel().getSelectedItem().getId_cliente();
+
+        String codigo = "";
+        int idPedido = 0;
+
+        Map<String, Integer> REF_CODE = crearPedidoYObtenerCodigo(Main.connection, id_cliente, fecha_entrega_pickerdate.getValue());
+
+        codigo = REF_CODE.keySet().iterator().next();
+        idPedido = REF_CODE.get(codigo);
+
+        System.out.println("✅ Pedido creado:");
+        System.out.printf("CODIGO REFERENCIA: %s (%d) %n", codigo, idPedido);
+
+        System.out.printf("Cliente: %s (%d)| fecha de envio: %s %n",
+                nombre_cliente,
+                id_cliente,
+                fecha_entrega_pickerdate.getValue().toString());
+
 
         for (Parent itemRoot : list_productos_agregados_crear_pedido.getItems()) {
             // Cada item es un nodo cargado desde el FXML del ítem
@@ -239,12 +290,12 @@ public class windowAjustesCrearPedidosController {
                     ? textField.getText()
                     : "(sin cantidad)";
 
-            System.out.printf("Cliente: %s (%d)| Producto: %s (%s) | Cantidad: %s%n", nombre_cliente,
-                    id_cliente,
-                    productoNombre,
-                    id_producto,
-                    cantidadTexto);
+
+            insertarDetallePedido(Main.connection, idPedido, id_producto, parseInt(cantidadTexto));
+
+
         }
+
 
         System.out.println("======================");
     }

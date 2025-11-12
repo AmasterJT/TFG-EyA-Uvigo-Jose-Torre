@@ -7,8 +7,8 @@
     -fx-border-width: 0 0 1 0;
     -fx-text-fill: white;
     -fx-cursor: hand; /* opcional */
-
 }
+
 
 .combo-box .list-view {
     -fx-background-color: #2F3A32;
@@ -98,6 +98,12 @@
 .combo-box.item-crear-pedido-combo {
     -fx-text-fill: white !important;
     -fx-padding: 4;
+}
+
+
+/* Estilo base del ComboBox (cerrado) */
+.combo-box.item-crear-pedido-combo {
+    -fx-prompt-text-fill: red !important;
 }
 
 /* Celda seleccionada visible en el ComboBox cerrado */
