@@ -1,6 +1,7 @@
 package uvigo.tfgalmacen.database;
 
 import uvigo.tfgalmacen.ProductoPedido;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +9,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DetallesPedidoDAO {
+
+
+    private static final Logger LOGGER = Logger.getLogger(DetallesPedidoDAO.class.getName());
+
+    static {
+        LOGGER.setLevel(Level.ALL);
+        LOGGER.setUseParentHandlers(false);
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);
+        ch.setFormatter(new ColorFormatter());
+        LOGGER.addHandler(ch);
+
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL);
+        }
+    }
 
     // Consulta para obtener los productos y cantidades según el código de referencia del pedido
     private static final String SELECT_PRODUCTOS_POR_PEDIDO_SQL =
@@ -81,5 +103,36 @@ public class DetallesPedidoDAO {
         }
 
         return false;
+    }
+
+
+    private static final String SQL_IDS_DETALLE_BY_PEDIDO =
+            "SELECT id_detalle FROM detalles_pedido WHERE id_pedido = ? ORDER BY id_detalle";
+
+    /**
+     * Devuelve los id_detalle asociados a un id_pedido.
+     *
+     * @param conn     conexión abierta
+     * @param idPedido id del pedido
+     * @return lista (posiblemente vacía) de ids de detalle
+     */
+    public static List<Integer> getIdsDetallePorPedido(Connection conn, int idPedido) {
+        List<Integer> ids = new ArrayList<>();
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getIdsDetallePorPedido()");
+            return ids;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_IDS_DETALLE_BY_PEDIDO)) {
+            ps.setInt(1, idPedido);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ids.add(rs.getInt(1));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.severe("Error obteniendo ids de detalle por pedido: " + e.getMessage());
+        }
+        return ids;
     }
 }

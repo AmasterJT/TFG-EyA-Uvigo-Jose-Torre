@@ -1,0 +1,5 @@
+@import "Colors.css";
+
+.editar-pedido-label {
+    -fx-text-fill: red;
+}

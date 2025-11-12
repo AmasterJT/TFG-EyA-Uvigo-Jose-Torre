@@ -11,3 +11,11 @@
 .eliminar-usuario:hover {
     -fx-background-color: -indicador-pedido-en-curso-color;
 }
+
+
+.edit-pedido-btn {
+    -fx-background-color: #db9f75 !important;
+    -fx-text-fill: red;
+    -fx-background-radius: 6; /* opcional */
+    -fx-cursor: hand; /* opcional */
+}

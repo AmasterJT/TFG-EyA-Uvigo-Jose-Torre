@@ -351,4 +351,128 @@ public class PedidoDAO {
     }
 
 
+    private static final String SQL_SELECT_TODOS_PEDIDOS =
+            "SELECT codigo_referencia, id_pedido, id_cliente, id_usuario, estado, fecha_pedido, hora_salida " +
+                    "FROM pedidos " +
+                    "ORDER BY fecha_pedido DESC";
+
+    // Usamos el mismo patrón que espera el constructor de Pedido
+    private static final java.time.format.DateTimeFormatter DB_TS_FMT =
+            java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    public static ArrayList<Pedido> getTodosLosPedidos(Connection conn) {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getTodosLosPedidos()");
+            return pedidos;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_SELECT_TODOS_PEDIDOS);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                String codigoReferencia = rs.getString("codigo_referencia");
+                int idPedido = rs.getInt("id_pedido");
+                int idCliente = rs.getInt("id_cliente");
+
+                // id_usuario puede ser NULL; getInt devuelve 0 si NULL. Podemos conservar 0.
+                int idUsuario = rs.getInt("id_usuario");
+                if (rs.wasNull()) {
+                    idUsuario = 0; // coherente con tu modelo (int primitivo en Pedido)
+                }
+
+                String estado = rs.getString("estado");
+
+                // Formateamos fecha_pedido al String que espera el constructor
+                java.sql.Timestamp ts = rs.getTimestamp("fecha_pedido");
+                String fechaPedidoRaw = ts.toLocalDateTime().format(DB_TS_FMT);
+
+                String horaSalida = rs.getString("hora_salida"); // puede ser null
+
+                // Construimos el Pedido como en tu clase
+                Pedido p = new Pedido(
+                        codigoReferencia,
+                        idPedido,
+                        idCliente,
+                        idUsuario,
+                        estado,
+                        fechaPedidoRaw,
+                        horaSalida
+                );
+
+                pedidos.add(p);
+            }
+        } catch (SQLException e) {
+            LOGGER.severe("Error obteniendo pedidos: " + e.getMessage());
+        }
+
+        return pedidos;
+    }
+
+    private static final String SQL_ID_BY_CODIGO =
+            "SELECT id_pedido FROM pedidos WHERE codigo_referencia = ?";
+
+
+    /**
+     * Devuelve el id_pedido a partir del código de referencia.
+     *
+     * @param conn             conexión abierta
+     * @param codigoReferencia código de referencia (PED-YYYYMMDD-XXXXXX)
+     * @return id_pedido o null si no existe
+     */
+    public static Integer getIdPedidoPorCodigo(Connection conn, String codigoReferencia) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getIdPedidoPorCodigo()");
+            return null;
+        }
+        if (codigoReferencia == null || codigoReferencia.isBlank()) {
+            LOGGER.warning("codigoReferencia vacío/nulo en getIdPedidoPorCodigo()");
+            return null;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_ID_BY_CODIGO)) {
+            ps.setString(1, codigoReferencia);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.severe("Error obteniendo id_pedido por código: " + e.getMessage());
+        }
+        return null;
+    }
+
+
+    private static final String SQL_ID_USUARIO_BY_PEDIDO =
+            "SELECT id_usuario FROM pedidos WHERE id_pedido = ?";
+
+    /**
+     * Devuelve el id_usuario asignado a un pedido específico.
+     *
+     * @param conn     conexión abierta a la base de datos.
+     * @param idPedido identificador del pedido.
+     * @return id_usuario si existe (puede ser null si el pedido no tiene usuario asignado),
+     * o null si no se encuentra el pedido.
+     */
+    public static Integer getIdUsuarioPorPedido(Connection conn, int idPedido) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getIdUsuarioPorPedido()");
+            return null;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_ID_USUARIO_BY_PEDIDO)) {
+            ps.setInt(1, idPedido);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int idUsuario = rs.getInt("id_usuario");
+                    return rs.wasNull() ? null : idUsuario; // Manejo de valores NULL correctamente
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.severe("Error obteniendo id_usuario por pedido: " + e.getMessage());
+        }
+
+        return null;
+    }
 }

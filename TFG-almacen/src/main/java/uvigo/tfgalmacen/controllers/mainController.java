@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -135,16 +136,38 @@ public class mainController implements Initializable {
         minimizeButton.setOnAction(_ -> minimizarVentana());
 
         almacenButton.setOnMouseClicked(_ -> loadAlmacenView());
+        almacenButton.setTooltip(new Tooltip("Vista 3D del almacén"));
+
         inventarioButton.setOnMouseClicked(_ -> loadInventarioView());
+        inventarioButton.setTooltip(new Tooltip("Vista del inventario de palets"));
+
         pedidosButton.setOnMouseClicked(_ -> loadPedidosView());
+        pedidosButton.setTooltip(new Tooltip("Gestion de productos"));
+
         recepcionButton.setOnMouseClicked(_ -> loadRecepcionView());
+        recepcionButton.setTooltip(new Tooltip("Recepciones previstas"));
+
         ajustesButton.setOnMouseClicked(_ -> loadAjustesView());
+        ajustesButton.setTooltip(new Tooltip("Ajustes de la aplicación"));
+
         orden_compra_btn.setOnMouseClicked(_ -> abrirVentanaOrdenCompra());
+        orden_compra_btn.setTooltip(new Tooltip("Crear una orden de compra"));
+
         ajustes_crear_usuario_btn.setOnMouseClicked(_ -> abrirVentanaCrearUsuario());
+        ajustes_crear_usuario_btn.setTooltip(new Tooltip("Crear un nuevo usuario"));
+
         ajustes_editar_usuario_btn.setOnMouseClicked(_ -> abrirVentanaEditarUsuario());
+        ajustes_editar_usuario_btn.setTooltip(new Tooltip("Editar un usuario existente"));
+
         ajustes_eliminar_usuario_btn.setOnMouseClicked(_ -> abrirVentanaEliminarUsuario());
+        ajustes_eliminar_usuario_btn.setTooltip(new Tooltip("Eliminar un usuario existente"));
+
+        ajustes_editar_pedido_btn.setOnMouseClicked(_ -> abrirVentanaEditarPedido());
+        ajustes_editar_pedido_btn.setTooltip(new Tooltip("Editar un pedido existente"));
+
 
         ajustes_crear_pedido_btn.setOnMouseClicked(_ -> abrirVentanaCrearPedido());
+        ajustes_crear_pedido_btn.setTooltip(new Tooltip("Crear un nuevo pedido"));
 
         esconder_ajustes_btn.setOnMouseClicked(_ -> slideMenu(false));
 
@@ -253,6 +276,11 @@ public class mainController implements Initializable {
     private void abrirVentanaCrearPedido() {
         Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
         openWindowAsync(WINDOW_AJUSTES_CREAR_PEDIDOS_FXML, "Crear Pedido", owner);
+    }
+
+    private void abrirVentanaEditarPedido() {
+        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
+        openWindowAsync(WINDOW_AJUSTES_EDITAR_PEDIDOS_FXML, "editar Pedido", owner);
     }
 
 

@@ -7,6 +7,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Cliente;
@@ -65,6 +66,9 @@ public class ItemOrdenCrearPedidoController {
 
     }
 
+    public AnchorPane getBackground() {
+        return background;
+    }
 
     public TextField getCantidad_product() {
         return cantidad_producto;

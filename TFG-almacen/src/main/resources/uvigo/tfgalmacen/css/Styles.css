@@ -8,6 +8,8 @@
 
 @import "comboBox.css";
 
+@import "label.css";
+
 
 .principalWindow {
     -fx-background-color: -amaster-dark-blue !important;
@@ -562,3 +564,11 @@
 .label-error {
     -fx-text-fill: #ff4d4f;
 }
+
+
+/*-------------------------------------------------*/
+/*-------------------------------------------------*/
+/*-------------------------------------------------*/
+
+/* Estado base del botón */
+
