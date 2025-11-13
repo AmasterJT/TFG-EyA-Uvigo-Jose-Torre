@@ -41,6 +41,14 @@ public class OrdenCompra {
     }
 
 
+    public String getCODIGO_OC() {
+        return CODIGO_OC;
+    }
+
+    public void setCODIGO_OC(String CODIGO_OC) {
+        this.CODIGO_OC = CODIGO_OC;
+    }
+
     /**
      * Inserta las líneas de detalle de una OC ya creada, identificada por su codigo_referencia.
      *

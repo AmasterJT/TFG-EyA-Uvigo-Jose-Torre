@@ -60,7 +60,7 @@ public class ordenCompraController implements Initializable {
     }
 
 
-    private boolean TODO_PALETS_OK = true;
+    private boolean TODO_PALETS_OK = false;
 
     // ----------------------------
     // Constantes / Placeholders
@@ -340,7 +340,7 @@ public class ordenCompraController implements Initializable {
             }
         }
 
-        if (!TODO_PALETS_OK) {
+        if (!TODO_PALETS_OK || palets_oc.isEmpty()) {
             System.out.println("-----------------------------");
             alerta();
         } else {
@@ -348,12 +348,25 @@ public class ordenCompraController implements Initializable {
             oc.crearCodigoOrdenCompra(Main.connection, "");
             oc.insertarDetalleOrdenCompraPorCodigo(Main.connection);
             System.out.println(oc);
+
+            alertInfo("Se ha generado la orden de compra: " + oc.getCODIGO_OC());
+
+            Stage stage = (Stage) generar_compra_btn.getScene().getWindow();
+            stage.close();
         }
 
         // LOGGER.info("Generar compra → Palets creados OK=" + ok + " | fallos=" + fail);
         // (Opcional) si todo OK, limpiar:
         // if (fail == 0) list_palets_agregados_oc.getItems().clear();
     }
+
+    private void alertInfo(String c) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION, c, ButtonType.OK);
+        a.setTitle("Orden Compra");
+        a.setHeaderText(null);
+        a.showAndWait();
+    }
+
 
     public void alerta() {
         ventana_warning("Contenido no válido", "Error al introducir los datos", "Es necesario rellenar todos los campos para pode generar la orden de compra");
@@ -472,7 +485,7 @@ public class ordenCompraController implements Initializable {
 
         new Thread(task, "FiltrarProductosProveedor").start();
     }
-    
+
 
     // ----------------------------
     // DTO (reservado para cuando quieras data-driven)
