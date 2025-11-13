@@ -158,7 +158,7 @@ public class OrdenCompra {
 
     @Override
     public String toString() {
-        StringBuilder out = new StringBuilder("OrdenCompra: ").append(this.CODIGO_OC).append("{\n");
+        StringBuilder out = new StringBuilder("OrdenCompra: ").append(this.CODIGO_OC).append(" {\n");
         for (int i = 0; i < lista_palets_oc.size(); i++) {
             out.append("\t").append(lista_proveedores_oc.get(i)).append("\n\t\t ").append(lista_palets_oc.get(i)).append("\n");
         }

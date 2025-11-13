@@ -219,6 +219,9 @@ public class windowAjustesCrearUsuariosController {
             if (ok) {
                 showInfo("Usuario creado", "El usuario se ha creado correctamente.");
                 limpiarFormulario();
+
+                Stage stage = (Stage) crear_contrasena_text.getScene().getWindow();
+                stage.close();
             } else {
                 showError("No se pudo crear el usuario", "Revisa la información e inténtalo de nuevo.");
             }
