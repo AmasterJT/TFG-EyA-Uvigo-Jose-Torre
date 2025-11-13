@@ -186,7 +186,7 @@
                      <Font name="System Bold" size="12.0" />
                   </font>
                     </Button>
-                    <Button fx:id="inventarioButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="INVENTARIO" textFill="WHITE">
+                    <Button fx:id="inventarioButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="INVENTARIO" textFill="WHITE">
                         <graphic>
                             <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                 <Image url="@../../icons/box.png" />
@@ -202,7 +202,7 @@
                             <Font name="System Bold" size="12.0" />
                         </font>
                     </Button>
-                    <Button fx:id="pedidosButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="PEDIDOS" textFill="WHITE">
+                    <Button fx:id="pedidosButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="PEDIDOS" textFill="WHITE">
                         <graphic>
                             <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                 <Image url="@../../icons/truck-50.png" />
@@ -218,7 +218,7 @@
                             <Font name="System Bold" size="12.0" />
                         </font>
                     </Button>
-                    <Button fx:id="recepcionButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="RECPECIÓN" textFill="WHITE" wrapText="true">
+                    <Button fx:id="recepcionButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="RECPECIÓN" textFill="WHITE" wrapText="true">
                         <graphic>
                             <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                 <Image url="@../../icons/arrivals-50.png" />
@@ -235,7 +235,7 @@
                         </font>
                     </Button>
                     <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                    <Button fx:id="ajustesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #804012;" styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
+                    <Button fx:id="ajustesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
                         <graphic>
                             <ImageView fx:id="ajustesBtn" fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                 <image>

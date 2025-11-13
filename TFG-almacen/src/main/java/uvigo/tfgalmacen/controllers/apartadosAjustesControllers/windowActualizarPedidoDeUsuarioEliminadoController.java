@@ -115,35 +115,139 @@ public class windowActualizarPedidoDeUsuarioEliminadoController {
         aplicar_nuevo_estado_btn.setOnMouseClicked(_ -> actualizarPedido());
     }
 
+    // =========================================
+    // 1) Hook opcional para “reintentar eliminar usuario” cuando no queden pedidos
+    //    (el padre puede inyectarlo con setOnAllPedidosProcesados)
+    // =========================================
+    private Runnable onAllPedidosProcesados;
+
+    public void setOnAllPedidosProcesados(Runnable r) {
+        this.onAllPedidosProcesados = r;
+    }
+
+
+    // =========================================
+// 2) Actualizar pedido con las reglas solicitadas
+// =========================================
     private void actualizarPedido() {
         Pedido pedido_actualizar = combo_pedido_update.getValue();
         User usuario_selecionado = combo_usuario_update.getValue();
         String hora_salida = combo_hora_envio_update.getValue();
 
-        // Validaciones
         if (pedido_actualizar == null) {
             LOGGER.warning("No hay pedido seleccionado.");
             return;
         }
-        if (usuario_selecionado == null) { // el placeholder NO es un valor, null sí
-            LOGGER.warning("No hay usuario seleccionado.");
-            return;
-        }
-        if (hora_salida == null || hora_salida.isBlank()) {
-            LOGGER.warning("No hay hora de salida seleccionada.");
-            return;
-        }
 
-        int id_usuario = usuario_selecionado.getId_usuario();
         int id_pedido = pedido_actualizar.getId_pedido();
 
-        updateUsuarioYHoraSalidaPedido(Main.connection, id_pedido, id_usuario, hora_salida);
-        LOGGER.info(() -> String.format(
-                "Actualizado pedido %d -> id_usuario=%d, hora_salida=%s",
-                id_pedido, id_usuario, hora_salida
-        ));
+        try {
+            Main.connection.setAutoCommit(false);
+
+            if (usuario_selecionado == null) {
+                // Caso solicitado:
+                // - estado -> Pendiente
+                // - id_usuario -> NULL
+                // - hora_salida -> NULL
+                // Reutilizamos tus DAO ya existentes:
+                //    1) poner id_usuario = NULL
+                //    2) poner estado = 'Pendiente' y hora_salida = NULL
+                uvigo.tfgalmacen.database.PedidoDAO.updateEstadoPedidoCanceladoCompletado(Main.connection, id_pedido); // id_usuario = NULL
+                uvigo.tfgalmacen.database.PedidoDAO.updateEstadoPedido(Main.connection, id_pedido, "Pendiente", null); // estado + hora_salida=NULL
+
+                LOGGER.fine(() -> "Pedido " + id_pedido + " reasignado a 'Pendiente' con usuario y hora_salida en NULL.");
+
+                Main.connection.commit();
+
+                // Sacar el pedido del combo y actuar si queda vacío
+                removePedidoFromComboAndMaybeFinish(pedido_actualizar);
+                return;
+            }
+
+            // Validación de hora
+            if (hora_salida == null || hora_salida.isBlank()) {
+                LOGGER.warning("No hay hora de salida seleccionada.");
+                Main.connection.rollback();
+                return;
+            }
+
+            // Caso normal: asignar usuario + hora_salida
+            int id_usuario = usuario_selecionado.getId_usuario();
+            uvigo.tfgalmacen.database.PedidoDAO.updateUsuarioYHoraSalidaPedido(Main.connection, id_pedido, id_usuario, hora_salida);
+
+
+            Main.connection.commit();
+
+            // Sacar el pedido del combo y actuar si queda vacío
+            removePedidoFromComboAndMaybeFinish(pedido_actualizar);
+
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error actualizando pedido " + id_pedido + ". Haciendo rollback.", ex);
+            try {
+                Main.connection.rollback();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            try {
+                Main.connection.setAutoCommit(true);
+            } catch (Exception ignored) {
+            }
+        }
     }
 
+    // =========================================
+// 3) Helper: quitar del combo, seleccionar siguiente o cerrar si está vacío
+// =========================================
+    private void removePedidoFromComboAndMaybeFinish(Pedido p) {
+        // Guarda índice antes de eliminar
+        int oldIndex = combo_pedido_update.getSelectionModel().getSelectedIndex();
+
+        // Elimina el pedido actual
+        combo_pedido_update.getItems().remove(p);
+        combo_hora_envio_update.getSelectionModel().clearSelection();
+        combo_hora_envio_update.setPromptText(PLACEHOLDER_HORA);
+        estado_del_pedido.setText("");
+
+        // Si no quedan pedidos → ejecutar callback o cerrar ventana
+        if (combo_pedido_update.getItems().isEmpty()) {
+            LOGGER.info("No quedan pedidos pendientes en el combo. Reintentando eliminar el usuario automáticamente.");
+            Stage stage = (Stage) aplicar_nuevo_estado_btn.getScene().getWindow();
+            stage.close();
+            if (onAllPedidosProcesados != null) {
+                try {
+                    onAllPedidosProcesados.run();
+                } catch (Exception e) {
+                    LOGGER.log(Level.WARNING, "Error ejecutando onAllPedidosProcesados.", e);
+                }
+            } else {
+                stage = (Stage) aplicar_nuevo_estado_btn.getScene().getWindow();
+                stage.close();
+            }
+            return;
+        }
+
+        // Selecciona automáticamente el siguiente pedido
+        int newIndex = Math.min(oldIndex, combo_pedido_update.getItems().size() - 1);
+        combo_pedido_update.getSelectionModel().select(newIndex);
+
+        // Actualiza los datos de la interfaz (hora y estado)
+        Pedido nuevoSel = combo_pedido_update.getValue();
+        if (nuevoSel != null) {
+            String hora = obtenerHoraSalidaDePedido(nuevoSel);
+            String estado = "   " + obtenerEstadoPedido(nuevoSel);
+
+            if (hora != null && horas_envio.contains(hora)) {
+                combo_hora_envio_update.getSelectionModel().select(hora);
+            } else {
+                combo_hora_envio_update.getSelectionModel().clearSelection();
+                combo_hora_envio_update.setPromptText(PLACEHOLDER_HORA);
+            }
+
+            estado_del_pedido.setText(estado);
+        }
+
+        LOGGER.info("Seleccionado automáticamente el siguiente pedido tras eliminar uno.");
+    }
 
     private void setBloqueHorasEnvio() {
         combo_hora_envio_update.setItems(horas_envio);
@@ -207,7 +311,6 @@ public class windowActualizarPedidoDeUsuarioEliminadoController {
         try {
             Method m = p.getClass().getMethod("getEstado");
             Object v = m.invoke(p);
-            System.out.println(v.toString());
             return v == null ? null : v.toString();
         } catch (Exception e) {
 

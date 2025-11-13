@@ -187,6 +187,8 @@ public class mainController implements Initializable {
         } else {
             roleLabel.setText("NO ROL");
         }
+
+
     }
 
     // ======================= Utilidades asíncronas =======================
@@ -249,6 +251,7 @@ public class mainController implements Initializable {
 
         FX_BG_EXEC.submit(task);
     }
+
 
     // ======================= Acciones UI =======================
 
@@ -382,18 +385,15 @@ public class mainController implements Initializable {
      * Marca botón activo con colores de tu mapa de colores cargado en Main.colors
      */
     private void marcarBotonActivo(Button botonSeleccionado) {
-        String colorActivo = Main.colors.getOrDefault("-amaster-dark-brown", "#5a3b23");
-        String colorNormal = Main.colors.getOrDefault("-amaster-brown", "#804012");
+        var nav = java.util.List.of(almacenButton, inventarioButton, pedidosButton, recepcionButton);
 
-        String estiloActivo = String.format("-fx-background-color: %s !important; -fx-text-fill: white;", colorActivo);
-        String estiloNormal = String.format("-fx-background-color: %s !important; -fx-text-fill: white;", colorNormal);
+        // quita "active" de todos
+        nav.forEach(b -> b.getStyleClass().remove("active"));
 
-        almacenButton.setStyle(botonSeleccionado == almacenButton ? estiloActivo : estiloNormal);
-        inventarioButton.setStyle(botonSeleccionado == inventarioButton ? estiloActivo : estiloNormal);
-        pedidosButton.setStyle(botonSeleccionado == pedidosButton ? estiloActivo : estiloNormal);
-        recepcionButton.setStyle(botonSeleccionado == recepcionButton ? estiloActivo : estiloNormal);
-
-        activeScene = botonSeleccionado;
+        // añade "active" al seleccionado
+        if (!botonSeleccionado.getStyleClass().contains("active")) {
+            botonSeleccionado.getStyleClass().add("active");
+        }
     }
 
     /**

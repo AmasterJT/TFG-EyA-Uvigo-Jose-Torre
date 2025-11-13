@@ -75,17 +75,20 @@
 }
 
 .sidebarItem {
-    -fx-background-color: -amaster-brown !important;
+    -fx-background-color: -amaster-brown;
 }
 
 .sidebarItem:hover {
     -fx-background-color: -amaster-light-brown !important;
 }
 
-.sidebarItem:selected {
-    -fx-background-color: -amaster-dark-blue z !important;
+.sidebarItem:pressed {
+    -fx-background-color: -amaster-dark-blue !important;
 }
 
+.sidebarItem.active {
+    -fx-background-color: -amaster-dark-blue !important;
+}
 
 .pendientePedido {
     -fx-background-color: -amaster-gray2 !important;
@@ -594,4 +597,5 @@
 .eliminar-pedido-btn:hover {
     -fx-background-color: -pedido-cancelado-color !important;
     -fx-cursor: hand; /* opcional */
+
 }

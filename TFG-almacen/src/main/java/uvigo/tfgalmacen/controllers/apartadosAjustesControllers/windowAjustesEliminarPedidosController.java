@@ -308,7 +308,6 @@ public class windowAjustesEliminarPedidosController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_AJUSTES_ITEM_ELIMINAR_PEDIDOS_FXML));
             Parent itemRoot = loader.load();
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
             ItemOrdenEliminarPedidoController controller = loader.getController();
             itemRoot.setUserData(controller);

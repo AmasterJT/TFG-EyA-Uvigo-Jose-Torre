@@ -181,9 +181,7 @@ public class PedidoDAO {
             ps.setInt(3, idPedido);
 
             int rows = ps.executeUpdate();
-            if (rows > 0) {
-                LOGGER.info("Pedido actualizado (id=" + idPedido + ")");
-            } else {
+            if (rows < 0) {
                 LOGGER.warning("No se encontró pedido con id=" + idPedido);
             }
         } catch (SQLException e) {
@@ -213,27 +211,50 @@ public class PedidoDAO {
         }
     }
 
+    // ============================================================
+    // SQL: pone el id_usuario en NULL para un pedido concreto
+    // Se usa cuando un usuario es eliminado o se reasigna el pedido
+    // ============================================================
     private static final String UPDATE_ESTADO_PEDIDO_CANCELADO_COMPLETADO_SQL =
             "UPDATE pedidos SET id_usuario = ? WHERE id_pedido = ?";
 
+    /**
+     * Marca el pedido indicado como “huérfano” (sin usuario asignado).
+     * <p>
+     * Este método establece el campo {@code id_usuario = NULL} en la tabla {@code pedidos}
+     * para el registro cuyo {@code id_pedido} coincide con el proporcionado.
+     * Se utiliza normalmente cuando un usuario ha sido eliminado y
+     * sus pedidos deben quedar pendientes de reasignación.
+     *
+     * @param connection conexión activa a la base de datos (no debe ser nula)
+     * @param idPedido   identificador del pedido que se desea actualizar
+     */
     public static void updateEstadoPedidoCanceladoCompletado(Connection connection, int idPedido) {
         if (connection == null) {
-            LOGGER.severe("Conexión nula al actualizar el pedido");
+            LOGGER.severe("No se puede actualizar el pedido: conexión nula recibida.");
             return;
         }
 
+
         try (PreparedStatement ps = connection.prepareStatement(UPDATE_ESTADO_PEDIDO_CANCELADO_COMPLETADO_SQL)) {
+            // Asigna null al id_usuario
             ps.setNull(1, Types.INTEGER);
             ps.setInt(2, idPedido);
 
             int rows = ps.executeUpdate();
-            if (rows > 0) {
-                LOGGER.info("Pedido cancelado/completado (id=" + idPedido + ")");
-            } else {
-                LOGGER.warning("No se encontró pedido con id=" + idPedido);
+
+            if (rows < 0) {
+                LOGGER.warning(() -> String.format("No se encontró ningún pedido con id=%d. No se aplicó actualización.", idPedido));
             }
+
+            LOGGER.fine(() -> "Pedido cancelado/completado (" + idPedido + ") actualizado -> id_usuario = NULL.");
+
+
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error actualizando pedido cancelado/completado (id=" + idPedido + ")", e);
+            LOGGER.log(Level.SEVERE,
+                    String.format("Error al actualizar el pedido cancelado/completado (id=%d): %s",
+                            idPedido, e.getMessage()),
+                    e);
         }
     }
 
@@ -260,7 +281,7 @@ public class PedidoDAO {
 
             int rows = ps.executeUpdate();
             if (rows > 0) {
-                LOGGER.info(String.format("Pedido %d actualizado → id_usuario=%s, hora_salida=%s",
+                LOGGER.fine(String.format("Pedido %d actualizado → id_usuario=%s, hora_salida=%s",
                         idPedido, (idUsuario != null ? idUsuario : "NULL"), horaSalida));
             } else {
                 LOGGER.warning("No se encontró pedido con id=" + idPedido);

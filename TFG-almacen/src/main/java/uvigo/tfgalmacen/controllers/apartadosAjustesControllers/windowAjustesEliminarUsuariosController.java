@@ -181,11 +181,13 @@ public class windowAjustesEliminarUsuariosController {
             if (ok) {
                 alertInfo("Se eliminó el usuario '" + username + "'.");
                 cargarUsernamesYCache();
-            } else {
 
+                Stage stage = (Stage) eliminarUsuario_btn.getScene().getWindow();
+                stage.close();
+            } else {
+                alertWarn("No eliminado", "No se pudo eliminar el usuario porque hay que reasignar algunos pedidos.");
                 abrirVentanaEditarPedido(obtenerPedidosAsignadosAUsuario(username));
 
-                alertWarn("No eliminado", "No se pudo eliminar el usuario (verifica que exista).");
 
             }
         } catch (Exception e) {
@@ -266,6 +268,10 @@ public class windowAjustesEliminarUsuariosController {
             AnchorPane pane = loader.load();
 
             windowActualizarPedidoDeUsuarioEliminadoController controller = loader.getController();
+
+            // tu lógica para “eliminar usuario automáticamente”
+            // por ejemplo:
+            //controller.setOnAllPedidosProcesados(this::onEliminarUsuario);
             controller.setCurrent_username(usernameEliminar_comboBox.getValue());
             controller.setData(pedidos_asignados);
             controller.setUsers(usernameEliminar_comboBox.getValue());
@@ -286,6 +292,7 @@ public class windowAjustesEliminarUsuariosController {
             stage.showAndWait();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana de actualizar de pedidos", e.getStackTrace());
+            e.printStackTrace();
         }
 
     }

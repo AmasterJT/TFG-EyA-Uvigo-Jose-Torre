@@ -101,36 +101,6 @@ public class UsuarioDAO {
                 UPDATE usuarios SET contraseña = ? WHERE user_name = ?
             """;
 
-    public static boolean updatePassword(Connection c, String username, String hashPassword) {
-        try (PreparedStatement ps = c.prepareStatement(SQL_UPDATE_PASSWORD)) {
-            ps.setString(1, hashPassword);
-            ps.setString(2, username);
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("updatePassword: " + e.getMessage());
-            return false;
-        }
-    }
-
-    public static void createUser(Connection connection, String user_name, String nombre, String apellido1, String apellido2, String email, String password, int id_rol) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
-            preparedStatement.setString(1, user_name);
-            preparedStatement.setString(2, nombre);
-            preparedStatement.setString(3, apellido1);
-            preparedStatement.setString(4, apellido2);
-            preparedStatement.setString(5, email);
-            preparedStatement.setString(6, password);
-            preparedStatement.setInt(7, id_rol);
-            preparedStatement.setInt(8, 0);
-
-            int result = preparedStatement.executeUpdate();
-            if (result > 0) {
-                System.out.println("Usuario creado exitosamente.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static boolean createUser(Connection connection, User nuevo_usuario, String password, int id_rol) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
