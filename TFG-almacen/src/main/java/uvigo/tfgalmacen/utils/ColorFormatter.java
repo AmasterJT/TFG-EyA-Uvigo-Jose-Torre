@@ -12,7 +12,7 @@ public class ColorFormatter extends Formatter {
         String color;
 
         switch (record.getLevel().getName()) {
-            case "FINE" -> color = VERDE;
+            case "FINE", "FINEST" -> color = VERDE;
             case "SEVERE" -> color = ROJO;
             case "WARNING" -> color = AMARILLO;
             case "INFO" -> color = CYAN;
@@ -23,7 +23,7 @@ public class ColorFormatter extends Formatter {
         return String.format("%s%s [%s] %s%s%n",
                 color,
                 switch (record.getLevel().getName()) {
-                    case "FINE" -> "✅";
+                    case "FINE", "FINEST" -> "✅";
                     case "SEVERE" -> "❌";
                     case "WARNING" -> "⚠️";
                     case "INFO" -> "ℹ️";

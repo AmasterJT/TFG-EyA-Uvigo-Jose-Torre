@@ -28,7 +28,7 @@
             <TextField fx:id="cantidad_producto" alignment="CENTER" maxWidth="80.0" prefWidth="100.0" promptText="CANTIDAD" styleClass="email-disable" />
          </children>
          <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets left="5.0" right="5.0" />
          </padding>
       </HBox>
    </children>

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-<AnchorPane fx:id="background" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="oc-row-content" stylesheets="@../../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadosAjustesControllers.ItemEditarPedidoController">
+<AnchorPane fx:id="background" prefHeight="46.0" prefWidth="428.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="oc-row-content" stylesheets="@../../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadosAjustesControllers.ItemEditarPedidoController">
     <children>
         <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -19,27 +19,39 @@
                         <Image url="@../../../../icons/product-48.png" />
                     </image>
                 </ImageView>
-                <ComboBox fx:id="combo_producto_editar_pedido" maxWidth="200.0" prefWidth="200.0" promptText="PRODUCTO" styleClass="item-crear-pedido-combo" />
-                <Region maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                <ComboBox fx:id="combo_producto_editar_pedido" disable="true" maxWidth="200.0" prefWidth="160.0" promptText="PRODUCTO" styleClass="item-crear-pedido-combo" />
                 <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../../icons/hashtag-52.png" />
                     </image>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
                 </ImageView>
-                <TextField fx:id="cantidad_producto" alignment="CENTER" maxWidth="80.0" prefHeight="25.0" prefWidth="46.0" promptText="CANTIDAD" styleClass="editar-pedido" />
+                <TextField fx:id="cantidad_producto" alignment="CENTER" disable="true" maxWidth="80.0" prefHeight="25.0" prefWidth="46.0" promptText="CANTIDAD" style="-fx-background-color: white;" styleClass="editar-pedido" />
+                <Region maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                 <Button fx:id="editar_producto_btn" mnemonicParsing="false" styleClass="edit-pedido-btn">
                     <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imagen_editar_producto_btn" fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../../../icons/edit-50.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
+            <Button fx:id="delete_item" mnemonicParsing="false" style="-fx-background-color: #9e3a2c; -fx-background-radius: 15;">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../icons/trash-30.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             </children>
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
         </HBox>
     </children>
 </AnchorPane>

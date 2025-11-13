@@ -103,7 +103,7 @@
     -fx-background-color: transparent;
     -fx-control-inner-background: transparent;
     -fx-background-insets: 0;
-    -fx-padding: 0;
+    -fx-padding: 4 4;
     -fx-border-width: 1;
 
 }
@@ -112,13 +112,13 @@
 .oc-list .list-cell {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-padding: 0; /* el padding lo damos al wrapper */
+    -fx-padding: 4 4; /* el padding lo damos al wrapper */
 }
 
 /* Wrapper del contenido de la fila (tu root del FXML del ítem) */
 .oc-list .list-cell .oc-row-content {
     -fx-background-color: transparent;
-    -fx-padding: 8 10; /* padding visual del item */
+    -fx-padding: 4 4; /* padding visual del item */
     -fx-background-radius: 6;
     -fx-border-radius: 6;
 }
@@ -572,3 +572,15 @@
 
 /* Estado base del botón */
 
+.edit-pedido-btn {
+    -fx-background-color: #db9f75 !important;
+    -fx-text-fill: white;
+    -fx-background-radius: 6; /* opcional */
+    -fx-cursor: hand; /* opcional */
+}
+
+.edit-pedido-btn:hover {
+    -fx-background-color: #e0b295 !important;
+    -fx-background-radius: 6; /* opcional */
+    -fx-cursor: hand; /* opcional */
+}
