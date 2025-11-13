@@ -169,6 +169,10 @@ public class mainController implements Initializable {
         ajustes_crear_pedido_btn.setOnMouseClicked(_ -> abrirVentanaCrearPedido());
         ajustes_crear_pedido_btn.setTooltip(new Tooltip("Crear un nuevo pedido"));
 
+
+        ajustes_eliminar_pedido_btn.setOnMouseClicked(_ -> abrirVentanaEliminarPedido());
+        ajustes_eliminar_pedido_btn.setTooltip(new Tooltip("Eliminar pedidos"));
+
         esconder_ajustes_btn.setOnMouseClicked(_ -> slideMenu(false));
 
         if (cerrarSesionBtn != null) {
@@ -280,7 +284,12 @@ public class mainController implements Initializable {
 
     private void abrirVentanaEditarPedido() {
         Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
-        openWindowAsync(WINDOW_AJUSTES_EDITAR_PEDIDOS_FXML, "editar Pedido", owner);
+        openWindowAsync(WINDOW_AJUSTES_EDITAR_PEDIDOS_FXML, "Editar Pedido", owner);
+    }
+
+    private void abrirVentanaEliminarPedido() {
+        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
+        openWindowAsync(WINDOW_AJUSTES_ELIMINAR_PEDIDOS_FXML, "Eliminar Pedido", owner);
     }
 
 

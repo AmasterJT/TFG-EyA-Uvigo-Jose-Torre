@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-<AnchorPane fx:id="background" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="oc-row-content" stylesheets="@../../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadosAjustesControllers.ItemOrdenCrearPedidoController">
+<AnchorPane fx:id="background" style="-fx-background-radius: 5; -fx-border-radius: 5;" styleClass="oc-row-content" stylesheets="@../../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadosAjustesControllers.ItemOrdenEliminarPedidoController">
     <children>
         <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -18,14 +17,14 @@
                         <Image url="@../../../../icons/product-48.png" />
                     </image>
                 </ImageView>
-                <ComboBox fx:id="combo_producto_eliminar_pedido" maxWidth="200.0" prefWidth="200.0" promptText="PRODUCTO" styleClass="item-crear-pedido-combo" />
+            <Label fx:id="producto_eliminar_pedido" prefWidth="120.0" styleClass="transparent" text="PRODUCTO" textFill="WHITE" />
                 <Region maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                 <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../../icons/hashtag-52.png" />
                     </image>
                 </ImageView>
-                <TextField fx:id="cantidad_producto" alignment="CENTER" maxWidth="80.0" prefWidth="100.0" promptText="CANTIDAD" styleClass="email-disable" />
+            <Label fx:id="cantidad_producto" styleClass="transparent" text="CANTIDAD" textFill="WHITE" />
             </children>
             <padding>
                 <Insets left="5.0" right="5.0" />

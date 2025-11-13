@@ -487,4 +487,6 @@ public class DetallesPedidoDAO {
         LOGGER.info(() -> "Total de detalles eliminados: " + finalTotalEliminados + " de " + idsDetalle.size());
         return totalEliminados;
     }
+
+
 }

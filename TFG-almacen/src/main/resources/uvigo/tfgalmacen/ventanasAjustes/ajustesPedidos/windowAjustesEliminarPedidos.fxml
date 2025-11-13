@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="575.0" prefWidth="427.0" styleClass="principalWindow" stylesheets="@../../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadosAjustesControllers.windowAjustesEliminarPedidosController">
+
+    <children>
+        <BorderPane styleClass="backgroundScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER">
+                            <children>
+                                <Label text="ELIMINAR PEDIDO">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER" prefHeight="590.0" prefWidth="468.0" spacing="15.0" style="-fx-background-color: #222; -fx-background-radius: 10;">
+                            <children>
+                                <HBox alignment="CENTER" spacing="20.0">
+                                    <children>
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <ComboBox fx:id="combo_pedidos_existentes" prefHeight="28.0" prefWidth="200.0" promptText="SELECCIONAR PEDIDO" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <VBox prefWidth="100.0">
+                                            <children>
+                                                <Label style="-fx-text-fill: #db9f75;" text="NOMBRE CLIENTE:" textFill="WHITE" />
+                                                <Label fx:id="cliente_label" text="Cliente A" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="13.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <Region HBox.hgrow="ALWAYS" />
+                                    </children>
+                                    <padding>
+                                        <Insets top="10.0" />
+                                    </padding>
+                                </HBox>
+                                <ListView fx:id="list_productos_del_pedido" prefHeight="423.0" prefWidth="448.0" style="-fx-background-radius: 5; -fx-border-color: #333; -fx-border-radius: 5;">
+                                    <VBox.margin>
+                                        <Insets />
+                                    </VBox.margin>
+                                    <styleClass>
+                                        <String fx:value="transparent" />
+                                        <String fx:value="oc-list" />
+                                    </styleClass>
+                                </ListView>
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </VBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                            <children>
+                                <Button fx:id="eliminar_pedidio_btn" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: -indicador-pedido-cancelado-color;" styleClass="eliminar-pedido-btn" text="ELIMINAR PEDIDO" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../icons/delete-64.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </VBox>
+            </center>
+            <top>
+                <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" styleClass="windowBar" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="exitItem" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </Button>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label contentDisplay="RIGHT" text="TFG JTTP " textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="5.0" />
+                            </HBox.margin>
+                        </Label>
+                        <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../../icons/Logotipo_Universidade_de_Vigo.jpg" />
+                            </image>
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                        </ImageView>
+                    </children>
+                </HBox>
+            </top>
+            <bottom>
+                <AnchorPane prefHeight="20.0" styleClass="windowBar" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0" />
+                    </children>
+                </AnchorPane>
+            </bottom>
+        </BorderPane>
+    </children>
+
+</AnchorPane>

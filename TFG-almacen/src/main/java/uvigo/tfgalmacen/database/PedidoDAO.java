@@ -475,4 +475,28 @@ public class PedidoDAO {
 
         return null;
     }
+
+
+    private static final String DELETE_PEDIDO_BY_ID_SQL =
+            "DELETE FROM pedidos WHERE id_pedido = ?";
+
+    /**
+     * Borra el pedido por id. Devuelve true si se eliminó una fila.
+     */
+    public static boolean deletePedidoById(Connection cn, int idPedido) throws SQLException {
+        if (cn == null) {
+            throw new SQLException("Conexión nula en deletePedidoById");
+        }
+        try (PreparedStatement ps = cn.prepareStatement(DELETE_PEDIDO_BY_ID_SQL)) {
+            ps.setInt(1, idPedido);
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                LOGGER.fine(() -> "Pedido eliminado. id_pedido=" + idPedido);
+                return true;
+            } else {
+                LOGGER.warning(() -> "No existe pedido con id_pedido=" + idPedido);
+                return false;
+            }
+        }
+    }
 }

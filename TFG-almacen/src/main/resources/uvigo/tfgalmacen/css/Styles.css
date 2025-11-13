@@ -584,3 +584,14 @@
     -fx-background-radius: 6; /* opcional */
     -fx-cursor: hand; /* opcional */
 }
+
+
+.eliminar-pedido-btn {
+    -fx-background-color: -indicador-pedido-cancelado-color;
+    -fx-cursor: hand; /* opcional */
+}
+
+.eliminar-pedido-btn:hover {
+    -fx-background-color: -pedido-cancelado-color !important;
+    -fx-cursor: hand; /* opcional */
+}
