@@ -160,7 +160,7 @@ public class Almacen {
 
     }
 
-    public ArrayList<Proveedor> obtenerProveedoresDesdeBD(Connection conn) {
+    public static ArrayList<Proveedor> obtenerProveedoresDesdeBD(Connection conn) {
         ArrayList<Proveedor> proveedores = new ArrayList<>();
         String query = "SELECT id_proveedor, nombre, direccion, telefono, email, nif_cif, " +
                 "contacto, fecha_registro, ultima_actualizacion " +
@@ -463,4 +463,12 @@ public class Almacen {
         return textoBuilder.toString();
     }
 
+
+    public void actualizarAlmacen() {
+        TodosProveedores = obtenerProveedoresDesdeBD(Main.connection);
+        TodosClientes = getAllClientes(Main.connection);
+        TodosProductos = obtenerProductosDesdeBD(Main.connection);
+        TodosPalets = obtenerPaletsDesdeBD(Main.connection);
+        TodosTipos = obtenerTiposDesdeBD(Main.connection);
+    }
 }

@@ -18,7 +18,7 @@
                         <Image url="@../../../../icons/product-48.png" />
                     </image>
                 </ImageView>
-                <ComboBox fx:id="combo_producto_eliminar_pedido" maxWidth="200.0" prefWidth="200.0" promptText="PRODUCTO" styleClass="item-crear-pedido-combo" />
+                <ComboBox fx:id="combo_producto_crear_pedido" maxWidth="200.0" prefWidth="200.0" promptText="PRODUCTO" styleClass="item-crear-pedido-combo" />
                 <Region maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                 <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                     <image>

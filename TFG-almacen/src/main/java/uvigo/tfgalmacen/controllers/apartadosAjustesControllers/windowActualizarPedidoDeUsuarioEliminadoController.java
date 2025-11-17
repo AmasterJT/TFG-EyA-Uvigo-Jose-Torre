@@ -14,7 +14,6 @@ import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.User;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -22,7 +21,6 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.database.PedidoDAO.updateUsuarioYHoraSalidaPedido;
 import static uvigo.tfgalmacen.database.UsuarioDAO.getAllUsers;
 
 public class windowActualizarPedidoDeUsuarioEliminadoController {

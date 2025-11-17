@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -65,11 +64,7 @@ public class mainController implements Initializable {
     @FXML
     private Button ExitButton;
     @FXML
-    private Label MenuBackButton;
-    @FXML
-    private Label MenuButton;
-    @FXML
-    private ImageView ajustesBtn;
+    private Button MenuButton;
     @FXML
     private Button ajustesButton;
     @FXML
@@ -147,8 +142,8 @@ public class mainController implements Initializable {
         recepcionButton.setOnMouseClicked(_ -> loadRecepcionView());
         recepcionButton.setTooltip(new Tooltip("Recepciones previstas"));
 
-        ajustesButton.setOnMouseClicked(_ -> loadAjustesView());
-        ajustesButton.setTooltip(new Tooltip("Ajustes de la aplicación"));
+        MenuButton.setOnMouseClicked(_ -> loadMenu());
+        MenuButton.setTooltip(new Tooltip("Abrir menu"));
 
         orden_compra_btn.setOnMouseClicked(_ -> abrirVentanaOrdenCompra());
         orden_compra_btn.setTooltip(new Tooltip("Crear una orden de compra"));
@@ -322,9 +317,9 @@ public class mainController implements Initializable {
     }
 
     @FXML
-    private void loadAjustesView() {
+    private void loadMenu() {
         slideMenu(sliderVisible);
-        marcarBotonActivo(ajustesButton);
+        marcarBotonActivo(MenuButton);
     }
 
     // ======================= Otros =======================

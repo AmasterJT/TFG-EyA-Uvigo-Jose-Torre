@@ -14,8 +14,6 @@ import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Cliente;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
-import uvigo.tfgalmacen.almacenManagement.Producto;
-import uvigo.tfgalmacen.controllers.ItemOrdenCompraController;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import javafx.beans.binding.Bindings;

@@ -63,7 +63,18 @@
                         </ImageView>
 
                     </HBox>
-                    <HBox fx:id="toolBar" alignment="CENTER" layoutX="80.0" layoutY="-11.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="90.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                    <HBox fx:id="toolBar" alignment="CENTER" layoutX="80.0" layoutY="-11.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="90.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                  <Button fx:id="MenuButton" mnemonicParsing="false" styleClass="menuItem" text="MENU" textFill="WHITE">
+                     <graphic>
+                               <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                   <Image url="@../../icons/menu.png" />
+                               </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="HISTORIAL" textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -77,7 +88,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="MOVIMENTOS" textFill="WHITE">
+                        <Button mnemonicParsing="false" prefWidth="110.0" styleClass="menuItem" text="MOVIMENTOS" textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                     <Image url="@../../icons/add.png" />
@@ -134,30 +145,10 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
+                  <padding>
+                     <Insets left="5.0" />
+                  </padding>
                     </HBox>
-                    <Label fx:id="MenuBackButton" layoutX="15.0" layoutY="44.0" text="MENU" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="40.0">
-                        <graphic>
-                            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                <Image url="@../../icons/menu.png" />
-                            </ImageView>
-                        </graphic>
-                        <font>
-                            <Font name="System Bold" size="12.0" />
-                        </font>
-                    </Label>
-                    <Label fx:id="MenuButton" layoutX="14.0" layoutY="37.0" text="MENU" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="40.0">
-                        <graphic>
-                            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                <Image url="@../../icons/menu.png" />
-                            </ImageView>
-                        </graphic>
-                        <font>
-                            <Font name="System Bold" size="12.0" />
-                        </font>
-                        <cursor>
-                            <Cursor fx:constant="HAND" />
-                        </cursor>
-                    </Label>
                 </children>
             </AnchorPane>
         </top>
@@ -237,7 +228,7 @@
                     <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                     <Button fx:id="ajustesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
                         <graphic>
-                            <ImageView fx:id="ajustesBtn" fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../../icons/setting.png" />
                                 </image>
