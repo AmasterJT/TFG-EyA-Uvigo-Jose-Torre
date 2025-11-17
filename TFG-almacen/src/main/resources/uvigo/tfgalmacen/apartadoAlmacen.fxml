@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="uvigo.tfgalmacen.controllers.almacenController">
+<HBox alignment="CENTER" maxWidth="1400.0" minHeight="-Infinity" minWidth="1400.0" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.almacenController">
     <children>
-        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                    prefHeight="695.0" prefWidth="990.0">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="990.0">
             <children>
-                <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <AnchorPane fx:id="almacenContainer" VBox.vgrow="ALWAYS">
                             <children>
-                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-14.0" layoutY="-8.0"
-                                       styleClass="backgroundScene" text="Page almacen" textFill="WHITE"
-                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-14.0" layoutY="-8.0" styleClass="backgroundScene" text="Page almacen" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <font>
-                                        <Font/>
+                                        <Font />
                                     </font>
                                 </Label>
                             </children>
@@ -36,129 +34,277 @@
         </AnchorPane>
         <VBox alignment="CENTER" fillWidth="false" styleClass="backgroundScene" HBox.hgrow="ALWAYS">
             <children>
-                <AnchorPane fx:id="infoCardAlmacen"
-                            style="-fx-background-color: #2F3A32; -fx-border-radius: 15; -fx-background-radius: 15;"
-                            styleClass="shadow" stylesheets="@css/Styles.css">
-                    <children>
-                        <VBox alignment="CENTER_LEFT" fillWidth="false" spacing="10.0" AnchorPane.bottomAnchor="0.0"
-                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <AnchorPane prefHeight="200.0" prefWidth="320.0"
-                                            style="-fx-border-color: #FFF; -fx-border-width: 4; -fx-border-radius: 15;">
+                  <VBox alignment="CENTER" fillWidth="false" maxWidth="335.0" spacing="10.0" style="-fx-background-color: #2F3A32; -fx-background-radius: 18;">
+                      <children>
+                            <VBox alignment="CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="124.0" prefWidth="319.0" spacing="15.0" style="-fx-border-color: white; -fx-border-radius: 15; -fx-border-width: 4;">
+                                <children>
+                                    <Label stylesheets="@css/Styles.css" text="PALETS:" textFill="WHITE">
+                           <padding>
+                              <Insets bottom="10.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="100.0">
+                           <children>
+                              <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="21.0" stylesheets="@css/Styles.css" text="Tipos Producto" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                                          <ComboBox fx:id="comboTipoAlmacen" prefWidth="150.0" promptText="Tipo de producto">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                           </children>
+                        </HBox>
+                        <HBox maxHeight="1.7976931348623157E308" prefHeight="100.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="21.0" prefWidth="90.0" stylesheets="@css/Styles.css" text="Producto" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                                          <ComboBox fx:id="comboProductoAlmacen" prefWidth="150.0" promptText="Producto">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                           </children>
+                        </HBox>
+                                </children>
+                                <padding>
+                                    <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
+                                </padding>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                            </VBox>
+                  <VBox style="-fx-border-color: white; -fx-border-radius: 15; -fx-border-width: 4;">
+                     <children>
+                                <HBox alignment="CENTER" prefHeight="100.0" spacing="5.0">
                                     <children>
-                                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0"
-                                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                            <children>
-                                                <Label styleClass="texto-label" stylesheets="@css/Styles.css"
-                                                       text="Palets:">
-
-                                                </Label>
-                                                <ComboBox fx:id="comboTipoAlmacen" prefWidth="150.0"
-                                                          promptText="Tipo de producto"/>
-                                                <ComboBox fx:id="comboProductoAlmacen" prefWidth="150.0"
-                                                          promptText="Producto"/>
-                                            </children>
-                                            <padding>
-                                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
-                                            </padding>
-                                        </VBox>
-                                    </children>
-                                </AnchorPane>
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="320.0" spacing="10.0"
-                                      style="-fx-border-color: #FFF; -fx-border-width: 4; -fx-border-radius: 15;">
-                                    <children>
-                                        <VBox alignment="CENTER" spacing="20.0" HBox.hgrow="ALWAYS">
+                                        <VBox alignment="CENTER" maxWidth="100.0" spacing="20.0" HBox.hgrow="ALWAYS">
                                             <children>
                                                 <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
                                                     <children>
-                                                        <Label maxHeight="1.7976931348623157E308"
-                                                               maxWidth="1.7976931348623157E308" prefHeight="21.0"
-                                                               prefWidth="105.0"
-                                                               style="-fx-border-color: white; -fx-border-width: 0 0 1 0;"
-                                                               styleClass="texto-label" stylesheets="@css/Styles.css"
-                                                               text="ID Palet:" HBox.hgrow="ALWAYS"/>
+                                                        <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="21.0" prefWidth="80.0" stylesheets="@css/Styles.css" text="ID Palet:" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets bottom="2.0" top="3.0" />
+                                             </HBox.margin>
+                                          </Label>
                                                     </children>
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
                                                     <children>
-                                                        <Label maxWidth="1.7976931348623157E308" prefHeight="26.0"
-                                                               style="-fx-border-color: white; -fx-border-width: 0 0 1 0;"
-                                                               styleClass="texto-label" stylesheets="@css/Styles.css"
-                                                               text="Producto:" HBox.hgrow="ALWAYS"/>
+                                                        <Label alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="26.0" stylesheets="@css/Styles.css" text="Producto:" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets bottom="2.0" top="3.0" />
+                                             </HBox.margin>
+                                          </Label>
                                                     </children>
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                     <children>
-                                                        <Label maxHeight="26.0" maxWidth="1.7976931348623157E308"
-                                                               prefHeight="26.0" prefWidth="116.0"
-                                                               style="-fx-border-color: white; -fx-border-width: 0 0 1 0;"
-                                                               styleClass="texto-label" stylesheets="@css/Styles.css"
-                                                               text="Tipo Producto:" HBox.hgrow="ALWAYS"/>
+                                                        <Label alignment="CENTER_RIGHT" maxHeight="26.0" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="116.0" stylesheets="@css/Styles.css" text="Tipo Producto:" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets bottom="2.0" top="3.0" />
+                                             </HBox.margin>
+                                          </Label>
                                                     </children>
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
                                                     <children>
-                                                        <Label maxWidth="1.7976931348623157E308" prefHeight="26.0"
-                                                               prefWidth="119.0"
-                                                               style="-fx-border-color: white; -fx-border-width: 0 0 1 0;"
-                                                               styleClass="texto-label" stylesheets="@css/Styles.css"
-                                                               text="Contenido:" HBox.hgrow="ALWAYS"/>
+                                                        <Label alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="119.0" stylesheets="@css/Styles.css" text="Contenido:" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets bottom="2.0" top="3.0" />
+                                             </HBox.margin>
+                                          </Label>
                                                     </children>
                                                 </HBox>
                                             </children>
                                             <HBox.margin>
-                                                <Insets bottom="20.0" left="30.0" right="20.0" top="20.0"/>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </HBox.margin>
                                         </VBox>
                                         <VBox alignment="CENTER" prefHeight="164.0" prefWidth="116.0" spacing="20.0">
                                             <children>
                                                 <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
                                                     <children>
-                                                        <Label fx:id="idPalelLabel" prefHeight="26.0" prefWidth="150.0"
-                                                               text="Label" textFill="WHITE"/>
+                                                        <Label fx:id="idPaletLabel" minWidth="116.0" prefHeight="26.0" prefWidth="150.0" textFill="WHITE">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets bottom="2.0" top="3.0" />
+                                             </HBox.margin></Label>
+                                          <Button fx:id="copy_idpalet_btn" mnemonicParsing="false" styleClass="copy-btn">
+                                             <graphic>
+                                                <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../icons/copy-32.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
                                                     </children>
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
                                                     <children>
-                                                        <Label fx:id="nombreProductoLabel" prefHeight="26.0"
-                                                               prefWidth="150.0" text="Label" textFill="WHITE"/>
+                                                        <Label fx:id="nombreProductoLabel" prefHeight="26.0" prefWidth="150.0" textFill="WHITE">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets bottom="2.0" top="3.0" />
+                                             </HBox.margin></Label>
+                                          <Button fx:id="copy_producto_btn" mnemonicParsing="false" styleClass="copy-btn">
+                                             <graphic>
+                                                <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../icons/copy-32.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
                                                     </children>
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                     <children>
-                                                        <Label fx:id="tipoProductoLabel" prefHeight="26.0"
-                                                               prefWidth="130.0" text="Label" textFill="WHITE"/>
+                                                        <Label fx:id="tipoProductoLabel" prefHeight="26.0" prefWidth="130.0" textFill="WHITE">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets bottom="2.0" top="3.0" />
+                                             </HBox.margin></Label>
+                                          <Button fx:id="copy_tipo_producto_btn" mnemonicParsing="false" styleClass="copy-btn">
+                                             <graphic>
+                                                <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../icons/copy-32.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
                                                     </children>
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
                                                     <children>
-                                                        <Label fx:id="contenidoLabel" prefHeight="26.0"
-                                                               prefWidth="150.0" text="Label" textFill="WHITE"/>
+                                                        <Label fx:id="contenidoLabel" prefHeight="26.0" prefWidth="150.0" textFill="WHITE">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets bottom="2.0" top="3.0" />
+                                             </HBox.margin></Label>
                                                     </children>
                                                 </HBox>
                                             </children>
                                             <HBox.margin>
-                                                <Insets bottom="20.0" right="30.0" top="20.0"/>
+                                                <Insets bottom="10.0" right="10.0" top="10.0" />
                                             </HBox.margin>
                                         </VBox>
                                     </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" top="20.0" />
+                           </VBox.margin>
                                 </HBox>
-                            </children>
-                            <padding>
-                                <Insets left="15.0" right="15.0"/>
-                            </padding>
-                        </VBox>
-                    </children>
-                    <VBox.margin>
-                        <Insets top="30.0"/>
-                    </VBox.margin>
-                    <padding>
-                        <Insets bottom="20.0" top="20.0"/>
-                    </padding>
-                </AnchorPane>
+                        <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label text="E:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="estanteriaLabel" minWidth="15.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Region fx:id="spacer1" HBox.hgrow="ALWAYS" />
+                              <Label text="B:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="baldaLabel" minWidth="15.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Region fx:id="spacer2" HBox.hgrow="ALWAYS" />
+                              <Label text="P:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="posicionLabel" minWidth="15.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <Region fx:id="spacer3" HBox.hgrow="ALWAYS" />
+                              <Label text="Del:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="delanteLabel" minWidth="40.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+                      </children>
+                      <padding>
+                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                      </padding>
+                  </VBox>
             </children>
             <padding>
-                <Insets left="30.0" right="30.0"/>
+                <Insets left="30.0" right="30.0" />
             </padding>
         </VBox>
     </children>

@@ -116,6 +116,9 @@ public class mainController implements Initializable {
     @FXML
     private HBox windowBar;
 
+    @FXML
+    private Button movimiento_btn;
+
     // ======================= Estado =======================
     private Button activeScene = null;
     private boolean sliderVisible = true;
@@ -167,6 +170,10 @@ public class mainController implements Initializable {
 
         ajustes_eliminar_pedido_btn.setOnMouseClicked(_ -> abrirVentanaEliminarPedido());
         ajustes_eliminar_pedido_btn.setTooltip(new Tooltip("Eliminar pedidos"));
+
+
+        movimiento_btn.setOnMouseClicked(_ -> abrirVentanaMovimiento());
+        movimiento_btn.setTooltip(new Tooltip("Mover Palet"));
 
         esconder_ajustes_btn.setOnMouseClicked(_ -> slideMenu(false));
 
@@ -288,6 +295,11 @@ public class mainController implements Initializable {
     private void abrirVentanaEliminarPedido() {
         Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
         openWindowAsync(WINDOW_AJUSTES_ELIMINAR_PEDIDOS_FXML, "Eliminar Pedido", owner);
+    }
+
+    private void abrirVentanaMovimiento() {
+        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
+        openWindowAsync(WINDOW_MOVIMIENTO_FXML, "Movimiento", owner);
     }
 
 

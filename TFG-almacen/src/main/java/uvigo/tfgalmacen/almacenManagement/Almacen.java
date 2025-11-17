@@ -58,7 +58,10 @@ public class Almacen {
      * Número de baldas por estantería.
      */
     public static int NUM_BALDAS_PER_ESTANTERIA = 8;
-
+    /**
+     * Número de posiciones por balda.
+     */
+    public static int POSICIONES_PER_BALDA = 24;
     /**
      * Separación entre elementos del almacén (en metros).
      */
@@ -198,7 +201,7 @@ public class Almacen {
      * @param conn Conexión activa a la base de datos.
      * @return Lista con todos los palets obtenidos.
      */
-    public ArrayList<Palet> obtenerPaletsDesdeBD(Connection conn) {
+    public static ArrayList<Palet> obtenerPaletsDesdeBD(Connection conn) {
         ArrayList<Palet> palets = new ArrayList<>();
         String query = "SELECT * FROM palets";
 
@@ -245,7 +248,7 @@ public class Almacen {
      * @param conn Conexión activa a la base de datos.
      * @return Lista con todos los productos obtenidos.
      */
-    public ArrayList<Producto> obtenerProductosDesdeBD(Connection conn) {
+    public static ArrayList<Producto> obtenerProductosDesdeBD(Connection conn) {
         ArrayList<Producto> productos = new ArrayList<>();
         String query = "SELECT * FROM productos";
 
@@ -282,7 +285,7 @@ public class Almacen {
      * @param conn Conexión activa a la base de datos.
      * @return Lista con todos los tipos obtenidos.
      */
-    public ArrayList<Tipo> obtenerTiposDesdeBD(Connection conn) {
+    public static ArrayList<Tipo> obtenerTiposDesdeBD(Connection conn) {
         ArrayList<Tipo> tipos = new ArrayList<>();
         String query = "SELECT * FROM tipos";
 
@@ -464,7 +467,7 @@ public class Almacen {
     }
 
 
-    public void actualizarAlmacen() {
+    public static void actualizarAlmacen() {
         TodosProveedores = obtenerProveedoresDesdeBD(Main.connection);
         TodosClientes = getAllClientes(Main.connection);
         TodosProductos = obtenerProductosDesdeBD(Main.connection);

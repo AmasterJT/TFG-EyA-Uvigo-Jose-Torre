@@ -33,6 +33,9 @@ public class RutasFicheros {
     public static final String WINDOW_AJUSTES_ACTUALIZAR_PEDIDO_ELIMINAR_USUARIOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesUsuarios/windowActualizarPedidoDeUsuarioEliminado.fxml";
 
 
+    public static final String WINDOW_MOVIMIENTO_FXML = "/uvigo/tfgalmacen/windowMovimientos.fxml";
+
+
     public static final String CSS_COLORS = "/uvigo/tfgalmacen/css/Colors.css";
     public static final String APP_ICON = "/icons/app_icon.png";
 }

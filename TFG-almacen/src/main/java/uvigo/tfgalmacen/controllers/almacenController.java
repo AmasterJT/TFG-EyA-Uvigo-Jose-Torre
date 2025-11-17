@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -14,11 +15,14 @@ import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import uvigo.tfgalmacen.almacenManagement.*;
+import uvigo.tfgalmacen.utils.ClipboardUtils;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static uvigo.tfgalmacen.utils.ClipboardUtils.copyLabelText;
 
 /**
  * Controlador de la vista del almacén en 3D.
@@ -51,12 +55,33 @@ public class almacenController implements Initializable {
     private Label contenidoLabel;
 
     @FXML
-    private Label idPalelLabel;
+    private Label idPaletLabel;
     @FXML
     private Label tipoProductoLabel;
 
     @FXML
     private Label nombreProductoLabel;
+
+    @FXML
+    private Label estanteriaLabel;
+
+    @FXML
+    private Label baldaLabel;
+
+    @FXML
+    private Label posicionLabel;
+
+    @FXML
+    private Label delanteLabel;
+
+    @FXML
+    private Button copy_idpalet_btn;
+
+    @FXML
+    private Button copy_producto_btn;
+
+    @FXML
+    private Button copy_tipo_producto_btn;
 
 
     /**
@@ -65,6 +90,12 @@ public class almacenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cargarVistaAlmacen();
+
+        copy_idpalet_btn.setOnMouseClicked(_ -> copyLabelText(copy_idpalet_btn, idPaletLabel));
+        copy_producto_btn.setOnMouseClicked(_ -> copyLabelText(copy_producto_btn, nombreProductoLabel));
+        copy_tipo_producto_btn.setOnMouseClicked(_ -> copyLabelText(copy_tipo_producto_btn, tipoProductoLabel));
+
+
     }
 
     /**
@@ -336,10 +367,15 @@ public class almacenController implements Initializable {
             if (node instanceof Box) {
                 for (Palet palet : Almacen.TodosPalets) {
                     if (palet.getProductBox() == node) {
-                        idPalelLabel.setText(String.valueOf(palet.getIdPalet()));
+                        idPaletLabel.setText(String.valueOf(palet.getIdPalet()));
                         nombreProductoLabel.setText(palet.getIdProducto());
                         contenidoLabel.setText(palet.getCantidadProducto() + "L");
                         tipoProductoLabel.setText(palet.getIdTipo());
+
+                        estanteriaLabel.setText(String.valueOf(palet.getEstanteria()));
+                        baldaLabel.setText(String.valueOf(palet.getBalda()));
+                        posicionLabel.setText(String.valueOf(palet.getPosicion()));
+                        delanteLabel.setText(palet.isDelante() ? "Delante" : "Detrás");
                         break;
                     }
                 }
