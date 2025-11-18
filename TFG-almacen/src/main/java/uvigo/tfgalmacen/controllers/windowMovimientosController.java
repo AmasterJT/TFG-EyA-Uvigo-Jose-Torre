@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Palet;
+import uvigo.tfgalmacen.almacenManagement.Producto;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 import uvigo.tfgalmacen.utils.ComboFilters;
 
@@ -54,9 +55,6 @@ public class windowMovimientosController implements Initializable {
     private AnchorPane Pane;
 
     @FXML
-    private Label balda_actual_Label;
-
-    @FXML
     private ComboBox<Integer> combo_nueva_balda;
 
     @FXML
@@ -68,14 +66,18 @@ public class windowMovimientosController implements Initializable {
     @FXML
     private ComboBox<Palet> combo_seleccionar_palet;
 
-    @FXML
-    private Label delante_actual_Label;
 
     @FXML
     private Label estanteria_actual_Label;
 
     @FXML
-    private Button generar_compra_btn;
+    private Label balda_actual_Label;
+
+    @FXML
+    private Label posicion_actual_Label;
+
+    @FXML
+    private Label delante_actual_Label;
 
     @FXML
     private Label identificador_producto;
@@ -84,13 +86,11 @@ public class windowMovimientosController implements Initializable {
     private Label identificador_tipo;
 
     @FXML
-    private Label identificador_tipo1;
+    private Button mover_palet_btn;
 
     @FXML
     private CheckBox poner_delante_check;
 
-    @FXML
-    private Label posicion_actual_Label;
 
     @FXML
     private Region spacer1;
@@ -119,6 +119,9 @@ public class windowMovimientosController implements Initializable {
         TodosPalets = Almacen.TodosPalets;
 
         inicializarComboBoxes();
+
+        combo_seleccionar_palet.valueProperty().addListener((obs, oldP, newP) -> actualizarLabelsUbicacionRobusta(newP));
+
     }
 
     private void inicializarComboBoxes() {
@@ -216,9 +219,9 @@ public class windowMovimientosController implements Initializable {
         ComboFilters.makeFilterable(combo_nueva_posicion, posiciones, Object::toString);
 
         // Prompt y selección inicial (opcional)
-        combo_nueva_estanteria.setPromptText("Estantería");
-        combo_nueva_balda.setPromptText("Balda");
-        combo_nueva_posicion.setPromptText("Posición");
+        combo_nueva_estanteria.setPromptText("-");
+        combo_nueva_balda.setPromptText("-");
+        combo_nueva_posicion.setPromptText("-");
 
         combo_nueva_estanteria.getSelectionModel().clearSelection();
         combo_nueva_balda.getSelectionModel().clearSelection();
@@ -236,5 +239,85 @@ public class windowMovimientosController implements Initializable {
         });
     }
 
+
+    // -------- Helpers robustos --------
+    private Integer getIntViaReflection(Object o, String... methods) {
+        for (String m : methods) {
+            try {
+                var mm = o.getClass().getMethod(m);
+                Object v = mm.invoke(o);
+                if (v instanceof Number n) return n.intValue();
+            } catch (Exception ignored) {
+            }
+        }
+        return null;
+    }
+
+    private Boolean getBoolViaReflection(Object o, String... methods) {
+        for (String m : methods) {
+            try {
+                var mm = o.getClass().getMethod(m);
+                Object v = mm.invoke(o);
+                if (v instanceof Boolean b) return b;
+            } catch (Exception ignored) {
+            }
+        }
+        return null;
+    }
+
+    private String getStringViaReflection(Object o, String... methods) {
+        for (String m : methods) {
+            try {
+                var mm = o.getClass().getMethod(m);
+                Object v = mm.invoke(o);
+                if (v != null) return String.valueOf(v);
+            } catch (Exception ignored) {
+            }
+        }
+        return null;
+    }
+
+    // -------- Volcado a etiquetas (robusto) --------
+    private void actualizarLabelsUbicacionRobusta(Palet p) {
+        if (p == null) {
+            estanteria_actual_Label.setText("-");
+            balda_actual_Label.setText("-");
+            posicion_actual_Label.setText("-");
+            delante_actual_Label.setText("-");
+            identificador_producto.setText("-");
+            identificador_tipo.setText("-");
+            LOGGER.fine("No hay palet seleccionado; etiquetas reiniciadas (reflexión).");
+            return;
+        }
+
+        Integer est = getIntViaReflection(p, "getEstanteria", "getNumEstanteria", "getRack");
+        Integer bal = getIntViaReflection(p, "getBalda", "getShelf", "getNumBalda");
+        Integer pos = getIntViaReflection(p, "getPosicion", "getSlot", "getNumPosicion");
+        Boolean del = getBoolViaReflection(p, "isDelante", "getDelante", "isFront");
+        String idProd = getStringViaReflection(p, "getIdProducto", "getProductoId", "getProducto", "getIdentificador");
+        String tipo = getStringViaReflection(p, "getIdTipo", "getTipoProducto", "getProductoTipo", "getIdentificadorTipo");
+
+        for (Producto pro : Almacen.TodosProductos) {
+            if (pro.getIdentificadorProducto().equals(idProd)) {
+                tipo = pro.getIdTipo();
+            }
+        }
+
+        estanteria_actual_Label.setText(est != null ? String.valueOf(est) : "-");
+        balda_actual_Label.setText(bal != null ? String.valueOf(bal) : "-");
+        posicion_actual_Label.setText(pos != null ? String.valueOf(pos) : "-");
+        delante_actual_Label.setText(del != null ? (del ? "Sí" : "No") : "-");
+        identificador_producto.setText(idProd != null ? idProd : "-");
+        identificador_tipo.setText(tipo != null ? tipo : "-");
+
+        String finalTipo = tipo;
+        LOGGER.info(() -> "Ubicación palet " + p.getIdPalet() +
+                " -> est:" + (est != null ? est : "?") +
+                ", balda:" + (bal != null ? bal : "?") +
+                ", pos:" + (pos != null ? pos : "?") +
+                ", delante:" + (del != null ? del : "?") +
+                ", prod:" + (idProd != null ? idProd : "?") +
+                ", tipo:" + (finalTipo != null ? finalTipo : "?"));
+    }
 
 }

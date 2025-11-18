@@ -21,7 +21,7 @@ public class Palet {
 
     public int ANCHO_BALDA = Almacen.ANCHO_BALDA, SEPARACION_ENTRE_BALDAS = Almacen.SEPARACION_ENTRE_BALDAS, BORDE = Almacen.BORDE, ALTO_BALDA = Almacen.ALTO_BALDA;
 
-    // estas variables guardan la posicion del plaet y el producto qque son objetos graficos de tipo Box en javaFX
+    // estas variables guardan la posicion del palet y el producto que son objetos graficos de tipo Box en javaFX
     private Box paletBox, productBox;
 
 
