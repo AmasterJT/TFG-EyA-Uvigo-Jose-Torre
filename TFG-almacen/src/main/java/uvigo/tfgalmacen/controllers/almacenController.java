@@ -1,12 +1,11 @@
 package uvigo.tfgalmacen.controllers;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -18,9 +17,7 @@ import uvigo.tfgalmacen.almacenManagement.*;
 import uvigo.tfgalmacen.utils.ClipboardUtils;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static uvigo.tfgalmacen.utils.ClipboardUtils.copyLabelText;
 
@@ -40,6 +37,21 @@ public class almacenController implements Initializable {
     private PerspectiveCamera camara;
 
     public final ArrayList<String> todosLosProductos = new ArrayList<>();
+
+
+    // número total de estanterías (usa tu fuente real)
+    private final int NUM_ESTANTERIAS = Almacen.NUM_ESTANTERIAS;
+
+    // Context menu para filtrar estanterías
+    private final ContextMenu estanteriasMenu = new ContextMenu();
+
+    // Estanterías que se muestran actualmente (ej: 1,2,3,...)
+    private final Set<Integer> estanteriasVisibles = new HashSet<>();
+
+    // Mapa de id_palet -> nodo 3D (ajusta al tuyo)
+    private final Map<Integer, List<Node>> nodoPaletPorId = new HashMap<>();
+    private final Map<Integer, List<Node>> baldasPorEstanteria = new HashMap<>();
+
 
     @FXML
     private AnchorPane almacenContainer;
@@ -95,8 +107,101 @@ public class almacenController implements Initializable {
         copy_producto_btn.setOnMouseClicked(_ -> copyLabelText(copy_producto_btn, nombreProductoLabel));
         copy_tipo_producto_btn.setOnMouseClicked(_ -> copyLabelText(copy_tipo_producto_btn, tipoProductoLabel));
 
+        initContextMenuEstanterias();
+        hookContextMenuEnVista3D();
 
     }
+
+    private void initContextMenuEstanterias() {
+        estanteriasMenu.getItems().clear();
+        estanteriasVisibles.clear();
+
+        for (int est = 1; est <= NUM_ESTANTERIAS; est++) {
+            CheckMenuItem item = new CheckMenuItem("Estantería " + est);
+            item.setUserData(est);
+            item.setSelected(true);                 // por defecto todas visibles
+            estanteriasVisibles.add(est);
+
+            item.selectedProperty().addListener((obs, wasSel, isSel) -> {
+                int idEst = (Integer) item.getUserData();
+                if (isSel) {
+                    estanteriasVisibles.add(idEst);
+                } else {
+                    estanteriasVisibles.remove(idEst);
+                }
+                aplicarFiltros3D();
+            });
+
+            estanteriasMenu.getItems().add(item);
+        }
+    }
+
+
+    private void hookContextMenuEnVista3D() {
+        // Usa el nodo donde quieres abrir el menú (SubScene, AnchorPane, etc.)
+        Node target = subEscena; // cámbialo si tu nodo se llama distinto
+
+        target.setOnContextMenuRequested(evt -> {
+            estanteriasMenu.show(target, evt.getScreenX(), evt.getScreenY());
+            evt.consume();
+        });
+    }
+
+    private void aplicarFiltros3D() {
+        // Primero palets y productos
+        String productoSeleccionado = comboProductoAlmacen.getValue();
+
+        for (Palet p : Almacen.TodosPalets) {
+            List<Node> nodos = nodoPaletPorId.get(p.getIdPalet());
+            if (nodos == null || nodos.size() < 2) continue;
+
+            Node palet = nodos.get(0);
+            Node producto = nodos.get(1);
+
+            boolean visiblePorEstanteria = estanteriasVisibles.contains(p.getEstanteria());
+            //&& (p.getProducto().getIdTipo().equals(comboTipoAlmacen.getValue()));
+            //&& (!p.getProducto().getIdentificadorProducto().equals(comboTipoAlmacen.getValue()) || comboTipoAlmacen.getValue().equals("Todos"));
+
+            boolean visiblePorTipo = comboTipoAlmacen.getValue().equals("Todos") ||
+                    p.getProducto().getIdTipo().equals(comboTipoAlmacen.getValue());
+
+            boolean visiblePorProducto = comboProductoAlmacen.getValue().equals("Todos") ||
+                    p.getProducto().getIdentificadorProducto().equals(comboProductoAlmacen.getValue());
+
+
+            boolean visiblePorOtrosFiltros = !cumpleFiltrosAdicionales(p);
+
+
+            boolean visible = visiblePorEstanteria && visiblePorTipo && visiblePorProducto;
+
+            palet.setVisible(visible);
+            producto.setVisible(visible);
+        }
+
+        // Después baldas, una sola vez por estantería
+        for (var entry : baldasPorEstanteria.entrySet()) {
+            int estanteria = entry.getKey();
+            boolean visibleEst = estanteriasVisibles.contains(Almacen.NUM_ESTANTERIAS + 1 - estanteria);
+
+            for (Node balda : entry.getValue()) {
+                balda.setVisible(visibleEst);
+            }
+        }
+    }
+
+    /**
+     * Aquí puedes meter el filtro por producto / cliente que ya uses
+     * en tus ComboBox. De momento devuelvo true para no romper nada.
+     */
+    private boolean cumpleFiltrosAdicionales(Palet p) {
+        // Ejemplo (si tienes comboProducto, comboCliente, etc.)
+        // return filtroProductoOk(p) && filtroClienteOk(p) && filtroEstadoOk(p);
+
+        return true;
+    }
+
+
+    SubScene subEscena;
 
     /**
      * Carga y muestra el almacén en la vista.
@@ -108,7 +213,7 @@ public class almacenController implements Initializable {
         almacen.GenerarAlmacen();
 
         // Se crea una instancia nueva que contiene la SubScene con todo renderizado
-        SubScene subEscena = this.crearVistaAlmacen(almacen);
+        subEscena = this.crearVistaAlmacen(almacen);
 
         subEscena.setOnMouseEntered(_ -> subEscena.requestFocus());
 
@@ -154,12 +259,14 @@ public class almacenController implements Initializable {
 
         // Crear baldas y añadir palets a cada una
         for (int k = 0; k < 4; k++) {
+
+            List<Node> baldasEst = baldasPorEstanteria.computeIfAbsent(k + 1, _ -> new ArrayList<>());
             //int offsetEstanteria = (k >= 2) ? 3700 : 0;
             for (int i = 0; i < 8; i++) {
                 //Box balda = MisElementoGraficos.CreaParalelepipedo(3600, 100, 36300, 0, -6300 * k + offsetEstanteria, 2000 * i, Color.web("#2F3A32"));
                 Box balda = MisElementoGraficos.CreaParalelepipedo(3350, 100, 36300, 0, -6300 * k, 2000 * i, Color.web("#2F3A32"));
                 if (gruposBaldas[k].getChildren().size() <= 7) gruposBaldas[k].getChildren().add(balda);
-
+                baldasEst.add(balda);
                 // Agrega palets adelante y atrás
                 for (int j = 0; j < 24; j++) {
                     for (boolean esDelante : new boolean[]{true, false}) {
@@ -171,6 +278,11 @@ public class almacenController implements Initializable {
                             palet.setPaletBox(paletBox);
                             palet.setProductBox(productoBox);
                             gruposPalets[k].getChildren().addAll(paletBox, productoBox);
+
+
+                            nodoPaletPorId.put(palet.getIdPalet(), List.of(paletBox, productoBox));
+
+
                         }
                     }
                 }
@@ -413,7 +525,7 @@ public class almacenController implements Initializable {
 
     private void actualizarVisibilidadPorTipo(String tipoSeleccionado) {
         for (Palet palet : Almacen.TodosPalets) {
-            boolean visible = palet.getIdTipo().equals(tipoSeleccionado);
+            boolean visible = palet.getIdTipo().equals(tipoSeleccionado) && estanteriasVisibles.contains(palet.getEstanteria());
             palet.getProductBox().setVisible(visible);
             palet.getPaletBox().setVisible(visible);
         }
@@ -433,8 +545,9 @@ public class almacenController implements Initializable {
 
     private void mostrarTodosPalets() {
         for (Palet palet : Almacen.TodosPalets) {
-            palet.getProductBox().setVisible(true);
-            palet.getPaletBox().setVisible(true);
+            boolean visible = estanteriasVisibles.contains(palet.getEstanteria());
+            palet.getProductBox().setVisible(visible);
+            palet.getPaletBox().setVisible(visible);
         }
     }
 
@@ -450,14 +563,14 @@ public class almacenController implements Initializable {
                     }
 
                     for (Palet palet : Almacen.TodosPalets) {
-                        boolean visible = palet.getIdProducto().equals(productoSeleccionado);
+                        boolean visible = palet.getIdProducto().equals(productoSeleccionado) && estanteriasVisibles.contains(palet.getEstanteria());
                         palet.getProductBox().setVisible(visible);
                         palet.getPaletBox().setVisible(visible);
                     }
                 } else {
                     String tipoSeleccionado = comboTipoAlmacen.getSelectionModel().getSelectedItem();
                     for (Palet palet : Almacen.TodosPalets) {
-                        boolean visible = palet.getIdTipo().equals(tipoSeleccionado);
+                        boolean visible = palet.getIdTipo().equals(tipoSeleccionado) && estanteriasVisibles.contains(palet.getEstanteria());
                         palet.getProductBox().setVisible(visible);
                         palet.getPaletBox().setVisible(visible);
                     }
@@ -489,3 +602,5 @@ public class almacenController implements Initializable {
         }
     }
 }
+
+
