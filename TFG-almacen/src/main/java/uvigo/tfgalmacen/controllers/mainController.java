@@ -254,6 +254,43 @@ public class mainController implements Initializable {
         FX_BG_EXEC.submit(task);
     }
 
+    private void openWindowAsyncCallback(String fxmlPath, String title, Stage owner, Runnable afterClose) {
+        Task<Parent> task = new Task<>() {
+            @Override
+            protected Parent call() throws Exception {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+                return loader.load();
+            }
+        };
+
+        task.setOnSucceeded(_ -> {
+            Parent root = task.getValue();
+            Stage win = crearStageBasico(root, true, title);
+            if (owner != null) {
+                win.initOwner(owner);
+                win.initModality(Modality.WINDOW_MODAL);
+                win.initStyle(StageStyle.TRANSPARENT);
+            }
+
+            // Cuando se cierre la ventana, ejecutamos el callback
+            win.setOnHidden(e -> {
+                if (afterClose != null) {
+                    afterClose.run();
+                }
+            });
+
+            win.showAndWait();
+            LOGGER.fine(() -> "Ventana abierta: " + title);
+        });
+
+        task.setOnFailed(_ -> {
+            Throwable ex = task.getException();
+            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana: " + title, ex);
+            ex.printStackTrace();
+        });
+
+        FX_BG_EXEC.submit(task);
+    }
 
     // ======================= Acciones UI =======================
 
@@ -299,7 +336,7 @@ public class mainController implements Initializable {
 
     private void abrirVentanaMovimiento() {
         Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
-        openWindowAsync(WINDOW_MOVIMIENTO_FXML, "Movimiento", owner);
+        openWindowAsyncCallback(WINDOW_MOVIMIENTO_FXML, "Movimiento", owner, this::loadAlmacenView);   // callback que se ejecuta al cerrar);
     }
 
 

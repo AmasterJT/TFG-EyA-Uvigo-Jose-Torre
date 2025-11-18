@@ -28,7 +28,7 @@
                               <Image url="@../../icons/location-pin-24.png" />
                            </image>
                         </ImageView>
-                                <Label text="MOVER PALET A NUEVA UBICACION">
+                                <Label text="MOVER PALET A NUEVA UBICACIÓN">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
@@ -190,6 +190,19 @@
                           </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="15.0">
                             <children>
+                        <Button fx:id="eliminar_palet_btn" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: -indicador-pedido-cancelado-color;" styleClass="eliminar-pedido-btn" text="ELIMINAR PALET" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/delete-64.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Region HBox.hgrow="ALWAYS" />
                                 <Button fx:id="mover_palet_btn" mnemonicParsing="false" prefHeight="30.0" styleClass="generar_compra" text="MOVER PALET" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="12.0" />

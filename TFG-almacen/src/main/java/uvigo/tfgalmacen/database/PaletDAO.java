@@ -1,116 +1,175 @@
 package uvigo.tfgalmacen.database;
 
-import uvigo.tfgalmacen.almacenManagement.Palet;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PaletDAO {
 
-    // Crear palet
-    private static final String INSERT_PALET_SQL = "INSERT INTO palets (id_producto, cantidad, estanteria, balda, posicion) VALUES (?, ?, ?, ?, ?)";
+    private static final Logger LOGGER = Logger.getLogger(PaletDAO.class.getName());
 
-    public static void createPalet(Connection connection, int id_producto, int cantidad, int estanteria, int balda, int posicion) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PALET_SQL)) {
-            preparedStatement.setInt(1, id_producto);
-            preparedStatement.setInt(2, cantidad);
-            preparedStatement.setInt(3, estanteria);
-            preparedStatement.setInt(3, balda);
-            preparedStatement.setInt(3, posicion);
+    static {
+        LOGGER.setLevel(Level.ALL);
+        LOGGER.setUseParentHandlers(false);
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);
+        ch.setFormatter(new ColorFormatter());
+        LOGGER.addHandler(ch);
 
-
-            int result = preparedStatement.executeUpdate();
-            if (result > 0) {
-                System.out.println("Palet creado exitosamente.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL);
         }
     }
 
-    // Leer palets
-    private static final String SELECT_ALL_PALETS_SQL = "SELECT * FROM palets";
+    private static final String SQL_GET_ID_BY_IDENT =
+            "SELECT id_palet FROM palets WHERE identificador = ?";
 
-    public static void readPalets(Connection connection) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PALETS_SQL)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
+    private static final String SQL_COUNT_OCCUPANCY_EXCLUDING_ID =
+            "SELECT COUNT(*) FROM palets " +
+                    "WHERE estanteria = ? AND balda = ? AND posicion = ? AND delante = ? " +
+                    "AND id_palet <> ?";
 
-            while (resultSet.next()) {
-                int id_palet = resultSet.getInt("id_palet");
-                int id_producto = resultSet.getInt("id_producto");
-                int cantidad = resultSet.getInt("cantidad");
-                String ubicacion = resultSet.getString("ubicacion");
+    private static final String SQL_UPDATE_POSITION =
+            "UPDATE palets SET estanteria = ?, balda = ?, posicion = ?, delante = ? " +
+                    "WHERE id_palet = ?";
 
-                System.out.println("ID: " + id_palet + ", Producto ID: " + id_producto + ", Cantidad: " + cantidad + ", Ubicación: " + ubicacion);
+    /**
+     * Mueve el palet identificado a una nueva ubicación si no está ocupada por otro palet.
+     *
+     * @param conn          conexión JDBC abierta (no nula)
+     * @param identificador identificador único del palet (columna palets.identificador)
+     * @param estanteria    nueva estantería destino
+     * @param balda         nueva balda destino
+     * @param posicion      nueva posición destino
+     * @param delante       nueva bandera "delante" destino
+     * @return true si se actualizó la ubicación; false si la ubicación está ocupada, el palet no existe,
+     * o no se pudo actualizar.
+     */
+    public static boolean updateUbicacionSiLibre(Connection conn,
+                                                 String identificador,
+                                                 int estanteria,
+                                                 int balda,
+                                                 int posicion,
+                                                 boolean delante) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en updateUbicacionSiLibre");
+            return false;
+        }
+        if (identificador == null || identificador.isBlank()) {
+            LOGGER.warning("Identificador vacío/nulo en updateUbicacionSiLibre");
+            return false;
+        }
+
+        boolean oldAutoCommit = true;
+        try {
+            oldAutoCommit = conn.getAutoCommit();
+            conn.setAutoCommit(false);
+
+            // 1) Obtener id del palet
+            Integer idPalet = null;
+            try (PreparedStatement ps = conn.prepareStatement(SQL_GET_ID_BY_IDENT)) {
+                ps.setString(1, identificador);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        idPalet = rs.getInt(1);
+                    }
+                }
             }
+            if (idPalet == null) {
+                LOGGER.warning("No existe palet con identificador=" + identificador);
+                conn.rollback();
+                return false;
+            }
+
+            // 2) Verificar ocupación en destino (excluyendo el mismo palet)
+            int ocupados = 0;
+            try (PreparedStatement ps = conn.prepareStatement(SQL_COUNT_OCCUPANCY_EXCLUDING_ID)) {
+                ps.setInt(1, estanteria);
+                ps.setInt(2, balda);
+                ps.setInt(3, posicion);
+                ps.setBoolean(4, delante);
+                ps.setInt(5, idPalet);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) ocupados = rs.getInt(1);
+                }
+            }
+
+            if (ocupados > 0) {
+                Integer finalIdPalet = idPalet;
+                LOGGER.info(() -> String.format(
+                        "Ubicación ocupada (est:%d, bal:%d, pos:%d, delante:%s). No se mueve el palet %s (id=%d).",
+                        estanteria, balda, posicion, delante, identificador, finalIdPalet
+                ));
+                conn.rollback();
+                return false;
+            }
+
+            // 3) Actualizar posición
+            int updated;
+            try (PreparedStatement ps = conn.prepareStatement(SQL_UPDATE_POSITION)) {
+                ps.setInt(1, estanteria);
+                ps.setInt(2, balda);
+                ps.setInt(3, posicion);
+                ps.setBoolean(4, delante);
+                ps.setInt(5, idPalet);
+                updated = ps.executeUpdate();
+            }
+
+            if (updated == 1) {
+                conn.commit();
+                Integer finalIdPalet1 = idPalet;
+                LOGGER.info(() -> String.format(
+                        "Palet %s (id=%d) movido a est:%d, bal:%d, pos:%d, delante:%s",
+                        identificador, finalIdPalet1, estanteria, balda, posicion, delante
+                ));
+                return true;
+            } else {
+                conn.rollback();
+                Integer finalIdPalet2 = idPalet;
+                LOGGER.warning(() -> String.format(
+                        "No se actualizó la ubicación del palet %s (id=%d).",
+                        identificador, finalIdPalet2
+                ));
+                return false;
+            }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException ignore) {
+            }
+            LOGGER.log(Level.SEVERE, "Error moviendo palet identificador=" + identificador, e);
+            return false;
+        } finally {
+            try {
+                conn.setAutoCommit(oldAutoCommit);
+            } catch (SQLException ignore) {
+            }
         }
     }
 
-    public static List<Palet> getAllPalets(Connection connection) {
-        List<Palet> palets = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PALETS_SQL)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
+    private static final String DELETE_PALET_BY_IDENTIFICADOR_SQL = "DELETE FROM palets WHERE identificador = ?";
 
-                palets.add(new Palet(String.valueOf(resultSet.getInt("alto")),
-                        String.valueOf(resultSet.getInt("ancho")),
-                        String.valueOf(resultSet.getInt("largo")),
-
-                        resultSet.getString("id_producto"),
-                        String.valueOf(resultSet.getInt("cantidad_de_producto")),
-
-                        resultSet.getString("identificador"),
-
-                        resultSet.getInt("estanteria"),
-                        resultSet.getInt("balda"),
-                        String.valueOf(resultSet.getInt("posicion")),
-                        String.valueOf(resultSet.getBoolean("delante"))));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static void deletePaletByIdentificador(Connection cn, int identificadorPalet) throws SQLException {
+        if (cn == null) {
+            throw new SQLException("Conexión nula en deletePedidoById");
         }
-        return palets;
-    }
-
-    // Actualizar palet
-    private static final String UPDATE_PALET_SQL = "UPDATE palets SET id_producto = ?, cantidad = ?, ubicacion = ? WHERE id_palet = ?";
-
-    public static void updatePalet(Connection connection, int id_palet, int id_producto, int cantidad, String ubicacion) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PALET_SQL)) {
-            preparedStatement.setInt(1, id_producto);
-            preparedStatement.setInt(2, cantidad);
-            preparedStatement.setString(3, ubicacion);
-            preparedStatement.setInt(4, id_palet);
-
-            int result = preparedStatement.executeUpdate();
-            if (result > 0) {
-                System.out.println("Palet actualizado exitosamente.");
+        try (PreparedStatement ps = cn.prepareStatement(DELETE_PALET_BY_IDENTIFICADOR_SQL)) {
+            ps.setInt(1, identificadorPalet);
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                LOGGER.fine(() -> "Palet eliminado. identificador=" + identificadorPalet);
+            } else {
+                LOGGER.warning(() -> "No existe palet con identificador=" + identificadorPalet);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    // Eliminar palet
-    private static final String DELETE_PALET_SQL = "DELETE FROM palets WHERE id_palet = ?";
 
-    public static void deletePalet(Connection connection, int id_palet) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PALET_SQL)) {
-            preparedStatement.setInt(1, id_palet);
-
-            int result = preparedStatement.executeUpdate();
-            if (result > 0) {
-                System.out.println("Palet eliminado exitosamente.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

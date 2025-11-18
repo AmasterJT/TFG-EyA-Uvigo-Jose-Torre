@@ -98,7 +98,6 @@ public class windowAjustesEditarPedidosController {
         });
 
         inicializarComboBoxes();
-        // ... tus checks de inyección y resto de código ...
 
         configurarListViewConMenuContextual();
 
