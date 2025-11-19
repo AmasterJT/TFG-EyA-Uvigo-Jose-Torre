@@ -1,15 +1,13 @@
 package uvigo.tfgalmacen.utils;
 
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 
 import java.util.logging.*;
 
 import javafx.animation.FadeTransition;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.util.Duration;
@@ -78,15 +76,53 @@ public class ClipboardUtils {
 
             LOGGER.info(() -> "Texto copiado al portapapeles: \"" + texto.trim() + "\"");
 
-            mostrarTooltip(boton, "Texto copiado ✅");
+            mostrarTooltip(boton, "✅ Copiado");
             animacionConfirmacion(boton);
 
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "Error copiando texto al portapapeles", ex);
-            mostrarTooltip(boton, "Error al copiar");
+            mostrarTooltip(boton, "❌ Error al copiar");
             animacionError(boton);
         }
     }
+
+
+    public static void copyLabelText(Button boton, TextField textField) {
+        if (textField == null) {
+            LOGGER.severe("Label nulo: no se puede copiar texto.");
+            mostrarTooltip(boton, "Error: Label no encontrado");
+            return;
+        }
+
+        String texto = textField.getText();
+
+        // Validar contenido
+        if (texto == null || texto.trim().isEmpty()) {
+            LOGGER.warning("El Label no contiene texto para copiar.");
+            mostrarTooltip(boton, "Nada que copiar");
+            animacionError(boton);
+            return;
+        }
+
+        try {
+            // Copiado al portapapeles del sistema
+            Clipboard clipboard = Clipboard.getSystemClipboard();
+            ClipboardContent content = new ClipboardContent();
+            content.putString(texto.trim());
+            clipboard.setContent(content);
+
+            LOGGER.info(() -> "Texto copiado al portapapeles: \"" + texto.trim() + "\"");
+
+            mostrarTooltip(boton, "✅ Copiado");
+            animacionConfirmacion(boton);
+
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error copiando texto al portapapeles", ex);
+            mostrarTooltip(boton, "❌ Error al copiar");
+            animacionError(boton);
+        }
+    }
+
 
     /**
      * Muestra un Tooltip temporal sobre el botón.

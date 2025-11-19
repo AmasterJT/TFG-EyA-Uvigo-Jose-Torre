@@ -1,6 +1,7 @@
 package uvigo.tfgalmacen.database;
 
 import uvigo.tfgalmacen.User;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +9,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UsuarioDAO {
+
+
+    private static final Logger LOGGER = Logger.getLogger(UsuarioDAO.class.getName());
+
+    static {
+        LOGGER.setLevel(Level.ALL);
+        LOGGER.setUseParentHandlers(false);
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);
+        ch.setFormatter(new ColorFormatter());
+        LOGGER.addHandler(ch);
+
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL);
+        }
+    }
+
 
     // Crear usuario
     private static final String INSERT_USER_SQL = "INSERT INTO usuarios (user_name, nombre, apellido1, apellido2, email, contraseña, id_rol, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -446,6 +469,49 @@ public class UsuarioDAO {
             return n > 0;
         }
         // No catch aquí: dejamos que la SQLException suba al caller
+    }
+
+
+    private static final String UPDATE_PASSWORD_SQL =
+            "UPDATE usuarios SET contraseña = ? WHERE id_usuario = ?";
+
+    /**
+     * Actualiza la contraseña de un usuario.
+     *
+     * @param connection conexión activa a la base de datos
+     * @param idUsuario  id del usuario al que se le cambia la contraseña
+     * @param nuevaPass  nueva contraseña en texto plano (o ya hasheada, según tu diseño)
+     * @return true si se actualizó exactamente 1 fila; false en caso contrario
+     */
+    public static boolean actualizarContrasena(Connection connection, int idUsuario, String nuevaPass) {
+        if (connection == null) {
+            LOGGER.severe("Conexión nula en actualizarContrasena");
+            return false;
+        }
+        if (nuevaPass == null || nuevaPass.isBlank()) {
+            LOGGER.warning("Contraseña vacía o nula en actualizarContrasena (id_usuario=" + idUsuario + ")");
+            return false;
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(UPDATE_PASSWORD_SQL)) {
+            ps.setString(1, nuevaPass);
+            ps.setInt(2, idUsuario);
+
+            int rows = ps.executeUpdate();
+            if (rows == 1) {
+                LOGGER.info("Contraseña actualizada correctamente para id_usuario=" + idUsuario);
+                return true;
+            } else if (rows == 0) {
+                LOGGER.warning("No se encontró usuario con id_usuario=" + idUsuario + ". No se actualizó contraseña.");
+                return false;
+            } else {
+                LOGGER.warning("Se actualizaron " + rows + " filas al cambiar contraseña de id_usuario=" + idUsuario);
+                return false;
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al actualizar la contraseña para id_usuario=" + idUsuario, e);
+            return false;
+        }
     }
 
 }

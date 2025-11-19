@@ -15,26 +15,18 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="695.0" prefWidth="1400.0" styleClass="backgroundScene" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.pedidosController">
     <children>
         <VBox prefHeight="695.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox>
-                    <children>
-                        <Button fx:id="ver_detalles_pedido_btn" mnemonicParsing="false" text="VER PEDIDOS" />
-                    </children>
-                </HBox>
+                <HBox />
                 <HBox alignment="CENTER" prefWidth="1400.0" spacing="10.0">
                     <children>
                         <VBox alignment="CENTER" prefHeight="670.0" prefWidth="650.0">
                             <children>
-                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-radius: 15 15 0 0; -fx-border-radius: 15 15 0 0; -fx-border-width: 3 3 0 3; -fx-border-color: #3E2411;" styleClass="pendientePedido" text="PEDIDIOS PENDIENTES" textAlignment="CENTER" textFill="WHITE">
-                                    <padding>
-                                        <Insets top="10.0" />
-                                    </padding>
-                                </Label>
-                                <HBox alignment="BASELINE_CENTER" style="-fx-border-width: 0 3 0 3; -fx-border-color: #3E2411;" styleClass="pendientePedido">
+                                <HBox alignment="TOP_CENTER" style="-fx-border-width: 3 3 0 3; -fx-border-color: #3E2411; -fx-border-radius: 15 15 0 0; -fx-background-radius: 15 15 0 0;" styleClass="pendientePedido">
                                     <children>
                                         <Button fx:id="clear_pendientes_btn" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="copy-btn">
                                             <HBox.margin>
@@ -51,6 +43,19 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                                         </Button>
+                              <Region maxHeight="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="pedido-tittle-lable" text="PEDIDOS PENDIENTES" textAlignment="CENTER" textFill="WHITE">
+                                 <graphic>
+                                    <ImageView fitHeight="150.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/list-80-white.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
                                         <Region maxHeight="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                                         <Button fx:id="ver_detalles_pedido_pendiente_btn" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="copy-btn">
                                             <HBox.margin>
@@ -69,12 +74,15 @@
                                         </Button>
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" />
+                                        <Insets bottom="5.0" top="10.0" />
                                     </padding>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                                 </HBox>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-radius: 0 0 15 15; -fx-border-width: 0 3 3 3; -fx-border-color: #3E2411; -fx-border-radius: 0 0 15 15;" styleClass="pendientePedido">
                                     <children>
-                                        <ScrollPane fx:id="pedidiosEnCursoScroll" fitToHeight="true" fitToWidth="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                        <ScrollPane fx:id="pedidiosEnCursoScroll" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <content>
                                                 <VBox alignment="CENTER" prefHeight="580.0" prefWidth="630.0">
                                                     <children>
@@ -99,11 +107,27 @@
                                     <padding>
                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
                                 </AnchorPane>
                             </children>
                         </VBox>
                         <VBox alignment="CENTER" spacing="20.0">
                             <children>
+                              <Button fx:id="ver_detalles_pedido_btn" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="copy-btn">
+                           <graphic>
+                              <ImageView fitHeight="150.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/icons8-eye-48.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Region VBox.vgrow="ALWAYS" />
                                 <Button fx:id="move_to_en_proceso_btn" mnemonicParsing="false">
                                     <graphic>
                                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -122,16 +146,16 @@
                                         </ImageView>
                                     </graphic>
                                 </Button>
+                        <Region maxHeight="1.7976931348623157E308" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets bottom="50.0" />
+                           </VBox.margin>
+                        </Region>
                             </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefWidth="650.0">
+                        <VBox alignment="CENTER">
                             <children>
-                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-radius: 15 15 0 0; -fx-border-width: 3 3 0 3; -fx-border-radius: 15 15 0 0;" styleClass="pendienteEnCurso" text="PEDIDOS A REALIZAR HOY">
-                                    <padding>
-                                        <Insets top="10.0" />
-                                    </padding>
-                                </Label>
-                                <HBox style="-fx-border-color: #3E2411; -fx-border-width: 0 3 0 3;" styleClass="pendienteEnCurso">
+                                <HBox prefHeight="65.0" prefWidth="646.0" style="-fx-border-color: #3E2411; -fx-border-width: 3 3 0 3; -fx-background-radius: 15 15 0 0; -fx-border-radius: 15 15 0 0;" styleClass="pendienteEnCurso">
                                     <children>
                                         <Button fx:id="clear_en_proceso_btn" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="copy-btn">
                                             <HBox.margin>
@@ -149,6 +173,22 @@
                                  </cursor>
                                         </Button>
                                         <Region maxHeight="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="pedido-tittle-lable" text="PEDIDOS HA REALIZAR HOY" textAlignment="CENTER" textFill="WHITE">
+                                 <graphic>
+                                    <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/icons8-hourglass-100.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Region maxHeight="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                                         <Button fx:id="ver_detalles_pedido_en_proceso_btn" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="copy-btn">
                                             <HBox.margin>
                                                 <Insets right="10.0" />
@@ -165,15 +205,15 @@
                                  </cursor>
                                         </Button>
                                     </children>
-                                    <padding>
-                                        <Insets bottom="5.0" />
-                                    </padding>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
                                 </HBox>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-radius: 0 0 15 15; -fx-border-radius: 0 0 15 15; -fx-border-width: 0 3 3 3;" styleClass="pendienteEnCurso">
                                     <children>
                                         <ScrollPane fx:id="pedidiosPendientesScroll" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                             <content>
-                                                <VBox alignment="CENTER" prefHeight="565.0" prefWidth="630.0">
+                                                <VBox alignment="CENTER" prefHeight="558.0" prefWidth="630.0">
                                                     <children>
                                                         <GridPane fx:id="grid_en_curso" alignment="CENTER">
                                                             <columnConstraints>
@@ -218,8 +258,14 @@
                                     </VBox.margin>
                                 </HBox>
                             </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                         </VBox>
                     </children>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
                 </HBox>
             </children>
         </VBox>

@@ -1,26 +1,58 @@
 package uvigo.tfgalmacen.controllers.apartadosAjustesControllers;
 
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.User;
+import uvigo.tfgalmacen.controllers.ItemOrdenCompraController;
 import uvigo.tfgalmacen.database.RolePermissionDAO;
 import uvigo.tfgalmacen.database.UsuarioDAO;
+import uvigo.tfgalmacen.utils.ColorFormatter;
 
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.SHAKE_DURATION;
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.shake;
+import static uvigo.tfgalmacen.RutasFicheros.*;
+import static uvigo.tfgalmacen.utils.ClipboardUtils.copyLabelText;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
+
+import uvigo.tfgalmacen.controllers.apartadosAjustesControllers.windowAjustesCambiarContrasenaUsuariosController;
 
 public class windowAjustesEditarUsuariosController {
 
     private static final Logger LOGGER = Logger.getLogger(windowAjustesEditarUsuariosController.class.getName());
+
+    static {
+        LOGGER.setLevel(Level.ALL);
+        LOGGER.setUseParentHandlers(false);
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);
+        ch.setFormatter(new ColorFormatter());
+        LOGGER.addHandler(ch);
+
+        Logger root = Logger.getLogger("");
+        for (Handler h : root.getHandlers()) {
+            h.setLevel(Level.ALL);
+        }
+    }
+
+
+    private static final ExecutorService FX_BG_EXEC = Executors.newVirtualThreadPerTaskExecutor();
 
     @FXML
     private Button ExitButton;
@@ -39,6 +71,8 @@ public class windowAjustesEditarUsuariosController {
 
     @FXML
     private Button guardar_cambios_btn1;
+    @FXML
+    private Button copy_email_btn;
 
     @FXML
     private ComboBox<String> rolesEdit_comboBox;
@@ -48,9 +82,13 @@ public class windowAjustesEditarUsuariosController {
     @FXML
     private HBox windowBar;
 
+    @FXML
+    private Button cambiar_contrasena_btn;
+
     // Caché local de usuarios
     private final Map<String, User> cacheUsuarios = new LinkedHashMap<>();
 
+    int id;
     // Placeholders
     private static final String PLACEHOLDER_USUARIO = "Selecciona un usuario";
     private static final String PLACEHOLDER_ROL = "Selecciona un rol";
@@ -83,8 +121,54 @@ public class windowAjustesEditarUsuariosController {
         ExitButton.setOnMouseClicked(_ -> cerrarVentana());
 
         refreshUsers_btn.setOnMouseClicked(_ -> onRefrescarClick());
+
+        cambiar_contrasena_btn.setOnMouseClicked(_ -> abrirVentanaContrsena());
+
+        copy_email_btn.setOnMouseClicked(_ -> copyLabelText(copy_email_btn, emailEdit_text));
     }
 
+    private void abrirVentanaContrsena() {
+        Stage owner = (Stage) cambiar_contrasena_btn.getScene().getWindow();
+
+        openWindowAsync(
+                WINDOW_AJUSTES_CAMBIAR_CONTRASENA_USUARIOS_FXML,
+                "Cambiar contraseña",
+                owner,
+                controller -> ((windowAjustesCambiarContrasenaUsuariosController) controller).setData(id)   // <-- AQUÍ ejecutas setData
+        );
+    }
+
+
+    private void openWindowAsync(String fxmlPath, String title, Stage owner, Consumer<Object> beforeShow) {
+
+        Task<FXMLLoader> task = new Task<>() {
+            @Override
+            protected FXMLLoader call() throws Exception {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+                loader.load();
+                return loader;
+            }
+        };
+
+        task.setOnSucceeded(_ -> {
+            FXMLLoader loader = task.getValue();
+            Parent root = loader.getRoot();
+            Object controller = loader.getController();
+
+            if (beforeShow != null) beforeShow.accept(controller);
+
+            Stage win = crearStageBasico(root, true, title);
+            if (owner != null) {
+                win.initOwner(owner);
+                win.initModality(Modality.WINDOW_MODAL);
+                win.initStyle(StageStyle.TRANSPARENT);
+            }
+
+            win.showAndWait();
+        });
+
+        FX_BG_EXEC.submit(task);
+    }
     // ---------------- Carga inicial ----------------
 
     private void cargarRoles() {
@@ -149,6 +233,7 @@ public class windowAjustesEditarUsuariosController {
         if (u == null) {
             try {
                 u = UsuarioDAO.getUserByUsername(Main.connection, username);
+                assert u != null;
             } catch (Exception e) {
                 LOGGER.log(Level.WARNING, "Fallo al cargar usuario desde BD: " + username, e);
             }
@@ -159,6 +244,8 @@ public class windowAjustesEditarUsuariosController {
             alertWarn("Aviso", "No se encontró el usuario seleccionado.");
             return;
         }
+
+        id = u.getId_usuario();
 
         // Actualizar los campos
         nombreEdit_text.setText(nvl(u.getName()));
@@ -319,4 +406,16 @@ public class windowAjustesEditarUsuariosController {
     private String nvl(String s) {
         return s == null ? "" : s;
     }
+
+    public class LoadedFXML<windowAjustesCambiarContrasenaUsuariosController> {
+        public final Parent root;
+        public final windowAjustesCambiarContrasenaUsuariosController controller;
+
+        public LoadedFXML(Parent root, windowAjustesCambiarContrasenaUsuariosController controller) {
+            this.root = root;
+            this.controller = controller;
+        }
+    }
 }
+
+

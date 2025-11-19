@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -103,26 +104,36 @@ public class pedidosController {
         // Handlers null-safe para evitar NPE si el FXML no inyecta el control
         if (move_to_en_proceso_btn != null) {
             move_to_en_proceso_btn.setOnAction(_ -> handleMoveToEnProcesoClick());
+            move_to_en_proceso_btn.setTooltip(new Tooltip("Pasar los pedidos pendientes seleccionados a en proceso"));
+
         }
 
         if (ver_detalles_pedido_btn != null) {
             ver_detalles_pedido_btn.setOnAction(_ -> verDetallesPedido());
+            ver_detalles_pedido_btn.setTooltip(new Tooltip("Ver los productos de los pedidos seleccionados"));
+
         }
 
         if (ver_detalles_pedido_pendiente_btn != null) {
             ver_detalles_pedido_pendiente_btn.setOnAction(_ -> verDetallesPedidoFiltro(ESTADO_PENDIENTE));
+            ver_detalles_pedido_pendiente_btn.setTooltip(new Tooltip("Ver los productos de los pedidos pendientes seleccionados"));
+
         }
 
         if (ver_detalles_pedido_en_proceso_btn != null) {
             ver_detalles_pedido_en_proceso_btn.setOnAction(_ -> verDetallesPedidoFiltro(ESTADO_EN_PROCESO));
+            ver_detalles_pedido_en_proceso_btn.setTooltip(new Tooltip("Ver los productos de los pedidos en proceso seleccionados"));
         }
 
         if (clear_pendientes_btn != null) {
             clear_pendientes_btn.setOnAction(_ -> clearALL(ESTADO_PENDIENTE));
+            clear_pendientes_btn.setTooltip(new Tooltip("Desseleccionar todos los pedidos pendientes"));
         }
 
         if (clear_en_proceso_btn != null) {
             clear_en_proceso_btn.setOnAction(_ -> clearALL(ESTADO_EN_PROCESO));
+            clear_en_proceso_btn.setTooltip(new Tooltip("Desseleccionar todos los pedidos en proceso"));
+
         }
     }
 

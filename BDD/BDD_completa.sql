@@ -376,6 +376,10 @@ CREATE TABLE proveedor_producto (
     id_proveedor INT NOT NULL,                      -- FK -> proveedores.id_proveedor
     id_producto  INT NOT NULL,                      -- FK -> productos.id_producto
 
+    alto INT NOT NULL,
+    ancho INT NOT NULL,
+    largo INT NOT NULL,
+
     precio DECIMAL(10,2) NULL,                      -- Precio acordado con ese proveedor (opcional)
     unidades_por_palet_default INT NOT NULL DEFAULT 1,      -- Nº unidades del producto por palet para ese proveedor
 

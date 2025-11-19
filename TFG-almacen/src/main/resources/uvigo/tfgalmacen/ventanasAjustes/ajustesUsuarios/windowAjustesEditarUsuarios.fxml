@@ -110,7 +110,23 @@
                                         </VBox>
                                         <VBox maxHeight="1.7976931348623157E308" prefHeight="68.0" spacing="15.0">
                                             <children>
-                                                <TextField fx:id="emailEdit_text" maxWidth="220.0" prefWidth="220.0" styleClass="create-user-password-field-normal" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                                      <TextField fx:id="emailEdit_text" maxWidth="220.0" prefWidth="220.0" styleClass="create-user-password-field-normal" />
+                                          <Button fx:id="copy_email_btn" mnemonicParsing="false" styleClass="copy-btn">
+                                             <graphic>
+                                                <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../icons/copy-32.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </HBox>
                                                 <ComboBox fx:id="rolesEdit_comboBox" maxWidth="220.0" />
                                             </children>
                                             <HBox.margin>
@@ -119,9 +135,17 @@
                                         </VBox>
                                     </children>
                                     <VBox.margin>
-                                        <Insets bottom="20.0" left="30.0" right="30.0" />
+                                        <Insets left="30.0" right="30.0" />
                                     </VBox.margin>
                                 </HBox>
+                        <HBox>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" />
+                           </VBox.margin>
+                           <children>
+                              <Button fx:id="cambiar_contrasena_btn" mnemonicParsing="false" styleClass="cambiar-contrasena" text="¿Cambiar contraseña?" textFill="#3bc4ff" />
+                           </children>
+                        </HBox>
                             </children>
                         </VBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">

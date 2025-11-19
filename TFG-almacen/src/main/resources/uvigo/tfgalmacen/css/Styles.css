@@ -611,3 +611,19 @@
 .detalle-pedido {
     -fx-text-fill: black;
 }
+
+.cambiar-contrasena {
+    -fx-text-fill: #3bc4ff;
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.cambiar-contrasena:hover {
+    -fx-text-fill: #9ed4ef;
+}
+
+.pedido-tittle-lable {
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}

@@ -1,6 +1,8 @@
 package uvigo.tfgalmacen.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -8,12 +10,16 @@ import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.almacenManagement.Palet;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import static uvigo.tfgalmacen.database.UsuarioDAO.getNombreUsuarioById;
 import static uvigo.tfgalmacen.database.UsuarioDAO.getRoleNameByUserId;
+import static uvigo.tfgalmacen.utils.ClipboardUtils.copyLabelText;
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
 
 
-public class ItemPedidoController {
+public class ItemPedidoController implements Initializable {
 
     // colores para los estados del pedido
 
@@ -39,12 +45,21 @@ public class ItemPedidoController {
     @FXML
     private VBox vertical_container;
 
+    @FXML
+    private Button copy_codigo_referencia_btn;
+
     private Pedido pedido;
 
-    private final String  colorPrimeraHora = "#ff1fa0";
+    private final String colorPrimeraHora = "#ff1fa0";
     private final String colorSegundaHora = "#1e90ff";
 
-    public void setData(Pedido pedido){
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        copy_codigo_referencia_btn.setOnAction(_ -> copyLabelText(copy_codigo_referencia_btn, id_pedido_label));
+    }
+
+    public void setData(Pedido pedido) {
         this.pedido = pedido;
 
         check_select_item_pedido.setOnMouseClicked(_ -> prueba());
@@ -59,32 +74,29 @@ public class ItemPedidoController {
         estado_pedido_label.setText(pedido.getEstado());
         if ("primera_hora".equals(pedido.getHoraSalida())) {
             estado_pedido_label.setStyle("-fx-background-color: " + colorPrimeraHora);
-        }
-        else if ("segunda_hora".equals(pedido.getHoraSalida())) {
+        } else if ("segunda_hora".equals(pedido.getHoraSalida())) {
             estado_pedido_label.setStyle("-fx-background-color: " + colorSegundaHora);
-        }
-        else {
+        } else {
             estado_pedido_label.setStyle("-fx-background-color: " + colorHEX);
         }
 
 
-        if ("Pendiente".equals(pedido.getEstado())){
+        if ("Pendiente".equals(pedido.getEstado())) {
             id_usuario_label.setVisible(false);
             id_usuario_label.setManaged(false);
 
             text_usuario_label.setVisible(false);
             text_usuario_label.setManaged(false);
-        }
-        else{
+        } else {
             id_usuario_label.setText(getNombreUsuarioById(Main.connection, pedido.getId_usuario()) +
-                    " (" + getRoleNameByUserId(Main.connection, pedido.getId_usuario())+ ")");
+                    " (" + getRoleNameByUserId(Main.connection, pedido.getId_usuario()) + ")");
         }
 
     }
 
     private void prueba() {
-        for(int i = 0; i < pedidosController.allItemControllers.size(); i++) {
-            if(pedidosController.allItemControllers.get(i).getPedido().getId_pedido() == this.pedido.getId_pedido()){
+        for (int i = 0; i < pedidosController.allItemControllers.size(); i++) {
+            if (pedidosController.allItemControllers.get(i).getPedido().getId_pedido() == this.pedido.getId_pedido()) {
                 pedidosController.allItemControllers.remove(i);
                 pedidosController.allItemControllers.add(this);
             }

@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -189,6 +190,18 @@ public class mainController implements Initializable {
         } else {
             roleLabel.setText("NO ROL");
         }
+
+        // Permitir que el root capture teclas
+        Platform.runLater(() -> root.requestFocus());
+
+        // Evento de teclado (ESC para cerrar el slider)
+        root.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                if (!sliderVisible) {
+                    slideMenu(false);
+                }
+            }
+        });
 
 
     }
@@ -424,6 +437,7 @@ public class mainController implements Initializable {
         }
         slide.play();
     }
+
 
     /**
      * Marca botón activo con colores de tu mapa de colores cargado en Main.colors
