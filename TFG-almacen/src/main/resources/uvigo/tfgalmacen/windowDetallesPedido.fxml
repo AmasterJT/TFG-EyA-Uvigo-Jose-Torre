@@ -80,9 +80,29 @@
                         </VBox>
                         <HBox alignment="CENTER_RIGHT" spacing="15.0">
                             <children>
-                                <Button fx:id="aplicar_nuevo_estado_btn1" mnemonicParsing="false" prefWidth="200.0" text="COMPLETAR PEDIDO" />
+                                <Button fx:id="completar_detalle_pedido_btn" mnemonicParsing="false" prefWidth="200.0" styleClass="loginBtn" text="COMPLETAR PEDIDO" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/complete-30.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
                                 <Separator opacity="0.0" prefHeight="4.0" prefWidth="300.0" stylesheets="@css/Styles.css" />
-                                <Button fx:id="aplicar_nuevo_estado_btn" mnemonicParsing="false" prefWidth="150.0" text="aplicar" />
+                                <Button fx:id="aplicar_cambios_detalle_pedido_btn" mnemonicParsing="false" prefWidth="120.0" styleClass="generar_compra" text="APLICAR">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/apply-32-white.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
                             </children>
                             <VBox.margin>
                                 <Insets />

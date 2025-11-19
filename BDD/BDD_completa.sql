@@ -114,14 +114,6 @@ VALUES
     (
         'Administración',
         'Gestión administrativa y documentación.'
-    ),
-    (
-        'Proveedor',
-        'Entidad o persona que suministra productos o servicios.'
-    ),
-    (
-        'Cliente',
-        'Usuario final o consumidor de los productos o servicios.'
     );
 
 -- Creación de la tabla rol_permiso
@@ -151,10 +143,8 @@ VALUES
     -- Mantenimiento
     (5, 1, 'inactivo'),
     -- Administración
-    (6, 1, 'inactivo'),
-    -- Proveedor
-    (7, 1, 'inactivo')
-    
+    (6, 1, 'inactivo');
+
 -- Para "Gestión de Productos (CRUD)"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -170,10 +160,8 @@ VALUES
     -- Mantenimiento
     (5, 2, 'inactivo'),
     -- Administración
-    (6, 2, 'inactivo'),
-    -- Proveedor
-    (7, 2, 'inactivo')
-    
+    (6, 2, 'inactivo');
+
 -- Para "Gestión de Inventario (stock, ubicación)"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -189,10 +177,8 @@ VALUES
     -- Mantenimiento
     (5, 3, 'inactivo'),
     -- Administración
-    (6, 3, 'ver'),
-    -- Proveedor
-    (7, 3, 'inactivo')
-    
+    (6, 3, 'ver');
+
 -- Para "Registro de Entradas/Salidas de Productos"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -208,10 +194,8 @@ VALUES
     -- Mantenimiento
     (5, 4, 'inactivo'),
     -- Administración
-    (6, 4, 'inactivo'),
-    -- Proveedor
-    (7, 4, 'inactivo')
-    
+    (6, 4, 'inactivo');
+
 -- Para "Gestión de Pedidos"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -227,10 +211,8 @@ VALUES
     -- Mantenimiento
     (5, 5, 'inactivo'),
     -- Administración
-    (6, 5, 'ver'),
-    -- Proveedor
-    (7, 5, 'inactivo')
-    
+    (6, 5, 'ver');
+
 -- Para "Generación de Reportes (inventario, ventas)"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -246,10 +228,8 @@ VALUES
     -- Mantenimiento
     (5, 6, 'inactivo'),
     -- Administración
-    (6, 6, 'activo'),
-    -- Proveedor
-    (7, 6, 'inactivo')
-    
+    (6, 6, 'activo');
+
 -- Para "Asignación de Tareas (Picking/Packing)"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -265,10 +245,8 @@ VALUES
     -- Mantenimiento
     (5, 7, 'inactivo'),
     -- Administración
-    (6, 7, 'inactivo'),
-    -- Proveedor
-    (7, 7, 'inactivo')
-    
+    (6, 7, 'inactivo');
+
 -- Para "Acceso al Historial de Movimientos"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -284,10 +262,8 @@ VALUES
     -- Mantenimiento
     (5, 8, 'ver'),
     -- Administración
-    (6, 8, 'ver'),
-    -- Proveedor
-    (7, 8, 'inactivo')
-    
+    (6, 8, 'ver');
+
 -- Para "Mantenimiento de Infraestructura"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -303,10 +279,8 @@ VALUES
     -- Mantenimiento
     (5, 9, 'activo'),
     -- Administración
-    (6, 9, 'inactivo'),
-    -- Proveedor
-    (7, 9, 'inactivo')
-    
+    (6, 9, 'inactivo');
+
 -- Para "Gestión Financiera (compras/ventas)"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -322,10 +296,8 @@ VALUES
     -- Mantenimiento
     (5, 10, 'inactivo'),
     -- Administración
-    (6, 10, 'activo'),
-    -- Proveedor
-    (7, 10, 'inactivo')
-    
+    (6, 10, 'activo');
+
 -- Para "Gestión de Incidencias"
 INSERT INTO
     rol_permiso (id_rol, id_permiso, estado)
@@ -341,10 +313,8 @@ VALUES
     -- Mantenimiento
     (5, 11, 'ver'),
     -- Administración
-    (6, 11, 'inactivo'),
-    -- Proveedor
-    (7, 11, 'inactivo')
-    
+    (6, 11, 'inactivo');
+
 -- Creación de la tabla estanterias
 CREATE TABLE
     estanterias (
@@ -480,11 +450,11 @@ CREATE TABLE detalles_pedido (
     id_pedido INT NOT NULL,
     id_producto INT NOT NULL,
     cantidad INT NOT NULL,
-    estado_producto_pedido BOOLEAN,
+    estado_producto_pedido BOOLEAN DEFAULT 0,
     FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
-    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
+    UNIQUE KEY uq_pedido_producto (id_pedido, id_producto)
 );
-
     
     
 DELIMITER //
@@ -2224,7 +2194,7 @@ INSERT INTO pedidos (id_usuario, id_cliente, estado, fecha_entrega, hora_salida)
 (NULL, 1, 'Pendiente', '2025-08-10', NULL),
 (NULL, 2, 'Pendiente', '2025-08-12', NULL),
 (NULL, 3, 'Pendiente', '2025-08-14', NULL),
-(NULL, 4, 'Pendiente', '2025-08-16', NULL),d
+(NULL, 4, 'Pendiente', '2025-08-16', NULL),
 (NULL, 5, 'Pendiente', '2025-08-18', NULL),
 
 (1, 1, 'En proceso', '2025-08-11', 'primera_hora'),

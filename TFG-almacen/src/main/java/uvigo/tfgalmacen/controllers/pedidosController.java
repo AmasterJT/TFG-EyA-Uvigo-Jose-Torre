@@ -264,7 +264,7 @@ public class pedidosController {
                 AnchorPane pane = loader.load();
 
                 DetallesPedidoController controller = loader.getController();
-                controller.setData(pedido, Main.connection);
+                controller.setData(pedido);
 
                 Stage stage = crearStageBasico(pane, true, "Detalles del pedido: " + pedido.getCodigo_referencia());
                 stage.setOnHidden(_ -> redibujar());

@@ -7,13 +7,17 @@ public class ProductoPedido {
 
     private final String identificadorProducto;
     private final int cantidad;
+
+
+    private int id_detalle_BDD;
     public Boolean isComplete;
     public String colorHEX = "";
 
-    public ProductoPedido(String identificadorProducto, int cantidad, Boolean isComplete) {
+    public ProductoPedido(String identificadorProducto, int cantidad, Boolean isComplete, int id_detalle_BDD) {
         this.identificadorProducto = identificadorProducto;
         this.cantidad = cantidad;
         this.isComplete = (isComplete != null && isComplete); // maneja null como false o tu lógica
+        this.id_detalle_BDD = id_detalle_BDD;
         colorHEX = convertColorToHEX(getColorByIdentificadorProducto(Main.connection, identificadorProducto));
     }
 
@@ -50,6 +54,9 @@ public class ProductoPedido {
         }
     }
 
+    public int getId_detalle_BDD() {
+        return id_detalle_BDD;
+    }
 
     @Override
     public String toString() {

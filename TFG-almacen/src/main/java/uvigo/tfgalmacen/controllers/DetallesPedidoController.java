@@ -3,9 +3,7 @@ package uvigo.tfgalmacen.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -13,20 +11,23 @@ import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.ProductoPedido;
+import uvigo.tfgalmacen.database.PedidoDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.lang.Integer.parseInt;
 import static uvigo.tfgalmacen.RutasFicheros.ITEM_DETALLE_PEDIDO_FXML;
+import static uvigo.tfgalmacen.database.DetallesPedidoDAO.actualizarEstadoProductoPedido;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoReferencia;
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.limpiarGridPane;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class DetallesPedidoController {
 
@@ -55,7 +56,10 @@ public class DetallesPedidoController {
     private Button minimizeButton;
 
     @FXML
-    private Button aplicar_nuevo_estado_btn1;
+    private Button aplicar_cambios_detalle_pedido_btn;
+
+    @FXML
+    private Button completar_detalle_pedido_btn;
 
     @FXML
     private GridPane grid_pendientes;
@@ -66,7 +70,6 @@ public class DetallesPedidoController {
     @FXML
     private HBox windowBar;
 
-    private Pedido pedido_para_detallar;
 
     @FXML
     private Label codigo_referencia_pedido_detalle_label;
@@ -76,6 +79,7 @@ public class DetallesPedidoController {
 
     private List<ProductoPedido> productos_del_pedido;
 
+    private Pedido pedido_para_detallar;
     /**
      * Número de columnas del grid de pedidos.
      */
@@ -92,14 +96,56 @@ public class DetallesPedidoController {
         });
 
         minimizeButton.setOnAction(_ -> minimizarVentana());
+        aplicar_cambios_detalle_pedido_btn.setOnAction(_ -> actualizarDetallePedidos());
+        completar_detalle_pedido_btn.setOnAction(_ -> finalizarPedido());
+
+    }
+
+    private void finalizarPedido() {
+
+        Optional<ButtonType> resultado = ventana_error(
+                "Confirmar Completado del Pedido",
+                "¿Seguro que deseas finalizar el pedido?",
+                "Esta acción hará que el pedido sea completado automaticamente",
+                "Sí, finalizar", "Cancelar"
+        );
+
+        if (resultado.isPresent() && resultado.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+            for (ItemDetallesPedidoController itemController : allItemControllers) {
+                actualizarEstadoProductoPedido(Main.connection, itemController.id_BDD, true);
+            }
+
+            String codigo_referencia = codigo_referencia_pedido_detalle_label.getText();
+            PedidoDAO.marcarPedidoCompletadoSinUsuarioPorCodigo(Main.connection, codigo_referencia);
+
+
+            Stage stage = (Stage) aplicar_cambios_detalle_pedido_btn.getScene().getWindow();
+            stage.close();
+        }
     }
 
     private void minimizarVentana() {
         Stage stage = (Stage) minimizeButton.getScene().getWindow();
         stage.setIconified(true);
+
     }
 
-    public void setData(Pedido pedido_para_detallar, Connection connection) {
+    private void actualizarDetallePedidos() {
+        System.out.println("click");
+        for (ItemDetallesPedidoController itemController : allItemControllers) {
+            System.out.println("Detalle: " + itemController.id_BDD + " -> " + itemController.getProducto_listo_en_pedido_check().isSelected());
+
+            actualizarEstadoProductoPedido(Main.connection, itemController.id_BDD, itemController.getProducto_listo_en_pedido_check().isSelected());
+        }
+
+
+        ventana_warning("Productos actualizados correctamente", "Los cambios en los productos del pedido se han aplicado con éxito.", "Información");
+
+        Stage stage = (Stage) aplicar_cambios_detalle_pedido_btn.getScene().getWindow();
+        stage.close();
+    }
+
+    public void setData(Pedido pedido_para_detallar) {
         this.pedido_para_detallar = pedido_para_detallar;
 
         codigo_referencia_pedido_detalle_label.setText(pedido_para_detallar.getCodigo_referencia());
@@ -126,6 +172,7 @@ public class DetallesPedidoController {
                 ItemDetallesPedidoController itemController = fxmlLoader.getController();
                 itemController.setData(producto_del_pedido);
                 allItemControllers.add(itemController);
+
 
                 if (column == COLUMS) {
                     column = 0;

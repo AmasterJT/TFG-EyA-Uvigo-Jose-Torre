@@ -10,63 +10,58 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="35.0" prefWidth="567.0" style="-fx-background-radius: 5; -fx-border-radius: 5;"
-            styleClass="item-pedido-en-curso" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="uvigo.tfgalmacen.controllers.ItemDetallesPedidoController">
+<AnchorPane prefHeight="35.0" prefWidth="567.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #222;" styleClass="item-pedido-en-curso" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemDetallesPedidoController">
     <children>
-        <VBox fx:id="vertical_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox fx:id="vertical_container" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox alignment="CENTER_LEFT">
                     <children>
-                        <Circle fx:id="tipo_producto_color_ldentifier" fill="DODGERBLUE" radius="10.0" stroke="BLACK"
-                                strokeType="INSIDE">
+                        <Circle fx:id="tipo_producto_color_ldentifier" fill="DODGERBLUE" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE">
                             <HBox.margin>
-                                <Insets right="10.0"/>
+                                <Insets right="10.0" />
                             </HBox.margin>
                         </Circle>
                         <Label text="PRODUCTO:" textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="12.0"/>
+                                <Font name="System Bold" size="12.0" />
                             </font>
                         </Label>
-                        <Label fx:id="producto_detalle_pedido_label" text="TRUPOFIN CERA HF" textFill="#d0d0d0"
-                               HBox.hgrow="ALWAYS">
+                        <Label fx:id="producto_detalle_pedido_label" maxWidth="150.0" minWidth="150.0" text="TRUPOFIN CERA HF" textFill="#d0d0d0" HBox.hgrow="ALWAYS">
                             <HBox.margin>
-                                <Insets left="10.0"/>
+                                <Insets left="10.0" />
                             </HBox.margin>
                         </Label>
+                  <Region minWidth="25.0" HBox.hgrow="ALWAYS" />
                         <Label text="CANTIDAD:" textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="12.0"/>
+                                <Font name="System Bold" size="12.0" />
                             </font>
                             <HBox.margin>
-                                <Insets left="30.0"/>
+                                <Insets left="30.0" />
                             </HBox.margin>
                         </Label>
                         <Label fx:id="cantidad_detalle_pedido_label" text="100" textFill="#d0d0d0">
                             <HBox.margin>
-                                <Insets left="10.0" right="10.0"/>
+                                <Insets left="10.0" right="10.0" />
                             </HBox.margin>
                         </Label>
-                        <Region HBox.hgrow="ALWAYS"/>
+                        <Region minWidth="85.0" HBox.hgrow="ALWAYS" />
                         <CheckBox fx:id="producto_listo_en_pedido_check" mnemonicParsing="false">
                             <HBox.margin>
-                                <Insets left="15.0" right="10.0"/>
+                                <Insets left="15.0" right="10.0" />
                             </HBox.margin>
                         </CheckBox>
                     </children>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <VBox.margin>
-                        <Insets/>
+                        <Insets />
                     </VBox.margin>
                 </HBox>
             </children>
             <padding>
-                <Insets bottom="5.0" top="5.0"/>
+                <Insets bottom="5.0" top="5.0" />
             </padding>
         </VBox>
     </children>

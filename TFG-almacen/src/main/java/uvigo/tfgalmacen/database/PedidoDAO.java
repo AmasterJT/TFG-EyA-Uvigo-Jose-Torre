@@ -520,4 +520,67 @@ public class PedidoDAO {
             }
         }
     }
+
+
+    // ============================================================
+// Marcar pedido como COMPLETADO y dejarlo sin usuario (id_usuario = NULL)
+// usando el codigo_referencia
+// ============================================================
+    private static final String UPDATE_COMPLETADO_SIN_USUARIO_BY_CODIGO_SQL =
+            "UPDATE pedidos SET estado = 'Completado', id_usuario = NULL WHERE codigo_referencia = ?";
+
+    /**
+     * Marca el pedido identificado por {@code codigoReferencia} como
+     * {@code estado = 'Completado'} y asigna {@code id_usuario = NULL}.
+     * <p>
+     * No modifica la hora_salida. Está pensado para casos en los que
+     * se quiere dejar constancia de que el pedido se ha completado pero
+     * sin asociarlo a ningún usuario.
+     *
+     * @param connection       conexión activa a la base de datos (no debe ser nula)
+     * @param codigoReferencia código de referencia único del pedido
+     * @return {@code true} si se actualizó exactamente una fila, {@code false} en caso contrario
+     */
+    public static boolean marcarPedidoCompletadoSinUsuarioPorCodigo(Connection connection,
+                                                                    String codigoReferencia) {
+        if (connection == null) {
+            LOGGER.severe("No se puede marcar pedido como completado: conexión nula recibida.");
+            return false;
+        }
+        if (codigoReferencia == null || codigoReferencia.isBlank()) {
+            LOGGER.warning("codigoReferencia vacío o nulo en marcarPedidoCompletadoSinUsuarioPorCodigo()");
+            return false;
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(UPDATE_COMPLETADO_SIN_USUARIO_BY_CODIGO_SQL)) {
+            ps.setString(1, codigoReferencia);
+
+            int rows = ps.executeUpdate();
+
+            if (rows == 1) {
+                LOGGER.info(() -> String.format(
+                        "Pedido con codigo_referencia='%s' marcado como 'Completado' y id_usuario=NULL.",
+                        codigoReferencia));
+                return true;
+            } else if (rows == 0) {
+                LOGGER.warning(() -> "No se encontró ningún pedido con codigo_referencia='" + codigoReferencia + "'.");
+                return false;
+            } else {
+                // En teoría no debería pasar porque codigo_referencia es UNIQUE
+                LOGGER.warning(() -> String.format(
+                        "Se actualizaron %d filas para codigo_referencia='%s'. " +
+                                "Revisa la unicidad del campo en la BD.",
+                        rows, codigoReferencia));
+                return false;
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE,
+                    String.format("Error al marcar como completado el pedido con codigo_referencia='%s'.",
+                            codigoReferencia),
+                    e);
+            return false;
+        }
+    }
+
 }

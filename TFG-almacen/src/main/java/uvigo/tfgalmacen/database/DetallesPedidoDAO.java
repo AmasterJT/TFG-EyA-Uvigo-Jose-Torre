@@ -38,7 +38,7 @@ public class DetallesPedidoDAO {
        SELECT: productos por pedido
        =========================== */
     private static final String SELECT_PRODUCTOS_POR_PEDIDO_SQL = """
-            SELECT p.identificador_producto, dp.cantidad, dp.estado_producto_pedido
+            SELECT p.identificador_producto, dp.cantidad, dp.estado_producto_pedido, dp.id_detalle
             FROM detalles_pedido dp
             JOIN pedidos pe  ON dp.id_pedido   = pe.id_pedido
             JOIN productos p ON dp.id_producto = p.id_producto
@@ -59,13 +59,15 @@ public class DetallesPedidoDAO {
                     String identificadorProducto = rs.getString("identificador_producto");
                     int cantidad = rs.getInt("cantidad");
                     boolean isComplete = rs.getBoolean("estado_producto_pedido");
+                    int id_detalle_BDD = rs.getInt("id_detalle");
 
-                    productos.add(new ProductoPedido(identificadorProducto, cantidad, isComplete));
+                    productos.add(new ProductoPedido(identificadorProducto, cantidad, isComplete, id_detalle_BDD));
                 }
             }
             LOGGER.fine(() -> "Productos recuperados para código " + codigoReferencia + ": " + productos.size());
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error obteniendo productos por código de referencia: " + codigoReferencia, e);
+            e.printStackTrace();
         }
         return productos;
     }
@@ -488,5 +490,58 @@ public class DetallesPedidoDAO {
         return totalEliminados;
     }
 
+
+    private static final String UPDATE_ESTADO_PRODUCTO_PEDIDO_SQL =
+            "UPDATE detalles_pedido SET estado_producto_pedido = ? WHERE id_detalle = ?";
+
+    /**
+     * Actualiza el campo {@code estado_producto_pedido} de un detalle de pedido.
+     * <p>
+     * El valor se suele mapear desde un CheckBox en la UI:
+     * <ul>
+     *   <li>{@code true}  → se guarda 1 (producto listo)</li>
+     *   <li>{@code false} → se guarda 0 (producto no listo)</li>
+     * </ul>
+     *
+     * @param connection    conexión activa a la base de datos
+     * @param idDetalle     id del registro en {@code detalles_pedido}
+     * @param productoListo {@code true} si el producto está listo, {@code false} en caso contrario
+     * @return {@code true} si se actualizó exactamente una fila, {@code false} si no se encontró el registro o hubo error
+     */
+    public static boolean actualizarEstadoProductoPedido(Connection connection,
+                                                         int idDetalle,
+                                                         boolean productoListo) {
+        if (connection == null) {
+            LOGGER.severe("Conexión nula en actualizarEstadoProductoPedido()");
+            return false;
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(UPDATE_ESTADO_PRODUCTO_PEDIDO_SQL)) {
+            ps.setBoolean(1, productoListo);
+            ps.setInt(2, idDetalle);
+
+            int rows = ps.executeUpdate();
+
+            if (rows == 1) {
+                LOGGER.fine(() -> String.format(
+                        "Estado de producto actualizado (id_detalle=%d, estado_producto_pedido=%s)",
+                        idDetalle, productoListo));
+                return true;
+            } else if (rows == 0) {
+                LOGGER.warning(() -> "No se encontró detalle con id_detalle=" + idDetalle
+                        + " para actualizar estado_producto_pedido.");
+                return false;
+            } else {
+                LOGGER.warning(() -> "Se actualizaron " + rows + " filas al cambiar estado_producto_pedido para id_detalle="
+                        + idDetalle + " (se esperaba 1).");
+                return rows > 0;
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE,
+                    "Error actualizando estado_producto_pedido para id_detalle=" + idDetalle, e);
+            return false;
+        }
+    }
 
 }

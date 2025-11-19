@@ -607,3 +607,7 @@
 .copy-btn:hover {
     -fx-background-color: rgba(0, 0, 0, 0.3);
 }
+
+.detalle-pedido {
+    -fx-text-fill: black;
+}

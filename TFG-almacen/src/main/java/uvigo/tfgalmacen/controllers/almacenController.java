@@ -546,6 +546,7 @@ public class almacenController implements Initializable {
     private void mostrarTodosPalets() {
         for (Palet palet : Almacen.TodosPalets) {
             boolean visible = estanteriasVisibles.contains(palet.getEstanteria());
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             palet.getProductBox().setVisible(visible);
             palet.getPaletBox().setVisible(visible);
         }
@@ -563,7 +564,9 @@ public class almacenController implements Initializable {
                     }
 
                     for (Palet palet : Almacen.TodosPalets) {
-                        boolean visible = palet.getIdProducto().equals(productoSeleccionado) && estanteriasVisibles.contains(palet.getEstanteria());
+                        boolean visible = (palet.getIdProducto().equals(productoSeleccionado)
+                                || productoSeleccionado.equals("Todos"))
+                                && estanteriasVisibles.contains(palet.getEstanteria());
                         palet.getProductBox().setVisible(visible);
                         palet.getPaletBox().setVisible(visible);
                     }
