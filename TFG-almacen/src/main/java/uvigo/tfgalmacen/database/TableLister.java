@@ -13,7 +13,10 @@ public class TableLister {
             "usuarios",
             "rol_permiso",
             "proveedor_producto",
-            "permisos_usuarios"
+            "permisos_usuarios",
+            "estanterias",
+            "movimientos",
+            "roles"
     );
 
     // Función que devuelve una lista de nombres de tablas

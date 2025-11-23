@@ -14,351 +14,403 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="principalWindow" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.mainController">
-    <BorderPane fx:id="BorderPane" style="-fx-background-color: #EEE; -fx-border-radius: 40;" styleClass="toolBar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            styleClass="principalWindow" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.mainController">
+    <BorderPane fx:id="BorderPane" style="-fx-background-color: #EEE; -fx-border-radius: 40;" styleClass="toolBar"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
         <top>
             <AnchorPane fx:id="topBar" prefHeight="85.0" prefWidth="200.0" styleClass="toolBar">
                 <children>
-                    <HBox fx:id="windowBar" alignment="CENTER_LEFT" layoutX="192.0" layoutY="-25.0" nodeOrientation="RIGHT_TO_LEFT" styleClass="windowBar" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                        <Button fx:id="ExitButton" graphicTextGap="0.0" mnemonicParsing="false" styleClass="exitItem" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
+                    <HBox fx:id="windowBar" alignment="CENTER_LEFT" layoutX="192.0" layoutY="-25.0"
+                          nodeOrientation="RIGHT_TO_LEFT" styleClass="windowBar" AnchorPane.bottomAnchor="45.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="ExitButton" graphicTextGap="0.0" mnemonicParsing="false" styleClass="exitItem"
+                                text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                             <font>
-                                <Font name="System Bold" size="17.0" />
+                                <Font name="System Bold" size="17.0"/>
                             </font>
                             <HBox.margin>
-                                <Insets />
+                                <Insets/>
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="minimizeButton" maxWidth="35.0" minWidth="-Infinity" mnemonicParsing="false" prefWidth="37.0" styleClass="minimizeItem" textFill="WHITE">
+                        <Button fx:id="minimizeButton" maxWidth="35.0" minWidth="-Infinity" mnemonicParsing="false"
+                                prefWidth="37.0" styleClass="minimizeItem" textFill="WHITE">
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                             <font>
-                                <Font name="System Bold" size="17.0" />
+                                <Font name="System Bold" size="17.0"/>
                             </font>
                             <graphic>
-                                <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="exitItem">
-                                    <Image url="@../../icons/minimize-48.png" />
+                                <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="30.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="exitItem">
+                                    <Image url="@../../icons/minimize-48.png"/>
                                 </ImageView>
                             </graphic>
                             <HBox.margin>
-                                <Insets top="-1.0" />
+                                <Insets top="-1.0"/>
                             </HBox.margin>
                         </Button>
-                        <Region HBox.hgrow="ALWAYS" />
+                        <Region HBox.hgrow="ALWAYS"/>
                         <Label contentDisplay="RIGHT" text="TFG JTTP " textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="12.0" />
+                                <Font name="System Bold" size="12.0"/>
                             </font>
                         </Label>
-                        <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0" HBox.hgrow="ALWAYS">
+                        <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true"
+                                   preserveRatio="true" translateX="-5.0" HBox.hgrow="ALWAYS">
                             <image>
-                                <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg" />
+                                <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg"/>
                             </image>
                             <HBox.margin>
-                                <Insets left="10.0" />
+                                <Insets left="10.0"/>
                             </HBox.margin>
                         </ImageView>
 
                     </HBox>
-                    <HBox fx:id="toolBar" alignment="CENTER" layoutX="80.0" layoutY="-11.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="90.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-                  <Button fx:id="MenuButton" mnemonicParsing="false" styleClass="menuItem" text="MENU" textFill="WHITE">
-                     <graphic>
-                               <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                   <Image url="@../../icons/menu.png" />
-                               </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="HISTORIAL" textFill="WHITE">
+                    <HBox fx:id="toolBar" alignment="CENTER" layoutX="80.0" layoutY="-11.0"
+                          nodeOrientation="LEFT_TO_RIGHT" prefHeight="90.0" AnchorPane.bottomAnchor="0.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                        <Button fx:id="MenuButton" mnemonicParsing="false" styleClass="menuItem" text="MENU"
+                                textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../../icons/history-50.png" />
+                                    <Image url="@../../icons/menu.png"/>
                                 </ImageView>
                             </graphic>
                             <font>
-                                <Font name="System Bold" size="10.0" />
+                                <Font name="System Bold" size="12.0"/>
                             </font>
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="ESTADISTICAS" textFill="WHITE">
+                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                        <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;"
+                                styleClass="menuItem" text="HISTORIAL" textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../../icons/report.png" />
+                                    <Image url="@../../icons/history-50.png"/>
                                 </ImageView>
                             </graphic>
                             <font>
-                                <Font name="System Bold" size="10.0" />
+                                <Font name="System Bold" size="10.0"/>
                             </font>
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                         </Button>
-                        <Button fx:id="movimiento_btn" mnemonicParsing="false" prefWidth="110.0" styleClass="menuItem" text="MOVIMENTOS" textFill="WHITE">
+                        <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;"
+                                styleClass="menuItem" text="ESTADISTICAS" textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../../icons/add.png" />
+                                    <Image url="@../../icons/report.png"/>
                                 </ImageView>
                             </graphic>
                             <font>
-                                <Font name="System Bold" size="10.0" />
+                                <Font name="System Bold" size="10.0"/>
                             </font>
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                         </Button>
-                        <Button fx:id="orden_compra_btn" mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="COMPRAR" textFill="WHITE">
+                        <Button fx:id="movimiento_btn" mnemonicParsing="false" prefWidth="110.0" styleClass="menuItem"
+                                text="MOVIMENTOS" textFill="WHITE">
+                            <graphic>
+                                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                    <Image url="@../../icons/add.png"/>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font name="System Bold" size="10.0"/>
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </Button>
+                        <Button fx:id="orden_compra_btn" mnemonicParsing="false" prefWidth="110.0"
+                                style="-fx-background-color: #db9f75;" styleClass="menuItem" text="COMPRAR"
+                                textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../icons/buy-64.png" />
+                                        <Image url="@../../icons/buy-64.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
                             <font>
-                                <Font name="System Bold" size="10.0" />
+                                <Font name="System Bold" size="10.0"/>
                             </font>
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                         </Button>
-                        <Button fx:id="export_data_btn" mnemonicParsing="false" onAction="#openXmlInExcel" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="EXPORT" textFill="WHITE">
+                        <Button fx:id="export_data_btn" mnemonicParsing="false" onAction="#openXmlInExcel"
+                                prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem"
+                                text="EXPORT" textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../../icons/download-64.png" />
+                                    <Image url="@../../icons/download-64.png"/>
                                     <cursor>
-                                        <Cursor fx:constant="HAND" />
+                                        <Cursor fx:constant="HAND"/>
                                     </cursor>
                                 </ImageView>
                             </graphic>
                             <font>
-                                <Font name="System Bold" size="10.0" />
+                                <Font name="System Bold" size="10.0"/>
                             </font>
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                         </Button>
-                  <padding>
-                     <Insets left="5.0" />
-                  </padding>
+                        <padding>
+                            <Insets left="5.0"/>
+                        </padding>
                     </HBox>
                 </children>
             </AnchorPane>
         </top>
         <left>
             <AnchorPane prefHeight="362.0" prefWidth="160.0" styleClass="leftPanel">
-                <VBox alignment="CENTER" layoutX="48.0" layoutY="41.0" prefHeight="200.0" prefWidth="150.0" styleClass="leftPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox alignment="CENTER" layoutX="48.0" layoutY="41.0" prefHeight="200.0" prefWidth="150.0"
+                      styleClass="leftPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <ImageView fitHeight="100.0" fitWidth="208.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../icons/logo_uvigo.png" />
+                        <Image url="@../../icons/logo_uvigo.png"/>
                         <VBox.margin>
-                            <Insets bottom="20.0" top="20.0" />
+                            <Insets bottom="20.0" top="20.0"/>
                         </VBox.margin>
                     </ImageView>
-                    <Button fx:id="almacenButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" style="-fx-font-weight: bold;" styleClass="sidebarItem" text="ALMACEN" textFill="WHITE">
+                    <Button fx:id="almacenButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0"
+                            style="-fx-font-weight: bold;" styleClass="sidebarItem" text="ALMACEN" textFill="WHITE">
                         <graphic>
                             <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                <Image url="@../../icons/home.png" />
+                                <Image url="@../../icons/home.png"/>
                             </ImageView>
                         </graphic>
                         <VBox.margin>
-                            <Insets top="10.0" />
+                            <Insets top="10.0"/>
                         </VBox.margin>
                         <cursor>
-                            <Cursor fx:constant="HAND" />
-                        </cursor>
-                  <font>
-                     <Font name="System Bold" size="12.0" />
-                  </font>
-                    </Button>
-                    <Button fx:id="inventarioButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="INVENTARIO" textFill="WHITE">
-                        <graphic>
-                            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                <Image url="@../../icons/box.png" />
-                            </ImageView>
-                        </graphic>
-                        <VBox.margin>
-                            <Insets top="10.0" />
-                        </VBox.margin>
-                        <cursor>
-                            <Cursor fx:constant="HAND" />
+                            <Cursor fx:constant="HAND"/>
                         </cursor>
                         <font>
-                            <Font name="System Bold" size="12.0" />
+                            <Font name="System Bold" size="12.0"/>
                         </font>
                     </Button>
-                    <Button fx:id="pedidosButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="PEDIDOS" textFill="WHITE">
+                    <Button fx:id="inventarioButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0"
+                            styleClass="sidebarItem" text="INVENTARIO" textFill="WHITE">
                         <graphic>
                             <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                <Image url="@../../icons/truck-50.png" />
+                                <Image url="@../../icons/box.png"/>
                             </ImageView>
                         </graphic>
                         <VBox.margin>
-                            <Insets top="10.0" />
+                            <Insets top="10.0"/>
                         </VBox.margin>
                         <cursor>
-                            <Cursor fx:constant="HAND" />
+                            <Cursor fx:constant="HAND"/>
                         </cursor>
                         <font>
-                            <Font name="System Bold" size="12.0" />
+                            <Font name="System Bold" size="12.0"/>
                         </font>
                     </Button>
-                    <Button fx:id="recepcionButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="RECPECIÓN" textFill="WHITE" wrapText="true">
+                    <Button fx:id="pedidosButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0"
+                            styleClass="sidebarItem" text="PEDIDOS" textFill="WHITE">
                         <graphic>
                             <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                <Image url="@../../icons/arrivals-50.png" />
+                                <Image url="@../../icons/truck-50.png"/>
                             </ImageView>
                         </graphic>
                         <VBox.margin>
-                            <Insets top="10.0" />
+                            <Insets top="10.0"/>
                         </VBox.margin>
                         <cursor>
-                            <Cursor fx:constant="HAND" />
+                            <Cursor fx:constant="HAND"/>
                         </cursor>
                         <font>
-                            <Font name="System Bold" size="12.0" />
+                            <Font name="System Bold" size="12.0"/>
                         </font>
                     </Button>
-                    <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                    <Button fx:id="ajustesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
+                    <Button fx:id="recepcionButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0"
+                            styleClass="sidebarItem" text="RECPECIÓN" textFill="WHITE" wrapText="true">
+                        <graphic>
+                            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../../icons/arrivals-50.png"/>
+                            </ImageView>
+                        </graphic>
+                        <VBox.margin>
+                            <Insets top="10.0"/>
+                        </VBox.margin>
+                        <cursor>
+                            <Cursor fx:constant="HAND"/>
+                        </cursor>
+                        <font>
+                            <Font name="System Bold" size="12.0"/>
+                        </font>
+                    </Button>
+                    <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
+                    <Button fx:id="ajustesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0"
+                            styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
                         <graphic>
                             <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@../../icons/setting.png" />
+                                    <Image url="@../../icons/setting.png"/>
                                 </image>
                             </ImageView>
                         </graphic>
                         <cursor>
-                            <Cursor fx:constant="HAND" />
+                            <Cursor fx:constant="HAND"/>
                         </cursor>
                         <font>
-                            <Font name="System Bold" size="12.0" />
+                            <Font name="System Bold" size="12.0"/>
                         </font>
-                  <padding>
-                     <Insets bottom="5.0" left="10.0" top="5.0" />
-                  </padding>
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" top="5.0"/>
+                        </padding>
                     </Button>
                 </VBox>
             </AnchorPane>
         </left>
         <center>
-            <AnchorPane fx:id="almacenContainer" prefHeight="695.0" prefWidth="1400.0" styleClass="backgroundScene" BorderPane.alignment="CENTER" />
+            <AnchorPane fx:id="almacenContainer" prefHeight="695.0" prefWidth="1400.0" styleClass="backgroundScene"
+                        BorderPane.alignment="CENTER"/>
         </center>
         <bottom>
             <AnchorPane prefHeight="20.0" styleClass="windowBar" BorderPane.alignment="CENTER">
                 <children>
                     <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0">
                         <children>
-                            <Label fx:id="roleLabel" depthTest="ENABLE" graphicTextGap="6.0" lineSpacing="10.0" text="ROL DEL USUARIO" textFill="WHITE" />
+                            <Label fx:id="roleLabel" depthTest="ENABLE" graphicTextGap="6.0" lineSpacing="10.0"
+                                   text="ROL DEL USUARIO" textFill="WHITE"/>
                         </children>
                     </HBox>
                 </children>
             </AnchorPane>
         </bottom>
     </BorderPane>
-    <AnchorPane fx:id="slider" prefWidth="200.0" styleClass="slider" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="85.0">
+    <AnchorPane fx:id="slider" prefWidth="200.0" styleClass="slider" AnchorPane.bottomAnchor="20.0"
+                AnchorPane.leftAnchor="-210.0" AnchorPane.topAnchor="85.0">
         <children>
-            <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+            <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
                 <children>
-                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="texto-label" text="Ajustes de la aplicación" />
-                    <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="texto-label"
+                           text="Ajustes de la aplicación"/>
+                    <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
                     <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                         <children>
-                            <VBox alignment="CENTER" spacing="10.0" style="-fx-border-width: 2; -fx-border-color: white; -fx-border-radius: 15;">
+                            <VBox alignment="CENTER" spacing="10.0"
+                                  style="-fx-border-width: 2; -fx-border-color: white; -fx-border-radius: 15;">
                                 <children>
                                     <Label alignment="CENTER" styleClass="texto-label-bold" text="PEDIDOS">
-                              <font>
-                                 <Font name="System Bold" size="12.0" />
-                              </font></Label>
+                                        <font>
+                                            <Font name="System Bold" size="12.0"/>
+                                        </font>
+                                    </Label>
                                     <VBox alignment="CENTER" spacing="10.0">
                                         <children>
-                                            <Button fx:id="ajustes_crear_pedido_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR PEDIDO" />
-                                            <Button fx:id="ajustes_editar_pedido_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="EDITAR PEDIDO" />
-                                            <Button fx:id="ajustes_eliminar_pedido_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="ELIMINAR PEDIDO" />
+                                            <Button fx:id="ajustes_crear_pedido_btn" maxWidth="1.7976931348623157E308"
+                                                    styleClass="itemButton" text="CREAR PEDIDO"/>
+                                            <Button fx:id="ajustes_editar_pedido_btn" maxWidth="1.7976931348623157E308"
+                                                    styleClass="itemButton" text="EDITAR PEDIDO"/>
+                                            <Button fx:id="ajustes_eliminar_pedido_btn"
+                                                    maxWidth="1.7976931348623157E308" styleClass="itemButton"
+                                                    text="ELIMINAR PEDIDO"/>
                                         </children>
                                         <VBox.margin>
-                                            <Insets left="20.0" right="20.0" />
+                                            <Insets left="20.0" right="20.0"/>
                                         </VBox.margin>
                                     </VBox>
                                 </children>
                                 <padding>
-                                    <Insets bottom="10.0" top="10.0" />
+                                    <Insets bottom="10.0" top="10.0"/>
                                 </padding>
                             </VBox>
-                            <VBox alignment="CENTER" spacing="10.0" style="-fx-border-color: white; -fx-border-radius: 15; -fx-border-width: 2;">
+                            <VBox alignment="CENTER" spacing="10.0"
+                                  style="-fx-border-color: white; -fx-border-radius: 15; -fx-border-width: 2;">
                                 <children>
-                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="texto-label-bold" text="USUARIOS" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308"
+                                           styleClass="texto-label-bold" text="USUARIOS"/>
                                     <VBox alignment="CENTER" spacing="10.0">
                                         <children>
-                                            <Button fx:id="ajustes_crear_usuario_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR USUARIO" />
-                                            <Button fx:id="ajustes_editar_usuario_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="EDITAR USUARIO" />
-                                            <Button fx:id="ajustes_eliminar_usuario_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="ELIMINAR USUARIO" />
+                                            <Button fx:id="ajustes_crear_usuario_btn" maxWidth="1.7976931348623157E308"
+                                                    styleClass="itemButton" text="CREAR USUARIO"/>
+                                            <Button fx:id="ajustes_editar_usuario_btn" maxWidth="1.7976931348623157E308"
+                                                    styleClass="itemButton" text="EDITAR USUARIO"/>
+                                            <Button fx:id="ajustes_eliminar_usuario_btn"
+                                                    maxWidth="1.7976931348623157E308" styleClass="itemButton"
+                                                    text="ELIMINAR USUARIO"/>
                                         </children>
                                         <VBox.margin>
-                                            <Insets left="20.0" right="20.0" />
+                                            <Insets left="20.0" right="20.0"/>
                                         </VBox.margin>
                                     </VBox>
                                 </children>
                                 <padding>
-                                    <Insets bottom="10.0" top="10.0" />
+                                    <Insets bottom="10.0" top="10.0"/>
                                 </padding>
                             </VBox>
-                            <VBox alignment="CENTER" spacing="10" style="-fx-border-radius: 15; -fx-border-color: white; -fx-border-width: 2;">
+                            <VBox alignment="CENTER" spacing="10"
+                                  style="-fx-border-radius: 15; -fx-border-color: white; -fx-border-width: 2;">
                                 <children>
-                                    <Label alignment="CENTER" styleClass="texto-label-bold" text="INVENTARIO" />
-                                    <Button fx:id="ajustes_crear_proveedor_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR PROVEEDOR" />
-                           <Button fx:id="ajustes_crear_tipo_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR TIPO" />
-                           <Button fx:id="ajustes_crear_producto_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR PRODUCTO" />
+                                    <Label alignment="CENTER" styleClass="texto-label-bold" text="INVENTARIO"/>
+                                    <Button fx:id="ajustes_crear_proveedor_btn" maxWidth="1.7976931348623157E308"
+                                            styleClass="itemButton" text="CREAR PROVEEDOR"/>
+                                    <Button fx:id="ajustes_crear_tipo_btn" maxWidth="1.7976931348623157E308"
+                                            styleClass="itemButton" text="CREAR TIPO"/>
+                                    <Button fx:id="ajustes_crear_producto_btn" maxWidth="1.7976931348623157E308"
+                                            styleClass="itemButton" text="CREAR PRODUCTO"/>
                                 </children>
                                 <padding>
-                                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
                                 </padding>
                             </VBox>
                         </children>
                         <VBox.margin>
-                            <Insets left="10.0" right="10.0" />
+                            <Insets left="10.0" right="10.0"/>
                         </VBox.margin>
                     </VBox>
-                    <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                    <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
                     <HBox alignment="CENTER">
                         <children>
-                            <Button fx:id="esconder_ajustes_btn" maxHeight="1.7976931348623157E308" mnemonicParsing="false">
+                            <Button fx:id="esconder_ajustes_btn" maxHeight="1.7976931348623157E308"
+                                    mnemonicParsing="false">
                                 <graphic>
-                                    <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true"
+                                               preserveRatio="true">
                                         <image>
-                                            <Image url="@../../icons/arrows/icons8-left-arrow-64.png" />
+                                            <Image url="@../../icons/arrows/icons8-left-arrow-64.png"/>
                                         </image>
                                     </ImageView>
                                 </graphic>
                                 <HBox.margin>
-                                    <Insets />
+                                    <Insets/>
                                 </HBox.margin>
                                 <effect>
-                                    <Blend />
+                                    <Blend/>
                                 </effect>
                             </Button>
-                            <Region HBox.hgrow="ALWAYS" />
-                            <Button fx:id="cerrarSesionBtn" maxHeight="1.7976931348623157E308" text="Cerrar sesión" wrapText="true">
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="cerrarSesionBtn" maxHeight="1.7976931348623157E308" text="Cerrar sesión"
+                                    wrapText="true">
                                 <graphic>
-                                    <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true"
+                                               preserveRatio="true">
                                         <image>
-                                            <Image url="@../../icons/logout-60.png" />
+                                            <Image url="@../../icons/logout-60.png"/>
                                         </image>
                                     </ImageView>
                                 </graphic>
                             </Button>
                         </children>
                         <VBox.margin>
-                            <Insets bottom="3.0" left="3.0" right="3.0" />
+                            <Insets bottom="3.0" left="3.0" right="3.0"/>
                         </VBox.margin>
                     </HBox>
                 </children>

@@ -634,3 +634,19 @@
     -fx-font-size: 15;
     -fx-font-weight: bold;
 }
+
+.directory-chosser-btn {
+    -fx-background-color: #666;
+    -fx-cursor: hand;
+    -fx-border-width: 0 0 0 2;
+    -fx-border-radius: 5;
+    -fx-border-color: #444;
+}
+
+.directory-chosser-btn:hover {
+    -fx-background-color: #777;
+    -fx-cursor: hand;
+    -fx-border-width: 0 0 0 2;
+    -fx-border-radius: 5;
+    -fx-border-color: #444;
+}

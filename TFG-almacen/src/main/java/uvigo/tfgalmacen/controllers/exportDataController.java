@@ -1,8 +1,7 @@
 package uvigo.tfgalmacen.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
-
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -10,27 +9,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.database.DatabaseConnection;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 import uvigo.tfgalmacen.utils.ExcelGenerator;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 import static uvigo.tfgalmacen.database.TableLister.getTables;
 import static uvigo.tfgalmacen.utils.ExcelGenerator.exportarTodasLasTablasAExcel;
@@ -53,15 +42,19 @@ public class exportDataController implements Initializable {
         }
     }
 
-
     private static final String PLACEHOLDER_NOMBRE_FICHERO = "DataAlmacen";
-
 
     @FXML
     private Button ExitButton;
 
     @FXML
     private AnchorPane Pane;
+
+    @FXML
+    private Button abrir_explorador_btn;
+
+    @FXML
+    private TextField carpeta_destino_text;
 
     @FXML
     private Button exportar_btn;
@@ -72,78 +65,102 @@ public class exportDataController implements Initializable {
     @FXML
     private HBox windowBar;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         ExitButton.setOnMouseClicked(_ -> {
             Stage stage = (Stage) ExitButton.getScene().getWindow();
             stage.close();
         });
 
+        // --- Carpeta inicial por defecto → Descargas ---
+        carpeta_destino_text.setText(getCarpetaDescargas());
+
+        abrir_explorador_btn.setOnAction(_ -> seleccionarCarpeta());
 
         exportar_btn.setOnMouseClicked(_ -> {
             try {
                 exportarData();
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                LOGGER.log(Level.SEVERE, "Error en exportación", e);
             }
         });
 
-        nombre_fichero_text.setPromptText(PLACEHOLDER_NOMBRE_FICHERO);
+        nombre_fichero_text.setText(PLACEHOLDER_NOMBRE_FICHERO);
     }
 
-    private void exportarData() throws SQLException {
+    // ============================================================
+    //   FUNCIONES PRINCIPALES
+    // ============================================================
 
-        List<String> tablesNames = getTables(Main.connection, DatabaseConnection.DATABASE_NAME);
-        System.out.println(tablesNames);
-
-        // Nombre base del fichero
-        String nombre = nombre_fichero_text.getText();
-        if (nombre == null || nombre.isBlank()) {
-            nombre = PLACEHOLDER_NOMBRE_FICHERO; // "DataAlmacen"
-        }
-
-        // Asegurar extensión .xlsx
-        if (!nombre.toLowerCase().endsWith(".xlsx")) {
-            nombre += ".xlsx";
-        }
-
-        Stage stage = (Stage) exportar_btn.getScene().getWindow();
+    private void seleccionarCarpeta() {
+        Stage stage = (Stage) abrir_explorador_btn.getScene().getWindow();
 
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Seleccionar carpeta de destino");
 
-        File initialDir = new File("export/");
-        if (!initialDir.exists() || !initialDir.isDirectory()) {
-            initialDir = new File(System.getProperty("user.home"));
+        File initial = new File(getCarpetaDescargas());
+        if (!initial.exists()) {
+            initial = new File(System.getProperty("user.home"));
         }
-        chooser.setInitialDirectory(initialDir);
+        chooser.setInitialDirectory(initial);
 
         File carpeta = chooser.showDialog(stage);
-        if (carpeta == null) {
-            LOGGER.info("Exportación cancelada: no se seleccionó carpeta.");
+
+        if (carpeta != null) {
+            carpeta_destino_text.setText(carpeta.getAbsolutePath());
+            LOGGER.info("Carpeta seleccionada: " + carpeta.getAbsolutePath());
+        }
+    }
+
+
+    private void exportarData() throws SQLException {
+
+        // Validar carpeta destino
+        String rutaCarpeta = carpeta_destino_text.getText();
+        if (rutaCarpeta == null || rutaCarpeta.isBlank()) {
+            LOGGER.warning("No se seleccionó carpeta destino");
             return;
         }
 
-        // Ahora sí: destino es un FICHERO dentro de la carpeta
-        File destino = new File(carpeta, nombre);
+        File carpeta = new File(rutaCarpeta);
+        if (!carpeta.exists()) {
+            LOGGER.warning("Ruta no válida: " + rutaCarpeta);
+            return;
+        }
+
+        // Obtener nombre del archivo
+        String nombreArchivo = nombre_fichero_text.getText();
+        if (nombreArchivo == null || nombreArchivo.isBlank()) {
+            nombreArchivo = PLACEHOLDER_NOMBRE_FICHERO;
+        }
+
+        if (!nombreArchivo.toLowerCase().endsWith(".xlsx")) {
+            nombreArchivo += ".xlsx";
+        }
+
+        File destino = new File(carpeta, nombreArchivo);
+
+        LOGGER.info("Exportando a: " + destino.getAbsolutePath());
+
+        // Obtener tablas de MySQL
+        List<String> tablas = getTables(Main.connection, DatabaseConnection.DATABASE_NAME);
 
         try {
-            exportarTodasLasTablasAExcel(Main.connection, tablesNames, destino);
-            LOGGER.info("Exportación completa a: " + destino.getAbsolutePath());
-            // aquí puedes lanzar tu ventana_warning de éxito
+            exportarTodasLasTablasAExcel(Main.connection, tablas, destino);
+            LOGGER.info("Exportación finalizada correctamente.");
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error exportando base de datos a Excel", e);
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error exportando datos", e);
         }
     }
 
 
-    private File elegirCarpeta(Stage owner) {
-        DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setTitle("Selecciona carpeta de destino");
-        chooser.setInitialDirectory(new File("export/"));
-        return chooser.showDialog(owner);
+    // ============================================================
+    //   UTILIDADES
+    // ============================================================
+
+    private String getCarpetaDescargas() {
+        return System.getProperty("user.home") + File.separator + "Downloads";
     }
-
-
 }
