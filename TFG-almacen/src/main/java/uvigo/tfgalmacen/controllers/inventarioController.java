@@ -120,6 +120,20 @@ public class inventarioController implements Initializable {
 
         combo_seleccionar_palet.valueProperty().addListener((obs, oldP, newP) -> actualizarLabelsUbicacionRobusta(newP));
 
+        combo_seleccionar_palet.valueProperty().addListener((obs, oldV, newV) -> {
+            boolean hayPaletSeleccionado = (newV != null);
+
+            // Deshabilitar / habilitar el resto de combos
+            estanteriaComboBox.setDisable(hayPaletSeleccionado);
+            baldaComboBox.setDisable(hayPaletSeleccionado);
+            posicionComboBox.setDisable(hayPaletSeleccionado);
+            tipoComboBox.setDisable(hayPaletSeleccionado);
+            productoComboBox.setDisable(hayPaletSeleccionado);
+            delanteComboBox.setDisable(hayPaletSeleccionado);
+
+            // Aplicar filtros automáticamente siempre que cambie la selección
+            // aplicarFiltros();
+        });
     }
 
     private void actualizarLabelsUbicacionRobusta(Palet newP) {
@@ -330,6 +344,13 @@ public class inventarioController implements Initializable {
         // ---- reset combo de palet (sin tocar sus items) ----
         combo_seleccionar_palet.getSelectionModel().clearSelection();
         combo_seleccionar_palet.getEditor().clear();
+
+        estanteriaComboBox.setDisable(false);
+        baldaComboBox.setDisable(false);
+        posicionComboBox.setDisable(false);
+        tipoComboBox.setDisable(false);
+        productoComboBox.setDisable(false);
+        delanteComboBox.setDisable(false);
 
         // ---- volver a mostrar todo ----
         aplicarFiltros();
