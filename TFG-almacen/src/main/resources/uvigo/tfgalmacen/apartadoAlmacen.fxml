@@ -34,7 +34,7 @@
         </AnchorPane>
         <VBox alignment="CENTER" fillWidth="false" styleClass="backgroundScene" HBox.hgrow="ALWAYS">
             <children>
-                  <VBox alignment="CENTER" fillWidth="false" maxWidth="335.0" spacing="10.0" style="-fx-background-color: #2F3A32; -fx-background-radius: 18;">
+                  <VBox alignment="CENTER" fillWidth="false" maxWidth="335.0" spacing="10.0" style="-fx-background-color: #222; -fx-background-radius: 18;">
                       <children>
                             <VBox alignment="CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="124.0" prefWidth="319.0" spacing="15.0" style="-fx-border-color: white; -fx-border-radius: 15; -fx-border-width: 4;">
                                 <children>

@@ -31,7 +31,13 @@ public class RutasFicheros {
     public static final String WINDOW_AJUSTES_EDITAR_USUARIOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesUsuarios/windowAjustesEditarUsuarios.fxml";
     public static final String WINDOW_AJUSTES_ELIMINAR_USUARIOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesUsuarios/windowAjustesEliminarUsuarios.fxml";
     public static final String WINDOW_AJUSTES_CAMBIAR_CONTRASENA_USUARIOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesUsuarios/windowAjustesCambiarContrasenaUsuarios.fxml";
+
     public static final String WINDOW_AJUSTES_ACTUALIZAR_PEDIDO_ELIMINAR_USUARIOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesUsuarios/windowActualizarPedidoDeUsuarioEliminado.fxml";
+
+
+    public static final String WINDOW_AJUSTES_CREAR_TIPO_FXML = "/uvigo/tfgalmacen/windowCrearTipo.fxml";
+    public static final String WINDOW_AJUSTES_CREAR_PRODUCTO_FXML = "/uvigo/tfgalmacen/windowCrearProducto.fxml";
+    public static final String WINDOW_AJUSTES_CREAR_PROVEEDOR_FXML = "/uvigo/tfgalmacen/windowCrearProveedor.fxml";
 
 
     public static final String WINDOW_MOVIMIENTO_FXML = "/uvigo/tfgalmacen/windowMovimientos.fxml";

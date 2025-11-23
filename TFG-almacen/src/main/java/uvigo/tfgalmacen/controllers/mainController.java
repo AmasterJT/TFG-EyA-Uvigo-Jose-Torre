@@ -117,6 +117,16 @@ public class mainController implements Initializable {
     @FXML
     private HBox windowBar;
 
+
+    @FXML
+    private Button ajustes_crear_producto_btn;
+
+    @FXML
+    private Button ajustes_crear_proveedor_btn;
+
+    @FXML
+    private Button ajustes_crear_tipo_btn;
+
     @FXML
     private Button movimiento_btn;
 
@@ -177,6 +187,15 @@ public class mainController implements Initializable {
         movimiento_btn.setTooltip(new Tooltip("Mover Palet"));
 
         esconder_ajustes_btn.setOnMouseClicked(_ -> slideMenu(false));
+
+        ajustes_crear_producto_btn.setOnMouseClicked(_ -> abrirVentanaCrearProducto());
+        ajustes_crear_producto_btn.setTooltip(new Tooltip("Crear nuevo producto"));
+
+        ajustes_crear_tipo_btn.setOnMouseClicked(_ -> abrirVentanaCrearTipo());
+        ajustes_crear_tipo_btn.setTooltip(new Tooltip("Crear nuevo tipo"));
+
+        ajustes_crear_proveedor_btn.setOnMouseClicked(_ -> abrirVentanaCrearProveedor());
+        ajustes_crear_proveedor_btn.setTooltip(new Tooltip("Crear nuevo porveedor"));
 
         if (cerrarSesionBtn != null) {
             cerrarSesionBtn.setOnAction(_ -> cerrarSesion());
@@ -347,9 +366,24 @@ public class mainController implements Initializable {
         openWindowAsync(WINDOW_AJUSTES_ELIMINAR_PEDIDOS_FXML, "Eliminar Pedido", owner);
     }
 
+    private void abrirVentanaCrearProveedor() {
+        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
+        openWindowAsync(WINDOW_AJUSTES_CREAR_PROVEEDOR_FXML, "Eliminar Pedido", owner);
+    }
+
+    private void abrirVentanaCrearTipo() {
+        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
+        openWindowAsyncCallback(WINDOW_AJUSTES_CREAR_TIPO_FXML, "Crear nuevo tipo", owner, this::loadAlmacenView);
+    }
+
+    private void abrirVentanaCrearProducto() {
+        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
+        openWindowAsync(WINDOW_AJUSTES_CREAR_PRODUCTO_FXML, "Crear nuevo porducto", owner);
+    }
+
     private void abrirVentanaMovimiento() {
         Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
-        openWindowAsyncCallback(WINDOW_MOVIMIENTO_FXML, "Movimiento", owner, this::loadAlmacenView);   // callback que se ejecuta al cerrar);
+        openWindowAsyncCallback(WINDOW_MOVIMIENTO_FXML, "Crear nuevo Proveedor", owner, this::loadAlmacenView);   // callback que se ejecuta al cerrar);
     }
 
 

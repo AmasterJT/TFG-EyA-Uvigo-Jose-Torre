@@ -31,7 +31,6 @@ import static uvigo.tfgalmacen.RutasFicheros.*;
 import static uvigo.tfgalmacen.utils.ClipboardUtils.copyLabelText;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
-import uvigo.tfgalmacen.controllers.apartadosAjustesControllers.windowAjustesCambiarContrasenaUsuariosController;
 
 public class windowAjustesEditarUsuariosController {
 
@@ -134,7 +133,7 @@ public class windowAjustesEditarUsuariosController {
                 WINDOW_AJUSTES_CAMBIAR_CONTRASENA_USUARIOS_FXML,
                 "Cambiar contraseña",
                 owner,
-                controller -> ((windowAjustesCambiarContrasenaUsuariosController) controller).setData(id)   // <-- AQUÍ ejecutas setData
+                controller -> ((windowAjustesCambiarContrasenaUsuariosController) controller).setData(id)
         );
     }
 

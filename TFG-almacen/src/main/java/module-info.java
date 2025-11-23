@@ -7,7 +7,7 @@ module uvigo.tfgalmacen {
     requires javafx.graphics;
     requires java.logging;
     requires javafx.base;
-
+    requires itextpdf;
 
     exports uvigo.tfgalmacen;
     opens uvigo.tfgalmacen to javafx.fxml;
@@ -19,5 +19,7 @@ module uvigo.tfgalmacen {
     opens uvigo.tfgalmacen.controllers to javafx.fxml;
     exports uvigo.tfgalmacen.utils;
     opens uvigo.tfgalmacen.utils to javafx.fxml;
+    exports uvigo.tfgalmacen.gs1;
+    opens uvigo.tfgalmacen.gs1 to javafx.fxml;
 
 }

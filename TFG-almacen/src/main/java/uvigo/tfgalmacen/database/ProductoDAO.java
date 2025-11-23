@@ -2,10 +2,7 @@ package uvigo.tfgalmacen.database;
 
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -132,6 +129,7 @@ public class ProductoDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
+                System.out.println("QQQQQQQQ:  " + resultSet.getString("color"));
                 return resultSet.getString("color");
             } else {
                 System.err.println("No se encontró ningún producto con identificador: " + identificadorProducto);
@@ -179,5 +177,86 @@ public class ProductoDAO {
         }
 
         return nombres;
+    }
+
+
+    private static final String INSERT_PRODUCTO_SQL2 = """
+                INSERT INTO productos (identificador_producto, tipo_producto, descripcion, precio)
+                VALUES (?, ?, ?, ?)
+            """;
+
+    /**
+     * Inserta un nuevo producto en la base de datos.
+     *
+     * @param conn        conexión activa a la base de datos
+     * @param nombre      identificador del producto (nombre)
+     * @param tipo        tipo de producto (id_tipo en la tabla tipos)
+     * @param descripcion descripción del producto (puede ser null)
+     * @param precio      precio del producto (puede ser null)
+     */
+    public static void crearNuevoProducto(Connection conn,
+                                          String nombre,
+                                          String tipo,
+                                          String descripcion,
+                                          String precio) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en crearNuevoProducto()");
+            return;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(INSERT_PRODUCTO_SQL2, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, nombre);
+            ps.setString(2, tipo);
+
+            // Descripción (puede ser null)
+            if (descripcion == null || descripcion.isBlank() || descripcion.equals("-")) {
+                ps.setNull(3, Types.VARCHAR);
+            } else {
+                ps.setString(3, descripcion);
+            }
+
+            // Precio (puede ser null)
+            if (precio == null || precio.isBlank() || precio.equals("-")) {
+                ps.setNull(4, Types.DECIMAL);
+            } else {
+                ps.setBigDecimal(4, new java.math.BigDecimal(precio));
+            }
+
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                LOGGER.fine("Producto '" + nombre + "' creado correctamente en la base de datos.");
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al crear nuevo producto: " + e.getMessage(), e);
+        }
+
+    }
+
+
+    public static int getIdProductoByIdentificadorProducto(Connection conn, String identificadorProducto) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getIdProductoByIdentificadorProducto()");
+            return -1;
+        }
+
+        final String SQL = "SELECT id_producto FROM productos WHERE identificador_producto = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL)) {
+            ps.setString(1, identificadorProducto);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id_producto");
+                LOGGER.fine("ID del producto encontrado: " + id + " (" + identificadorProducto + ")");
+                return id;
+            } else {
+                LOGGER.warning("No se encontró producto con identificador: " + identificadorProducto);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error obteniendo id_producto para " + identificadorProducto, e);
+        }
+        return -1;
     }
 }

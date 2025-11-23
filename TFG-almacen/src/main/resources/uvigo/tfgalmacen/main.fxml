@@ -73,6 +73,9 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="HISTORIAL" textFill="WHITE">
@@ -262,7 +265,7 @@
             </AnchorPane>
         </bottom>
     </BorderPane>
-    <AnchorPane fx:id="slider" prefWidth="200.0" styleClass="slider" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="-210.0" AnchorPane.topAnchor="85.0">
+    <AnchorPane fx:id="slider" prefWidth="200.0" styleClass="slider" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="85.0">
         <children>
             <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
                 <children>
@@ -310,11 +313,12 @@
                             <VBox alignment="CENTER" spacing="10" style="-fx-border-radius: 15; -fx-border-color: white; -fx-border-width: 2;">
                                 <children>
                                     <Label alignment="CENTER" styleClass="texto-label" text="Inventario" />
-                                    <Label fx:id="estadoConexionLabel" styleClass="texto-label" text="Estado: Conectando..." />
-                                    <Button fx:id="probarConexionBtn" styleClass="itemButton" text="Probar conexión" />
+                                    <Button fx:id="ajustes_crear_proveedor_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR PROVEEDOR" />
+                           <Button fx:id="ajustes_crear_tipo_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR TIPO" />
+                           <Button fx:id="ajustes_crear_producto_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR PRODUCTO" />
                                 </children>
                                 <padding>
-                                    <Insets bottom="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                 </padding>
                             </VBox>
                         </children>

@@ -27,6 +27,8 @@ public class Pedido implements Comparable<Pedido> {
     private int id_usuario;
     private String estado;
 
+
+    private int palets_del_pedido;
     private final String horaSalida;
 
 
@@ -35,7 +37,7 @@ public class Pedido implements Comparable<Pedido> {
 
     private final String nombre_cliente;
 
-    public Pedido(String codigo_referencia, int id_pedido, int id_cliente, int id_usuario, String estado, String fechaPedidoRaw, String hora_salida) {
+    public Pedido(String codigo_referencia, int id_pedido, int id_cliente, int id_usuario, String estado, String fechaPedidoRaw, String hora_salida, int palets_del_pedido) {
         this.codigo_referencia = codigo_referencia;
         this.id_pedido = id_pedido;
         this.id_cliente = id_cliente;
@@ -44,6 +46,7 @@ public class Pedido implements Comparable<Pedido> {
         this.fechaPedidoRaw = fechaPedidoRaw;
         this.fechaPedido = LocalDateTime.parse(fechaPedidoRaw, FORMATTER);
         this.horaSalida = hora_salida;
+        this.palets_del_pedido = palets_del_pedido;
 
 
         this.nombre_cliente = setNombreCliente(id_cliente); // Inicializar como null, se puede establecer más tarde si es necesario
@@ -80,6 +83,13 @@ public class Pedido implements Comparable<Pedido> {
         return ClientesDAO.getNombreClienteById(Main.connection, idCliente);
     }
 
+    public int getPalets_del_pedido() {
+        return palets_del_pedido;
+    }
+
+    public void setPalets_del_pedido(int palets_del_pedido) {
+        this.palets_del_pedido = palets_del_pedido;
+    }
 
     public String getCodigo_referencia() {
         return codigo_referencia;

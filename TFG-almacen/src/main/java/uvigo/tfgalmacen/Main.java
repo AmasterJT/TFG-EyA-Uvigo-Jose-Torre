@@ -95,7 +95,7 @@ public class Main extends Application {
 
         List<String> tablesNames = getTables(connection, DatabaseConnection.DATABASE_NAME);
         System.out.println(tablesNames);
-        
+
         stage = crearStageBasico(root);
         // 🔹 Añadir icono a la ventana
         stage.getIcons().add(
@@ -126,6 +126,8 @@ public class Main extends Application {
             // List<Pedido> lista = PedidoDAO.getPedidosAllData(tmp);
             // lista.forEach(p -> LOGGER.info(p::toString));
             // close(tmp);
+
+
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Error en bloque de pre-lanzamiento (opcional)", e);
         }

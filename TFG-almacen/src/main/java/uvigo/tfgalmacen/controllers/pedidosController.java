@@ -274,7 +274,7 @@ public class pedidosController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_DETALLES_PEDIDO_FXML));
                 AnchorPane pane = loader.load();
 
-                DetallesPedidoController controller = loader.getController();
+                detallesPedidoController controller = loader.getController();
                 controller.setData(pedido);
 
                 Stage stage = crearStageBasico(pane, true, "Detalles del pedido: " + pedido.getCodigo_referencia());

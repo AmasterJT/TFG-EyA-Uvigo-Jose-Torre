@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="backgroundAnchorPane" prefHeight="193.0" prefWidth="180.0" style="-fx-border-radius: 5; -fx-background-color: #8a8a8a;" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemInventarioController">
+    <children>
+        <VBox alignment="TOP_CENTER" layoutX="26.0" layoutY="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../img/palet.PNG" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                    </VBox.margin>
+                </ImageView>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                    <children>
+                        <Label fx:id="identificador_producto" text="Producto" wrapText="true">
+                            <font>
+                                <Font name="FiraCode Nerd Font Bold" size="13.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                    <children>
+                        <Label fx:id="identificador_tipo" text="tipo" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+
+                        <Label text="E:">
+                            <font>
+                                <Font name="System Bold" size="10.0" />
+                            </font>
+                        </Label>
+
+                        <Label fx:id="estanteriaLabel">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                        </Label>
+
+                        <Region fx:id="spacer1" HBox.hgrow="ALWAYS" />
+
+                        <Label text="B:">
+                            <font>
+                                <Font name="System Bold" size="10.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="baldaLabel">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                        </Label>
+
+                        <Region fx:id="spacer2" HBox.hgrow="ALWAYS" />
+
+                        <Label text="P:">
+                            <font>
+                                <Font name="System Bold" size="10.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="posicionLabel">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                        </Label>
+
+                        <Region fx:id="spacer3" HBox.hgrow="ALWAYS" />
+
+                        <Label text="Del:">
+                            <font>
+                                <Font name="System Bold" size="10.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="delanteLabel">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                        </Label>
+
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets bottom="-8.0" top="5.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" />
+            </padding>
+        </VBox>
+    </children>
+    <styleClass>
+        <String fx:value="fruit-item" />
+        <String fx:value="shadow" />
+    </styleClass>
+</AnchorPane>

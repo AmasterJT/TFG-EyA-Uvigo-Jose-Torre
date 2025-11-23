@@ -27,12 +27,14 @@ import static java.lang.Integer.parseInt;
 import static uvigo.tfgalmacen.RutasFicheros.ITEM_DETALLE_PEDIDO_FXML;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.actualizarEstadoProductoPedido;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoReferencia;
+import static uvigo.tfgalmacen.database.PedidoDAO.actualizarPaletsDelPedido;
+import static uvigo.tfgalmacen.database.PedidoDAO.getPaletsDelPedido;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
-public class DetallesPedidoController {
+public class detallesPedidoController {
 
     // 🧩 Logger con colores personalizados
-    private static final Logger LOGGER = Logger.getLogger(DetallesPedidoController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(detallesPedidoController.class.getName());
 
     static {
         LOGGER.setLevel(Level.ALL);
@@ -70,12 +72,18 @@ public class DetallesPedidoController {
     @FXML
     private HBox windowBar;
 
+    @FXML
+    private Button crear_palet_salida_btn;
+
 
     @FXML
     private Label codigo_referencia_pedido_detalle_label;
 
     @FXML
     private Label estado_pedido_detalle_label;
+
+    @FXML
+    private Label palets_pedido_label;
 
     private List<ProductoPedido> productos_del_pedido;
 
@@ -99,6 +107,32 @@ public class DetallesPedidoController {
         aplicar_cambios_detalle_pedido_btn.setOnAction(_ -> actualizarDetallePedidos());
         completar_detalle_pedido_btn.setOnAction(_ -> finalizarPedido());
 
+        crear_palet_salida_btn.setOnAction(_ -> crearPalet());
+
+    }
+
+    private void crearPalet() {
+        System.out.println("click");
+
+        if (estado_pedido_detalle_label.getText().equals("Pendiente")) return;
+
+        for (ItemDetallesPedidoController itemController : allItemControllers) {
+            System.out.println("Detalle: " + itemController.id_BDD + " -> " + itemController.getProducto_listo_en_pedido_check().isSelected());
+
+            if (itemController.getProducto_listo_en_pedido_check().isSelected()) {
+                continue;
+            }
+
+        }
+
+        int i = getPaletsDelPedido(Main.connection, pedido_para_detallar.getId_pedido());
+        System.out.println(i);
+        actualizarPaletsDelPedido(Main.connection, pedido_para_detallar.getId_pedido(), i + 1);
+
+        ventana_warning("Productos actualizados correctamente", "Los cambios en los productos del pedido se han aplicado con éxito.", "Información");
+
+        Stage stage = (Stage) aplicar_cambios_detalle_pedido_btn.getScene().getWindow();
+        stage.close();
     }
 
     private void finalizarPedido() {
@@ -156,8 +190,13 @@ public class DetallesPedidoController {
                 pedido_para_detallar.getCodigo_referencia()
         );
 
+        palets_pedido_label.setText(String.valueOf(getPaletsDelPedido(Main.connection, pedido_para_detallar.getId_pedido())));
+
         LOGGER.info("Renderizando productos del pedido: " + pedido_para_detallar.getCodigo_referencia());
         renderizarProductos(productos_del_pedido, grid_pendientes);
+
+        if (estado_pedido_detalle_label.getText().equals("Pendiente")) crear_palet_salida_btn.setDisable(true);
+
     }
 
     private void renderizarProductos(List<ProductoPedido> productos_del_pedido, GridPane grid) {

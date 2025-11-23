@@ -5,10 +5,7 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -290,5 +287,17 @@ public class windowComponentAndFuncionalty {
         return stage;
     }
 
+
+    public static TextFormatter<String> TEXTVIEW_NUMERICO = new TextFormatter<>(c -> {
+        if (c.getControlNewText().matches("\\d*")) {
+            return c; // aceptar si es un número
+        }
+        return null; // ignorar lo demás
+    });
+
+
+    public static TextFormatter<String> numericFormatter() {
+        return new TextFormatter<>(c -> c.getControlNewText().matches("\\d*") ? c : null);
+    }
 
 }

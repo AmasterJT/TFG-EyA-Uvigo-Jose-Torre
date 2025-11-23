@@ -481,7 +481,7 @@ public class almacenController implements Initializable {
                     if (palet.getProductBox() == node) {
                         idPaletLabel.setText(String.valueOf(palet.getIdPalet()));
                         nombreProductoLabel.setText(palet.getIdProducto());
-                        contenidoLabel.setText(palet.getCantidadProducto() + "L");
+                        contenidoLabel.setText(String.valueOf(palet.getCantidadProducto()));
                         tipoProductoLabel.setText(palet.getIdTipo());
 
                         estanteriaLabel.setText(String.valueOf(palet.getEstanteria()));

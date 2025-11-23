@@ -24,6 +24,21 @@
             <center>
                 <VBox alignment="CENTER" spacing="10.0" styleClass="backgroundScene" BorderPane.alignment="CENTER">
                     <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                                <Button fx:id="completar_detalle_pedido_btn" mnemonicParsing="false" prefWidth="200.0" styleClass="loginBtn" text="COMPLETAR PEDIDO" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/complete-30.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                     </children>
+                  </HBox>
                         <HBox alignment="CENTER">
                             <children>
                                 <Label text="CÓDIGO REFERENCIA: ">
@@ -52,6 +67,28 @@
                                 </Label>
                             </children>
                         </HBox>
+                  <HBox alignment="CENTER" spacing="2.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/pallet-24-black.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="estado_pedido_detalle_label1" text=":">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="palets_pedido_label" text="0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
                         <VBox alignment="CENTER" spacing="30.0">
                             <children>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" styleClass="pendientePedido">
@@ -80,18 +117,16 @@
                         </VBox>
                         <HBox alignment="CENTER_RIGHT" spacing="15.0">
                             <children>
-                                <Button fx:id="completar_detalle_pedido_btn" mnemonicParsing="false" prefWidth="200.0" styleClass="loginBtn" text="COMPLETAR PEDIDO" textFill="WHITE">
+                        <Button fx:id="crear_palet_salida_btn" mnemonicParsing="false" styleClass="generar_compra" text="CREAR PALET">
                            <graphic>
                               <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../icons/complete-30.png" />
+                                    <Image url="@../../icons/pallet-24.png" />
                                  </image>
                               </ImageView>
                            </graphic>
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
-                                <Separator opacity="0.0" prefHeight="4.0" prefWidth="300.0" stylesheets="@css/Styles.css" />
+                        </Button>
+                                <Separator opacity="0.0" prefHeight="4.0" prefWidth="300.0" stylesheets="@css/Styles.css" HBox.hgrow="ALWAYS" />
                                 <Button fx:id="aplicar_cambios_detalle_pedido_btn" mnemonicParsing="false" prefWidth="120.0" styleClass="generar_compra" text="APLICAR">
                            <font>
                               <Font name="System Bold" size="12.0" />

@@ -13,6 +13,7 @@ import uvigo.tfgalmacen.almacenManagement.Palet;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static uvigo.tfgalmacen.database.PedidoDAO.getPaletsDelPedido;
 import static uvigo.tfgalmacen.database.UsuarioDAO.getNombreUsuarioById;
 import static uvigo.tfgalmacen.database.UsuarioDAO.getRoleNameByUserId;
 import static uvigo.tfgalmacen.utils.ClipboardUtils.copyLabelText;
@@ -43,6 +44,9 @@ public class ItemPedidoController implements Initializable {
     private Label text_usuario_label;
 
     @FXML
+    private Label palets_pedido_label;
+
+    @FXML
     private VBox vertical_container;
 
     @FXML
@@ -71,13 +75,16 @@ public class ItemPedidoController implements Initializable {
 
         String colorHEX = pedido.getColorEstadoHEX();
 
-        estado_pedido_label.setText(pedido.getEstado());
+        // estado_pedido_label.setText(pedido.getEstado());
         if ("primera_hora".equals(pedido.getHoraSalida())) {
             estado_pedido_label.setStyle("-fx-background-color: " + colorPrimeraHora);
+            estado_pedido_label.setText("1");
         } else if ("segunda_hora".equals(pedido.getHoraSalida())) {
             estado_pedido_label.setStyle("-fx-background-color: " + colorSegundaHora);
+            estado_pedido_label.setText("2");
         } else {
             estado_pedido_label.setStyle("-fx-background-color: " + colorHEX);
+            estado_pedido_label.setText("-");
         }
 
 
@@ -92,6 +99,7 @@ public class ItemPedidoController implements Initializable {
                     " (" + getRoleNameByUserId(Main.connection, pedido.getId_usuario()) + ")");
         }
 
+        palets_pedido_label.setText(String.valueOf(getPaletsDelPedido(Main.connection, pedido.getId_pedido())));
     }
 
     private void prueba() {

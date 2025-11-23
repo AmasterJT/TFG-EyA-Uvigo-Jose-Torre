@@ -89,7 +89,8 @@ public class PedidoDAO {
                         resultSet.getInt("id_usuario"),
                         resultSet.getString("estado"),
                         resultSet.getString("fecha_pedido"),
-                        resultSet.getString("hora_salida")
+                        resultSet.getString("hora_salida"),
+                        resultSet.getInt("paelts_del_pedido")
                 );
                 pedidos.add(pedido);
             }
@@ -131,7 +132,8 @@ public class PedidoDAO {
                         resultSet.getInt("id_usuario"),
                         resultSet.getString("estado"),
                         resultSet.getString("fecha_pedido"),
-                        resultSet.getString("hora_salida")
+                        resultSet.getString("hora_salida"),
+                        resultSet.getInt("palets_del_pedido")
                 );
                 pedidos.add(pedido);
             }
@@ -373,7 +375,7 @@ public class PedidoDAO {
 
 
     private static final String SQL_SELECT_TODOS_PEDIDOS =
-            "SELECT codigo_referencia, id_pedido, id_cliente, id_usuario, estado, fecha_pedido, hora_salida " +
+            "SELECT codigo_referencia, id_pedido, id_cliente, id_usuario, estado, fecha_pedido, hora_salida, palets_del_pedido " +
                     "FROM pedidos " +
                     "ORDER BY fecha_pedido DESC";
 
@@ -395,6 +397,7 @@ public class PedidoDAO {
                 String codigoReferencia = rs.getString("codigo_referencia");
                 int idPedido = rs.getInt("id_pedido");
                 int idCliente = rs.getInt("id_cliente");
+                int palets_del_pedido = rs.getInt("palets_del_pedido");
 
                 // id_usuario puede ser NULL; getInt devuelve 0 si NULL. Podemos conservar 0.
                 int idUsuario = rs.getInt("id_usuario");
@@ -418,7 +421,8 @@ public class PedidoDAO {
                         idUsuario,
                         estado,
                         fechaPedidoRaw,
-                        horaSalida
+                        horaSalida,
+                        palets_del_pedido
                 );
 
                 pedidos.add(p);
@@ -583,4 +587,73 @@ public class PedidoDAO {
         }
     }
 
+
+    private static final String SQL_UPDATE_PALETS_PEDIDO =
+            "UPDATE pedidos SET palets_del_pedido = ? WHERE id_pedido = ?";
+
+    /**
+     * Actualiza el número de palets de un pedido.
+     *
+     * @param conn            conexión abierta a la base de datos
+     * @param idPedido        ID del pedido a modificar
+     * @param paletsDelPedido nuevo valor del campo palets_del_pedido
+     * @return true si la actualización fue exitosa, false en caso contrario
+     */
+    public static boolean actualizarPaletsDelPedido(Connection conn, int idPedido, int paletsDelPedido) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en actualizarPaletsDelPedido()");
+            return false;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_UPDATE_PALETS_PEDIDO)) {
+            ps.setInt(1, paletsDelPedido);
+            ps.setInt(2, idPedido);
+
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                LOGGER.info(() -> String.format("Pedido %d actualizado con palets_del_pedido=%d", idPedido, paletsDelPedido));
+                return true;
+            } else {
+                LOGGER.warning(() -> String.format("No se encontró pedido con id_pedido=%d", idPedido));
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error actualizando palets_del_pedido en pedido id=" + idPedido, e);
+        }
+        return false;
+    }
+
+
+    private static final String SQL_SELECT_PALETS_PEDIDO =
+            "SELECT palets_del_pedido FROM pedidos WHERE id_pedido = ?";
+
+    /**
+     * Obtiene el valor del campo palets_del_pedido para un pedido dado.
+     *
+     * @param conn     conexión abierta a la base de datos
+     * @param idPedido id del pedido
+     * @return el número de palets_del_pedido, o -1 si no se encuentra o hay error
+     */
+    public static int getPaletsDelPedido(Connection conn, int idPedido) {
+        if (conn == null) {
+            LOGGER.severe("❌ Conexión nula en getPaletsDelPedido()");
+            return -1;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_SELECT_PALETS_PEDIDO)) {
+            ps.setInt(1, idPedido);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int palets = rs.getInt("palets_del_pedido");
+                    LOGGER.fine(() -> String.format("📊 Pedido %d → palets_del_pedido=%d", idPedido, palets));
+                    return palets;
+                } else {
+                    LOGGER.warning(() -> String.format("⚠️ No se encontró pedido con id_pedido=%d", idPedido));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error obteniendo palets_del_pedido para pedido id=" + idPedido, e);
+        }
+        return -1;
+    }
 }
