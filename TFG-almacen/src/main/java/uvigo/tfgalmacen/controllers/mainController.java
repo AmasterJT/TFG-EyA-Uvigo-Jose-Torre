@@ -19,11 +19,15 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
+import uvigo.tfgalmacen.database.DatabaseConnection;
 import uvigo.tfgalmacen.utils.ColorFormatter;
+import uvigo.tfgalmacen.utils.ExcelGenerator;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,6 +37,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.RutasFicheros.*;
+import static uvigo.tfgalmacen.database.TableLister.getTables;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_confirmacion;
 
@@ -130,6 +135,9 @@ public class mainController implements Initializable {
     @FXML
     private Button movimiento_btn;
 
+    @FXML
+    private Button export_data_btn;
+
     // ======================= Estado =======================
     private Button activeScene = null;
     private boolean sliderVisible = true;
@@ -196,6 +204,15 @@ public class mainController implements Initializable {
 
         ajustes_crear_proveedor_btn.setOnMouseClicked(_ -> abrirVentanaCrearProveedor());
         ajustes_crear_proveedor_btn.setTooltip(new Tooltip("Crear nuevo porveedor"));
+
+        export_data_btn.setOnMouseClicked(_ -> {
+            try {
+                abrirVentanaExportData();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        export_data_btn.setTooltip(new Tooltip("Exportar datos"));
 
         if (cerrarSesionBtn != null) {
             cerrarSesionBtn.setOnAction(_ -> cerrarSesion());
@@ -381,6 +398,12 @@ public class mainController implements Initializable {
         openWindowAsync(WINDOW_AJUSTES_CREAR_PRODUCTO_FXML, "Crear nuevo porducto", owner);
     }
 
+    private void abrirVentanaExportData() throws SQLException {
+
+        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
+        openWindowAsync(WINDOW_EXPORTAR_DATA_FXML, "Exportar datos", owner);
+    }
+
     private void abrirVentanaMovimiento() {
         Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
         openWindowAsyncCallback(WINDOW_MOVIMIENTO_FXML, "Crear nuevo Proveedor", owner, this::loadAlmacenView);   // callback que se ejecuta al cerrar);
@@ -422,7 +445,7 @@ public class mainController implements Initializable {
     @FXML
     private void openXmlInExcel() {
         String excelPath = "\"C:\\\\Program Files (x86)\\\\Microsoft Office\\\\root\\\\Office16\\\\EXCEL.EXE\"";
-        File folder = new File("output_files/");
+        File folder = new File("export/");
 
         if (!folder.exists() || !folder.isDirectory()) {
             LOGGER.warning("Directorio no encontrado: " + folder.getAbsolutePath());

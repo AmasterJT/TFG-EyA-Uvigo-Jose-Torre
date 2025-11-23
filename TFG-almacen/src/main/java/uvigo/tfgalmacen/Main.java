@@ -93,8 +93,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(WINDOW_LOGIN_FXML));
         Parent root = fxmlLoader.load();
 
-        List<String> tablesNames = getTables(connection, DatabaseConnection.DATABASE_NAME);
-        System.out.println(tablesNames);
+        ;
 
         stage = crearStageBasico(root);
         // 🔹 Añadir icono a la ventana

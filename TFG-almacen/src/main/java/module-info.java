@@ -8,6 +8,8 @@ module uvigo.tfgalmacen {
     requires java.logging;
     requires javafx.base;
     requires itextpdf;
+    requires org.apache.poi.ooxml;
+    requires org.apache.poi.poi;
 
     exports uvigo.tfgalmacen;
     opens uvigo.tfgalmacen to javafx.fxml;

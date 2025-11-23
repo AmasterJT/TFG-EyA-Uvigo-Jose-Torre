@@ -41,6 +41,7 @@ public class RutasFicheros {
 
 
     public static final String WINDOW_MOVIMIENTO_FXML = "/uvigo/tfgalmacen/windowMovimientos.fxml";
+    public static final String WINDOW_EXPORTAR_DATA_FXML = "/uvigo/tfgalmacen/windowExportData.fxml";
 
 
     public static final String CSS_COLORS = "/uvigo/tfgalmacen/css/Colors.css";

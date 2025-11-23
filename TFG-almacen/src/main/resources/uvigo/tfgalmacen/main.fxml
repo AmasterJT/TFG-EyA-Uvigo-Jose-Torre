@@ -132,7 +132,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#openXmlInExcel" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="EXPORT" textFill="WHITE">
+                        <Button fx:id="export_data_btn" mnemonicParsing="false" onAction="#openXmlInExcel" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="EXPORT" textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                     <Image url="@../../icons/download-64.png" />
@@ -275,7 +275,10 @@
                         <children>
                             <VBox alignment="CENTER" spacing="10.0" style="-fx-border-width: 2; -fx-border-color: white; -fx-border-radius: 15;">
                                 <children>
-                                    <Label alignment="CENTER" styleClass="texto-label" text="Pedidos" />
+                                    <Label alignment="CENTER" styleClass="texto-label-bold" text="PEDIDOS">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font></Label>
                                     <VBox alignment="CENTER" spacing="10.0">
                                         <children>
                                             <Button fx:id="ajustes_crear_pedido_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR PEDIDO" />
@@ -293,8 +296,7 @@
                             </VBox>
                             <VBox alignment="CENTER" spacing="10.0" style="-fx-border-color: white; -fx-border-radius: 15; -fx-border-width: 2;">
                                 <children>
-                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="texto-label" text="Usuarios" />
-                                    <Label fx:id="usuarioActualLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="texto-label" text="Usuario actual: ---" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="texto-label-bold" text="USUARIOS" />
                                     <VBox alignment="CENTER" spacing="10.0">
                                         <children>
                                             <Button fx:id="ajustes_crear_usuario_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR USUARIO" />
@@ -312,7 +314,7 @@
                             </VBox>
                             <VBox alignment="CENTER" spacing="10" style="-fx-border-radius: 15; -fx-border-color: white; -fx-border-width: 2;">
                                 <children>
-                                    <Label alignment="CENTER" styleClass="texto-label" text="Inventario" />
+                                    <Label alignment="CENTER" styleClass="texto-label-bold" text="INVENTARIO" />
                                     <Button fx:id="ajustes_crear_proveedor_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR PROVEEDOR" />
                            <Button fx:id="ajustes_crear_tipo_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR TIPO" />
                            <Button fx:id="ajustes_crear_producto_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR PRODUCTO" />

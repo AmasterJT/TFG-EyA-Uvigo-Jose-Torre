@@ -365,6 +365,13 @@
     -fx-font-size: 14px;
 }
 
+.texto-label-bold {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
 
 /* Hace que todo el ListView sea transparente */
 .list-view {
