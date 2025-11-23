@@ -1,6 +1,7 @@
 package uvigo.tfgalmacen.controllers;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +13,7 @@ import uvigo.tfgalmacen.almacenManagement.Palet;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Producto;
 import uvigo.tfgalmacen.utils.ColorFormatter;
+import uvigo.tfgalmacen.utils.ComboFilters;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static uvigo.tfgalmacen.RutasFicheros.ITEM_INVENTARIO_FXML;
+import static uvigo.tfgalmacen.almacenManagement.Almacen.TodosPalets;
 
 /**
  * Controlador para la vista de inventario.
@@ -61,6 +64,9 @@ public class inventarioController implements Initializable {
     private static final List<String> BALDAS = IntStream.rangeClosed(1, 8).mapToObj(String::valueOf).collect(Collectors.toList());
     private static final List<String> POSICIONES = IntStream.rangeClosed(1, 24).mapToObj(String::valueOf).collect(Collectors.toList());
 
+    private static final String PLACEHOLDER_PALET = "Seleccionar palet";
+
+
     // ---------------------- Estado ----------------------
     private List<Palet> filteredPalets = new ArrayList<>();
     private int currentPage = 0;
@@ -97,6 +103,10 @@ public class inventarioController implements Initializable {
     @FXML
     private Label current_page_label;
 
+    @FXML
+    private ComboBox<Palet> combo_seleccionar_palet;
+
+
     // ---------------------- Ciclo de vida ----------------------
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -107,6 +117,13 @@ public class inventarioController implements Initializable {
 
         // Estado inicial: sin filtros → todos los palets
         aplicarFiltros();
+
+        combo_seleccionar_palet.valueProperty().addListener((obs, oldP, newP) -> actualizarLabelsUbicacionRobusta(newP));
+
+    }
+
+    private void actualizarLabelsUbicacionRobusta(Palet newP) {
+        System.out.println(combo_seleccionar_palet.getSelectionModel().getSelectedItem().getIdPalet());
     }
 
     // ---------------------- Setup UI ----------------------
@@ -117,38 +134,134 @@ public class inventarioController implements Initializable {
     }
 
     private void inicializarComboBoxes() {
-        // Limpia y añade "Todos" + valores
-        productoComboBox.getItems().setAll(OPC_TODOS);
-        tipoComboBox.getItems().setAll(OPC_TODOS);
-        delanteComboBox.getItems().setAll(OPC_DELANTE);
 
-        estanteriaComboBox.getItems().setAll(OPC_TODOS);
-        estanteriaComboBox.getItems().addAll(ESTANTERIAS);
-
-        baldaComboBox.getItems().setAll(OPC_TODOS);
-        baldaComboBox.getItems().addAll(BALDAS);
-
-        posicionComboBox.getItems().setAll(OPC_TODOS);
-        posicionComboBox.getItems().addAll(POSICIONES);
-
-        // Añadir productos y tipos únicos (de los palets/productos en catálogo)
-        Set<String> tipos = Almacen.TodosProductos.stream()
-                .map(p -> p.getTipo().getIdTipo())
-                .collect(Collectors.toCollection(LinkedHashSet::new));
-        tipoComboBox.getItems().addAll(tipos);
-
-        Set<String> idsProducto = Almacen.TodosProductos.stream()
-                .map(Producto::getIdentificadorProducto)
-                .collect(Collectors.toCollection(LinkedHashSet::new));
-        productoComboBox.getItems().addAll(idsProducto);
-
-        // Seleccionar primera opción
-        tipoComboBox.getSelectionModel().selectFirst();
-        productoComboBox.getSelectionModel().selectFirst();
-        delanteComboBox.getSelectionModel().selectFirst();
+        // --- ESTANTERÍA ---
+        estanteriaComboBox.setItems(
+                FXCollections.observableArrayList(OPC_TODOS, "1", "2", "3", "4")
+        );
         estanteriaComboBox.getSelectionModel().selectFirst();
+
+        // --- BALDA ---
+        baldaComboBox.setItems(
+                FXCollections.observableArrayList(OPC_TODOS)
+        );
+        baldaComboBox.getItems().addAll(BALDAS);
         baldaComboBox.getSelectionModel().selectFirst();
+
+        // --- POSICIÓN ---
+        posicionComboBox.setItems(
+                FXCollections.observableArrayList(OPC_TODOS)
+        );
+        posicionComboBox.getItems().addAll(POSICIONES);
         posicionComboBox.getSelectionModel().selectFirst();
+
+        // --- TIPO ---
+        tipoComboBox.setItems(FXCollections.observableArrayList(OPC_TODOS));
+        tipoComboBox.getItems().addAll(
+                Almacen.TodosProductos.stream()
+                        .map(p -> p.getTipo().getIdTipo())
+                        .collect(Collectors.toCollection(LinkedHashSet::new))
+        );
+        tipoComboBox.getSelectionModel().selectFirst();
+
+        // --- PRODUCTO ---
+        productoComboBox.setItems(FXCollections.observableArrayList(OPC_TODOS));
+        productoComboBox.getItems().addAll(
+                Almacen.TodosProductos.stream()
+                        .map(Producto::getIdentificadorProducto)
+                        .collect(Collectors.toCollection(LinkedHashSet::new))
+        );
+        productoComboBox.getSelectionModel().selectFirst();
+
+        // --- DELANTE ---
+        delanteComboBox.setItems(FXCollections.observableArrayList(OPC_DELANTE));
+        delanteComboBox.getSelectionModel().selectFirst();
+
+        // --- PALET (mantener lógica actual) ---
+        inicializarComboSeleccionarPalet();
+    }
+
+    private void inicializarComboSeleccionarPalet() {
+
+
+        // ===== Palets: mantener ComboBox<Palet> =====
+        combo_seleccionar_palet.setEditable(true);
+        combo_seleccionar_palet.getItems().clear();
+
+        if (TodosPalets == null || TodosPalets.isEmpty()) {
+            LOGGER.warning("No hay palets cargados.");
+            combo_seleccionar_palet.setPromptText(PLACEHOLDER_PALET);
+        } else {
+            // Ordenar por id
+            var ordenados = TodosPalets.stream()
+                    .sorted(Comparator.comparingInt(Palet::getIdPalet))
+                    .toList();
+
+            var base = FXCollections.observableArrayList(ordenados);
+            var filtered = new javafx.collections.transformation.FilteredList<>(base, _x -> true);
+            combo_seleccionar_palet.setItems(filtered);
+
+            // Mostrar solo el número en celdas y botón
+            combo_seleccionar_palet.setConverter(new javafx.util.StringConverter<>() {
+                @Override
+                public String toString(Palet p) {
+                    return (p == null) ? "" : String.valueOf(p.getIdPalet());
+                }
+
+                @Override
+                public Palet fromString(String s) {
+                    try {
+                        int id = Integer.parseInt(s.trim());
+                        return base.stream().filter(pp -> pp.getIdPalet() == id).findFirst().orElse(null);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                }
+            });
+            combo_seleccionar_palet.setCellFactory(lv -> new ListCell<>() {
+                @Override
+                protected void updateItem(Palet p, boolean empty) {
+                    super.updateItem(p, empty);
+                    setText(empty || p == null ? null : String.valueOf(p.getIdPalet()));
+                }
+            });
+            combo_seleccionar_palet.setButtonCell(new ListCell<>() {
+                @Override
+                protected void updateItem(Palet p, boolean empty) {
+                    super.updateItem(p, empty);
+                    setText(empty || p == null ? "" : String.valueOf(p.getIdPalet()));
+                }
+            });
+
+            // Filtrado en vivo por lo tecleado
+            combo_seleccionar_palet.getEditor().textProperty().addListener((obs, old, typed) -> {
+                String term = typed == null ? "" : typed.trim();
+                // Evita que al abrir el popup borre la lista si hay seleccionado
+                var sel = combo_seleccionar_palet.getSelectionModel().getSelectedItem();
+                if (sel != null && String.valueOf(sel.getIdPalet()).equals(term)) {
+                    filtered.setPredicate(_x -> true);
+                    return;
+                }
+                filtered.setPredicate(p -> term.isEmpty() || String.valueOf(p.getIdPalet()).contains(term));
+                if (!combo_seleccionar_palet.isShowing()) combo_seleccionar_palet.show();
+            });
+
+            // Normaliza al perder foco
+            combo_seleccionar_palet.getEditor().focusedProperty().addListener((o, was, is) -> {
+                if (!is) {
+                    String txt = combo_seleccionar_palet.getEditor().getText();
+                    Palet match = base.stream()
+                            .filter(p -> String.valueOf(p.getIdPalet()).equals(txt))
+                            .findFirst().orElse(null);
+                    combo_seleccionar_palet.getSelectionModel().select(match);
+                    filtered.setPredicate(_x -> true);
+                }
+            });
+
+            combo_seleccionar_palet.setPromptText(PLACEHOLDER_PALET);
+            combo_seleccionar_palet.getSelectionModel().clearSelection();
+        }
+
     }
 
     private void configurarEventosComboBoxes() {
@@ -206,8 +319,21 @@ public class inventarioController implements Initializable {
 
     private void resetFiltros() {
         currentPage = 0;
-        inicializarComboBoxes();
+        // ---- reset combos de filtros ----
+        estanteriaComboBox.getSelectionModel().selectFirst();  // "Todos"
+        baldaComboBox.getSelectionModel().selectFirst();       // "Todos"
+        posicionComboBox.getSelectionModel().selectFirst();    // "Todos"
+        tipoComboBox.getSelectionModel().selectFirst();        // "Todos"
+        repoblarProductosPorTipo();                            // repone productoComboBox y selecciona "Todos"
+        delanteComboBox.getSelectionModel().selectFirst();     // "Todos"
+
+        // ---- reset combo de palet (sin tocar sus items) ----
+        combo_seleccionar_palet.getSelectionModel().clearSelection();
+        combo_seleccionar_palet.getEditor().clear();
+
+        // ---- volver a mostrar todo ----
         aplicarFiltros();
+
     }
 
     // ---------------------- Filtro + Render -------------------º---
@@ -226,12 +352,51 @@ public class inventarioController implements Initializable {
         String tipoProd = tipoComboBox.getValue();
         String delante = delanteComboBox.getValue();
 
-        return Almacen.TodosPalets.stream()
+        // ==== 1) Resolver id de palet a partir del combo ====
+        Palet seleccionado = combo_seleccionar_palet.getSelectionModel().getSelectedItem();
+        Integer idPaletFiltro = null;
+
+        if (seleccionado != null) {
+            // Caso normal: hay un palet realmente seleccionado
+            idPaletFiltro = seleccionado.getIdPalet();
+        } else {
+            // Caso: el usuario ha escrito un id en el editor pero no ha seleccionado
+            String texto = combo_seleccionar_palet.getEditor().getText();
+            if (texto != null && !texto.isBlank()) {
+                try {
+                    int idEscrito = Integer.parseInt(texto.trim());
+                    idPaletFiltro = idEscrito;
+                } catch (NumberFormatException e) {
+                    // texto no numérico → ignoramos filtro por id
+                    LOGGER.fine("Texto no numérico en combo_seleccionar_palet: " + texto);
+                }
+            }
+        }
+
+        // Log de depuración (opcional)
+        LOGGER.fine("Filtrando. idPaletFiltro = " + idPaletFiltro);
+
+        Integer finalIdPaletFiltro = idPaletFiltro;
+        return TodosPalets.stream()
+                // ---- filtro por idPalet (solo si hay filtro) ----
+                .filter(p -> finalIdPaletFiltro == null || p.getIdPalet() == finalIdPaletFiltro)
+
+                // ---- filtros por ubicación ----
                 .filter(p -> matchesIntFilter(p.getEstanteria(), estanteria))
                 .filter(p -> matchesIntFilter(p.getBalda(), balda))
                 .filter(p -> matchesIntFilter(p.getPosicion(), posicion))
-                .filter(p -> OPC_TODOS.equals(producto) || producto == null || producto.equals(p.getIdProducto()))
-                .filter(p -> OPC_TODOS.equals(tipoProd) || tipoProd == null || tipoProd.equals(p.getProducto().getTipo().getIdTipo()))
+
+                // ---- filtro por producto ----
+                .filter(p -> OPC_TODOS.equals(producto)
+                        || producto == null
+                        || producto.equals(p.getIdProducto()))
+
+                // ---- filtro por tipo ----
+                .filter(p -> OPC_TODOS.equals(tipoProd)
+                        || tipoProd == null
+                        || tipoProd.equals(p.getProducto().getTipo().getIdTipo()))
+
+                // ---- filtro delante/detrás ----
                 .filter(p -> {
                     if (delante == null || OPC_TODOS.equals(delante)) return true;
                     boolean isDelante = "Delante".equalsIgnoreCase(delante);
@@ -315,4 +480,7 @@ public class inventarioController implements Initializable {
         gridPane.getColumnConstraints().clear();
         gridPane.getRowConstraints().clear();
     }
+
+    // -------- Volcado a etiquetas (robusto) --------
+
 }

@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
@@ -78,6 +79,7 @@ public class exportDataController implements Initializable {
         carpeta_destino_text.setText(getCarpetaDescargas());
 
         abrir_explorador_btn.setOnAction(_ -> seleccionarCarpeta());
+        abrir_explorador_btn.setTooltip(new Tooltip("Seleccionar carpeta"));
 
         exportar_btn.setOnMouseClicked(_ -> {
             try {

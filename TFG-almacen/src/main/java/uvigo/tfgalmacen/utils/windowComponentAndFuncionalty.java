@@ -197,6 +197,21 @@ public class windowComponentAndFuncionalty {
         alerta.setHeaderText(headerText);
         alerta.setContentText(contentText);
 
+        Stage alertStage = (Stage) alerta.getDialogPane().getScene().getWindow();
+
+
+        // 🔹 Icono (APP_ICON = ruta en resources, ej. "/uvigo/tfgalmacen/icons/app_icon.png")
+        try {
+            URL iconUrl = windowComponentAndFuncionalty.class.getResource(APP_ICON);
+            if (iconUrl != null) {
+                alertStage.getIcons().add(new Image(iconUrl.toExternalForm()));
+            } else {
+                LOGGER.warning("No se encontró el icono en APP_ICON: " + APP_ICON);
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.WARNING, "No se pudo cargar el icono de la app desde APP_ICON: " + APP_ICON, ex);
+        }
+
         // Aplicar estilo (opcional)
         DialogPane dialogPane = alerta.getDialogPane();
         try {
@@ -217,6 +232,23 @@ public class windowComponentAndFuncionalty {
         alerta.setTitle(title);
         alerta.setHeaderText(null);
         alerta.setContentText(content);
+
+
+        Stage alertStage = (Stage) alerta.getDialogPane().getScene().getWindow();
+
+
+        // 🔹 Icono (APP_ICON = ruta en resources, ej. "/uvigo/tfgalmacen/icons/app_icon.png")
+        try {
+            URL iconUrl = windowComponentAndFuncionalty.class.getResource(APP_ICON);
+            if (iconUrl != null) {
+                alertStage.getIcons().add(new Image(iconUrl.toExternalForm()));
+            } else {
+                LOGGER.warning("No se encontró el icono en APP_ICON: " + APP_ICON);
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.WARNING, "No se pudo cargar el icono de la app desde APP_ICON: " + APP_ICON, ex);
+        }
+
         // Aplicar estilo (opcional)
         DialogPane dialogPane = alerta.getDialogPane();
         try {

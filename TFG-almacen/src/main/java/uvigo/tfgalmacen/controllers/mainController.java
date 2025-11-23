@@ -264,7 +264,8 @@ public class mainController implements Initializable {
 
         task.setOnFailed(_ -> {
             Throwable ex = task.getException();
-            LOGGER.log(Level.SEVERE, "❌ Error cargando FXML: " + path, ex);
+            LOGGER.log(Level.SEVERE, "Error cargando FXML: " + path, ex);
+            ex.printStackTrace();
         });
 
         FX_BG_EXEC.submit(task);

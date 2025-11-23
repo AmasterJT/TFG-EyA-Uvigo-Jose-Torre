@@ -44,7 +44,7 @@
                               <HBox style="-fx-background-color: #ccc; -fx-background-radius: 5;">
                                  <children>
                                                 <TextField fx:id="carpeta_destino_text" styleClass="transparent" />
-                                    <Button fx:id="abrir_explorador_btn" mnemonicParsing="false" style="-fx-background-color: #666; -fx-border-width: 0 0 0 2; -fx-border-radius: 5; -fx-border-color: #444;">
+                                    <Button fx:id="abrir_explorador_btn" mnemonicParsing="false" styleClass="directory-chosser-btn">
                                        <graphic>
                                           <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                              <image>

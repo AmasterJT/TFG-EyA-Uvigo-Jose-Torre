@@ -10,6 +10,7 @@ import uvigo.tfgalmacen.utils.ColorFormatter;
 import java.sql.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -149,6 +150,7 @@ public class Almacen {
                 TodosTipos = obtenerTiposDesdeBD(conexion);         // también si usas DB para todo
                 TodosProductos = obtenerProductosDesdeBD(conexion); // deberías implementar estas
                 TodosPalets = obtenerPaletsDesdeBD(conexion);
+                TodosPalets.sort(Comparator.comparingInt(Palet::getIdPalet));
                 TodosProveedores = obtenerProveedoresDesdeBD(conexion);
                 TodosClientes = getAllClientes(conexion);
             }
