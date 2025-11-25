@@ -3,10 +3,7 @@ package uvigo.tfgalmacen.database;
 import uvigo.tfgalmacen.Cliente;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -101,5 +98,37 @@ public class ClientesDAO {
         }
 
         return clientes;
+    }
+
+    private static final String SELECT_CLIENTE_BY_ID_SQL =
+            "SELECT nombre, direccion, telefono, email, fecha_registro, ultima_actualizacion " +
+                    "FROM clientes WHERE id_cliente = ?";
+
+    public static Cliente getClienteById(Connection conn, int idCliente) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getClienteById()");
+            return null;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SELECT_CLIENTE_BY_ID_SQL)) {
+            ps.setInt(1, idCliente);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // Adapta al constructor real de tu clase Cliente
+                    return new Cliente(
+                            idCliente,
+                            rs.getString("nombre"),
+                            rs.getString("direccion"),
+                            rs.getString("telefono"),
+                            rs.getString("email"),
+                            Timestamp.valueOf(rs.getString("fecha_registro")),
+                            Timestamp.valueOf(rs.getString("ultima_actualizacion"))
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error obteniendo cliente por id=" + idCliente, e);
+        }
+        return null;
     }
 }

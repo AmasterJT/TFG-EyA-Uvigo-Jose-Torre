@@ -635,7 +635,7 @@ public class PedidoDAO {
      */
     public static int getPaletsDelPedido(Connection conn, int idPedido) {
         if (conn == null) {
-            LOGGER.severe("❌ Conexión nula en getPaletsDelPedido()");
+            LOGGER.severe("Conexión nula en getPaletsDelPedido()");
             return -1;
         }
 
@@ -645,15 +645,176 @@ public class PedidoDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     int palets = rs.getInt("palets_del_pedido");
-                    LOGGER.fine(() -> String.format("📊 Pedido %d → palets_del_pedido=%d", idPedido, palets));
+                    LOGGER.fine(() -> String.format("Pedido %d → palets_del_pedido=%d", idPedido, palets));
                     return palets;
                 } else {
-                    LOGGER.warning(() -> String.format("⚠️ No se encontró pedido con id_pedido=%d", idPedido));
+                    LOGGER.warning(() -> String.format("No se encontró pedido con id_pedido=%d", idPedido));
                 }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error obteniendo palets_del_pedido para pedido id=" + idPedido, e);
         }
         return -1;
+    }
+
+
+    private static final String SQL_PEDIDOS_POR_USUARIO_Y_HORA =
+            "SELECT codigo_referencia, id_pedido, id_cliente, id_usuario, estado, fecha_pedido, hora_salida, palets_del_pedido " +
+                    "FROM pedidos " +
+                    "WHERE id_usuario = ? AND hora_salida = ? " +
+                    "AND estado IN ('Pendiente', 'En proceso') " +  // ajusta estados si quieres
+                    "ORDER BY fecha_pedido ASC";
+
+    public static List<Pedido> getPedidosPorUsuarioYHora(Connection conn,
+                                                         int idUsuario,
+                                                         String horaSalida) {
+        List<Pedido> pedidos = new ArrayList<>();
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getPedidosPorUsuarioYHora()");
+            return pedidos;
+        }
+        if (horaSalida == null || horaSalida.isBlank()) {
+            LOGGER.warning("horaSalida vacía/nula en getPedidosPorUsuarioYHora()");
+            return pedidos;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_PEDIDOS_POR_USUARIO_Y_HORA)) {
+            ps.setInt(1, idUsuario);
+            ps.setString(2, horaSalida);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Pedido p = new Pedido(
+                            rs.getString("codigo_referencia"),
+                            rs.getInt("id_pedido"),
+                            rs.getInt("id_cliente"),
+                            rs.getInt("id_usuario"),
+
+                            rs.getString("estado"),
+                            rs.getString("fecha_pedido"),
+                            rs.getString("hora_salida"),
+                            rs.getInt("palets_del_pedido")
+
+                    );
+                    pedidos.add(p);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE,
+                    String.format("Error en getPedidosPorUsuarioYHora(idUsuario=%d, hora=%s)", idUsuario, horaSalida),
+                    e);
+            e.printStackTrace();
+        }
+        return pedidos;
+    }
+
+    /**
+     * Devuelve sólo los códigos de referencia de los pedidos de un usuario
+     * para una hora concreta.
+     */
+    public static List<String> getCodigosPedidoPorUsuarioYHora(Connection conn,
+                                                               int idUsuario,
+                                                               String horaSalida) {
+        List<Pedido> pedidos = getPedidosPorUsuarioYHora(conn, idUsuario, horaSalida);
+        List<String> codigos = new ArrayList<>(pedidos.size());
+        for (Pedido p : pedidos) {
+            codigos.add(p.getCodigo_referencia());
+        }
+        return codigos;
+    }
+
+
+    private static final String SQL_PEDIDO_POR_CODIGO =
+            "SELECT codigo_referencia, id_pedido, id_cliente, id_usuario, estado, fecha_pedido, hora_salida, palets_del_pedido " +
+                    "FROM pedidos WHERE codigo_referencia = ?";
+
+    public static Pedido getPedidoPorCodigo(Connection conn, String codigoReferencia) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getPedidoPorCodigo()");
+            return null;
+        }
+        if (codigoReferencia == null || codigoReferencia.isBlank()) {
+            LOGGER.warning("codigoReferencia vacío/nulo en getPedidoPorCodigo()");
+            return null;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_PEDIDO_POR_CODIGO)) {
+            ps.setString(1, codigoReferencia);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Pedido(
+                            rs.getString("codigo_referencia"),
+                            rs.getInt("id_pedido"),
+                            rs.getInt("id_cliente"),
+                            rs.getInt("id_usuario"),
+                            rs.getString("estado"),
+                            rs.getString("fecha_pedido"),
+                            rs.getString("hora_salida"),
+                            rs.getInt("palets_del_pedido")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE,
+                    "Error en getPedidoPorCodigo(" + codigoReferencia + ")", e);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // ================== OBTENER USUARIOS CON PEDIDOS ASIGNADOS ==================
+
+    private static final String SQL_USUARIOS_CON_PEDIDOS =
+            "SELECT DISTINCT id_usuario " +
+                    "FROM pedidos " +
+                    "WHERE estado IN ('Pendiente','En proceso')";
+
+    public static List<Integer> getUsuariosConPedidos(Connection conn) {
+        List<Integer> lista = new ArrayList<>();
+        if (conn == null) return lista;
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_USUARIOS_CON_PEDIDOS);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                lista.add(rs.getInt("id_usuario"));
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error obteniendo usuarios con pedidos asignados", e);
+        }
+        return lista;
+    }
+
+    private static final String SQL_TODOS_DETALLES_PALETIZADOS =
+            "SELECT COUNT(*) AS pendientes " +
+                    "FROM detalles_pedido " +
+                    "WHERE id_pedido = ? AND paletizado = 0";
+
+    public static boolean isPedidoCompletamentePaletizado(Connection conn, int idPedido) {
+
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en isPedidoCompletamentePaletizado()");
+            return false;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_TODOS_DETALLES_PALETIZADOS)) {
+
+            ps.setInt(1, idPedido);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int pendientes = rs.getInt("pendientes");
+
+                    // Si no hay detalles pendientes → todo paletizado
+                    return pendientes == 0;
+                }
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE,
+                    "Error verificando detalles paletizados para id_pedido=" + idPedido, e);
+        }
+
+        return false;
     }
 }

@@ -8,6 +8,7 @@ public class RutasFicheros {
     public static final String WINDOW_LOGIN_FXML = "/uvigo/tfgalmacen/windowLogin.fxml";
     public static final String WINDOW_MOVE_PENDIENTE_TO_EN_PROCESO_FXML = "/uvigo/tfgalmacen/windowMovePendienteToEnProceso.fxml";
     public static final String WINDOW_ORDEN_COMPRA_FXML = "/uvigo/tfgalmacen/windowOrdenCompra.fxml";
+    public static final String WINDOW_MODIFICAR_CANTIDAD_FXML = "/uvigo/tfgalmacen/windowModificarCantidadPaletizar.fxml";
 
     public static final String APARTADO_ALMACEN_FXML = "/uvigo/tfgalmacen/apartadoAlmacen.fxml";
     public static final String APARTADO_AJUSTES_FXML = "/uvigo/tfgalmacen/apartadoAjustes.fxml";
@@ -19,6 +20,7 @@ public class RutasFicheros {
     public static final String ITEM_INVENTARIO_FXML = "/uvigo/tfgalmacen/items/itemInventario.fxml";
     public static final String ITEM_ORDEN_COMPRA_FXML = "/uvigo/tfgalmacen/items/itemOrdenCompra.fxml";
     public static final String ITEM_PEDIDO_FXML = "/uvigo/tfgalmacen/items/itemPedidos.fxml";
+    public static final String ITEM_PALETIZAR_FXML = "/uvigo/tfgalmacen/items/itemPaletizar.fxml";
 
     public static final String WINDOW_AJUSTES_CREAR_PEDIDOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesPedidos/windowAjustesCrearPedidos.fxml";
     public static final String WINDOW_AJUSTES_EDITAR_PEDIDOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesPedidos/windowAjustesEditarPedidos.fxml";

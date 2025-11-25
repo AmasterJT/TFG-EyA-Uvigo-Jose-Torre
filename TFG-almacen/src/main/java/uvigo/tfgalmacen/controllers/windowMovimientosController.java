@@ -20,8 +20,6 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Palet;
@@ -31,7 +29,6 @@ import uvigo.tfgalmacen.database.PaletDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 import uvigo.tfgalmacen.utils.ComboFilters;
 
-import static uvigo.tfgalmacen.database.PaletDAO.isUbicacionLibre;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 import uvigo.tfgalmacen.database.ProductoDAO;
@@ -504,7 +501,7 @@ public class windowMovimientosController implements Initializable {
         });
 
         crear_palet_btn.setOnAction(_ -> {
-            try {z
+            try {
                 crearPalet();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -515,8 +512,8 @@ public class windowMovimientosController implements Initializable {
         generate_random_id_btn.setTooltip(new Tooltip("Generar ID"));
     }
 
-    private int randomIntInRange(int min, int max) {
-        return ThreadLocalRandom.current().nextInt(min, max + 1);
+    private int randomIntInRange() {
+        return ThreadLocalRandom.current().nextInt(1, 99999999 + 1);
     }
 
     private void putRandomIdInTextField(TextField idCrearPaletText) {
@@ -525,7 +522,7 @@ public class windowMovimientosController implements Initializable {
 
         // Busca un id libre (por si acaso se encuentra alguno ya usado)
         do {
-            id = randomIntInRange(1, 99_999_999);
+            id = randomIntInRange();
         } while (!PaletDAO.iSidPaletvalido(Main.connection, id));
 
         idCrearPaletText.setText(String.valueOf(id));
@@ -641,7 +638,7 @@ public class windowMovimientosController implements Initializable {
         if (txtId == null || txtId.isBlank()) {
             // No hay id escrito → generamos uno libre
             do {
-                id = randomIntInRange(1, 99_999_999);
+                id = randomIntInRange();
             } while (!PaletDAO.iSidPaletvalido(Main.connection, id));
 
             id_crear_palet_text.setText(String.valueOf(id));
@@ -652,7 +649,7 @@ public class windowMovimientosController implements Initializable {
             } catch (NumberFormatException e) {
                 // Si no es número, generamos uno nuevo
                 do {
-                    id = randomIntInRange(1, 99_999_999);
+                    id = randomIntInRange();
                 } while (!PaletDAO.iSidPaletvalido(Main.connection, id));
 
                 id_crear_palet_text.setText(String.valueOf(id));
@@ -661,7 +658,7 @@ public class windowMovimientosController implements Initializable {
             // Si es número pero está ocupado, generamos otro
             if (!PaletDAO.iSidPaletvalido(Main.connection, id)) {
                 do {
-                    id = randomIntInRange(1, 99_999_999);
+                    id = randomIntInRange();
                 } while (!PaletDAO.iSidPaletvalido(Main.connection, id));
 
                 id_crear_palet_text.setText(String.valueOf(id));

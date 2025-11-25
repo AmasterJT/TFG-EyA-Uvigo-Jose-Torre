@@ -226,6 +226,7 @@ public class detallesPedidoController {
 
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error al cargar itemDetallesPedido.fxml o al renderizar productos.", e);
+            e.printStackTrace();
         }
     }
 }

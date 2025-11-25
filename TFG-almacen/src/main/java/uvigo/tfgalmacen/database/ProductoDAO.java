@@ -129,7 +129,6 @@ public class ProductoDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                System.out.println("QQQQQQQQ:  " + resultSet.getString("color"));
                 return resultSet.getString("color");
             } else {
                 System.err.println("No se encontró ningún producto con identificador: " + identificadorProducto);

@@ -23,6 +23,8 @@ public class Pedido implements Comparable<Pedido> {
 
     private final String codigo_referencia;
     private final int id_pedido;
+
+
     private final int id_cliente;
     private int id_usuario;
     private String estado;
@@ -118,6 +120,11 @@ public class Pedido implements Comparable<Pedido> {
     public String getNombre_cliente() {
         return nombre_cliente;
     }
+
+    public int getId_cliente() {
+        return id_cliente;
+    }
+
 
     public String getHoraSalida() {
         return horaSalida;
