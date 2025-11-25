@@ -259,4 +259,68 @@ public class ProductoDAO {
         }
         return -1;
     }
+
+
+    /**
+     * DTO / record para devolver los datos por defecto de un producto
+     * según la tabla proveedor_producto.
+     */
+    public record DefaultProductoData(
+            int alto,
+            int ancho,
+            int largo,
+            int unidadesPorPaletDefault
+    ) {
+    }
+
+    // Puedes ajustar la estrategia (por proveedor, etc.)
+    private static final String SQL_GET_DEFAULT_DATA = """
+            SELECT alto, ancho, largo, unidades_por_palet_default
+            FROM proveedor_producto
+            WHERE id_producto = ?
+            ORDER BY id_proveedor ASC
+            LIMIT 1
+            """;
+
+    /**
+     * Devuelve los datos por defecto de un producto (alto, ancho, largo, unidades_por_palet_default)
+     * tomando el primer registro de proveedor_producto para ese id_producto.
+     *
+     * @param conn       conexión abierta a la BDD
+     * @param idProducto id de la tabla productos
+     * @return DefaultProductoData o null si no hay datos
+     */
+    public static DefaultProductoData getDefaultData(Connection conn, int idProducto) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula recibida en getDefaultData");
+            return null;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_GET_DEFAULT_DATA)) {
+            ps.setInt(1, idProducto);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int alto = rs.getInt("alto");
+                    int ancho = rs.getInt("ancho");
+                    int largo = rs.getInt("largo");
+                    int unidades = rs.getInt("unidades_por_palet_default");
+
+                    LOGGER.fine(() -> String.format(
+                            "getDefaultData(idProducto=%d) -> alto=%d, ancho=%d, largo=%d, unidades=%d",
+                            idProducto, alto, ancho, largo, unidades
+                    ));
+
+                    return new DefaultProductoData(alto, ancho, largo, unidades);
+                } else {
+                    LOGGER.warning("No se encontraron datos por defecto en proveedor_producto para id_producto=" + idProducto);
+                    return null;
+                }
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error en getDefaultData(idProducto=" + idProducto + ")", e);
+            return null;
+        }
+    }
 }

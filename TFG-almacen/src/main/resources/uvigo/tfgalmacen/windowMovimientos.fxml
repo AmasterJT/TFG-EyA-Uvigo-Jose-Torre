@@ -6,6 +6,9 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,222 +21,8 @@
 <AnchorPane fx:id="Pane" styleClass="principalWindow" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.windowMovimientosController">
     <children>
         <BorderPane styleClass="backgroundScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <center>
-                <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <HBox alignment="CENTER" spacing="5.0">
-                            <children>
-                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../icons/location-pin-24.png" />
-                           </image>
-                        </ImageView>
-                                <Label text="MOVER PALET A NUEVA UBICACIÓN">
-                                    <font>
-                                        <Font name="System Bold" size="15.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                            <VBox.margin>
-                                <Insets bottom="10.0" />
-                            </VBox.margin>
-                        </HBox>
-                          <HBox alignment="CENTER" style="-fx-background-color: #222; -fx-background-radius: 10;">
-                              <children>
-                        <VBox alignment="TOP_CENTER" minWidth="180.0" prefHeight="193.0" style="-fx-border-radius: 10; -fx-border-color: white;">
-                           <children>
-                              <ComboBox fx:id="combo_seleccionar_palet" editable="true" prefWidth="150.0" promptText="Seleccionar Palet">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" top="20.0" />
-                                 </VBox.margin>
-                              </ComboBox>
-                              <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../img/palet.PNG" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" top="20.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label fx:id="identificador_producto" text="Producto" textFill="WHITE" wrapText="true">
-                                       <font>
-                                          <Font name="FiraCode Nerd Font Bold" size="13.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label fx:id="identificador_tipo" text="tipo" textFill="WHITE" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                 <children>
-                                    <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../icons/location-pin-24-white.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label text="Posicion actual:" textFill="WHITE" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" top="20.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0">
-                                 <children>
-                                    <Label text="E: " textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="estanteria_actual_Label" minWidth="20.0" textFill="WHITE">
-                                       <font>
-                                          <Font size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Region fx:id="spacer1" HBox.hgrow="ALWAYS" />
-                                    <Label text="B: " textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="balda_actual_Label" minWidth="20.0" textFill="WHITE">
-                                       <font>
-                                          <Font size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Region fx:id="spacer2" HBox.hgrow="ALWAYS" />
-                                    <Label text="P: " textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="posicion_actual_Label" minWidth="20.0" textFill="WHITE">
-                                       <font>
-                                          <Font size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Region fx:id="spacer3" HBox.hgrow="ALWAYS" />
-                                    <Label text="Del: " textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="delante_actual_Label" minWidth="30.0" textFill="WHITE">
-                                       <font>
-                                          <Font size="10.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <VBox.margin>
-                                    <Insets left="20.0" right="10.0" top="5.0" />
-                                 </VBox.margin>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <VBox alignment="CENTER_RIGHT" spacing="20.0">
-                           <children>
-                              <HBox alignment="CENTER">
-                                 <children>
-                                    <ImageView fitHeight="150.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../icons/factory-location-100.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" spacing="10.0">
-                                 <children>
-                                    <Label prefHeight="28.0" text="NUEVA ESTANTERÍA" textFill="WHITE" />
-                                    <ComboBox fx:id="combo_nueva_estanteria" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" spacing="10.0">
-                                 <children>
-                                    <Label prefHeight="28.0" text="NUEVA BALDA" textFill="WHITE" />
-                                    <ComboBox fx:id="combo_nueva_balda" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" spacing="10.0">
-                                 <children>
-                                    <Label prefHeight="28.0" text="NUEVA POSICIÓN" textFill="WHITE" />
-                                    <ComboBox fx:id="combo_nueva_posicion" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" spacing="10.0">
-                                 <children>
-                                    <Label prefHeight="28.0" text="PONER DELANTE" textFill="WHITE" />
-                                    <CheckBox fx:id="poner_delante_check" mnemonicParsing="false" />
-                                 </children>
-                              </HBox>
-                           </children>
-                           <HBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </HBox.margin>
-                        </VBox>
-                              </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                          </HBox>
-                        <HBox alignment="CENTER_RIGHT" spacing="15.0">
-                            <children>
-                        <Button fx:id="eliminar_palet_btn" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: -indicador-pedido-cancelado-color;" styleClass="eliminar-pedido-btn" text="ELIMINAR PALET" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../icons/delete-64.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Region HBox.hgrow="ALWAYS" />
-                                <Button fx:id="mover_palet_btn" mnemonicParsing="false" prefHeight="30.0" styleClass="generar_compra" text="MOVER PALET" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font>
-                                    <graphic>
-                                        <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../icons/location-mark-on-map-24.png" />
-                                            </image>
-                                        </ImageView>
-                                    </graphic>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                                </Button>
-                            </children>
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                            <opaqueInsets>
-                                <Insets />
-                            </opaqueInsets>
-                        </HBox>
-                    </children>
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </VBox>
-            </center>
             <top>
-                <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" styleClass="windowBar" BorderPane.alignment="CENTER">
+                <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" styleClass="windowBar" BorderPane.alignment="CENTER">
                     <children>
                         <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="exitItem" stylesheets="@css/Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
                             <cursor>
@@ -273,6 +62,458 @@
                     </children>
                 </AnchorPane>
             </bottom>
+         <center>
+            <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+              <tabs>
+                <Tab fx:id="traslado_pestana" text="Trasladar Palet">
+                  <content>
+                    <AnchorPane fx:id="traslado_stage" minHeight="0.0" minWidth="0.0">
+                           <children>
+                                  <VBox alignment="CENTER" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                      <children>
+                                          <HBox alignment="CENTER" spacing="5.0">
+                                              <children>
+                                          <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/location-pin-24.png" />
+                                             </image>
+                                          </ImageView>
+                                                  <Label text="MOVER PALET A NUEVA UBICACIÓN">
+                                                      <font>
+                                                          <Font name="System Bold" size="15.0" />
+                                                      </font>
+                                                  </Label>
+                                              </children>
+                                              <VBox.margin>
+                                                  <Insets bottom="10.0" />
+                                              </VBox.margin>
+                                          </HBox>
+                                            <HBox alignment="CENTER" style="-fx-background-color: #222; -fx-background-radius: 10;">
+                                                <children>
+                                          <VBox alignment="TOP_CENTER" minWidth="180.0" prefHeight="193.0" style="-fx-border-radius: 10; -fx-border-color: white;">
+                                             <children>
+                                                <ComboBox fx:id="combo_seleccionar_palet" editable="true" prefWidth="150.0" promptText="Seleccionar Palet">
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" top="20.0" />
+                                                   </VBox.margin>
+                                                </ComboBox>
+                                                <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../img/palet.PNG" />
+                                                   </image>
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" top="20.0" />
+                                                   </VBox.margin>
+                                                </ImageView>
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                   <children>
+                                                      <Label fx:id="identificador_producto" text="Producto" textFill="WHITE" wrapText="true">
+                                                         <font>
+                                                            <Font name="FiraCode Nerd Font Bold" size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                   <children>
+                                                      <Label fx:id="identificador_tipo" text="tipo" textFill="WHITE" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                                   <children>
+                                                      <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../icons/location-pin-24-white.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Label text="Posicion actual:" textFill="WHITE" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" top="20.0" />
+                                                   </VBox.margin>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="100.0">
+                                                   <children>
+                                                      <Label text="E: " textFill="WHITE">
+                                                         <font>
+                                                            <Font name="System Bold" size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="estanteria_actual_Label" minWidth="20.0" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Region fx:id="spacer1" HBox.hgrow="ALWAYS" />
+                                                      <Label text="B: " textFill="WHITE">
+                                                         <font>
+                                                            <Font name="System Bold" size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="balda_actual_Label" minWidth="20.0" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Region fx:id="spacer2" HBox.hgrow="ALWAYS" />
+                                                      <Label text="P: " textFill="WHITE">
+                                                         <font>
+                                                            <Font name="System Bold" size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="posicion_actual_Label" minWidth="20.0" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Region fx:id="spacer3" HBox.hgrow="ALWAYS" />
+                                                      <Label text="Del: " textFill="WHITE">
+                                                         <font>
+                                                            <Font name="System Bold" size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="delante_actual_Label" minWidth="30.0" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                   <VBox.margin>
+                                                      <Insets left="20.0" right="10.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" />
+                                             </padding>
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <VBox alignment="CENTER_RIGHT" spacing="20.0">
+                                             <children>
+                                                <HBox alignment="CENTER">
+                                                   <children>
+                                                      <ImageView fitHeight="150.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../icons/factory-location-100.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" spacing="10.0">
+                                                   <children>
+                                                      <Label prefHeight="28.0" text="NUEVA ESTANTERÍA" textFill="WHITE" />
+                                                      <ComboBox fx:id="combo_nueva_estanteria" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                                                   <children>
+                                                      <Label prefHeight="28.0" text="NUEVA BALDA" textFill="WHITE" />
+                                                      <ComboBox fx:id="combo_nueva_balda" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                                                   <children>
+                                                      <Label prefHeight="28.0" text="NUEVA POSICIÓN" textFill="WHITE" />
+                                                      <ComboBox fx:id="combo_nueva_posicion" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" spacing="10.0">
+                                                   <children>
+                                                      <Label prefHeight="28.0" text="PONER DELANTE" textFill="WHITE" />
+                                                      <CheckBox fx:id="poner_delante_check" mnemonicParsing="false" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                                </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                            </HBox>
+                                          <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                                              <children>
+                                          <Button fx:id="eliminar_palet_btn" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: -indicador-pedido-cancelado-color;" styleClass="eliminar-pedido-btn" text="ELIMINAR PALET" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../icons/delete-64.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Region HBox.hgrow="ALWAYS" />
+                                                  <Button fx:id="mover_palet_btn" mnemonicParsing="false" prefHeight="30.0" styleClass="generar_compra" text="MOVER PALET" textFill="WHITE">
+                                                      <font>
+                                                          <Font name="System Bold" size="12.0" />
+                                                      </font>
+                                                      <graphic>
+                                                          <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                              <image>
+                                                                  <Image url="@../../icons/location-mark-on-map-24.png" />
+                                                              </image>
+                                                          </ImageView>
+                                                      </graphic>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                                  </Button>
+                                              </children>
+                                              <VBox.margin>
+                                                  <Insets />
+                                              </VBox.margin>
+                                              <opaqueInsets>
+                                                  <Insets />
+                                              </opaqueInsets>
+                                          </HBox>
+                                      </children>
+                                      <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </padding>
+                                  </VBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Crear Palet">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox alignment="CENTER" spacing="5.0">
+                                       <children>
+                                          <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/location-pin-24.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Label text="CREAR NUEVO PALET">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER" style="-fx-background-color: #222; -fx-background-radius: 10;">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" minWidth="222.0" prefHeight="222.0" style="-fx-border-radius: 10; -fx-border-color: white;">
+                                             <children>
+                                                <Region VBox.vgrow="ALWAYS" />
+                                                <Label styleClass="texto-label-bold" text="SELECCIONAR PRODUCTO" />
+                                                <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../img/palet.PNG" />
+                                                   </image>
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" top="20.0" />
+                                                   </VBox.margin>
+                                                </ImageView>
+                                                <Region VBox.vgrow="ALWAYS" />
+                                                <VBox spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER" spacing="10.0">
+                                                         <children>
+                                                            <Label styleClass="texto-label-bold" text="TIPO:" />
+                                                            <ComboBox fx:id="combo_crear_tipo" maxWidth="155.0" minWidth="155.0" promptText="Selecionar Tipo" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER">
+                                                         <children>
+                                                            <Label styleClass="texto-label-bold" text="PRODUCTO: ">
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </Label>
+                                                            <ComboBox fx:id="combo_crear_producto" maxWidth="155.0" minWidth="155.0" promptText="Seelcionar Producto">
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </ComboBox>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER">
+                                                         <children>
+                                                            <Label styleClass="texto-label-bold" text="CANTIDAD: ">
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </Label>
+                                                            <TextField fx:id="cantidad_crear_palet_text" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" />
+                                                            <Label styleClass="texto-label-bold" text="ID: ">
+                                                               <HBox.margin>
+                                                                  <Insets left="10.0" />
+                                                               </HBox.margin>
+                                                            </Label>
+                                                            <TextField fx:id="id_crear_palet_text" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" />
+                                                            <Button fx:id="generate_random_id_btn" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" styleClass="directory-chosser-btn">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../../icons/random-50.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                         </children>
+                                                         <VBox.margin>
+                                                            <Insets top="15.0" />
+                                                         </VBox.margin>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER">
+                                                         <children>
+                                                            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" text="ALTO" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="System Bold" size="12.0" />
+                                                               </font>
+                                                               <HBox.margin>
+                                                                  <Insets right="5.0" />
+                                                               </HBox.margin>
+                                                            </Label>
+                                                            <TextField fx:id="alto_crear_palet_text" minWidth="45.0" prefWidth="45.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" />
+                                                            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" text="ANCHO" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="System Bold" size="12.0" />
+                                                               </font>
+                                                               <HBox.margin>
+                                                                  <Insets left="10.0" right="5.0" />
+                                                               </HBox.margin>
+                                                            </Label>
+                                                            <TextField fx:id="ancho_crear_palet_text" minWidth="45.0" prefWidth="45.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" />
+                                                            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" text="PROFUNDO" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="System Bold" size="12.0" />
+                                                               </font>
+                                                               <HBox.margin>
+                                                                  <Insets left="10.0" right="5.0" />
+                                                               </HBox.margin>
+                                                            </Label>
+                                                            <TextField fx:id="profundo_crear_palet_text" minWidth="45.0" prefWidth="45.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" />
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" />
+                                                   </VBox.margin>
+                                                </VBox>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </VBox>
+                                          <VBox alignment="CENTER_RIGHT" minWidth="200.0" spacing="20.0">
+                                             <children>
+                                                <HBox alignment="CENTER">
+                                                   <children>
+                                                      <ImageView fitHeight="150.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../icons/factory-location-100.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </HBox>
+                                                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                                                   <children>
+                                                      <Label prefHeight="28.0" text="ESTANTERÍA" textFill="WHITE" />
+                                                      <ComboBox fx:id="combo_crear_estanteria" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets right="30.0" />
+                                                   </VBox.margin>
+                                                </HBox>
+                                                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                                                   <children>
+                                                      <Label prefHeight="28.0" text="BALDA" textFill="WHITE" />
+                                                      <ComboBox fx:id="combo_crear_balda" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets right="30.0" />
+                                                   </VBox.margin>
+                                                </HBox>
+                                                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                                                   <children>
+                                                      <Label prefHeight="28.0" text="POSICIÓN" textFill="WHITE" />
+                                                      <ComboBox fx:id="combo_crear_posicion" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets right="30.0" />
+                                                   </VBox.margin>
+                                                </HBox>
+                                                <HBox alignment="CENTER" spacing="10.0">
+                                                   <children>
+                                                      <Label prefHeight="28.0" text="PONER DELANTE" textFill="WHITE" />
+                                                      <CheckBox fx:id="combo_crear_check" mnemonicParsing="false" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </HBox>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets bottom="20.0" top="20.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                                       <children>
+                                          <Button fx:id="crear_palet_btn" mnemonicParsing="false" prefHeight="30.0" styleClass="generar_compra" text="CREAR PALET" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../icons/add.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <padding>
+                                                <Insets left="10.0" right="10.0" />
+                                             </padding>
+                                          </Button>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </center>
         </BorderPane>
     </children>
 </AnchorPane>

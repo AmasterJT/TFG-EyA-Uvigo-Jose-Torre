@@ -19,15 +19,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.database.DatabaseConnection;
 import uvigo.tfgalmacen.utils.ColorFormatter;
-import uvigo.tfgalmacen.utils.ExcelGenerator;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -37,7 +34,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.RutasFicheros.*;
-import static uvigo.tfgalmacen.database.TableLister.getTables;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_confirmacion;
 
@@ -106,7 +102,7 @@ public class mainController implements Initializable {
     @FXML
     private Button probarConexionBtn;
     @FXML
-    private Button recepcionButton;
+    private Button paletizarButton;
     @FXML
     private Label roleLabel;
     @FXML
@@ -161,8 +157,8 @@ public class mainController implements Initializable {
         pedidosButton.setOnMouseClicked(_ -> loadPedidosView());
         pedidosButton.setTooltip(new Tooltip("Gestion de productos"));
 
-        recepcionButton.setOnMouseClicked(_ -> loadRecepcionView());
-        recepcionButton.setTooltip(new Tooltip("Recepciones previstas"));
+        paletizarButton.setOnMouseClicked(_ -> loadPaletizarView());
+        paletizarButton.setTooltip(new Tooltip("Crear palets"));
 
         MenuButton.setOnMouseClicked(_ -> loadMenu());
         MenuButton.setTooltip(new Tooltip("Abrir menu"));
@@ -431,9 +427,9 @@ public class mainController implements Initializable {
     }
 
     @FXML
-    private void loadRecepcionView() {
-        loadFXMLAsync(APARTADO_RECEPCION_FXML);
-        marcarBotonActivo(recepcionButton);
+    private void loadPaletizarView() {
+        loadFXMLAsync(APARTADO_PALETIZAR_FXML);
+        marcarBotonActivo(paletizarButton);
     }
 
     @FXML
@@ -501,7 +497,7 @@ public class mainController implements Initializable {
      * Marca botón activo con colores de tu mapa de colores cargado en Main.colors
      */
     private void marcarBotonActivo(Button botonSeleccionado) {
-        var nav = java.util.List.of(almacenButton, inventarioButton, pedidosButton, recepcionButton);
+        var nav = java.util.List.of(almacenButton, inventarioButton, pedidosButton, paletizarButton);
 
         // quita "active" de todos
         nav.forEach(b -> b.getStyleClass().remove("active"));

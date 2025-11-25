@@ -26,6 +26,41 @@ public class PaletDAO {
         }
     }
 
+    private static final String SQL_IS_POSICION_LIBRE = """
+                SELECT COUNT(*) 
+                FROM palets 
+                WHERE estanteria = ? 
+                  AND balda = ? 
+                  AND posicion = ? 
+                  AND delante = ?
+            """;
+
+    public static boolean isUbicacionLibre(
+            Connection conn,
+            int estanteria,
+            int balda,
+            int posicion,
+            boolean delante
+    ) throws SQLException {
+
+
+        try (PreparedStatement stmt = conn.prepareStatement(SQL_IS_POSICION_LIBRE)) {
+            stmt.setInt(1, estanteria);
+            stmt.setInt(2, balda);
+            stmt.setInt(3, posicion);
+            stmt.setBoolean(4, delante);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) == 0;   // true si NO hay palet → lugar libre
+                }
+            }
+        }
+
+        return false; // Si algo falla, lo tratamos como ocupado por seguridad
+    }
+
+
     private static final String SQL_GET_ID_BY_IDENT =
             "SELECT id_palet FROM palets WHERE identificador = ?";
 
@@ -171,5 +206,116 @@ public class PaletDAO {
         }
     }
 
+
+    // ---------------------------------------------------------
+    // 1) ¿Está libre el identificador de palet?
+    // ---------------------------------------------------------
+    private static final String SQL_EXISTE_IDENTIFICADOR =
+            "SELECT 1 FROM palets WHERE identificador = ? LIMIT 1";
+
+    /**
+     * Devuelve true si el identificador NO está usado por ningún palet.
+     *
+     * @param connection conexión activa a la BDD
+     * @param id         identificador propuesto (numérico) que se almacenará como String
+     */
+    public static boolean iSidPaletvalido(Connection connection, int id) {
+        if (connection == null) {
+            LOGGER.severe("Conexión nula en iSidPaletvalido()");
+            return false;
+        }
+
+        String identificador = String.valueOf(id);
+
+        try (PreparedStatement ps = connection.prepareStatement(SQL_EXISTE_IDENTIFICADOR)) {
+            ps.setString(1, identificador);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                boolean yaExiste = rs.next();
+                if (yaExiste) {
+                    LOGGER.fine(() -> "Identificador de palet ya usado: " + identificador);
+                    return false; // NO es válido (ya ocupado)
+                } else {
+                    LOGGER.fine(() -> "Identificador de palet libre: " + identificador);
+                    return true;  // Sí es válido
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE,
+                    "Error comprobando identificador de palet=" + identificador, e);
+            // En caso de error, mejor devolver false (no lo usamos)
+            return false;
+        }
+    }
+
+    // ---------------------------------------------------------
+    // 2) Insertar palet en la base de datos
+    // ---------------------------------------------------------
+    private static final String SQL_INSERT_PALET =
+            "INSERT INTO palets " +
+                    "(identificador, id_producto, alto, ancho, largo, cantidad_de_producto, " +
+                    " estanteria, balda, posicion, delante) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    /**
+     * Inserta un nuevo palet en la tabla palets.
+     *
+     * @param connection    conexión activa
+     * @param identificador identificador único del palet (VARCHAR)
+     * @param idProducto    identificador del producto (productos.identificador_producto)
+     * @param alto          alto del palet
+     * @param ancho         ancho del palet
+     * @param largo         largo del palet
+     * @param cantidad      cantidad_de_producto
+     * @param estanteria    nº de estantería
+     * @param balda         nº de balda
+     * @param posicion      nº de posición
+     * @param delante       true si va delante, false si va detrás
+     * @return true si se insertó una fila
+     * @throws SQLException si algo va mal
+     */
+    public static boolean insertarPalet(
+            Connection connection,
+            String identificador,
+            String idProducto,
+            int alto,
+            int ancho,
+            int largo,
+            int cantidad,
+            int estanteria,
+            int balda,
+            int posicion,
+            boolean delante
+    ) throws SQLException {
+
+        if (connection == null) {
+            throw new SQLException("Conexión nula en insertarPalet()");
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(SQL_INSERT_PALET)) {
+            ps.setString(1, identificador);
+            ps.setString(2, idProducto);
+            ps.setInt(3, alto);
+            ps.setInt(4, ancho);
+            ps.setInt(5, largo);
+            ps.setInt(6, cantidad);
+            ps.setInt(7, estanteria);
+            ps.setInt(8, balda);
+            ps.setInt(9, posicion);
+            ps.setBoolean(10, delante);
+
+            int rows = ps.executeUpdate();
+            if (rows == 1) {
+                LOGGER.info(() -> String.format(
+                        "Palet insertado: ident=%s, prod=%s, est=%d, bal=%d, pos=%d, delante=%s, cant=%d",
+                        identificador, idProducto, estanteria, balda, posicion, delante, cantidad
+                ));
+                return true;
+            } else {
+                LOGGER.warning("insertarPalet() no afectó exactamente a 1 fila.");
+                return false;
+            }
+        }
+    }
 
 }

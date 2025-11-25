@@ -118,7 +118,6 @@ public class inventarioController implements Initializable {
         // Estado inicial: sin filtros → todos los palets
         aplicarFiltros();
 
-        combo_seleccionar_palet.valueProperty().addListener((obs, oldP, newP) -> actualizarLabelsUbicacionRobusta(newP));
 
         combo_seleccionar_palet.valueProperty().addListener((obs, oldV, newV) -> {
             boolean hayPaletSeleccionado = (newV != null);
@@ -136,9 +135,6 @@ public class inventarioController implements Initializable {
         });
     }
 
-    private void actualizarLabelsUbicacionRobusta(Palet newP) {
-        System.out.println(combo_seleccionar_palet.getSelectionModel().getSelectedItem().getIdPalet());
-    }
 
     // ---------------------- Setup UI ----------------------
     private void configurarScrollYGrid() {
