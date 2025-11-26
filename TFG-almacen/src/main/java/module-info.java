@@ -11,7 +11,6 @@ module uvigo.tfgalmacen {
     requires org.apache.poi.ooxml;
     requires org.apache.poi.poi;
     requires net.sf.jasperreports.core;
-    requires uvigo.tfgalmacen;
 
     exports uvigo.tfgalmacen;
     opens uvigo.tfgalmacen to javafx.fxml;

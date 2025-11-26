@@ -512,6 +512,7 @@ public class paletizarController implements Initializable {
     private void configurarListenersPedidos() {
         combo_pedido_primera_hora.setOnAction(_ -> {
             String codigo = combo_pedido_primera_hora.getValue();
+            codigo_referencia_pedido = codigo;
             if (codigo == null || codigo.isBlank()) return;
 
             try {
@@ -565,6 +566,7 @@ public class paletizarController implements Initializable {
 
         combo_pedido_segunda_hora.setOnAction(_ -> {
             String codigo = combo_pedido_segunda_hora.getValue();
+            codigo_referencia_pedido = codigo;
             if (codigo == null || codigo.isBlank()) return;
 
             try {
@@ -789,11 +791,13 @@ public class paletizarController implements Initializable {
             }
 
             String ref = combo_pedido_primera_hora.getValue();
+            codigo_referencia_pedido = combo_pedido_primera_hora.getValue();
             String ref2 = combo_pedido_segunda_hora.getValue();
             Pedido pActual = getPedidoPorCodigo(Main.connection, ref);
 
             if (pActual == null) {
                 pActual = getPedidoPorCodigo(Main.connection, ref2);
+                codigo_referencia_pedido = combo_pedido_segunda_hora.getValue();
             }
 
             if (pActual != null) {

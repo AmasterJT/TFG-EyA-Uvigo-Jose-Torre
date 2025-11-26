@@ -307,9 +307,9 @@
                                 </HBox>
                             </children>
                         </VBox>
-                        <AnchorPane prefHeight="240.0" styleClass="transparent">
+                        <AnchorPane prefHeight="220.0" styleClass="transparent">
                             <children>
-                                <VBox maxHeight="200.0" minHeight="200.0" prefHeight="200.0" style="-fx-border-width: 1; -fx-border-radius: 10; -fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                                <VBox maxHeight="160.0" minHeight="160.0" prefHeight="160.0" style="-fx-border-width: 1; -fx-border-radius: 10; -fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                     <padding>
                                         <Insets top="5.0" />
                                     </padding>
@@ -318,7 +318,7 @@
                                             <children>
                                                 <ScrollPane fx:id="palets_Listos_scroll" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <content>
-                                                        <VBox alignment="CENTER_LEFT" maxHeight="160.0">
+                                                        <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308">
                                                             <children>
                                                                 <GridPane fx:id="grid_palets_Listos" alignment="CENTER_LEFT">
                                                                     <columnConstraints>
