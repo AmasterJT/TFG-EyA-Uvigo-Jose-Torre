@@ -270,13 +270,13 @@
                                     <HBox alignment="CENTER" prefWidth="200.0">
                                        <children>
                                           <Label styleClass="texto-label-bold" text="CANTIDAD TOTAL: " />
-                                          <Label fx:id="cantidad_total_palet" styleClass="texto-label" text="Label" />
+                                          <Label fx:id="cantidad_total_palet" minWidth="60.0" styleClass="texto-label" text="-" />
                                           <Label styleClass="texto-label-bold" text="PRODUCTOS: ">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <Label fx:id="productos_palet_label" styleClass="texto-label" text="Label" />
+                                          <Label fx:id="productos_palet_label" minWidth="60.0" styleClass="texto-label" text="-" />
                                        </children>
                                        <VBox.margin>
                                           <Insets top="10.0" />
@@ -291,27 +291,27 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefWidth="200.0">
                            <VBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="10.0" top="20.0" />
+                              <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                            </VBox.margin>
                            <children>
                               <Button fx:id="crear_palet_salida_btn" mnemonicParsing="false" text="CREAR PALET" />
                            </children>
                         </HBox>
                      </children></VBox>
-                  <AnchorPane prefHeight="220.0" styleClass="transparent">
+                  <AnchorPane prefHeight="240.0" styleClass="transparent">
                      <children>
-                        <HBox maxHeight="180.0" minHeight="180.0" prefHeight="180.0" style="-fx-border-width: 1; -fx-border-radius: 10; -fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                        <VBox maxHeight="200.0" minHeight="200.0" prefHeight="200.0" style="-fx-border-width: 1; -fx-border-radius: 10; -fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                            <padding>
                               <Insets top="5.0" />
                            </padding>
                            <children>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-radius: 0 0 15 15; -fx-border-radius: 0 0 15 15; -fx-border-width: 0 3 3 3;" styleClass="transparent" HBox.hgrow="ALWAYS">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-radius: 0 0 15 15; -fx-border-radius: 0 0 15 15; -fx-border-width: 0 3 3 3;" styleClass="transparent" VBox.vgrow="ALWAYS">
                                  <children>
                                     <ScrollPane fx:id="palets_Listos_scroll" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <content>
-                                          <VBox alignment="CENTER_RIGHT">
+                                          <VBox alignment="CENTER_LEFT" maxHeight="160.0">
                                              <children>
-                                                <GridPane fx:id="grid_palets_Listos" alignment="CENTER">
+                                                <GridPane fx:id="grid_palets_Listos" alignment="CENTER_LEFT">
                                                    <columnConstraints>
                                                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
                                                    </columnConstraints>
@@ -328,8 +328,16 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                                  </padding>
                               </AnchorPane>
+                              <HBox alignment="CENTER_RIGHT">
+                                 <children>
+                                    <Button fx:id="envio_btn" mnemonicParsing="false" text="Button" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
                            </children>
-                        </HBox>
+                        </VBox>
                         <HBox style="-fx-background-color: #222;" AnchorPane.leftAnchor="15.0">
                            <children>
                               <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">

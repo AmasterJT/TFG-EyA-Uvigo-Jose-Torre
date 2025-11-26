@@ -1,6 +1,7 @@
 package uvigo.tfgalmacen.database;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -131,5 +132,49 @@ public class PaletSalidaDAO {
         } finally {
             conn.setAutoCommit(prevAutoCommit);
         }
+    }
+
+    // DTO sencillo para devolver datos al controlador
+    public record PaletSalidaResumen(
+            int idPaletSalida,
+            String sscc,
+            int cantidadTotal,
+            int numeroProductos,
+            Timestamp fechaCreacion
+    ) {
+    }
+
+    private static final String SQL_SELECT_BY_PEDIDO = """
+            SELECT id_palet_salida, sscc, fecha_creacion, cantidad_total, numero_productos
+            FROM palet_salida
+            WHERE id_pedido = ?
+            ORDER BY fecha_creacion ASC
+            """;
+
+    public static List<PaletSalidaResumen> getPaletsSalidaPorPedido(Connection cn, int idPedido) {
+        List<PaletSalidaResumen> lista = new ArrayList<>();
+        if (cn == null) {
+            LOGGER.severe("Conexión nula en getPaletsSalidaPorPedido");
+            return lista;
+        }
+
+        try (PreparedStatement ps = cn.prepareStatement(SQL_SELECT_BY_PEDIDO)) {
+            ps.setInt(1, idPedido);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(new PaletSalidaResumen(
+                            rs.getInt("id_palet_salida"),
+                            rs.getString("sscc"),
+                            rs.getInt("cantidad_total"),
+                            rs.getInt("numero_productos"),
+                            rs.getTimestamp("fecha_creacion")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE,
+                    "Error obteniendo palets_salida para id_pedido=" + idPedido, e);
+        }
+        return lista;
     }
 }

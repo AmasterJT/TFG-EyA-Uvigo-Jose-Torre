@@ -30,9 +30,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.RutasFicheros.*;
+import static uvigo.tfgalmacen.database.ClientesDAO.getClienteById;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoReferencia;
 import static uvigo.tfgalmacen.database.PedidoDAO.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.limpiarGridPane;
+import static uvigo.tfgalmacen.RutasFicheros.ITEM_PALET_FINAL_FXML;
 
 
 import static uvigo.tfgalmacen.database.PaletSalidaDAO.LineaPaletSalida;
@@ -63,10 +65,13 @@ public class paletizarController implements Initializable {
         }
     }
 
+    private int paletsListosCount = 0;
     int idCliente;
     int idUsuario;
     String username;
     String codigo_referencia_pedido;
+
+
     @FXML
     private ComboBox<String> combo_pedido_primera_hora;
 
@@ -119,6 +124,10 @@ public class paletizarController implements Initializable {
     private Button crear_palet_salida_btn;
 
 
+    @FXML
+    private Button envio_btn;
+
+
     public static final List<ItemPaletizarController> allItemControllers = new ArrayList<>();
 
     private List<ProductoPedido> productos_del_pedido;
@@ -147,7 +156,11 @@ public class paletizarController implements Initializable {
         cargarUsernamesYCache();
 
         combo_usuario.getSelectionModel().selectedItemProperty().addListener((obs, ov, nv) -> {
-            if (nv != null && !nv.equals(PLACEHOLDER_USUARIO)) cargarDatosUsuarioDesdeCache(nv);
+            if (nv != null && !nv.equals(PLACEHOLDER_USUARIO)) {
+                limpiarGridsPedidosOrigen();
+
+                cargarDatosUsuarioDesdeCache(nv);
+            }
         });
 
         productos_en_palet_scroll.setFitToWidth(true);
@@ -157,6 +170,46 @@ public class paletizarController implements Initializable {
             crear_palet_salida_btn.setOnAction(_ -> crearPaletSalida());
         }
 
+        if (envio_btn != null) {
+            //envio_btn.setOnAction(_ -> agregarPaletListoAlGrid());
+            envio_btn.setTooltip(new Tooltip("Añadir palet listo a la lista de envío"));
+        }
+
+    }
+
+    private void agregarPaletListoAlGrid(PaletSalidaDAO.PaletSalidaResumen data) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ITEM_PALET_FINAL_FXML));
+            AnchorPane itemRoot = loader.load();
+
+            // Si tu item tiene controller, puedes pasarle los datos
+            try {
+                Object ctrl = loader.getController();
+                if (ctrl instanceof ItemPaletFinalController c) {
+                    c.setData(
+                            codigo_referencia_pedido,
+                            data.sscc(),
+                            Objects.requireNonNull(getClienteById(Main.connection, idCliente)).getNombre(),
+                            data.cantidadTotal(),
+                            data.numeroProductos(),
+                            data.fechaCreacion()
+                    );
+                }
+            } catch (Exception e) {
+                LOGGER.log(Level.WARNING,
+                        "No se pudo inicializar ItemPaletFinalController con datos del palet_salida", e);
+            }
+
+            int column = paletsListosCount;
+            int row = 0;
+
+            grid_palets_Listos.add(itemRoot, column, row);
+            GridPane.setMargin(itemRoot, new Insets(5));
+            paletsListosCount++;
+
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error al agregar item de palet listo al grid_palets_Listos", e);
+        }
     }
 
     private void configurarScrollsYGrids() {
@@ -489,6 +542,7 @@ public class paletizarController implements Initializable {
                 LOGGER.info("Renderizando productos (1ª hora) del pedido: " + p.getCodigo_referencia());
                 renderizarProductos(productos, grid_en_curso_primera_hora);
 
+                cargarPaletsSalidaParaPedido(p);
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, "Error cargando productos del pedido (1ª hora) " + codigo, e);
             }
@@ -515,7 +569,7 @@ public class paletizarController implements Initializable {
                 );
                 LOGGER.info("Renderizando productos (2ª hora) del pedido: " + p.getCodigo_referencia());
                 renderizarProductos(productos, grid_en_curso_segunda_hora);
-
+                cargarPaletsSalidaParaPedido(p);
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, "Error cargando productos del pedido (2ª hora) " + codigo, e);
             }
@@ -546,7 +600,7 @@ public class paletizarController implements Initializable {
         idCliente = pedido.getId_cliente(); // ajusta al nombre real del getter
 
 
-        Cliente cliente = ClientesDAO.getClienteById(Main.connection, idCliente);
+        Cliente cliente = getClienteById(Main.connection, idCliente);
 
         System.out.println(cliente);
 
@@ -691,11 +745,65 @@ public class paletizarController implements Initializable {
                     if (usernameActual != null && !usernameActual.isBlank()) {
                         cargarDatosUsuarioDesdeCache(usernameActual);
                     }
+
+
                 });
+            }
+
+            String ref = combo_pedido_primera_hora.getValue();
+            String ref2 = combo_pedido_segunda_hora.getValue();
+            Pedido pActual = PedidoDAO.getPedidoPorCodigo(Main.connection, ref);
+
+            if (pActual == null) {
+                pActual = PedidoDAO.getPedidoPorCodigo(Main.connection, ref2);
+            }
+
+            if (pActual != null) {
+                cargarPaletsSalidaParaPedido(pActual);
             }
 
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error al crear el palet de salida desde la UI", e);
         }
     }
+
+    private void cargarPaletsSalidaParaPedido(Pedido pedido) {
+        if (pedido == null) {
+            return;
+        }
+
+        // Limpiar grid y contador
+        grid_palets_Listos.getChildren().clear();
+        grid_palets_Listos.getColumnConstraints().clear();
+        grid_palets_Listos.getRowConstraints().clear();
+        paletsListosCount = 0;
+
+        int idPedido = pedido.getId_pedido();
+        LOGGER.info(() -> "Cargando palets_salida para pedido id=" + idPedido
+                + " (" + pedido.getCodigo_referencia() + ")");
+
+        List<PaletSalidaDAO.PaletSalidaResumen> paletsSalida =
+                PaletSalidaDAO.getPaletsSalidaPorPedido(Main.connection, idPedido);
+
+        if (paletsSalida.isEmpty()) {
+            LOGGER.fine("Este pedido no tiene palets_salida aún.");
+            return;
+        }
+
+        for (PaletSalidaDAO.PaletSalidaResumen ps : paletsSalida) {
+            agregarPaletListoAlGrid(ps);
+        }
+    }
+
+    private void limpiarGridsPedidosOrigen() {
+        // Limpia los productos del pedido en curso (1ª y 2ª hora)
+        limpiarGridPane(grid_en_curso_primera_hora);
+        limpiarGridPane(grid_en_curso_segunda_hora);
+
+        // Opcional: también vaciar el grid de productos en palet y palets listos
+        // limpiarGridPane(grid_productos_en_palet);
+        // limpiarGridPane(grid_palets_Listos);
+        // paletsListosCount = 0;   // si usas este contador
+    }
+
 }
