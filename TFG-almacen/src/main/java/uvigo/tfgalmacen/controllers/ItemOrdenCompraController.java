@@ -4,18 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.util.Duration;
 import uvigo.tfgalmacen.almacenManagement.Palet;
 
-import java.util.List;
+import static uvigo.tfgalmacen.almacenManagement.Almacen.*;
 
-import static uvigo.tfgalmacen.utils.TerminalColors.GREEN;
 
 public class ItemOrdenCompraController {
 
-    private boolean esta_palet_añadido = false;
+    private boolean esta_palet_anadido = false;
 
     @FXML
     private HBox background_Hbox;
@@ -56,12 +53,12 @@ public class ItemOrdenCompraController {
         return delante_checkBox;
     }
 
-    public boolean isEsta_palet_añadido() {
-        return esta_palet_añadido;
+    public boolean isEsta_palet_anadido() {
+        return esta_palet_anadido;
     }
 
-    public void setEsta_palet_añadido(boolean esta_palet_añadido) {
-        this.esta_palet_añadido = esta_palet_añadido;
+    public void setEsta_palet_anadido(boolean esta_palet_anadido) {
+        this.esta_palet_anadido = esta_palet_anadido;
     }
 
 
@@ -102,11 +99,11 @@ public class ItemOrdenCompraController {
         return nombre_proveedor_label.getText();
     }
 
-    public Palet crear_palet(String proveedor, String producto, int estanteria, int balda, int posicion, boolean delante) {
+    public Palet crear_palet(String producto, int estanteria, int balda, int posicion, boolean delante) {
 
         String green_color_back = "-fx-background-color: #056705;";
         background_Hbox.setStyle(green_color_back);
-        esta_palet_añadido = true;
+        esta_palet_anadido = true;
 
         return new Palet(producto, estanteria, balda, posicion, delante);
 
@@ -116,13 +113,20 @@ public class ItemOrdenCompraController {
     private void init_comboBoxes() {
 
         // Añade valores fijos para estantería, balda, posición y delante/detrás
-        combo_estanteria_itemOc.getItems().addAll("1", "2", "3", "4");
+        llenarComboNumerico(combo_estanteria_itemOc, NUM_ESTANTERIAS);
         combo_balda_itemOc.getItems().addAll(
-                java.util.stream.IntStream.rangeClosed(1, 8).mapToObj(String::valueOf).toList()
+                java.util.stream.IntStream.rangeClosed(1, NUM_BALDAS_PER_ESTANTERIA).mapToObj(String::valueOf).toList()
         );
         combo_posicion_itemOc.getItems().addAll(
-                java.util.stream.IntStream.rangeClosed(1, 24).mapToObj(String::valueOf).toList()
+                java.util.stream.IntStream.rangeClosed(1, POSICIONES_PER_BALDA).mapToObj(String::valueOf).toList()
         );
+    }
+
+    private void llenarComboNumerico(ComboBox<String> combo, int max) {
+        combo.getItems().clear();
+        for (int i = 1; i <= max; i++) {
+            combo.getItems().add(String.valueOf(i));
+        }
     }
 
 

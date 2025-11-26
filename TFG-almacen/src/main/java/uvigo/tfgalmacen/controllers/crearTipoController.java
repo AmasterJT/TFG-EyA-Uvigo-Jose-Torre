@@ -5,29 +5,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Tipo;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static uvigo.tfgalmacen.database.TipoDAO.insertTipoStrict;
-import static uvigo.tfgalmacen.utils.TerminalColors.*;
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_warning;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_success;
 
 public class crearTipoController implements Initializable {
 
     @FXML
     private Button ExitButton;
-
-    @FXML
-    private AnchorPane Pane;
 
     @FXML
     private Button crear_nuevo_tipo_btn;
@@ -38,8 +30,6 @@ public class crearTipoController implements Initializable {
     @FXML
     private TextField nuevo_tipo_text;
 
-    @FXML
-    private HBox windowBar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,12 +68,11 @@ public class crearTipoController implements Initializable {
 
 
         String nombre = nuevo_tipo_text.getText();
-        String rgb = String.format("%d, %d, %d", r, g, b);
 
         insertTipoStrict(Main.connection, new Tipo(color_tipo, nombre));
         Almacen.actualizarAlmacen();
 
-        ventana_warning("Tipo nuevo creado", "tipo nuevo creado correctamente", String.format("Se ha creado el tipo %s con color %s", nombre, hex));
+        ventana_success("Tipo nuevo creado", "tipo nuevo creado correctamente", String.format("Se ha creado el tipo %s con color %s", nombre, hex));
 
         Stage stage = (Stage) crear_nuevo_tipo_btn.getScene().getWindow();
         stage.close();

@@ -19,7 +19,6 @@ import uvigo.tfgalmacen.*;
 import uvigo.tfgalmacen.database.*;
 import uvigo.tfgalmacen.gs1.GS1Utils;
 import uvigo.tfgalmacen.utils.ColorFormatter;
-import uvigo.tfgalmacen.utils.windowComponentAndFuncionalty;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,8 +39,6 @@ import static uvigo.tfgalmacen.RutasFicheros.ITEM_PALET_FINAL_FXML;
 
 
 import static uvigo.tfgalmacen.database.PaletSalidaDAO.LineaPaletSalida;
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_warning;
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_error;
 
 public class paletizarController implements Initializable {
 
@@ -70,7 +67,6 @@ public class paletizarController implements Initializable {
     private int paletsListosCount = 0;
     int idCliente;
     int idUsuario;
-    String username;
     String codigo_referencia_pedido;
 
 
@@ -108,9 +104,6 @@ public class paletizarController implements Initializable {
     private GridPane grid_palets_Listos;
 
     @FXML
-    private ScrollPane paletsListosScroll;
-
-    @FXML
     private GridPane grid_productos_en_palet;
 
     @FXML
@@ -131,8 +124,6 @@ public class paletizarController implements Initializable {
     private List<ProductoPedido> productos_del_pedido;
 
     private final Map<String, User> cacheUsuarios = new LinkedHashMap<>();
-
-    private Pedido pedido_para_detallar;
 
     private final int COLUMS = 1;
 
@@ -183,10 +174,7 @@ public class paletizarController implements Initializable {
                     c.setData(
                             codigo_referencia_pedido,
                             data.sscc(),
-                            Objects.requireNonNull(getClienteById(Main.connection, idCliente)).getNombre(),
-                            data.cantidadTotal(),
-                            data.numeroProductos(),
-                            data.fechaCreacion()
+                            Objects.requireNonNull(getClienteById(Main.connection, idCliente)).getNombre()
                     );
                 }
             } catch (Exception e) {
@@ -246,7 +234,6 @@ public class paletizarController implements Initializable {
 
 
     public void setData(Pedido pedido_para_detallar) {
-        this.pedido_para_detallar = pedido_para_detallar;
 
 
         productos_del_pedido = getProductosPorCodigoReferencia(

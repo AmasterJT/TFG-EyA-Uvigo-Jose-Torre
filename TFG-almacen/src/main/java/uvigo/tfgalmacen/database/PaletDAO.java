@@ -77,7 +77,7 @@ public class PaletDAO {
      * Mueve el palet identificado a una nueva ubicación si no está ocupada por otro palet.
      *
      * @param conn          conexión JDBC abierta (no nula)
-     * @param identificador identificador único del palet (columna palets.identificador)
+     * @param identificador identificador único del palet (columna palets. identificador)
      * @param estanteria    nueva estantería destino
      * @param balda         nueva balda destino
      * @param posicion      nueva posición destino
@@ -271,7 +271,7 @@ public class PaletDAO {
     public static boolean iSidPaletvalido(Connection connection, int id) {
         if (connection == null) {
             LOGGER.severe("Conexión nula en iSidPaletvalido()");
-            return false;
+            return true;
         }
 
         String identificador = String.valueOf(id);
@@ -283,17 +283,17 @@ public class PaletDAO {
                 boolean yaExiste = rs.next();
                 if (yaExiste) {
                     LOGGER.fine(() -> "Identificador de palet ya usado: " + identificador);
-                    return false; // NO es válido (ya ocupado)
+                    return true; // NO es válido (ya ocupado)
                 } else {
                     LOGGER.fine(() -> "Identificador de palet libre: " + identificador);
-                    return true;  // Sí es válido
+                    return false;  // Sí es válido
                 }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE,
                     "Error comprobando identificador de palet=" + identificador, e);
             // En caso de error, mejor devolver false (no lo usamos)
-            return false;
+            return true;
         }
     }
 

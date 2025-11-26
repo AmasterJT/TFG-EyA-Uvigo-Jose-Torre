@@ -263,6 +263,44 @@ public class windowComponentAndFuncionalty {
         return result.isPresent() && result.get() == ButtonType.OK;
     }
 
+    public static void ventana_success(String title, String headerText, String contentText) {
+
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle(title);
+        alerta.setHeaderText(headerText);
+        alerta.setContentText(contentText);
+
+        Stage alertStage = (Stage) alerta.getDialogPane().getScene().getWindow();
+
+        // 🔹 Icono (APP_ICON = ruta en resources, ej. "/uvigo/tfgalmacen/icons/app_icon.png")
+        try {
+            URL iconUrl = windowComponentAndFuncionalty.class.getResource(APP_ICON);
+            if (iconUrl != null) {
+                alertStage.getIcons().add(new Image(iconUrl.toExternalForm()));
+            } else {
+                LOGGER.warning("No se encontró el icono en APP_ICON: " + APP_ICON);
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.WARNING, "No se pudo cargar el icono de la app desde APP_ICON: " + APP_ICON, ex);
+        }
+
+        // 🔹 Estilos
+        DialogPane dialogPane = alerta.getDialogPane();
+        try {
+            dialogPane.getStylesheets().add(
+                    Objects.requireNonNull(
+                            windowComponentAndFuncionalty.class.getResource("/uvigo/tfgalmacen/css/Styles.css")
+                    ).toExternalForm()
+            );
+            dialogPane.getStyleClass().add("alert-dialog");   // estilo genérico
+            dialogPane.getStyleClass().add("alert-success");  // estilo específico para success (opcional)
+        } catch (Exception ex) {
+            LOGGER.log(Level.FINE, "No se pudo cargar Styles.css para el diálogo de success.", ex);
+        }
+
+        alerta.showAndWait();
+    }
+
     // Versión básica
     public static @NotNull Stage crearStageBasico(Parent root) {
         return crearStageBasico(root, true, "");
@@ -318,14 +356,6 @@ public class windowComponentAndFuncionalty {
 
         return stage;
     }
-
-
-    public static TextFormatter<String> TEXTVIEW_NUMERICO = new TextFormatter<>(c -> {
-        if (c.getControlNewText().matches("\\d*")) {
-            return c; // aceptar si es un número
-        }
-        return null; // ignorar lo demás
-    });
 
 
     public static TextFormatter<String> numericFormatter() {

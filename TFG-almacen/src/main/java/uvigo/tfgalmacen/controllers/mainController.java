@@ -13,7 +13,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -67,8 +66,7 @@ public class mainController implements Initializable {
     private Button ExitButton;
     @FXML
     private Button MenuButton;
-    @FXML
-    private Button ajustesButton;
+
     @FXML
     private Button ajustes_crear_pedido_btn;
     @FXML
@@ -83,14 +81,11 @@ public class mainController implements Initializable {
     private Button ajustes_eliminar_usuario_btn;
     @FXML
     private Button almacenButton;
-    @FXML
-    private AnchorPane almacenContainer;
+
     @FXML
     private Button cerrarSesionBtn;
     @FXML
     private Button esconder_ajustes_btn;
-    @FXML
-    private Label estadoConexionLabel;
     @FXML
     private Button inventarioButton;
     @FXML
@@ -100,8 +95,6 @@ public class mainController implements Initializable {
     @FXML
     private Button pedidosButton;
     @FXML
-    private Button probarConexionBtn;
-    @FXML
     private Button paletizarButton;
     @FXML
     private Label roleLabel;
@@ -109,21 +102,9 @@ public class mainController implements Initializable {
     private AnchorPane root;
     @FXML
     private AnchorPane slider;
-    @FXML
-    private HBox toolBar;
-    @FXML
-    private AnchorPane topBar;
-    @FXML
-    private Label usuarioActualLabel;
-    @FXML
-    private HBox windowBar;
-
 
     @FXML
     private Button ajustes_crear_producto_btn;
-
-    @FXML
-    private Button ajustes_crear_proveedor_btn;
 
     @FXML
     private Button ajustes_crear_tipo_btn;
@@ -207,8 +188,6 @@ public class mainController implements Initializable {
         ajustes_crear_tipo_btn.setOnMouseClicked(_ -> abrirVentanaCrearTipo());
         ajustes_crear_tipo_btn.setTooltip(new Tooltip("Crear nuevo tipo"));
 
-        ajustes_crear_proveedor_btn.setOnMouseClicked(_ -> abrirVentanaCrearProveedor());
-        ajustes_crear_proveedor_btn.setTooltip(new Tooltip("Crear nuevo porveedor"));
 
         actualizar_palet_btn.setOnMouseClicked(_ -> {
             try {
@@ -338,7 +317,7 @@ public class mainController implements Initializable {
             }
 
             // Cuando se cierre la ventana, ejecutamos el callback
-            win.setOnHidden(e -> {
+            win.setOnHidden(_ -> {
                 if (afterClose != null) {
                     afterClose.run();
                 }
@@ -397,11 +376,6 @@ public class mainController implements Initializable {
     private void abrirVentanaEliminarPedido() {
         Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
         openWindowAsync(WINDOW_AJUSTES_ELIMINAR_PEDIDOS_FXML, "Eliminar Pedido", owner);
-    }
-
-    private void abrirVentanaCrearProveedor() {
-        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
-        openWindowAsync(WINDOW_AJUSTES_CREAR_PROVEEDOR_FXML, "Eliminar Pedido", owner);
     }
 
     private void abrirVentanaCrearTipo() {
@@ -480,7 +454,7 @@ public class mainController implements Initializable {
             return;
         }
 
-        File[] xmlFiles = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".xml"));
+        File[] xmlFiles = folder.listFiles((_, name) -> name.toLowerCase().endsWith(".xml"));
 
         if (xmlFiles == null || xmlFiles.length == 0) {
             LOGGER.info("No se encontraron archivos XML en: " + folder.getAbsolutePath());
@@ -568,5 +542,13 @@ public class mainController implements Initializable {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "❌ Error al intentar cerrar sesión y volver al login.", e);
         }
+    }
+
+    public Button getActiveScene() {
+        return activeScene;
+    }
+
+    public void setActiveScene(Button activeScene) {
+        this.activeScene = activeScene;
     }
 }

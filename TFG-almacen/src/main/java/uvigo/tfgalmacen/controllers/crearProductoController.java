@@ -5,16 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Proveedor;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
-import uvigo.tfgalmacen.almacenManagement.Palet;
-import uvigo.tfgalmacen.almacenManagement.Producto;
 import uvigo.tfgalmacen.almacenManagement.Tipo;
 import uvigo.tfgalmacen.database.ProductoDAO;
 import uvigo.tfgalmacen.database.ProveedorDAO;
@@ -32,7 +28,6 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static java.lang.Integer.parseInt;
-import static uvigo.tfgalmacen.utils.TerminalColors.CYAN;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 
@@ -62,16 +57,12 @@ public class crearProductoController implements Initializable {
     }
 
 
-    private boolean TODO_PALETS_OK = false;
-
     // ----------------------------
     // Constantes / Placeholders
     // ----------------------------
     private static final String PLACEHOLDER_PROVEEDOR = "Seleccionar proveedor";
     private static final String PLACEHOLDER_PRODUCTO = "Seleccionar producto";
 
-    private final ArrayList<Palet> palets_oc = new ArrayList<>();
-    private final ArrayList<Proveedor> proveedores_oc = new ArrayList<>();
 
     // ----------------------------
     // FXML
@@ -79,8 +70,6 @@ public class crearProductoController implements Initializable {
     @FXML
     private Button ExitButton;
 
-    @FXML
-    private AnchorPane Pane;
 
     @FXML
     private ComboBox<String> combo_proveedor;
@@ -100,8 +89,6 @@ public class crearProductoController implements Initializable {
     @FXML
     private TextField precio_nuevo_producto_text;
 
-    @FXML
-    private HBox windowBar;
 
     @FXML
     private TextField profundo_nuevo_producto_text;
@@ -149,9 +136,7 @@ public class crearProductoController implements Initializable {
         });
 
         if (crear_nuevo_producto_btn != null) {
-            crear_nuevo_producto_btn.setOnAction(_ -> {
-                crearNuevoProducto();
-            });
+            crear_nuevo_producto_btn.setOnAction(_ -> crearNuevoProducto());
         }
 
     }
@@ -162,7 +147,7 @@ public class crearProductoController implements Initializable {
             LOGGER.warning("Creación de producto cancelada por datos no numéricos.");
             return;
         }
-        
+
         String proveedor = combo_proveedor.getValue();
         String tipo = combo_tipo.getValue();
         String nombre_producto = nombre_nuevo_producto_text.getText();
@@ -187,7 +172,7 @@ public class crearProductoController implements Initializable {
 
         ProveedorProductoDAO.setRelacionProductoProveedor(Main.connection, id_nuevo_produto, id_proveedor, alto_nuevo_producto, ancho_nuevo_producto, profundo_nuevo_producto, unidades_por_defecto);
 
-        ventana_warning("Tipo nuevo creado", "tipo nuevo creado correctamente",
+        ventana_success("Tipo nuevo creado", "tipo nuevo creado correctamente",
                 String.format("Se ha creado un nuevo producto: %s  \n\t - %s (%s) \n\t - Descripcion: %s \n\t - Precio: %s", nombre_producto, proveedor, tipo, descripcion, precio));
 
         Stage stage = (Stage) crear_nuevo_producto_btn.getScene().getWindow();
@@ -228,79 +213,9 @@ public class crearProductoController implements Initializable {
     }
 
 
-    private ContextMenu crearContextMenuEliminar(ListView<Parent> lv) {
-        final ContextMenu menu = new ContextMenu();
-        final MenuItem eliminar = new MenuItem("Eliminar");
-        final MenuItem borrarTodo = new MenuItem("Borrar todo");
-
-        // --- Acción eliminar elemento seleccionado ---
-        eliminar.setOnAction(_ -> {
-            int index = lv.getSelectionModel().getSelectedIndex();
-            if (index >= 0) {
-                lv.getItems().remove(index);
-                lv.getSelectionModel().clearSelection();
-                LOGGER.fine("Ítem eliminado del ListView en índice " + index);
-            }
-            menu.hide();
-        });
-
-        // --- Acción borrar todo (con confirmación) ---
-        borrarTodo.setOnAction(_ -> {
-            if (lv.getItems().isEmpty()) {
-                return;
-            }
-
-            Optional<ButtonType> resultado = ventana_error("Confirmar borrado", "¿Seguro que deseas borrar todos los ítems?", "Esta acción eliminará permanentemente todos los elementos de la lista.", "Si, borrar todo");
-
-            if (resultado.isPresent() && resultado.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                lv.getItems().clear();
-                lv.getSelectionModel().clearSelection();
-                LOGGER.info("Se han borrado todos los ítems del ListView.");
-            }
-
-            menu.hide();
-        });
-
-        // --- Deshabilitar cuando no procede ---
-        eliminar.disableProperty().bind(lv.getSelectionModel().selectedIndexProperty().lessThan(0));
-        menu.getItems().addAll(eliminar, borrarTodo);
-        return menu;
-    }
-
-
     // ----------------------------
     // Acciones
     // ----------------------------
-
-    private boolean validar_datos_en_blanco(ItemOrdenCompraController ctrl, String estanteria, String balda, String posicion) {
-
-        int fail = 0;
-        // Validación simple por si el usuario dejó algo sin seleccionar
-
-        if (estanteria == null || estanteria.isBlank()) {
-            LOGGER.warning("Ítem omitido por datos incompletos (estanteria).");
-            shake(ctrl.get_combo_estanteria_itemOc(), SHAKE_DURATION);
-            fail++;
-        }
-        if (balda == null || balda.isBlank()) {
-            LOGGER.warning("Ítem omitido por datos incompletos (balda).");
-            shake(ctrl.get_balda_itemOc(), SHAKE_DURATION);
-            fail++;
-        }
-        if (posicion == null || posicion.isBlank()) {
-            LOGGER.warning("Ítem omitido por datos incompletos (posicion).");
-            shake(ctrl.get_combo_posicion_itemOc(), SHAKE_DURATION);
-            fail++;
-        }
-
-
-        if (fail != 0) {
-            ctrl.setBackground_Hbox("#B09000");
-        }
-
-
-        return fail == 0;
-    }
 
 
     // ----------------------------
@@ -323,7 +238,7 @@ public class crearProductoController implements Initializable {
 
         Task<List<String>> task = new Task<>() {
             @Override
-            protected List<String> call() throws Exception {
+            protected List<String> call() {
                 Connection conn = Main.connection;
                 List<String> ids = TipoDAO.getTiposByProveedor(conn, proveedor.getIdProveedor());
 

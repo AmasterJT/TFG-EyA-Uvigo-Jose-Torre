@@ -73,9 +73,6 @@ public class windowAjustesEliminarUsuariosController {
     @FXML
     private Button eliminarUsuario_btn;
 
-    @FXML
-    private HBox windowBar;
-
     private final Map<String, User> cacheUsuarios = new LinkedHashMap<>();
 
     @FXML

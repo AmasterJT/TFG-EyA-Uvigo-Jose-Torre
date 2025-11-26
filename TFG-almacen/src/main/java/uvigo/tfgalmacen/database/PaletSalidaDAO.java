@@ -243,7 +243,7 @@ public class PaletSalidaDAO {
                 int idPaletSalida = rs.getInt("id_palet_salida");
 
                 resultado
-                        .computeIfAbsent(idPedido, _k -> new ArrayList<>())
+                        .computeIfAbsent(idPedido, _ -> new ArrayList<>())
                         .add(idPaletSalida);
             }
 

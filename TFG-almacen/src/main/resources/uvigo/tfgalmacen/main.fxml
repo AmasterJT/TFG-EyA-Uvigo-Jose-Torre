@@ -78,19 +78,6 @@
                             </cursor>
                         </Button>
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="HISTORIAL" textFill="WHITE">
-                            <graphic>
-                                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../../icons/history-50.png" />
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="System Bold" size="10.0" />
-                            </font>
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
-                        </Button>
                         <Button fx:id="movimiento_btn" mnemonicParsing="false" prefWidth="110.0" styleClass="menuItem" text="MOVIMIENTO PALETS" textFill="WHITE" wrapText="true">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -228,30 +215,11 @@
                             <Font name="System Bold" size="12.0" />
                         </font>
                     </Button>
-               <Button fx:id="envioButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="ENVÍOS" textFill="WHITE" wrapText="true">
-                  <graphic>
-                     <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../../icons/truck-50.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-                  <font>
-                     <Font name="System Bold" size="12.0" />
-                  </font>
-                  <VBox.margin>
-                     <Insets top="10.0" />
-                  </VBox.margin>
-               </Button>
-                    <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                    <Button fx:id="ajustesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
+                    <Button fx:id="envioButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="ENVÍOS" textFill="WHITE" wrapText="true">
                         <graphic>
                             <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@../../icons/setting.png" />
+                                    <Image url="@../../icons/truck-50.png" />
                                 </image>
                             </ImageView>
                         </graphic>
@@ -261,10 +229,11 @@
                         <font>
                             <Font name="System Bold" size="12.0" />
                         </font>
-                        <padding>
-                            <Insets bottom="5.0" left="10.0" top="5.0" />
-                        </padding>
+                        <VBox.margin>
+                            <Insets top="10.0" />
+                        </VBox.margin>
                     </Button>
+                    <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                 </VBox>
             </AnchorPane>
         </left>
@@ -334,7 +303,6 @@
                             <VBox alignment="CENTER" spacing="10" style="-fx-border-radius: 15; -fx-border-color: white; -fx-border-width: 2;">
                                 <children>
                                     <Label alignment="CENTER" styleClass="texto-label-bold" text="INVENTARIO" />
-                                    <Button fx:id="ajustes_crear_proveedor_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR PROVEEDOR" />
                                     <Button fx:id="ajustes_crear_tipo_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR TIPO" />
                                     <Button fx:id="ajustes_crear_producto_btn" maxWidth="1.7976931348623157E308" styleClass="itemButton" text="CREAR PRODUCTO" />
                                 </children>

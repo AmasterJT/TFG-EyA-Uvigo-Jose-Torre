@@ -41,7 +41,7 @@ public class ProveedorProductoDAO {
 
 
     private static final String INSERT_RELACION_SQL = """
-                INSERT INTO proveedor_producto 
+                INSERT INTO proveedor_producto
                 (id_proveedor, id_producto, alto, ancho, largo, unidades_por_palet_default)
                 VALUES (?, ?, ?, ?, ?, ?)
             """;

@@ -546,7 +546,6 @@ public class almacenController implements Initializable {
     private void mostrarTodosPalets() {
         for (Palet palet : Almacen.TodosPalets) {
             boolean visible = estanteriasVisibles.contains(palet.getEstanteria());
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             palet.getProductBox().setVisible(visible);
             palet.getPaletBox().setVisible(visible);
         }
@@ -605,5 +604,3 @@ public class almacenController implements Initializable {
         }
     }
 }
-
-

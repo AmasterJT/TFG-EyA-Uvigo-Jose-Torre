@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TableLister {
 
-    private static List<String> tableExcludeList = List.of(
+    private static final List<String> tableExcludeList = List.of(
             "usuarios",
             "rol_permiso",
             "proveedor_producto",
@@ -41,30 +41,5 @@ public class TableLister {
         return tableNames;
     }
 
-
-    public static void listTables(Connection connection, String databaseName) throws SQLException {
-
-
-        // Consulta para obtener los nombres de las tablas
-        String query = "SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema = '" + databaseName + "'";
-
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-
-        System.out.println("Tablas en la base de datos:");
-        System.out.println("-\uD83D\uDCC2️" + databaseName);
-
-        // Procesar los resultados
-        String separador = "\t -─── ";
-        separador = "\t └─ ";
-        while (resultSet.next()) {
-
-            String tableName = separador + "\uD83D\uDCDD\u200B " + resultSet.getString("TABLE_NAME");
-            System.out.println(tableName);
-
-            // separador = "\t └───";
-        }
-
-    }
 
 }

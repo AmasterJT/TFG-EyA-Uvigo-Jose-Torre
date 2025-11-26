@@ -45,9 +45,7 @@ public class ItemOrdenEliminarPedidoController {
 
     @FXML
     private Label producto_eliminar_pedido;
-
-    @FXML
-    private AnchorPane background;
+    
 
     @FXML
     private Label cantidad_producto;

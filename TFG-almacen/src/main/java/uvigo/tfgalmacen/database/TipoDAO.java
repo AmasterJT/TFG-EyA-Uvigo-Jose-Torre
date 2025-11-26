@@ -53,46 +53,6 @@ public class TipoDAO {
         }
     }
 
-    // Trae los tipos (DISTINCT) asociados a un proveedor
-    private static final String SQL_TIPOS_POR_PROVEEDOR = """
-                SELECT DISTINCT t.id_tipo, t.color
-                FROM tipos t
-                JOIN productos p           ON p.tipo_producto = t.id_tipo
-                JOIN proveedor_producto pp ON pp.id_producto = p.id_producto
-                WHERE pp.id_proveedor = ?
-                ORDER BY t.id_tipo
-            """;
-
-    /**
-     * Devuelve la lista de tipos que pertenecen (están asociados) a un proveedor.
-     *
-     * @param conn        conexión abierta a la BBDD
-     * @param idProveedor identificador del proveedor
-     * @return lista de Tipo (únicos) o lista vacía si no hay resultados / error
-     */
-    public static List<Tipo> getTiposPorProveedor(Connection conn, int idProveedor) {
-        List<Tipo> tipos = new ArrayList<>();
-        if (conn == null) {
-            LOGGER.severe("Conexión nula en getTiposPorProveedor()");
-            return tipos;
-        }
-
-        try (PreparedStatement ps = conn.prepareStatement(SQL_TIPOS_POR_PROVEEDOR)) {
-            ps.setInt(1, idProveedor);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    String idTipo = rs.getString("id_tipo");
-                    String color = rs.getString("color");
-                    tipos.add(new Tipo(idTipo, color));
-                }
-            }
-            LOGGER.fine(() -> "Tipos encontrados para proveedor " + idProveedor + ": " + tipos.size());
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error obteniendo tipos por proveedor " + idProveedor, e);
-        }
-        return tipos;
-    }
-
 
     private static final String SQL_TIPOS_BY_PROVEEDOR = """
                 SELECT DISTINCT t.id_tipo

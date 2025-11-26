@@ -20,6 +20,8 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.numericFormatter;
+
 public class ItemOrdenCrearPedidoController {
 
     private static final Logger LOGGER = Logger.getLogger(ItemOrdenCrearPedidoController.class.getName());
@@ -63,6 +65,8 @@ public class ItemOrdenCrearPedidoController {
     public void initialize() {
 
         inicializarComboBoxes();
+
+        cantidad_producto.setTextFormatter(numericFormatter());
 
     }
 

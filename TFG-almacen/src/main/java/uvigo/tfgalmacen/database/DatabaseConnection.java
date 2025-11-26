@@ -2,7 +2,6 @@ package uvigo.tfgalmacen.database;
 
 
 import uvigo.tfgalmacen.utils.ColorFormatter;
-import uvigo.tfgalmacen.utils.windowComponentAndFuncionalty;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

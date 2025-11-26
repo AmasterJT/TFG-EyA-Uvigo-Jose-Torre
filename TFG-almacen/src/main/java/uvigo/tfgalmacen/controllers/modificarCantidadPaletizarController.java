@@ -5,12 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.ProductoPedido;
 import uvigo.tfgalmacen.database.DetallesPedidoDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
@@ -53,9 +49,6 @@ public class modificarCantidadPaletizarController implements Initializable {
     private Button ExitButton;
 
     @FXML
-    private AnchorPane Pane;
-
-    @FXML
     private Button modificar_btn;
 
     @FXML
@@ -64,12 +57,10 @@ public class modificarCantidadPaletizarController implements Initializable {
     @FXML
     private Label cantidad_restante_label;
 
-    @FXML
-    private HBox windowBar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ExitButton.setOnMouseClicked(event -> {
+        ExitButton.setOnMouseClicked(_ -> {
             Stage stage = (Stage) ExitButton.getScene().getWindow();
             LOGGER.info("Ventana de detalles de pedido cerrada.");
             stage.close();
@@ -77,7 +68,7 @@ public class modificarCantidadPaletizarController implements Initializable {
 
         nueva_cantidad_text.setTextFormatter(numericFormatter());
 
-        nueva_cantidad_text.textProperty().addListener((obs, oldValue, newValue) -> {
+        nueva_cantidad_text.textProperty().addListener((_, oldValue, newValue) -> {
             if (newValue == null || newValue.isEmpty()) {
                 cantidad_restante_label.setText(String.valueOf(CANTIDAD_MAXIMA));
                 return;

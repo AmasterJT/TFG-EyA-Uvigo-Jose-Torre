@@ -26,7 +26,6 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static uvigo.tfgalmacen.RutasFicheros.WINDOW_MODIFICAR_CANTIDAD_FXML;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.actualizarEstadoProductoPedido;
 import static uvigo.tfgalmacen.database.ProductoDAO.getIdProductoByIdentificadorProducto;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
@@ -131,12 +130,12 @@ public class ItemPaletizarController implements Initializable {
 
     private void abrirVentanaMovimiento() {
         Stage owner = (Stage) split_btn.getScene().getWindow();
-        openWindowAsync(WINDOW_MODIFICAR_CANTIDAD_FXML, "Crear nuevo Proveedor", owner);   // callback que se ejecuta al cerrar);
+        openWindowAsync(owner);   // callback que se ejecuta al cerrar);
     }
 
 
-    private void openWindowAsync(String fxmlPath, String title, Stage owner) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+    private void openWindowAsync(Stage owner) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(uvigo.tfgalmacen.RutasFicheros.WINDOW_MODIFICAR_CANTIDAD_FXML));
 
         Task<Parent> task = new Task<>() {
             @Override
@@ -152,7 +151,7 @@ public class ItemPaletizarController implements Initializable {
                 modificarCantidadPaletizarController controller = loader.getController();
                 controller.setData(cantidad_detalle_pedido_label.getText(), id_detalle_BDD);
 
-                Stage win = crearStageBasico(root, true, title);
+                Stage win = crearStageBasico(root, true, "Crear nuevo Proveedor");
                 if (owner != null) {
                     win.initOwner(owner);
                     win.initModality(Modality.WINDOW_MODAL);
@@ -160,7 +159,7 @@ public class ItemPaletizarController implements Initializable {
                 }
 
                 // 🔹 Cuando se cierre esta ventana, refrescamos el grid de origen
-                win.setOnHidden(e -> {
+                win.setOnHidden(_ -> {
                     if (paletizarParent != null) {
                         paletizarParent.refrescarGridDeOrigenTrasSplit(ItemPaletizarController.this);
                     } else {
@@ -169,53 +168,15 @@ public class ItemPaletizarController implements Initializable {
                 });
 
                 win.showAndWait();
-                LOGGER.fine(() -> "Ventana abierta: " + title);
+                LOGGER.fine(() -> "Ventana abierta: " + "Crear nuevo Proveedor");
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Error al inicializar la ventana: " + title, e);
+                LOGGER.log(Level.SEVERE, "Error al inicializar la ventana: " + "Crear nuevo Proveedor", e);
             }
         });
 
         task.setOnFailed(_ -> {
             Throwable ex = task.getException();
-            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana: " + title, ex);
-        });
-
-        FX_BG_EXEC.submit(task);
-    }
-
-    private void openWindowAsyncCallback(String fxmlPath, String title, Stage owner, Runnable afterClose) {
-        Task<Parent> task = new Task<>() {
-            @Override
-            protected Parent call() throws Exception {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-                return loader.load();
-            }
-        };
-
-        task.setOnSucceeded(_ -> {
-            Parent root = task.getValue();
-            Stage win = crearStageBasico(root, true, title);
-            if (owner != null) {
-                win.initOwner(owner);
-                win.initModality(Modality.WINDOW_MODAL);
-                win.initStyle(StageStyle.TRANSPARENT);
-            }
-
-            // Cuando se cierre la ventana, ejecutamos el callback
-            win.setOnHidden(e -> {
-                if (afterClose != null) {
-                    afterClose.run();
-                }
-            });
-
-            win.showAndWait();
-            LOGGER.fine(() -> "Ventana abierta: " + title);
-        });
-
-        task.setOnFailed(_ -> {
-            Throwable ex = task.getException();
-            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana: " + title, ex);
-            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana: " + "Crear nuevo Proveedor", ex);
         });
 
         FX_BG_EXEC.submit(task);

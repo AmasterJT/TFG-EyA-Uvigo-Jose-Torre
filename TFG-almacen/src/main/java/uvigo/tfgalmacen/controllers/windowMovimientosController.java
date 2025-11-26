@@ -173,6 +173,12 @@ public class windowMovimientosController implements Initializable {
 
         combo_seleccionar_palet.valueProperty().addListener((obs, oldP, newP) -> actualizarLabelsUbicacionRobusta(newP));
         mover_palet_btn.setOnMouseClicked(_ -> aplicarMovimientoPalet());
+
+        alto_crear_palet_text.setTextFormatter(numericFormatter());
+        ancho_crear_palet_text.setTextFormatter(numericFormatter());
+        profundo_crear_palet_text.setTextFormatter(numericFormatter());
+        cantidad_crear_palet_text.setTextFormatter(numericFormatter());
+        id_crear_palet_text.setTextFormatter(numericFormatter());
     }
 
     private void inicializarComboBoxesCrearPalet() {
@@ -477,7 +483,7 @@ public class windowMovimientosController implements Initializable {
             LOGGER.log(Level.SEVERE, "Error al mover el palet desde la UI.", e);
         }
 
-        ventana_warning("Operación completada", "Palet movido a la nueva posición", "Los cambios se han guardado correctamente.");
+        ventana_success("Operación completada", "Palet movido a la nueva posición", "Los cambios se han guardado correctamente.");
 
         Stage stage = (Stage) mover_palet_btn.getScene().getWindow();
         stage.close();
@@ -523,7 +529,7 @@ public class windowMovimientosController implements Initializable {
         // Busca un id libre (por si acaso se encuentra alguno ya usado)
         do {
             id = randomIntInRange();
-        } while (!PaletDAO.iSidPaletvalido(Main.connection, id));
+        } while (PaletDAO.iSidPaletvalido(Main.connection, id));
 
         idCrearPaletText.setText(String.valueOf(id));
     }
@@ -639,7 +645,7 @@ public class windowMovimientosController implements Initializable {
             // No hay id escrito → generamos uno libre
             do {
                 id = randomIntInRange();
-            } while (!PaletDAO.iSidPaletvalido(Main.connection, id));
+            } while (PaletDAO.iSidPaletvalido(Main.connection, id));
 
             id_crear_palet_text.setText(String.valueOf(id));
         } else {
@@ -650,16 +656,16 @@ public class windowMovimientosController implements Initializable {
                 // Si no es número, generamos uno nuevo
                 do {
                     id = randomIntInRange();
-                } while (!PaletDAO.iSidPaletvalido(Main.connection, id));
+                } while (PaletDAO.iSidPaletvalido(Main.connection, id));
 
                 id_crear_palet_text.setText(String.valueOf(id));
             }
 
             // Si es número pero está ocupado, generamos otro
-            if (!PaletDAO.iSidPaletvalido(Main.connection, id)) {
+            if (PaletDAO.iSidPaletvalido(Main.connection, id)) {
                 do {
                     id = randomIntInRange();
-                } while (!PaletDAO.iSidPaletvalido(Main.connection, id));
+                } while (PaletDAO.iSidPaletvalido(Main.connection, id));
 
                 id_crear_palet_text.setText(String.valueOf(id));
             }
@@ -701,7 +707,7 @@ public class windowMovimientosController implements Initializable {
             return;
         }
 
-        ventana_warning("Operación completada",
+        ventana_success("Operación completada",
                 "Palet creado correctamente",
                 "El palet se ha guardado en la base de datos.");
 
@@ -730,7 +736,7 @@ public class windowMovimientosController implements Initializable {
         }
 
         PaletDAO.deletePaletByIdentificador(Main.connection, paletSel.getIdPalet());
-        ventana_warning("Operación completada",
+        ventana_success("Operación completada",
                 "Palet eliminado del almacen",
                 "Operacion realizada exitosamente.");
         Stage stage = (Stage) mover_palet_btn.getScene().getWindow();

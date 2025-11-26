@@ -1,7 +1,6 @@
 package uvigo.tfgalmacen.controllers;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +12,8 @@ import uvigo.tfgalmacen.almacenManagement.Palet;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Producto;
 import uvigo.tfgalmacen.utils.ColorFormatter;
-import uvigo.tfgalmacen.utils.ComboFilters;
+import uvigo.tfgalmacen.utils.windowComponentAndFuncionalty;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,9 +24,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static uvigo.tfgalmacen.RutasFicheros.ITEM_INVENTARIO_FXML;
-import static uvigo.tfgalmacen.almacenManagement.Almacen.TodosPalets;
+import static uvigo.tfgalmacen.almacenManagement.Almacen.*;
 
 /**
  * Controlador para la vista de inventario.
@@ -60,9 +61,8 @@ public class inventarioController implements Initializable {
     private static final int ITEMS_PER_PAGE = COLUMNS * ROWS;
 
     // Rango fijo de estanterías/baldas/posiciones
-    private static final List<String> ESTANTERIAS = List.of("1", "2", "3", "4");
-    private static final List<String> BALDAS = IntStream.rangeClosed(1, 8).mapToObj(String::valueOf).collect(Collectors.toList());
-    private static final List<String> POSICIONES = IntStream.rangeClosed(1, 24).mapToObj(String::valueOf).collect(Collectors.toList());
+    private static final List<String> BALDAS = IntStream.rangeClosed(1, NUM_BALDAS_PER_ESTANTERIA).mapToObj(String::valueOf).toList();
+    private static final List<String> POSICIONES = IntStream.rangeClosed(1, POSICIONES_PER_BALDA).mapToObj(String::valueOf).toList();
 
     private static final String PLACEHOLDER_PALET = "Seleccionar palet";
 
@@ -119,7 +119,7 @@ public class inventarioController implements Initializable {
         aplicarFiltros();
 
 
-        combo_seleccionar_palet.valueProperty().addListener((obs, oldV, newV) -> {
+        combo_seleccionar_palet.valueProperty().addListener((_, _, newV) -> {
             boolean hayPaletSeleccionado = (newV != null);
 
             // Deshabilitar / habilitar el resto de combos
@@ -147,7 +147,12 @@ public class inventarioController implements Initializable {
 
         // --- ESTANTERÍA ---
         estanteriaComboBox.setItems(
-                FXCollections.observableArrayList(OPC_TODOS, "1", "2", "3", "4")
+                FXCollections.observableArrayList(
+                        Stream.concat(
+                                Stream.of(OPC_TODOS),
+                                IntStream.rangeClosed(1, NUM_ESTANTERIAS).mapToObj(String::valueOf)
+                        ).toList()
+                )
         );
         estanteriaComboBox.getSelectionModel().selectFirst();
 
@@ -208,7 +213,7 @@ public class inventarioController implements Initializable {
                     .toList();
 
             var base = FXCollections.observableArrayList(ordenados);
-            var filtered = new javafx.collections.transformation.FilteredList<>(base, _x -> true);
+            var filtered = new javafx.collections.transformation.FilteredList<>(base, _ -> true);
             combo_seleccionar_palet.setItems(filtered);
 
             // Mostrar solo el número en celdas y botón
@@ -228,7 +233,7 @@ public class inventarioController implements Initializable {
                     }
                 }
             });
-            combo_seleccionar_palet.setCellFactory(lv -> new ListCell<>() {
+            combo_seleccionar_palet.setCellFactory(_ -> new ListCell<>() {
                 @Override
                 protected void updateItem(Palet p, boolean empty) {
                     super.updateItem(p, empty);
@@ -244,12 +249,12 @@ public class inventarioController implements Initializable {
             });
 
             // Filtrado en vivo por lo tecleado
-            combo_seleccionar_palet.getEditor().textProperty().addListener((obs, old, typed) -> {
+            combo_seleccionar_palet.getEditor().textProperty().addListener((_, _, typed) -> {
                 String term = typed == null ? "" : typed.trim();
                 // Evita que al abrir el popup borre la lista si hay seleccionado
                 var sel = combo_seleccionar_palet.getSelectionModel().getSelectedItem();
                 if (sel != null && String.valueOf(sel.getIdPalet()).equals(term)) {
-                    filtered.setPredicate(_x -> true);
+                    filtered.setPredicate(_ -> true);
                     return;
                 }
                 filtered.setPredicate(p -> term.isEmpty() || String.valueOf(p.getIdPalet()).contains(term));
@@ -257,14 +262,14 @@ public class inventarioController implements Initializable {
             });
 
             // Normaliza al perder foco
-            combo_seleccionar_palet.getEditor().focusedProperty().addListener((o, was, is) -> {
+            combo_seleccionar_palet.getEditor().focusedProperty().addListener((_, _, is) -> {
                 if (!is) {
                     String txt = combo_seleccionar_palet.getEditor().getText();
                     Palet match = base.stream()
                             .filter(p -> String.valueOf(p.getIdPalet()).equals(txt))
                             .findFirst().orElse(null);
                     combo_seleccionar_palet.getSelectionModel().select(match);
-                    filtered.setPredicate(_x -> true);
+                    filtered.setPredicate(_ -> true);
                 }
             });
 
@@ -381,8 +386,7 @@ public class inventarioController implements Initializable {
             String texto = combo_seleccionar_palet.getEditor().getText();
             if (texto != null && !texto.isBlank()) {
                 try {
-                    int idEscrito = Integer.parseInt(texto.trim());
-                    idPaletFiltro = idEscrito;
+                    idPaletFiltro = Integer.parseInt(texto.trim());
                 } catch (NumberFormatException e) {
                     // texto no numérico → ignoramos filtro por id
                     LOGGER.fine("Texto no numérico en combo_seleccionar_palet: " + texto);
@@ -493,9 +497,7 @@ public class inventarioController implements Initializable {
 
     // ---------------------- Util ----------------------
     private void limpiarGridPane(GridPane gridPane) {
-        gridPane.getChildren().clear();
-        gridPane.getColumnConstraints().clear();
-        gridPane.getRowConstraints().clear();
+        windowComponentAndFuncionalty.limpiarGridPane(gridPane);
     }
 
     // -------- Volcado a etiquetas (robusto) --------

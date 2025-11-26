@@ -38,10 +38,5 @@ public class DataConfig {
             throw new RuntimeException(e);
         }
     }
-
-
-    public static void setCurrentUser(String name, String role) {
-        properties.setProperty("current_user_name", name);
-        properties.setProperty("current_user_role", role);
-    }
+    
 }

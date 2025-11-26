@@ -18,8 +18,8 @@ import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.database.PaletSalidaDAO;
 import uvigo.tfgalmacen.database.PedidoDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
+import uvigo.tfgalmacen.utils.windowComponentAndFuncionalty;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.*;
@@ -86,12 +86,12 @@ public class envioController implements Initializable {
     private void abrirVetanaEnviarPedido() {
 
         Stage owner = (Stage) enviar_pedido.getScene().getWindow();
-        openWindowAsync(WINDOW_GENERAR_ENVIO_FXML, "Crear nuevo porducto", owner);
+        openWindowAsync(owner);
     }
 
-    private void openWindowAsync(String fxmlPath, String title, Stage owner) {
+    private void openWindowAsync(Stage owner) {
         // Creamos el loader AQUÍ para poder usarlo luego
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(uvigo.tfgalmacen.RutasFicheros.WINDOW_GENERAR_ENVIO_FXML));
 
         Task<Parent> task = new Task<>() {
             @Override
@@ -111,22 +111,22 @@ public class envioController implements Initializable {
                     controllerHijo.setEnvioParent(this);  // pasamos referencia al padre
                 }
 
-                Stage win = crearStageBasico(root, true, title);
+                Stage win = crearStageBasico(root, true, "Crear nuevo porducto");
                 if (owner != null) {
                     win.initOwner(owner);
                     win.initModality(Modality.WINDOW_MODAL);
                     win.initStyle(StageStyle.TRANSPARENT);
                 }
                 win.showAndWait();
-                LOGGER.fine(() -> "Ventana abierta: " + title);
+                LOGGER.fine(() -> "Ventana abierta: " + "Crear nuevo porducto");
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Error al inicializar ventana hija: " + title, e);
+                LOGGER.log(Level.SEVERE, "Error al inicializar ventana hija: " + "Crear nuevo porducto", e);
             }
         });
 
         task.setOnFailed(_ -> {
             Throwable ex = task.getException();
-            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana: " + title, ex);
+            LOGGER.log(Level.SEVERE, "No se pudo abrir la ventana: " + "Crear nuevo porducto", ex);
             ex.printStackTrace();
         });
 
@@ -134,9 +134,7 @@ public class envioController implements Initializable {
     }
 
     private void limpiarGrid(GridPane grid) {
-        grid.getChildren().clear();
-        grid.getColumnConstraints().clear();
-        grid.getRowConstraints().clear();
+        windowComponentAndFuncionalty.limpiarGridPane(grid);
     }
 
     private void configurarScrollYGrid() {

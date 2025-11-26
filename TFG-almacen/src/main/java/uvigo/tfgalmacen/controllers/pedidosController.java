@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
@@ -63,13 +62,10 @@ public class pedidosController {
 
 
     public static final List<String> ESTADOS_DEL_PEDIDO = ESTADOS_VALIDOS;
-    private static final String ESTADO_PENDIENTE = ESTADOS_DEL_PEDIDO.get(0);
+    private static final String ESTADO_PENDIENTE = ESTADOS_DEL_PEDIDO.getFirst();
     private static final String ESTADO_EN_PROCESO = ESTADOS_DEL_PEDIDO.get(1);
 
-    @FXML
-    private ListView<?> pedidiosCanceladosList; // (No usado aquí, pero lo conservo por el FXML)
-    @FXML
-    private ScrollPane pedidiosCanceladosScroll; // (No usado aquí, pero lo conservo por el FXML)
+
     @FXML
     private ScrollPane pedidiosEnCursoScroll;
     @FXML
@@ -80,8 +76,7 @@ public class pedidosController {
     private GridPane grid_en_curso;
     @FXML
     private Button move_to_en_proceso_btn;
-    @FXML
-    private Button move_to_pendiente_btn; // (No usado aquí, pero lo conservo por el FXML)
+
     @FXML
     private Button ver_detalles_pedido_btn;
     @FXML

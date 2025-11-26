@@ -75,9 +75,6 @@ public class windowAjustesEliminarPedidosController {
     @FXML
     private ListView<Parent> list_productos_del_pedido;
 
-    @FXML
-    private HBox windowBar;
-
 
     private final ChangeListener<Pedido> pedidoSelectionListener = (obs, ov, nv) -> {
         if (nv == null) {
@@ -166,8 +163,7 @@ public class windowAjustesEliminarPedidosController {
             Main.connection.commit();
             LOGGER.info(() -> "Pedido eliminado correctamente. id=" + idPedido);
 
-            ventana_warning(
-                    "Pedido eliminado",
+            ventana_success("Pedido eliminado",
                     "El pedido se eliminó correctamente.",
                     "Se han eliminado todos los productos."
             );

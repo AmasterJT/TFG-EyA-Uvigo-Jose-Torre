@@ -1,19 +1,15 @@
 package uvigo.tfgalmacen.controllers;
 
-import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.database.DatabaseConnection;
 import uvigo.tfgalmacen.utils.ColorFormatter;
-import uvigo.tfgalmacen.utils.ExcelGenerator;
 
 import java.io.File;
 import java.net.URL;
@@ -48,8 +44,6 @@ public class exportDataController implements Initializable {
     @FXML
     private Button ExitButton;
 
-    @FXML
-    private AnchorPane Pane;
 
     @FXML
     private Button abrir_explorador_btn;
@@ -62,9 +56,6 @@ public class exportDataController implements Initializable {
 
     @FXML
     private TextField nombre_fichero_text;
-
-    @FXML
-    private HBox windowBar;
 
 
     @Override

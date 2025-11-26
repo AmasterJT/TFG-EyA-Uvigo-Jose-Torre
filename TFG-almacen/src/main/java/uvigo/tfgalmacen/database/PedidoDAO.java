@@ -13,9 +13,6 @@ import java.util.logging.Logger;
 
 import java.time.LocalDate;
 
-
-import static uvigo.tfgalmacen.utils.TerminalColors.*;
-
 public class PedidoDAO {
 
     private static final Logger LOGGER = Logger.getLogger(PedidoDAO.class.getName());
@@ -38,45 +35,8 @@ public class PedidoDAO {
     }
 
 
-    // Crear pedido
-    private static final String INSERT_PEDIDO_SQL = "INSERT INTO pedidos (id_usuario, estado) VALUES (?, ?)";
-
-    public static void createPedido(Connection connection, int id_usuario, String estado) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PEDIDO_SQL)) {
-            preparedStatement.setInt(1, id_usuario);
-            preparedStatement.setString(2, estado);
-
-            int result = preparedStatement.executeUpdate();
-            if (result > 0) {
-                LOGGER.info("Pedido creado exitosamente (id_usuario=" + id_usuario + ", estado=" + estado + ")");
-            }
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error al crear el pedido", e);
-        }
-    }
-
     // Leer pedidos
     private static final String SELECT_ALL_PEDIDOS_SQL = "SELECT * FROM pedidos";
-
-    public static void printPedidosData(Connection connection) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PEDIDOS_SQL)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                String codigo_referencia = resultSet.getString("codigo_referencia");
-                int id_pedido = resultSet.getInt("id_pedido");
-                int id_usuario = resultSet.getInt("id_usuario");
-                String estado = resultSet.getString("estado");
-
-                LOGGER.info(CYAN + "Código Ref: " + RESET + codigo_referencia +
-                        CYAN + ", ID: " + RESET + id_pedido +
-                        CYAN + ", Usuario ID: " + RESET + id_usuario +
-                        CYAN + ", Estado: " + RESET + estado);
-            }
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error al obtener datos de los pedidos", e);
-        }
-    }
 
     // Obtener todos los pedidos
     public static List<Pedido> getPedidosAllData(Connection connection) {
@@ -199,7 +159,7 @@ public class PedidoDAO {
     private static final String UPDATE_USUARIO_PEDIDO_SQL =
             "UPDATE pedidos SET id_usuario = ? WHERE id_pedido = ?";
 
-    public static boolean updateUsuarioPedido(Connection connection, int idPedido, int nuevoIdUsuario) {
+    public static void updateUsuarioPedido(Connection connection, int idPedido, int nuevoIdUsuario) {
         try (PreparedStatement ps = connection.prepareStatement(UPDATE_USUARIO_PEDIDO_SQL)) {
             ps.setInt(1, nuevoIdUsuario);
             ps.setInt(2, idPedido);
@@ -207,14 +167,11 @@ public class PedidoDAO {
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
                 LOGGER.info("Usuario del pedido actualizado correctamente (id=" + idPedido + ")");
-                return true;
             } else {
                 LOGGER.warning("No se encontró pedido con id=" + idPedido);
-                return false;
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error actualizando usuario del pedido (id=" + idPedido + ")", e);
-            return false;
         }
     }
 
@@ -318,7 +275,7 @@ public class PedidoDAO {
      */
     public static Map<String, Integer> crearPedidoYObtenerCodigo(Connection conn,
                                                                  int idCliente,
-                                                                 LocalDate fechaEntrega) throws SQLException {
+                                                                 Date fechaEntrega) throws SQLException {
 
 
         Map<String, Integer> pedido_nuevo = new HashMap<>();
@@ -334,7 +291,7 @@ public class PedidoDAO {
             // id_cliente
             psIns.setInt(2, idCliente);
             // fecha_entrega
-            psIns.setDate(3, Date.valueOf(fechaEntrega));
+            psIns.setDate(3, fechaEntrega);
             // hora_salida -> NULL
             psIns.setNull(4, Types.VARCHAR);
 
@@ -474,39 +431,6 @@ public class PedidoDAO {
     }
 
 
-    private static final String SQL_ID_USUARIO_BY_PEDIDO =
-            "SELECT id_usuario FROM pedidos WHERE id_pedido = ?";
-
-    /**
-     * Devuelve el id_usuario asignado a un pedido específico.
-     *
-     * @param conn     conexión abierta a la base de datos.
-     * @param idPedido identificador del pedido.
-     * @return id_usuario si existe (puede ser null si el pedido no tiene usuario asignado),
-     * o null si no se encuentra el pedido.
-     */
-    public static Integer getIdUsuarioPorPedido(Connection conn, int idPedido) {
-        if (conn == null) {
-            LOGGER.severe("Conexión nula en getIdUsuarioPorPedido()");
-            return null;
-        }
-
-        try (PreparedStatement ps = conn.prepareStatement(SQL_ID_USUARIO_BY_PEDIDO)) {
-            ps.setInt(1, idPedido);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    int idUsuario = rs.getInt("id_usuario");
-                    return rs.wasNull() ? null : idUsuario; // Manejo de valores NULL correctamente
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.severe("Error obteniendo id_usuario por pedido: " + e.getMessage());
-        }
-
-        return null;
-    }
-
-
     private static final String DELETE_PEDIDO_BY_ID_SQL =
             "DELETE FROM pedidos WHERE id_pedido = ?";
 
@@ -599,12 +523,11 @@ public class PedidoDAO {
      * @param conn            conexión abierta a la base de datos
      * @param idPedido        ID del pedido a modificar
      * @param paletsDelPedido nuevo valor del campo palets_del_pedido
-     * @return true si la actualización fue exitosa, false en caso contrario
      */
-    public static boolean actualizarPaletsDelPedido(Connection conn, int idPedido, int paletsDelPedido) {
+    public static void actualizarPaletsDelPedido(Connection conn, int idPedido, int paletsDelPedido) {
         if (conn == null) {
             LOGGER.severe("Conexión nula en actualizarPaletsDelPedido()");
-            return false;
+            return;
         }
 
         try (PreparedStatement ps = conn.prepareStatement(SQL_UPDATE_PALETS_PEDIDO)) {
@@ -614,14 +537,12 @@ public class PedidoDAO {
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 LOGGER.info(() -> String.format("Pedido %d actualizado con palets_del_pedido=%d", idPedido, paletsDelPedido));
-                return true;
             } else {
                 LOGGER.warning(() -> String.format("No se encontró pedido con id_pedido=%d", idPedido));
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error actualizando palets_del_pedido en pedido id=" + idPedido, e);
         }
-        return false;
     }
 
 

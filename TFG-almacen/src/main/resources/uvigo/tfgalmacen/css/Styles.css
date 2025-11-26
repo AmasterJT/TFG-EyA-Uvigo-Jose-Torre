@@ -10,6 +10,22 @@
 
 @import "label.css";
 
+/* diálogo genérico */
+.alert-dialog {
+    /* estilos comunes */
+}
+
+/* diálogo de éxito (verde) */
+.alert-success .content-pane,
+.alert-success .header-panel {
+    -fx-background-color: #1e7f3b;
+}
+
+.alert-success .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
 
 .principalWindow {
     -fx-background-color: -amaster-dark-blue !important;

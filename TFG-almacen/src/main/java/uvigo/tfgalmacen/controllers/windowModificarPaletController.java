@@ -1,23 +1,17 @@
 package uvigo.tfgalmacen.controllers;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Palet;
 import uvigo.tfgalmacen.almacenManagement.Producto;
 import uvigo.tfgalmacen.utils.ColorFormatter;
-import uvigo.tfgalmacen.utils.ComboFilters;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.ResourceBundle;
@@ -28,8 +22,7 @@ import java.util.logging.Logger;
 
 import uvigo.tfgalmacen.database.PaletDAO;
 
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.shake;
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.SHAKE_DURATION;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class windowModificarPaletController implements Initializable {
 
@@ -56,8 +49,6 @@ public class windowModificarPaletController implements Initializable {
     @FXML
     private Button ExitButton;
 
-    @FXML
-    private AnchorPane Pane;
 
     @FXML
     private TextField alto_crear_palet_text;
@@ -95,21 +86,6 @@ public class windowModificarPaletController implements Initializable {
     @FXML
     private TextField profundo_crear_palet_text;
 
-    @FXML
-    private Region spacer1;
-
-    @FXML
-    private Region spacer2;
-
-    @FXML
-    private Region spacer3;
-
-    @FXML
-    private AnchorPane traslado_stage;
-
-    @FXML
-    private HBox windowBar;
-
     ArrayList<Palet> TodosPalets;
     int NUM_ESTANTERIAS = 0;
     int NUM_BALDAS_PER_ESTANTERIA = 0;
@@ -129,6 +105,10 @@ public class windowModificarPaletController implements Initializable {
 
         combo_seleccionar_palet.valueProperty().addListener((obs, oldP, newP) -> actualizarLabelsUbicacionRobusta(newP));
 
+        alto_crear_palet_text.setTextFormatter(numericFormatter());
+        ancho_crear_palet_text.setTextFormatter(numericFormatter());
+        profundo_crear_palet_text.setTextFormatter(numericFormatter());
+        cantidad_crear_palet_text.setTextFormatter(numericFormatter());
     }
 
     private void configurarBotonesVentana() {

@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.borrarDetallePorId;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.updateDetalleProductoYCantidad;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.numericFormatter;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_error;
 
 public class ItemEditarPedidoController {
@@ -43,11 +44,7 @@ public class ItemEditarPedidoController {
     private int id_detalle_pedido = 0;
 
     @FXML
-    private AnchorPane background;
-    @FXML
     private TextField cantidad_producto;
-
-
     @FXML
     private ComboBox<Producto> combo_producto_editar_pedido;
     @FXML
@@ -101,6 +98,9 @@ public class ItemEditarPedidoController {
                 LOGGER.fine("Eliminación cancelada por el usuario (id_detalle=" + id_detalle_pedido + ")");
             }
         });
+
+
+        cantidad_producto.setTextFormatter(numericFormatter());
     }
 
     private void toggleEdicion() {

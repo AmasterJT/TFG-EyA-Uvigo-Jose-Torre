@@ -61,8 +61,6 @@ public class windowAjustesCambiarContrasenaUsuariosController implements Initial
     @FXML
     private PasswordField contrsena_text;
 
-    @FXML
-    private HBox windowBar;
 
     private int id_usuario;
 
@@ -138,7 +136,7 @@ public class windowAjustesCambiarContrasenaUsuariosController implements Initial
             boolean ok = UsuarioDAO.actualizarContrasena(Main.connection, id_usuario, pass1);
 
             if (ok) {
-                ventana_warning("Aviso", "Contraseña Cambiada", "Contraseña cambiada exitosamente");
+                ventana_success("Aviso", "Contraseña Cambiada", "Contraseña cambiada exitosamente");
                 LOGGER.info("Contraseña actualizada correctamente para id_usuario=" + id_usuario);
 
                 // Opcional: mostrar algún aviso (si tienes ventana_warning, etc.)

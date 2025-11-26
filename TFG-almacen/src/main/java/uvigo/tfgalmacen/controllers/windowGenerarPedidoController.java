@@ -26,16 +26,10 @@ public class windowGenerarPedidoController implements Initializable {
     private Button ExitButton;
 
     @FXML
-    private AnchorPane Pane;
-
-    @FXML
     private ComboBox<Pedido> combo_pedido_terminado_hora;
 
     @FXML
     private Button exportar_btn;
-
-    @FXML
-    private HBox windowBar;
 
     List<Pedido> pedidos;
     private envioController parent;

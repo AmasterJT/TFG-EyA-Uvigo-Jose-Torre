@@ -6,7 +6,6 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
@@ -23,7 +22,6 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static java.lang.Integer.parseInt;
 import static uvigo.tfgalmacen.RutasFicheros.ITEM_DETALLE_PEDIDO_FXML;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.actualizarEstadoProductoPedido;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoReferencia;
@@ -66,12 +64,6 @@ public class detallesPedidoController {
     private GridPane grid_pendientes;
 
     @FXML
-    private ScrollPane pedidiosEnCursoScroll;
-
-    @FXML
-    private HBox windowBar;
-
-    @FXML
     private Button crear_palet_salida_btn;
 
 
@@ -84,8 +76,6 @@ public class detallesPedidoController {
     @FXML
     private Label palets_pedido_label;
 
-    private List<ProductoPedido> productos_del_pedido;
-
     private Pedido pedido_para_detallar;
     /**
      * Número de columnas del grid de pedidos.
@@ -96,7 +86,7 @@ public class detallesPedidoController {
 
 
     public void initialize() {
-        ExitButton.setOnMouseClicked(event -> {
+        ExitButton.setOnMouseClicked(_ -> {
             Stage stage = (Stage) ExitButton.getScene().getWindow();
             LOGGER.info("Ventana de detalles de pedido cerrada.");
             stage.close();
@@ -118,9 +108,7 @@ public class detallesPedidoController {
         for (ItemDetallesPedidoController itemController : allItemControllers) {
             System.out.println("Detalle: " + itemController.id_BDD + " -> " + itemController.getProducto_listo_en_pedido_check().isSelected());
 
-            if (itemController.getProducto_listo_en_pedido_check().isSelected()) {
-                continue;
-            }
+            itemController.getProducto_listo_en_pedido_check().isSelected();
 
         }
 
@@ -128,7 +116,7 @@ public class detallesPedidoController {
         System.out.println(i);
         actualizarPaletsDelPedido(Main.connection, pedido_para_detallar.getId_pedido(), i + 1);
 
-        ventana_warning("Productos actualizados correctamente", "Los cambios en los productos del pedido se han aplicado con éxito.", "Información");
+        ventana_success("Productos actualizados correctamente", "Los cambios en los productos del pedido se han aplicado con éxito.", "Información");
 
         Stage stage = (Stage) aplicar_cambios_detalle_pedido_btn.getScene().getWindow();
         stage.close();
@@ -172,7 +160,7 @@ public class detallesPedidoController {
         }
 
 
-        ventana_warning("Productos actualizados correctamente", "Los cambios en los productos del pedido se han aplicado con éxito.", "Información");
+        ventana_success("Productos actualizados correctamente", "Los cambios en los productos del pedido se han aplicado con éxito.", "Información");
 
         Stage stage = (Stage) aplicar_cambios_detalle_pedido_btn.getScene().getWindow();
         stage.close();
@@ -184,7 +172,7 @@ public class detallesPedidoController {
         codigo_referencia_pedido_detalle_label.setText(pedido_para_detallar.getCodigo_referencia());
         estado_pedido_detalle_label.setText(pedido_para_detallar.getEstado());
 
-        productos_del_pedido = getProductosPorCodigoReferencia(
+        List<ProductoPedido> productos_del_pedido = getProductosPorCodigoReferencia(
                 Main.connection,
                 pedido_para_detallar.getCodigo_referencia()
         );

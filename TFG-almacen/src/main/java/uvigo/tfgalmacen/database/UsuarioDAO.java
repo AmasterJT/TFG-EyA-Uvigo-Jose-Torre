@@ -69,7 +69,7 @@ public class UsuarioDAO {
             ps.setString(1, username);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    User u = new User(
+                    return new User(
                             rs.getString("user_name"),
                             rs.getString("nombre"),
                             rs.getString("apellido1"),
@@ -77,7 +77,6 @@ public class UsuarioDAO {
                             rs.getString("email"),
                             rs.getInt("id_rol")
                     );
-                    return u;
                 }
             }
         } catch (SQLException e) {
@@ -120,9 +119,6 @@ public class UsuarioDAO {
     }
 
     // (Opcional) Cambiar contraseña si más adelante lo necesitas
-    private static final String SQL_UPDATE_PASSWORD = """
-                UPDATE usuarios SET contraseña = ? WHERE user_name = ?
-            """;
 
 
     public static boolean createUser(Connection connection, User nuevo_usuario, String password, int id_rol) {
@@ -146,64 +142,7 @@ public class UsuarioDAO {
         return false;
     }
 
-    // Leer todos los usuarios
-    private static final String SELECT_ALL_USERS_SQL = "SELECT * FROM usuarios";
-
-    public static void readUsers(Connection connection) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS_SQL)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                int id_usuario = resultSet.getInt("id_usuario");
-                String nombre = resultSet.getString("nombre");
-                String email = resultSet.getString("email");
-                String contraseña = resultSet.getString("contraseña");
-                int id_rol = resultSet.getInt("id_rol");
-                String fecha_registro = resultSet.getString("fecha_registro");
-
-                System.out.println("ID: " + id_usuario + ", Nombre: " + nombre + ", Email: " + email +
-                        ", Rol ID: " + id_rol + ", Fecha Registro: " + fecha_registro);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Actualizar un usuario
-    private static final String UPDATE_USER_SQL = "UPDATE usuarios SET nombre = ?, email = ?, contraseña = ?, id_rol = ? WHERE id_usuario = ?";
-
-    public static void updateUser(Connection connection, int id_usuario, String nombre, String email, String contraseña, int id_rol) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_SQL)) {
-            preparedStatement.setString(1, nombre);
-            preparedStatement.setString(2, email);
-            preparedStatement.setString(3, contraseña);
-            preparedStatement.setInt(4, id_rol);
-            preparedStatement.setInt(5, id_usuario);
-
-            int result = preparedStatement.executeUpdate();
-            if (result > 0) {
-                System.out.println("Usuario actualizado exitosamente.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     // Eliminar un usuario
-    private static final String DELETE_USER_SQL = "DELETE FROM usuarios WHERE id_usuario = ?";
-
-    public static void deleteUser(Connection connection, int id_usuario) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_SQL)) {
-            preparedStatement.setInt(1, id_usuario);
-
-            int result = preparedStatement.executeUpdate();
-            if (result > 0) {
-                System.out.println("Usuario eliminado exitosamente.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     private static final String CHECK_USER_SQL = "SELECT * FROM usuarios WHERE nombre = ? AND contraseña = ?";
 
@@ -411,64 +350,6 @@ public class UsuarioDAO {
             System.err.println("Error eliminando usuario '" + username + "': " + e.getMessage());
             return false;
         }
-    }
-
-
-    public static List<UserLite> getAllUsersExcept(Connection conn, int excludeUserId) {
-        final String SQL = "SELECT id_usuario, user_name, nombre, apellido1, apellido2 " +
-                "FROM usuarios WHERE id_usuario <> ?";
-        List<UserLite> lista = new ArrayList<>();
-        try (PreparedStatement ps = conn.prepareStatement(SQL)) {
-            ps.setInt(1, excludeUserId);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    lista.add(new UserLite(
-                            rs.getInt("id_usuario"),
-                            rs.getString("user_name"),
-                            rs.getString("nombre"),
-                            rs.getString("apellido1"),
-                            rs.getString("apellido2")
-                    ));
-                }
-            }
-        } catch (SQLException e) {
-            java.util.logging.Logger.getLogger(UsuarioDAO.class.getName())
-                    .log(java.util.logging.Level.SEVERE, "Error en getAllUsersExcept", e);
-        }
-        return lista;
-    }
-
-    public static class UserLite {
-        public final int id;
-        public final String username;
-        public final String nombre;
-        public final String ap1;
-        public final String ap2;
-
-        public UserLite(int id, String username, String nombre, String ap1, String ap2) {
-            this.id = id;
-            this.username = username;
-            this.nombre = nombre;
-            this.ap1 = ap1;
-            this.ap2 = ap2;
-        }
-
-        @Override
-        public String toString() {
-            return username + " - " + nombre + " " + ap1;
-        }
-    }
-
-
-    // En UsuarioDAO
-    public static boolean deleteUserByUsernameThrows(Connection conn, String username) throws SQLException {
-        final String SQL = "DELETE FROM usuarios WHERE user_name = ?";
-        try (PreparedStatement ps = conn.prepareStatement(SQL)) {
-            ps.setString(1, username);
-            int n = ps.executeUpdate();
-            return n > 0;
-        }
-        // No catch aquí: dejamos que la SQLException suba al caller
     }
 
 

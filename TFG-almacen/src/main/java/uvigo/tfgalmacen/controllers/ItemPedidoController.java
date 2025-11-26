@@ -5,10 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
-import uvigo.tfgalmacen.almacenManagement.Palet;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,16 +44,11 @@ public class ItemPedidoController implements Initializable {
     @FXML
     private Label palets_pedido_label;
 
-    @FXML
-    private VBox vertical_container;
 
     @FXML
     private Button copy_codigo_referencia_btn;
 
     private Pedido pedido;
-
-    private final String colorPrimeraHora = "#ff1fa0";
-    private final String colorSegundaHora = "#1e90ff";
 
 
     @Override
@@ -77,9 +70,11 @@ public class ItemPedidoController implements Initializable {
 
         // estado_pedido_label.setText(pedido.getEstado());
         if ("primera_hora".equals(pedido.getHoraSalida())) {
+            String colorPrimeraHora = "#ff1fa0";
             estado_pedido_label.setStyle("-fx-background-color: " + colorPrimeraHora);
             estado_pedido_label.setText("1");
         } else if ("segunda_hora".equals(pedido.getHoraSalida())) {
+            String colorSegundaHora = "#1e90ff";
             estado_pedido_label.setStyle("-fx-background-color: " + colorSegundaHora);
             estado_pedido_label.setText("2");
         } else {

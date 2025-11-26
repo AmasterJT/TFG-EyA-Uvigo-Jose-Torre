@@ -77,10 +77,6 @@ public class windowAjustesEditarUsuariosController {
     private ComboBox<String> rolesEdit_comboBox;
     @FXML
     private ComboBox<String> usernameEdit_comboBox;
-
-    @FXML
-    private HBox windowBar;
-
     @FXML
     private Button cambiar_contrasena_btn;
 

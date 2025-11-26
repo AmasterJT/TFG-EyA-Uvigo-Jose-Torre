@@ -20,6 +20,7 @@ import javafx.beans.binding.Bindings;
 
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.Optional;
@@ -80,9 +81,6 @@ public class windowAjustesCrearPedidosController {
     @FXML
     private ListView<Parent> list_productos_agregados_crear_pedido;
 
-    @FXML
-    private HBox windowBar;
-
 
     @FXML
     public void initialize() {
@@ -103,6 +101,7 @@ public class windowAjustesCrearPedidosController {
         fecha_entrega_pickerdate.disableProperty().bind(
                 Bindings.isNotEmpty(list_productos_agregados_crear_pedido.getItems())
         );
+
 
         agregar_producto_btn.setOnMouseClicked(_ -> agregarItemFXML());
         crear_pedidio_btn.setOnMouseClicked(_ -> {
@@ -248,7 +247,7 @@ public class windowAjustesCrearPedidosController {
         String codigo = "";
         int idPedido = 0;
 
-        Map<String, Integer> REF_CODE = crearPedidoYObtenerCodigo(Main.connection, id_cliente, fecha_entrega_pickerdate.getValue());
+        Map<String, Integer> REF_CODE = crearPedidoYObtenerCodigo(Main.connection, id_cliente, Date.valueOf(fecha_entrega_pickerdate.getValue()));
 
         codigo = REF_CODE.keySet().iterator().next();
         idPedido = REF_CODE.get(codigo);

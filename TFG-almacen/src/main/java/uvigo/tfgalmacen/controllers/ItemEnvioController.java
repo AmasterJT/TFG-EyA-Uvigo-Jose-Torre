@@ -5,13 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 import uvigo.tfgalmacen.PaletSalida;
 import uvigo.tfgalmacen.Pedido;
-import uvigo.tfgalmacen.database.PaletSalidaDAO;
 import uvigo.tfgalmacen.gs1.EtiquetaGS1;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
@@ -46,8 +41,6 @@ public class ItemEnvioController implements Initializable {
 
     private boolean tieneEtiqueta = false;
 
-    @FXML
-    private AnchorPane backgroundAnchorPane;
 
     @FXML
     private Label cliente_label;
@@ -135,7 +128,7 @@ public class ItemEnvioController implements Initializable {
             System.out.println("Etiqueta generada en: " + salida.getAbsolutePath());
 
             tieneEtiqueta = true;
-            ventana_warning("Etiqueta del palet",
+            ventana_success("Etiqueta del palet",
                     "Etiqueta generada correctamente:\n\n" +
                             salida.getAbsolutePath(), ""
             );

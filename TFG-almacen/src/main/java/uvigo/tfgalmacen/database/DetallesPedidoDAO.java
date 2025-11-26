@@ -189,43 +189,6 @@ public class DetallesPedidoDAO {
 
 
     /* ===========================
-   SELECT: id_producto y cantidad por id_detalle
-   =========================== */
-    private static final String SQL_PRODUCTO_Y_CANTIDAD_BY_DETALLE =
-            "SELECT id_producto, cantidad FROM detalles_pedido WHERE id_detalle = ?";
-
-    /**
-     * Devuelve un par (id_producto, cantidad) a partir de un id_detalle.
-     *
-     * @param conn      conexión abierta
-     * @param idDetalle id del detalle del pedido
-     * @return un array [id_producto, cantidad], o null si no existe
-     */
-    public static int[] getProductoYCantidadPorDetalle(Connection conn, int idDetalle) {
-        if (conn == null) {
-            LOGGER.severe("Conexión nula en getProductoYCantidadPorDetalle()");
-            return null;
-        }
-
-        try (PreparedStatement ps = conn.prepareStatement(SQL_PRODUCTO_Y_CANTIDAD_BY_DETALLE)) {
-            ps.setInt(1, idDetalle);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    int idProducto = rs.getInt("id_producto");
-                    int cantidad = rs.getInt("cantidad");
-                    LOGGER.fine(() -> String.format("Detalle %d → id_producto=%d, cantidad=%d", idDetalle, idProducto, cantidad));
-                    return new int[]{idProducto, cantidad};
-                } else {
-                    LOGGER.warning("No se encontró detalle con id_detalle=" + idDetalle);
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error obteniendo id_producto y cantidad para id_detalle=" + idDetalle, e);
-        }
-        return null;
-    }
-
-    /* ===========================
        SELECT: identificador_producto y cantidad por id_detalle
        =========================== */
     private static final String SQL_IDENTIFICADOR_Y_CANTIDAD_BY_DETALLE = """
@@ -309,77 +272,6 @@ public class DetallesPedidoDAO {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error al actualizar detalle de pedido: " + e.getMessage(), e);
             return false;
-        }
-    }
-
-
-    private static final String INSERT_DETALLE_SQL = "INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (?, ?, ?, 0)";
-
-
-    /**
-     * x
-     * Inserta un nuevo producto dentro de un pedido existente.
-     *
-     * @param connection Conexión activa a la base de datos.
-     * @param idPedido   ID del pedido al que se le agregará el producto.
-     * @param idProducto ID del producto que se agregará.
-     * @param cantidad   Cantidad del producto.
-     */
-    public static void insertNuevoProductoEnPedido(Connection connection,
-                                                   int idPedido,
-                                                   int idProducto,
-                                                   int cantidad) {
-        if (connection == null) {
-            LOGGER.warning("Conexión nula al intentar insertar nuevo producto en pedido.");
-            return;
-        }
-
-        try (PreparedStatement ps = connection.prepareStatement(INSERT_DETALLE_SQL)) {
-            ps.setInt(1, idPedido);
-            ps.setInt(2, idProducto);
-            ps.setInt(3, cantidad);
-
-            int rows = ps.executeUpdate();
-
-            if (rows > 0) {
-                LOGGER.fine(() -> String.format(
-                        "Nuevo producto insertado en pedido (id_pedido=%d, id_producto=%d, cantidad=%d)",
-                        idPedido, idProducto, cantidad));
-            } else {
-                LOGGER.warning(() -> String.format(
-                        "No se insertó ningún registro (id_pedido=%d, id_producto=%d)", idPedido, idProducto));
-            }
-
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error insertando nuevo producto en pedido: " + e.getMessage(), e);
-        }
-    }
-
-
-    public static Integer upsertDetalleSumandoCantidad(Connection cn,
-                                                       int idPedido,
-                                                       int idProducto,
-                                                       int cantidadASumar) {
-        final String SQL = """
-                INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido)
-                VALUES (?, ?, ?, 0)
-                ON DUPLICATE KEY UPDATE
-                    id_detalle = LAST_INSERT_ID(id_detalle),
-                    cantidad   = cantidad + VALUES(cantidad)
-                """;
-        try (PreparedStatement ps = cn.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, idPedido);
-            ps.setInt(2, idProducto);
-            ps.setInt(3, cantidadASumar);
-
-            ps.executeUpdate();
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) return rs.getInt(1); // id_detalle
-            }
-            return null; // raro, pero controlable
-        } catch (SQLException e) {
-            Logger.getLogger(DetallesPedidoDAO.class.getName()).log(Level.SEVERE, "UPSERT detalle", e);
-            return null;
         }
     }
 
@@ -675,12 +567,12 @@ public class DetallesPedidoDAO {
         }
     }
 
-    public static boolean setDetallePaletizado(Connection conn, int idDetalle) {
+    public static void setDetallePaletizado(Connection conn, int idDetalle) {
         final String SQL = "UPDATE detalles_pedido SET paletizado = 1 WHERE id_detalle = ?";
 
         if (conn == null) {
             LOGGER.severe("Conexión nula en setDetallePaletizado()");
-            return false;
+            return;
         }
 
         try (PreparedStatement ps = conn.prepareStatement(SQL)) {
@@ -691,15 +583,12 @@ public class DetallesPedidoDAO {
 
             if (filas > 0) {
                 LOGGER.info("Detalle marcado como paletizado (id_detalle=" + idDetalle + ")");
-                return true;
             } else {
                 LOGGER.warning("No se encontró detalle con id_detalle=" + idDetalle);
-                return false;
             }
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error actualizando paletizado=true en id_detalle=" + idDetalle, e);
-            return false;
         }
     }
 }
