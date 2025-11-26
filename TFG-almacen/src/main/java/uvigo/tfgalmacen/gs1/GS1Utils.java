@@ -44,9 +44,11 @@ public final class GS1Utils {
 
     /**
      * Builds a GTIN-14 from components:
-     * indicatorDigit (1 digit), companyPrefix (GS1 prefix), itemReference.
+     * <pre>
+     *  indicatorDigit (1) + companyPrefix + itemReference + checkDigit = 14 digits
+     * </pre>
      * The concatenation of companyPrefix + itemReference must be between 6 and 12 digits so that
-     * indicatorDigit + companyPrefix + itemRef = 13 digits (before check).
+     * indicatorDigit + companyPrefix + itemReference = 13 digits (before check).
      */
     public static String buildGTIN14(String indicatorDigit,
                                      String companyPrefix,
@@ -61,14 +63,18 @@ public final class GS1Utils {
         // Build body (13 digits without check)
         String body = indicatorDigit + companyPrefix + itemReference;
         if (body.length() > 13) {
-            throw new IllegalArgumentException("indicator + companyPrefix + itemReference must be <= 13 digits (is " + body.length() + ")");
+            throw new IllegalArgumentException(
+                    "indicatorDigit + companyPrefix + itemReference must be <= 13 digits (is " + body.length() + ")"
+            );
         }
         // Left-pad itemReference if necessary to reach 13
         if (body.length() < 13) {
             int pad = 13 - body.length();
             StringBuilder sb = new StringBuilder();
             sb.append(indicatorDigit).append(companyPrefix);
-            for (int i = 0; i < pad; i++) sb.append('0');
+            for (int i = 0; i < pad; i++) {
+                sb.append('0');
+            }
             sb.append(itemReference);
             body = sb.toString();
         }
@@ -92,7 +98,7 @@ public final class GS1Utils {
     // =====================
 
     /**
-     * Builds SSCC (18 digits) = extension (1) + companyPrefix + serial (pad to 17) + check
+     * Builds SSCC (18 digits) = extension (1) + companyPrefix + serial (padded) + check
      *
      * @param extensionDigit 0..9
      * @param companyPrefix  GS1 company prefix (numeric)
@@ -118,6 +124,10 @@ public final class GS1Utils {
         if (remaining <= 0) {
             throw new IllegalArgumentException("companyPrefix too long for SSCC base");
         }
+        if (serialStr.length() > remaining) {
+            throw new IllegalArgumentException("serial too long for SSCC with this companyPrefix");
+        }
+
         String serialPadded = leftPad(serialStr, remaining, '0');
         String body = baseNoCheck + serialPadded;
 
@@ -131,10 +141,15 @@ public final class GS1Utils {
 
     public static String ai01(String gtin14) {
         requireNumeric(gtin14);
-        if (gtin14.length() != 14) throw new IllegalArgumentException("GTIN-14 must be 14 digits");
+        if (gtin14.length() != 14) {
+            throw new IllegalArgumentException("GTIN-14 must be 14 digits");
+        }
         return "(01)" + gtin14;
     }
 
+    /**
+     * AI(37) - Count of trade items (up to 8 digits).
+     */
     public static String ai37(int quantity) {
         if (quantity < 0 || quantity > 99999999) {
             throw new IllegalArgumentException("quantity must be 0..99999999");
@@ -142,6 +157,9 @@ public final class GS1Utils {
         return "(37)" + quantity;
     }
 
+    /**
+     * AI(10) - Batch or lot number. Variable-length up to 20 alphanumeric characters.
+     */
     public static String ai10(String lot) {
         Objects.requireNonNull(lot, "lot");
         // AI(10) is variable length up to 20 alphanumerics
@@ -152,11 +170,12 @@ public final class GS1Utils {
     }
 
     /**
-     * AI(15) Best before date YYMMDD
+     * AI(15) - Best before date (YYMMDD).
      */
     public static String ai15(LocalDate date) {
-        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyMMdd");
-        return "(15)" + date.format(f);
+        Objects.requireNonNull(date, "date");
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyMMdd");
+        return "(15)" + date.format(fmt);
     }
 
     /**
@@ -164,7 +183,9 @@ public final class GS1Utils {
      */
     public static String ai00(String sscc) {
         requireNumeric(sscc);
-        if (sscc.length() != 18) throw new IllegalArgumentException("SSCC must be 18 digits");
+        if (sscc.length() != 18) {
+            throw new IllegalArgumentException("SSCC must be 18 digits");
+        }
         return "(00)" + sscc;
     }
 
@@ -179,34 +200,16 @@ public final class GS1Utils {
     }
 
     private static String leftPad(String s, int width, char ch) {
-        if (s.length() >= width) return s;
+        if (s.length() >= width) {
+            return s;
+        }
         StringBuilder sb = new StringBuilder(width);
-        for (int i = s.length(); i < width; i++) sb.append(ch);
+        for (int i = s.length(); i < width; i++) {
+            sb.append(ch);
+        }
         sb.append(s);
         return sb.toString();
     }
 
-    // =====================
-    // Demo main
-    // =====================
 
-    public static void main(String[] args) {
-        // Example company prefix (Spain 84 + company block) – replace with your real GS1 prefix
-        String companyPrefix = "8412348";
-
-        // GTIN-14 for product ref 678908, indicator 0
-        String gtin14 = generateGTIN14(0, companyPrefix, 678908L);
-        System.out.println("GTIN-14: " + gtin14 + "  -> " + ai01(gtin14));
-
-        // SSCC with extension 3, serial 12345
-        String sscc = generateSSCC(3, companyPrefix, 12345L);
-        System.out.println("SSCC:    " + sscc + "  -> " + ai00(sscc));
-
-        // Quantity
-        System.out.println("AI(37):  " + ai37(10));
-
-        // Lot + Best before
-        System.out.println("AI(10):  " + ai10("A1B2C3"));
-        System.out.println("AI(15):  " + ai15(java.time.LocalDate.of(2025, 12, 31)));
-    }
 }

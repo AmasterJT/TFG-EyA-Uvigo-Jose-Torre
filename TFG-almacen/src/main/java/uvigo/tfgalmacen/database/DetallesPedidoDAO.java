@@ -3,10 +3,7 @@ package uvigo.tfgalmacen.database;
 import uvigo.tfgalmacen.ProductoPedido;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -544,4 +541,165 @@ public class DetallesPedidoDAO {
         }
     }
 
+
+    private static final String SELECT_ID_PEDIDO_BY_ID_DETALLE =
+            "SELECT id_pedido FROM detalles_pedido WHERE id_detalle = ?";
+
+    public static Integer getIdPedidoByIdDetalle(Connection conn, int idDetalle) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getIdPedidoByIdDetalle()");
+            return null;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SELECT_ID_PEDIDO_BY_ID_DETALLE)) {
+            ps.setInt(1, idDetalle);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id_pedido");
+                }
+            }
+
+            LOGGER.warning("No se encontró id_pedido para id_detalle=" + idDetalle);
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error obteniendo id_pedido por id_detalle=" + idDetalle, e);
+        }
+
+        return null;
+    }
+
+
+    private static final String SELECT_DETALLE_BY_ID_SQL =
+            "SELECT id_pedido, id_producto, cantidad, estado_producto_pedido, paletizado " +
+                    "FROM detalles_pedido WHERE id_detalle = ?";
+
+    private static final String UPDATE_CANTIDAD_DETALLE_SQL =
+            "UPDATE detalles_pedido SET cantidad = ? WHERE id_detalle = ?";
+
+    private static final String INSERT_DETALLE_SQL2 =
+            "INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido, paletizado) " +
+                    "VALUES (?, ?, ?, ?, ?)";
+
+    public static int splitDetalle(Connection conn, int idDetalle, int cantidadNueva) throws SQLException {
+        if (conn == null) {
+            throw new SQLException("Conexión nula en DetallesPedidoDAO.splitDetalle");
+        }
+
+        boolean prevAutoCommit = conn.getAutoCommit();
+        conn.setAutoCommit(false);
+
+        try (
+                PreparedStatement psSel = conn.prepareStatement(SELECT_DETALLE_BY_ID_SQL);
+                PreparedStatement psUpd = conn.prepareStatement(UPDATE_CANTIDAD_DETALLE_SQL);
+                PreparedStatement psIns = conn.prepareStatement(INSERT_DETALLE_SQL2, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            // 1) Leer el detalle original
+            psSel.setInt(1, idDetalle);
+            int idPedido, idProducto, cantidadOriginal;
+            boolean estadoProducto, paletizado;
+
+            try (ResultSet rs = psSel.executeQuery()) {
+                if (!rs.next()) {
+                    conn.rollback();
+                    LOGGER.warning("No se encontró detalle_pedido con id_detalle=" + idDetalle);
+                    return -1;
+                }
+
+                idPedido = rs.getInt("id_pedido");
+                idProducto = rs.getInt("id_producto");
+                cantidadOriginal = rs.getInt("cantidad");
+                estadoProducto = rs.getBoolean("estado_producto_pedido");
+                paletizado = rs.getBoolean("paletizado");
+            }
+
+            // 2) Validar cantidades
+            if (cantidadNueva <= 0 || cantidadNueva >= cantidadOriginal) {
+                conn.rollback();
+                LOGGER.warning(String.format(
+                        "Cantidad nueva inválida para split (id_detalle=%d, cantidadOriginal=%d, cantidadNueva=%d)",
+                        idDetalle, cantidadOriginal, cantidadNueva));
+                return -1;
+            }
+
+            int cantidadRestante = cantidadOriginal - cantidadNueva;
+
+            // 3) Actualizar cantidad del detalle original
+            psUpd.setInt(1, cantidadNueva);
+            psUpd.setInt(2, idDetalle);
+            int updRows = psUpd.executeUpdate();
+            if (updRows != 1) {
+                conn.rollback();
+                LOGGER.warning("No se pudo actualizar cantidad del detalle original id_detalle=" + idDetalle);
+                return -1;
+            }
+
+            // 4) Insertar el nuevo detalle con la cantidad restante
+            psIns.setInt(1, idPedido);
+            psIns.setInt(2, idProducto);
+            psIns.setInt(3, cantidadRestante);
+            psIns.setBoolean(4, estadoProducto);
+            psIns.setBoolean(5, paletizado);
+            int insRows = psIns.executeUpdate();
+            if (insRows != 1) {
+                conn.rollback();
+                LOGGER.warning("No se pudo insertar el nuevo detalle en splitDetalle para id_detalle=" + idDetalle);
+                return -1;
+            }
+
+            int nuevoIdDetalle;
+            try (ResultSet rsKeys = psIns.getGeneratedKeys()) {
+                if (rsKeys.next()) {
+                    nuevoIdDetalle = rsKeys.getInt(1);
+                } else {
+                    conn.rollback();
+                    LOGGER.warning("No se obtuvo id generado para el nuevo detalle en splitDetalle");
+                    return -1;
+                }
+            }
+
+            conn.commit();
+
+            LOGGER.info(String.format(
+                    "Split detalle_pedido OK. id_detalle_original=%d -> nuevoCantidad=%d, nuevoDetalle id=%d con cantidad=%d",
+                    idDetalle, cantidadNueva, nuevoIdDetalle, cantidadRestante
+            ));
+
+            return nuevoIdDetalle;
+
+        } catch (SQLException e) {
+            conn.rollback();
+            LOGGER.log(Level.SEVERE, "Error en splitDetalle(id_detalle=" + idDetalle + ")", e);
+            throw e;
+        } finally {
+            conn.setAutoCommit(prevAutoCommit);
+        }
+    }
+
+    public static boolean setDetallePaletizado(Connection conn, int idDetalle) {
+        final String SQL = "UPDATE detalles_pedido SET paletizado = 1 WHERE id_detalle = ?";
+
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en setDetallePaletizado()");
+            return false;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL)) {
+
+            ps.setInt(1, idDetalle);
+
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                LOGGER.info("Detalle marcado como paletizado (id_detalle=" + idDetalle + ")");
+                return true;
+            } else {
+                LOGGER.warning("No se encontró detalle con id_detalle=" + idDetalle);
+                return false;
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error actualizando paletizado=true en id_detalle=" + idDetalle, e);
+            return false;
+        }
+    }
 }

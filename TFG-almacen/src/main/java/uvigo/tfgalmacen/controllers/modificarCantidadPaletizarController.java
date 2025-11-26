@@ -9,7 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.ProductoPedido;
+import uvigo.tfgalmacen.database.DetallesPedidoDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.net.URL;
@@ -19,6 +21,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getIdPedidoByIdDetalle;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class modificarCantidadPaletizarController implements Initializable {
@@ -43,6 +46,7 @@ public class modificarCantidadPaletizarController implements Initializable {
 
     int CANTIDAD_MAXIMA = 0;
     int id_detalle_opriginal;
+    int id_pedido;
 
 
     @FXML
@@ -103,14 +107,76 @@ public class modificarCantidadPaletizarController implements Initializable {
             }
         });
 
+        modificar_btn.setOnAction(_ -> splitPedido());
     }
 
-    public void setData(String cantidad, int id_original) {
+
+    public void setData(String cantidad, int id_detalle_original) {
 
         CANTIDAD_MAXIMA = Integer.parseInt(cantidad);
         cantidad_restante_label.setText(cantidad);
 
-        this.id_detalle_opriginal = id_original;
+        this.id_detalle_opriginal = id_detalle_original;
+        this.id_pedido = getIdPedidoByIdDetalle(Main.connection, id_detalle_original);
     }
+
+    private void splitPedido() {
+        String txt = nueva_cantidad_text.getText();
+        if (txt == null || txt.isBlank()) {
+            shake(nueva_cantidad_text, SHAKE_DURATION);
+            ventana_error("Cantidad inválida",
+                    "Debes introducir una cantidad",
+                    "La cantidad no puede estar vacía.");
+            return;
+        }
+
+        int cantidadNueva;
+        try {
+            cantidadNueva = Integer.parseInt(txt.trim());
+        } catch (NumberFormatException e) {
+            shake(nueva_cantidad_text, SHAKE_DURATION);
+            ventana_error("Cantidad inválida",
+                    "Formato numérico incorrecto",
+                    "Introduce un número entero válido.");
+            return;
+        }
+
+        if (cantidadNueva <= 0 || cantidadNueva >= CANTIDAD_MAXIMA) {
+            shake(nueva_cantidad_text, SHAKE_DURATION);
+            ventana_error("Cantidad inválida",
+                    "La cantidad debe ser mayor que 0 y menor que " + CANTIDAD_MAXIMA,
+                    "No puedes usar toda la cantidad original ni un valor negativo.");
+            return;
+        }
+
+        try {
+            int nuevoIdDetalle = DetallesPedidoDAO.splitDetalle(
+                    Main.connection,
+                    id_detalle_opriginal,
+                    cantidadNueva
+            );
+
+            if (nuevoIdDetalle <= 0) {
+                ventana_error("Error al dividir",
+                        "No se pudo crear el nuevo detalle",
+                        "Revisa los logs para más información.");
+                return;
+            }
+
+            ventana_warning("Operación completada",
+                    "Detalle dividido correctamente",
+                    "Se ha actualizado el detalle original y creado uno nuevo con la cantidad restante.");
+
+            Stage stage = (Stage) modificar_btn.getScene().getWindow();
+            stage.close();
+
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error al dividir el detalle del pedido", e);
+            ventana_error("Error inesperado",
+                    "No se pudo dividir el detalle",
+                    e.getMessage());
+        }
+    }
+
 
 }

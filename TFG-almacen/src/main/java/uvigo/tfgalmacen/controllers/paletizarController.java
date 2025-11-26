@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.*;
 import uvigo.tfgalmacen.database.*;
+import uvigo.tfgalmacen.gs1.GS1Utils;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 import uvigo.tfgalmacen.utils.windowComponentAndFuncionalty;
 
@@ -31,6 +32,7 @@ import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.RutasFicheros.*;
 import static uvigo.tfgalmacen.database.ClientesDAO.getClienteById;
+import static uvigo.tfgalmacen.database.DataConfig.COMPANY_GS1_CODE;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoReferencia;
 import static uvigo.tfgalmacen.database.PedidoDAO.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.limpiarGridPane;
@@ -124,10 +126,6 @@ public class paletizarController implements Initializable {
     private Button crear_palet_salida_btn;
 
 
-    @FXML
-    private Button envio_btn;
-
-
     public static final List<ItemPaletizarController> allItemControllers = new ArrayList<>();
 
     private List<ProductoPedido> productos_del_pedido;
@@ -170,10 +168,6 @@ public class paletizarController implements Initializable {
             crear_palet_salida_btn.setOnAction(_ -> crearPaletSalida());
         }
 
-        if (envio_btn != null) {
-            //envio_btn.setOnAction(_ -> agregarPaletListoAlGrid());
-            envio_btn.setTooltip(new Tooltip("Añadir palet listo a la lista de envío"));
-        }
 
     }
 
@@ -282,8 +276,10 @@ public class paletizarController implements Initializable {
 
                 // Registrar nodo y grid de origen
                 nodoPorItem.put(itemController, anchorPane);
+                anchorPane.setUserData(itemController);
                 gridOrigenPorItem.putIfAbsent(itemController, grid);
                 anchorPane.getProperties().put("controller", itemController);
+                allItemControllers.add(itemController);
 
                 if (column == COLUMS) {
                     column = 0;
@@ -381,12 +377,12 @@ public class paletizarController implements Initializable {
     }
 
     private void compactarGrid(GridPane grid) {
-        List<javafx.scene.Node> nodos = new ArrayList<>(grid.getChildren());
+        List<Node> nodos = new ArrayList<>(grid.getChildren());
         grid.getChildren().clear();
 
         int row = 0;
         int col = 0;
-        for (javafx.scene.Node n : nodos) {
+        for (Node n : nodos) {
             grid.add(n, col, row++);
             GridPane.setMargin(n, new Insets(10));
         }
@@ -395,7 +391,7 @@ public class paletizarController implements Initializable {
     private void cargarUsernamesYCache() {
         try {
             // 1) Obtener IDs de usuarios que tienen pedidos
-            List<Integer> usuariosConPedidos = PedidoDAO.getUsuariosConPedidos(Main.connection);
+            List<Integer> usuariosConPedidos = getUsuariosConPedidos(Main.connection);
 
             if (usuariosConPedidos.isEmpty()) {
                 LOGGER.warning("No hay usuarios con pedidos asignados.");
@@ -476,9 +472,9 @@ public class paletizarController implements Initializable {
 
         try {
             // Pedidos de primera y segunda hora
-            List<String> pedidosPrimera = PedidoDAO.getCodigosPedidoPorUsuarioYHora(
+            List<String> pedidosPrimera = getCodigosPedidoPorUsuarioYHora(
                     Main.connection, idUsuario, "primera_hora");
-            List<String> pedidosSegunda = PedidoDAO.getCodigosPedidoPorUsuarioYHora(
+            List<String> pedidosSegunda = getCodigosPedidoPorUsuarioYHora(
                     Main.connection, idUsuario, "segunda_hora");
 
             // Rellenar combos
@@ -519,7 +515,7 @@ public class paletizarController implements Initializable {
             if (codigo == null || codigo.isBlank()) return;
 
             try {
-                Pedido p = PedidoDAO.getPedidoPorCodigo(Main.connection, codigo);
+                Pedido p = getPedidoPorCodigo(Main.connection, codigo);
 
                 System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 System.out.println(p);
@@ -535,10 +531,29 @@ public class paletizarController implements Initializable {
 
                 codigo_referencia_pedido = p.getCodigo_referencia();
 
+                List<ProductoPedido> productos2 = getProductosPorCodigoReferencia(
+                        Main.connection,
+                        p.getCodigo_referencia()
+                );
+
                 List<ProductoPedido> productos = getProductosPorCodigoReferencia(
                         Main.connection,
                         p.getCodigo_referencia()
                 );
+                productos.clear();
+                System.out.println("WWWWWWWWWWW:  " + productos.size());
+
+
+                for (ProductoPedido ped : productos2) {
+                    System.out.println("ggggggggggggg");
+                    if (!ped.isComplete) {
+                        System.out.println("kkkkkkkkkkkkkkkk");
+                        productos.add(ped);
+                    }
+                }
+
+                System.out.println("ttttttttttttttttttttt:  " + productos.size());
+
                 LOGGER.info("Renderizando productos (1ª hora) del pedido: " + p.getCodigo_referencia());
                 renderizarProductos(productos, grid_en_curso_primera_hora);
 
@@ -553,7 +568,7 @@ public class paletizarController implements Initializable {
             if (codigo == null || codigo.isBlank()) return;
 
             try {
-                Pedido p = PedidoDAO.getPedidoPorCodigo(Main.connection, codigo);
+                Pedido p = getPedidoPorCodigo(Main.connection, codigo);
                 if (p == null) {
                     LOGGER.warning("No se encontró pedido con código: " + codigo);
                     actualizarDatosCliente(null);
@@ -563,13 +578,33 @@ public class paletizarController implements Initializable {
                 // 🔹 Actualizar datos del cliente
                 actualizarDatosCliente(p);
 
+                List<ProductoPedido> productos2 = getProductosPorCodigoReferencia(
+                        Main.connection,
+                        p.getCodigo_referencia()
+                );
+
                 List<ProductoPedido> productos = getProductosPorCodigoReferencia(
                         Main.connection,
                         p.getCodigo_referencia()
                 );
+                productos.clear();
+                System.out.println("WWWWWWWWWWW:  " + productos.size());
+
+
+                for (ProductoPedido ped : productos2) {
+                    System.out.println("ggggggggggggg");
+                    if (!ped.isComplete) {
+                        System.out.println("kkkkkkkkkkkkkkkk");
+                        productos.add(ped);
+                    }
+                }
+
+
                 LOGGER.info("Renderizando productos (2ª hora) del pedido: " + p.getCodigo_referencia());
                 renderizarProductos(productos, grid_en_curso_segunda_hora);
                 cargarPaletsSalidaParaPedido(p);
+
+
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, "Error cargando productos del pedido (2ª hora) " + codigo, e);
             }
@@ -679,7 +714,7 @@ public class paletizarController implements Initializable {
                 return;
             }
 
-            Integer idPedido = PedidoDAO.getIdPedidoPorCodigo(Main.connection, codigoPedido);
+            Integer idPedido = getIdPedidoPorCodigo(Main.connection, codigoPedido);
             if (idPedido == null) {
                 LOGGER.severe("No se pudo obtener id_pedido para el código: " + codigoPedido);
                 return;
@@ -698,6 +733,8 @@ public class paletizarController implements Initializable {
                             int idDetalle = ctrl.getIdDetalleBDD();        // id_detalle en detalles_pedido
 
                             lineas.add(new LineaPaletSalida(idProducto, cajas, idDetalle));
+
+                            DetallesPedidoDAO.setDetallePaletizado(Main.connection, idDetalle);
                         } catch (NumberFormatException e) {
                             LOGGER.warning("Cantidad inválida en item paletizado, se omite.");
                         }
@@ -712,8 +749,10 @@ public class paletizarController implements Initializable {
 
             // 3) Generar SSCC (ajusta a tu lógica real / empresa)
             //   Ejemplo usando tu GS1Utils si lo tienes:
-            //   String sscc = GS1Utils.generateSSCC(3, "8412348", System.currentTimeMillis() % 100000000L);
-            String sscc = "SSCC-" + System.currentTimeMillis();  // placeholder simple
+
+            System.out.println(COMPANY_GS1_CODE);
+            String sscc = GS1Utils.generateSSCC(3, COMPANY_GS1_CODE, System.currentTimeMillis() % 100000000L);
+            //String sscc = System.currentTimeMillis();  // placeholder simple
 
             // 4) Llamar al DAO para crear palet_salida + detalles + marcar paletizado
             int idPaletSalida = PaletSalidaDAO.crearPaletSalidaConDetalles(
@@ -735,10 +774,9 @@ public class paletizarController implements Initializable {
             productos_palet_label.setText("0");
 
             boolean isComplete = isPedidoCompletamentePaletizado(Main.connection, idPedido);
-
+            System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFF isComplete: " + isComplete);
             if (isComplete) {
-                System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFF");
-                marcarPedidoCompletadoSinUsuarioPorCodigo(Main.connection, codigo_referencia_pedido);
+                marcarPedidoCompletadoSinUsuarioPorCodigo(Main.connection, codigoPedido);
 
                 Platform.runLater(() -> {
                     String usernameActual = combo_usuario.getValue();
@@ -752,10 +790,10 @@ public class paletizarController implements Initializable {
 
             String ref = combo_pedido_primera_hora.getValue();
             String ref2 = combo_pedido_segunda_hora.getValue();
-            Pedido pActual = PedidoDAO.getPedidoPorCodigo(Main.connection, ref);
+            Pedido pActual = getPedidoPorCodigo(Main.connection, ref);
 
             if (pActual == null) {
-                pActual = PedidoDAO.getPedidoPorCodigo(Main.connection, ref2);
+                pActual = getPedidoPorCodigo(Main.connection, ref2);
             }
 
             if (pActual != null) {
@@ -764,6 +802,7 @@ public class paletizarController implements Initializable {
 
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error al crear el palet de salida desde la UI", e);
+            e.printStackTrace();
         }
     }
 
@@ -806,4 +845,64 @@ public class paletizarController implements Initializable {
         // paletsListosCount = 0;   // si usas este contador
     }
 
+    public void refrescarGridDeOrigenTrasSplit(ItemPaletizarController itemCtrl) {
+        // 1) Localizar de qué grid viene este item
+        GridPane origen = localizarGridDeItem(itemCtrl);
+        if (origen == null) {
+            LOGGER.warning("No se encontró grid de origen para el item tras split.");
+            return;
+        }
+
+        // 2) Averiguar qué pedido está seleccionado según el grid
+        String codigo = null;
+        if (origen == grid_en_curso_primera_hora) {
+            codigo = combo_pedido_primera_hora.getValue();
+        } else if (origen == grid_en_curso_segunda_hora) {
+            codigo = combo_pedido_segunda_hora.getValue();
+        }
+
+        if (codigo == null || codigo.isBlank()) {
+            LOGGER.warning("No hay pedido seleccionado para refrescar el grid de origen.");
+            return;
+        }
+
+        try {
+            Pedido p = getPedidoPorCodigo(Main.connection, codigo);
+            if (p == null) {
+                LOGGER.warning("Pedido no encontrado al refrescar grid: " + codigo);
+                return;
+            }
+
+            List<ProductoPedido> productos = getProductosPorCodigoReferencia(
+                    Main.connection,
+                    p.getCodigo_referencia()
+            );
+
+            LOGGER.info("Refrescando grid de origen tras split. Pedido: " + p.getCodigo_referencia());
+            renderizarProductos(productos, origen);
+
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error refrescando grid tras split", e);
+        }
+    }
+
+    private GridPane localizarGridDeItem(ItemPaletizarController ctrl) {
+        // Buscar en grid de 1ª hora
+        for (var node : grid_en_curso_primera_hora.getChildren()) {
+            Object ud = node.getUserData();
+            if (ud == ctrl) {
+                return grid_en_curso_primera_hora;
+            }
+        }
+
+        // Buscar en grid de 2ª hora
+        for (var node : grid_en_curso_segunda_hora.getChildren()) {
+            Object ud = node.getUserData();
+            if (ud == ctrl) {
+                return grid_en_curso_segunda_hora;
+            }
+        }
+
+        return null;
+    }
 }

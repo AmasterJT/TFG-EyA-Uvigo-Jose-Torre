@@ -134,6 +134,9 @@ public class mainController implements Initializable {
     @FXML
     private Button export_data_btn;
 
+    @FXML
+    private Button envioButton;
+
     // ======================= Estado =======================
     private Button activeScene = null;
     private boolean sliderVisible = true;
@@ -155,10 +158,13 @@ public class mainController implements Initializable {
         inventarioButton.setTooltip(new Tooltip("Vista del inventario de palets"));
 
         pedidosButton.setOnMouseClicked(_ -> loadPedidosView());
-        pedidosButton.setTooltip(new Tooltip("Gestion de productos"));
+        pedidosButton.setTooltip(new Tooltip("Gestion de pedidos"));
 
         paletizarButton.setOnMouseClicked(_ -> loadPaletizarView());
         paletizarButton.setTooltip(new Tooltip("Crear palets"));
+
+        envioButton.setOnMouseClicked(_ -> loadVentanaEvioView());
+        envioButton.setTooltip(new Tooltip("Gestionar envio de palets"));
 
         MenuButton.setOnMouseClicked(_ -> loadMenu());
         MenuButton.setTooltip(new Tooltip("Abrir menu"));
@@ -200,6 +206,7 @@ public class mainController implements Initializable {
 
         ajustes_crear_proveedor_btn.setOnMouseClicked(_ -> abrirVentanaCrearProveedor());
         ajustes_crear_proveedor_btn.setTooltip(new Tooltip("Crear nuevo porveedor"));
+
 
         export_data_btn.setOnMouseClicked(_ -> {
             try {
@@ -433,6 +440,12 @@ public class mainController implements Initializable {
     }
 
     @FXML
+    private void loadVentanaEvioView() {
+        loadFXMLAsync(APARTADO_ENVIO_FXML);
+        marcarBotonActivo(envioButton);
+    }
+
+    @FXML
     private void loadMenu() {
         slideMenu(sliderVisible);
         marcarBotonActivo(MenuButton);
@@ -497,7 +510,7 @@ public class mainController implements Initializable {
      * Marca botón activo con colores de tu mapa de colores cargado en Main.colors
      */
     private void marcarBotonActivo(Button botonSeleccionado) {
-        var nav = java.util.List.of(almacenButton, inventarioButton, pedidosButton, paletizarButton);
+        var nav = java.util.List.of(almacenButton, inventarioButton, pedidosButton, paletizarButton, envioButton);
 
         // quita "active" de todos
         nav.forEach(b -> b.getStyleClass().remove("active"));

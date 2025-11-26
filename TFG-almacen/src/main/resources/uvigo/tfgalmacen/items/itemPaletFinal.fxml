@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="backgroundAnchorPane" maxHeight="150.0" maxWidth="130.0" minWidth="130.0" prefHeight="150.0" prefWidth="130.0" style="-fx-border-radius: 5; -fx-background-color: #8a8a8a;" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemPaletFinalController">
+<AnchorPane fx:id="backgroundAnchorPane" maxHeight="150.0" maxWidth="130.0" minWidth="140.0" prefHeight="150.0" prefWidth="130.0" style="-fx-border-radius: 5; -fx-background-color: #8a8a8a;" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemPaletFinalController">
     <styleClass>
         <String fx:value="fruit-item" />
         <String fx:value="shadow" />

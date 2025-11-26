@@ -13,6 +13,7 @@ public class ProductoPedido {
     public Boolean isComplete;
     public String colorHEX = "";
 
+
     public ProductoPedido(String identificadorProducto, int cantidad, Boolean isComplete, int id_detalle_BDD) {
         this.identificadorProducto = identificadorProducto;
         this.cantidad = cantidad;

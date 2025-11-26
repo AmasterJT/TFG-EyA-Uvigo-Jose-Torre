@@ -27,8 +27,7 @@ import static java.lang.Integer.parseInt;
 import static uvigo.tfgalmacen.RutasFicheros.ITEM_DETALLE_PEDIDO_FXML;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.actualizarEstadoProductoPedido;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoReferencia;
-import static uvigo.tfgalmacen.database.PedidoDAO.actualizarPaletsDelPedido;
-import static uvigo.tfgalmacen.database.PedidoDAO.getPaletsDelPedido;
+import static uvigo.tfgalmacen.database.PedidoDAO.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class detallesPedidoController {
@@ -114,7 +113,7 @@ public class detallesPedidoController {
     private void crearPalet() {
         System.out.println("click");
 
-        if (estado_pedido_detalle_label.getText().equals("Pendiente")) return;
+        if (estado_pedido_detalle_label.getText().equals(ESTADOS_VALIDOS.getFirst())) return;
 
         for (ItemDetallesPedidoController itemController : allItemControllers) {
             System.out.println("Detalle: " + itemController.id_BDD + " -> " + itemController.getProducto_listo_en_pedido_check().isSelected());
@@ -195,7 +194,8 @@ public class detallesPedidoController {
         LOGGER.info("Renderizando productos del pedido: " + pedido_para_detallar.getCodigo_referencia());
         renderizarProductos(productos_del_pedido, grid_pendientes);
 
-        if (estado_pedido_detalle_label.getText().equals("Pendiente")) crear_palet_salida_btn.setDisable(true);
+        if (estado_pedido_detalle_label.getText().equals(ESTADOS_VALIDOS.getFirst()))
+            crear_palet_salida_btn.setDisable(true);
 
     }
 

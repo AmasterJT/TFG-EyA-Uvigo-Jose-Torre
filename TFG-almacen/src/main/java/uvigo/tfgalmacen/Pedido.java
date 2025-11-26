@@ -12,7 +12,6 @@ import static uvigo.tfgalmacen.utils.TerminalColors.*;
 
 public class Pedido implements Comparable<Pedido> {
 
-    List<String> ESTADOS_DEL_PEDIDO = List.of("Pendiente", "En proceso", "Cancelado", "Completado");
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -77,6 +76,11 @@ public class Pedido implements Comparable<Pedido> {
                 this.colorEstadoHEX = "#4bb030";
                 this.emoji = "✅" + VERDE;
             }
+            case "Enviado" -> {
+                this.colorEstadoHEX = "#4bb030";
+                this.emoji = "✅✅" + VERDE;
+            }
+
         }
     }
 

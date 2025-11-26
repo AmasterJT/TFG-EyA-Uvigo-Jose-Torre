@@ -1,18 +1,25 @@
 package uvigo.tfgalmacen.gs1;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.Barcode128;
 
-import java.time.LocalDate;
+import java.io.OutputStream;
 
+/**
+ * Generación de etiqueta logística GS1 para PALET MIXTO.
+ * <p>
+ * - Un único código de barras GS1-128 con AI(00) SSCC.
+ * - El detalle de productos va en tabla / packing list (NO en el código de barras).
+ */
 public class EtiquetaGS1 {
 
     // Crea una imagen GS1-128 a partir de una cadena con AIs entre paréntesis
     private static Image gs1Image(PdfWriter writer, String aiString) throws BadElementException {
         Barcode128 bc = new Barcode128();
-        bc.setCodeType(Barcode.CODE128_UCC); // <- GS1-128
-        bc.setCode(aiString);                // <- con AIs "(01)...(10)...(37)..."
-        bc.setFont(null);                    // sin texto human-readable debajo
+        bc.setCodeType(Barcode128.CODE128_UCC); // GS1-128
+        bc.setCode(aiString);                   // Ej: "(00)3xxxxxxxxxxxxxxx"
+        bc.setFont(null);                       // sin texto human-readable debajo
         return bc.createImageWithBarcode(writer.getDirectContent(), null, null);
     }
 
@@ -24,56 +31,59 @@ public class EtiquetaGS1 {
         img.setSpacingAfter(spacingBottom);
     }
 
-    public static void main(String[] args) throws Exception {
-        // === 1) Construyes tus datos con GS1Utils ===
-        String gtin = GS1Utils.generateGTIN14(0, "8412348", 678908L);               // (01)
-        String sscc = GS1Utils.generateSSCC(3, "8412348", 12345L);                  // (00)
-        String aiProd = GS1Utils.ai01(gtin);                                       // "(01)..."
-        String aiCant = GS1Utils.ai37(10);                                         // "(37)10"
-        String aiLote = GS1Utils.ai10("A1B2C3");                                   // "(10)A1B2C3"
-        String aiCaduc = GS1Utils.ai15(LocalDate.of(2025, 12, 31));                 // "(15)251231"
-        String aiPalet = GS1Utils.ai00(sscc);                                       // "(00)..."
+    /**
+     * Crea un PDF A6 apaisado con:
+     * - Remitente / destinatario / descripción
+     * - Código GS1-128 con SSCC (AI(00))
+     *
+     * @param sscc             SSCC (18 dígitos, sin AI)
+     * @param remitente        texto libre
+     * @param destinatario     texto libre
+     * @param descripcionCarga ej. "PALET MIXTO", "PALET GRANEL", etc.
+     * @param out              OutputStream donde escribir el PDF
+     */
+    public static void crearEtiquetaPaletMixto(String sscc,
+                                               String remitente,
+                                               String destinatario,
+                                               String descripcionCarga,
+                                               OutputStream out) throws Exception {
 
-        // Ejemplos de cadenas GS1-128:
-        // a) Producto con cantidad
-        String gs1ProductoSimple = aiProd + aiCant;                       // "(01)...(37)10"
-        // b) Producto con lote (variable) + fecha + cantidad
-        String gs1ProductoDetallado = aiProd + aiLote + aiCaduc + aiCant; // "(01)...(10)...(15)...(37)10"
-        // c) SSCC del palet
-        String gs1SSCC = aiPalet;                                         // "(00)..."
+        // Validación SSCC
+        if (sscc == null || sscc.length() != 18 || !sscc.matches("\\d+")) {
+            throw new IllegalArgumentException("SSCC debe tener 18 dígitos numéricos");
+        }
 
-        // === 2) Renderizas en PDF ===
+        String aiSSCC = GS1Utils.ai00(sscc); // "(00)3xxxxxxxxxxxxxxx"
+
         Document doc = new Document(PageSize.A6.rotate());
         doc.setMargins(10, 10, 10, 10);
-        PdfWriter writer = PdfWriter.getInstance(doc, new java.io.FileOutputStream("etiqueta-sscc.pdf"));
+        PdfWriter writer = PdfWriter.getInstance(doc, out);
         doc.open();
 
-        Font f = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
-        doc.add(new Paragraph("REMITE: Almacen Intermedio Vigo S.L.", f));
-        doc.add(new Paragraph("DESTINATARIO: Librería Gallega S.A.", f));
-        doc.add(new Paragraph("CONTENIDO: PALLET MIXTO", f));
+        Font fHeader = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
+        Font fNormal = new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL);
+
+        if (remitente != null && !remitente.isEmpty()) {
+            doc.add(new Paragraph("REMITE: " + remitente, fHeader));
+        }
+        if (destinatario != null && !destinatario.isEmpty()) {
+            doc.add(new Paragraph("DESTINATARIO: " + destinatario, fHeader));
+        }
+        if (descripcionCarga != null && !descripcionCarga.isEmpty()) {
+            doc.add(new Paragraph("CONTENIDO: " + descripcionCarga, fHeader));
+        }
+
+        doc.add(new Paragraph(" ", fNormal)); // pequeño espacio
 
         float usableWidth = doc.getPageSize().getWidth() - doc.leftMargin() - doc.rightMargin();
 
-        // --- Código 1: Producto (simple) ---
-        Image img1 = gs1Image(writer, gs1ProductoSimple);     // "(01)...(37)..."
-        fit(img1, usableWidth, 40f, 6f, 6f);
-        doc.add(img1);
-
-        // --- Código 2: Producto (detallado con lote y fecha) ---
-        Image img2 = gs1Image(writer, gs1ProductoDetallado);  // "(01)...(10)...(15)...(37)..."
-        fit(img2, usableWidth, 40f, 0f, 10f);
-        doc.add(img2);
-
-        // (Aquí podrías añadir tu tabla con setSpacingBefore(...) para separar)
-        // ...
-
-        // --- Código 3: SSCC del palet ---
-        Image img3 = gs1Image(writer, gs1SSCC);               // "(00)..."
-        fit(img3, usableWidth, 45f, 8f, 0f);
-        doc.add(img3);
+        // --- ÚNICO código GS1-128: SSCC del palet ---
+        Image imgSSCC = gs1Image(writer, aiSSCC);   // "(00)..."
+        fit(imgSSCC, usableWidth, 45f, 8f, 0f);
+        doc.add(imgSSCC);
 
         doc.close();
-        System.out.println("PDF listo: etiqueta-sscc.pdf");
     }
+
+
 }

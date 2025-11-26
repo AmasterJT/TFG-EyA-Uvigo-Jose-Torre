@@ -285,7 +285,7 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                  <Tab text="Crear Palet">
+                  <Tab text="Introducir Palet Nuevo">
                      <content>
                         <AnchorPane>
                            <children>

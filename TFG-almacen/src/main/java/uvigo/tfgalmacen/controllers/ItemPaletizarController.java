@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.RutasFicheros.WINDOW_MODIFICAR_CANTIDAD_FXML;
+import static uvigo.tfgalmacen.database.DetallesPedidoDAO.actualizarEstadoProductoPedido;
 import static uvigo.tfgalmacen.database.ProductoDAO.getIdProductoByIdentificadorProducto;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 
@@ -89,6 +90,9 @@ public class ItemPaletizarController implements Initializable {
             mover_producto_listo_en_pedido_btn.setOnAction(_ -> {
                 if (paletizarParent != null) {
                     paletizarParent.moverItemAProductosEnPalet(this);
+
+                    actualizarEstadoProductoPedido(Main.connection, id_detalle_BDD, true);
+
                 } else {
                     LOGGER.warning("paletizarParent es null en ItemPaletizarController al intentar mover el item.");
                 }
@@ -132,13 +136,11 @@ public class ItemPaletizarController implements Initializable {
 
 
     private void openWindowAsync(String fxmlPath, String title, Stage owner) {
-        // Creamos el loader fuera para poder reutilizarlo en onSucceeded
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
 
         Task<Parent> task = new Task<>() {
             @Override
             protected Parent call() throws Exception {
-                // Cargamos el FXML (en hilo en segundo plano)
                 return loader.load();
             }
         };
@@ -147,12 +149,8 @@ public class ItemPaletizarController implements Initializable {
             try {
                 Parent root = task.getValue();
 
-                // AHORA sí, el controller existe
                 modificarCantidadPaletizarController controller = loader.getController();
-                // Pasa aquí los datos que necesitas
                 controller.setData(cantidad_detalle_pedido_label.getText(), id_detalle_BDD);
-                // Si quieres, también puedes pasar el id de BD:
-                // controller.setData(cantidad_detalle_pedido_label.getText(), id_BDD);
 
                 Stage win = crearStageBasico(root, true, title);
                 if (owner != null) {
@@ -160,6 +158,16 @@ public class ItemPaletizarController implements Initializable {
                     win.initModality(Modality.WINDOW_MODAL);
                     win.initStyle(StageStyle.TRANSPARENT);
                 }
+
+                // 🔹 Cuando se cierre esta ventana, refrescamos el grid de origen
+                win.setOnHidden(e -> {
+                    if (paletizarParent != null) {
+                        paletizarParent.refrescarGridDeOrigenTrasSplit(ItemPaletizarController.this);
+                    } else {
+                        LOGGER.warning("paletizarParent es null al intentar refrescar tras split.");
+                    }
+                });
+
                 win.showAndWait();
                 LOGGER.fine(() -> "Ventana abierta: " + title);
             } catch (Exception e) {
@@ -246,6 +254,7 @@ public class ItemPaletizarController implements Initializable {
         quitarDePalet.setOnAction(_ -> {
             if (paletizarParent != null && esta_en_palet) {
                 paletizarParent.devolverItemAOrigen(this);
+                actualizarEstadoProductoPedido(Main.connection, id_detalle_BDD, false);
             } else {
                 LOGGER.fine("ContextMenu: 'Quitar de palet' ignorado (no está en palet o parent null).");
             }

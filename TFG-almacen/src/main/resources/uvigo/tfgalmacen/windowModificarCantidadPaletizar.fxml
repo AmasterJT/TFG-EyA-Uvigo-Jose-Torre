@@ -66,9 +66,9 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                                        <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../icons/split-32.png" />
+                                                <Image url="@../../icons/edit-50.png" />
                                             </image>
                                         </ImageView>
                                     </graphic>

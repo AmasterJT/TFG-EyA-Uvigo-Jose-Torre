@@ -20,6 +20,9 @@ public class PedidoDAO {
 
     private static final Logger LOGGER = Logger.getLogger(PedidoDAO.class.getName());
 
+    public static final List<String> ESTADOS_VALIDOS = List.of("Pendiente", "Completado", "En proceso", "Cancelado", "Enviado");
+    static final List<String> HORAS_VALIDAS = List.of("primera_hora", "segunda_hora");
+
     static {
         LOGGER.setLevel(Level.ALL);
         LOGGER.setUseParentHandlers(false);
@@ -103,19 +106,23 @@ public class PedidoDAO {
     private static final String SELECT_PEDIDOS_BY_ESTADO_SQL = "SELECT * FROM pedidos WHERE estado = ?";
 
     public static List<Pedido> getPedidosPendientes(Connection connection) {
-        return getPedidosPorEstado(connection, "Pendiente");
+        return getPedidosPorEstado(connection, ESTADOS_VALIDOS.getFirst());
     }
 
     public static List<Pedido> getPedidosEnProceso(Connection connection) {
-        return getPedidosPorEstado(connection, "En proceso");
+        return getPedidosPorEstado(connection, ESTADOS_VALIDOS.get(2));
     }
 
     public static List<Pedido> getPedidosCancelados(Connection connection) {
-        return getPedidosPorEstado(connection, "Cancelado");
+        return getPedidosPorEstado(connection, ESTADOS_VALIDOS.get(3));
     }
 
     public static List<Pedido> getPedidosCompletados(Connection connection) {
-        return getPedidosPorEstado(connection, "Completado");
+        return getPedidosPorEstado(connection, ESTADOS_VALIDOS.get(1));
+    }
+
+    public static List<Pedido> getPedidosEnviados(Connection connection) {
+        return getPedidosPorEstado(connection, ESTADOS_VALIDOS.get(1));
     }
 
     private static List<Pedido> getPedidosPorEstado(Connection connection, String estado) {
@@ -161,8 +168,6 @@ public class PedidoDAO {
             return;
         }
 
-        final List<String> ESTADOS_VALIDOS = List.of("Pendiente", "Completado", "En proceso", "Cancelado");
-        final List<String> HORAS_VALIDAS = List.of("primera_hora", "segunda_hora");
 
         if (!ESTADOS_VALIDOS.contains(nuevoEstado)) {
             LOGGER.warning("Estado no válido: " + nuevoEstado);
@@ -543,17 +548,18 @@ public class PedidoDAO {
      *
      * @param connection       conexión activa a la base de datos (no debe ser nula)
      * @param codigoReferencia código de referencia único del pedido
-     * @return {@code true} si se actualizó exactamente una fila, {@code false} en caso contrario
      */
-    public static boolean marcarPedidoCompletadoSinUsuarioPorCodigo(Connection connection,
-                                                                    String codigoReferencia) {
+    public static void marcarPedidoCompletadoSinUsuarioPorCodigo(Connection connection,
+                                                                 String codigoReferencia) {
+
+        System.out.println("OSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSO: " + codigoReferencia);
         if (connection == null) {
             LOGGER.severe("No se puede marcar pedido como completado: conexión nula recibida.");
-            return false;
+            return;
         }
         if (codigoReferencia == null || codigoReferencia.isBlank()) {
             LOGGER.warning("codigoReferencia vacío o nulo en marcarPedidoCompletadoSinUsuarioPorCodigo()");
-            return false;
+            return;
         }
 
         try (PreparedStatement ps = connection.prepareStatement(UPDATE_COMPLETADO_SIN_USUARIO_BY_CODIGO_SQL)) {
@@ -565,17 +571,14 @@ public class PedidoDAO {
                 LOGGER.info(() -> String.format(
                         "Pedido con codigo_referencia='%s' marcado como 'Completado' y id_usuario=NULL.",
                         codigoReferencia));
-                return true;
             } else if (rows == 0) {
                 LOGGER.warning(() -> "No se encontró ningún pedido con codigo_referencia='" + codigoReferencia + "'.");
-                return false;
             } else {
                 // En teoría no debería pasar porque codigo_referencia es UNIQUE
                 LOGGER.warning(() -> String.format(
                         "Se actualizaron %d filas para codigo_referencia='%s'. " +
                                 "Revisa la unicidad del campo en la BD.",
                         rows, codigoReferencia));
-                return false;
             }
 
         } catch (SQLException e) {
@@ -583,7 +586,6 @@ public class PedidoDAO {
                     String.format("Error al marcar como completado el pedido con codigo_referencia='%s'.",
                             codigoReferencia),
                     e);
-            return false;
         }
     }
 
@@ -817,4 +819,32 @@ public class PedidoDAO {
 
         return false;
     }
+
+    private static final String SELECT_CODIGO_REFERENCIA_BY_ID =
+            "SELECT codigo_referencia FROM pedidos WHERE id_pedido = ?";
+
+    public static String getCodigoReferenciaById(Connection conn, int idPedido) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getCodigoReferenciaById()");
+            return null;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SELECT_CODIGO_REFERENCIA_BY_ID)) {
+
+            ps.setInt(1, idPedido);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("codigo_referencia");
+                }
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE,
+                    "Error obteniendo codigo_referencia para id_pedido=" + idPedido, e);
+        }
+
+        return null; // no encontrado
+    }
+
 }

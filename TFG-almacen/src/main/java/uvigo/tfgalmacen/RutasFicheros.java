@@ -15,6 +15,7 @@ public class RutasFicheros {
     public static final String APARTADO_INVENTARIO_FXML = "/uvigo/tfgalmacen/apartadoInventario.fxml";
     public static final String APARTADO_PEDIDOS_FXML = "/uvigo/tfgalmacen/apartadoPedido.fxml";
     public static final String APARTADO_PALETIZAR_FXML = "/uvigo/tfgalmacen/apartadoPaletizar.fxml";
+    public static final String APARTADO_ENVIO_FXML = "/uvigo/tfgalmacen/apartadoEnvio.fxml";
 
     public static final String ITEM_DETALLE_PEDIDO_FXML = "/uvigo/tfgalmacen/items/itemDetallesPedido.fxml";
     public static final String ITEM_INVENTARIO_FXML = "/uvigo/tfgalmacen/items/itemInventario.fxml";
@@ -22,6 +23,7 @@ public class RutasFicheros {
     public static final String ITEM_PEDIDO_FXML = "/uvigo/tfgalmacen/items/itemPedidos.fxml";
     public static final String ITEM_PALETIZAR_FXML = "/uvigo/tfgalmacen/items/itemPaletizar.fxml";
     public static final String ITEM_PALET_FINAL_FXML = "/uvigo/tfgalmacen/items/itemPaletFinal.fxml";
+    public static final String ITEM_ENVIO_FXML = "/uvigo/tfgalmacen/items/itemPaletEnvio.fxml";
 
     public static final String WINDOW_AJUSTES_CREAR_PEDIDOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesPedidos/windowAjustesCrearPedidos.fxml";
     public static final String WINDOW_AJUSTES_EDITAR_PEDIDOS_FXML = "/uvigo/tfgalmacen/ventanasAjustes/ajustesPedidos/windowAjustesEditarPedidos.fxml";
@@ -45,6 +47,7 @@ public class RutasFicheros {
 
     public static final String WINDOW_MOVIMIENTO_FXML = "/uvigo/tfgalmacen/windowMovimientos.fxml";
     public static final String WINDOW_EXPORTAR_DATA_FXML = "/uvigo/tfgalmacen/windowExportData.fxml";
+    public static final String WINDOW_GENERAR_ENVIO_FXML = "/uvigo/tfgalmacen/windowGenerarPedido.fxml";
 
 
     public static final String CSS_COLORS = "/uvigo/tfgalmacen/css/Colors.css";

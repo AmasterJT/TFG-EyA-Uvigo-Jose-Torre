@@ -11,6 +11,8 @@ public class DataConfig {
     static String PASSWORD;
     static String DATABASE_NAME;
     static String DRIVER;
+    public static String COMPANY_GS1_CODE;
+    public static String COMPANY_NAME;
 
     static Properties properties = new Properties();
 
@@ -25,6 +27,8 @@ public class DataConfig {
             PASSWORD = properties.getProperty("password");
             DATABASE_NAME = properties.getProperty("database_name");
             DRIVER = properties.getProperty("driver");
+            COMPANY_GS1_CODE = properties.getProperty("company_gs1_code");
+            COMPANY_NAME = properties.getProperty("nombre_empesa");
 
             URL = URL + DATABASE_NAME;
 
@@ -36,7 +40,7 @@ public class DataConfig {
     }
 
 
-    public static void setCurrentUser(String name, String role){
+    public static void setCurrentUser(String name, String role) {
         properties.setProperty("current_user_name", name);
         properties.setProperty("current_user_role", role);
     }

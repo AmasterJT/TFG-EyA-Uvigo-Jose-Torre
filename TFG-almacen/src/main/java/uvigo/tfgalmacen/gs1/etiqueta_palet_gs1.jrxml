@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport
+        xmlns="http://jasperreports.sourceforge.net/jasperreports"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components"
+        xsi:schemaLocation="
+          http://jasperreports.sourceforge.net/jasperreports
+          http://jasperreports.sourceforge.net/xsd/jasperreport.xsd
+          http://jasperreports.sourceforge.net/jasperreports/components
+          http://jasperreports.sourceforge.net/xsd/components.xsd"
+        name="etiqueta_palet_gs1"
+        pageWidth="400" pageHeight="250"
+        columnWidth="380"
+        leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10"
+        uuid="11111111-1111-1111-1111-111111111111">
+
+    <!-- ========== PARÁMETROS ========== -->
+    <parameter name="SSCC" class="java.lang.String"/>
+    <parameter name="CODIGO_PEDIDO" class="java.lang.String"/>
+    <parameter name="CLIENTE" class="java.lang.String"/>
+    <parameter name="DIRECCION" class="java.lang.String"/>
+    <parameter name="FECHA" class="java.lang.String"/>
+    <parameter name="TEXTO_EXTRA" class="java.lang.String"/>
+
+    <!-- ========== FUENTES (opcional) ========== -->
+    <style name="Base" isDefault="true" fontName="SansSerif" fontSize="10"/>
+
+    <!-- ========== TITULO ========== -->
+    <title>
+        <band height="30">
+            <staticText>
+                <reportElement x="0" y="5" width="380" height="20" uuid="22222222-2222-2222-2222-222222222222"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[ETIQUETA PALET GS1]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <!-- ========== DETALLE (cuerpo de la etiqueta) ========== -->
+    <detail>
+        <band height="200">
+
+            <!-- Cliente -->
+            <staticText>
+                <reportElement x="0" y="0" width="80" height="15" uuid="33333333-3333-3333-3333-333333333333"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Cliente:]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="80" y="0" width="300" height="15" uuid="44444444-4444-4444-4444-444444444444"/>
+                <textFieldExpression><![CDATA[$P{CLIENTE}]]></textFieldExpression>
+            </textField>
+
+            <!-- Dirección -->
+            <staticText>
+                <reportElement x="0" y="18" width="80" height="15" uuid="55555555-5555-5555-5555-555555555555"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Dirección:]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="80" y="18" width="300" height="30" uuid="66666666-6666-6666-6666-666666666666"/>
+                <textFieldExpression><![CDATA[$P{DIRECCION}]]></textFieldExpression>
+            </textField>
+
+            <!-- Pedido -->
+            <staticText>
+                <reportElement x="0" y="52" width="80" height="15" uuid="77777777-7777-7777-7777-777777777777"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Pedido:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="80" y="52" width="150" height="15" uuid="88888888-8888-8888-8888-888888888888"/>
+                <textFieldExpression><![CDATA[$P{CODIGO_PEDIDO}]]></textFieldExpression>
+            </textField>
+
+            <!-- Fecha -->
+            <staticText>
+                <reportElement x="240" y="52" width="50" height="15" uuid="99999999-9999-9999-9999-999999999999"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Fecha:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="290" y="52" width="90" height="15" uuid="aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"/>
+                <textFieldExpression><![CDATA[$P{FECHA}]]></textFieldExpression>
+            </textField>
+
+            <!-- SSCC texto -->
+            <staticText>
+                <reportElement x="0" y="75" width="80" height="15" uuid="bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[SSCC (00):]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="80" y="75" width="300" height="15" uuid="cccccccc-cccc-cccc-cccc-cccccccccccc"/>
+                <textFieldExpression><![CDATA[$P{SSCC}]]></textFieldExpression>
+            </textField>
+
+            <!-- CÓDIGO DE BARRAS (Code128 / GS1-128) -->
+            <componentElement>
+                <reportElement x="10" y="95" width="360" height="60" uuid="dddddddd-dddd-dddd-dddd-dddddddddddd"/>
+                <jr:barbecue
+                        type="Code128"
+                        drawText="true"
+                        checksumRequired="false"
+                        applicationIdentifier="true">
+                    <!-- Aquí puedes poner "(00)" + SSCC si quieres mostrar el AI -->
+                    <jr:codeExpression><![CDATA["(00)" + $P{SSCC}]]></jr:codeExpression>
+                </jr:barbecue>
+            </componentElement>
+
+            <!-- Texto extra (opcional) -->
+            <textField isStretchWithOverflow="true">
+                <reportElement x="0" y="160" width="380" height="30" uuid="eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"/>
+                <textElement textAlignment="Center">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{TEXTO_EXTRA}]]></textFieldExpression>
+            </textField>
+
+        </band>
+    </detail>
+
+</jasperReport>

@@ -1,12 +1,11 @@
 package uvigo.tfgalmacen.database;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import uvigo.tfgalmacen.PaletSalida;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 public class PaletSalidaDAO {
@@ -25,6 +24,40 @@ public class PaletSalidaDAO {
         for (var h : root.getHandlers()) {
             h.setLevel(Level.ALL);
         }
+    }
+
+    public static PaletSalida getPaletSalidaById(Connection conn, int idPaletSalida) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getPaletSalidaById()");
+            return null;
+        }
+
+        final String SQL = """
+                SELECT id_palet_salida, sscc, cantidad_total, numero_productos, id_pedido
+                FROM palet_salida
+                WHERE id_palet_salida = ?
+                """;
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL)) {
+            ps.setInt(1, idPaletSalida);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new PaletSalida(
+                            rs.getInt("id_palet_salida"),
+                            rs.getInt("id_pedido"),
+                            rs.getString("sscc"),
+                            rs.getInt("cantidad_total"),
+                            rs.getInt("numero_productos")
+                    );
+                }
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error obteniendo PaletSalida con id=" + idPaletSalida, e);
+        }
+
+        return null;
     }
 
 
@@ -177,4 +210,44 @@ public class PaletSalidaDAO {
         }
         return lista;
     }
+
+
+    private static final String SELECT_PALETS_SALIDA_AGRUPADOS_SQL = """
+            SELECT id_pedido, id_palet_salida
+            FROM palet_salida
+            ORDER BY id_pedido, id_palet_salida
+            """;
+
+    /**
+     * Devuelve un mapa: id_pedido -> lista de id_palet_salida asociados.
+     * Solo considera pedidos que tienen al menos un palet_salida.
+     */
+    public static Map<Integer, List<Integer>> getPaletsSalidaAgrupadosPorPedido(Connection conn) {
+        Map<Integer, List<Integer>> resultado = new LinkedHashMap<>();
+
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getPaletsSalidaAgrupadosPorPedido()");
+            return resultado;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SELECT_PALETS_SALIDA_AGRUPADOS_SQL);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int idPedido = rs.getInt("id_pedido");
+                int idPaletSalida = rs.getInt("id_palet_salida");
+
+                resultado
+                        .computeIfAbsent(idPedido, _k -> new ArrayList<>())
+                        .add(idPaletSalida);
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error obteniendo palets_salida agrupados por pedido", e);
+        }
+
+        return resultado;
+    }
+
+
 }

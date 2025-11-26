@@ -33,6 +33,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.RutasFicheros.*;
+import static uvigo.tfgalmacen.database.PedidoDAO.ESTADOS_VALIDOS;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_warning;
 
@@ -61,7 +62,7 @@ public class pedidosController {
     }
 
 
-    public static final List<String> ESTADOS_DEL_PEDIDO = List.of("Pendiente", "En proceso", "Cancelado", "Completado");
+    public static final List<String> ESTADOS_DEL_PEDIDO = ESTADOS_VALIDOS;
     private static final String ESTADO_PENDIENTE = ESTADOS_DEL_PEDIDO.get(0);
     private static final String ESTADO_EN_PROCESO = ESTADOS_DEL_PEDIDO.get(1);
 

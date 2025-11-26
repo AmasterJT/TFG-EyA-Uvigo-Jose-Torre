@@ -104,7 +104,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button fx:id="movimiento_btn" mnemonicParsing="false" prefWidth="110.0" styleClass="menuItem" text="TRASLADAR" textFill="WHITE">
+                        <Button fx:id="movimiento_btn" mnemonicParsing="false" prefWidth="110.0" styleClass="menuItem" text="MOVIMIENTO PALETS" textFill="WHITE" wrapText="true">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                     <Image url="@../../icons/add.png" />
@@ -199,7 +199,7 @@
                     <Button fx:id="pedidosButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="VER PEDIDOS" textFill="WHITE">
                         <graphic>
                             <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                <Image url="@../../icons/truck-50.png" />
+                                <Image url="@../../icons/pedido-64.png" />
                             </ImageView>
                         </graphic>
                         <VBox.margin>
@@ -228,6 +228,24 @@
                             <Font name="System Bold" size="12.0" />
                         </font>
                     </Button>
+               <Button fx:id="envioButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="ENVÍOS" textFill="WHITE" wrapText="true">
+                  <graphic>
+                     <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../icons/truck-50.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+                  <VBox.margin>
+                     <Insets top="10.0" />
+                  </VBox.margin>
+               </Button>
                     <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                     <Button fx:id="ajustesButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="AJUSTES" textFill="WHITE">
                         <graphic>
