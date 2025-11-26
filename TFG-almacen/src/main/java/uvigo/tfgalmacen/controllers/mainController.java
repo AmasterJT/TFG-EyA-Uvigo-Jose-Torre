@@ -129,6 +129,9 @@ public class mainController implements Initializable {
     private Button ajustes_crear_tipo_btn;
 
     @FXML
+    private Button actualizar_palet_btn;
+
+    @FXML
     private Button movimiento_btn;
 
     @FXML
@@ -206,6 +209,15 @@ public class mainController implements Initializable {
 
         ajustes_crear_proveedor_btn.setOnMouseClicked(_ -> abrirVentanaCrearProveedor());
         ajustes_crear_proveedor_btn.setTooltip(new Tooltip("Crear nuevo porveedor"));
+
+        actualizar_palet_btn.setOnMouseClicked(_ -> {
+            try {
+                abrirVentanaActualizarPalet();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        actualizar_palet_btn.setTooltip(new Tooltip("Modificar los datos del palet"));
 
 
         export_data_btn.setOnMouseClicked(_ -> {
@@ -408,9 +420,15 @@ public class mainController implements Initializable {
         openWindowAsync(WINDOW_EXPORTAR_DATA_FXML, "Exportar datos", owner);
     }
 
+    private void abrirVentanaActualizarPalet() throws SQLException {
+
+        Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
+        openWindowAsyncCallback(WINDOW_ACTUALIZAR_PALET_FXML, "Exportar datos", owner, this::loadAlmacenView);
+    }
+
     private void abrirVentanaMovimiento() {
         Stage owner = (Stage) ajustes_crear_usuario_btn.getScene().getWindow();
-        openWindowAsyncCallback(WINDOW_MOVIMIENTO_FXML, "Crear nuevo Proveedor", owner, this::loadAlmacenView);   // callback que se ejecuta al cerrar);
+        openWindowAsyncCallback(WINDOW_MOVIMIENTO_FXML, "Actualizar Palet", owner, this::loadAlmacenView);   // callback que se ejecuta al cerrar);
     }
 
 

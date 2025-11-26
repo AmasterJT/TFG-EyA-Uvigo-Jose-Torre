@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="Pane" styleClass="principalWindow" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.windowModificarPaletController">
+    <children>
+        <BorderPane styleClass="backgroundScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" styleClass="windowBar" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="exitItem" stylesheets="@css/Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </Button>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label contentDisplay="RIGHT" text="TFG JTTP " textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="5.0" />
+                            </HBox.margin>
+                        </Label>
+                        <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg" />
+                            </image>
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                        </ImageView>
+                    </children>
+                </HBox>
+            </top>
+            <bottom>
+                <AnchorPane prefHeight="20.0" styleClass="windowBar" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0" />
+                    </children>
+                </AnchorPane>
+            </bottom>
+         <center>
+                    <AnchorPane fx:id="traslado_stage" minHeight="0.0" minWidth="0.0" BorderPane.alignment="CENTER">
+                        <children>
+                            <VBox alignment="CENTER" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                <children>
+                                    <HBox alignment="CENTER" spacing="5.0">
+                                        <children>
+                                            <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../../icons/update-50.png" />
+                                                </image>
+                                            </ImageView>
+                                            <Label text="ACTUALIZAR PALET">
+                                                <font>
+                                                    <Font name="System Bold" size="15.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                        <VBox.margin>
+                                            <Insets bottom="10.0" />
+                                        </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER" style="-fx-background-color: #222; -fx-background-radius: 10;">
+                                        <children>
+                                            <VBox alignment="TOP_CENTER" minWidth="180.0" prefHeight="193.0" style="-fx-border-radius: 10; -fx-border-color: white;">
+                                                <children>
+                                                    <ComboBox fx:id="combo_seleccionar_palet" editable="true" prefWidth="150.0" promptText="Seleccionar Palet">
+                                                        <VBox.margin>
+                                                            <Insets bottom="10.0" top="20.0" />
+                                                        </VBox.margin>
+                                                    </ComboBox>
+                                                    <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                        <image>
+                                                            <Image url="@../../img/palet.PNG" />
+                                                        </image>
+                                                        <VBox.margin>
+                                                            <Insets bottom="10.0" top="20.0" />
+                                                        </VBox.margin>
+                                                    </ImageView>
+                                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                        <children>
+                                                            <Label fx:id="identificador_producto" text="Producto" textFill="WHITE" wrapText="true">
+                                                                <font>
+                                                                    <Font name="FiraCode Nerd Font Bold" size="13.0" />
+                                                                </font>
+                                                            </Label>
+                                                        </children>
+                                                    </HBox>
+                                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                        <children>
+                                                            <Label fx:id="identificador_tipo" text="tipo" textFill="WHITE" />
+                                                        </children>
+                                                    </HBox>
+                                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                                        <children>
+                                                            <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                                <image>
+                                                                    <Image url="@../../icons/location-pin-24-white.png" />
+                                                                </image>
+                                                            </ImageView>
+                                                            <Label text="Posicion actual:" textFill="WHITE" />
+                                                        </children>
+                                                        <VBox.margin>
+                                                            <Insets bottom="5.0" top="20.0" />
+                                                        </VBox.margin>
+                                                    </HBox>
+                                                    <HBox alignment="CENTER" prefHeight="100.0">
+                                                        <children>
+                                                            <Label text="E: " textFill="WHITE">
+                                                                <font>
+                                                                    <Font name="System Bold" size="10.0" />
+                                                                </font>
+                                                            </Label>
+                                                            <Label fx:id="estanteria_actual_Label" minWidth="20.0" textFill="WHITE">
+                                                                <font>
+                                                                    <Font size="10.0" />
+                                                                </font>
+                                                            </Label>
+                                                            <Region fx:id="spacer1" HBox.hgrow="ALWAYS" />
+                                                            <Label text="B: " textFill="WHITE">
+                                                                <font>
+                                                                    <Font name="System Bold" size="10.0" />
+                                                                </font>
+                                                            </Label>
+                                                            <Label fx:id="balda_actual_Label" minWidth="20.0" textFill="WHITE">
+                                                                <font>
+                                                                    <Font size="10.0" />
+                                                                </font>
+                                                            </Label>
+                                                            <Region fx:id="spacer2" HBox.hgrow="ALWAYS" />
+                                                            <Label text="P: " textFill="WHITE">
+                                                                <font>
+                                                                    <Font name="System Bold" size="10.0" />
+                                                                </font>
+                                                            </Label>
+                                                            <Label fx:id="posicion_actual_Label" minWidth="20.0" textFill="WHITE">
+                                                                <font>
+                                                                    <Font size="10.0" />
+                                                                </font>
+                                                            </Label>
+                                                            <Region fx:id="spacer3" HBox.hgrow="ALWAYS" />
+                                                            <Label text="Del: " textFill="WHITE">
+                                                                <font>
+                                                                    <Font name="System Bold" size="10.0" />
+                                                                </font>
+                                                            </Label>
+                                                            <Label fx:id="delante_actual_Label" minWidth="30.0" textFill="WHITE">
+                                                                <font>
+                                                                    <Font size="10.0" />
+                                                                </font>
+                                                            </Label>
+                                                        </children>
+                                                        <opaqueInsets>
+                                                            <Insets />
+                                                        </opaqueInsets>
+                                                        <VBox.margin>
+                                                            <Insets bottom="30.0" left="20.0" right="10.0" top="5.0" />
+                                                        </VBox.margin>
+                                                    </HBox>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <Label styleClass="texto-label-bold" text="CANTIDAD: ">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="cantidad_crear_palet_text" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" text="ALTO" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="alto_crear_palet_text" minWidth="45.0" prefWidth="45.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" />
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" text="ANCHO" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" right="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="ancho_crear_palet_text" minWidth="45.0" prefWidth="45.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" />
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" text="PROFUNDO" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" right="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="profundo_crear_palet_text" minWidth="45.0" prefWidth="45.0" style="-fx-background-color: #333; -fx-text-fill: white;" styleClass="transparent" />
+                                       </children>
+                                    </HBox>
+                                                </children>
+                                                <padding>
+                                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                                </padding>
+                                                <HBox.margin>
+                                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                </HBox.margin>
+                                            </VBox>
+                                        </children>
+                                        <padding>
+                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                        </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                                        <children>
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Button fx:id="actualizar_palet_btn" mnemonicParsing="false" prefHeight="30.0" styleClass="generar_compra" text="MOVER PALET" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="12.0" />
+                                                </font>
+                                                <graphic>
+                                                    <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                        <image>
+                                                            <Image url="@../../icons/update-50-white.png" />
+                                                        </image>
+                                                    </ImageView>
+                                                </graphic>
+                                                <padding>
+                                                    <Insets left="10.0" right="10.0" />
+                                                </padding>
+                                            </Button>
+                                        </children>
+                                        <VBox.margin>
+                                            <Insets />
+                                        </VBox.margin>
+                                        <opaqueInsets>
+                                            <Insets />
+                                        </opaqueInsets>
+                                    </HBox>
+                                </children>
+                                <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                </padding>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+         </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

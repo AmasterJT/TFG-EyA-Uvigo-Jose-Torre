@@ -189,6 +189,55 @@ public class PaletDAO {
     }
 
 
+    private static final String UPDATE_PALET_BASICO_SQL = """
+            UPDATE palets
+               SET cantidad_de_producto = ?,
+                   alto = ?,
+                   ancho = ?,
+                   largo = ?
+             WHERE identificador = ?
+            """;
+
+    /**
+     * Actualiza cantidad y dimensiones de un palet.
+     *
+     * @param conn          conexión activa
+     * @param idPalet       id_palet (PK)
+     * @param nuevaCantidad nuevo valor para cantidad_de_producto
+     * @param nuevoAlto     nuevo alto
+     * @param nuevoAncho    nuevo ancho
+     * @param nuevoLargo    nuevo largo
+     * @return true si se actualizó al menos una fila
+     */
+    public static boolean updatePaletDatosBasicos(Connection conn,
+                                                  int idPalet,
+                                                  int nuevaCantidad,
+                                                  int nuevoAlto,
+                                                  int nuevoAncho,
+                                                  int nuevoLargo) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en updatePaletDatosBasicos()");
+            return false;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(UPDATE_PALET_BASICO_SQL)) {
+            ps.setInt(1, nuevaCantidad);
+            ps.setInt(2, nuevoAlto);
+            ps.setInt(3, nuevoAncho);
+            ps.setInt(4, nuevoLargo);
+            ps.setInt(5, idPalet);
+
+            int updated = ps.executeUpdate();
+            LOGGER.info(() -> "updatePaletDatosBasicos -> filas actualizadas: " + updated
+                    + " (id_palet=" + idPalet + ")");
+            return updated > 0;
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error actualizando palet id=" + idPalet, e);
+            return false;
+        }
+    }
+
     private static final String DELETE_PALET_BY_IDENTIFICADOR_SQL = "DELETE FROM palets WHERE identificador = ?";
 
     public static void deletePaletByIdentificador(Connection cn, int identificadorPalet) throws SQLException {
