@@ -84,6 +84,9 @@ public class windowAjustesEditarPedidosController {
     private ListView<Parent> list_productos_del_pedido;
 
     @FXML
+    private HBox windowBar;
+
+    @FXML
     private ListView<Parent> list_productos_agregados_crear_pedido;
 
 
@@ -95,6 +98,7 @@ public class windowAjustesEditarPedidosController {
         });
 
         inicializarComboBoxes();
+        // ... tus checks de inyección y resto de código ...
 
         configurarListViewConMenuContextual();
 
@@ -116,7 +120,7 @@ public class windowAjustesEditarPedidosController {
         crear_pedidio_btn.setOnMouseClicked(_ -> {
             if (editarPedido()) {
                 // Ventana de aviso (usa tu util existente)
-                ventana_success("Operación completada", "Pedido actualizado", "Los cambios se han guardado correctamente.");
+                ventana_warning("Operación completada", "Pedido actualizado", "Los cambios se han guardado correctamente.");
 
                 // Cerrar la ventana actual
                 Stage stage = (Stage) crear_pedidio_btn.getScene().getWindow();
