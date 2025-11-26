@@ -90,24 +90,38 @@ public class envioController implements Initializable {
     }
 
     private void openWindowAsync(String fxmlPath, String title, Stage owner) {
+        // Creamos el loader AQUÍ para poder usarlo luego
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+
         Task<Parent> task = new Task<>() {
             @Override
             protected Parent call() throws Exception {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+                // Cargamos el FXML en background
                 return loader.load();
             }
         };
 
         task.setOnSucceeded(_ -> {
-            Parent root = task.getValue();
-            Stage win = crearStageBasico(root, true, title);
-            if (owner != null) {
-                win.initOwner(owner);
-                win.initModality(Modality.WINDOW_MODAL);
-                win.initStyle(StageStyle.TRANSPARENT);
+            try {
+                Parent root = task.getValue();
+
+                // <<< OBTENEMOS EL CONTROLLER DE LA VENTANA HIJA >>>
+                windowGenerarPedidoController controllerHijo = loader.getController();
+                if (controllerHijo != null) {
+                    controllerHijo.setEnvioParent(this);  // pasamos referencia al padre
+                }
+
+                Stage win = crearStageBasico(root, true, title);
+                if (owner != null) {
+                    win.initOwner(owner);
+                    win.initModality(Modality.WINDOW_MODAL);
+                    win.initStyle(StageStyle.TRANSPARENT);
+                }
+                win.showAndWait();
+                LOGGER.fine(() -> "Ventana abierta: " + title);
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Error al inicializar ventana hija: " + title, e);
             }
-            win.showAndWait();
-            LOGGER.fine(() -> "Ventana abierta: " + title);
         });
 
         task.setOnFailed(_ -> {
@@ -118,7 +132,6 @@ public class envioController implements Initializable {
 
         FX_BG_EXEC.submit(task);
     }
-
 
     private void limpiarGrid(GridPane grid) {
         grid.getChildren().clear();
@@ -159,49 +172,40 @@ public class envioController implements Initializable {
 
     private void cargarPaletsSalidaEnGrid() {
         limpiarGrid(grid_envio);
+        listaItemsEnvio.clear();   // IMPORTANTE: limpiar también la lista
 
         Connection conn = Main.connection;
-
-        // Mapa real: idPedido → lista de idPaletSalida
         Map<Integer, List<Integer>> mapa =
                 PaletSalidaDAO.getPaletsSalidaAgrupadosPorPedido(conn);
 
         int row = 0;
 
         for (Map.Entry<Integer, List<Integer>> entry : mapa.entrySet()) {
-
             int idPedido = entry.getKey();
-            List<Integer> paletsSalida = entry.getValue();   // lista de ids
+            List<Integer> paletsSalida = entry.getValue();
 
-            // ===============================
-            //  Columna 0 → Label con idPedido
-            // ===============================
             String codigo_referencia_pedido = getCodigoReferenciaById(Main.connection, idPedido);
             Label lblPedido = new Label(codigo_referencia_pedido);
-
             lblPedido.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: white");
 
             grid_envio.add(lblPedido, 0, row);
             GridPane.setMargin(lblPedido, new Insets(10, 10, 10, 10));
 
-            // ===============================
-            //  Columnas 1..N → Items vacíos
-            // ===============================
             int col = 1;
-
             for (Integer idPaletSalida : paletsSalida) {
                 try {
                     FXMLLoader loader = new FXMLLoader(
-                            getClass().getResource(ITEM_ENVIO_FXML)   // ruta a tu FXML
+                            getClass().getResource(ITEM_ENVIO_FXML)
                     );
                     AnchorPane itemRoot = loader.load();
 
-                    // De momento NO rellenamos datos
                     ItemEnvioController ctrl = loader.getController();
                     listaItemsEnvio.add(ctrl);
-                    // Más adelante pondremos datos:
-                    ctrl.setData(Objects.requireNonNull(PedidoDAO.getPedidoPorCodigo(Main.connection, codigo_referencia_pedido)),
-                            Objects.requireNonNull(PaletSalidaDAO.getPaletSalidaById(Main.connection, idPaletSalida)));
+
+                    ctrl.setData(
+                            Objects.requireNonNull(PedidoDAO.getPedidoPorCodigo(Main.connection, codigo_referencia_pedido)),
+                            Objects.requireNonNull(PaletSalidaDAO.getPaletSalidaById(Main.connection, idPaletSalida))
+                    );
 
                     grid_envio.add(itemRoot, col, row);
                     GridPane.setMargin(itemRoot, new Insets(10));
@@ -217,5 +221,36 @@ public class envioController implements Initializable {
         }
     }
 
+    public void refrescarGridEnvio() {
+        cargarPaletsSalidaEnGrid();
+    }
 
+
+    /**
+     * Devuelve true si TODOS los palets_salida del pedido indicado
+     * tienen ya su etiqueta generada (tieneEtiqueta == true).
+     * Si no hay ningún palet para ese pedido, devuelve false.
+     */
+    public boolean tieneTodasEtiquetasParaPedido(int idPedido) {
+        // Filtramos los items que pertenecen a ese pedido
+        List<ItemEnvioController> itemsDePedido = listaItemsEnvio.stream()
+                .filter(it -> it.getIdPedido() == idPedido)
+                .toList();
+
+        if (itemsDePedido.isEmpty()) {
+            // no hay palets_salida para este pedido → no se puede enviar
+            System.out.println("No hay palets_salida en el grid para el pedido id=" + idPedido);
+            return false;
+        }
+
+        // Todos deben tener etiqueta
+        for (ItemEnvioController it : itemsDePedido) {
+            if (!it.isTieneEtiqueta()) {
+                System.out.println("Pedido id=" + idPedido +
+                        " aún tiene palets sin etiqueta. Ejemplo SSCC=" + it.getSscc());
+                return false;
+            }
+        }
+        return true;
+    }
 }

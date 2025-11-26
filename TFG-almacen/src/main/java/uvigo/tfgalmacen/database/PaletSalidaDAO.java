@@ -212,15 +212,20 @@ public class PaletSalidaDAO {
     }
 
 
-    private static final String SELECT_PALETS_SALIDA_AGRUPADOS_SQL = """
-            SELECT id_pedido, id_palet_salida
-            FROM palet_salida
-            ORDER BY id_pedido, id_palet_salida
-            """;
+    private static final String SELECT_PALETS_SALIDA_AGRUPADOS_SQL =
+            "SELECT ps.id_pedido, ps.id_palet_salida " +
+                    "FROM palet_salida ps " +
+                    "JOIN pedidos p ON ps.id_pedido = p.id_pedido " +
+                    "WHERE p.estado <> 'Enviado' " +           // ⚠ excluir pedidos Enviados
+                    "  AND (p.enviado = 0 OR p.enviado IS NULL) " + // opcional, por si usas el boolean
+                    "ORDER BY ps.id_pedido, ps.id_palet_salida";
+
 
     /**
      * Devuelve un mapa: id_pedido -> lista de id_palet_salida asociados.
-     * Solo considera pedidos que tienen al menos un palet_salida.
+     * Solo considera pedidos que:
+     * - Tienen al menos un palet_salida
+     * - Y NO están en estado 'Enviado'
      */
     public static Map<Integer, List<Integer>> getPaletsSalidaAgrupadosPorPedido(Connection conn) {
         Map<Integer, List<Integer>> resultado = new LinkedHashMap<>();

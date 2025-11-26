@@ -91,10 +91,10 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="ESTADISTICAS" textFill="WHITE">
+                        <Button fx:id="movimiento_btn" mnemonicParsing="false" prefWidth="110.0" styleClass="menuItem" text="MOVIMIENTO PALETS" textFill="WHITE" wrapText="true">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../../icons/report.png" />
+                                    <Image url="@../../icons/add.png" />
                                 </ImageView>
                             </graphic>
                             <font>
@@ -104,10 +104,10 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button fx:id="movimiento_btn" mnemonicParsing="false" prefWidth="110.0" styleClass="menuItem" text="MOVIMIENTO PALETS" textFill="WHITE" wrapText="true">
+                        <Button mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #db9f75;" styleClass="menuItem" text="ACTUALIZAR PALET" textFill="WHITE" wrapText="true">
                             <graphic>
                                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                    <Image url="@../../icons/add.png" />
+                                    <Image url="@../../icons/report.png" />
                                 </ImageView>
                             </graphic>
                             <font>

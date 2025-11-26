@@ -44,6 +44,8 @@ public class ItemEnvioController implements Initializable {
         }
     }
 
+    private boolean tieneEtiqueta = false;
+
     @FXML
     private AnchorPane backgroundAnchorPane;
 
@@ -132,6 +134,7 @@ public class ItemEnvioController implements Initializable {
 
             System.out.println("Etiqueta generada en: " + salida.getAbsolutePath());
 
+            tieneEtiqueta = true;
             ventana_warning("Etiqueta del palet",
                     "Etiqueta generada correctamente:\n\n" +
                             salida.getAbsolutePath(), ""
@@ -232,4 +235,15 @@ public class ItemEnvioController implements Initializable {
     }
 
 
+    public boolean isTieneEtiqueta() {
+        return tieneEtiqueta;
+    }
+
+    public void setTieneEtiqueta(boolean tieneEtiqueta) {
+        this.tieneEtiqueta = tieneEtiqueta;
+    }
+
+    public int getIdPedido() {
+        return pedido.getId_pedido();
+    }
 }

@@ -38,6 +38,7 @@ public class windowGenerarPedidoController implements Initializable {
     private HBox windowBar;
 
     List<Pedido> pedidos;
+    private envioController parent;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,7 +51,6 @@ public class windowGenerarPedidoController implements Initializable {
         // Cargar pedidos completados y no enviados
         cargarPedidosEnCombo();
 
-        combo_pedido_terminado_hora.setStyle("-fx-text-fill: black");
         // Acción del botón: marcar pedido como enviado
         exportar_btn.setOnAction(_ -> marcarPedidoSeleccionadoComoEnviado());
     }
@@ -60,12 +60,10 @@ public class windowGenerarPedidoController implements Initializable {
 
         combo_pedido_terminado_hora.getItems().setAll(pedidos);
 
-        // Cómo se muestra el Pedido en el combo: por ejemplo, código de referencia
         combo_pedido_terminado_hora.setConverter(new StringConverter<>() {
             @Override
             public String toString(Pedido p) {
                 if (p == null) return "";
-                // puedes mostrar más info si quieres
                 return p.getCodigo_referencia();
             }
 
@@ -89,6 +87,23 @@ public class windowGenerarPedidoController implements Initializable {
             return;
         }
 
+        // 1) Comprobar etiquetas mediante el padre
+        if (parent != null) {
+            boolean todasEtiquetas = parent.tieneTodasEtiquetasParaPedido(seleccionado.getId_pedido());
+            if (!todasEtiquetas) {
+                System.out.println("No se puede marcar como ENVIADO: hay palets sin etiqueta para el pedido "
+                        + seleccionado.getCodigo_referencia());
+                // Aquí podrías usar una ventana_warning si quieres:
+                // ventana_warning("No se puede enviar",
+                //      "Faltan etiquetas",
+                //      "Todos los palets del pedido deben tener etiqueta antes de enviarlo.");
+                return;
+            }
+        } else {
+            System.out.println("Advertencia: parent == null, no se ha podido comprobar etiquetas.");
+        }
+
+        // 2) Marcar como enviado en BDD
         boolean ok = marcarPedidoComoEnviado(Main.connection, seleccionado.getId_pedido());
         if (!ok) {
             System.out.println("No se pudo marcar como enviado el pedido " + seleccionado.getCodigo_referencia());
@@ -97,7 +112,21 @@ public class windowGenerarPedidoController implements Initializable {
 
         System.out.println("Pedido marcado como ENVIADO: " + seleccionado.getCodigo_referencia());
 
-        // Refrescar combo para que desaparezca de la lista
+        // 3) Refrescar combo
         cargarPedidosEnCombo();
+
+        // 4) Pedir al padre refrescar el grid
+        if (parent != null) {
+            parent.refrescarGridEnvio();
+        }
+
+        // 5) Cerrar ventana
+        Stage stage = (Stage) exportar_btn.getScene().getWindow();
+        stage.close();
+    }
+
+    // <<< NUEVO SETTER >>>
+    public void setEnvioParent(envioController parent) {
+        this.parent = parent;
     }
 }
