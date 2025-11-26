@@ -38,7 +38,8 @@ public class envioController implements Initializable {
 
     private static final Logger LOGGER = Logger.getLogger(envioController.class.getName());
 
-    private static final ExecutorService FX_BG_EXEC = Executors.newVirtualThreadPerTaskExecutor();
+    // Sustituye virtual threads por un pool normal:
+    private static final ExecutorService FX_BG_EXEC = Executors.newFixedThreadPool(4);  // por ejemplo
 
     static {
         LOGGER.setLevel(Level.ALL);

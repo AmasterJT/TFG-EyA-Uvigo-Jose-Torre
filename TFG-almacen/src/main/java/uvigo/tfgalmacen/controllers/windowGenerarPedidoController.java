@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static uvigo.tfgalmacen.database.PedidoDAO.getPedidosEnviados;
+import static uvigo.tfgalmacen.database.PedidoDAO.*;
 
 public class windowGenerarPedidoController implements Initializable {
 
@@ -28,7 +29,7 @@ public class windowGenerarPedidoController implements Initializable {
     private AnchorPane Pane;
 
     @FXML
-    private ComboBox<?> combo_pedido_terminado_hora;
+    private ComboBox<Pedido> combo_pedido_terminado_hora;
 
     @FXML
     private Button exportar_btn;
@@ -44,12 +45,59 @@ public class windowGenerarPedidoController implements Initializable {
         ExitButton.setOnMouseClicked(_ -> {
             Stage stage = (Stage) ExitButton.getScene().getWindow();
             stage.close();
-
         });
 
-        pedidos = getPedidosEnviados(Main.connection);
+        // Cargar pedidos completados y no enviados
+        cargarPedidosEnCombo();
 
-        System.out.println(pedidos);
+        combo_pedido_terminado_hora.setStyle("-fx-text-fill: black");
+        // Acción del botón: marcar pedido como enviado
+        exportar_btn.setOnAction(_ -> marcarPedidoSeleccionadoComoEnviado());
+    }
 
+    private void cargarPedidosEnCombo() {
+        pedidos = getPedidosCompletadosNoEnviados(Main.connection);
+
+        combo_pedido_terminado_hora.getItems().setAll(pedidos);
+
+        // Cómo se muestra el Pedido en el combo: por ejemplo, código de referencia
+        combo_pedido_terminado_hora.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Pedido p) {
+                if (p == null) return "";
+                // puedes mostrar más info si quieres
+                return p.getCodigo_referencia();
+            }
+
+            @Override
+            public Pedido fromString(String s) {
+                if (s == null) return null;
+                return pedidos.stream()
+                        .filter(p -> s.equals(p.getCodigo_referencia()))
+                        .findFirst()
+                        .orElse(null);
+            }
+        });
+
+        combo_pedido_terminado_hora.getSelectionModel().clearSelection();
+    }
+
+    private void marcarPedidoSeleccionadoComoEnviado() {
+        Pedido seleccionado = combo_pedido_terminado_hora.getValue();
+        if (seleccionado == null) {
+            System.out.println("No hay pedido seleccionado.");
+            return;
+        }
+
+        boolean ok = marcarPedidoComoEnviado(Main.connection, seleccionado.getId_pedido());
+        if (!ok) {
+            System.out.println("No se pudo marcar como enviado el pedido " + seleccionado.getCodigo_referencia());
+            return;
+        }
+
+        System.out.println("Pedido marcado como ENVIADO: " + seleccionado.getCodigo_referencia());
+
+        // Refrescar combo para que desaparezca de la lista
+        cargarPedidosEnCombo();
     }
 }

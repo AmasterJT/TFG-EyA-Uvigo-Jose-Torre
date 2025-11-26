@@ -847,4 +847,69 @@ public class PedidoDAO {
         return null; // no encontrado
     }
 
+
+    // Pedidos COMPLETADOS pero NO enviados
+    private static final String SELECT_PEDIDOS_COMPLETADOS_NO_ENVIADOS_SQL = """
+            SELECT id_pedido, codigo_referencia, id_usuario, id_cliente,
+                   fecha_pedido, fecha_entrega, estado, hora_salida,
+                   palets_del_pedido, enviado
+            FROM pedidos
+            WHERE estado = 'Completado'
+              AND enviado = 0
+            ORDER BY fecha_pedido ASC
+            """;
+
+    private static final String UPDATE_PEDIDO_ENVIADO_SQL = """
+            UPDATE pedidos
+            SET enviado = 1,
+                estado  = 'Enviado'
+            WHERE id_pedido = ?
+            """;
+
+    public static List<Pedido> getPedidosCompletadosNoEnviados(Connection conn) {
+        List<Pedido> pedidos = new ArrayList<>();
+        if (conn == null) return pedidos;
+
+        try (PreparedStatement ps = conn.prepareStatement(SELECT_PEDIDOS_COMPLETADOS_NO_ENVIADOS_SQL);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Pedido p = new Pedido(
+                        rs.getString("codigo_referencia"),
+                        rs.getInt("id_pedido"),
+                        rs.getInt("id_cliente"),
+                        rs.getInt("id_usuario"),
+                        rs.getString("estado"),
+                        rs.getString("fecha_pedido"),
+                        rs.getString("hora_salida"),
+                        rs.getInt("palets_del_pedido")
+                );
+                pedidos.add(p);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pedidos;
+    }
+
+    /**
+     * Marca un pedido como enviado (enviado = 1, estado = 'Enviado')
+     *
+     * @return true si se actualizó 1 fila
+     */
+    public static boolean marcarPedidoComoEnviado(Connection conn, int idPedido) {
+        if (conn == null) return false;
+
+        try (PreparedStatement ps = conn.prepareStatement(UPDATE_PEDIDO_ENVIADO_SQL)) {
+            ps.setInt(1, idPedido);
+            int filas = ps.executeUpdate();
+            return filas == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }

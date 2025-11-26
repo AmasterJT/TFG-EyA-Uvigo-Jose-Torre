@@ -14,12 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" styleClass="principalWindow" stylesheets="@css/Styles.css"
-            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="uvigo.tfgalmacen.controllers.windowGenerarPedidoController">
+<AnchorPane fx:id="Pane" styleClass="principalWindow" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.windowGenerarPedidoController">
     <children>
-        <BorderPane styleClass="backgroundScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane styleClass="backgroundScene" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
                 <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
                     <children>
@@ -27,82 +24,76 @@
                             <children>
                                 <Label text="ENVIAR PEDIDO">
                                     <font>
-                                        <Font name="System Bold" size="15.0"/>
+                                        <Font name="System Bold" size="15.0" />
                                     </font>
                                 </Label>
                             </children>
                             <VBox.margin>
-                                <Insets bottom="10.0"/>
+                                <Insets bottom="10.0" />
                             </VBox.margin>
                         </HBox>
-                        <ComboBox fx:id="combo_pedido_terminado_hora" prefWidth="180.0" promptText="Seleccionar Pedido">
+                        <ComboBox fx:id="combo_pedido_terminado_hora" prefWidth="180.0" promptText="Seleccionar Pedido" styleClass="mptep-combo">
                             <VBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </VBox.margin>
                         </ComboBox>
                         <HBox alignment="CENTER_RIGHT" spacing="15.0">
                             <children>
-                                <Button fx:id="exportar_btn" mnemonicParsing="false" styleClass="generar_compra"
-                                        text="EXPORTAR" textFill="WHITE">
+                                <Button fx:id="exportar_btn" mnemonicParsing="false" styleClass="generar_compra" text="EXPORTAR" textFill="WHITE">
                                     <font>
-                                        <Font name="System Bold" size="12.0"/>
+                                        <Font name="System Bold" size="12.0" />
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true"
-                                                   preserveRatio="true">
+                                        <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../icons/backup.png"/>
+                                                <Image url="@../../icons/backup.png" />
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </Button>
                             </children>
                             <VBox.margin>
-                                <Insets top="20.0"/>
+                                <Insets top="20.0" />
                             </VBox.margin>
                             <opaqueInsets>
-                                <Insets/>
+                                <Insets />
                             </opaqueInsets>
                         </HBox>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </VBox>
             </center>
             <top>
-                <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0"
-                      styleClass="windowBar" BorderPane.alignment="CENTER">
+                <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" styleClass="windowBar" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity"
-                                mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="exitItem"
-                                stylesheets="@css/Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
+                        <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="exitItem" stylesheets="@css/Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
                             <cursor>
-                                <Cursor fx:constant="HAND"/>
+                                <Cursor fx:constant="HAND" />
                             </cursor>
                             <font>
-                                <Font name="System Bold" size="17.0"/>
+                                <Font name="System Bold" size="17.0" />
                             </font>
                             <HBox.margin>
-                                <Insets/>
+                                <Insets />
                             </HBox.margin>
                         </Button>
-                        <Region HBox.hgrow="ALWAYS"/>
+                        <Region HBox.hgrow="ALWAYS" />
                         <Label contentDisplay="RIGHT" text="TFG JTTP " textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="12.0"/>
+                                <Font name="System Bold" size="12.0" />
                             </font>
                             <HBox.margin>
-                                <Insets right="5.0"/>
+                                <Insets right="5.0" />
                             </HBox.margin>
                         </Label>
-                        <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true"
-                                   preserveRatio="true">
+                        <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg"/>
+                                <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg" />
                             </image>
                             <HBox.margin>
-                                <Insets right="10.0"/>
+                                <Insets right="10.0" />
                             </HBox.margin>
                         </ImageView>
                     </children>
@@ -111,7 +102,7 @@
             <bottom>
                 <AnchorPane prefHeight="20.0" styleClass="windowBar" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0"/>
+                        <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0" />
                     </children>
                 </AnchorPane>
             </bottom>
