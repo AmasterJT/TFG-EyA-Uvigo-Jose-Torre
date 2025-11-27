@@ -772,9 +772,9 @@ public class paletizarController implements Initializable {
                     if (usernameActual != null && !usernameActual.isBlank()) {
                         cargarDatosUsuarioDesdeCache(usernameActual);
                     }
-
-
+                    limpiarGridPane(grid_palets_Listos);
                 });
+
             }
 
             String ref = combo_pedido_primera_hora.getValue();
