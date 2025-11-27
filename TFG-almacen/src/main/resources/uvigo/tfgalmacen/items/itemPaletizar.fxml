@@ -64,7 +64,7 @@
                             </padding>
                         </Button>
                         <Region fx:id="region" maxWidth="20.0" minWidth="20.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="mover_producto_listo_en_pedido_btn" mnemonicParsing="false" styleClass="move-producto-a-palet-btn">
+                  <Button fx:id="mover_producto_listo_en_pedido_btn" mnemonicParsing="false" styleClass="mover-producto-a-palet">
                      <graphic>
                         <ImageView fitHeight="150.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                            <image>

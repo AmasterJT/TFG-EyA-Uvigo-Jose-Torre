@@ -758,6 +758,815 @@
 }
 
 
+.mover-producto-a-palet {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* =========================================================
+   ESTILO PERSONALIZADO PARA EL TABPANE "movimiento-tabpane"
+   ========================================================= */
+/* ================================ */
+/*          TAB NO SELECCIONADA     */
+/* ================================ */
+
+.movimiento-tabpane .tab .tab-label {
+    -fx-text-fill: white;
+}
+
+/* ================================ */
+/*            TAB SELECCIONADA      */
+/* ================================ */
+
+.movimiento-tabpane .tab:selected .tab-label {
+    -fx-text-fill: black !important;
+}
+
+/* ================================ */
+/*   RESTO DE TU ESTILO ORIGINAL   */
+/* ================================ */
+
+.movimiento-tabpane {
+    -fx-background-color: transparent;
+}
+
+.movimiento-tabpane > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent !important;
+}
+
+.movimiento-tabpane .tab {
+    -fx-background-color: #053147;
+    -fx-text-base-color: white;
+    -fx-background-radius: 6 6 0 0;
+    -fx-border-radius: 6 6 0 0;
+}
+
+.movimiento-tabpane .tab:selected {
+    -fx-background-color: #F1F1E6;
+    -fx-border-color: #053147;
+    -fx-border-width: 1 1 0 1;
+}
+
+/* hover */
+.movimiento-tabpane .tab:hover {
+    -fx-background-color: #aaa;
+}
+
+
+/* ======= FONDO GENERAL DEL TABPANE ======= */
+.tab-pane {
+    -fx-background-color: transparent; /* Fondo del contenido */
+    -fx-border-color: transparent;
+
+}
+
+/* ======= BARRA SUPERIOR QUE CONTIENE LAS PESTAÑAS ======= */
+.tab-pane *.tab-header-area {
+    -fx-background-color: transparent !important; /* Color de la barra */
+    -fx-padding: 0 0 0 0;
+    -fx-border-color: #444444;
+    -fx-border-width: 0 0 0 0; /* Línea inferior */
+}
+
+/* ===== Barra que contiene las pestañas (solo parte superior) ===== */
+.tab-pane:top > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent; /* ← color de la barra */
+    -fx-border-color: #444444;
+    -fx-border-width: 0 0 0 0; /* línea abajo */
+}
+
+/* ======= CADA PESTAÑA (NO SELECCIONADA) ======= */
+.tab-pane .tab {
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: #666;
+    -fx-border-radius: 5 5 0 0;
+    -fx-background-radius: 5 5 0 0;
+    -fx-border-width: 0;
+
+    /* COLOR DEL TEXTO */
+    -fx-text-base-color: #e0e0e0;
+}
+
+/* ======= PESTAÑA SELECCIONADA ======= */
+.tab-pane .tab:selected {
+    -fx-background-color: #db9f75; /* Color del tab activo */
+    -fx-text-base-color: white;
+    -fx-border-width: 0;
+
+}
+
+.tab-pane .tab:selected:focused,
+.tab-pane .tab:focused,
+.tab-pane:focused,
+.tab:focused,
+.tab-label:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+}
+
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+
+/* ======= PESTAÑA EN HOVER ======= */
+.tab-pane .tab:hover {
+    -fx-background-color: #e3bfa6; /* Color del tab activo */
+    -fx-text-base-color: white;
+}
+
+/* ======= TEXTO DE LA PESTAÑA ======= */
+.tab-pane .tab-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white; /* usa el heredado de -fx-text-base-color */
+}
+
+/* ======= QUITAR LA FLECHA DE SCROLL (si hay muchas pestañas) ======= */
+.tab-pane *.control-buttons-tab {
+    -fx-opacity: 0; /* Oculta botones izquierda/derecha */
+    -fx-padding: 0;
+}
+
+
+/* diálogo genérico */
+.alert-dialog {
+    /* estilos comunes */
+}
+
+/* diálogo de éxito (verde) */
+.alert-success .content-pane,
+.alert-success .header-panel {
+    -fx-background-color: #1e7f3b;
+}
+
+.alert-success .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+
+.principalWindow {
+    -fx-background-color: -amaster-dark-blue !important;
+    -fx-border-color: -amaster-dark-blue3 !important;
+    -fx-border-width: 2;
+
+    -fx-border-radius: 10 !important;
+    -fx-background-radius: 10 !important;
+}
+
+.loginLeftBackground {
+    -fx-background-color: -amaster-dark-blue !important;
+}
+
+.loginRightBackground {
+    -fx-background-color: -amaster-gray2 !important;
+}
+
+.exitlogin {
+    -fx-background-color: -amaster-gray2 !important;
+
+}
+
+.exitlogin:hover {
+    -fx-background-color: #eb4034 !important;
+    -fx-border-color: #eb4034 !important;
+}
+
+
+.exitlogin:pressed {
+    -fx-background-color: #e36259 !important;
+}
+
+
+.backgroundScene {
+    -fx-background-color: -amaster-light-gray !important;
+}
+
+.windowBar {
+    -fx-background-color: -amaster-dark-blue !important;
+}
+
+
+.toolBar {
+    -fx-background-color: -amaster-dark-brown !important;
+
+}
+
+.menuItem {
+    -fx-background-color: -amaster-dark-brown !important;
+    -fx-border-width: 0px 0px 3px 0px;
+}
+
+.menuItem:hover {
+    -fx-border-color: -amaster-light-brown;
+    -fx-border-width: 0px 0px 3px 0px;
+}
+
+
+.leftPanel {
+    -fx-background-color: -amaster-brown !important;
+
+}
+
+.sidebarItem {
+    -fx-background-color: -amaster-brown;
+}
+
+.sidebarItem:hover {
+    -fx-background-color: -amaster-light-brown !important;
+}
+
+.sidebarItem:pressed {
+    -fx-background-color: -amaster-dark-blue !important;
+}
+
+.sidebarItem.active {
+    -fx-background-color: -amaster-dark-blue !important;
+}
+
+.pendientePedido {
+    -fx-background-color: -amaster-gray2 !important;
+    -fx-border-color: -amaster-dark-blue !important;
+}
+
+.pendienteEnCurso {
+    -fx-background-color: -pedido-en-curso-color !important;
+    -fx-border-color: -amaster-dark-blue !important;
+}
+
+
+/* Solo esta lista */
+.oc-list {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 4 4;
+    -fx-border-width: 1;
+
+}
+
+/* Deja la celda “neutra” para no ensuciar controles internos */
+.oc-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 4 4; /* el padding lo damos al wrapper */
+}
+
+/* Wrapper del contenido de la fila (tu root del FXML del ítem) */
+.oc-list .list-cell .oc-row-content {
+    -fx-background-color: transparent;
+    -fx-padding: 4 4; /* padding visual del item */
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+
+/* Hover de la fila: solo colorea el wrapper, no la celda completa */
+.oc-list .list-cell:filled:hover .oc-row-content {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Seleccionado: highlight elegante SOLO en el wrapper */
+.oc-list .list-cell:filled:selected .oc-row-content {
+    /*-fx-background-color: linear-gradient(to right, #dba679, #a5653d);*/
+    -fx-border-color: #e3bfa6;
+    -fx-border-width: 1;
+    -fx-text-fill: white; /* Nota: aplica sólo al wrapper, no al ComboBox */
+}
+
+/* Seleccionado y enfocado: un poco más de contraste */
+.oc-list .list-cell:filled:selected:focused .oc-row-content {
+    -fx-border-color: #e3bfa6;
+    -fx-border-width: 1;
+}
+
+/* (Opcional) text styling sólo para labels dentro del wrapper, NO a controles */
+.oc-list .list-cell .oc-row-content .label {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+
+}
+
+
+.minimizeItem {
+    -fx-background-color: -amaster-dark-blue !important;
+}
+
+
+.minimizeItem:hover {
+    -fx-background-color: -amaster-deep-dark-gray !important;
+    -fx-border-color: -amaster-deep-dark-gray !important;
+    -fx-border-width: 1 0 1 0;
+}
+
+.minimizeItem:pressed {
+    -fx-background-color: -amaster-dark-blue2 !important;
+    -fx-border-width: 1 0 0 0;
+}
+
+
+.exitItem {
+    -fx-background-color: -amaster-dark-blue !important;
+    -fx-border-width: 1 0 0 0;
+}
+
+
+.exitItem:hover {
+    -fx-background-color: #eb4034 !important;
+    -fx-border-color: #eb4034 !important;
+    -fx-background-radius: 5 0 0 0;
+    -fx-border-radius: 5 0 0 0;
+    -fx-border-width: 1 0 0 0;
+}
+
+.exitItem:pressed {
+    -fx-background-color: #e36259 !important;
+}
+
+.topbarItem:hover {
+    -fx-background-color: #776558 !important;
+}
+
+.loginText {
+    -fx-text-fill: -amaster-light-brown;
+}
+
+.loginBtn {
+    -fx-background-color: -amaster-dark-blue;
+    -fx-background-radius: 4;
+}
+
+.loginBtn:hover {
+    -fx-background-color: -amaster-blue;
+}
+
+.mfx-checkbox {
+    -mfx-main: #6200EE;
+    -mfx-secondary: #424242;
+    -fx-font-family: "Open Sans Regular";
+    -fx-text-fill: white;
+}
+
+.mfx-checkbox .box {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2;
+    -fx-border-color: -mfx-secondary;
+    -fx-border-radius: 2;
+    -fx-border-width: 1.5;
+}
+
+.mfx-checkbox .box .mark {
+    visibility: hidden;
+    -mfx-color: white;
+    -mfx-description: "fas-check";
+    -mfx-size: 12;
+}
+
+.mfx-checkbox .ripple-container {
+    -fx-padding: 4;
+}
+
+.mfx-checkbox .ripple-container .mfx-ripple-generator {
+    -mfx-animation-speed: 1.5;
+    -mfx-ripple-color: derive(-mfx-main, 110%);
+    -mfx-ripple-radius: 16;
+}
+
+.mfx-checkbox:selected .box,
+.mfx-checkbox:indeterminate .box {
+    -fx-background-color: -mfx-main;
+    -fx-border-color: -mfx-main;
+}
+
+.mfx-checkbox:selected .box .mark {
+    visibility: visible;
+}
+
+.mfx-checkbox:selected:disabled .box,
+.mfx-checkbox:indeterminate:disabled .box {
+    -fx-background-color: -mfx-secondary;
+    -fx-border-color: -mfx-secondary;
+}
+
+.mfx-checkbox:indeterminate .box .mark {
+    visibility: visible;
+    -mfx-description: "fas-minus";
+}
+
+.search-box {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.transparent {
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.search-button {
+    -fx-background-color: -amaster-light-brown;
+    -fx-background-radius: 30;
+    -fx-padding: 10 15 10 15;
+    -fx-width: 70;
+}
+
+.search-button:hover {
+    -fx-background-color: #e3bfa6;
+}
+
+.inventory-reset-button {
+    -fx-background-color: red;
+    -fx-background-radius: 30;
+    -fx-padding: 10 15 10 15;
+    -fx-width: 50;
+}
+
+.inventory-reset-button:hover {
+    -fx-background-color: #e3bfa6;
+}
+
+
+.inventory-filter-bar {
+    -fx-background-color: linear-gradient(to right, #2F3A32, #000000);
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.texto-invetory-filter-bar {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 11px;
+}
+
+.right-bar {
+    -fx-background-color: #D3D3D3;
+}
+
+.shadow {
+    -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.3), 10.0, 0.0, 0.0, 10.0);
+}
+
+.shadow-right {
+    -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.3), 10.0, 0.0, 10.0, 0.0);
+}
+
+.chosen-fruit-card {
+    -fx-background-color: #F16C31;
+    -fx-background-radius: 15;
+}
+
+
+.add-btn {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.free-delivery-card {
+    -fx-background-color: #D3D3D3;
+    -fx-background-radius: 30;
+}
+
+.shopping-online-card {
+    -fx-background-color: #BAEAC3;
+    -fx-background-radius: 30;
+}
+
+.fruit-item {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 15;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.grid-centered {
+    -fx-alignment: center;
+    -fx-padding: 20;
+}
+
+.texto-label {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 14px;
+}
+
+.texto-label-bold {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+
+/* Hace que todo el ListView sea transparente */
+.list-view {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+
+/* Quita el color alterno de filas */
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Al pasar el ratón o seleccionar, define colores suaves o transparentes */
+.list-cell:filled:selected, .list-cell:filled:selected:hover {
+    -fx-background-color: transparent; /* o totalmente transparente */
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+
+
+.item-pedido-en-curso {
+    -fx-text-fill: black;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 10px !important;
+    -fx-border-color: -amaster-dark-blue2;
+}
+
+
+.item-pedido-en-curso .label {
+    -fx-text-fill: black;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 12px;
+}
+
+.indicador-item-pedido-pendiente {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+    -fx-background-color: #bfbfbf;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 2 10 2 10;
+}
+
+.indicador-item-pedido-en-curso {
+    -fx-text-fill: black;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+    -fx-background-color: #edf55f;
+    -fx-border-radius: 10;
+    -fx-background-radius: 14;
+    -fx-padding: 2 10 2 10;
+}
+
+
+.item-pedido-cancelado {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+    -fx-background-color: #9e3a2c;
+}
+
+.item-pedido-completado {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+    -fx-background-color: -pedido-en-curso-color;
+}
+
+.indicador-item-pedido-completado {
+    -fx-text-fill: white;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 16px;
+    -fx-background-color: #4bb030;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 2 10 2 10;
+}
+
+
+/* Estado base del botón */
+.addPaletOC {
+    -fx-background-color: #db9f75;
+    -fx-text-fill: white;
+    -fx-background-radius: 6; /* opcional */
+    -fx-cursor: hand; /* opcional */
+}
+
+/* Hover */
+.addPaletOC:hover {
+    -fx-background-color: #e3bfa6;
+}
+
+/* Pressed (clic sostenido) */
+.addPaletOC:pressed {
+    -fx-background-color: #c78d67;
+}
+
+
+.generar_compra {
+    -fx-background-color: #222;
+    -fx-text-fill: white;
+    -fx-background-radius: 6; /* opcional */
+    -fx-cursor: hand; /* opcional */
+}
+
+.generar_compra:hover {
+    -fx-background-color: #3f3f3f;
+}
+
+
+/* === Estilo general del menú contextual === */
+.context-menu {
+    -fx-background-radius: 6;
+    -fx-border-color: #dba679;
+    -fx-background-color: #dba679;
+    -fx-border-radius: 6;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 3);
+}
+
+/* === Estilo de los ítems del menú === */
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+}
+
+/* === Hover sobre los ítems === */
+.menu-item:hover {
+    -fx-background-color: #e3bfa6;
+    -fx-text-fill: black;
+    -fx-cursor: hand; /* opcional */
+}
+
+
+/*-------------------------------------------------*/
+/*--------------------ALERT DIALOG-----------------*/
+/*-------------------------------------------------*/
+
+.alert-dialog {
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 13px;
+    -fx-background-color: #2b170b;
+}
+
+.alert-dialog .dialog-pane {
+    -fx-background-color: #2b170b;
+    -fx-border-color: #dba679;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.alert-dialog .header-panel {
+    -fx-background-color: #3e2411;
+    -fx-text-fill: white;
+}
+
+.alert-dialog .label {
+    -fx-text-fill: white;
+}
+
+.alert-dialog .button-bar .button {
+    -fx-background-color: #dba679;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+}
+
+.alert-dialog .button-bar .button:hover {
+    -fx-background-color: #e3bfa6;
+}
+
+
+.textfield-normal {
+    -fx-background-color: transparent;
+    -fx-border-color: #404040;
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
+}
+
+.textfield-error {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-text-fill: white;
+    -fx-border-color: #ff4d4f;
+}
+
+.label-normal {
+    -fx-text-fill: white;
+}
+
+.label-error {
+    -fx-text-fill: #ff4d4f;
+}
+
+
+/*-------------------------------------------------*/
+/*-------------------------------------------------*/
+/*-------------------------------------------------*/
+
+/* Estado base del botón */
+
+.edit-pedido-btn {
+    -fx-background-color: #db9f75 !important;
+    -fx-text-fill: white;
+    -fx-background-radius: 6; /* opcional */
+    -fx-cursor: hand; /* opcional */
+}
+
+.edit-pedido-btn:hover {
+    -fx-background-color: #e0b295 !important;
+    -fx-background-radius: 6; /* opcional */
+    -fx-cursor: hand; /* opcional */
+}
+
+
+.eliminar-pedido-btn {
+    -fx-background-color: -indicador-pedido-cancelado-color;
+    -fx-cursor: hand; /* opcional */
+}
+
+.eliminar-pedido-btn:hover {
+    -fx-background-color: -pedido-cancelado-color !important;
+    -fx-cursor: hand; /* opcional */
+
+}
+
+.copy-btn {
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.copy-btn:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+}
+
+.detalle-pedido {
+    -fx-text-fill: black;
+}
+
+.cambiar-contrasena {
+    -fx-text-fill: #3bc4ff;
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.cambiar-contrasena:hover {
+    -fx-text-fill: #9ed4ef;
+}
+
+.pedido-tittle-lable {
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+.directory-chosser-btn {
+    -fx-background-color: #666;
+    -fx-cursor: hand;
+    -fx-border-radius: 5;
+}
+
+.directory-chosser-btn:hover {
+    -fx-background-color: #777;
+    -fx-cursor: hand;
+    -fx-border-radius: 5;
+}
+
+
+.print-etiqueta {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-cursor: hand; /* opcional */
+}
+
+.print-etiqueta:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+    -fx-cursor: hand; /* opcional */
+}
+
+
+.mover-producto-a-palet {
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.mover-producto-a-palet:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
 /* =========================================================
    ESTILO PERSONALIZADO PARA EL TABPANE "movimiento-tabpane"
    ========================================================= */
