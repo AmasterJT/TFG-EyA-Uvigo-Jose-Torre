@@ -18,9 +18,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="641.0" prefWidth="632.0" styleClass="principalWindow" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.windowDetallesPedidoController">
+<AnchorPane prefHeight="641.0" prefWidth="632.0" styleClass="principalWindow" stylesheets="@css/Styles.css"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="uvigo.tfgalmacen.controllers.windowDetallesPedidoController">
     <children>
-        <BorderPane styleClass="transparent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane styleClass="transparent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
                 <VBox alignment="CENTER" spacing="10.0" styleClass="backgroundScene" BorderPane.alignment="CENTER">
                     <children>
@@ -28,12 +31,12 @@
                             <children>
                                 <Label text="CÓDIGO REFERENCIA: ">
                                     <font>
-                                        <Font name="System Bold" size="15.0" />
+                                        <Font name="System Bold" size="15.0"/>
                                     </font>
                                 </Label>
                                 <Label fx:id="codigo_referencia_pedido_detalle_label" text="PED-20250728-000001">
                                     <font>
-                                        <Font size="15.0" />
+                                        <Font size="15.0"/>
                                     </font>
                                 </Label>
                             </children>
@@ -42,12 +45,12 @@
                             <children>
                                 <Label text="ESTADO DEL PEDIDO: ">
                                     <font>
-                                        <Font name="System Bold" size="15.0" />
+                                        <Font name="System Bold" size="15.0"/>
                                     </font>
                                 </Label>
                                 <Label fx:id="estado_pedido_detalle_label" text="Pendiente">
                                     <font>
-                                        <Font size="15.0" />
+                                        <Font size="15.0"/>
                                     </font>
                                 </Label>
                             </children>
@@ -56,40 +59,49 @@
                             <children>
                                 <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../icons/pallet-24-black.png" />
+                                        <Image url="@../../icons/pallet-24-black.png"/>
                                     </image>
                                 </ImageView>
                                 <Label fx:id="estado_pedido_detalle_label1" text=":">
                                     <font>
-                                        <Font name="System Bold" size="15.0" />
+                                        <Font name="System Bold" size="15.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets />
+                                        <Insets/>
                                     </HBox.margin>
                                 </Label>
                                 <Label fx:id="palets_pedido_label" text="0">
                                     <HBox.margin>
-                                        <Insets />
+                                        <Insets/>
                                     </HBox.margin>
                                 </Label>
                             </children>
                         </HBox>
                         <VBox alignment="CENTER" spacing="30.0">
                             <children>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" styleClass="pendientePedido">
+                                <AnchorPane minHeight="0.0" minWidth="0.0"
+                                            style="-fx-background-radius: 10; -fx-border-radius: 10;"
+                                            styleClass="pendientePedido">
                                     <children>
-                                        <ScrollPane fx:id="pedidiosEnCursoScroll" fitToHeight="true" fitToWidth="true" styleClass="transparent" stylesheets="@css/Styles.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                        <ScrollPane fx:id="pedidiosEnCursoScroll" fitToHeight="true" fitToWidth="true"
+                                                    styleClass="transparent" stylesheets="@css/Styles.css"
+                                                    AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0"
+                                                    AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                             <content>
                                                 <VBox alignment="CENTER" prefHeight="500.0" prefWidth="630.0">
                                                     <children>
                                                         <GridPane fx:id="grid_pendientes" alignment="CENTER">
                                                             <columnConstraints>
-                                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                                <ColumnConstraints halignment="CENTER"
+                                                                                   hgrow="SOMETIMES"/>
                                                             </columnConstraints>
                                                             <rowConstraints>
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                                                                vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                                                                vgrow="SOMETIMES"/>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                                                                vgrow="SOMETIMES"/>
                                                             </rowConstraints>
                                                         </GridPane>
                                                     </children>
@@ -102,74 +114,84 @@
                         </VBox>
                         <HBox alignment="CENTER_RIGHT" spacing="15.0">
                             <children>
-                                <Separator opacity="0.0" prefHeight="4.0" prefWidth="300.0" stylesheets="@css/Styles.css" HBox.hgrow="ALWAYS" />
-                                <Button fx:id="aplicar_cambios_detalle_pedido_btn" mnemonicParsing="false" prefWidth="120.0" styleClass="generar_compra" text="APLICAR">
+                                <Separator opacity="0.0" prefHeight="4.0" prefWidth="300.0"
+                                           stylesheets="@css/Styles.css" HBox.hgrow="ALWAYS"/>
+                                <Button fx:id="aplicar_cambios_detalle_pedido_btn" mnemonicParsing="false"
+                                        prefWidth="120.0" styleClass="generar_compra" text="APLICAR">
                                     <font>
-                                        <Font name="System Bold" size="12.0" />
+                                        <Font name="System Bold" size="12.0"/>
                                     </font>
                                     <graphic>
-                                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true"
+                                                   preserveRatio="true">
                                             <image>
-                                                <Image url="@../../icons/apply-32-white.png" />
+                                                <Image url="@../../icons/apply-32-white.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </Button>
                             </children>
                             <VBox.margin>
-                                <Insets />
+                                <Insets/>
                             </VBox.margin>
                             <opaqueInsets>
-                                <Insets />
+                                <Insets/>
                             </opaqueInsets>
                         </HBox>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </padding>
                 </VBox>
             </center>
             <top>
-                <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" styleClass="windowBar" BorderPane.alignment="CENTER">
+                <HBox fx:id="windowBar" alignment="CENTER_LEFT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0"
+                      styleClass="windowBar" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 0px; -fx-background-color: #3e2411;" styleClass="exitItem" stylesheets="@css/Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
+                        <Button fx:id="ExitButton" maxHeight="40.0" minHeight="-Infinity" minWidth="-Infinity"
+                                mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0"
+                                style="-fx-background-radius: 0px; -fx-background-color: #3e2411;" styleClass="exitItem"
+                                stylesheets="@css/Styles.css" text="⨉" textFill="WHITE" HBox.hgrow="ALWAYS">
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                             <font>
-                                <Font name="System Bold" size="17.0" />
+                                <Font name="System Bold" size="17.0"/>
                             </font>
                             <HBox.margin>
-                                <Insets />
+                                <Insets/>
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="minimizeButton" maxWidth="35.0" minWidth="-Infinity" mnemonicParsing="false" prefWidth="37.0" styleClass="minimizeItem" textFill="WHITE">
+                        <Button fx:id="minimizeButton" maxWidth="35.0" minWidth="-Infinity" mnemonicParsing="false"
+                                prefWidth="37.0" styleClass="minimizeItem" textFill="WHITE">
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                             <font>
-                                <Font name="System Bold" size="17.0" />
+                                <Font name="System Bold" size="17.0"/>
                             </font>
                             <graphic>
-                                <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="exitItem">
+                                <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="30.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="exitItem">
                                     <image>
-                                        <Image url="@../../icons/minimize-48.png" />
+                                        <Image url="@../../icons/minimize-48.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Region HBox.hgrow="ALWAYS" />
+                        <Region HBox.hgrow="ALWAYS"/>
                         <Label contentDisplay="RIGHT" text="TFG JTTP " textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="12.0" />
+                                <Font name="System Bold" size="12.0"/>
                             </font>
                         </Label>
-                        <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView disable="true" fitHeight="29.0" fitWidth="70.0" pickOnBounds="true"
+                                   preserveRatio="true">
                             <image>
-                                <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg" />
+                                <Image url="@../../icons/Logotipo_Universidade_de_Vigo.jpg"/>
                             </image>
                             <HBox.margin>
-                                <Insets left="5.0" right="10.0" />
+                                <Insets left="5.0" right="10.0"/>
                             </HBox.margin>
                         </ImageView>
                     </children>
@@ -178,7 +200,7 @@
             <bottom>
                 <AnchorPane prefHeight="20.0" styleClass="windowBar" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0" />
+                        <HBox alignment="CENTER" prefHeight="20.0" spacing="3.0" AnchorPane.rightAnchor="5.0"/>
                     </children>
                 </AnchorPane>
             </bottom>

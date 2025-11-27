@@ -17,119 +17,134 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1400.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="1400.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="695.0" prefWidth="1400.0" styleClass="backgroundScene" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadoInventarioController">
+<AnchorPane maxHeight="1400.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="1400.0"
+            nodeOrientation="LEFT_TO_RIGHT" prefHeight="695.0" prefWidth="1400.0" styleClass="backgroundScene"
+            stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="uvigo.tfgalmacen.controllers.apartadoInventarioController">
     <children>
-        <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="695.0" prefWidth="1400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="695.0" prefWidth="1400.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox alignment="CENTER" fillHeight="false" prefWidth="1280.0" spacing="25.0">
                     <children>
-                  <ComboBox fx:id="combo_seleccionar_palet" editable="true" prefWidth="150.0" promptText="Seleccionar Palet" />
+                        <ComboBox fx:id="combo_seleccionar_palet" editable="true" prefWidth="150.0"
+                                  promptText="Seleccionar Palet"/>
                         <VBox alignment="CENTER_LEFT">
                             <children>
                                 <Label text="Estanterias:" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Label>
-                                <ComboBox fx:id="estanteriaComboBox" prefWidth="100.0" promptText="Estanterias" styleClass="arrow" />
+                                    <font>
+                                        <Font name="System Bold" size="12.0"/>
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="estanteriaComboBox" prefWidth="100.0" promptText="Estanterias"
+                                          styleClass="arrow"/>
                             </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT">
                             <children>
                                 <Label text="Baldas" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Label>
-                                <ComboBox fx:id="baldaComboBox" prefWidth="100.0" promptText="Baldas" />
+                                    <font>
+                                        <Font name="System Bold" size="12.0"/>
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="baldaComboBox" prefWidth="100.0" promptText="Baldas"/>
                             </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT">
                             <children>
                                 <Label text="Posición" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Label>
-                                <ComboBox fx:id="posicionComboBox" prefWidth="100.0" promptText="Posicion" />
+                                    <font>
+                                        <Font name="System Bold" size="12.0"/>
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="posicionComboBox" prefWidth="100.0" promptText="Posicion"/>
                             </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT">
                             <children>
                                 <Label text="Delante/Detras" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Label>
-                                <ComboBox fx:id="delanteComboBox" prefWidth="120.0" promptText="Delante/atrás" />
+                                    <font>
+                                        <Font name="System Bold" size="12.0"/>
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="delanteComboBox" prefWidth="120.0" promptText="Delante/atrás"/>
                             </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT">
                             <children>
                                 <Label text="Tipo de producto" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Label>
-                                <ComboBox fx:id="tipoComboBox" prefWidth="150.0" promptText="Tipo de Producto" />
+                                    <font>
+                                        <Font name="System Bold" size="12.0"/>
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="tipoComboBox" prefWidth="150.0" promptText="Tipo de Producto"/>
                             </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT">
                             <children>
                                 <Label text="Producto" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Label>
-                                <ComboBox fx:id="productoComboBox" prefWidth="150.0" promptText="Producto" />
+                                    <font>
+                                        <Font name="System Bold" size="12.0"/>
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="productoComboBox" prefWidth="150.0" promptText="Producto"/>
                             </children>
                         </VBox>
-                        <Button fx:id="buscarButton" mnemonicParsing="false" prefWidth="70.0" styleClass="search-button">
+                        <Button fx:id="buscarButton" mnemonicParsing="false" prefWidth="70.0"
+                                styleClass="search-button">
                             <HBox.margin>
-                                <Insets left="200.0" />
+                                <Insets left="200.0"/>
                             </HBox.margin>
                             <graphic>
                                 <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../icons/search.png" />
+                                        <Image url="@../../icons/search.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                         </Button>
-                        <Button fx:id="inventory_reset_button" mnemonicParsing="false" prefWidth="50.0" styleClass="inventory-reset-button">
+                        <Button fx:id="inventory_reset_button" mnemonicParsing="false" prefWidth="50.0"
+                                styleClass="inventory-reset-button">
                             <graphic>
                                 <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../icons/reset.png" />
+                                        <Image url="@../../icons/reset.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
                             <cursor>
-                                <Cursor fx:constant="HAND" />
+                                <Cursor fx:constant="HAND"/>
                             </cursor>
                         </Button>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="20.0" right="10.0" top="10.0"/>
                     </padding>
                     <VBox.margin>
-                        <Insets bottom="20.0" top="10.0" />
+                        <Insets bottom="20.0" top="10.0"/>
                     </VBox.margin>
                     <styleClass>
-                        <String fx:value="inventory-filter-bar" />
-                        <String fx:value="shadow" />
+                        <String fx:value="inventory-filter-bar"/>
+                        <String fx:value="shadow"/>
                     </styleClass>
                 </HBox>
-                <ScrollPane fx:id="scroll" prefHeight="647.0" prefWidth="1377.0" styleClass="transparent" stylesheets="@css/Styles.css">
+                <ScrollPane fx:id="scroll" prefHeight="647.0" prefWidth="1377.0" styleClass="transparent"
+                            stylesheets="@css/Styles.css">
                     <content>
                         <VBox alignment="CENTER" fillWidth="false" stylesheets="@css/Styles.css">
                             <children>
                                 <GridPane fx:id="grid" styleClass="grid-centered" stylesheets="@css/Styles.css">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                     </rowConstraints>
                                 </GridPane>
                             </children>
@@ -138,33 +153,37 @@
                 </ScrollPane>
                 <HBox alignment="CENTER" fillHeight="false" prefWidth="1280.0" spacing="25.0" styleClass="shadow">
                     <children>
-                        <Button fx:id="anteriorButton" mnemonicParsing="false" prefWidth="70.0" styleClass="generar_compra">
+                        <Button fx:id="anteriorButton" mnemonicParsing="false" prefWidth="70.0"
+                                styleClass="generar_compra">
                             <HBox.margin>
-                                <Insets left="10.0" />
+                                <Insets left="10.0"/>
                             </HBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../icons/arrows/icons8-arrow-left-30%20(1).png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                            <graphic>
+                                <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../icons/arrows/icons8-arrow-left-30%20(1).png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
                         </Button>
-                        <Button fx:id="siguienteButton" mnemonicParsing="false" prefWidth="70.0" styleClass="generar_compra">
-                     <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../icons/arrows/icons8-arrow-right-30%20(1).png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
+                        <Button fx:id="siguienteButton" mnemonicParsing="false" prefWidth="70.0"
+                                styleClass="generar_compra">
+                            <graphic>
+                                <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../icons/arrows/icons8-arrow-right-30%20(1).png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
                         <Label fx:id="current_page_label" text="1/1">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font></Label>
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </Label>
                     </children>
                     <padding>
-                        <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="20.0" right="10.0" top="10.0"/>
                     </padding>
                 </HBox>
 

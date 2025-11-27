@@ -18,9 +18,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1400.0" style="-fx-background-color: grey;" styleClass="backgroundScene" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadoPaletizarController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0"
+            prefWidth="1400.0" style="-fx-background-color: grey;" styleClass="backgroundScene"
+            stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="uvigo.tfgalmacen.controllers.apartadoPaletizarController">
     <children>
-        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #222; -fx-background-radius: 15;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #222; -fx-background-radius: 15;"
+              AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+              AnchorPane.topAnchor="10.0">
             <children>
                 <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-radius: 15;" HBox.hgrow="ALWAYS">
                     <children>
@@ -28,55 +33,68 @@
                             <children>
                                 <ImageView fitHeight="150.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../icons/user_icon.png" />
+                                        <Image url="@../../icons/user_icon.png"/>
                                     </image>
                                 </ImageView>
                                 <ComboBox fx:id="combo_usuario" prefWidth="180.0" promptText="Seleccionar usuario">
                                     <HBox.margin>
-                                        <Insets left="10.0" />
+                                        <Insets left="10.0"/>
                                     </HBox.margin>
                                 </ComboBox>
                             </children>
                             <VBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="20.0" />
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
                             </VBox.margin>
                         </HBox>
-                        <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                        <TabPane prefHeight="200.0" prefWidth="200.0"
+                                 style="-fx-background-radius: 15; -fx-border-radius: 15;"
+                                 tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                             <tabs>
                                 <Tab text="Primer envío">
                                     <content>
-                                        <VBox alignment="TOP_CENTER" style="-fx-border-color: white; -fx-border-radius: 0 10 10 10;">
+                                        <VBox alignment="TOP_CENTER"
+                                              style="-fx-border-color: white; -fx-border-radius: 0 10 10 10;">
                                             <children>
                                                 <HBox alignment="CENTER">
                                                     <children>
-                                                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../../icons/pedido-64.png" />
+                                                                <Image url="@../../icons/pedido-64.png"/>
                                                             </image>
                                                         </ImageView>
                                                         <Label styleClass="texto-label" text="Seleccionar Pedido: ">
                                                             <HBox.margin>
-                                                                <Insets left="5.0" />
+                                                                <Insets left="5.0"/>
                                                             </HBox.margin>
                                                         </Label>
-                                                        <ComboBox fx:id="combo_pedido_primera_hora" prefWidth="180.0" />
+                                                        <ComboBox fx:id="combo_pedido_primera_hora" prefWidth="180.0"/>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets top="10.0" />
+                                                        <Insets top="10.0"/>
                                                     </VBox.margin>
                                                 </HBox>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" VBox.vgrow="ALWAYS">
                                                     <children>
-                                                        <ScrollPane fx:id="pedidosEnCursoPrimeraHoraScroll" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <ScrollPane fx:id="pedidosEnCursoPrimeraHoraScroll"
+                                                                    fitToHeight="true" fitToWidth="true"
+                                                                    AnchorPane.bottomAnchor="0.0"
+                                                                    AnchorPane.leftAnchor="0.0"
+                                                                    AnchorPane.rightAnchor="0.0"
+                                                                    AnchorPane.topAnchor="0.0">
                                                             <content>
                                                                 <VBox alignment="TOP_CENTER">
                                                                     <children>
-                                                                        <GridPane fx:id="grid_en_curso_primera_hora" alignment="CENTER">
+                                                                        <GridPane fx:id="grid_en_curso_primera_hora"
+                                                                                  alignment="CENTER">
                                                                             <columnConstraints>
-                                                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                                                <ColumnConstraints halignment="CENTER"
+                                                                                                   hgrow="ALWAYS"/>
                                                                             </columnConstraints>
                                                                             <rowConstraints>
-                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                <RowConstraints minHeight="10.0"
+                                                                                                prefHeight="30.0"
+                                                                                                vgrow="SOMETIMES"/>
                                                                             </rowConstraints>
                                                                         </GridPane>
                                                                     </children>
@@ -85,7 +103,7 @@
                                                         </ScrollPane>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets top="20.0" />
+                                                        <Insets top="20.0"/>
                                                     </VBox.margin>
                                                 </AnchorPane>
                                             </children>
@@ -94,53 +112,66 @@
                                 </Tab>
                                 <Tab text="Segundo envío">
                                     <content>
-                                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: white; -fx-border-radius: 0 10 10 10;">
+                                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0"
+                                              style="-fx-border-color: white; -fx-border-radius: 0 10 10 10;">
                                             <children>
                                                 <HBox alignment="CENTER">
                                                     <children>
-                                                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../../icons/pedido-64.png" />
+                                                                <Image url="@../../icons/pedido-64.png"/>
                                                             </image>
                                                         </ImageView>
                                                         <Label styleClass="texto-label" text="Seleccionar Pedido: ">
                                                             <HBox.margin>
-                                                                <Insets left="5.0" />
+                                                                <Insets left="5.0"/>
                                                             </HBox.margin>
                                                         </Label>
-                                                        <ComboBox fx:id="combo_pedido_segunda_hora" prefWidth="180.0" />
+                                                        <ComboBox fx:id="combo_pedido_segunda_hora" prefWidth="180.0"/>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets top="10.0" />
+                                                        <Insets top="10.0"/>
                                                     </VBox.margin>
                                                 </HBox>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-radius: 0 0 15 15; -fx-border-radius: 0 0 15 15; -fx-border-width: 0 3 3 3;" styleClass="transparent" VBox.vgrow="ALWAYS">
+                                                <AnchorPane minHeight="0.0" minWidth="0.0"
+                                                            style="-fx-background-radius: 0 0 15 15; -fx-border-radius: 0 0 15 15; -fx-border-width: 0 3 3 3;"
+                                                            styleClass="transparent" VBox.vgrow="ALWAYS">
                                                     <children>
-                                                        <ScrollPane fx:id="pedidosEnCursoSegundaHoraScroll" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <ScrollPane fx:id="pedidosEnCursoSegundaHoraScroll"
+                                                                    fitToHeight="true" fitToWidth="true"
+                                                                    AnchorPane.bottomAnchor="0.0"
+                                                                    AnchorPane.leftAnchor="0.0"
+                                                                    AnchorPane.rightAnchor="0.0"
+                                                                    AnchorPane.topAnchor="0.0">
                                                             <content>
                                                                 <VBox alignment="TOP_CENTER">
                                                                     <children>
-                                                                        <GridPane fx:id="grid_en_curso_segunda_hora" alignment="CENTER">
+                                                                        <GridPane fx:id="grid_en_curso_segunda_hora"
+                                                                                  alignment="CENTER">
                                                                             <columnConstraints>
-                                                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                                                <ColumnConstraints halignment="CENTER"
+                                                                                                   hgrow="ALWAYS"/>
                                                                             </columnConstraints>
                                                                             <rowConstraints>
-                                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                                <RowConstraints minHeight="10.0"
+                                                                                                prefHeight="30.0"
+                                                                                                vgrow="SOMETIMES"/>
                                                                             </rowConstraints>
                                                                         </GridPane>
                                                                     </children>
                                                                 </VBox>
                                                             </content>
                                                             <padding>
-                                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                                                             </padding>
                                                         </ScrollPane>
                                                     </children>
                                                     <padding>
-                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="10.0"/>
                                                     </padding>
                                                     <VBox.margin>
-                                                        <Insets top="20.0" />
+                                                        <Insets top="20.0"/>
                                                     </VBox.margin>
                                                 </AnchorPane>
                                             </children>
@@ -149,56 +180,63 @@
                                 </Tab>
                             </tabs>
                             <VBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </VBox.margin>
                         </TabPane>
                     </children>
                 </VBox>
-                <VBox maxWidth="740.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white; -fx-border-width: 0 0 0 1;" HBox.hgrow="ALWAYS">
+                <VBox maxWidth="740.0" prefHeight="200.0" prefWidth="200.0"
+                      style="-fx-border-color: white; -fx-border-width: 0 0 0 1;" HBox.hgrow="ALWAYS">
                     <children>
                         <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                     <children>
-                                        <Label style="-fx-font-size: 20 !important;" styleClass="texto-label-bold" text="CREAR PALET PARA ENVÍO ">
+                                        <Label style="-fx-font-size: 20 !important;" styleClass="texto-label-bold"
+                                               text="CREAR PALET PARA ENVÍO ">
                                             <font>
-                                                <Font size="6.0" />
+                                                <Font size="6.0"/>
                                             </font>
                                         </Label>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                     <children>
-                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Region HBox.hgrow="ALWAYS"/>
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                             <children>
-                                                <Region VBox.vgrow="ALWAYS" />
-                                                <ImageView fitHeight="150.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                                                <Region VBox.vgrow="ALWAYS"/>
+                                                <ImageView fitHeight="150.0" fitWidth="120.0" pickOnBounds="true"
+                                                           preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../../icons/palet_icon_white.png" />
+                                                        <Image url="@../../icons/palet_icon_white.png"/>
                                                     </image>
                                                 </ImageView>
-                                                <Region VBox.vgrow="ALWAYS" />
+                                                <Region VBox.vgrow="ALWAYS"/>
                                                 <VBox minWidth="180.0">
                                                     <children>
                                                         <VBox>
                                                             <children>
                                                                 <HBox spacing="5.0">
                                                                     <children>
-                                                                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                        <ImageView fitHeight="150.0" fitWidth="20.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
                                                                             <image>
-                                                                                <Image url="@../../icons/client-30.png" />
+                                                                                <Image url="@../../icons/client-30.png"/>
                                                                             </image>
                                                                             <HBox.margin>
-                                                                                <Insets top="2.0" />
+                                                                                <Insets top="2.0"/>
                                                                             </HBox.margin>
                                                                         </ImageView>
-                                                                        <Label styleClass="texto-label-bold" text="CLIENTE" />
+                                                                        <Label styleClass="texto-label-bold"
+                                                                               text="CLIENTE"/>
                                                                     </children>
                                                                 </HBox>
-                                                                <Label fx:id="cliente_label" styleClass="texto-label" text="-">
+                                                                <Label fx:id="cliente_label" styleClass="texto-label"
+                                                                       text="-">
                                                                     <VBox.margin>
-                                                                        <Insets bottom="10.0" />
+                                                                        <Insets bottom="10.0"/>
                                                                     </VBox.margin>
                                                                 </Label>
                                                             </children>
@@ -207,20 +245,24 @@
                                                             <children>
                                                                 <HBox spacing="10.0">
                                                                     <children>
-                                                                        <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                                        <ImageView fitHeight="150.0" fitWidth="15.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
                                                                             <image>
-                                                                                <Image url="@../../icons/call-50.png" />
+                                                                                <Image url="@../../icons/call-50.png"/>
                                                                             </image>
                                                                             <HBox.margin>
-                                                                                <Insets top="2.0" />
+                                                                                <Insets top="2.0"/>
                                                                             </HBox.margin>
                                                                         </ImageView>
-                                                                        <Label styleClass="texto-label-bold" text="TELEFONO" />
+                                                                        <Label styleClass="texto-label-bold"
+                                                                               text="TELEFONO"/>
                                                                     </children>
                                                                 </HBox>
-                                                                <Label fx:id="telefono_label" styleClass="texto-label" text="-">
+                                                                <Label fx:id="telefono_label" styleClass="texto-label"
+                                                                       text="-">
                                                                     <VBox.margin>
-                                                                        <Insets bottom="10.0" />
+                                                                        <Insets bottom="10.0"/>
                                                                     </VBox.margin>
                                                                 </Label>
                                                             </children>
@@ -229,37 +271,48 @@
                                                             <children>
                                                                 <HBox spacing="10.0">
                                                                     <children>
-                                                                        <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                                                        <ImageView fitHeight="150.0" fitWidth="15.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
                                                                             <image>
-                                                                                <Image url="@../../icons/mail-50.png" />
+                                                                                <Image url="@../../icons/mail-50.png"/>
                                                                             </image>
                                                                             <HBox.margin>
-                                                                                <Insets top="2.0" />
+                                                                                <Insets top="2.0"/>
                                                                             </HBox.margin>
                                                                         </ImageView>
-                                                                        <Label styleClass="texto-label-bold" text="EMAIL" />
+                                                                        <Label styleClass="texto-label-bold"
+                                                                               text="EMAIL"/>
                                                                     </children>
                                                                 </HBox>
-                                                                <Label fx:id="email_label" styleClass="texto-label" text="-" />
+                                                                <Label fx:id="email_label" styleClass="texto-label"
+                                                                       text="-"/>
                                                             </children>
                                                         </VBox>
                                                     </children>
                                                 </VBox>
-                                                <Region VBox.vgrow="ALWAYS" />
+                                                <Region VBox.vgrow="ALWAYS"/>
                                             </children>
                                         </VBox>
-                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Region HBox.hgrow="ALWAYS"/>
                                         <VBox prefHeight="200.0" prefWidth="100.0">
                                             <children>
-                                                <AnchorPane maxWidth="450.0" minHeight="300.0" minWidth="500.0" style="-fx-border-color: white; -fx-border-radius: 10;">
+                                                <AnchorPane maxWidth="450.0" minHeight="300.0" minWidth="500.0"
+                                                            style="-fx-border-color: white; -fx-border-radius: 10;">
                                                     <children>
-                                                        <ScrollPane fx:id="productos_en_palet_scroll" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <ScrollPane fx:id="productos_en_palet_scroll" fitToHeight="true"
+                                                                    fitToWidth="true" AnchorPane.bottomAnchor="0.0"
+                                                                    AnchorPane.leftAnchor="0.0"
+                                                                    AnchorPane.rightAnchor="0.0"
+                                                                    AnchorPane.topAnchor="0.0">
                                                             <content>
                                                                 <VBox alignment="CENTER">
                                                                     <children>
-                                                                        <GridPane fx:id="grid_productos_en_palet" alignment="CENTER" minHeight="36.0">
+                                                                        <GridPane fx:id="grid_productos_en_palet"
+                                                                                  alignment="CENTER" minHeight="36.0">
                                                                             <columnConstraints>
-                                                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                                                <ColumnConstraints halignment="CENTER"
+                                                                                                   hgrow="ALWAYS"/>
                                                                             </columnConstraints>
                                                                         </GridPane>
                                                                     </children>
@@ -270,95 +323,113 @@
                                                 </AnchorPane>
                                                 <HBox alignment="CENTER" prefWidth="200.0">
                                                     <children>
-                                                        <Label styleClass="texto-label-bold" text="CANTIDAD TOTAL: " />
-                                                        <Label fx:id="cantidad_total_palet" minWidth="60.0" styleClass="texto-label" text="-" />
+                                                        <Label styleClass="texto-label-bold" text="CANTIDAD TOTAL: "/>
+                                                        <Label fx:id="cantidad_total_palet" minWidth="60.0"
+                                                               styleClass="texto-label" text="-"/>
                                                         <Label styleClass="texto-label-bold" text="PRODUCTOS: ">
                                                             <HBox.margin>
-                                                                <Insets left="20.0" />
+                                                                <Insets left="20.0"/>
                                                             </HBox.margin>
                                                         </Label>
-                                                        <Label fx:id="productos_palet_label" minWidth="60.0" styleClass="texto-label" text="-" />
+                                                        <Label fx:id="productos_palet_label" minWidth="60.0"
+                                                               styleClass="texto-label" text="-"/>
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets top="10.0" />
+                                                        <Insets top="10.0"/>
                                                     </VBox.margin>
                                                 </HBox>
                                             </children>
                                             <HBox.margin>
-                                                <Insets right="10.0" />
+                                                <Insets right="10.0"/>
                                             </HBox.margin>
                                         </VBox>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" prefWidth="200.0">
                                     <VBox.margin>
-                                        <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="20.0" right="10.0" top="10.0"/>
                                     </VBox.margin>
                                     <children>
-                                        <Button fx:id="crear_palet_salida_btn" mnemonicParsing="false" styleClass="addPaletOC" text="CREAR PALET">
-                                 <graphic>
-                                    <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../icons/add.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Button>
+                                        <Button fx:id="crear_palet_salida_btn" mnemonicParsing="false"
+                                                styleClass="addPaletOC" text="CREAR PALET">
+                                            <graphic>
+                                                <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../icons/add.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
                                     </children>
                                 </HBox>
                             </children>
                         </VBox>
                         <AnchorPane prefHeight="220.0" styleClass="transparent">
                             <children>
-                                <VBox maxHeight="160.0" minHeight="160.0" prefHeight="160.0" style="-fx-border-width: 1; -fx-border-radius: 10; -fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                                <VBox maxHeight="160.0" minHeight="160.0" prefHeight="160.0"
+                                      style="-fx-border-width: 1; -fx-border-radius: 10; -fx-border-color: white;"
+                                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                     <padding>
-                                        <Insets top="5.0" />
+                                        <Insets top="5.0"/>
                                     </padding>
                                     <children>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-radius: 0 0 15 15; -fx-border-radius: 0 0 15 15; -fx-border-width: 0 3 3 3;" styleClass="transparent" VBox.vgrow="ALWAYS">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0"
+                                                    style="-fx-background-radius: 0 0 15 15; -fx-border-radius: 0 0 15 15; -fx-border-width: 0 3 3 3;"
+                                                    styleClass="transparent" VBox.vgrow="ALWAYS">
                                             <children>
-                                                <ScrollPane fx:id="palets_Listos_scroll" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <ScrollPane fx:id="palets_Listos_scroll" fitToHeight="true"
+                                                            fitToWidth="true" AnchorPane.bottomAnchor="0.0"
+                                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                            AnchorPane.topAnchor="0.0">
                                                     <content>
-                                                        <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308">
+                                                        <VBox alignment="CENTER_LEFT"
+                                                              maxHeight="1.7976931348623157E308">
                                                             <children>
-                                                                <GridPane fx:id="grid_palets_Listos" alignment="CENTER_LEFT">
+                                                                <GridPane fx:id="grid_palets_Listos"
+                                                                          alignment="CENTER_LEFT">
                                                                     <columnConstraints>
-                                                                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                                        <ColumnConstraints halignment="CENTER"
+                                                                                           hgrow="ALWAYS"/>
                                                                     </columnConstraints>
                                                                 </GridPane>
                                                             </children>
                                                         </VBox>
                                                     </content>
                                                     <padding>
-                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                                                     </padding>
                                                 </ScrollPane>
                                             </children>
                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="10.0"/>
                                             </padding>
                                         </AnchorPane>
                                     </children>
                                 </VBox>
                                 <HBox style="-fx-background-color: #222;" AnchorPane.leftAnchor="15.0">
                                     <children>
-                                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true"
+                                                   preserveRatio="true">
                                             <image>
-                                                <Image url="@../../icons/pallet-24.png" />
+                                                <Image url="@../../icons/pallet-24.png"/>
                                             </image>
                                         </ImageView>
-                                        <Label style="-fx-background-color: #222;" styleClass="texto-label-bold" text="Palets Creados">
+                                        <Label style="-fx-background-color: #222;" styleClass="texto-label-bold"
+                                               text="Palets Creados">
                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                                <Insets bottom="5.0" left="5.0" right="5.0"/>
                                             </padding>
                                         </Label>
                                     </children>
                                     <padding>
-                                        <Insets left="5.0" />
+                                        <Insets left="5.0"/>
                                     </padding>
                                 </HBox>
                             </children>
                             <VBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0"/>
                             </VBox.margin>
                         </AnchorPane>
                     </children>
