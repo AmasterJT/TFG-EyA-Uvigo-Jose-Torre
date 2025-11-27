@@ -238,7 +238,7 @@
                                     <HBox alignment="CENTER_RIGHT" spacing="15.0">
                                         <children>
                                             <Region HBox.hgrow="ALWAYS" />
-                                            <Button fx:id="actualizar_palet_btn" mnemonicParsing="false" prefHeight="30.0" styleClass="generar_compra" text="MOVER PALET" textFill="WHITE">
+                                            <Button fx:id="actualizar_palet_btn" mnemonicParsing="false" prefHeight="30.0" styleClass="generar_compra" text="ACTUALIZAR PALET" textFill="WHITE">
                                                 <font>
                                                     <Font name="System Bold" size="12.0" />
                                                 </font>
