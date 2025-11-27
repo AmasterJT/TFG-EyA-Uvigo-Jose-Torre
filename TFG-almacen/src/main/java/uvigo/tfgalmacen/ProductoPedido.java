@@ -9,16 +9,18 @@ public class ProductoPedido {
     private final int cantidad;
 
 
-    private int id_detalle_BDD;
+    private final int id_detalle_BDD;
     public Boolean isComplete;
+    public Boolean isPaletizado;
     public String colorHEX = "";
 
 
-    public ProductoPedido(String identificadorProducto, int cantidad, Boolean isComplete, int id_detalle_BDD) {
+    public ProductoPedido(String identificadorProducto, int cantidad, Boolean isComplete, int id_detalle_BDD, Boolean isPaletizado) {
         this.identificadorProducto = identificadorProducto;
         this.cantidad = cantidad;
         this.isComplete = (isComplete != null && isComplete); // maneja null como false o tu lógica
         this.id_detalle_BDD = id_detalle_BDD;
+        this.isPaletizado = isPaletizado;
         colorHEX = convertColorToHEX(getColorByIdentificadorProducto(Main.connection, identificadorProducto));
     }
 

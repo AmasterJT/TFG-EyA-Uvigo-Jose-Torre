@@ -4,8 +4,10 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -64,6 +66,7 @@ public class ItemPaletizarController implements Initializable {
     @FXML
     private Label producto_detalle_pedido_label;
 
+
     @FXML
     private Button mover_producto_listo_en_pedido_btn;
 
@@ -80,22 +83,17 @@ public class ItemPaletizarController implements Initializable {
     private Region region;
 
 
+    @FXML
+    private AnchorPane base_pane;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         split_btn.setOnAction(_ -> modificarCantidadProducto());
         split_btn.setTooltip(new Tooltip("Dividir cantidad de producto"));
 
         if (mover_producto_listo_en_pedido_btn != null) {
-            mover_producto_listo_en_pedido_btn.setOnAction(_ -> {
-                if (paletizarParent != null) {
-                    paletizarParent.moverItemAProductosEnPalet(this);
-
-                    actualizarEstadoProductoPedido(Main.connection, id_detalle_BDD, true);
-
-                } else {
-                    LOGGER.warning("paletizarParent es null en ItemPaletizarController al intentar mover el item.");
-                }
-            });
+            mover_producto_listo_en_pedido_btn.setOnAction(_ -> ocultar());
             mover_producto_listo_en_pedido_btn.setTooltip(new Tooltip("Mover este producto al palet"));
         }
 
@@ -103,8 +101,18 @@ public class ItemPaletizarController implements Initializable {
         configurarContextMenu();
     }
 
+    public void ocultar() {
+        if (paletizarParent != null) {
+            paletizarParent.moverItemAProductosEnPalet(this);
+
+            actualizarEstadoProductoPedido(Main.connection, id_detalle_BDD, true);
+
+        } else {
+            LOGGER.warning("paletizarParent es null en ItemPaletizarController al intentar mover el item.");
+        }
+    }
+
     private void modificarCantidadProducto() {
-        System.out.println("clickkk");
 
         abrirVentanaMovimiento();
     }
@@ -192,19 +200,30 @@ public class ItemPaletizarController implements Initializable {
 
         boolean visibleAcciones = !enPalet;
 
-        if (split_btn != null) {
-            split_btn.setVisible(visibleAcciones);
-            split_btn.setManaged(visibleAcciones);
-        }
+        setNodeVisible(split_btn, visibleAcciones);
+        setNodeVisible(mover_producto_listo_en_pedido_btn, visibleAcciones);
+        setNodeVisible(region, visibleAcciones);
 
-        if (mover_producto_listo_en_pedido_btn != null) {
-            mover_producto_listo_en_pedido_btn.setVisible(visibleAcciones);
-            mover_producto_listo_en_pedido_btn.setManaged(visibleAcciones);
-        }
+        // Ajustar el contenedor base para que se recalculen las medidas
+        if (base_pane != null) {
+            base_pane.setPrefHeight(Region.USE_COMPUTED_SIZE);
+            base_pane.setMinHeight(Region.USE_PREF_SIZE);
+            base_pane.setMaxHeight(Region.USE_PREF_SIZE);
 
-        if (region != null) {
-            region.setVisible(visibleAcciones);
-            region.setManaged(visibleAcciones);
+            base_pane.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            base_pane.setMinWidth(Region.USE_PREF_SIZE);
+            base_pane.setMaxWidth(Region.USE_PREF_SIZE);
+
+            base_pane.requestLayout();  // pide un nuevo layout
+
+            System.out.println(base_pane.getWidth());
+        }
+    }
+
+    private void setNodeVisible(Node node, boolean visible) {
+        if (node != null) {
+            node.setVisible(visible);
+            node.setManaged(visible); // esto es lo que hace que el layout lo tenga o no en cuenta
         }
     }
 
@@ -249,5 +268,14 @@ public class ItemPaletizarController implements Initializable {
     public int getIdProductoBDD() {
         return idProductoBDD;
     }
+
+    public Button getMover_producto_listo_en_pedido_btn() {
+        return mover_producto_listo_en_pedido_btn;
+    }
+
+    public void setMover_producto_listo_en_pedido_btn(Button mover_producto_listo_en_pedido_btn) {
+        this.mover_producto_listo_en_pedido_btn = mover_producto_listo_en_pedido_btn;
+    }
+
 
 }

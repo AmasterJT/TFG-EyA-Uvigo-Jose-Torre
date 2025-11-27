@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
 <AnchorPane fx:id="backgroundAnchorPane" maxHeight="200.0" maxWidth="125.0" minHeight="200.0" minWidth="160.0" prefHeight="200.0" prefWidth="125.0" style="-fx-background-radius: 10; -fx-background-color: #8a8a8a;" styleClass="shadow" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemEnvioController">
     <children>
@@ -26,6 +27,7 @@
                         <Insets left="10.0" />
                      </HBox.margin></CheckBox>
                         <Region HBox.hgrow="ALWAYS" />
+                  <Circle fx:id="indicador_etiqueta" fill="#c30d00" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                   <Button fx:id="generar_etiqueta_btn" mnemonicParsing="false" styleClass="print-etiqueta">
                      <graphic>
                               <ImageView fitHeight="150.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

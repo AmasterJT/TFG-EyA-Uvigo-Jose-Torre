@@ -35,7 +35,7 @@ public class DetallesPedidoDAO {
        SELECT: productos por pedido
        =========================== */
     private static final String SELECT_PRODUCTOS_POR_PEDIDO_SQL = """
-            SELECT p.identificador_producto, dp.cantidad, dp.estado_producto_pedido, dp.id_detalle
+            SELECT p.identificador_producto, dp.cantidad, dp.estado_producto_pedido, dp.id_detalle, dp.paletizado
             FROM detalles_pedido dp
             JOIN pedidos pe  ON dp.id_pedido   = pe.id_pedido
             JOIN productos p ON dp.id_producto = p.id_producto
@@ -57,8 +57,9 @@ public class DetallesPedidoDAO {
                     int cantidad = rs.getInt("cantidad");
                     boolean isComplete = rs.getBoolean("estado_producto_pedido");
                     int id_detalle_BDD = rs.getInt("id_detalle");
+                    boolean isPaletizado = rs.getBoolean("paletizado");
 
-                    productos.add(new ProductoPedido(identificadorProducto, cantidad, isComplete, id_detalle_BDD));
+                    productos.add(new ProductoPedido(identificadorProducto, cantidad, isComplete, id_detalle_BDD, isPaletizado));
                 }
             }
             LOGGER.fine(() -> "Productos recuperados para código " + codigoReferencia + ": " + productos.size());

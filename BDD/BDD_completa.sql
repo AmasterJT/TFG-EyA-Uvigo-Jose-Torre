@@ -358,7 +358,7 @@ CREATE TABLE clientes (
 -- Creación de la tabla tipos
 CREATE TABLE tipos (
     id_tipo VARCHAR(50) PRIMARY KEY,
-    color º(20) NOT NULL
+    color VARCHAR(20) NOT NULL
 );
 
 
@@ -436,13 +436,15 @@ CREATE TABLE pedidos (
         'Pendiente',
         'Completado',
         'En proceso',
-        'Cancelado'
+        'Cancelado',
+        'Enviado'
     ) NOT NULL,
     hora_salida ENUM (
         'primera_hora',
         'segunda_hora'
     ),
     palets_del_pedido INT,
+    enviado BOOLEAN DEFAULT 0,
     FOREIGN KEY (id_cliente) REFERENCES clientes (id_cliente),
     FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario)
 );
@@ -458,7 +460,7 @@ CREATE TABLE detalles_pedido (
     paletizado BOOLEAN DEFAULT 0,
     FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
-    UNIQUE KEY uq_pedido_producto (id_pedido, id_producto)
+    KEY uq_pedido_producto (id_pedido, id_producto)
 );
     
     
@@ -2124,11 +2126,11 @@ INSERT INTO pedidos (id_usuario, id_cliente, estado, fecha_entrega, hora_salida,
 (4, 4, 'En proceso', '2025-08-17', 'segunda_hora', 0),
 (5, 5, 'En proceso', '2025-08-19', 'primera_hora', 0),
 
-(1, 1, 'Completado', '2025-07-01', NULL, 0),
-(2, 2, 'Completado', '2025-07-02', NULL, 0),
-(3, 3, 'Completado', '2025-07-03', NULL, 0),
-(4, 4, 'Completado', '2025-07-04', NULL, 0),
-(5, 5, 'Completado', '2025-07-05', NULL, 0),
+(NULL, 1, 'Pendiente', '2025-07-01', NULL, 0),
+(NULL, 2, 'Pendiente', '2025-07-02', NULL, 0),
+(NULL, 3, 'Pendiente', '2025-07-03', NULL, 0),
+(NULL, 4, 'Pendiente', '2025-07-04', NULL, 0),
+(NULL, 5, 'Pendiente', '2025-07-05', NULL, 0),
 
 (1, 1, 'Cancelado', '2025-06-01', NULL, 0),
 (2, 2, 'Cancelado', '2025-06-02', NULL, 0),
@@ -2148,11 +2150,11 @@ INSERT INTO pedidos (id_usuario, id_cliente, estado, fecha_entrega, hora_salida,
 (5, 4, 'En proceso', '2025-08-28', 'primera_hora', 0),
 (1, 5, 'En proceso', '2025-08-29', 'segunda_hora', 0),
 
-(2, 1, 'Completado', '2025-07-10', NULL, 0),
-(3, 2, 'Completado', '2025-07-11', NULL, 0),
-(4, 3, 'Completado', '2025-07-12', NULL, 0),
-(5, 4, 'Completado', '2025-07-13', NULL, 0),
-(1, 5, 'Completado', '2025-07-14', NULL, 0),
+(NULL, 1, 'Pendiente', '2025-07-10', NULL, 0),
+(NULL, 2, 'Pendiente', '2025-07-11', NULL, 0),
+(NULL, 3, 'Pendiente', '2025-07-12', NULL, 0),
+(NULL, 4, 'Pendiente', '2025-07-13', NULL, 0),
+(NULL, 5, 'Pendiente', '2025-07-14', NULL, 0),
 
 (2, 1, 'Cancelado', '2025-06-10', NULL, 0),
 (3, 2, 'Cancelado', '2025-06-11', NULL, 0),
@@ -2221,33 +2223,33 @@ INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_p
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (5, 63, 43, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (5, 51, 17, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (5, 71, 87, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 41, 53, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 41, 53, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 64, 26, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 49, 88, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 49, 88, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 48, 25, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 28, 48, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 28, 48, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 50, 44, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 78, 80, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 31, 94, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 30, 64, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 45, 66, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 45, 66, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 20, 60, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 73, 77, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 65, 57, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 67, 91, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 3, 68, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 3, 68, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 12, 16, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 71, 38, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 63, 37, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 54, 13, TRUE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 11, 14, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 54, 13, FALSE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 11, 14, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 78, 89, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 80, 38, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 49, 57, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 39, 67, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 12, 78, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 12, 78, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 21, 76, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 55, 69, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 55, 69, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 1, 36, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (9, 15, 92, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (9, 42, 76, FALSE);

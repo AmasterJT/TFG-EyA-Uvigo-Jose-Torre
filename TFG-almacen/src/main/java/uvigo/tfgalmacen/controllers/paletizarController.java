@@ -261,6 +261,8 @@ public class paletizarController implements Initializable {
                 itemController.setData(producto_del_pedido);
                 itemController.setPaletizarController(this);
 
+                if (grid == grid_productos_en_palet) itemController.mostrarComoProductoEnPalet(true);
+
                 // Registrar nodo y grid de origen
                 nodoPorItem.put(itemController, anchorPane);
                 anchorPane.setUserData(itemController);
@@ -468,16 +470,31 @@ public class paletizarController implements Initializable {
             combo_pedido_primera_hora.getItems().setAll(pedidosPrimera);
             combo_pedido_segunda_hora.getItems().setAll(pedidosSegunda);
 
+
+            // Seleccionar automáticamente el primer valor disponible
             combo_pedido_primera_hora.getSelectionModel().clearSelection();
+            combo_pedido_primera_hora.setPromptText("-");
+
             combo_pedido_segunda_hora.getSelectionModel().clearSelection();
+            combo_pedido_segunda_hora.setPromptText("-");
 
-            combo_pedido_primera_hora.setPromptText(
-                    pedidosPrimera.isEmpty() ? "Sin pedidos (1ª hora)" : "Pedidos 1ª hora");
-            combo_pedido_segunda_hora.setPromptText(
-                    pedidosSegunda.isEmpty() ? "Sin pedidos (2ª hora)" : "Pedidos 2ª hora");
+            // Habilitar / deshabilitar según haya datos
+            if (pedidosPrimera.isEmpty()) {
+                combo_pedido_primera_hora.setDisable(true);
+                combo_pedido_primera_hora.setPromptText("No hay pedidos");
 
-            combo_pedido_primera_hora.setDisable(pedidosPrimera.isEmpty());
-            combo_pedido_segunda_hora.setDisable(pedidosSegunda.isEmpty());
+            } else {
+                combo_pedido_primera_hora.setDisable(false);
+            }
+
+
+            if (pedidosSegunda.isEmpty()) {
+                combo_pedido_segunda_hora.setDisable(true);
+                combo_pedido_segunda_hora.setPromptText("No hay pedidos");
+            } else {
+                combo_pedido_segunda_hora.setDisable(false);
+            }
+
 
             String finalUsername1 = username;
             LOGGER.info(() -> String.format(
@@ -490,7 +507,6 @@ public class paletizarController implements Initializable {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error cargando pedidos del usuario " + username, e);
         }
-
 
         // Al cambiar de usuario, limpiamos los datos de cliente hasta que haya pedido
         actualizarDatosCliente(null);
@@ -528,7 +544,14 @@ public class paletizarController implements Initializable {
                         Main.connection,
                         p.getCodigo_referencia()
                 );
+
+                List<ProductoPedido> productos_listos = getProductosPorCodigoReferencia(
+                        Main.connection,
+                        p.getCodigo_referencia()
+                );
                 productos.clear();
+                productos_listos.clear();
+
                 System.out.println("WWWWWWWWWWW:  " + productos.size());
 
 
@@ -537,6 +560,8 @@ public class paletizarController implements Initializable {
                     if (!ped.isComplete) {
                         System.out.println("kkkkkkkkkkkkkkkk");
                         productos.add(ped);
+                    } else if (!ped.isPaletizado) {
+                        productos_listos.add(ped);
                     }
                 }
 
@@ -544,6 +569,7 @@ public class paletizarController implements Initializable {
 
                 LOGGER.info("Renderizando productos (1ª hora) del pedido: " + p.getCodigo_referencia());
                 renderizarProductos(productos, grid_en_curso_primera_hora);
+                renderizarProductos(productos_listos, grid_productos_en_palet);
 
                 cargarPaletsSalidaParaPedido(p);
             } catch (Exception e) {
@@ -566,6 +592,7 @@ public class paletizarController implements Initializable {
 
                 // 🔹 Actualizar datos del cliente
                 actualizarDatosCliente(p);
+                limpiarGridPane(grid_productos_en_palet);
 
                 List<ProductoPedido> productos2 = getProductosPorCodigoReferencia(
                         Main.connection,
@@ -576,7 +603,13 @@ public class paletizarController implements Initializable {
                         Main.connection,
                         p.getCodigo_referencia()
                 );
+
+                List<ProductoPedido> productos_listos = getProductosPorCodigoReferencia(
+                        Main.connection,
+                        p.getCodigo_referencia()
+                );
                 productos.clear();
+                productos_listos.clear();
                 System.out.println("WWWWWWWWWWW:  " + productos.size());
 
 
@@ -585,12 +618,15 @@ public class paletizarController implements Initializable {
                     if (!ped.isComplete) {
                         System.out.println("kkkkkkkkkkkkkkkk");
                         productos.add(ped);
+                    } else if (!ped.isPaletizado) {
+                        productos_listos.add(ped);
                     }
                 }
 
 
                 LOGGER.info("Renderizando productos (2ª hora) del pedido: " + p.getCodigo_referencia());
                 renderizarProductos(productos, grid_en_curso_segunda_hora);
+                renderizarProductos(productos_listos, grid_productos_en_palet);
                 cargarPaletsSalidaParaPedido(p);
 
 
@@ -789,6 +825,10 @@ public class paletizarController implements Initializable {
 
             if (pActual != null) {
                 cargarPaletsSalidaParaPedido(pActual);
+
+                int i = getPaletsDelPedido(Main.connection, pActual.getId_pedido());
+                System.out.println(i);
+                actualizarPaletsDelPedido(Main.connection, pActual.getId_pedido(), i + 1);
             }
 
         } catch (Exception e) {
@@ -829,6 +869,8 @@ public class paletizarController implements Initializable {
         // Limpia los productos del pedido en curso (1ª y 2ª hora)
         limpiarGridPane(grid_en_curso_primera_hora);
         limpiarGridPane(grid_en_curso_segunda_hora);
+        limpiarGridPane(grid_productos_en_palet);
+        limpiarGridPane(grid_palets_Listos);
 
         // Opcional: también vaciar el grid de productos en palet y palets listos
         // limpiarGridPane(grid_productos_en_palet);
@@ -868,6 +910,25 @@ public class paletizarController implements Initializable {
                     Main.connection,
                     p.getCodigo_referencia()
             );
+
+
+            List<ProductoPedido> productos2 = getProductosPorCodigoReferencia(
+                    Main.connection,
+                    p.getCodigo_referencia()
+            );
+
+            productos.clear();
+            System.out.println("WWWWWWWWWWW:  " + productos.size());
+
+
+            for (ProductoPedido ped : productos2) {
+                System.out.println("ggggggggggggg");
+                if (!ped.isComplete) {
+                    System.out.println("kkkkkkkkkkkkkkkk");
+                    productos.add(ped);
+                }
+            }
+
 
             LOGGER.info("Refrescando grid de origen tras split. Pedido: " + p.getCodigo_referencia());
             renderizarProductos(productos, origen);

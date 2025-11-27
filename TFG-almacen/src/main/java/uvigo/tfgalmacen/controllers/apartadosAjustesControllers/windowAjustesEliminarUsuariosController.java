@@ -27,9 +27,7 @@ import uvigo.tfgalmacen.database.UsuarioDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import static uvigo.tfgalmacen.RutasFicheros.WINDOW_AJUSTES_ACTUALIZAR_PEDIDO_ELIMINAR_USUARIOS_FXML;
-import static uvigo.tfgalmacen.controllers.pedidosController.ESTADOS_DEL_PEDIDO;
-import static uvigo.tfgalmacen.database.PedidoDAO.getPedidosAllData;
-import static uvigo.tfgalmacen.database.PedidoDAO.updateEstadoPedidoCanceladoCompletado;
+import static uvigo.tfgalmacen.database.PedidoDAO.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class windowAjustesEliminarUsuariosController {
@@ -200,7 +198,7 @@ public class windowAjustesEliminarUsuariosController {
             for (Pedido p : todosLosPedidos) {
                 if (p.getId_usuario() > 0)
                     if (Objects.equals(UsuarioDAO.getUsernameById(Main.connection, p.getId_usuario()), username)) {
-                        if (!p.getEstado().equals(ESTADOS_DEL_PEDIDO.get(2)) && !p.getEstado().equals(ESTADOS_DEL_PEDIDO.get(3))) {
+                        if (!p.getEstado().equals(ESTADOS_VALIDOS.get(2)) && !p.getEstado().equals(ESTADOS_VALIDOS.get(3))) {
                             pedidosAsignados.add(p);
                         } else {
                             updateEstadoPedidoCanceladoCompletado(Main.connection, p.getId_pedido());

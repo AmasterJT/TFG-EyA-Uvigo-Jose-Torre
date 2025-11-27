@@ -15,6 +15,7 @@
 .tab-pane {
     -fx-background-color: transparent; /* Fondo del contenido */
     -fx-border-color: transparent;
+
 }
 
 /* ======= BARRA SUPERIOR QUE CONTIENE LAS PESTAÑAS ======= */
@@ -24,7 +25,6 @@
     -fx-border-color: #444444;
     -fx-border-width: 0 0 0 0; /* Línea inferior */
 }
-
 
 /* ===== Barra que contiene las pestañas (solo parte superior) ===== */
 .tab-pane:top > .tab-header-area > .tab-header-background {
@@ -39,7 +39,7 @@
     -fx-border-color: #666;
     -fx-border-radius: 5 5 0 0;
     -fx-background-radius: 5 5 0 0;
-    -fx-border-width: 1 1 0 1;
+    -fx-border-width: 0;
 
     /* COLOR DEL TEXTO */
     -fx-text-base-color: #e0e0e0;
@@ -49,8 +49,27 @@
 .tab-pane .tab:selected {
     -fx-background-color: #db9f75; /* Color del tab activo */
     -fx-text-base-color: white;
+    -fx-border-width: 0;
 
 }
+
+.tab-pane .tab:selected:focused,
+.tab-pane .tab:focused,
+.tab-pane:focused,
+.tab:focused,
+.tab-label:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+}
+
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
 
 /* ======= PESTAÑA EN HOVER ======= */
 .tab-pane .tab:hover {
@@ -771,10 +790,6 @@
     -fx-text-base-color: white;
 }
 
-.tab-pane .tab:selected .tab-label {
-    -fx-text-fill: black;
-    -fx-font-weight: normal;
-}
 
 /* ---- Hover ---- */
 .movimiento-tabpane .tab:hover {
@@ -787,3 +802,13 @@
     -fx-font-size: 13px;
     -fx-text-fill: black;
 }
+
+
+.move-producto-a-palet-btn {
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.move-producto-a-palet-btn:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+

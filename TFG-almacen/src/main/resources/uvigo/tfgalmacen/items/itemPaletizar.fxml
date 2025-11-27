@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="35.0" prefWidth="550.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: white;" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemPaletizarController">
+<AnchorPane fx:id="base_pane" prefHeight="35.0" prefWidth="550.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: white;" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.ItemPaletizarController">
     <children>
         <VBox fx:id="vertical_container" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -30,12 +30,13 @@
                                 <Insets left="10.0" />
                             </HBox.margin>
                         </Label>
+                  <Region fx:id="region11" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                         <Label styleClass="texto-label-bold" text="CANTIDAD:" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
                             <HBox.margin>
-                                <Insets left="30.0" />
+                                <Insets left="20.0" />
                             </HBox.margin>
                         </Label>
                         <Label fx:id="cantidad_detalle_pedido_label" styleClass="texto-label" text="100" textFill="WHITE">
@@ -43,6 +44,7 @@
                                 <Insets left="10.0" right="10.0" />
                             </HBox.margin>
                         </Label>
+                  <Region fx:id="region1" maxWidth="10.0" minWidth="10.0" />
                         <Button fx:id="split_btn" contentDisplay="CENTER" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="25.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" styleClass="directory-chosser-btn">
                             <graphic>
                                 <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
@@ -61,8 +63,8 @@
                                 <Insets right="1.0" />
                             </padding>
                         </Button>
-                        <Region fx:id="region" minWidth="20.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="mover_producto_listo_en_pedido_btn" mnemonicParsing="false" styleClass="transparent">
+                        <Region fx:id="region" maxWidth="20.0" minWidth="20.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="mover_producto_listo_en_pedido_btn" mnemonicParsing="false" styleClass="move-producto-a-palet-btn">
                      <graphic>
                         <ImageView fitHeight="150.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                            <image>

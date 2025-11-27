@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static uvigo.tfgalmacen.database.PedidoDAO.*;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_success;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_warning;
 
 public class windowGenerarPedidoController implements Initializable {
 
@@ -88,9 +90,9 @@ public class windowGenerarPedidoController implements Initializable {
                 System.out.println("No se puede marcar como ENVIADO: hay palets sin etiqueta para el pedido "
                         + seleccionado.getCodigo_referencia());
                 // Aquí podrías usar una ventana_warning si quieres:
-                // ventana_warning("No se puede enviar",
-                //      "Faltan etiquetas",
-                //      "Todos los palets del pedido deben tener etiqueta antes de enviarlo.");
+                ventana_warning("No se puede enviar",
+                        "Faltan etiquetas",
+                        "Todos los palets del pedido deben tener etiqueta antes de enviarlo.");
                 return;
             }
         } else {
@@ -105,6 +107,10 @@ public class windowGenerarPedidoController implements Initializable {
         }
 
         System.out.println("Pedido marcado como ENVIADO: " + seleccionado.getCodigo_referencia());
+
+        ventana_success("Pedido enviado",
+                "El pedido " + seleccionado.getCodigo_referencia() + " ha sido marcado como ENVIADO.",
+                "Información");
 
         // 3) Refrescar combo
         cargarPedidosEnCombo();

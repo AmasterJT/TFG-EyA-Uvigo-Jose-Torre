@@ -5,6 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import uvigo.tfgalmacen.PaletSalida;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.gs1.EtiquetaGS1;
@@ -41,6 +43,9 @@ public class ItemEnvioController implements Initializable {
 
     private boolean tieneEtiqueta = false;
 
+    String color_sin_etiqueta = "#c30d00";
+    String color_con_etiqueta = "#38a107";
+
 
     @FXML
     private Label cliente_label;
@@ -57,6 +62,10 @@ public class ItemEnvioController implements Initializable {
 
     @FXML
     private Label sscc_label;
+
+    @FXML
+    private Circle indicador_etiqueta;
+
 
     PaletSalida palet_salida;
     Pedido pedido;
@@ -76,6 +85,14 @@ public class ItemEnvioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         generar_etiqueta_btn.setOnAction(_ -> generarEtiqueta());
+
+        if (tieneEtiqueta) {
+            indicador_etiqueta.setFill(Paint.valueOf(color_con_etiqueta));
+
+        } else {
+            indicador_etiqueta.setFill(Paint.valueOf(color_sin_etiqueta));
+        }
+
     }
 
 
@@ -128,6 +145,8 @@ public class ItemEnvioController implements Initializable {
             System.out.println("Etiqueta generada en: " + salida.getAbsolutePath());
 
             tieneEtiqueta = true;
+
+            indicador_etiqueta.setFill(Paint.valueOf(color_con_etiqueta));
             ventana_success("Etiqueta del palet",
                     "Etiqueta generada correctamente:\n\n" +
                             salida.getAbsolutePath(), ""

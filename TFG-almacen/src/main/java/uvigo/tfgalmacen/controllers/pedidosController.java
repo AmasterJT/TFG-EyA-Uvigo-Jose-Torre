@@ -61,9 +61,8 @@ public class pedidosController {
     }
 
 
-    public static final List<String> ESTADOS_DEL_PEDIDO = ESTADOS_VALIDOS;
-    private static final String ESTADO_PENDIENTE = ESTADOS_DEL_PEDIDO.getFirst();
-    private static final String ESTADO_EN_PROCESO = ESTADOS_DEL_PEDIDO.get(1);
+    private static final String ESTADO_PENDIENTE = ESTADOS_VALIDOS.getFirst();
+    private static final String ESTADO_EN_PROCESO = ESTADOS_VALIDOS.get(2);
 
 
     @FXML
