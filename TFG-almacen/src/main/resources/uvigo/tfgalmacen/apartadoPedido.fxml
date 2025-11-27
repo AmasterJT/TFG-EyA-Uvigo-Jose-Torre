@@ -128,20 +128,11 @@
                            </VBox.margin>
                         </Button>
                         <Region VBox.vgrow="ALWAYS" />
-                                <Button fx:id="move_to_en_proceso_btn" mnemonicParsing="false">
+                                <Button fx:id="move_to_en_proceso_btn" mnemonicParsing="false" styleClass="generar_compra">
                                     <graphic>
                                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../icons/arrows/icons8-right-arrow-64.png" />
-                                            </image>
-                                        </ImageView>
-                                    </graphic>
-                                </Button>
-                                <Button fx:id="move_to_pendiente_btn" mnemonicParsing="false">
-                                    <graphic>
-                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../icons/arrows/icons8-left-arrow-64.png" />
+                                                <Image url="@../../icons/arrows/icons8-arrow-right-30%20(1).png" />
                                             </image>
                                         </ImageView>
                                     </graphic>

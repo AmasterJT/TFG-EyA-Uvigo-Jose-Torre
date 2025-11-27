@@ -10,6 +10,68 @@
 
 @import "label.css";
 
+
+/* ======= FONDO GENERAL DEL TABPANE ======= */
+.tab-pane {
+    -fx-background-color: transparent; /* Fondo del contenido */
+    -fx-border-color: transparent;
+}
+
+/* ======= BARRA SUPERIOR QUE CONTIENE LAS PESTAÑAS ======= */
+.tab-pane *.tab-header-area {
+    -fx-background-color: transparent !important; /* Color de la barra */
+    -fx-padding: 0 0 0 0;
+    -fx-border-color: #444444;
+    -fx-border-width: 0 0 0 0; /* Línea inferior */
+}
+
+
+/* ===== Barra que contiene las pestañas (solo parte superior) ===== */
+.tab-pane:top > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent; /* ← color de la barra */
+    -fx-border-color: #444444;
+    -fx-border-width: 0 0 0 0; /* línea abajo */
+}
+
+/* ======= CADA PESTAÑA (NO SELECCIONADA) ======= */
+.tab-pane .tab {
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: #666;
+    -fx-border-radius: 5 5 0 0;
+    -fx-background-radius: 5 5 0 0;
+    -fx-border-width: 1 1 0 1;
+
+    /* COLOR DEL TEXTO */
+    -fx-text-base-color: #e0e0e0;
+}
+
+/* ======= PESTAÑA SELECCIONADA ======= */
+.tab-pane .tab:selected {
+    -fx-background-color: #db9f75; /* Color del tab activo */
+    -fx-text-base-color: white;
+
+}
+
+/* ======= PESTAÑA EN HOVER ======= */
+.tab-pane .tab:hover {
+    -fx-background-color: #e3bfa6; /* Color del tab activo */
+    -fx-text-base-color: white;
+}
+
+/* ======= TEXTO DE LA PESTAÑA ======= */
+.tab-pane .tab-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white; /* usa el heredado de -fx-text-base-color */
+}
+
+/* ======= QUITAR LA FLECHA DE SCROLL (si hay muchas pestañas) ======= */
+.tab-pane *.control-buttons-tab {
+    -fx-opacity: 0; /* Oculta botones izquierda/derecha */
+    -fx-padding: 0;
+}
+
+
 /* diálogo genérico */
 .alert-dialog {
     /* estilos comunes */
@@ -483,7 +545,7 @@
 }
 
 /* Hover */
-.z:hover {
+.addPaletOC:hover {
     -fx-background-color: #e3bfa6;
 }
 
@@ -674,4 +736,54 @@
     -fx-background-color: rgba(255, 255, 255, 0.2);
     -fx-text-fill: white;
     -fx-cursor: hand; /* opcional */
+}
+
+
+/* =========================================================
+   ESTILO PERSONALIZADO PARA EL TABPANE "movimiento-tabpane"
+   ========================================================= */
+
+.movimiento-tabpane {
+    /* Fondo del área de contenido */
+    -fx-background-color: transparent;
+}
+
+
+/* ---- Barra superior ---- */
+.movimiento-tabpane > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent !important;
+    /*-fx-border-color: #555;*/
+    -fx-border-width: 0 0 0 0;
+}
+
+/* ---- Pestañas no seleccionadas ---- */
+.movimiento-tabpane .tab {
+    -fx-background-color: #F1F1E6;
+    -fx-text-base-color: #3a3a3a;
+    -fx-background-radius: 6 6 0 0;
+    -fx-border-radius: 6 6 0 0;
+}
+
+
+/* ---- Pestaña seleccionada ---- */
+.movimiento-tabpane .tab:selected {
+    -fx-background-color: #ccc;
+    -fx-text-base-color: white;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: black;
+    -fx-font-weight: normal;
+}
+
+/* ---- Hover ---- */
+.movimiento-tabpane .tab:hover {
+    -fx-background-color: #aaa;
+}
+
+/* ---- Texto ---- */
+.movimiento-tabpane .tab-label {
+    -fx-font-weight: normal;
+    -fx-font-size: 13px;
+    -fx-text-fill: black;
 }

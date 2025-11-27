@@ -45,7 +45,7 @@
                             <tabs>
                                 <Tab text="Primer envío">
                                     <content>
-                                        <VBox alignment="TOP_CENTER" style="-fx-border-color: white; -fx-border-radius: 0 0 10 10;">
+                                        <VBox alignment="TOP_CENTER" style="-fx-border-color: white; -fx-border-radius: 0 10 10 10;">
                                             <children>
                                                 <HBox alignment="CENTER">
                                                     <children>
