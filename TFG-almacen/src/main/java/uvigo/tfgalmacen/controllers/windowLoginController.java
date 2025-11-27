@@ -29,9 +29,9 @@ import static uvigo.tfgalmacen.RutasFicheros.MAIN_FXML;
 import static uvigo.tfgalmacen.database.UsuarioDAO.SQLcheckUser;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
-public class loginController implements Initializable {
+public class windowLoginController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger(loginController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(windowLoginController.class.getName());
 
     static {
         LOGGER.setLevel(Level.ALL);

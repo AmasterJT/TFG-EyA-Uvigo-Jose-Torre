@@ -21,9 +21,9 @@ import java.util.logging.*;
 import static uvigo.tfgalmacen.database.TableLister.getTables;
 import static uvigo.tfgalmacen.utils.ExcelGenerator.exportarTodasLasTablasAExcel;
 
-public class exportDataController implements Initializable {
+public class winsowExportDataController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger(exportDataController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(winsowExportDataController.class.getName());
 
     static {
         LOGGER.setLevel(Level.ALL);

@@ -17,7 +17,6 @@ import javafx.stage.StageStyle;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.database.PaletSalidaDAO;
-import uvigo.tfgalmacen.database.PedidoDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 import uvigo.tfgalmacen.utils.windowComponentAndFuncionalty;
 
@@ -37,9 +36,9 @@ import static uvigo.tfgalmacen.database.UsuarioDAO.getNombreUsuarioById;
 import static uvigo.tfgalmacen.database.UsuarioDAO.getUsernameById;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 
-public class envioController implements Initializable {
+public class apartadoEnvioController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger(envioController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(apartadoEnvioController.class.getName());
 
     // Sustituye virtual threads por un pool normal:
     private static final ExecutorService FX_BG_EXEC = Executors.newFixedThreadPool(4);  // por ejemplo

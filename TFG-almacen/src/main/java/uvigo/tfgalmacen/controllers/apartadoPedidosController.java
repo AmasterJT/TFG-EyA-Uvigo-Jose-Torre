@@ -36,9 +36,9 @@ import static uvigo.tfgalmacen.database.PedidoDAO.ESTADOS_VALIDOS;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_warning;
 
-public class pedidosController {
+public class apartadoPedidosController {
 
-    private static final Logger LOGGER = Logger.getLogger(pedidosController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(apartadoPedidosController.class.getName());
 
     static {
         // Sube el nivel del logger
@@ -214,7 +214,7 @@ public class pedidosController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_MOVE_PENDIENTE_TO_EN_PROCESO_FXML));
             AnchorPane pane = loader.load();
 
-            MovePendienteToEnProcesoController controller = loader.getController();
+            windowMovePendienteToEnProcesoController controller = loader.getController();
             controller.setData(pendientes);
 
 
@@ -269,7 +269,7 @@ public class pedidosController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(WINDOW_DETALLES_PEDIDO_FXML));
                 AnchorPane pane = loader.load();
 
-                detallesPedidoController controller = loader.getController();
+                windowDetallesPedidoController controller = loader.getController();
                 controller.setData(pedido);
 
                 Stage stage = crearStageBasico(pane, true, "Detalles del pedido: " + pedido.getCodigo_referencia());

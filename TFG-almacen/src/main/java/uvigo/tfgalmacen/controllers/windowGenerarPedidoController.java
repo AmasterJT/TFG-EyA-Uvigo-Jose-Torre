@@ -4,17 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
-import uvigo.tfgalmacen.almacenManagement.Almacen;
-import uvigo.tfgalmacen.almacenManagement.Palet;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -34,7 +29,7 @@ public class windowGenerarPedidoController implements Initializable {
     private Button exportar_btn;
 
     List<Pedido> pedidos;
-    private envioController parent;
+    private apartadoEnvioController parent;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -126,7 +121,7 @@ public class windowGenerarPedidoController implements Initializable {
     }
 
     // <<< NUEVO SETTER >>>
-    public void setEnvioParent(envioController parent) {
+    public void setEnvioParent(apartadoEnvioController parent) {
         this.parent = parent;
     }
 }

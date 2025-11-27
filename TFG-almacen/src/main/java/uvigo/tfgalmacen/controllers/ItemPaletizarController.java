@@ -54,7 +54,7 @@ public class ItemPaletizarController implements Initializable {
     private static final ExecutorService FX_BG_EXEC = Executors.newVirtualThreadPerTaskExecutor();
 
 
-    private paletizarController paletizarParent;
+    private apartadoPaletizarController paletizarParent;
 
     boolean esta_en_palet = false;
     int id_detalle_BDD;
@@ -156,7 +156,7 @@ public class ItemPaletizarController implements Initializable {
             try {
                 Parent root = task.getValue();
 
-                modificarCantidadPaletizarController controller = loader.getController();
+                windowModificarCantidadPaletizarController controller = loader.getController();
                 controller.setData(cantidad_detalle_pedido_label.getText(), id_detalle_BDD);
 
                 Stage win = crearStageBasico(root, true, "Crear nuevo Proveedor");
@@ -191,7 +191,7 @@ public class ItemPaletizarController implements Initializable {
     }
 
 
-    public void setPaletizarController(paletizarController parent) {
+    public void setPaletizarController(apartadoPaletizarController parent) {
         this.paletizarParent = parent;
     }
 

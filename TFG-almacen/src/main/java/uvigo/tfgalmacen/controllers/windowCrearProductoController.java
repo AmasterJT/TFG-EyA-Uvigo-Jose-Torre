@@ -31,10 +31,10 @@ import static java.lang.Integer.parseInt;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 
-public class crearProductoController implements Initializable {
+public class windowCrearProductoController implements Initializable {
 
 
-    private static final Logger LOGGER = Logger.getLogger(crearProductoController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(windowCrearProductoController.class.getName());
 
     static {
         // Sube el nivel del logger

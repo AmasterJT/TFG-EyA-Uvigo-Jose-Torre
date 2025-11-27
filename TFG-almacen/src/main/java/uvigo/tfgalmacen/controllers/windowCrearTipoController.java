@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 import static uvigo.tfgalmacen.database.TipoDAO.insertTipoStrict;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_success;
 
-public class crearTipoController implements Initializable {
+public class windowCrearTipoController implements Initializable {
 
     @FXML
     private Button ExitButton;

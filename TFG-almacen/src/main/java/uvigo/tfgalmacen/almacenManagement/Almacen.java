@@ -3,7 +3,6 @@ package uvigo.tfgalmacen.almacenManagement;
 import uvigo.tfgalmacen.Cliente;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Proveedor;
-import uvigo.tfgalmacen.controllers.loginController;
 import uvigo.tfgalmacen.database.DatabaseConnection;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 

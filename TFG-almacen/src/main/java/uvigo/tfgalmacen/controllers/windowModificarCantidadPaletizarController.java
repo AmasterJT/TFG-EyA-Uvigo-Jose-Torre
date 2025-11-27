@@ -20,10 +20,10 @@ import java.util.logging.Logger;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getIdPedidoByIdDetalle;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
-public class modificarCantidadPaletizarController implements Initializable {
+public class windowModificarCantidadPaletizarController implements Initializable {
 
     // 🧩 Logger con colores personalizados
-    private static final Logger LOGGER = Logger.getLogger(modificarCantidadPaletizarController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(windowModificarCantidadPaletizarController.class.getName());
 
     static {
         LOGGER.setLevel(Level.ALL);

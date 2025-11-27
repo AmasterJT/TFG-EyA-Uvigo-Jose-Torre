@@ -98,10 +98,10 @@ public class ItemPedidoController implements Initializable {
     }
 
     private void prueba() {
-        for (int i = 0; i < pedidosController.allItemControllers.size(); i++) {
-            if (pedidosController.allItemControllers.get(i).getPedido().getId_pedido() == this.pedido.getId_pedido()) {
-                pedidosController.allItemControllers.remove(i);
-                pedidosController.allItemControllers.add(this);
+        for (int i = 0; i < apartadoPedidosController.allItemControllers.size(); i++) {
+            if (apartadoPedidosController.allItemControllers.get(i).getPedido().getId_pedido() == this.pedido.getId_pedido()) {
+                apartadoPedidosController.allItemControllers.remove(i);
+                apartadoPedidosController.allItemControllers.add(this);
             }
 
         }

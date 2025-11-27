@@ -11,7 +11,6 @@ public class RutasFicheros {
     public static final String WINDOW_MODIFICAR_CANTIDAD_FXML = "/uvigo/tfgalmacen/windowModificarCantidadPaletizar.fxml";
 
     public static final String APARTADO_ALMACEN_FXML = "/uvigo/tfgalmacen/apartadoAlmacen.fxml";
-    public static final String APARTADO_AJUSTES_FXML = "/uvigo/tfgalmacen/apartadoAjustes.fxml";
     public static final String APARTADO_INVENTARIO_FXML = "/uvigo/tfgalmacen/apartadoInventario.fxml";
     public static final String APARTADO_PEDIDOS_FXML = "/uvigo/tfgalmacen/apartadoPedido.fxml";
     public static final String APARTADO_PALETIZAR_FXML = "/uvigo/tfgalmacen/apartadoPaletizar.fxml";
@@ -42,7 +41,6 @@ public class RutasFicheros {
 
     public static final String WINDOW_AJUSTES_CREAR_TIPO_FXML = "/uvigo/tfgalmacen/windowCrearTipo.fxml";
     public static final String WINDOW_AJUSTES_CREAR_PRODUCTO_FXML = "/uvigo/tfgalmacen/windowCrearProducto.fxml";
-    public static final String WINDOW_AJUSTES_CREAR_PROVEEDOR_FXML = "/uvigo/tfgalmacen/windowCrearProveedor.fxml";
 
 
     public static final String WINDOW_MOVIMIENTO_FXML = "/uvigo/tfgalmacen/windowMovimientos.fxml";

@@ -40,9 +40,9 @@ import static uvigo.tfgalmacen.RutasFicheros.ITEM_PALET_FINAL_FXML;
 
 import static uvigo.tfgalmacen.database.PaletSalidaDAO.LineaPaletSalida;
 
-public class paletizarController implements Initializable {
+public class apartadoPaletizarController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger(paletizarController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(apartadoPaletizarController.class.getName());
 
     static {
         // Sube el nivel del logger

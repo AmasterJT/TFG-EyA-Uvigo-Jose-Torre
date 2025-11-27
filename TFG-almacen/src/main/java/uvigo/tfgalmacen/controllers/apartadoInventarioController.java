@@ -34,10 +34,10 @@ import static uvigo.tfgalmacen.almacenManagement.Almacen.*;
  * Gestiona la carga, visualización y filtrado de los palets disponibles en el almacén
  * mediante un GridPane y ComboBoxes de filtros.
  */
-public class inventarioController implements Initializable {
+public class apartadoInventarioController implements Initializable {
 
     // ---------------------- Logger ----------------------
-    private static final Logger LOGGER = Logger.getLogger(inventarioController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(apartadoInventarioController.class.getName());
 
     static {
         LOGGER.setLevel(Level.ALL);

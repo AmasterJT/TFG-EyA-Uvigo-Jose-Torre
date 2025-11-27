@@ -10,13 +10,11 @@ import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.ProductoPedido;
-import uvigo.tfgalmacen.database.PedidoDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -28,10 +26,10 @@ import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoR
 import static uvigo.tfgalmacen.database.PedidoDAO.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
-public class detallesPedidoController {
+public class windowDetallesPedidoController {
 
     // 🧩 Logger con colores personalizados
-    private static final Logger LOGGER = Logger.getLogger(detallesPedidoController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(windowDetallesPedidoController.class.getName());
 
     static {
         LOGGER.setLevel(Level.ALL);

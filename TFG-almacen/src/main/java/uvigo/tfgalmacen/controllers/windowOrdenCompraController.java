@@ -35,9 +35,9 @@ import static uvigo.tfgalmacen.Proveedor.getProveedorPorNombre;
 import static uvigo.tfgalmacen.RutasFicheros.ITEM_ORDEN_COMPRA_FXML;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
-public class ordenCompraController implements Initializable {
+public class windowOrdenCompraController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger(ordenCompraController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(windowOrdenCompraController.class.getName());
 
     static {
         // Sube el nivel del logger

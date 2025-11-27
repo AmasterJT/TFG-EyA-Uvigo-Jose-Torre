@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1400.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="1400.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="695.0" prefWidth="1400.0" styleClass="backgroundScene" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.inventarioController">
+<AnchorPane maxHeight="1400.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="1400.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="695.0" prefWidth="1400.0" styleClass="backgroundScene" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadoInventarioController">
     <children>
         <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="695.0" prefWidth="1400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>

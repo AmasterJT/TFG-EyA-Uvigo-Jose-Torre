@@ -22,7 +22,7 @@ import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.shake;
 // import static tu.paquete.UIUtils.shake;
 // import static tu.paquete.UIUtils.isInvalidSelection;
 
-public class MovePendienteToEnProcesoController {
+public class windowMovePendienteToEnProcesoController {
 
     private static final String PLACEHOLDER_USUARIO = "Seleccionar usuario";
 
