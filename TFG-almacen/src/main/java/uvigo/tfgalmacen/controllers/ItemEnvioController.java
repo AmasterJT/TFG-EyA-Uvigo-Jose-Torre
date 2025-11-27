@@ -80,6 +80,19 @@ public class ItemEnvioController implements Initializable {
         codigo_pedido_label.setText(pedido.getCodigo_referencia());
         cliente_label.setText(pedido.getNombre_cliente());
 
+
+        // --- Verificar si la etiqueta existe ---
+        boolean existe = etiquetaExiste(palet.getSscc());
+
+        if (existe) {
+            indicador_etiqueta.setFill(Paint.valueOf(color_con_etiqueta));
+            tieneEtiqueta = true;
+        } else {
+            indicador_etiqueta.setFill(Paint.valueOf(color_sin_etiqueta));
+            tieneEtiqueta = false;
+        }
+
+
     }
 
     @Override
@@ -258,4 +271,11 @@ public class ItemEnvioController implements Initializable {
     public int getIdPedido() {
         return pedido.getId_pedido();
     }
+
+    private boolean etiquetaExiste(String sscc) {
+        File carpeta = getCarpetaEtiquetas();
+        File pdf = new File(carpeta, "etiqueta_" + sscc + ".pdf");
+        return pdf.exists();
+    }
+
 }

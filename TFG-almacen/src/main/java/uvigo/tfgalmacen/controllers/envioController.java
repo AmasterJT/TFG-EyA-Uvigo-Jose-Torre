@@ -15,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import uvigo.tfgalmacen.Main;
+import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.database.PaletSalidaDAO;
 import uvigo.tfgalmacen.database.PedidoDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
@@ -31,7 +32,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static uvigo.tfgalmacen.RutasFicheros.*;
-import static uvigo.tfgalmacen.database.PedidoDAO.getCodigoReferenciaById;
+import static uvigo.tfgalmacen.database.PedidoDAO.*;
+import static uvigo.tfgalmacen.database.UsuarioDAO.getNombreUsuarioById;
+import static uvigo.tfgalmacen.database.UsuarioDAO.getUsernameById;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 
 public class envioController implements Initializable {
@@ -183,7 +186,23 @@ public class envioController implements Initializable {
             List<Integer> paletsSalida = entry.getValue();
 
             String codigo_referencia_pedido = getCodigoReferenciaById(Main.connection, idPedido);
-            Label lblPedido = new Label(codigo_referencia_pedido);
+            boolean esta_completado = isPedidoCompletado(Main.connection, codigo_referencia_pedido);
+
+            Pedido p = getPedidoPorCodigo(Main.connection, codigo_referencia_pedido);
+
+            Label lblPedido = new Label();
+            lblPedido.setWrapText(true);
+            if (esta_completado) {
+                lblPedido.setText("✅ " + codigo_referencia_pedido);
+            } else {
+                assert p != null;
+                lblPedido.setText("⌛ " + codigo_referencia_pedido + "\n " +
+                        getNombreUsuarioById(Main.connection, p.getId_usuario()) + " ("
+                        + getUsernameById(Main.connection, p.getId_usuario()) +
+                        ")");
+            }
+
+
             lblPedido.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: white");
 
             grid_envio.add(lblPedido, 0, row);
@@ -201,7 +220,7 @@ public class envioController implements Initializable {
                     listaItemsEnvio.add(ctrl);
 
                     ctrl.setData(
-                            Objects.requireNonNull(PedidoDAO.getPedidoPorCodigo(Main.connection, codigo_referencia_pedido)),
+                            Objects.requireNonNull(getPedidoPorCodigo(Main.connection, codigo_referencia_pedido)),
                             Objects.requireNonNull(PaletSalidaDAO.getPaletSalidaById(Main.connection, idPaletSalida))
                     );
 

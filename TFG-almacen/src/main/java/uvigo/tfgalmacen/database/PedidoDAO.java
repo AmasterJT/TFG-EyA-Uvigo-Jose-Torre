@@ -833,4 +833,34 @@ public class PedidoDAO {
     }
 
 
+    public static boolean isPedidoCompletado(Connection conn, String codigoReferencia) {
+        if (conn == null || codigoReferencia == null || codigoReferencia.isBlank()) {
+            return false;
+        }
+
+        String sql = """
+                    SELECT estado 
+                    FROM pedidos 
+                    WHERE codigo_referencia = ?
+                """;
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, codigoReferencia);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String estado = rs.getString("estado");
+                    return "Completado".equalsIgnoreCase(estado);
+                }
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(PedidoDAO.class.getName())
+                    .log(Level.SEVERE, "Error comprobando estado del pedido: " + codigoReferencia, e);
+        }
+
+        return false;
+    }
+
+
 }
