@@ -58,13 +58,7 @@ public class detallesPedidoController {
     private Button aplicar_cambios_detalle_pedido_btn;
 
     @FXML
-    private Button completar_detalle_pedido_btn;
-
-    @FXML
     private GridPane grid_pendientes;
-
-    @FXML
-    private Button crear_palet_salida_btn;
 
 
     @FXML
@@ -94,56 +88,10 @@ public class detallesPedidoController {
 
         minimizeButton.setOnAction(_ -> minimizarVentana());
         aplicar_cambios_detalle_pedido_btn.setOnAction(_ -> actualizarDetallePedidos());
-        completar_detalle_pedido_btn.setOnAction(_ -> finalizarPedido());
 
-        crear_palet_salida_btn.setOnAction(_ -> crearPalet());
 
     }
 
-    private void crearPalet() {
-        System.out.println("click");
-
-        if (estado_pedido_detalle_label.getText().equals(ESTADOS_VALIDOS.getFirst())) return;
-
-        for (ItemDetallesPedidoController itemController : allItemControllers) {
-            System.out.println("Detalle: " + itemController.id_BDD + " -> " + itemController.getProducto_listo_en_pedido_check().isSelected());
-
-            itemController.getProducto_listo_en_pedido_check().isSelected();
-
-        }
-
-        int i = getPaletsDelPedido(Main.connection, pedido_para_detallar.getId_pedido());
-        System.out.println(i);
-        actualizarPaletsDelPedido(Main.connection, pedido_para_detallar.getId_pedido(), i + 1);
-
-        ventana_success("Productos actualizados correctamente", "Los cambios en los productos del pedido se han aplicado con éxito.", "Información");
-
-        Stage stage = (Stage) aplicar_cambios_detalle_pedido_btn.getScene().getWindow();
-        stage.close();
-    }
-
-    private void finalizarPedido() {
-
-        Optional<ButtonType> resultado = ventana_error(
-                "Confirmar Completado del Pedido",
-                "¿Seguro que deseas finalizar el pedido?",
-                "Esta acción hará que el pedido sea completado automaticamente",
-                "Sí, finalizar", "Cancelar"
-        );
-
-        if (resultado.isPresent() && resultado.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            for (ItemDetallesPedidoController itemController : allItemControllers) {
-                actualizarEstadoProductoPedido(Main.connection, itemController.id_BDD, true);
-            }
-
-            String codigo_referencia = codigo_referencia_pedido_detalle_label.getText();
-            PedidoDAO.marcarPedidoCompletadoSinUsuarioPorCodigo(Main.connection, codigo_referencia);
-
-
-            Stage stage = (Stage) aplicar_cambios_detalle_pedido_btn.getScene().getWindow();
-            stage.close();
-        }
-    }
 
     private void minimizarVentana() {
         Stage stage = (Stage) minimizeButton.getScene().getWindow();
@@ -181,9 +129,6 @@ public class detallesPedidoController {
 
         LOGGER.info("Renderizando productos del pedido: " + pedido_para_detallar.getCodigo_referencia());
         renderizarProductos(productos_del_pedido, grid_pendientes);
-
-        if (estado_pedido_detalle_label.getText().equals(ESTADOS_VALIDOS.getFirst()))
-            crear_palet_salida_btn.setDisable(true);
 
     }
 

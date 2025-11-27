@@ -761,54 +761,50 @@
 /* =========================================================
    ESTILO PERSONALIZADO PARA EL TABPANE "movimiento-tabpane"
    ========================================================= */
+/* ================================ */
+/*          TAB NO SELECCIONADA     */
+/* ================================ */
+
+.movimiento-tabpane .tab .tab-label {
+    -fx-text-fill: white;
+}
+
+/* ================================ */
+/*            TAB SELECCIONADA      */
+/* ================================ */
+
+.movimiento-tabpane .tab:selected .tab-label {
+    -fx-text-fill: black !important;
+}
+
+/* ================================ */
+/*   RESTO DE TU ESTILO ORIGINAL   */
+/* ================================ */
 
 .movimiento-tabpane {
-    /* Fondo del área de contenido */
     -fx-background-color: transparent;
 }
 
-
-/* ---- Barra superior ---- */
 .movimiento-tabpane > .tab-header-area > .tab-header-background {
     -fx-background-color: transparent !important;
-    /*-fx-border-color: #555;*/
-    -fx-border-width: 0 0 0 0;
 }
 
-/* ---- Pestañas no seleccionadas ---- */
 .movimiento-tabpane .tab {
-    -fx-background-color: #F1F1E6;
-    -fx-text-base-color: #3a3a3a;
+    -fx-background-color: #053147;
+    -fx-text-base-color: white;
     -fx-background-radius: 6 6 0 0;
     -fx-border-radius: 6 6 0 0;
 }
 
-
-/* ---- Pestaña seleccionada ---- */
 .movimiento-tabpane .tab:selected {
-    -fx-background-color: #ccc;
-    -fx-text-base-color: white;
+    -fx-background-color: #F1F1E6;
+    -fx-border-color: #053147;
+    -fx-border-width: 1 1 0 1;
 }
 
-
-/* ---- Hover ---- */
+/* hover */
 .movimiento-tabpane .tab:hover {
     -fx-background-color: #aaa;
 }
 
-/* ---- Texto ---- */
-.movimiento-tabpane .tab-label {
-    -fx-font-weight: normal;
-    -fx-font-size: 13px;
-    -fx-text-fill: black;
-}
-
-
-.move-producto-a-palet-btn {
-    -fx-background-color: rgba(0, 0, 0, 0);
-}
-
-.move-producto-a-palet-btn:hover {
-    -fx-background-color: rgba(0, 0, 0, 0.2);
-}
 

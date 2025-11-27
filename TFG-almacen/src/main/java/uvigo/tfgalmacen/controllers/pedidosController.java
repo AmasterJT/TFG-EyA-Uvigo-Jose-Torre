@@ -61,7 +61,7 @@ public class pedidosController {
     }
 
 
-    private static final String ESTADO_PENDIENTE = ESTADOS_VALIDOS.getFirst();
+    private static final String ESTADO_PENDIENTE = ESTADOS_VALIDOS.get(0);
     private static final String ESTADO_EN_PROCESO = ESTADOS_VALIDOS.get(2);
 
 

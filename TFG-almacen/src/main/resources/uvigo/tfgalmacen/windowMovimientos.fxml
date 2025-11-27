@@ -63,7 +63,7 @@
                 </AnchorPane>
             </bottom>
          <center>
-            <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <TabPane styleClass="movimiento-tabpane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
               <tabs>
                 <Tab fx:id="traslado_pestana" text="Trasladar Palet">
                   <content>
