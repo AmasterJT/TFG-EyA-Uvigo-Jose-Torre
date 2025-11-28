@@ -6,10 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -114,11 +111,15 @@ public class apartadoEnvioController implements Initializable {
 
         if (print_etiqueta_btn != null) {
             print_etiqueta_btn.setOnAction(_ -> abrirEtiquetaEnVisor());
+            print_etiqueta_btn.setTooltip(new Tooltip("Imprimir etiqueta"));
+
         }
 
         if (abrir_explorador_btn != null) {
             abrir_explorador_btn.setOnAction(_ -> abrirExploradorEnEtiqueta());
-            abrir_explorador_btn.setDisable(true);   // 🔹 deshabilitado al inicio
+            abrir_explorador_btn.setTooltip(new Tooltip("Abrir ubicación de la etiqueta"));
+
+            abrir_explorador_btn.setDisable(true);   // deshabilitado al inicio
         }
 
         if (carpeta_destino_text != null) {
