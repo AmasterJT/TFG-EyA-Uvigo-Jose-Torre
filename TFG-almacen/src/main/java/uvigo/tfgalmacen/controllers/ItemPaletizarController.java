@@ -234,6 +234,7 @@ public class ItemPaletizarController implements Initializable {
         quitarDePalet.setOnAction(_ -> {
             if (paletizarParent != null && esta_en_palet) {
                 paletizarParent.devolverItemAOrigen(this);
+                base_pane.setPrefWidth(550);
                 actualizarEstadoProductoPedido(Main.connection, id_detalle_BDD, false);
             } else {
                 LOGGER.fine("ContextMenu: 'Quitar de palet' ignorado (no está en palet o parent null).");

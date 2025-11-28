@@ -18,7 +18,7 @@ public class PedidoDAO {
     private static final Logger LOGGER = Logger.getLogger(PedidoDAO.class.getName());
 
     public static final List<String> ESTADOS_VALIDOS = List.of("Pendiente", "Completado", "En proceso", "Cancelado", "Enviado");
-    static final List<String> HORAS_VALIDAS = List.of("primera_hora", "segunda_hora");
+    public static final List<String> HORAS_VALIDAS = List.of("primera_hora", "segunda_hora");
 
     static {
         LOGGER.setLevel(Level.ALL);
@@ -862,5 +862,60 @@ public class PedidoDAO {
         return false;
     }
 
+
+    // En PedidoDAO
+
+
+    private static final String SELECT_HORA_SALIDA_BY_CODIGO_SQL =
+            "SELECT hora_salida FROM pedidos WHERE codigo_referencia = ?";
+
+    /**
+     * Devuelve la hora_salida ("primera_hora" o "segunda_hora") para un pedido
+     * dado su código de referencia. Si no existe, devuelve null.
+     */
+    public static String getHoraSalidaByCodigo(Connection conn, String codigoReferencia) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getHoraSalidaByCodigo()");
+            return null;
+        }
+        if (codigoReferencia == null || codigoReferencia.isBlank()) {
+            LOGGER.warning("codigoReferencia vacío en getHoraSalidaByCodigo()");
+            return null;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(SELECT_HORA_SALIDA_BY_CODIGO_SQL)) {
+            ps.setString(1, codigoReferencia);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("hora_salida"); // "primera_hora" o "segunda_hora"
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error obteniendo hora_salida para codigo_referencia=" + codigoReferencia, e);
+        }
+        return null;
+    }
+
+
+    private static final String SELECT_HORA_SALIDA_BY_ID_SQL =
+            "SELECT hora_salida FROM pedidos WHERE id_pedido = ?";
+
+    public static String getHoraSalidaById(Connection conn, int idPedido) {
+        if (conn == null) {
+            LOGGER.severe("Conexión nula en getHoraSalidaById()");
+            return null;
+        }
+        try (PreparedStatement ps = conn.prepareStatement(SELECT_HORA_SALIDA_BY_ID_SQL)) {
+            ps.setInt(1, idPedido);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("hora_salida");
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error obteniendo hora_salida para id_pedido=" + idPedido, e);
+        }
+        return null;
+    }
 
 }

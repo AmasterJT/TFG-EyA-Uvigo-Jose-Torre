@@ -1,9 +1,12 @@
 package uvigo.tfgalmacen.controllers;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
@@ -41,6 +44,16 @@ public class windowGenerarPedidoController implements Initializable {
 
         // Cargar pedidos completados y no enviados
         cargarPedidosEnCombo();
+
+        EventHandler<KeyEvent> onEnterPressed = event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                marcarPedidoSeleccionadoComoEnviado();
+            }
+        };
+
+        combo_pedido_terminado_hora.setOnKeyPressed(
+                onEnterPressed
+        );
 
         // Acción del botón: marcar pedido como enviado
         exportar_btn.setOnAction(_ -> marcarPedidoSeleccionadoComoEnviado());

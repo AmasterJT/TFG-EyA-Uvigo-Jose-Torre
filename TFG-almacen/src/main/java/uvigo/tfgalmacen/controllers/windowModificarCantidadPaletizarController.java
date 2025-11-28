@@ -1,11 +1,16 @@
 package uvigo.tfgalmacen.controllers;
 
+import javafx.animation.PauseTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.database.DetallesPedidoDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
@@ -66,6 +71,15 @@ public class windowModificarCantidadPaletizarController implements Initializable
             stage.close();
         });
 
+
+        EventHandler<KeyEvent> onEnterPressed = event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                splitPedido();
+            }
+        };
+
+        nueva_cantidad_text.setOnKeyPressed(onEnterPressed);
+        
         nueva_cantidad_text.setTextFormatter(numericFormatter());
 
         nueva_cantidad_text.textProperty().addListener((_, oldValue, newValue) -> {

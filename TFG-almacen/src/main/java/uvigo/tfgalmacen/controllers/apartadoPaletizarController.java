@@ -5,6 +5,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.*;
+import uvigo.tfgalmacen.almacenManagement.Palet;
 import uvigo.tfgalmacen.database.*;
 import uvigo.tfgalmacen.gs1.GS1Utils;
 import uvigo.tfgalmacen.utils.ColorFormatter;
@@ -68,6 +71,10 @@ public class apartadoPaletizarController implements Initializable {
     int idCliente;
     int idUsuario;
     String codigo_referencia_pedido;
+
+
+    private ObservableList<Palet> masterPalets;
+    private FilteredList<Palet> filteredPalets;
 
 
     @FXML
@@ -261,13 +268,38 @@ public class apartadoPaletizarController implements Initializable {
                 itemController.setData(producto_del_pedido);
                 itemController.setPaletizarController(this);
 
-                if (grid == grid_productos_en_palet) itemController.mostrarComoProductoEnPalet(true);
 
-                // Registrar nodo y grid de origen
-                nodoPorItem.put(itemController, anchorPane);
+                if (grid == grid_productos_en_palet) {
+                    itemController.mostrarComoProductoEnPalet(true);
+
+                    Pedido p = getPedidoPorCodigo(Main.connection, codigo_referencia_pedido);
+                    String hora = p.getHoraSalida();
+
+
+                    if (HORAS_VALIDAS.get(0).equals(hora)) {
+
+                        nodoPorItem.put(itemController, anchorPane);
+                        gridOrigenPorItem.put(itemController, grid_en_curso_primera_hora);
+                        gridOrigenPorItem.putIfAbsent(itemController, grid_en_curso_primera_hora);
+                    } else {
+
+                        nodoPorItem.put(itemController, anchorPane);
+                        gridOrigenPorItem.put(itemController, grid_en_curso_segunda_hora);
+                        gridOrigenPorItem.putIfAbsent(itemController, grid_en_curso_segunda_hora);
+                    }
+
+                } else {
+                    // REGISTRO DE NODO Y GRID ORIGEN
+                    nodoPorItem.put(itemController, anchorPane);
+                    gridOrigenPorItem.put(itemController, grid);
+                    gridOrigenPorItem.putIfAbsent(itemController, grid);
+                }
+
                 anchorPane.setUserData(itemController);
-                gridOrigenPorItem.putIfAbsent(itemController, grid);
+
                 anchorPane.getProperties().put("controller", itemController);
+
+
                 allItemControllers.add(itemController);
 
                 if (column == COLUMS) {
@@ -344,7 +376,7 @@ public class apartadoPaletizarController implements Initializable {
         compactarGrid(grid_productos_en_palet);
 
         // Añadir de nuevo al grid original
-        int row = origen.getChildren().size();
+        int row = origen.getChildren().size() + 1;
         origen.add(nodo, 0, row);
         GridPane.setMargin(nodo, new Insets(10));
 
@@ -1031,5 +1063,6 @@ public class apartadoPaletizarController implements Initializable {
         // 3) Comprobar si el usuario actual ya no tiene pedidos
         comprobarYEliminarUsuarioSinPedidos();
     }
+
 
 }
