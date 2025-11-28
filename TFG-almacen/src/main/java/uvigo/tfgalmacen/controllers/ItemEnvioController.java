@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import uvigo.tfgalmacen.PaletSalida;
@@ -22,6 +23,22 @@ import static uvigo.tfgalmacen.database.DataConfig.COMPANY_NAME;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 import net.sf.jasperreports.engine.*;
+
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import uvigo.tfgalmacen.PaletSalida;
+import uvigo.tfgalmacen.Pedido;
+
+import java.io.File;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ResourceBundle;
 
 public class ItemEnvioController implements Initializable {
 
@@ -63,10 +80,15 @@ public class ItemEnvioController implements Initializable {
     @FXML
     private Label sscc_label;
 
+
+    @FXML
+    private AnchorPane backgroundAnchorPane;
+
     @FXML
     private Circle indicador_etiqueta;
 
-
+    private apartadoEnvioController parent;
+    private File etiquetaFile;
     PaletSalida palet_salida;
     Pedido pedido;
 
@@ -83,6 +105,17 @@ public class ItemEnvioController implements Initializable {
 
         // --- Verificar si la etiqueta existe ---
         boolean existe = etiquetaExiste(palet.getSscc());
+
+
+        Path etiquetasDir = Paths.get(
+                System.getProperty("user.home"),
+                "Downloads",
+                "Etiquetas"
+        );
+
+        // Ajusta el nombre si en tu generación usas otro patrón (p. ej. "Etiqueta_"+sscc+".pdf")
+        etiquetaFile = etiquetasDir.resolve("ETIQUETA_" + palet.getSscc() + ".pdf").toFile();
+        tieneEtiqueta = etiquetaFile.exists();
 
         if (existe) {
             indicador_etiqueta.setFill(Paint.valueOf(color_con_etiqueta));
@@ -105,6 +138,23 @@ public class ItemEnvioController implements Initializable {
         } else {
             indicador_etiqueta.setFill(Paint.valueOf(color_sin_etiqueta));
         }
+
+
+        // Click en todo el item → intentar mostrar el PDF si existe
+        backgroundAnchorPane.setOnMouseClicked(event -> {
+            if (tieneEtiqueta && etiquetaFile != null && etiquetaFile.exists()) {
+                // Mostrar la etiqueta correspondiente a ESTE item
+                if (parent != null) {
+                    parent.mostrarPdf(etiquetaFile, this);
+                }
+            } else {
+                // No hay etiqueta → si este item era el que se estaba mostrando, se limpia la imagen
+                if (parent != null) {
+                    parent.limpiarPdfSiMostradoDesde(this);
+                }
+                System.out.println("No hay etiqueta generada para SSCC: " + sscc_label.getText());
+            }
+        });
 
     }
 
@@ -276,6 +326,10 @@ public class ItemEnvioController implements Initializable {
         File carpeta = getCarpetaEtiquetas();
         File pdf = new File(carpeta, "etiqueta_" + sscc + ".pdf");
         return pdf.exists();
+    }
+
+    public void setApartadoEnvioParent(apartadoEnvioController parent) {
+        this.parent = parent;
     }
 
 }

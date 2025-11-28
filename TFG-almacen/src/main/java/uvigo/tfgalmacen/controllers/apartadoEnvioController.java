@@ -9,6 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -18,8 +21,11 @@ import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 import uvigo.tfgalmacen.database.PaletSalidaDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
+import uvigo.tfgalmacen.utils.PdfUtils;
 import uvigo.tfgalmacen.utils.windowComponentAndFuncionalty;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.*;
@@ -35,6 +41,10 @@ import static uvigo.tfgalmacen.database.PedidoDAO.*;
 import static uvigo.tfgalmacen.database.UsuarioDAO.getNombreUsuarioById;
 import static uvigo.tfgalmacen.database.UsuarioDAO.getUsernameById;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
+
+
+import java.awt.Desktop;
+
 
 public class apartadoEnvioController implements Initializable {
 
@@ -57,10 +67,21 @@ public class apartadoEnvioController implements Initializable {
         }
     }
 
+
+    @FXML
+    private ImageView pdfImageView;
+
+    @FXML
+    private TextField carpeta_destino_text;
+
+
     private final List<ItemEnvioController> listaItemsEnvio = new ArrayList<>();
 
     @FXML
     private Button generar_etiquetas_btn;
+
+    @FXML
+    private Button abrir_explorador_btn;
 
     @FXML
     private GridPane grid_envio;
@@ -69,11 +90,18 @@ public class apartadoEnvioController implements Initializable {
     private ScrollPane pedidosEnCursoPrimeraHoraScroll; // scroll del envío
 
     @FXML
+    private Button print_etiqueta_btn;
+
+    @FXML
     private Button enviar_pedido;
     // nº de columnas "útiles" para palets (además de la columna 0 con el id_pedido)
     // Realmente no hace falta fijar un máximo, el GridPane crece según uses columnas.
     // Lo dejo como constante por si luego quieres reordenar o cambiar diseño.
     private static final int COLUMNS_START_PALET = 1;
+
+    private ItemEnvioController itemMostrandoEtiqueta;
+    private File pdfMostrado;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,6 +111,20 @@ public class apartadoEnvioController implements Initializable {
         generar_etiquetas_btn.setOnAction(_ -> procesarEtiquetasSeleccionadas());
 
         enviar_pedido.setOnAction(_ -> abrirVetanaEnviarPedido());
+
+        if (print_etiqueta_btn != null) {
+            print_etiqueta_btn.setOnAction(_ -> abrirEtiquetaEnVisor());
+        }
+
+        if (abrir_explorador_btn != null) {
+            abrir_explorador_btn.setOnAction(_ -> abrirExploradorEnEtiqueta());
+            abrir_explorador_btn.setDisable(true);   // 🔹 deshabilitado al inicio
+        }
+
+        if (carpeta_destino_text != null) {
+            carpeta_destino_text.setEditable(false); // opcional: solo lectura
+            carpeta_destino_text.clear();            // sin ruta al inicio
+        }
     }
 
     private void abrirVetanaEnviarPedido() {
@@ -137,6 +179,7 @@ public class apartadoEnvioController implements Initializable {
 
     private void limpiarGrid(GridPane grid) {
         windowComponentAndFuncionalty.limpiarGridPane(grid);
+        limpiarPdf();
     }
 
     private void configurarScrollYGrid() {
@@ -218,6 +261,8 @@ public class apartadoEnvioController implements Initializable {
                     ItemEnvioController ctrl = loader.getController();
                     listaItemsEnvio.add(ctrl);
 
+                    ctrl.setApartadoEnvioParent(this);
+
                     ctrl.setData(
                             Objects.requireNonNull(getPedidoPorCodigo(Main.connection, codigo_referencia_pedido)),
                             Objects.requireNonNull(PaletSalidaDAO.getPaletSalidaById(Main.connection, idPaletSalida))
@@ -238,9 +283,9 @@ public class apartadoEnvioController implements Initializable {
     }
 
     public void refrescarGridEnvio() {
+        limpiarPdf();              // ← al refrescar, quitamos la imagen
         cargarPaletsSalidaEnGrid();
     }
-
 
     /**
      * Devuelve true si TODOS los palets_salida del pedido indicado
@@ -268,5 +313,122 @@ public class apartadoEnvioController implements Initializable {
             }
         }
         return true;
+    }
+
+
+    private ItemEnvioController itemQueMostroPdf;
+
+    public void mostrarPdf(File pdfFile, ItemEnvioController origen) {
+        try {
+            Image img = PdfUtils.cargarPrimeraPaginaComoImagen(pdfFile);
+            pdfImageView.setImage(img);
+            pdfImageView.setPreserveRatio(true);
+            pdfImageView.setFitWidth(600);
+
+            // Guardamos el pdf actual y el item que lo originó
+            this.pdfMostrado = pdfFile;
+            this.itemQueMostroPdf = origen;
+
+            // Habilitar botón de explorador
+            if (abrir_explorador_btn != null) {
+                abrir_explorador_btn.setDisable(false);
+            }
+
+            // Mostrar ruta completa en el textfield
+            if (carpeta_destino_text != null) {
+                carpeta_destino_text.setText(pdfFile.getAbsolutePath());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void limpiarPdfSiMostradoDesde(ItemEnvioController item) {
+        if (itemQueMostroPdf == item) {
+            limpiarPdf();
+        }
+    }
+
+    public void mostrarPdf(File pdfFile) {
+        mostrarPdf(pdfFile, null);
+    }
+
+    public void limpiarPdf() {
+        pdfImageView.setImage(null);
+        itemMostrandoEtiqueta = null;
+        pdfMostrado = null;
+    }
+
+
+    private void abrirEtiquetaEnVisor() {
+        // 1) Comprobar si hay PDF cargado
+        if (pdfMostrado == null || !pdfMostrado.exists()) {
+            // No hay etiqueta actual → aviso
+            windowComponentAndFuncionalty.ventana_warning(
+                    "Sin etiqueta",
+                    "No hay ninguna etiqueta seleccionada.",
+                    "Haz clic en un palet con etiqueta generada para poder abrirla."
+            );
+            return;
+        }
+
+        // 2) Comprobar soporte Desktop
+        if (!Desktop.isDesktopSupported()) {
+            windowComponentAndFuncionalty.ventana_warning(
+                    "Función no soportada",
+                    "Tu sistema no soporta apertura directa de archivos.",
+                    "No se puede abrir el visor PDF por defecto automáticamente."
+            );
+            return;
+        }
+
+        Desktop desktop = Desktop.getDesktop();
+        if (!desktop.isSupported(Desktop.Action.OPEN)) {
+            windowComponentAndFuncionalty.ventana_warning(
+                    "Función no soportada",
+                    "La acción de abrir archivos no está soportada.",
+                    "No se puede abrir el visor PDF por defecto automáticamente."
+            );
+            return;
+        }
+
+        // 3) Intentar abrir el PDF
+        try {
+            desktop.open(pdfMostrado);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error abriendo PDF en visor por defecto: " + pdfMostrado, e);
+            windowComponentAndFuncionalty.ventana_warning(
+                    "Error al abrir etiqueta",
+                    "No se ha podido abrir la etiqueta.",
+                    "Comprueba que el archivo sigue existiendo:\n" + pdfMostrado.getAbsolutePath()
+            );
+        }
+    }
+
+    private void abrirExploradorEnEtiqueta() {
+        if (pdfMostrado == null || !pdfMostrado.exists()) {
+            return;
+        }
+
+        if (!Desktop.isDesktopSupported()) {
+            LOGGER.warning("Desktop no soportado. No se puede abrir el explorador de archivos.");
+            return;
+        }
+
+        Desktop desktop = Desktop.getDesktop();
+
+        try {
+            if (desktop.isSupported(Desktop.Action.BROWSE_FILE_DIR)) {
+                desktop.browseFileDirectory(pdfMostrado);
+            } else {
+                File parent = pdfMostrado.getParentFile();
+                if (parent != null && parent.exists()) {
+                    desktop.open(parent);
+                }
+            }
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error abriendo explorador para: " + pdfMostrado, e);
+        }
     }
 }
