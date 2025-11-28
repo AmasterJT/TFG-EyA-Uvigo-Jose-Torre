@@ -592,4 +592,41 @@ public class DetallesPedidoDAO {
             LOGGER.log(Level.SEVERE, "Error actualizando paletizado=true en id_detalle=" + idDetalle, e);
         }
     }
+
+
+    public static boolean estanTodosDetallesPaletizados(Connection conn, int idPedido) {
+        if (conn == null) return false;
+
+        String sql = """
+                SELECT 
+                    SUM(CASE WHEN paletizado = 1 THEN 1 ELSE 0 END) AS paletizados,
+                    COUNT(*) AS total
+                FROM detalles_pedido
+                WHERE id_pedido = ?
+                """;
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idPedido);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int paletizados = rs.getInt("paletizados");
+                int total = rs.getInt("total");
+
+                if (total == 0) {
+                    // Pedido sin detalles → NO está completado
+                    return false;
+                }
+
+                return paletizados == total;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 }

@@ -800,6 +800,8 @@ public class apartadoPaletizarController implements Initializable {
 
             boolean isComplete = isPedidoCompletamentePaletizado(Main.connection, idPedido);
             System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFF isComplete: " + isComplete);
+
+            Pedido pedidoActual = getPedidoPorCodigo(Main.connection, codigoPedido);
             if (isComplete) {
                 marcarPedidoCompletadoSinUsuarioPorCodigo(Main.connection, codigoPedido);
 
@@ -810,6 +812,14 @@ public class apartadoPaletizarController implements Initializable {
                     }
                     limpiarGridPane(grid_palets_Listos);
                 });
+
+                if (DetallesPedidoDAO.estanTodosDetallesPaletizados(Main.connection, idPedido)) {
+
+
+                    String codigo = pedidoActual.getCodigo_referencia(); // o como lo tengas
+                    quitarPedidoDeCombosYRevisarUsuario(codigo);
+                }
+
 
             }
 
@@ -957,4 +967,69 @@ public class apartadoPaletizarController implements Initializable {
 
         return null;
     }
+
+
+    private void comprobarYEliminarUsuarioSinPedidos() {
+        String usuarioActual = combo_usuario.getValue();
+        if (usuarioActual == null || usuarioActual.isBlank()) {
+            return;
+        }
+
+        boolean sinPedidosPrimera = combo_pedido_primera_hora.getItems().isEmpty();
+        boolean sinPedidosSegunda = combo_pedido_segunda_hora.getItems().isEmpty();
+
+        // Si todavía tiene pedidos en alguna hora, no hacemos nada
+        if (!sinPedidosPrimera || !sinPedidosSegunda) {
+            return;
+        }
+
+        // Aquí ya NO tiene pedidos en ninguna hora -> eliminar usuario del combo
+        LOGGER.info(() -> "Usuario " + usuarioActual + " ya no tiene pedidos. Se elimina del combo de usuarios.");
+
+        // Quitar de cache y de combo
+        cacheUsuarios.remove(usuarioActual);
+        combo_usuario.getItems().remove(usuarioActual);
+
+        // Limpiar UI asociada
+        combo_usuario.getSelectionModel().clearSelection();
+        combo_pedido_primera_hora.getItems().clear();
+        combo_pedido_segunda_hora.getItems().clear();
+        combo_pedido_primera_hora.getSelectionModel().clearSelection();
+        combo_pedido_segunda_hora.getSelectionModel().clearSelection();
+
+        // Limpia grids y datos de cliente, si tienes métodos específicos
+        limpiarGridPane(grid_en_curso_primera_hora);
+        limpiarGridPane(grid_en_curso_segunda_hora);
+        limpiarGridPane(grid_productos_en_palet); // si existe en este controller
+        actualizarDatosCliente(null);             // ya la usas en tu código
+
+        // (Opcional) Seleccionar automáticamente otro usuario, si queda alguno
+        if (!combo_usuario.getItems().isEmpty()) {
+            String nuevoUsuario = combo_usuario.getItems().get(0);
+            combo_usuario.getSelectionModel().select(nuevoUsuario);
+            cargarDatosUsuarioDesdeCache(nuevoUsuario);
+        } else {
+            LOGGER.info("Ya no quedan usuarios con pedidos en proceso.");
+        }
+    }
+
+
+    // Llama a esto cuando un pedido se complete
+    private void quitarPedidoDeCombosYRevisarUsuario(String codigoPedido) {
+        // 1) Eliminar el pedido de ambos combos (por si estuviera en cualquiera de ellos)
+        combo_pedido_primera_hora.getItems().remove(codigoPedido);
+        combo_pedido_segunda_hora.getItems().remove(codigoPedido);
+
+        // 2) Limpiar selección si justo era el pedido seleccionado
+        if (codigoPedido.equals(combo_pedido_primera_hora.getValue())) {
+            combo_pedido_primera_hora.getSelectionModel().clearSelection();
+        }
+        if (codigoPedido.equals(combo_pedido_segunda_hora.getValue())) {
+            combo_pedido_segunda_hora.getSelectionModel().clearSelection();
+        }
+
+        // 3) Comprobar si el usuario actual ya no tiene pedidos
+        comprobarYEliminarUsuarioSinPedidos();
+    }
+
 }

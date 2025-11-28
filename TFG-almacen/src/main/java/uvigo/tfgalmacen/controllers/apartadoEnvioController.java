@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -185,15 +186,21 @@ public class apartadoEnvioController implements Initializable {
 
     private void configurarScrollYGrid() {
         if (pedidosEnCursoPrimeraHoraScroll != null) {
-            pedidosEnCursoPrimeraHoraScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            pedidosEnCursoPrimeraHoraScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
             pedidosEnCursoPrimeraHoraScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
             if (grid_envio != null) {
-                grid_envio.prefWidthProperty().bind(pedidosEnCursoPrimeraHoraScroll.widthProperty());
+                grid_envio.prefWidthProperty().unbind();
+                grid_envio.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid_envio.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid_envio.setMaxWidth(Region.USE_COMPUTED_SIZE);
+
                 grid_envio.setHgap(10);
                 grid_envio.setVgap(10);
             }
         }
     }
+
 
     private void procesarEtiquetasSeleccionadas() {
         System.out.println("---- Etiquetas seleccionadas ----");
@@ -214,9 +221,13 @@ public class apartadoEnvioController implements Initializable {
     }
 
 
+    private static final double ANCHO_COLUMNA_PEDIDO = 200;
+    private static final double ANCHO_ITEM_PALET = 180;
+    private static final double ALTO_ITEM_PALET = 205; // ajusta a tu diseño
+
     private void cargarPaletsSalidaEnGrid() {
         limpiarGrid(grid_envio);
-        listaItemsEnvio.clear();   // IMPORTANTE: limpiar también la lista
+        listaItemsEnvio.clear();
 
         Connection conn = Main.connection;
         Map<Integer, List<Integer>> mapa =
@@ -234,17 +245,23 @@ public class apartadoEnvioController implements Initializable {
             Pedido p = getPedidoPorCodigo(Main.connection, codigo_referencia_pedido);
 
             Label lblPedido = new Label();
-            lblPedido.setWrapText(true);
+            lblPedido.setWrapText(false); // ⛔ evitar wrap
             if (esta_completado) {
                 lblPedido.setText("✅ " + codigo_referencia_pedido);
             } else {
                 assert p != null;
                 lblPedido.setText("⌛ " + codigo_referencia_pedido + "\n " +
-                        getNombreUsuarioById(Main.connection, p.getId_usuario()) + " ("
-                        + getUsernameById(Main.connection, p.getId_usuario()) +
-                        ")");
+                        getNombreUsuarioById(Main.connection, p.getId_usuario()) + " (" +
+                        getUsernameById(Main.connection, p.getId_usuario()) + ")");
             }
 
+            // ✅ tamaño fijo para la celda de pedido
+            lblPedido.setMinWidth(ANCHO_COLUMNA_PEDIDO);
+            lblPedido.setPrefWidth(ANCHO_COLUMNA_PEDIDO);
+            lblPedido.setMaxWidth(ANCHO_COLUMNA_PEDIDO);
+
+            // que corte el texto si no cabe (sin wrap)
+            lblPedido.setEllipsisString("…");
 
             lblPedido.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: white");
 
@@ -259,15 +276,23 @@ public class apartadoEnvioController implements Initializable {
                     );
                     AnchorPane itemRoot = loader.load();
 
+                    // ✅ fijar tamaño del item (celda de palet)
+                    itemRoot.setMinWidth(ANCHO_ITEM_PALET);
+                    itemRoot.setPrefWidth(ANCHO_ITEM_PALET);
+                    itemRoot.setMaxWidth(ANCHO_ITEM_PALET);
+
+                    itemRoot.setMinHeight(ALTO_ITEM_PALET);
+                    itemRoot.setPrefHeight(ALTO_ITEM_PALET);
+                    itemRoot.setMaxHeight(ALTO_ITEM_PALET);
+
                     ItemEnvioController ctrl = loader.getController();
                     listaItemsEnvio.add(ctrl);
-
-                    ctrl.setApartadoEnvioParent(this);
 
                     ctrl.setData(
                             Objects.requireNonNull(getPedidoPorCodigo(Main.connection, codigo_referencia_pedido)),
                             Objects.requireNonNull(PaletSalidaDAO.getPaletSalidaById(Main.connection, idPaletSalida))
                     );
+                    ctrl.setApartadoEnvioParent(this);
 
                     grid_envio.add(itemRoot, col, row);
                     GridPane.setMargin(itemRoot, new Insets(10));
@@ -443,5 +468,6 @@ public class apartadoEnvioController implements Initializable {
             LOGGER.log(Level.SEVERE, "Error abriendo explorador para: " + pdfMostrado, e);
         }
     }
+
 
 }

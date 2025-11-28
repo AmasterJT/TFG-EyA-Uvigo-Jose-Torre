@@ -70,7 +70,7 @@
                                   <content>
                                       <VBox>
                                           <children>
-                                              <GridPane fx:id="grid_envio" alignment="CENTER">
+                                              <GridPane fx:id="grid_envio" alignment="CENTER_LEFT">
                                                   <columnConstraints>
                                                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
                                                   </columnConstraints>
