@@ -110,6 +110,8 @@ public class almacenController implements Initializable {
         initContextMenuEstanterias();
         hookContextMenuEnVista3D();
 
+        aplicarFiltros3D();
+
     }
 
     private void initContextMenuEstanterias() {
@@ -148,41 +150,37 @@ public class almacenController implements Initializable {
     }
 
     private void aplicarFiltros3D() {
-        // Primero palets y productos
+        // Valores actuales de los combos
+        String tipoSeleccionado = comboTipoAlmacen.getValue();
         String productoSeleccionado = comboProductoAlmacen.getValue();
 
+        boolean filtrarPorTipo = tipoSeleccionado != null && !"Todos".equals(tipoSeleccionado);
+        boolean filtrarPorProducto = productoSeleccionado != null && !"Todos".equals(productoSeleccionado);
+
+        // --- PALETS (y productos encima) ---
         for (Palet p : Almacen.TodosPalets) {
             List<Node> nodos = nodoPaletPorId.get(p.getIdPalet());
             if (nodos == null || nodos.size() < 2) continue;
 
-            Node palet = nodos.get(0);
-            Node producto = nodos.get(1);
+            Node paletNode = nodos.get(0);
+            Node productoNode = nodos.get(1);
 
             boolean visiblePorEstanteria = estanteriasVisibles.contains(p.getEstanteria());
-            //&& (p.getProducto().getIdTipo().equals(comboTipoAlmacen.getValue()));
-            //&& (!p.getProducto().getIdentificadorProducto().equals(comboTipoAlmacen.getValue()) || comboTipoAlmacen.getValue().equals("Todos"));
-
-            boolean visiblePorTipo = comboTipoAlmacen.getValue().equals("Todos") ||
-                    p.getProducto().getIdTipo().equals(comboTipoAlmacen.getValue());
-
-            boolean visiblePorProducto = comboProductoAlmacen.getValue().equals("Todos") ||
-                    p.getProducto().getIdentificadorProducto().equals(comboProductoAlmacen.getValue());
-
-
-            boolean visiblePorOtrosFiltros = !cumpleFiltrosAdicionales(p);
-
+            boolean visiblePorTipo = !filtrarPorTipo || p.getIdTipo().equals(tipoSeleccionado);
+            boolean visiblePorProducto = !filtrarPorProducto || p.getIdProducto().equals(productoSeleccionado);
 
             boolean visible = visiblePorEstanteria && visiblePorTipo && visiblePorProducto;
 
-            palet.setVisible(visible);
-            producto.setVisible(visible);
+            paletNode.setVisible(visible);
+            productoNode.setVisible(visible);
         }
 
-        // Después baldas, una sola vez por estantería
+        // --- BALDAS ---
+        // Aquí basta con que sigan la visibilidad de la estantería,
+        // sin invertir índices ni nada raro.
         for (var entry : baldasPorEstanteria.entrySet()) {
-            int estanteria = entry.getKey();
-            boolean visibleEst = estanteriasVisibles.contains(Almacen.NUM_ESTANTERIAS + 1 - estanteria);
-
+            int estanteria = NUM_ESTANTERIAS + 1 - entry.getKey(); // 1..NUM_ESTANTERIAS
+            boolean visibleEst = estanteriasVisibles.contains(estanteria);
             for (Node balda : entry.getValue()) {
                 balda.setVisible(visibleEst);
             }
@@ -247,6 +245,8 @@ public class almacenController implements Initializable {
         }
         comboProductoAlmacen.setItems(FXCollections.observableArrayList(todosLosProductos));
         comboProductoAlmacen.setValue("Todos");
+
+        aplicarFiltros3D();
 
     }
 
@@ -498,16 +498,20 @@ public class almacenController implements Initializable {
     private void configurarComboTipo() {
         comboTipoAlmacen.setOnAction(_ -> {
             String tipoSeleccionado = comboTipoAlmacen.getSelectionModel().getSelectedItem();
+            if (tipoSeleccionado == null) return;
 
-            if (!tipoSeleccionado.equals("Todos")) {
+            if (!"Todos".equals(tipoSeleccionado)) {
                 actualizarComboProductoFiltrado(tipoSeleccionado);
-                actualizarVisibilidadPorTipo(tipoSeleccionado);
             } else {
                 mostrarTodosProductos();
-                mostrarTodosPalets();
             }
+
+            // Ahora que comboTipo y comboProducto tienen valores coherentes,
+            // aplicamos TODOS los filtros en un único punto.
+            aplicarFiltros3D();
         });
     }
+
 
     private void actualizarComboProductoFiltrado(String tipoSeleccionado) {
         List<String> productosFiltrados = new ArrayList<>();
@@ -523,6 +527,7 @@ public class almacenController implements Initializable {
         comboProductoAlmacen.setValue(productosFiltrados.getFirst());
     }
 
+
     private void actualizarVisibilidadPorTipo(String tipoSeleccionado) {
         for (Palet palet : Almacen.TodosPalets) {
             boolean visible = palet.getIdTipo().equals(tipoSeleccionado) && estanteriasVisibles.contains(palet.getEstanteria());
@@ -533,12 +538,12 @@ public class almacenController implements Initializable {
 
     private void mostrarTodosProductos() {
         todosLosProductos.clear();
+        todosLosProductos.add("Todos");
 
         for (Producto producto : Almacen.TodosProductos) {
             todosLosProductos.add(producto.getIdentificadorProducto());
         }
 
-        todosLosProductos.add("Todos");
         comboProductoAlmacen.setItems(FXCollections.observableArrayList(todosLosProductos));
         comboProductoAlmacen.setValue("Todos");
     }
@@ -555,28 +560,7 @@ public class almacenController implements Initializable {
     private void configurarComboProducto() {
         comboProductoAlmacen.setOnAction(_ -> {
             try {
-                String productoSeleccionado = comboProductoAlmacen.getSelectionModel().getSelectedItem();
-
-                if (!productoSeleccionado.equals("Todos")) {
-                    for (Producto producto : Almacen.TodosProductos) {
-                        if (producto.getIdentificadorProducto().equals(productoSeleccionado)) break;
-                    }
-
-                    for (Palet palet : Almacen.TodosPalets) {
-                        boolean visible = (palet.getIdProducto().equals(productoSeleccionado)
-                                || productoSeleccionado.equals("Todos"))
-                                && estanteriasVisibles.contains(palet.getEstanteria());
-                        palet.getProductBox().setVisible(visible);
-                        palet.getPaletBox().setVisible(visible);
-                    }
-                } else {
-                    String tipoSeleccionado = comboTipoAlmacen.getSelectionModel().getSelectedItem();
-                    for (Palet palet : Almacen.TodosPalets) {
-                        boolean visible = palet.getIdTipo().equals(tipoSeleccionado) && estanteriasVisibles.contains(palet.getEstanteria());
-                        palet.getProductBox().setVisible(visible);
-                        palet.getPaletBox().setVisible(visible);
-                    }
-                }
+                aplicarFiltros3D();
             } catch (Exception ignored) {
             }
         });
