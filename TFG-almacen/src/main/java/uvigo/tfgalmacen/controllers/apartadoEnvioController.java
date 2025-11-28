@@ -411,24 +411,36 @@ public class apartadoEnvioController implements Initializable {
             return;
         }
 
-        if (!Desktop.isDesktopSupported()) {
-            LOGGER.warning("Desktop no soportado. No se puede abrir el explorador de archivos.");
-            return;
-        }
-
-        Desktop desktop = Desktop.getDesktop();
-
         try {
-            if (desktop.isSupported(Desktop.Action.BROWSE_FILE_DIR)) {
-                desktop.browseFileDirectory(pdfMostrado);
+            String os = System.getProperty("os.name").toLowerCase();
+            String absolutePath = pdfMostrado.getAbsolutePath();
+
+            if (os.contains("win")) {
+                // Windows: abrir el explorador con el archivo seleccionado
+                // explorer.exe /select,"C:\ruta\al\archivo.pdf"
+                String comando = String.format("explorer.exe /select,\"%s\"",
+                        absolutePath.replace("/", "\\"));
+                new ProcessBuilder("cmd", "/c", comando).start();
+
+            } else if (os.contains("mac")) {
+                // 🍏 macOS: abrir Finder resaltando el archivo
+                new ProcessBuilder("open", "-R", absolutePath).start();
+
             } else {
+                // 🐧 Linux / otros: mejor esfuerzo → abrir carpeta contenedora
                 File parent = pdfMostrado.getParentFile();
                 if (parent != null && parent.exists()) {
-                    desktop.open(parent);
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(parent);
+                    } else {
+                        System.out.println("Desktop no soportado en este sistema.");
+                    }
                 }
             }
-        } catch (IOException e) {
+
+        } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error abriendo explorador para: " + pdfMostrado, e);
         }
     }
+
 }
