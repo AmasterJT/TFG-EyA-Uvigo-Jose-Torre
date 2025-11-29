@@ -592,6 +592,7 @@
     -fx-border-color: #dba679;
     -fx-background-color: #dba679;
     -fx-border-radius: 6;
+    -fx-text-fill: black;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 3);
 }
 
@@ -608,6 +609,35 @@
     -fx-background-color: #e3bfa6;
     -fx-text-fill: black;
     -fx-cursor: hand; /* opcional */
+}
+
+
+.context-menu .menu-item:focused {
+    -fx-background-color: #374151;
+}
+
+
+/* El context menu de la vista almacén */
+.context-menu.almacen-context-menu {
+    -fx-background-color: #dba679;
+    -fx-border-color: #dba679;
+    -fx-padding: 4px;
+}
+
+/* Items del menú */
+.context-menu.almacen-context-menu .menu-item > .label {
+    -fx-text-fill: #e5e7eb;
+    -fx-font-weight: bold;
+}
+
+.context-menu.almacen-context-menu .menu-item:focused {
+    -fx-background-color: #374151;
+}
+
+/* CheckBox de los CheckMenuItem */
+.context-menu.almacen-context-menu .check-menu-item > .left-container > .check-box > .box {
+    -fx-background-color: #111827;
+    -fx-border-color: #9ca3af;
 }
 
 
@@ -1572,8 +1602,8 @@
    ========================================================= */
 /* ================================ */
 /*          TAB NO SELECCIONADA     */
-/* ================================ */
-
+º
+    /* ================================ */
 .movimiento-tabpane .tab .tab-label {
     -fx-text-fill: white;
 }

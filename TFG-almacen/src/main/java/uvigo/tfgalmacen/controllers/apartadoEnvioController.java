@@ -276,6 +276,7 @@ public class apartadoEnvioController implements Initializable {
 
 
     private void procesarEtiquetasSeleccionadas() {
+        limpiarPdf();
         System.out.println("---- Etiquetas seleccionadas ----");
 
         boolean alguno = false;
@@ -296,6 +297,13 @@ public class apartadoEnvioController implements Initializable {
             ventana_success("Etiqueta del palet",
                     "Etiquetas generadas correctamente", ""
             );
+
+            String userHome = System.getProperty("user.home");
+            File downloads = new File(userHome, "Downloads/Etiquetas");
+            carpeta_destino_text.setText(downloads.getAbsolutePath());
+
+            abrir_explorador_btn.setOnAction(_ -> abrirExploradorEnCarpeta(downloads));
+            abrir_explorador_btn.setDisable(false);
         }
     }
 
@@ -430,6 +438,7 @@ public class apartadoEnvioController implements Initializable {
     private ItemEnvioController itemQueMostroPdf;
 
     public void mostrarPdf(File pdfFile, ItemEnvioController origen) {
+        abrir_explorador_btn.setOnAction(_ -> abrirExploradorEnEtiqueta());
         try {
             Image img = PdfUtils.cargarPrimeraPaginaComoImagen(pdfFile);
             pdfImageView.setImage(img);
@@ -473,6 +482,8 @@ public class apartadoEnvioController implements Initializable {
 
 
     private void abrirEtiquetaEnVisor() {
+
+
         // 1) Comprobar si hay PDF cargado
         if (pdfMostrado == null || !pdfMostrado.exists()) {
             // No hay etiqueta actual → aviso
@@ -551,6 +562,39 @@ public class apartadoEnvioController implements Initializable {
 
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error abriendo explorador para: " + pdfMostrado, e);
+        }
+    }
+
+
+    private void abrirExploradorEnCarpeta(File carpeta) {
+        if (carpeta == null || !carpeta.exists() || !carpeta.isDirectory()) {
+            LOGGER.warning("La carpeta no existe o no es válida: " + carpeta);
+            return;
+        }
+
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+            String path = carpeta.getAbsolutePath();
+
+            if (os.contains("win")) {
+                // Windows — abrir carpeta directamente
+                new ProcessBuilder("explorer.exe", path).start();
+
+            } else if (os.contains("mac")) {
+                // macOS — abrir Finder
+                new ProcessBuilder("open", path).start();
+
+            } else {
+                // Linux / otros
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(carpeta);
+                } else {
+                    LOGGER.warning("Desktop no soportado en este sistema.");
+                }
+            }
+
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error abriendo explorador para carpeta: " + carpeta, e);
         }
     }
 

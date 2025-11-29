@@ -118,10 +118,27 @@ public class almacenController implements Initializable {
         estanteriasMenu.getItems().clear();
         estanteriasVisibles.clear();
 
+        // ✅ Estilo propio para identificarlo desde CSS
+        estanteriasMenu.getStyleClass().add("almacen-context-menu");
+
+        // ✅ Cuando se vaya a mostrar, le enchufamos el CSS si aún no lo tiene
+        estanteriasMenu.setOnShowing(e -> {
+            Scene scene = estanteriasMenu.getScene();
+            if (scene != null) {
+                String css = Objects.requireNonNull(
+                        getClass().getResource("/uvigo/tfgalmacen/css/Styles.css")
+                ).toExternalForm();
+
+                if (!scene.getStylesheets().contains(css)) {
+                    scene.getStylesheets().add(css);
+                }
+            }
+        });
+
         for (int est = 1; est <= NUM_ESTANTERIAS; est++) {
             CheckMenuItem item = new CheckMenuItem("Estantería " + est);
             item.setUserData(est);
-            item.setSelected(true);                 // por defecto todas visibles
+            item.setSelected(true);
             estanteriasVisibles.add(est);
 
             item.selectedProperty().addListener((_, _, isSel) -> {
