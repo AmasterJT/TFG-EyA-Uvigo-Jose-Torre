@@ -124,7 +124,7 @@ public class almacenController implements Initializable {
             item.setSelected(true);                 // por defecto todas visibles
             estanteriasVisibles.add(est);
 
-            item.selectedProperty().addListener((obs, wasSel, isSel) -> {
+            item.selectedProperty().addListener((_, _, isSel) -> {
                 int idEst = (Integer) item.getUserData();
                 if (isSel) {
                     estanteriasVisibles.add(idEst);
@@ -187,17 +187,6 @@ public class almacenController implements Initializable {
         }
     }
 
-    /**
-     * Aquí puedes meter el filtro por producto / cliente que ya uses
-     * en tus ComboBox. De momento devuelvo true para no romper nada.
-     */
-    private boolean cumpleFiltrosAdicionales(Palet p) {
-        // Ejemplo (si tienes comboProducto, comboCliente, etc.)
-        // return filtroProductoOk(p) && filtroClienteOk(p) && filtroEstadoOk(p);
-
-        return true;
-    }
-
 
     SubScene subEscena;
 
@@ -255,7 +244,7 @@ public class almacenController implements Initializable {
      */
     public SubScene crearVistaAlmacen(Almacen almacen) {
         grupo3D.getChildren().add(grupoEjes);
-        showAxis(true);  // Mostrar ejes X, Y, Z
+        showAxis(false);  // Mostrar ejes X, Y, Z
 
         // Crear baldas y añadir palets a cada una
         for (int k = 0; k < 4; k++) {
@@ -527,15 +516,6 @@ public class almacenController implements Initializable {
         comboProductoAlmacen.setValue(productosFiltrados.getFirst());
     }
 
-
-    private void actualizarVisibilidadPorTipo(String tipoSeleccionado) {
-        for (Palet palet : Almacen.TodosPalets) {
-            boolean visible = palet.getIdTipo().equals(tipoSeleccionado) && estanteriasVisibles.contains(palet.getEstanteria());
-            palet.getProductBox().setVisible(visible);
-            palet.getPaletBox().setVisible(visible);
-        }
-    }
-
     private void mostrarTodosProductos() {
         todosLosProductos.clear();
         todosLosProductos.add("Todos");
@@ -546,14 +526,6 @@ public class almacenController implements Initializable {
 
         comboProductoAlmacen.setItems(FXCollections.observableArrayList(todosLosProductos));
         comboProductoAlmacen.setValue("Todos");
-    }
-
-    private void mostrarTodosPalets() {
-        for (Palet palet : Almacen.TodosPalets) {
-            boolean visible = estanteriasVisibles.contains(palet.getEstanteria());
-            palet.getProductBox().setVisible(visible);
-            palet.getPaletBox().setVisible(visible);
-        }
     }
 
 

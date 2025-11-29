@@ -1,5 +1,7 @@
 package uvigo.tfgalmacen.controllers;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +41,7 @@ import static uvigo.tfgalmacen.database.PedidoDAO.*;
 import static uvigo.tfgalmacen.database.UsuarioDAO.getNombreUsuarioById;
 import static uvigo.tfgalmacen.database.UsuarioDAO.getUsernameById;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_success;
 
 
 import java.awt.Desktop;
@@ -101,6 +104,11 @@ public class apartadoEnvioController implements Initializable {
     private File pdfMostrado;
 
 
+    private final ObjectProperty<ItemEnvioController> ultimoItemContexto =
+            new SimpleObjectProperty<>(null);
+
+    private ContextMenu menuSeleccion;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configurarScrollYGrid();
@@ -127,6 +135,71 @@ public class apartadoEnvioController implements Initializable {
             carpeta_destino_text.setEditable(false); // opcional: solo lectura
             carpeta_destino_text.clear();            // sin ruta al inicio
         }
+
+        configurarContextMenuSeleccion();
+
+    }
+
+
+    private void configurarContextMenuSeleccion() {
+        menuSeleccion = new ContextMenu();
+
+        MenuItem seleccionarTodos = new MenuItem("Seleccionar todos los palets");
+        MenuItem seleccionarFila = new MenuItem("Seleccionar palets de este pedido");
+        MenuItem deseleccionarTodos = new MenuItem("Deseleccionar todos los palets");
+        MenuItem invertirSeleccion = new MenuItem("Invertir selección");
+        MenuItem seleccionarSinEtiqueta = new MenuItem("Seleccionar todos los palets sin etiqueta");
+
+
+        // ✅ Seleccionar TODOS los items del grid
+        seleccionarTodos.setOnAction(_ -> {
+            for (ItemEnvioController item : listaItemsEnvio) {
+                item.setSeleccionado(true);
+            }
+        });
+
+        // ✅ Seleccionar SOLO los items de la fila (pedido)
+        seleccionarFila.setOnAction(_ -> {
+            ItemEnvioController base = ultimoItemContexto.get();
+            if (base == null) return;
+
+            int idPedidoBase = base.getIdPedido();
+            for (ItemEnvioController item : listaItemsEnvio) {
+                if (item.getIdPedido() == idPedidoBase) {
+                    item.setSeleccionado(true);
+                }
+            }
+        });
+
+        deseleccionarTodos.setOnAction(_ -> {
+            for (ItemEnvioController item : listaItemsEnvio) {
+                item.setSeleccionado(false);
+            }
+        });
+
+
+        invertirSeleccion.setOnAction(_ -> {
+            for (ItemEnvioController item : listaItemsEnvio) {
+                item.setSeleccionado(!item.estaSeleccionado());
+            }
+        });
+
+
+        seleccionarSinEtiqueta.setOnAction(_ -> {
+            for (ItemEnvioController item : listaItemsEnvio) {
+
+                if (!item.isTieneEtiqueta()) item.setSeleccionado(true);
+            }
+        });
+
+        // Añadir todos los items al menú
+        menuSeleccion.getItems().addAll(
+                seleccionarTodos,
+                seleccionarFila,
+                deseleccionarTodos,
+                invertirSeleccion,
+                seleccionarSinEtiqueta
+        );
     }
 
     private void abrirVetanaEnviarPedido() {
@@ -208,15 +281,21 @@ public class apartadoEnvioController implements Initializable {
         boolean alguno = false;
 
         for (ItemEnvioController item : listaItemsEnvio) {
-            if (item.estaSeleccionado()) { // función que añadiremos abajo
+            if (item.estaSeleccionado()) {
                 System.out.println("esta seleccionado → SSCC: " + item.getSscc());
-                item.getGenerar_etiqueta_btn().fire();
+                item.generarEtiqueta();
                 alguno = true;
+
+
             }
         }
 
         if (!alguno) {
             System.out.println("Ningún item seleccionado.");
+        } else {
+            ventana_success("Etiqueta del palet",
+                    "Etiquetas generadas correctamente", ""
+            );
         }
     }
 
@@ -245,7 +324,7 @@ public class apartadoEnvioController implements Initializable {
             Pedido p = getPedidoPorCodigo(Main.connection, codigo_referencia_pedido);
 
             Label lblPedido = new Label();
-            lblPedido.setWrapText(false); // ⛔ evitar wrap
+            lblPedido.setWrapText(false);
             if (esta_completado) {
                 lblPedido.setText("✅ " + codigo_referencia_pedido);
             } else {
@@ -276,7 +355,6 @@ public class apartadoEnvioController implements Initializable {
                     );
                     AnchorPane itemRoot = loader.load();
 
-                    // ✅ fijar tamaño del item (celda de palet)
                     itemRoot.setMinWidth(ANCHO_ITEM_PALET);
                     itemRoot.setPrefWidth(ANCHO_ITEM_PALET);
                     itemRoot.setMaxWidth(ANCHO_ITEM_PALET);
@@ -293,6 +371,13 @@ public class apartadoEnvioController implements Initializable {
                             Objects.requireNonNull(PaletSalidaDAO.getPaletSalidaById(Main.connection, idPaletSalida))
                     );
                     ctrl.setApartadoEnvioParent(this);
+
+                    // 🔹 Asignar el menú contextual a este item
+                    itemRoot.setOnContextMenuRequested(evt -> {
+                        ultimoItemContexto.set(ctrl);
+                        menuSeleccion.show(itemRoot, evt.getScreenX(), evt.getScreenY());
+                        evt.consume();
+                    });
 
                     grid_envio.add(itemRoot, col, row);
                     GridPane.setMargin(itemRoot, new Insets(10));

@@ -1,10 +1,10 @@
 package uvigo.tfgalmacen.controllers;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -15,6 +15,8 @@ import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -92,6 +94,9 @@ public class ItemEnvioController implements Initializable {
     PaletSalida palet_salida;
     Pedido pedido;
 
+    File salida;
+
+
     // Más adelante:
     // public void setData(Pedido pedido, PaletSalida palet) { ... }
 
@@ -130,7 +135,14 @@ public class ItemEnvioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        generar_etiqueta_btn.setOnAction(_ -> generarEtiqueta());
+        generar_etiqueta_btn.setOnAction(_ -> {
+            generarEtiqueta();
+
+            ventana_success("Etiqueta del palet",
+                    "Etiqueta generada correctamente:\n\n" +
+                            salida.getAbsolutePath(), ""
+            );
+        });
 
         if (tieneEtiqueta) {
             indicador_etiqueta.setFill(Paint.valueOf(color_con_etiqueta));
@@ -156,10 +168,11 @@ public class ItemEnvioController implements Initializable {
             }
         });
 
+
     }
 
 
-    private void generarEtiqueta() {
+    public void generarEtiqueta() {
         String sscc = sscc_label.getText();
         String codPedido = codigo_pedido_label.getText();
         String cliente = cliente_label.getText();
@@ -172,7 +185,7 @@ public class ItemEnvioController implements Initializable {
         File carpetaEtiquetas = getCarpetaEtiquetas();
         // Nombre de fichero, por ejemplo:
         String fileName = "ETIQUETA_" + sscc + ".pdf";
-        File salida = new File(carpetaEtiquetas, fileName);
+        salida = new File(carpetaEtiquetas, fileName);
 
         // 2) Si ya existe, preguntar si queremos sustituir
         if (salida.exists()) {
@@ -210,10 +223,7 @@ public class ItemEnvioController implements Initializable {
             tieneEtiqueta = true;
 
             indicador_etiqueta.setFill(Paint.valueOf(color_con_etiqueta));
-            ventana_success("Etiqueta del palet",
-                    "Etiqueta generada correctamente:\n\n" +
-                            salida.getAbsolutePath(), ""
-            );
+
 
         } catch (IOException e) {
             Logger.getLogger(ItemEnvioController.class.getName())
@@ -331,5 +341,12 @@ public class ItemEnvioController implements Initializable {
     public void setApartadoEnvioParent(apartadoEnvioController parent) {
         this.parent = parent;
     }
+
+    public void setSeleccionado(boolean seleccionado) {
+        if (seleccionar_generar_etiqueta_check != null) {
+            seleccionar_generar_etiqueta_check.setSelected(seleccionado);
+        }
+    }
+
 
 }
