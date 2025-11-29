@@ -57,7 +57,7 @@ public class ClientesDAO {
     }
 
     private static final String SELECT_ALL_CLIENTES_SQL =
-            "SELECT id_cliente, nombre, direccion, telefono, email, fecha_registro, ultima_actualizacion " +
+            "SELECT id_cliente, nombre, direccion, telefono, email, latitud, longitud, fecha_registro, ultima_actualizacion " +
                     "FROM clientes";
 
     /**
@@ -84,6 +84,8 @@ public class ClientesDAO {
                         rs.getString("direccion"),
                         rs.getString("telefono"),
                         rs.getString("email"),
+                        rs.getFloat("latitud"),
+                        rs.getFloat("longitud"),
                         rs.getTimestamp("fecha_registro"),
                         rs.getTimestamp("ultima_actualizacion")
                 );
@@ -100,7 +102,7 @@ public class ClientesDAO {
     }
 
     private static final String SELECT_CLIENTE_BY_ID_SQL =
-            "SELECT nombre, direccion, telefono, email, fecha_registro, ultima_actualizacion " +
+            "SELECT nombre, direccion, telefono, email, latitud, longitud, fecha_registro, ultima_actualizacion " +
                     "FROM clientes WHERE id_cliente = ?";
 
     public static Cliente getClienteById(Connection conn, int idCliente) {
@@ -120,6 +122,8 @@ public class ClientesDAO {
                             rs.getString("direccion"),
                             rs.getString("telefono"),
                             rs.getString("email"),
+                            rs.getFloat("latitud"),
+                            rs.getFloat("longitud"),
                             Timestamp.valueOf(rs.getString("fecha_registro")),
                             Timestamp.valueOf(rs.getString("ultima_actualizacion"))
                     );

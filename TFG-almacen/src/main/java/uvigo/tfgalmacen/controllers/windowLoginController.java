@@ -19,14 +19,16 @@ import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.User;
 import uvigo.tfgalmacen.utils.ColorFormatter;
+import uvigo.tfgalmacen.utils.PasswordUtils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.*;
 
 import static uvigo.tfgalmacen.RutasFicheros.MAIN_FXML;
 import static uvigo.tfgalmacen.database.UsuarioDAO.SQLcheckUser;
+import static uvigo.tfgalmacen.utils.PasswordUtils.verifyPassword;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class windowLoginController implements Initializable {
@@ -65,6 +67,18 @@ public class windowLoginController implements Initializable {
     @FXML
     private Label passwordLabel;
 
+    public static Map<String, String> generarHashesArgon2(List<String> passwords) {
+        Map<String, String> resultado = new LinkedHashMap<>();
+
+        for (String pwd : passwords) {
+            if (pwd == null || pwd.isBlank()) continue;
+            String hash = PasswordUtils.hashPassword(pwd);
+            resultado.put(pwd, hash);
+        }
+
+        return resultado;
+    }
+
     @FXML
     void login(ActionEvent event) {
 
@@ -73,6 +87,31 @@ public class windowLoginController implements Initializable {
 
         final String user = username.getText();
         final String pass = password.getText();
+
+        /*List<String> lista = Arrays.asList("Admin",
+                "juan123",
+                "maria123",
+                "carlos123",
+                "luisa123",
+                "ana123",
+                "luis123",
+                "sofia123",
+                "javier123",
+                "claudia123",
+                "pablo123",
+                "andrea123",
+                "diego123",
+                "valeria123",
+                "miguel123",
+                "isabel123");
+
+        Map<String, String> hashes = generarHashesArgon2(lista);
+
+        hashes.forEach((plain, hash) -> {
+                    System.out.println(plain + " -> " + hash);
+                }
+        );*/
+
 
         if (SQLcheckUser(Main.connection, user, pass)) {
             LOGGER.fine("Login correcto para el usuario: " + user);

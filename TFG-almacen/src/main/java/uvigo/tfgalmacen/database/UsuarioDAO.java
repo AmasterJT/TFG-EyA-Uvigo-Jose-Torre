@@ -2,6 +2,7 @@ package uvigo.tfgalmacen.database;
 
 import uvigo.tfgalmacen.User;
 import uvigo.tfgalmacen.utils.ColorFormatter;
+import uvigo.tfgalmacen.utils.PasswordUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,8 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static uvigo.tfgalmacen.utils.PasswordUtils.verifyPassword;
 
 public class UsuarioDAO {
 
@@ -144,21 +147,50 @@ public class UsuarioDAO {
 
     // Eliminar un usuario
 
-    private static final String CHECK_USER_SQL = "SELECT * FROM usuarios WHERE nombre = ? AND contraseña = ?";
+    private static final String CHECK_USER_SQL =
+            "SELECT contraseña FROM usuarios WHERE nombre = ?";
 
     public static boolean SQLcheckUser(Connection connection, String username, String password) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(CHECK_USER_SQL)) {
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+        if (connection == null) return false;
 
-            return resultSet.next();
-        } catch (SQLException e) {
+        try (PreparedStatement ps = connection.prepareStatement(CHECK_USER_SQL)) {
+
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            // 1️⃣ Comprobar si el usuario existe
+            if (!rs.next()) {
+                System.out.println("❌ Usuario no encontrado: " + username);
+                return false;
+            }
+
+            // 2️⃣ Obtener hash almacenado
+            String hash = rs.getString("contraseña");
+
+            System.out.println("🔐 Hash almacenado: " + hash);
+            if (hash == null) {
+                System.out.println("❌ El usuario no tiene contraseña registrada.");
+                return false;
+            }
+
+            hash = hash.trim(); // evita errores por espacios
+
+            // 3️⃣ Verificar contraseña usando Argon2
+            boolean ok = PasswordUtils.verifyPassword(password, hash);
+
+            System.out.println(ok
+                    ? "✅ Login correcto"
+                    : "❌ Contraseña incorrecta");
+
+            return ok;
+
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
     // Obtener el rol del usuario a partir del nombre y la contraseña
     private static final String GET_USER_ROLE_SQL = "SELECT id_rol FROM usuarios WHERE nombre = ? AND contraseña = ?";

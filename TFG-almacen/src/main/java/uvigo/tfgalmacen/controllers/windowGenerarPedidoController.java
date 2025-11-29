@@ -5,21 +5,25 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import uvigo.tfgalmacen.Cliente;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
+import uvigo.tfgalmacen.database.ClientesDAO;
 
 import java.io.File;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static uvigo.tfgalmacen.database.ClientesDAO.getClienteById;
 import static uvigo.tfgalmacen.database.PedidoDAO.*;
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_success;
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.ventana_warning;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class windowGenerarPedidoController implements Initializable {
 
@@ -34,6 +38,21 @@ public class windowGenerarPedidoController implements Initializable {
 
     List<Pedido> pedidos;
     private apartadoEnvioController parent;
+
+    @FXML
+    private Label cliente_label;
+
+    @FXML
+    private Label direccion_label;
+
+    @FXML
+    private Label email_label;
+
+    @FXML
+    private Label telefono_label;
+
+    @FXML
+    private Button google_maps_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,8 +75,33 @@ public class windowGenerarPedidoController implements Initializable {
                 onEnterPressed
         );
 
+        combo_pedido_terminado_hora.setOnAction(_ -> {
+            ;
+            actualizarDatosCliente(combo_pedido_terminado_hora.getValue());
+        });
+
         // Acción del botón: marcar pedido como enviado
-        exportar_btn.setOnAction(_ -> marcarPedidoSeleccionadoComoEnviado());
+        exportar_btn.setOnAction(_ -> {
+
+            boolean confirm = ventana_confirmacion(
+                    "Confirmar envío",
+                    "¿Marcar el pedido seleccionado como ENVIADO? \n" +
+                            "Esta acción no se puede deshacer."
+            );
+
+            if (confirm) marcarPedidoSeleccionadoComoEnviado();
+        });
+
+
+        google_maps_btn.setOnAction(_ -> {
+            Cliente seleccionado = ClientesDAO.getClienteById(Main.connection, combo_pedido_terminado_hora.getValue().getId_cliente());
+            if (seleccionado != null) {
+                abrirCoordenadasEnGoogleMaps(
+                        seleccionado.getLatitud(),
+                        seleccionado.getLongitud()
+                );
+            }
+        });
     }
 
     private void cargarPedidosEnCombo() {
@@ -142,8 +186,58 @@ public class windowGenerarPedidoController implements Initializable {
         stage.close();
     }
 
+
+    private void actualizarDatosCliente(Pedido pedido) {
+        if (pedido == null) {
+            cliente_label.setText("-");
+            email_label.setText("-");
+            telefono_label.setText("-");
+            return;
+        }
+
+
+        Cliente cliente = getClienteById(Main.connection, pedido.getId_cliente());
+
+        System.out.println(cliente);
+
+        if (cliente == null) {
+            cliente_label.setText("-");
+            email_label.setText("-");
+            telefono_label.setText("-");
+            return;
+        }
+
+        cliente_label.setText(
+                cliente.getNombre() != null ? cliente.getNombre() : "-"
+        );
+        email_label.setText(
+                cliente.getEmail() != null ? cliente.getEmail() : "-"
+        );
+        telefono_label.setText(
+                cliente.getTelefono() != null ? cliente.getTelefono() : "-"
+        );
+        direccion_label.setText(cliente.getDireccion() != null ? cliente.getDireccion() : "-");
+
+
+    }
+
+
     // <<< NUEVO SETTER >>>
     public void setEnvioParent(apartadoEnvioController parent) {
         this.parent = parent;
     }
+
+
+    public void abrirCoordenadasEnGoogleMaps(double lat, double lng) {
+
+        String latitud = String.valueOf(lat).replace(",", ".");
+        String longitud = String.valueOf(lng).replace(",", ".");
+
+        String url = String.format(
+                "https://www.google.com/maps/search/?api=1&query=%s,%s",
+                latitud, longitud
+        );
+        Main.getAppHostServices().showDocument(url);
+    }
+
 }

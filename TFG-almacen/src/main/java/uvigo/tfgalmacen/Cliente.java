@@ -17,6 +17,10 @@ public class Cliente {
     private Timestamp fecha_registro;
     private Timestamp ultima_actualizacion;
 
+
+    private float latitud;
+    private float longitud;
+
     // =======================
     // Constructores
     // =======================
@@ -25,7 +29,7 @@ public class Cliente {
     }
 
     public Cliente(int id_cliente, String nombre, String direccion, String telefono,
-                   String email, Timestamp fecha_registro, Timestamp ultima_actualizacion) {
+                   String email, Float latitud, Float longitud, Timestamp fecha_registro, Timestamp ultima_actualizacion) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -33,6 +37,9 @@ public class Cliente {
         this.email = email;
         this.fecha_registro = fecha_registro;
         this.ultima_actualizacion = ultima_actualizacion;
+
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 
     // =======================
@@ -93,6 +100,14 @@ public class Cliente {
 
     public void setUltima_actualizacion(Timestamp ultima_actualizacion) {
         this.ultima_actualizacion = ultima_actualizacion;
+    }
+
+    public float getLatitud() {
+        return latitud;
+    }
+
+    public float getLongitud() {
+        return longitud;
     }
 
     // =======================

@@ -1,6 +1,7 @@
 package uvigo.tfgalmacen;
 
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
@@ -66,6 +67,8 @@ public class Main extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
 
+    private static HostServices hostServices;
+
     @Override
     public void init() {
         // Inicializa la conexión antes de crear UI (init() no corre en el FX thread).
@@ -93,7 +96,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(WINDOW_LOGIN_FXML));
         Parent root = fxmlLoader.load();
 
-        ;
+        hostServices = getHostServices();
 
         stage = crearStageBasico(root);
         // 🔹 Añadir icono a la ventana
@@ -105,6 +108,10 @@ public class Main extends Application {
 
 
         stage.show();
+    }
+
+    public static HostServices getAppHostServices() {
+        return hostServices;
     }
 
     @Override

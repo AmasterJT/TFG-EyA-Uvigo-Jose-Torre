@@ -24,8 +24,6 @@ import java.util.logging.Logger;
 import static uvigo.tfgalmacen.database.DataConfig.COMPANY_NAME;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
-import net.sf.jasperreports.engine.*;
-
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

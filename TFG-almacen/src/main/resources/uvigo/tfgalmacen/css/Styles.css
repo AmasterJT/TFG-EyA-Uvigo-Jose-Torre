@@ -1301,6 +1301,20 @@
 }
 
 
+.texto-label-black {
+    -fx-text-fill: black;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 14px;
+}
+
+.texto-label-bold-black {
+    -fx-text-fill: black;
+    -fx-font-family: "David Libre Regular";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+
 /* Hace que todo el ListView sea transparente */
 .list-view {
     -fx-background-color: transparent;

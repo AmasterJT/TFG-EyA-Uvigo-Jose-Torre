@@ -37,11 +37,11 @@ import static uvigo.tfgalmacen.database.ClientesDAO.getClienteById;
 import static uvigo.tfgalmacen.database.DataConfig.COMPANY_GS1_CODE;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.getProductosPorCodigoReferencia;
 import static uvigo.tfgalmacen.database.PedidoDAO.*;
-import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.limpiarGridPane;
 import static uvigo.tfgalmacen.RutasFicheros.ITEM_PALET_FINAL_FXML;
 
 
 import static uvigo.tfgalmacen.database.PaletSalidaDAO.LineaPaletSalida;
+import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class apartadoPaletizarController implements Initializable {
 
@@ -837,12 +837,16 @@ public class apartadoPaletizarController implements Initializable {
             if (isComplete) {
                 marcarPedidoCompletadoSinUsuarioPorCodigo(Main.connection, codigoPedido);
 
+                String finalCodigoPedido1 = codigoPedido;
                 Platform.runLater(() -> {
                     String usernameActual = combo_usuario.getValue();
                     if (usernameActual != null && !usernameActual.isBlank()) {
                         cargarDatosUsuarioDesdeCache(usernameActual);
                     }
                     limpiarGridPane(grid_palets_Listos);
+
+                    ventana_success("Pedido completado",
+                            "El pedido " + finalCodigoPedido1 + " ha sido completamente paletizado y marcado como completado.", "");
                 });
 
                 if (DetallesPedidoDAO.estanTodosDetallesPaletizados(Main.connection, idPedido)) {
@@ -872,7 +876,7 @@ public class apartadoPaletizarController implements Initializable {
                 System.out.println(i);
                 actualizarPaletsDelPedido(Main.connection, pActual.getId_pedido(), i + 1);
             }
-
+            
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error al crear el palet de salida desde la UI", e);
             e.printStackTrace();

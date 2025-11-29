@@ -62,12 +62,6 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13.3</version>
         </dependency>
-        W
-        <dependency>
-            <groupId>net.sf.jasperreports</groupId>
-            <artifactId>jasperreports</artifactId>
-            <version>7.0.3</version>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
@@ -80,6 +74,19 @@
             <artifactId>javafx-swing</artifactId>
             <version>19-ea+11</version>
         </dependency>
+
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.14.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.mkammerer</groupId>
+            <artifactId>argon2-jvm</artifactId>
+            <version>2.11</version>
+        </dependency>
+
     </dependencies>
 
     <build>
