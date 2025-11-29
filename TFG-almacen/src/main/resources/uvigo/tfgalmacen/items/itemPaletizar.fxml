@@ -39,7 +39,7 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </Label>
-                        <Label fx:id="cantidad_detalle_pedido_label" styleClass="texto-label" text="100" textFill="WHITE">
+                        <Label fx:id="cantidad_detalle_pedido_label" minWidth="23.0" styleClass="texto-label" text="100" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="10.0" right="10.0" />
                             </HBox.margin>
