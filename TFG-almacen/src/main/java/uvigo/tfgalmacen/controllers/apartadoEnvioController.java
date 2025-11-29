@@ -72,6 +72,7 @@ public class apartadoEnvioController implements Initializable {
     @FXML
     private ImageView pdfImageView;
 
+
     @FXML
     private TextField carpeta_destino_text;
 
@@ -112,7 +113,7 @@ public class apartadoEnvioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configurarScrollYGrid();
-        cargarPaletsSalidaEnGrid();
+        boolean enable = cargarPaletsSalidaEnGrid();
 
         generar_etiquetas_btn.setOnAction(_ -> procesarEtiquetasSeleccionadas());
 
@@ -128,12 +129,19 @@ public class apartadoEnvioController implements Initializable {
             abrir_explorador_btn.setOnAction(_ -> abrirExploradorEnEtiqueta());
             abrir_explorador_btn.setTooltip(new Tooltip("Abrir ubicación de la etiqueta"));
 
-            abrir_explorador_btn.setDisable(true);   // deshabilitado al inicio
+            abrir_explorador_btn.setDisable(!enable);   // deshabilitado al inicio
         }
 
         if (carpeta_destino_text != null) {
             carpeta_destino_text.setEditable(false); // opcional: solo lectura
             carpeta_destino_text.clear();            // sin ruta al inicio
+
+            if (enable) {
+                String userHome = System.getProperty("user.home");
+                File downloads = new File(userHome, "Downloads/Etiquetas");
+                carpeta_destino_text.setText(downloads.getAbsolutePath());
+                abrir_explorador_btn.setOnAction(_ -> abrirExploradorEnCarpeta(downloads));
+            }
         }
 
         configurarContextMenuSeleccion();
@@ -167,6 +175,8 @@ public class apartadoEnvioController implements Initializable {
             for (ItemEnvioController item : listaItemsEnvio) {
                 if (item.getIdPedido() == idPedidoBase) {
                     item.setSeleccionado(true);
+                } else {
+                    item.setSeleccionado(false);
                 }
             }
         });
@@ -189,6 +199,7 @@ public class apartadoEnvioController implements Initializable {
             for (ItemEnvioController item : listaItemsEnvio) {
 
                 if (!item.isTieneEtiqueta()) item.setSeleccionado(true);
+                else item.setSeleccionado(false);
             }
         });
 
@@ -312,9 +323,11 @@ public class apartadoEnvioController implements Initializable {
     private static final double ANCHO_ITEM_PALET = 180;
     private static final double ALTO_ITEM_PALET = 205; // ajusta a tu diseño
 
-    private void cargarPaletsSalidaEnGrid() {
+    private boolean cargarPaletsSalidaEnGrid() {
         limpiarGrid(grid_envio);
         listaItemsEnvio.clear();
+
+        boolean hay_alguna_etiqueta = false;
 
         Connection conn = Main.connection;
         Map<Integer, List<Integer>> mapa =
@@ -374,11 +387,14 @@ public class apartadoEnvioController implements Initializable {
                     ItemEnvioController ctrl = loader.getController();
                     listaItemsEnvio.add(ctrl);
 
+
                     ctrl.setData(
                             Objects.requireNonNull(getPedidoPorCodigo(Main.connection, codigo_referencia_pedido)),
                             Objects.requireNonNull(PaletSalidaDAO.getPaletSalidaById(Main.connection, idPaletSalida))
                     );
                     ctrl.setApartadoEnvioParent(this);
+
+                    if (ctrl.isTieneEtiqueta()) hay_alguna_etiqueta = true;
 
                     // 🔹 Asignar el menú contextual a este item
                     itemRoot.setOnContextMenuRequested(evt -> {
@@ -391,6 +407,7 @@ public class apartadoEnvioController implements Initializable {
                     GridPane.setMargin(itemRoot, new Insets(10));
                     col++;
 
+
                 } catch (Exception e) {
                     System.err.println("Error cargando ItemEnvio: " + e.getMessage());
                     e.printStackTrace();
@@ -399,6 +416,8 @@ public class apartadoEnvioController implements Initializable {
 
             row++;
         }
+
+        return hay_alguna_etiqueta;
     }
 
     public void refrescarGridEnvio() {
@@ -566,7 +585,7 @@ public class apartadoEnvioController implements Initializable {
     }
 
 
-    private void abrirExploradorEnCarpeta(File carpeta) {
+    public void abrirExploradorEnCarpeta(File carpeta) {
         if (carpeta == null || !carpeta.exists() || !carpeta.isDirectory()) {
             LOGGER.warning("La carpeta no existe o no es válida: " + carpeta);
             return;
@@ -598,5 +617,21 @@ public class apartadoEnvioController implements Initializable {
         }
     }
 
+
+    public Button getAbrir_explorador_btn() {
+        return abrir_explorador_btn;
+    }
+
+    public void setAbrir_explorador_btn(Button abrir_explorador_btn) {
+        this.abrir_explorador_btn = abrir_explorador_btn;
+    }
+
+    public TextField getCarpeta_destino_text() {
+        return carpeta_destino_text;
+    }
+
+    public void setCarpeta_destino_text(TextField carpeta_destino_text) {
+        this.carpeta_destino_text = carpeta_destino_text;
+    }
 
 }

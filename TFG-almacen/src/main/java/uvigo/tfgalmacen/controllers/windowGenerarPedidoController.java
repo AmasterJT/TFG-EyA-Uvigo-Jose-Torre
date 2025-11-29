@@ -12,6 +12,7 @@ import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.Pedido;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -126,6 +127,14 @@ public class windowGenerarPedidoController implements Initializable {
         // 4) Pedir al padre refrescar el grid
         if (parent != null) {
             parent.refrescarGridEnvio();
+
+            String userHome = System.getProperty("user.home");
+            File downloads = new File(userHome, "Downloads/Etiquetas");
+            parent.getCarpeta_destino_text().setText(downloads.getAbsolutePath());
+
+            parent.getAbrir_explorador_btn().setOnAction(_ -> parent.abrirExploradorEnCarpeta(downloads));
+            parent.getAbrir_explorador_btn().setDisable(false);
+            parent.limpiarPdf();
         }
 
         // 5) Cerrar ventana
