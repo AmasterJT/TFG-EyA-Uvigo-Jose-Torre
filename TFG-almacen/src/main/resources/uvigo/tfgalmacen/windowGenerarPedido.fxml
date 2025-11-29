@@ -100,7 +100,7 @@
                               </HBox>
                               <Label fx:id="email_label" styleClass="texto-label-black" text="-">
                                  <VBox.margin>
-                                    <Insets bottom="20.0" />
+                                    <Insets bottom="10.0" />
                                  </VBox.margin>
                               </Label>
                            </children>
