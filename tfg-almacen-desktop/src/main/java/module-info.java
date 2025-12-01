@@ -13,6 +13,8 @@ module uvigo.tfgalmacen {
     requires javafx.swing;
     requires org.apache.pdfbox;
     requires de.mkammerer.argon2.nolibs;
+    requires com.calendarfx.view;
+    requires org.mnode.ical4j.core;
 
     exports uvigo.tfgalmacen;
     opens uvigo.tfgalmacen to javafx.fxml;

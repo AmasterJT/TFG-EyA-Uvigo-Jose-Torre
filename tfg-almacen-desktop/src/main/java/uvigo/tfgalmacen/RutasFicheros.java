@@ -15,6 +15,7 @@ public class RutasFicheros {
     public static final String APARTADO_PEDIDOS_FXML = "/uvigo/tfgalmacen/apartadoPedido.fxml";
     public static final String APARTADO_PALETIZAR_FXML = "/uvigo/tfgalmacen/apartadoPaletizar.fxml";
     public static final String APARTADO_ENVIO_FXML = "/uvigo/tfgalmacen/apartadoEnvio.fxml";
+    public static final String APARTADO_CALENDARIO_FXML = "/uvigo/tfgalmacen/apartadoCalendario.fxml";
 
     public static final String ITEM_DETALLE_PEDIDO_FXML = "/uvigo/tfgalmacen/items/itemDetallesPedido.fxml";
     public static final String ITEM_INVENTARIO_FXML = "/uvigo/tfgalmacen/items/itemInventario.fxml";

@@ -121,6 +121,9 @@ public class mainController implements Initializable {
     @FXML
     private Button envioButton;
 
+    @FXML
+    private Button calendarioButton;
+
     // ======================= Estado =======================
     private Button activeScene = null;
     private boolean sliderVisible = true;
@@ -147,8 +150,11 @@ public class mainController implements Initializable {
         paletizarButton.setOnMouseClicked(_ -> loadPaletizarView());
         paletizarButton.setTooltip(new Tooltip("Crear palets"));
 
-        envioButton.setOnMouseClicked(_ -> loadVentanaEvioView());
+        envioButton.setOnMouseClicked(_ -> loadVentanaEnvioView());
         envioButton.setTooltip(new Tooltip("Gestionar envio de palets"));
+
+        calendarioButton.setOnMouseClicked(_ -> loadVentanaCalendarioView());
+        calendarioButton.setTooltip(new Tooltip("ver calendario de pedidos"));
 
         MenuButton.setOnMouseClicked(_ -> loadMenu());
         MenuButton.setTooltip(new Tooltip("Abrir menu"));
@@ -432,9 +438,15 @@ public class mainController implements Initializable {
     }
 
     @FXML
-    private void loadVentanaEvioView() {
+    private void loadVentanaEnvioView() {
         loadFXMLAsync(APARTADO_ENVIO_FXML);
         marcarBotonActivo(envioButton);
+    }
+
+    @FXML
+    private void loadVentanaCalendarioView() {
+        loadFXMLAsync(APARTADO_CALENDARIO_FXML);
+        marcarBotonActivo(calendarioButton);
     }
 
     @FXML
@@ -502,7 +514,7 @@ public class mainController implements Initializable {
      * Marca botón activo con colores de tu mapa de colores cargado en Main.colors
      */
     private void marcarBotonActivo(Button botonSeleccionado) {
-        var nav = java.util.List.of(almacenButton, inventarioButton, pedidosButton, paletizarButton, envioButton);
+        var nav = java.util.List.of(almacenButton, inventarioButton, pedidosButton, paletizarButton, envioButton, calendarioButton);
 
         // quita "active" de todos
         nav.forEach(b -> b.getStyleClass().remove("active"));

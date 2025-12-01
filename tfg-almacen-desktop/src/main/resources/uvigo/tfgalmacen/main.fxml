@@ -233,6 +233,21 @@
                             <Insets top="10.0" />
                         </VBox.margin>
                     </Button>
+               <Button fx:id="calendarioButton" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="160.0" styleClass="sidebarItem" text="CALENDARIO" textFill="WHITE" wrapText="true">
+                  <graphic>
+                     <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../icons/truck-50.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Button>
                     <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                 </VBox>
             </AnchorPane>

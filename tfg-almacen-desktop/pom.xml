@@ -87,6 +87,12 @@
             <version>2.11</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.calendarfx</groupId>
+            <artifactId>view</artifactId>
+            <version>11.10.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

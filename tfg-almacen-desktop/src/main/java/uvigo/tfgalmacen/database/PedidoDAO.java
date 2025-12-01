@@ -20,6 +20,14 @@ public class PedidoDAO {
     public static final List<String> ESTADOS_VALIDOS = List.of("Pendiente", "Completado", "En proceso", "Cancelado", "Enviado");
     public static final List<String> HORAS_VALIDAS = List.of("primera_hora", "segunda_hora");
 
+
+    public static final String ESTADO_PENDIENTE = "Pendiente";
+    public static final String ESTADO_COMPLETADO = "Completado";
+    public static final String ESTADO_EN_PROCESO = "En proceso";
+    public static final String ESTADO_CANCELADO = "Cancelado";
+    public static final String ESTADO_ENVIADO = "Enviado";
+
+
     static {
         LOGGER.setLevel(Level.ALL);
         LOGGER.setUseParentHandlers(false);
@@ -51,7 +59,7 @@ public class PedidoDAO {
                         resultSet.getInt("id_cliente"),
                         resultSet.getInt("id_usuario"),
                         resultSet.getString("estado"),
-                        resultSet.getString("fecha_pedido"),
+                        resultSet.getDate("fecha_entrega"),
                         resultSet.getString("hora_salida"),
                         resultSet.getInt("paelts_del_pedido")
                 );
@@ -98,7 +106,7 @@ public class PedidoDAO {
                         resultSet.getInt("id_cliente"),
                         resultSet.getInt("id_usuario"),
                         resultSet.getString("estado"),
-                        resultSet.getString("fecha_pedido"),
+                        resultSet.getDate("fecha_entrega"),
                         resultSet.getString("hora_salida"),
                         resultSet.getInt("palets_del_pedido")
                 );
@@ -337,7 +345,7 @@ public class PedidoDAO {
 
 
     private static final String SQL_SELECT_TODOS_PEDIDOS =
-            "SELECT codigo_referencia, id_pedido, id_cliente, id_usuario, estado, fecha_pedido, hora_salida, palets_del_pedido " +
+            "SELECT codigo_referencia, id_pedido, id_cliente, id_usuario, estado, fecha_pedido, fecha_entrega, hora_salida, palets_del_pedido " +
                     "FROM pedidos " +
                     "ORDER BY fecha_pedido DESC";
 
@@ -369,9 +377,11 @@ public class PedidoDAO {
 
                 String estado = rs.getString("estado");
 
+                Date fechaPedidoRaw = rs.getDate("fecha_entrega");
+
                 // Formateamos fecha_pedido al String que espera el constructor
                 java.sql.Timestamp ts = rs.getTimestamp("fecha_pedido");
-                String fechaPedidoRaw = ts.toLocalDateTime().format(DB_TS_FMT);
+                //String fechaPedidoRaw = ts.toLocalDateTime().format(DB_TS_FMT);
 
                 String horaSalida = rs.getString("hora_salida"); // puede ser null
 
@@ -614,7 +624,7 @@ public class PedidoDAO {
                             rs.getInt("id_usuario"),
 
                             rs.getString("estado"),
-                            rs.getString("fecha_pedido"),
+                            rs.getDate("fecha_entrega"),
                             rs.getString("hora_salida"),
                             rs.getInt("palets_del_pedido")
 
@@ -671,7 +681,7 @@ public class PedidoDAO {
                             rs.getInt("id_cliente"),
                             rs.getInt("id_usuario"),
                             rs.getString("estado"),
-                            rs.getString("fecha_pedido"),
+                            rs.getDate("fecha_entrega"),
                             rs.getString("hora_salida"),
                             rs.getInt("palets_del_pedido")
                     );
@@ -801,7 +811,7 @@ public class PedidoDAO {
                         rs.getInt("id_cliente"),
                         rs.getInt("id_usuario"),
                         rs.getString("estado"),
-                        rs.getString("fecha_pedido"),
+                        rs.getDate("fecha_entrega"),
                         rs.getString("hora_salida"),
                         rs.getInt("palets_del_pedido")
                 );

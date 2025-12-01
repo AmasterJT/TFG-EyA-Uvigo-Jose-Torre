@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="695.0" prefWidth="1400.0" style="-fx-background-color: #222 !important;" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uvigo.tfgalmacen.controllers.apartadoCalendarioController">
+    <children>
+        <AnchorPane fx:id="root" style="-fx-background-radius: 15;" styleClass="backgroundScene" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+    </children>
+</AnchorPane>

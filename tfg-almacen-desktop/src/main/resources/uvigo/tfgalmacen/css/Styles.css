@@ -1661,3 +1661,60 @@
 }
 
 
+.calendar-view.dark {
+    -fx-background-color: #202020;
+}
+
+.calendar-view.dark .day-entry-view {
+    -fx-background-color: #404040;
+    -fx-border-color: #606060;
+    -fx-text-fill: white;
+}
+
+.calendar-view.dark .date-header {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: white;
+}
+
+
+/* entry view en general (día/semana/mes) */
+.entry-view.calendar-style1 {
+    -fx-background-color: #2196f3;
+}
+
+.entry-view.calendar-style2 {
+    -fx-background-color: #4caf50;
+}
+
+.entry-view.calendar-style3 {
+    -fx-background-color: #ff9800;
+}
+
+.entry-view.calendar-style4 {
+    -fx-background-color: #f44336;
+}
+
+.entry-view.calendar-style5 {
+    -fx-background-color: #9c27b0;
+}
+
+/* reforzar en YearView (algunos skins usan nodos específicos dentro del año) */
+.year-view .entry-view.calendar-style1 {
+    -fx-background-color: #2196f3;
+}
+
+.year-view .entry-view.calendar-style2 {
+    -fx-background-color: #4caf50;
+}
+
+.year-view .entry-view.calendar-style3 {
+    -fx-background-color: #ff9800;
+}
+
+.year-view .entry-view.calendar-style4 {
+    -fx-background-color: #f44336;
+}
+
+.year-view .entry-view.calendar-style5 {
+    -fx-background-color: #9c27b0;
+}

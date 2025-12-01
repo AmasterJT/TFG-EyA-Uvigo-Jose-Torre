@@ -1,11 +1,13 @@
 package uvigo.tfgalmacen;
 
+import net.fortuna.ical4j.model.DateTime;
 import uvigo.tfgalmacen.database.ClientesDAO;
 import uvigo.tfgalmacen.database.PedidoDAO;
 import uvigo.tfgalmacen.database.UsuarioDAO;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
@@ -17,8 +19,8 @@ public class Pedido implements Comparable<Pedido> {
 
 
     private String emoji;
-    private String fechaPedidoRaw;
-    private final LocalDateTime fechaPedido;
+    private Date fechaPedidoRaw;
+    private final Date fechaPedido;
 
     private final String codigo_referencia;
     private final int id_pedido;
@@ -38,14 +40,14 @@ public class Pedido implements Comparable<Pedido> {
 
     private final String nombre_cliente;
 
-    public Pedido(String codigo_referencia, int id_pedido, int id_cliente, int id_usuario, String estado, String fechaPedidoRaw, String hora_salida, int palets_del_pedido) {
+    public Pedido(String codigo_referencia, int id_pedido, int id_cliente, int id_usuario, String estado, Date fechaPedidoRaw, String hora_salida, int palets_del_pedido) {
         this.codigo_referencia = codigo_referencia;
         this.id_pedido = id_pedido;
         this.id_cliente = id_cliente;
         this.id_usuario = id_usuario;
         this.estado = estado;
         this.fechaPedidoRaw = fechaPedidoRaw;
-        this.fechaPedido = LocalDateTime.parse(fechaPedidoRaw, FORMATTER);
+        this.fechaPedido = fechaPedidoRaw;
         this.horaSalida = hora_salida;
         this.palets_del_pedido = palets_del_pedido;
 
@@ -117,7 +119,7 @@ public class Pedido implements Comparable<Pedido> {
         return estado;
     }
 
-    public LocalDateTime getFechaPedido() {
+    public Date getFechaPedido() {
         return fechaPedido;
     }
 
