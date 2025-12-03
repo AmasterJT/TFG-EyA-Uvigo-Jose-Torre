@@ -14,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import uvigo.tfgalmacen.mobile_android.LoginRequest;
+import uvigo.tfgalmacen.mobile_android.LoginResponse;
 import uvigo.tfgalmacen.mobile_android.R;
 import uvigo.tfgalmacen.mobile_android.api.ApiClient;
 import uvigo.tfgalmacen.mobile_android.api.AuthApi;
@@ -59,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginRequest request = new LoginRequest(username, password);
 
         Call<LoginResponse> call = authApi.login(request);
-        call.enqueue(new Callback<LoginResponse>() {
+        call.enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 loginButton.setEnabled(true);
@@ -69,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,
                             "Error del servidor: " + response.code(),
                             Toast.LENGTH_SHORT).show();
-                    return;
+
                 }
 
                 LoginResponse loginResponse = response.body();
@@ -79,6 +80,13 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
+                Toast.makeText(LoginActivity.this,
+                        "AAAAAAAAA" + loginResponse.isOk(),
+                        Toast.LENGTH_SHORT
+                ).show();
+
 
                 if (loginResponse.isOk()) {
 
@@ -92,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                     String apellido1 = loginResponse.getApellido1();  // si lo tienes en la API
 
                     // Crear Intent para abrir MainActivity
-                    Intent intent = new Intent(String.valueOf(MainActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
                     // Pasar los datos al siguiente Activity
                     intent.putExtra("nombre_usuario", nombre);
