@@ -5,8 +5,7 @@ import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-import org.w3c.dom.ls.LSOutput;
-import uvigo.tfgalmacen.database.DatabaseConnection;
+import uvigo.tfgalmacen.models.User;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.sql.Connection;
@@ -23,7 +22,6 @@ import java.util.logging.Logger;
 import static uvigo.tfgalmacen.RutasFicheros.*;
 import static uvigo.tfgalmacen.database.DatabaseConnection.connect;
 import static uvigo.tfgalmacen.database.DatabaseConnection.close;
-import static uvigo.tfgalmacen.database.TableLister.getTables;
 import static uvigo.tfgalmacen.utils.CssColorLoader.loadColors;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.crearStageBasico;
 

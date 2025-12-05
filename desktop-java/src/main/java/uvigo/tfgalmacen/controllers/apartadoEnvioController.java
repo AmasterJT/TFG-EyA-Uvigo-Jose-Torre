@@ -18,7 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.Pedido;
+import uvigo.tfgalmacen.models.Pedido;
 import uvigo.tfgalmacen.database.PaletSalidaDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 import uvigo.tfgalmacen.utils.PdfUtils;

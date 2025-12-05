@@ -1,28 +1,21 @@
 package uvigo.tfgalmacen.controllers.apartadosAjustesControllers;
 
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import uvigo.tfgalmacen.Pedido;
+import uvigo.tfgalmacen.models.Pedido;
 import uvigo.tfgalmacen.Main;
 
 import uvigo.tfgalmacen.almacenManagement.Producto;
-import uvigo.tfgalmacen.database.DetallesPedidoDAO.*;
-import uvigo.tfgalmacen.almacenManagement.Almacen;
-import uvigo.tfgalmacen.database.RolePermissionDAO;
-import uvigo.tfgalmacen.database.UsuarioDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
@@ -33,7 +26,6 @@ import static java.lang.Integer.parseInt;
 import static uvigo.tfgalmacen.RutasFicheros.*;
 import static uvigo.tfgalmacen.database.DetallesPedidoDAO.*;
 import static uvigo.tfgalmacen.database.PedidoDAO.*;
-import static uvigo.tfgalmacen.utils.TerminalColors.*;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class windowAjustesEditarPedidosController {

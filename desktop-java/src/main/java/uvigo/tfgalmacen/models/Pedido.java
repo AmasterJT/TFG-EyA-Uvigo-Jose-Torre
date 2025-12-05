@@ -1,14 +1,11 @@
-package uvigo.tfgalmacen;
+package uvigo.tfgalmacen.models;
 
-import net.fortuna.ical4j.model.DateTime;
+import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.database.ClientesDAO;
-import uvigo.tfgalmacen.database.PedidoDAO;
 import uvigo.tfgalmacen.database.UsuarioDAO;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 
 import static uvigo.tfgalmacen.utils.TerminalColors.*;
 

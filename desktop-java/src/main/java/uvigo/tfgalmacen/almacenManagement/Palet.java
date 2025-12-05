@@ -3,10 +3,7 @@ package uvigo.tfgalmacen.almacenManagement;
 import javafx.beans.property.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
-import uvigo.tfgalmacen.Proveedor;
 import uvigo.tfgalmacen.utils.TerminalColors;
-
-import static uvigo.tfgalmacen.Proveedor.getProveedorPorNombre;
 
 
 public class Palet {

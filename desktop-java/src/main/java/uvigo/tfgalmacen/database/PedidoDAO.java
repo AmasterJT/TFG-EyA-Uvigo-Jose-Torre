@@ -1,6 +1,6 @@
 package uvigo.tfgalmacen.database;
 
-import uvigo.tfgalmacen.Pedido;
+import uvigo.tfgalmacen.models.Pedido;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.sql.*;
@@ -10,8 +10,6 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import java.time.LocalDate;
 
 public class PedidoDAO {
 

@@ -1,4 +1,4 @@
-package uvigo.tfgalmacen;
+package uvigo.tfgalmacen.models;
 
 import java.sql.Timestamp;
 import java.util.Objects;

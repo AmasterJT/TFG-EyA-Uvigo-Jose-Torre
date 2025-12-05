@@ -10,8 +10,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.Pedido;
-import uvigo.tfgalmacen.User;
+import uvigo.tfgalmacen.models.Pedido;
+import uvigo.tfgalmacen.models.User;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.lang.reflect.Method;

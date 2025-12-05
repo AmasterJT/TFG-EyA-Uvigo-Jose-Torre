@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.Pedido;
+import uvigo.tfgalmacen.models.Pedido;
 
 import java.net.URL;
 import java.util.ResourceBundle;

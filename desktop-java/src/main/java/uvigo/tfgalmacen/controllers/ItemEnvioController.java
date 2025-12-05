@@ -1,22 +1,17 @@
 package uvigo.tfgalmacen.controllers;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import uvigo.tfgalmacen.PaletSalida;
-import uvigo.tfgalmacen.Pedido;
+import uvigo.tfgalmacen.models.PaletSalida;
+import uvigo.tfgalmacen.models.Pedido;
 import uvigo.tfgalmacen.gs1.EtiquetaGS1;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,20 +20,13 @@ import static uvigo.tfgalmacen.database.DataConfig.COMPANY_NAME;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import uvigo.tfgalmacen.PaletSalida;
-import uvigo.tfgalmacen.Pedido;
 
 import java.io.File;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ResourceBundle;
 
 public class ItemEnvioController implements Initializable {
 

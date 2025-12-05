@@ -9,8 +9,8 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.Pedido;
-import uvigo.tfgalmacen.User;
+import uvigo.tfgalmacen.models.Pedido;
+import uvigo.tfgalmacen.models.User;
 import uvigo.tfgalmacen.database.PedidoDAO;
 
 import java.util.List;

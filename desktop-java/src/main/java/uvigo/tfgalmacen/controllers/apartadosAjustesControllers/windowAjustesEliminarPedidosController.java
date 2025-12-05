@@ -7,16 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.Pedido;
-import uvigo.tfgalmacen.User;
-import uvigo.tfgalmacen.almacenManagement.Almacen;
-import uvigo.tfgalmacen.almacenManagement.Producto;
-import uvigo.tfgalmacen.database.RolePermissionDAO;
-import uvigo.tfgalmacen.database.UsuarioDAO;
+import uvigo.tfgalmacen.models.Pedido;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.IOException;

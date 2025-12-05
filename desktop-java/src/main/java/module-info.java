@@ -28,5 +28,7 @@ module uvigo.tfgalmacen {
     opens uvigo.tfgalmacen.utils to javafx.fxml;
     exports uvigo.tfgalmacen.gs1;
     opens uvigo.tfgalmacen.gs1 to javafx.fxml;
+    exports uvigo.tfgalmacen.models;
+    opens uvigo.tfgalmacen.models to javafx.fxml;
 
 }

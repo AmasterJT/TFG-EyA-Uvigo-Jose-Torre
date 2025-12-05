@@ -16,7 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.ProductoPedido;
+import uvigo.tfgalmacen.models.ProductoPedido;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.net.URL;

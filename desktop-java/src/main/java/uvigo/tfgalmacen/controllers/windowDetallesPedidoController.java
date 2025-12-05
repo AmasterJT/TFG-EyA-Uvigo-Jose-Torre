@@ -8,8 +8,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.Pedido;
-import uvigo.tfgalmacen.ProductoPedido;
+import uvigo.tfgalmacen.models.Pedido;
+import uvigo.tfgalmacen.models.ProductoPedido;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.IOException;

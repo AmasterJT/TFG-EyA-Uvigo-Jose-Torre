@@ -21,6 +21,10 @@ import uvigo.tfgalmacen.*;
 import uvigo.tfgalmacen.almacenManagement.Palet;
 import uvigo.tfgalmacen.database.*;
 import uvigo.tfgalmacen.gs1.GS1Utils;
+import uvigo.tfgalmacen.models.Cliente;
+import uvigo.tfgalmacen.models.Pedido;
+import uvigo.tfgalmacen.models.ProductoPedido;
+import uvigo.tfgalmacen.models.User;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.io.IOException;
@@ -876,7 +880,7 @@ public class apartadoPaletizarController implements Initializable {
                 System.out.println(i);
                 actualizarPaletsDelPedido(Main.connection, pActual.getId_pedido(), i + 1);
             }
-            
+
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error al crear el palet de salida desde la UI", e);
             e.printStackTrace();

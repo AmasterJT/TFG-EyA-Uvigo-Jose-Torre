@@ -9,7 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +19,7 @@ import java.util.logging.Logger;
 
 import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.User;
+import uvigo.tfgalmacen.models.User;
 import uvigo.tfgalmacen.database.RolePermissionDAO;
 import uvigo.tfgalmacen.database.UsuarioDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;

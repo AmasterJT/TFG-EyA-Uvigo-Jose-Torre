@@ -1,6 +1,6 @@
 package uvigo.tfgalmacen.database;
 
-import uvigo.tfgalmacen.User;
+import uvigo.tfgalmacen.models.User;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 import uvigo.tfgalmacen.utils.PasswordUtils;
 
@@ -14,8 +14,6 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static uvigo.tfgalmacen.utils.PasswordUtils.verifyPassword;
 
 public class UsuarioDAO {
 

@@ -12,8 +12,8 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.OrdenCompra;
-import uvigo.tfgalmacen.Proveedor;
+import uvigo.tfgalmacen.models.OrdenCompra;
+import uvigo.tfgalmacen.models.Proveedor;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Palet;
 import uvigo.tfgalmacen.almacenManagement.Producto;
@@ -31,7 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import static uvigo.tfgalmacen.Proveedor.getProveedorPorNombre;
+import static uvigo.tfgalmacen.models.Proveedor.getProveedorPorNombre;
 import static uvigo.tfgalmacen.RutasFicheros.ITEM_ORDEN_COMPRA_FXML;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 

@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 
 import javafx.stage.Stage;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.Proveedor;
+import uvigo.tfgalmacen.models.Proveedor;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Tipo;
 import uvigo.tfgalmacen.database.ProductoDAO;

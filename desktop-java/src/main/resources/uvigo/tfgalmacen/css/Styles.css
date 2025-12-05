@@ -151,12 +151,12 @@
 
 
 .toolBar {
-    -fx-background-color: -amaster-dark-brown !important;
+    -fx-background-color: -amaster-deep-dark-gray !important;
 
 }
 
 .menuItem {
-    -fx-background-color: -amaster-dark-brown !important;
+    -fx-background-color: -amaster-deep-dark-gray !important;
     -fx-border-width: 0px 0px 3px 0px;
 }
 
@@ -982,12 +982,12 @@
 
 
 .toolBar {
-    -fx-background-color: -amaster-dark-brown !important;
+    -fx-background-color: -amaster-deep-dark-gray !important;
 
 }
 
 .menuItem {
-    -fx-background-color: -amaster-dark-brown !important;
+    -fx-background-color: -amaster-deep-dark-gray !important;
     -fx-border-width: 0px 0px 3px 0px;
 }
 

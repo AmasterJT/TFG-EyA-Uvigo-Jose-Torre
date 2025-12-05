@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import uvigo.tfgalmacen.PaletSalida;
+import uvigo.tfgalmacen.models.PaletSalida;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 public class PaletSalidaDAO {

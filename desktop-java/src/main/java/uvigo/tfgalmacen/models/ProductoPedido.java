@@ -1,5 +1,7 @@
-package uvigo.tfgalmacen;
+package uvigo.tfgalmacen.models;
 
+
+import uvigo.tfgalmacen.Main;
 
 import static uvigo.tfgalmacen.database.ProductoDAO.getColorByIdentificadorProducto;
 

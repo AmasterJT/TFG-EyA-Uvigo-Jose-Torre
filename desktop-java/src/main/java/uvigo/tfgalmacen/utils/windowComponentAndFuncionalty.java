@@ -14,9 +14,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
-import uvigo.tfgalmacen.User;
+import uvigo.tfgalmacen.models.User;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.util.*;
 import java.util.List;

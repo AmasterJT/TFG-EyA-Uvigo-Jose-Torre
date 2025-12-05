@@ -1,9 +1,52 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Mobileandroid" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+    <!-- Base application theme.
 
     <style name="Theme.Mobileandroid" parent="Base.Theme.Mobileandroid" />
+  -->
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20%</item>
+    </style>
+
+
+    <style name="TextWhite">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="TextHeadlineWhite" parent="TextWhite">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ItemBordeBlanco">
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/borde_blanco</item>
+    </style>
+
+
+
+
+    <style name="Theme.Mobileandroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Fondo global -->
+        <item name="android:windowBackground">#222</item>
+
+        <!-- Color global de texto -->
+        <item name="android:textColor">#FFFFFF</item>
+
+        <!-- Color para títulos -->
+        <item name="textAppearanceHeadline6">@style/TextHeadlineWhite</item>
+
+        <!-- Color para controles (botones, iconos, etc.) -->
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <!-- Color primario si quieres (no obligatorio) -->
+        <item name="colorPrimary">#222</item>
+    </style>
+
+
+    <style name="splashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Fondo que muestra mientras arranca la primera activity -->
+        <item name="android:windowBackground">@drawable/splashscreen</item>
+    </style>
+
 </resources>

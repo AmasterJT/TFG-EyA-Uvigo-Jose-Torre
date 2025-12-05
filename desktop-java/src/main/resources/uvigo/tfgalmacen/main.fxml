@@ -146,7 +146,7 @@
             <AnchorPane prefHeight="362.0" prefWidth="160.0" styleClass="leftPanel">
                 <VBox alignment="CENTER" layoutX="48.0" layoutY="41.0" prefHeight="200.0" prefWidth="150.0" spacing="10.0" styleClass="leftPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <ImageView fitHeight="100.0" fitWidth="208.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../icons/logo_uvigo.png" />
+                        <Image url="@../../icons/app_icon.png" />
                         <VBox.margin>
                             <Insets bottom="20.0" top="20.0" />
                         </VBox.margin>

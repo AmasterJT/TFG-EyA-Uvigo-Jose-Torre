@@ -5,7 +5,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import uvigo.tfgalmacen.ProductoPedido;
+import uvigo.tfgalmacen.models.ProductoPedido;
 
 
 public class ItemDetallesPedidoController {

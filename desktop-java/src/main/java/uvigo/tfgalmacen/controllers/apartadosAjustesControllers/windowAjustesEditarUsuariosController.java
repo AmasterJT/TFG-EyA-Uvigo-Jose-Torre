@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -21,8 +20,7 @@ import java.util.logging.Logger;
 import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.User;
-import uvigo.tfgalmacen.controllers.ItemOrdenCompraController;
+import uvigo.tfgalmacen.models.User;
 import uvigo.tfgalmacen.database.RolePermissionDAO;
 import uvigo.tfgalmacen.database.UsuarioDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;

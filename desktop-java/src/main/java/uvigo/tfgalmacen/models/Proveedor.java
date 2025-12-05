@@ -1,6 +1,6 @@
-package uvigo.tfgalmacen;
+package uvigo.tfgalmacen.models;
 
-import uvigo.tfgalmacen.almacenManagement.Almacen;
+import uvigo.tfgalmacen.Main;
 
 import java.sql.*;
 import java.util.logging.Level;

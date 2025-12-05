@@ -1,6 +1,6 @@
 package uvigo.tfgalmacen.database;
 
-import uvigo.tfgalmacen.Cliente;
+import uvigo.tfgalmacen.models.Cliente;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.sql.*;

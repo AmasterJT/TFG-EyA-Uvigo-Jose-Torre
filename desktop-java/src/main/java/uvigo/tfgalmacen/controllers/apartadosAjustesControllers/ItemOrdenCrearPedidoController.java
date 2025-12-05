@@ -1,16 +1,10 @@
 package uvigo.tfgalmacen.controllers.apartadosAjustesControllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import uvigo.tfgalmacen.Cliente;
 import uvigo.tfgalmacen.almacenManagement.Almacen;
 import uvigo.tfgalmacen.almacenManagement.Producto;
 import uvigo.tfgalmacen.utils.ColorFormatter;

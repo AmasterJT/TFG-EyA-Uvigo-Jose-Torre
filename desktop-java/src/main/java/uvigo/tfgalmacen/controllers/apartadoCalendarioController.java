@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.Pedido;
+import uvigo.tfgalmacen.models.Pedido;
 import uvigo.tfgalmacen.database.PedidoDAO;
 
 import java.net.URL;

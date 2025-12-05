@@ -1,4 +1,4 @@
-package uvigo.tfgalmacen;
+package uvigo.tfgalmacen.models;
 
 public class PaletSalida {
 
@@ -49,7 +49,7 @@ public class PaletSalida {
     public void setNumeroProductos(int numeroProductos) {
         this.numeroProductos = numeroProductos;
     }
-    
+
     public PaletSalida(int idPaletSalida, int idPedido, String sscc, int cantidadTotal, int numeroProductos) {
         this.idPaletSalida = idPaletSalida;
         this.idPedido = idPedido;

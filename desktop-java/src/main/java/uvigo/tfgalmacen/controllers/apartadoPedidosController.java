@@ -15,7 +15,7 @@ import javafx.stage.StageStyle;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.Pedido;
+import uvigo.tfgalmacen.models.Pedido;
 import uvigo.tfgalmacen.database.PedidoDAO;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 import uvigo.tfgalmacen.utils.windowComponentAndFuncionalty;

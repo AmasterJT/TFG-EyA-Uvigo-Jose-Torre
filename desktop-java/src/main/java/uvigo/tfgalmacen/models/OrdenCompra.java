@@ -1,4 +1,4 @@
-package uvigo.tfgalmacen;
+package uvigo.tfgalmacen.models;
 
 import uvigo.tfgalmacen.almacenManagement.Palet;
 

@@ -1,6 +1,6 @@
 package uvigo.tfgalmacen.database;
 
-import uvigo.tfgalmacen.ProductoPedido;
+import uvigo.tfgalmacen.models.ProductoPedido;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
 import java.sql.*;

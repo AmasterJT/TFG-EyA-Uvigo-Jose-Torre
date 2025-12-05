@@ -17,7 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.User;
+import uvigo.tfgalmacen.models.User;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 import uvigo.tfgalmacen.utils.PasswordUtils;
 
@@ -28,7 +28,6 @@ import java.util.logging.*;
 
 import static uvigo.tfgalmacen.RutasFicheros.MAIN_FXML;
 import static uvigo.tfgalmacen.database.UsuarioDAO.SQLcheckUser;
-import static uvigo.tfgalmacen.utils.PasswordUtils.verifyPassword;
 import static uvigo.tfgalmacen.utils.windowComponentAndFuncionalty.*;
 
 public class windowLoginController implements Initializable {

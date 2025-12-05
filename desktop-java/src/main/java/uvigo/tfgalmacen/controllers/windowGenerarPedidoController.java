@@ -10,14 +10,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import uvigo.tfgalmacen.Cliente;
+import uvigo.tfgalmacen.models.Cliente;
 import uvigo.tfgalmacen.Main;
-import uvigo.tfgalmacen.Pedido;
+import uvigo.tfgalmacen.models.Pedido;
 import uvigo.tfgalmacen.database.ClientesDAO;
 
 import java.io.File;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.ResourceBundle;
 
