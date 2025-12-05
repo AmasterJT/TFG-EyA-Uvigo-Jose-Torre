@@ -791,9 +791,11 @@ public class PedidoDAO {
     private static final String UPDATE_PEDIDO_ENVIADO_SQL = """
             UPDATE pedidos
             SET enviado = 1,
-                estado  = 'Enviado'
+                estado  = 'Enviado',
+                id_transportista = ?
             WHERE id_pedido = ?
             """;
+
 
     public static List<Pedido> getPedidosCompletadosNoEnviados(Connection conn) {
         List<Pedido> pedidos = new ArrayList<>();
@@ -827,12 +829,15 @@ public class PedidoDAO {
      *
      * @return true si se actualizó 1 fila
      */
-    public static boolean marcarPedidoComoEnviado(Connection conn, int idPedido) {
+    public static boolean marcarPedidoComoEnviado(Connection conn, int idPedido, int idTransportista) {
         if (conn == null) return false;
 
         try (PreparedStatement ps = conn.prepareStatement(UPDATE_PEDIDO_ENVIADO_SQL)) {
-            ps.setInt(1, idPedido);
+            ps.setInt(1, idTransportista);
+            ps.setInt(2, idPedido);
+
             int filas = ps.executeUpdate();
+            System.out.println("Filas actualizadas: " + filas);
             return filas == 1;
         } catch (SQLException e) {
             e.printStackTrace();

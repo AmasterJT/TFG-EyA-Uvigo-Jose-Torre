@@ -31,6 +31,11 @@ public class Transportista {
     }
 
 
+    public Transportista() {
+
+    }
+
+
     public int getIdTransportista() {
         return idTransportista;
     }

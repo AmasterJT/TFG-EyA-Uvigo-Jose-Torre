@@ -10,10 +10,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import uvigo.tfgalmacen.database.TransportistaDAO;
 import uvigo.tfgalmacen.models.Cliente;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.models.Pedido;
 import uvigo.tfgalmacen.database.ClientesDAO;
+import uvigo.tfgalmacen.models.Transportista;
 
 import java.io.File;
 import java.net.URL;
@@ -30,12 +32,16 @@ public class windowGenerarPedidoController implements Initializable {
     private Button ExitButton;
 
     @FXML
-    private ComboBox<Pedido> combo_pedido_terminado_hora;
+    private ComboBox<Pedido> combo_pedido;
+
+    @FXML
+    private ComboBox<Transportista> combo_transportistas;
 
     @FXML
     private Button exportar_btn;
 
     List<Pedido> pedidos;
+    List<Transportista> transportistas;
     private apartadoEnvioController parent;
 
     @FXML
@@ -63,6 +69,7 @@ public class windowGenerarPedidoController implements Initializable {
 
         // Cargar pedidos completados y no enviados
         cargarPedidosEnCombo();
+        cargarTransportistasEnCombo();
 
         EventHandler<KeyEvent> onEnterPressed = event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -70,13 +77,13 @@ public class windowGenerarPedidoController implements Initializable {
             }
         };
 
-        combo_pedido_terminado_hora.setOnKeyPressed(
+        combo_pedido.setOnKeyPressed(
                 onEnterPressed
         );
 
-        combo_pedido_terminado_hora.setOnAction(_ -> {
+        combo_pedido.setOnAction(_ -> {
             ;
-            actualizarDatosCliente(combo_pedido_terminado_hora.getValue());
+            actualizarDatosCliente(combo_pedido.getValue());
         });
 
         // Acción del botón: marcar pedido como enviado
@@ -93,7 +100,7 @@ public class windowGenerarPedidoController implements Initializable {
 
 
         google_maps_btn.setOnAction(_ -> {
-            Cliente seleccionado = ClientesDAO.getClienteById(Main.connection, combo_pedido_terminado_hora.getValue().getId_cliente());
+            Cliente seleccionado = ClientesDAO.getClienteById(Main.connection, combo_pedido.getValue().getId_cliente());
             if (seleccionado != null) {
                 abrirCoordenadasEnGoogleMaps(
                         seleccionado.getLatitud(),
@@ -106,9 +113,9 @@ public class windowGenerarPedidoController implements Initializable {
     private void cargarPedidosEnCombo() {
         pedidos = getPedidosCompletadosNoEnviados(Main.connection);
 
-        combo_pedido_terminado_hora.getItems().setAll(pedidos);
+        combo_pedido.getItems().setAll(pedidos);
 
-        combo_pedido_terminado_hora.setConverter(new StringConverter<>() {
+        combo_pedido.setConverter(new StringConverter<>() {
             @Override
             public String toString(Pedido p) {
                 if (p == null) return "";
@@ -125,13 +132,41 @@ public class windowGenerarPedidoController implements Initializable {
             }
         });
 
-        combo_pedido_terminado_hora.getSelectionModel().clearSelection();
+        combo_pedido.getSelectionModel().clearSelection();
     }
 
+
+    private void cargarTransportistasEnCombo() {
+        transportistas = TransportistaDAO.getTodos(Main.connection);
+
+        combo_transportistas.getItems().setAll(transportistas);
+        combo_transportistas.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Transportista t) {
+                if (t == null) return "";
+                return t.getNombreConductor() + " - (" + t.getNombreEmpresa() + ")";
+            }
+
+            @Override
+            public Transportista fromString(String s) {
+                if (s == null) return null;
+                return transportistas.stream()
+                        .filter(t -> s.equals(t.getNombreConductor()))
+                        .findFirst()
+                        .orElse(null);
+            }
+        });
+    }
+
+
     private void marcarPedidoSeleccionadoComoEnviado() {
-        Pedido seleccionado = combo_pedido_terminado_hora.getValue();
-        if (seleccionado == null) {
-            System.out.println("No hay pedido seleccionado.");
+        Pedido seleccionado = combo_pedido.getValue();
+        Transportista transportista = combo_transportistas.getValue();
+
+        if (seleccionado == null || transportista == null) {
+            ventana_warning("No hay selección",
+                    "Faltan datos",
+                    "Debe seleccionar un pedido y un transportista para continuar.");
             return;
         }
 
@@ -152,7 +187,7 @@ public class windowGenerarPedidoController implements Initializable {
         }
 
         // 2) Marcar como enviado en BDD
-        boolean ok = marcarPedidoComoEnviado(Main.connection, seleccionado.getId_pedido());
+        boolean ok = marcarPedidoComoEnviado(Main.connection, seleccionado.getId_pedido(), transportista.getIdTransportista());
         if (!ok) {
             System.out.println("No se pudo marcar como enviado el pedido " + seleccionado.getCodigo_referencia());
             return;
