@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResponse.isOk()) {
 
                     Toast.makeText(LoginActivity.this,
-                            "Login OK, abriendo MainActivity...",
+                            "Login OK, abriendo SelectOptionsActivity...",
                             Toast.LENGTH_SHORT
                     ).show();
 
@@ -101,8 +101,8 @@ public class LoginActivity extends AppCompatActivity {
                     String nombre = loginResponse.getNombre();        // nombre que te da la API
                     String apellido1 = loginResponse.getApellido1();  // si lo tienes en la API
 
-                    // Crear Intent para abrir MainActivity
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    // Crear Intent para abrir SelectOptionsActivity
+                    Intent intent = new Intent(getApplicationContext(), SelectOptionsActivity.class);
 
                     // Pasar los datos al siguiente Activity
                     intent.putExtra("nombre_usuario", nombre);
