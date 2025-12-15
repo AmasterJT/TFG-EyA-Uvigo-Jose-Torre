@@ -43,15 +43,23 @@ public class SelectOptionsActivity extends AppCompatActivity {
         }
 
         show_pedidos.setOnClickListener(v -> abrirPedidos());
+        edit_palet_button.setOnClickListener(v -> editarPalet());
 
+    }
+
+    private void editarPalet() {
+
+
+        // Crear Intent para abrir SelectOptionsActivity
+        Intent intent = new Intent(getApplicationContext(), EditPaletActivity.class);
+
+
+        // Iniciar nueva Activity
+        startActivity(intent);
     }
 
     private void abrirPedidos() {
 
-        Toast.makeText(SelectOptionsActivity.this,
-                "Login OK, abriendo MainActivity...",
-                Toast.LENGTH_SHORT
-        ).show();
 
         // Crear Intent para abrir SelectOptionsActivity
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);

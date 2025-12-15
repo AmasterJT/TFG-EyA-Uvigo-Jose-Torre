@@ -23,7 +23,10 @@
             android:layout_marginRight="50dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+
+            android:descendantFocusability="blocksDescendants"
+            >
 
             <ImageView
                 android:id="@+id/imageView"

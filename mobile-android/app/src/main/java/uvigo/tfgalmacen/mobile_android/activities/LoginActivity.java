@@ -84,18 +84,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
 
-                Toast.makeText(LoginActivity.this,
-                        "AAAAAAAAA" + loginResponse.isOk(),
-                        Toast.LENGTH_SHORT
-                ).show();
-
-
                 if (loginResponse.isOk()) {
 
-                    Toast.makeText(LoginActivity.this,
-                            "Login OK, abriendo SelectOptionsActivity...",
-                            Toast.LENGTH_SHORT
-                    ).show();
 
                     // Obtener los datos del usuario desde la respuesta
                     String nombre = loginResponse.getNombre();        // nombre que te da la API

@@ -5,6 +5,10 @@
     <uses-feature
         android:name="android.software.leanback"
         android:required="false" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -33,11 +37,22 @@
             android:exported="false"
             android:parentActivityName=".activities.SelectOptionsActivity" />
 
+        <activity
+            android:name=".activities.EditPaletActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.SelectOptionsActivity" />
+
 
         <activity
             android:name=".activities.SelectOptionsActivity"
             android:exported="false"
             android:parentActivityName=".activities.LoginActivity" />
+
+
+        <activity
+            android:name=".activities.PedidosActivity"
+            android:exported="false" />
+
     </application>
 
 
