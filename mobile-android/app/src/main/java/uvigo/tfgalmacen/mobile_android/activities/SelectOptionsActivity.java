@@ -22,6 +22,8 @@ public class SelectOptionsActivity extends AppCompatActivity {
     private String nombre;
     private String apellido;
 
+    private int id_usuario;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class SelectOptionsActivity extends AppCompatActivity {
         // Obtener datos del Intent
         nombre = getIntent().getStringExtra("nombre_usuario");
         apellido = getIntent().getStringExtra("apellido_usuario");
+        id_usuario = getIntent().getIntExtra("id_usuario", 0);
 
         // Mostrar el nombre completo
         if (nombre != null && apellido != null) {
@@ -67,6 +70,7 @@ public class SelectOptionsActivity extends AppCompatActivity {
         // Pasar los datos al siguiente Activity
         intent.putExtra("nombre_usuario", nombre);
         intent.putExtra("apellido_usuario", apellido);
+        intent.putExtra("id_usuario", id_usuario);
 
         // Iniciar nueva Activity
         startActivity(intent);

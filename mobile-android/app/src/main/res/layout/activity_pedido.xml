@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="100dp"
             android:layout_marginRight="50dp"
             android:gravity="center"
             android:orientation="horizontal"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/amaster_logo_small" />
+                android:src="@drawable/iconpedido" />
 
             <TextView
                 android:id="@+id/codigo_referencia_text"
@@ -65,7 +65,7 @@
                 android:paddingEnd="8dp"
                 android:paddingBottom="8dp"
                 android:scrollbars="vertical"
-                tools:listitem="@layout/item_pedidos" />
+                tools:listitem="@layout/item_productos_pendientes" />
 
             <ListView
                 android:id="@+id/lista_productos_en_palet"
@@ -87,7 +87,7 @@
                 android:paddingEnd="8dp"
                 android:paddingBottom="8dp"
                 android:scrollbars="vertical"
-                tools:listitem="@layout/item_pedidos" />
+                tools:listitem="@layout/item_productos_pendientes" />
         </LinearLayout>
 
     </LinearLayout>

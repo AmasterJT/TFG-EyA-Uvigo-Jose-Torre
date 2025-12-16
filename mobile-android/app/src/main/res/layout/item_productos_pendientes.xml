@@ -13,12 +13,12 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="@drawable/item_pedido_selector">
-
+>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/amaster_blue"
         style="@style/ItemBordeBlanco"
         >
 
@@ -34,26 +34,27 @@
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
 
         <TextView
+            android:id="@+id/ProductName"
+
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:id="@+id/listName"
             android:text="Name"
-            android:textAppearance="@style/TextWhite"
+            android:textAppearance="@style/TextBlack"
             android:textSize="20sp"
             android:layout_marginTop="25dp"
             android:layout_marginStart="30dp"
             android:layout_toEndOf="@id/listImage"/>
 
         <TextView
+            android:id="@+id/Cantidad"
             android:layout_width="80dp"
             android:layout_height="30dp"
-            android:id="@+id/listTime"
             android:text="time"
             android:textSize="16sp"
-            android:layout_toEndOf="@id/listName"
+            android:layout_toEndOf="@id/ProductName"
             android:layout_marginTop="25dp"
             android:layout_marginStart="50dp"
-            android:textAppearance="@style/TextWhite"
+            android:textAppearance="@style/TextBlack"
             />
 
     </RelativeLayout>

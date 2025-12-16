@@ -7,73 +7,96 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 import uvigo.tfgalmacen.mobile_android.R;
 import uvigo.tfgalmacen.mobile_android.adapters.PedidosAdapter;
+import uvigo.tfgalmacen.mobile_android.api.ApiClient;
+import uvigo.tfgalmacen.mobile_android.api.PedidosApi;
 import uvigo.tfgalmacen.mobile_android.models.itemPedidos;
-
 public class MainActivity extends AppCompatActivity {
 
     private TextView nombreUsuarioText;
-    ListView listViewPedidos;
+    private ListView listViewPedidos;
+
+    private int id_usuario;
+
+    private PedidosApi pedidosApi;
+    private final ArrayList<itemPedidos> items = new ArrayList<>();
+    private PedidosAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // tu layout
+        setContentView(R.layout.activity_main);
 
-        // Referencia al TextView
         nombreUsuarioText = findViewById(R.id.nombre_usuario_text);
+        listViewPedidos = findViewById(R.id.lista_pedidos);
 
-        // Obtener datos del Intent
         String nombre = getIntent().getStringExtra("nombre_usuario");
         String apellido = getIntent().getStringExtra("apellido_usuario");
+        this.id_usuario = getIntent().getIntExtra("id_usuario", 0);
 
-        // Mostrar el nombre completo
         if (nombre != null && apellido != null) {
             nombreUsuarioText.setText(nombre + " " + apellido);
         }
 
+        // Adapter (campo, NO variable local)
+        adapter = new PedidosAdapter(this, items);
+        listViewPedidos.setAdapter(adapter);
 
-        // ListView
-        listViewPedidos = findViewById(R.id.lista_pedidos);
+        // API
+        pedidosApi = ApiClient.getClient().create(PedidosApi.class);
 
-        // Datos de prueba
+        Toast.makeText(this, "id_usuario=" + id_usuario, Toast.LENGTH_SHORT).show();
 
-        ArrayList<itemPedidos> items = new ArrayList<>();
-        items.add(new itemPedidos("Pedido 1", "10:00", R.drawable.palet));
-        items.add(new itemPedidos("Pedido 2", "11:30", R.drawable.palet));
-        items.add(new itemPedidos("Pedido 3", "12:45", R.drawable.palet));
-        items.add(new itemPedidos("Pedido 4", "12:45", R.drawable.palet));
-        items.add(new itemPedidos("Pedido 5", "12:45", R.drawable.palet));
-        items.add(new itemPedidos("Pedido 6", "12:45", R.drawable.palet));
-        items.add(new itemPedidos("Pedido 7", "12:45", R.drawable.palet));
-        items.add(new itemPedidos("Pedido 8", "12:45", R.drawable.palet));
-        items.add(new itemPedidos("Pedido 9", "12:45", R.drawable.palet));
-        items.add(new itemPedidos("Pedido 10", "12:45", R.drawable.palet));
+        // Llamar a la API
+        cargarPedidos(id_usuario);
 
-        PedidosAdapter adapter = new PedidosAdapter(this, items);
-
-
-
-
+        // (Opcional) click
         listViewPedidos.setOnItemClickListener((parent, view, position, id) -> {
-
-            Toast.makeText(this, "AAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
-
             itemPedidos pedido = items.get(position);
-
             Intent intent = new Intent(MainActivity.this, PedidosActivity.class);
-            // (Opcional) pasar datos del item para usar luego
             intent.putExtra("pedido_name", pedido.getName());
-
             startActivity(intent);
         });
+    }
 
-        // Asignarlo al ListView
-        listViewPedidos.setAdapter(adapter);
+    private void cargarPedidos(int idUsuario) {
+        pedidosApi.getPedidosEnProceso(idUsuario).enqueue(new retrofit2.Callback<>() {
+            @Override
+            public void onResponse(@NonNull retrofit2.Call<java.util.List<uvigo.tfgalmacen.mobile_android.models.PedidoDto>> call,
+                                   @NonNull retrofit2.Response<java.util.List<uvigo.tfgalmacen.mobile_android.models.PedidoDto>> response) {
+
+                if (!response.isSuccessful() || response.body() == null) {
+                    Toast.makeText(MainActivity.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                items.clear();
+                for (uvigo.tfgalmacen.mobile_android.models.PedidoDto p : response.body()) {
+
+                    Toast.makeText(MainActivity.this, "Codigo id pedido: " + p.getIdPedido(), Toast.LENGTH_SHORT).show();
+
+
+                    items.add(new itemPedidos(
+                            p.getCodigoReferencia(),
+                            p.getHoraSalida(),
+                            R.drawable.palet,
+                            p.getIdPedido()
+                    ));
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<java.util.List<uvigo.tfgalmacen.mobile_android.models.PedidoDto>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Error conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

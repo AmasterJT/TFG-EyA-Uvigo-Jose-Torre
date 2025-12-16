@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Obtener los datos del usuario desde la respuesta
                     String nombre = loginResponse.getNombre();        // nombre que te da la API
                     String apellido1 = loginResponse.getApellido1();  // si lo tienes en la API
+                    int id_usuario = loginResponse.getId();
 
                     // Crear Intent para abrir SelectOptionsActivity
                     Intent intent = new Intent(getApplicationContext(), SelectOptionsActivity.class);
@@ -97,6 +98,8 @@ public class LoginActivity extends AppCompatActivity {
                     // Pasar los datos al siguiente Activity
                     intent.putExtra("nombre_usuario", nombre);
                     intent.putExtra("apellido_usuario", apellido1);
+                    intent.putExtra("id_usuario", id_usuario);
+
 
                     // Iniciar nueva Activity
                     startActivity(intent);
