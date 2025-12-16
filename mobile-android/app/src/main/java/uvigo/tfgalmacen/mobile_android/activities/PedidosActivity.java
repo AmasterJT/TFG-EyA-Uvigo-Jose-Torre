@@ -91,7 +91,7 @@ public class PedidosActivity extends AppCompatActivity {
         int idDetalle = item.getIdDetalle();
 
         CambiarEstadoProductoDto body =
-                new CambiarEstadoProductoDto(true); // o false según lógica
+                new CambiarEstadoProductoDto(!item.isEstadoProductoPedido()); // o false según lógica
 
         detallesPedidoApi
                 .cambiarEstadoProducto(idDetalle, body)
