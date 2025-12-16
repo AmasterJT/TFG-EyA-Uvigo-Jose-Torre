@@ -42,7 +42,7 @@ public class PedidosAdapter extends ArrayAdapter<itemPedidos> {
         if (item != null) {
             img.setImageResource(item.getImageRes());
             name.setText(item.getName());
-            time.setText(String.valueOf(item.getId_pedido()));
+            time.setText(item.getTime());
         }
 
         return convertView;

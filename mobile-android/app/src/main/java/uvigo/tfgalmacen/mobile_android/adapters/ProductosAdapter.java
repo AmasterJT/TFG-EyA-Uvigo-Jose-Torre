@@ -36,11 +36,11 @@ public class ProductosAdapter extends ArrayAdapter<itemProductos> {
         itemProductos item = getItem(position);
 
         TextView name = convertView.findViewById(R.id.ProductName);
-        TextView time = convertView.findViewById(R.id.Cantidad);
+        TextView cantidad = convertView.findViewById(R.id.Cantidad);
 
         if (item != null) {
             name.setText(item.getName());
-            time.setText(item.getTime());
+            cantidad.setText(item.getTime());
         }
 
         return convertView;

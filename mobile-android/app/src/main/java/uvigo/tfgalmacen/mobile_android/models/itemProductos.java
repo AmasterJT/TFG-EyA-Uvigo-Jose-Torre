@@ -2,25 +2,20 @@ package uvigo.tfgalmacen.mobile_android.models;
 
 public class itemProductos {
 
-    private String nombreProducto;
-    private String Cantidad;
+    private final int idProducto;
+    private String name;      // identificadorProducto
+    private final String Cantidad; // cantidad
 
-    private int id_pedido;
-
-    public itemProductos(String name, String time) {
-        this.nombreProducto = name;
-        this.Cantidad = time;
+    public itemProductos(int idProducto, String name, String Cantidad) {
+        this.idProducto = idProducto;
+        this.name = name;
+        this.Cantidad = Cantidad;
     }
 
-    public String getName() {
-        return nombreProducto;
-    }
+    public int getIdProducto() { return idProducto; }
 
-    public String getTime() {
-        return Cantidad;
-    }
+    public String getName() { return name; }
+    public String getTime() { return Cantidad; }
 
-    public int getId_pedido() {
-        return id_pedido;
-    }
+    public void setName(String name) { this.name = name; }
 }

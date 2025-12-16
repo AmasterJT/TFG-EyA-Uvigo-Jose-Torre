@@ -17,19 +17,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginTop="100dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="40dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingLeft="10dp">
+            >
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/iconpedido" />
 
             <TextView
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="24sp"
-                android:text="TextView" />
+                android:text="PED-20251205-000001" />
         </LinearLayout>
 
         <LinearLayout
@@ -49,11 +49,11 @@
             <ListView
                 android:id="@+id/lista_productos_pendientes"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="325dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="0dp"
 
                 android:clipToPadding="false"
                 android:divider="@android:color/transparent"
@@ -71,7 +71,7 @@
                 android:id="@+id/lista_productos_en_palet"
 
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="325dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"

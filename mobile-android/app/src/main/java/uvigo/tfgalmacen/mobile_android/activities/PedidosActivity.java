@@ -1,63 +1,159 @@
 package uvigo.tfgalmacen.mobile_android.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Response;
 import uvigo.tfgalmacen.mobile_android.R;
-import uvigo.tfgalmacen.mobile_android.adapters.PedidosAdapter;
 import uvigo.tfgalmacen.mobile_android.adapters.ProductosAdapter;
-import uvigo.tfgalmacen.mobile_android.models.itemPedidos;
+import uvigo.tfgalmacen.mobile_android.api.ApiClient;
+import uvigo.tfgalmacen.mobile_android.api.PedidosApi;
+import uvigo.tfgalmacen.mobile_android.api.ProductosApi;
+import uvigo.tfgalmacen.mobile_android.models.DetallePedidoDto;
+import uvigo.tfgalmacen.mobile_android.models.ProductoIdentificadorDto;
 import uvigo.tfgalmacen.mobile_android.models.itemProductos;
 
-public class PedidosActivity extends AppCompatActivity  {
+public class PedidosActivity extends AppCompatActivity {
 
-    TextView codigo_referencia_text;
-    ListView lista_productos_pendientes;
-    ListView lista_productos_en_palet;
+    private TextView codigo_referencia_text;
+    private ListView lista_productos_pendientes;
+    private ListView lista_productos_en_palet;
+
+    private int id_pedido;
+
+    private PedidosApi pedidosApi;
+    private ProductosApi productosApi;
+
+    private final ArrayList<itemProductos> pendientes = new ArrayList<>();
+    private final ArrayList<itemProductos> enPalet = new ArrayList<>();
+
+    private ProductosAdapter adapterPendientes;
+    private ProductosAdapter adapterEnPalet;
+
+    private final Map<Integer, String> cacheIdentificador = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedido);
 
-        Toast.makeText(this, "PedidosActivity abierta", Toast.LENGTH_SHORT).show();
-
         codigo_referencia_text = findViewById(R.id.codigo_referencia_text);
         lista_productos_pendientes = findViewById(R.id.lista_productos_pendientes);
         lista_productos_en_palet = findViewById(R.id.lista_productos_en_palet);
 
+        id_pedido = getIntent().getIntExtra("id_pedido", 0);
+        String pedido = getIntent().getStringExtra("pedido_name");
 
-        if (codigo_referencia_text == null) {
-            Toast.makeText(this, "NO encuentro codigo_referencia_text en el layout", Toast.LENGTH_LONG).show();
+        if (pedido != null) {
+            codigo_referencia_text.setText(pedido);
+        }
+
+        adapterPendientes = new ProductosAdapter(this, pendientes);
+        adapterEnPalet = new ProductosAdapter(this, enPalet);
+        lista_productos_pendientes.setAdapter(adapterPendientes);
+        lista_productos_en_palet.setAdapter(adapterEnPalet);
+
+        pedidosApi = ApiClient.getClient().create(PedidosApi.class);
+        productosApi = ApiClient.getClient().create(ProductosApi.class);
+
+        cargarDetallePedido(id_pedido);
+    }
+
+    private void cargarDetallePedido(int idPedido) {
+        pedidosApi.getDetallePedido(idPedido).enqueue(new retrofit2.Callback<List<DetallePedidoDto>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<DetallePedidoDto>> call,
+                                   @NonNull Response<List<DetallePedidoDto>> response) {
+
+                if (!response.isSuccessful() || response.body() == null) {
+                    Toast.makeText(PedidosActivity.this,
+                            "Error detalle: " + response.code(),
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                pendientes.clear();
+                enPalet.clear();
+
+                for (DetallePedidoDto d : response.body()) {
+
+                    int idProducto = d.getIdProducto();
+
+                    itemProductos item = new itemProductos(
+                            idProducto,
+                            "Cargando...",
+                            String.valueOf(d.getCantidad())
+                    );
+
+                    if (d.isEstadoProductoPedido()) {
+                        enPalet.add(item);
+                    } else {
+                        pendientes.add(item);
+                    }
+
+                    cargarIdentificadorProducto(idProducto, item);
+                }
+
+                adapterPendientes.notifyDataSetChanged();
+                adapterEnPalet.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<DetallePedidoDto>> call,
+                                  @NonNull Throwable t) {
+                Toast.makeText(PedidosActivity.this,
+                        "Error conexión detalle: " + t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void cargarIdentificadorProducto(int idProducto, itemProductos item) {
+
+        if (cacheIdentificador.containsKey(idProducto)) {
+            item.setName(cacheIdentificador.get(idProducto));
+            adapterPendientes.notifyDataSetChanged();
+            adapterEnPalet.notifyDataSetChanged();
             return;
         }
 
-        String pedido = getIntent().getStringExtra("pedido_name");
-        codigo_referencia_text.setText(pedido != null ? pedido : "(sin pedido_name)");
+        productosApi.getIdentificador(idProducto).enqueue(new retrofit2.Callback<ProductoIdentificadorDto>() {
+            @Override
+            public void onResponse(@NonNull Call<ProductoIdentificadorDto> call,
+                                   @NonNull Response<ProductoIdentificadorDto> response) {
 
+                String identificador = "Prod " + idProducto;
 
-        ArrayList<itemProductos> items = new ArrayList<>();
-        items.add(new itemProductos("Producto A", "11"));
-        items.add(new itemProductos("Producto B", "222"));
-        items.add(new itemProductos("Producto C", "3333"));
-        ProductosAdapter adapter = new ProductosAdapter(this, items);
-        lista_productos_pendientes.setAdapter(adapter);
+                if (response.isSuccessful() && response.body() != null) {
+                    String tmp = response.body().getIdentificadorProducto();
+                    if (tmp != null && !tmp.isEmpty()) identificador = tmp;
+                }
 
+                cacheIdentificador.put(idProducto, identificador);
+                item.setName(identificador);
 
+                adapterPendientes.notifyDataSetChanged();
+                adapterEnPalet.notifyDataSetChanged();
+            }
 
-        ArrayList<itemProductos> itemsB = new ArrayList<>();
-        itemsB.add(new itemProductos("Producto D", "444"));
-        itemsB.add(new itemProductos("Producto E", "5555"));
-        itemsB.add(new itemProductos("Producto F", "6666"));
-        ProductosAdapter adapterB = new ProductosAdapter(this, itemsB);
-        lista_productos_en_palet.setAdapter(adapterB);
-
+            @Override
+            public void onFailure(@NonNull Call<ProductoIdentificadorDto> call,
+                                  @NonNull Throwable t) {
+                item.setName("Prod " + idProducto);
+                adapterPendientes.notifyDataSetChanged();
+                adapterEnPalet.notifyDataSetChanged();
+            }
+        });
     }
 }

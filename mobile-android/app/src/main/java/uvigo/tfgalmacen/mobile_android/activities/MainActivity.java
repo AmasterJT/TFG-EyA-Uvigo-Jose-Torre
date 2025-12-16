@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
             itemPedidos pedido = items.get(position);
             Intent intent = new Intent(MainActivity.this, PedidosActivity.class);
             intent.putExtra("pedido_name", pedido.getName());
+            intent.putExtra("id_pedido", pedido.getId_pedido());
+
             startActivity(intent);
         });
     }
@@ -78,9 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
                 items.clear();
                 for (uvigo.tfgalmacen.mobile_android.models.PedidoDto p : response.body()) {
-
-                    Toast.makeText(MainActivity.this, "Codigo id pedido: " + p.getIdPedido(), Toast.LENGTH_SHORT).show();
-
 
                     items.add(new itemPedidos(
                             p.getCodigoReferencia(),
