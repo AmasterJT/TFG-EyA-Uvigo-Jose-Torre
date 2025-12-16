@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,11 +19,13 @@ import uvigo.tfgalmacen.mobile_android.models.itemProductos;
 
 public class ProductosAdapter extends ArrayAdapter<itemProductos> {
 
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
+    private final OnProductoActionListener listener;
 
-    public ProductosAdapter(@NonNull Context context, List<itemProductos> items) {
+    public ProductosAdapter(@NonNull Context context, List<itemProductos> items, OnProductoActionListener listener) {
         super(context, 0, items);
-        inflater = LayoutInflater.from(context);
+        this.inflater = LayoutInflater.from(context);
+        this.listener = listener;
     }
 
     @NonNull
@@ -37,12 +40,18 @@ public class ProductosAdapter extends ArrayAdapter<itemProductos> {
 
         TextView name = convertView.findViewById(R.id.ProductName);
         TextView cantidad = convertView.findViewById(R.id.Cantidad);
+        ImageButton btn = convertView.findViewById(R.id.imageButton); // tu id
 
         if (item != null) {
             name.setText(item.getName());
-            cantidad.setText(item.getTime());
+            cantidad.setText(item.getCantidad());
+
+            btn.setOnClickListener(v -> {
+                if (listener != null) listener.onCambiarEstadoClick(item);
+            });
         }
 
         return convertView;
     }
 }
+

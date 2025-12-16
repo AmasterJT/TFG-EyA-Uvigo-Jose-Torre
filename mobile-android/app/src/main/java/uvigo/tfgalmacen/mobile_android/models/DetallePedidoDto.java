@@ -9,4 +9,10 @@ public class DetallePedidoDto {
     public int getIdProducto() { return idProducto; }
     public int getCantidad() { return cantidad; }
     public boolean isEstadoProductoPedido() { return estadoProductoPedido; }
+
+    public void setEstadoProductoPedido(boolean estadoProductoPedido) {
+        this.estadoProductoPedido = estadoProductoPedido;
+    }
+
+    public int getIdDetalle() { return idDetalle; }
 }

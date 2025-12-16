@@ -18,8 +18,10 @@ import retrofit2.Response;
 import uvigo.tfgalmacen.mobile_android.R;
 import uvigo.tfgalmacen.mobile_android.adapters.ProductosAdapter;
 import uvigo.tfgalmacen.mobile_android.api.ApiClient;
+import uvigo.tfgalmacen.mobile_android.api.DetallesPedidoApi;
 import uvigo.tfgalmacen.mobile_android.api.PedidosApi;
 import uvigo.tfgalmacen.mobile_android.api.ProductosApi;
+import uvigo.tfgalmacen.mobile_android.models.CambiarEstadoProductoDto;
 import uvigo.tfgalmacen.mobile_android.models.DetallePedidoDto;
 import uvigo.tfgalmacen.mobile_android.models.ProductoIdentificadorDto;
 import uvigo.tfgalmacen.mobile_android.models.itemProductos;
@@ -41,6 +43,9 @@ public class PedidosActivity extends AppCompatActivity {
     private ProductosAdapter adapterPendientes;
     private ProductosAdapter adapterEnPalet;
 
+    private DetallesPedidoApi detallesPedidoApi;
+
+
     private final Map<Integer, String> cacheIdentificador = new HashMap<>();
 
     @Override
@@ -59,16 +64,86 @@ public class PedidosActivity extends AppCompatActivity {
             codigo_referencia_text.setText(pedido);
         }
 
-        adapterPendientes = new ProductosAdapter(this, pendientes);
-        adapterEnPalet = new ProductosAdapter(this, enPalet);
+        adapterPendientes = new ProductosAdapter(this, pendientes, this::confirmarYCambiarEstado);
+        adapterEnPalet = new ProductosAdapter(this, enPalet, this::confirmarYCambiarEstado);
         lista_productos_pendientes.setAdapter(adapterPendientes);
         lista_productos_en_palet.setAdapter(adapterEnPalet);
 
         pedidosApi = ApiClient.getClient().create(PedidosApi.class);
         productosApi = ApiClient.getClient().create(ProductosApi.class);
+        detallesPedidoApi = ApiClient.getClient().create(DetallesPedidoApi.class);
+
 
         cargarDetallePedido(id_pedido);
     }
+
+    private void confirmarYCambiarEstado(itemProductos item) {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Confirmación")
+                .setMessage("¿Quieres cambiar el estado de este producto?\n\n" + item.getName())
+                .setNegativeButton("Cancelar", null)
+                .setPositiveButton("Aceptar", (dialog, which) -> ejecutarCambioEstado(item))
+                .show();
+    }
+
+    private void ejecutarCambioEstado(itemProductos item) {
+
+        int idDetalle = item.getIdDetalle();
+
+        CambiarEstadoProductoDto body =
+                new CambiarEstadoProductoDto(true); // o false según lógica
+
+        detallesPedidoApi
+                .cambiarEstadoProducto(idDetalle, body)
+                .enqueue(new retrofit2.Callback<DetallePedidoDto>() {
+
+                    @Override
+                    public void onResponse(
+                            @NonNull Call<DetallePedidoDto> call,
+                            @NonNull retrofit2.Response<DetallePedidoDto> response
+                    ) {
+
+                        if (!response.isSuccessful() || response.body() == null) {
+                            Toast.makeText(PedidosActivity.this,
+                                    "Error: " + response.code(),
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        boolean nuevoEstado =
+                                response.body().isEstadoProductoPedido();
+
+                        item.setEstadoProductoPedido(nuevoEstado);
+
+                        if (nuevoEstado) {
+                            pendientes.remove(item);
+                            enPalet.add(item);
+                        } else {
+                            enPalet.remove(item);
+                            pendientes.add(item);
+                        }
+
+                        adapterPendientes.notifyDataSetChanged();
+                        adapterEnPalet.notifyDataSetChanged();
+
+                        Toast.makeText(PedidosActivity.this,
+                                "Estado actualizado",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(
+                            @NonNull Call<DetallePedidoDto> call,
+                            @NonNull Throwable t
+                    ) {
+                        Toast.makeText(PedidosActivity.this,
+                                "Error conexión: " + t.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
 
     private void cargarDetallePedido(int idPedido) {
         pedidosApi.getDetallePedido(idPedido).enqueue(new retrofit2.Callback<List<DetallePedidoDto>>() {
@@ -91,10 +166,13 @@ public class PedidosActivity extends AppCompatActivity {
                     int idProducto = d.getIdProducto();
 
                     itemProductos item = new itemProductos(
-                            idProducto,
+                            d.getIdDetalle(),
+                            d.getIdProducto(),
                             "Cargando...",
-                            String.valueOf(d.getCantidad())
+                            String.valueOf(d.getCantidad()),
+                            d.isEstadoProductoPedido()
                     );
+
 
                     if (d.isEstadoProductoPedido()) {
                         enPalet.add(item);

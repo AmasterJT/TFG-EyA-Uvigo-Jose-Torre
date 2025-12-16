@@ -16,6 +16,7 @@
 >
 
     <RelativeLayout
+        android:id="@+id/contenedor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/amaster_blue"
@@ -47,16 +48,36 @@
 
         <TextView
             android:id="@+id/Cantidad"
-            android:layout_width="80dp"
+            android:layout_width="40dp"
             android:layout_height="30dp"
             android:text="time"
             android:textSize="16sp"
             android:layout_toEndOf="@id/ProductName"
             android:layout_marginTop="25dp"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="30dp"
             android:textAppearance="@style/TextBlack"
             />
 
+
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:adjustViewBounds="true"
+
+
+
+            app:srcCompat="@drawable/menu_50"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/Cantidad"
+
+            android:background="@drawable/select_options_buttons"
+            android:padding="20sp"
+            android:contentDescription="TODO"
+
+            />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
