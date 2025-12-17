@@ -69,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (id_usuario != 0) {
+            cargarPedidos(id_usuario);
+        }
+    }
+
     private void cargarPedidos(int idUsuario) {
         pedidosApi.getPedidosEnProceso(idUsuario).enqueue(new retrofit2.Callback<>() {
             @Override
