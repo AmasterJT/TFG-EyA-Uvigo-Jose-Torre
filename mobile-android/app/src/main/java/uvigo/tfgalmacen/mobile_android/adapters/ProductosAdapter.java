@@ -47,7 +47,7 @@ public class ProductosAdapter extends ArrayAdapter<itemProductos> {
             cantidad.setText(item.getCantidad());
 
             btn.setOnClickListener(v -> {
-                if (listener != null) listener.onCambiarEstadoClick(item);
+                if (listener != null) listener.onCambiarEstadoClick(item, btn);
             });
         }
 

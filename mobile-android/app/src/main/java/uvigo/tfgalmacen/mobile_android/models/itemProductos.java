@@ -8,7 +8,7 @@ public class itemProductos {
 
     private boolean estadoProductoPedido;
     private final int idDetalle;
-
+    private boolean paletizado;
 
 
     public itemProductos(int idDetalle, int idProducto, String name, String Cantidad, boolean estadoProductoPedido) {
@@ -39,6 +39,8 @@ public class itemProductos {
     public void setEstadoProductoPedido(boolean estadoProductoPedido) {
         this.estadoProductoPedido = estadoProductoPedido;
     }
+
+    public void setPaletizado(boolean v) { this.paletizado = v; }
 
     public void setName(String name) { this.name = name; }
 }

@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, PedidosActivity.class);
             intent.putExtra("pedido_name", pedido.getName());
             intent.putExtra("id_pedido", pedido.getId_pedido());
+            intent.putExtra("palets_del_pedido", pedido.getPalets_del_pedido());
+
 
             startActivity(intent);
         });

@@ -25,8 +25,7 @@
             >
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="75dp"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:layout_marginRight="10dp"
@@ -44,12 +43,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <ListView
                 android:id="@+id/lista_productos_pendientes"
                 android:layout_width="match_parent"
-                android:layout_height="325dp"
+                android:layout_height="300dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
@@ -67,15 +67,26 @@
                 android:scrollbars="vertical"
                 tools:listitem="@layout/item_productos_pendientes" />
 
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@color/orange" />
+
             <ListView
                 android:id="@+id/lista_productos_en_palet"
 
                 android:layout_width="match_parent"
-                android:layout_height="325dp"
+                android:layout_height="300dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="50dp"
+
+                android:background="@drawable/borde_blanco"
 
                 android:clipToPadding="false"
                 android:divider="@android:color/transparent"
@@ -88,6 +99,27 @@
                 android:paddingBottom="8dp"
                 android:scrollbars="vertical"
                 tools:listitem="@layout/item_productos_pendientes" />
+
+            <ImageButton
+                android:id="@+id/paletizarButton"
+                android:layout_marginTop="13dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+
+                android:background="@drawable/logo_background"
+                android:padding="12dp"
+
+                android:scaleType="fitCenter"
+                android:src="@drawable/palet_icon_white"
+
+                android:clickable="true"
+                android:focusable="true"
+
+                android:clipToOutline="true"
+                android:contentDescription="Acción"/>
+
+
         </LinearLayout>
 
     </LinearLayout>

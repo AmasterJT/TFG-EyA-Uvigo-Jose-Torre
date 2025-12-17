@@ -12,6 +12,8 @@ public class itemPedidos {
 
     private int id_pedido;
 
+    private int palets_del_pedido;
+
     public itemPedidos(String name, String time, int imageRes, int id_pedido) {
         this.name = name;
         this.time = time;
@@ -34,5 +36,9 @@ public class itemPedidos {
 
     public int getId_pedido() {
         return id_pedido;
+    }
+
+    public int getPalets_del_pedido() {
+        return palets_del_pedido;
     }
 }

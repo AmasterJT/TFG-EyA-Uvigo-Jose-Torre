@@ -3,7 +3,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginLeft="50dp"
+    android:layout_marginLeft="24dp"
     android:layout_marginRight="24dp"
     android:layout_marginTop="20dp"
     android:layout_marginBottom="20dp"
@@ -15,69 +15,79 @@
     android:focusable="true"
 >
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/contenedor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/amaster_blue"
         style="@style/ItemBordeBlanco"
+        android:orientation="horizontal"
+        android:gravity="center"
         >
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/listImage"
-            android:src="@drawable/palet_icon"
+            android:src="@drawable/palet"
             android:scaleType="centerCrop"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
+
+
+        <!-- ESPACIADOR -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/ProductName"
 
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="Name"
+            android:text="aaaaaaaaaaa"
             android:textAppearance="@style/TextBlack"
             android:textSize="20sp"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="30dp"
             android:layout_toEndOf="@id/listImage"/>
+
+        <!-- ESPACIADOR -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/Cantidad"
             android:layout_width="40dp"
             android:layout_height="30dp"
             android:text="time"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_toEndOf="@id/ProductName"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="30dp"
             android:textAppearance="@style/TextBlack"
             />
 
 
+        <!-- ESPACIADOR -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:adjustViewBounds="true"
-
-
-
-            app:srcCompat="@drawable/menu_50"
-            android:layout_marginStart="30dp"
-            android:layout_toEndOf="@+id/Cantidad"
+            android:layout_height="40dp"
 
             android:background="@drawable/select_options_buttons"
-            android:padding="20sp"
-            android:contentDescription="TODO"
+            android:padding="6dp"
 
-            />
-    </RelativeLayout>
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/menu_50"
+
+            android:contentDescription="Acción"/>
+
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

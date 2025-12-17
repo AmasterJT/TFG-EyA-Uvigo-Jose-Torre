@@ -4,6 +4,8 @@ public class DetallePedidoDto {
     private int idDetalle;
     private int idProducto;
     private int cantidad;
+
+    private boolean paletizado;
     private boolean estadoProductoPedido;
 
     public int getIdProducto() { return idProducto; }
@@ -15,4 +17,8 @@ public class DetallePedidoDto {
     }
 
     public int getIdDetalle() { return idDetalle; }
+
+    public boolean isPaletizado() {
+        return paletizado;
+    }
 }
