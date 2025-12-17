@@ -71,7 +71,11 @@
                     android:layout_height="wrap_content"
                     app:boxBackgroundColor="#555"
                     app:boxStrokeColor="@color/orange"
-                    android:inputType="none"/>
+                    android:inputType="none"
+                    android:popupBackground="@color/amaster_blue"
+                    android:textColor="@android:color/black" />
+
+                />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -103,10 +107,12 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
 
                 <TextView
+                    android:id="@+id/cantidad_original"
                     android:text="222222"
                     android:textSize="24sp"
                     android:layout_width="wrap_content"
@@ -126,12 +132,13 @@
                     android:layout_height="wrap_content"
                     app:boxBackgroundColor="#555"
                     app:boxStrokeColor="@color/orange"
-                    android:hint="---">
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
+                        android:inputType="number"
+                        android:text="0"
                         android:textColor="@android:color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -143,6 +150,7 @@
 
 
                 <TextView
+                    android:id="@+id/nueva_cantidad"
                     android:text="Cantidad"
                     android:textSize="24sp"
                     android:layout_width="wrap_content"
@@ -201,12 +209,12 @@
                         app:boxBackgroundColor="#555"
                         android:layout_marginLeft="42dp"
                         app:boxStrokeColor="@color/orange"
-                        android:hint="---">
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPassword"
+                            android:inputType="number"
                             android:textColor="@android:color/white" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -233,10 +241,10 @@
                         app:boxBackgroundColor="#555"
                         android:layout_marginLeft="22dp"
                         app:boxStrokeColor="@color/orange"
-                        android:hint="---">
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:inputType="textPassword"
+                            android:inputType="number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"/>
@@ -264,10 +272,10 @@
                         android:layout_height="wrap_content"
                         app:boxBackgroundColor="#555"
                         app:boxStrokeColor="@color/orange"
-                        android:hint="---">
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:inputType="textPassword"
+                            android:inputType="number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"/>
