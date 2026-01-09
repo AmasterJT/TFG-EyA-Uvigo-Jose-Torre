@@ -1,0 +1,116 @@
+\documentclass[11pt]{article}
+
+% --- Codificación y fuentes ---
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{kpfonts}
+
+% --- Paquetes generales ---
+\usepackage{graphicx}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{booktabs}
+
+% --- Márgenes y geometría ---
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=30mm,
+ right=15mm,
+ top=25mm,
+ bottom=25mm,
+ headheight=31.1pt,
+ headsep=4pt
+ }
+
+% --- Encabezado y pie de página ---
+\usepackage{fancyhdr}
+
+% --- Estilo secciones ---
+\definecolor{AzulTFG}{RGB}{0, 148, 224}
+\usepackage{titlesec}
+
+% --- Interlineado entre párrafos y sangría ---
+\usepackage{parskip}
+
+% --- Captions sin negrita ---
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{labelfont=normalfont}
+
+% --- Hipervínculos ---
+\usepackage[hidelinks]{hyperref}
+
+% --- Formato índice ---
+\usepackage{tocbibind}
+% (Esta línea en tu fichero original parece pensada para gallego,
+%  pero la mantengo por compatibilidad. En español no hace efecto.)
+\addto\captionsgalician{\renewcommand{\contentsname}{Contenido}}
+\usepackage{tocloft}
+
+% --- Portada ---
+\usepackage{framed}
+\input{Portada/Portada}
+
+% --- Bibliografía ---
+\usepackage[numbers]{natbib}
+\nocite{*}
+\bibliographystyle{Bibliografia/IEEEtraN}
+
+\begin{document}
+
+% --- Portada ---
+% Cambia los parámetros según tu caso
+\printportada{Diseño de una aplicación informática para la gestión de un almacén sin automatización con distintas interfaces para los operarios}{Electrónica Industrial y Automática}{José Tomás Torre Pedroarena}{Joaquín lópez Fernández}{}{Memoria}
+
+% --- Índices ---
+\input{Formatos/Contenido}
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+
+% =========================================================
+% CUERPO DEL TRABAJO (estructura solicitada)
+% =========================================================
+
+\input{Formatos/Cuerpo}
+
+% 1 Introducción
+\include{Cuerpo/01_Introduccion}
+
+% 2 Estado del arte
+\include{Cuerpo/02_Estado_del_arte}
+
+% 3 Marco teórico y tecnológico
+\include{Cuerpo/03_Marco_teorico_y_tecnologico}
+
+% 4 Análisis del sistema
+\include{Cuerpo/04_Analisis_del_sistema}
+
+% 5 Diseño del sistema
+\include{Cuerpo/05_Diseno_del_sistema}
+
+% 6 Implementación
+\include{Cuerpo/06_Implementacion}
+
+% 7 Resultados y discusión
+\include{Cuerpo/07_Resultados_y_discusion}
+
+% 8 Conclusiones y trabajos futuros
+\include{Cuerpo/08_Conclusiones_y_trabajos_futuros}
+
+% =========================================================
+% BIBLIOGRAFÍA
+% =========================================================
+\clearpage
+\input{Formatos/Contenido}
+\bibliography{Bibliografia/bibliografia}
+
+\end{document}

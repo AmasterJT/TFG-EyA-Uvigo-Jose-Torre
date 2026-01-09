@@ -1,0 +1,59 @@
+ÍNDICE DEL TRABAJO FIN DE GRADO
+
+1 Introducción
+	1.1 Contexto y motivación del proyecto
+	1.2 Problema a resolver
+	1.3 Objetivos del TFG
+
+2 Estado del arte
+	2.1 Sistemas de gestión de almacenes (WMS)
+	2.2 Funcionalidades habituales en aplicaciones de gestión de almacenes
+	2.3 Aplicaciones comerciales de gestión de almacenes
+	2.4 Justificación de la solución propuesta
+
+3 Marco teórico y tecnológico
+	3.1 Aplicaciones multiplataforma
+	3.2 Arquitecturas cliente-servidor
+	3.3 Aplicaciones móviles Android
+	3.4 Aplicaciones de escritorio
+	3.5 Comunicación entre aplicaciones (APIs REST)
+
+4 Análisis del sistema
+	4.1 Descripción general del sistema
+	4.2 Identificación de usuarios
+	4.3 Requisitos del sistema
+		4.3.1 Requisitos funcionales
+		4.3.2 Requisitos no funcionales
+	4.4 Casos de uso
+	4.5 Restricciones técnicas
+
+5 Diseño del sistema
+	5.1 Arquitectura general del sistema
+	5.2 Diseño de la aplicación Desktop
+	5.3 Diseño de la aplicación Android
+	5.4 Diseño de la base de datos
+	5.5 Diseño de la API
+	5.6 Diagramas UML
+		5.6.1 Diagrama de clases
+		5.6.2 Diagrama de secuencia
+		5.6.3 Diagrama de despliegue
+	5.7 Diseño de la interfaz de usuario
+
+6 Implementación
+	6.1 Herramientas y tecnologías utilizadas
+	6.2 Implementación de la aplicación Desktop
+	6.3 Implementación de la aplicación Android
+	6.4 Implementación del backend / servidor
+	6.5 Implementación de la base de datos
+	6.6 Seguridad y gestión de errores
+	6.7 Control de versiones y gestión del proyecto
+
+7 Resultados y discusión
+	7.1 Resultados del desarrollo
+	7.2 Evaluación del cumplimiento de objetivos
+	7.3 Ventajas de la solución propuesta
+	7.4 Limitaciones detectadas
+
+8 Conclusiones y trabajos futuros
+	8.1 Conclusiones
+	8.2 Líneas de mejora y trabajos futuros

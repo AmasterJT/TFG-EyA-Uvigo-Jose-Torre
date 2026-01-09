@@ -1,0 +1,37 @@
+REFERENCIAS BIBLIOGRÁFICAS (UNE-ISO 690:2013)
+
+UML Y MODELADO
+
+OBJECT MANAGEMENT GROUP.
+OMG Unified Modeling Language (UML), Version 2.5.1.
+Needham (EE. UU.): Object Management Group, 2017.
+Disponible en: https://www.omg.org/spec/UML/
+
+
+HERRAMIENTA DE DIAGRAMADO (PLANTUML)
+
+PLANTUML.
+PlantUML Language Reference Guide.
+[s. l.]: PlantUML, s. f.
+Disponible en: https://plantuml.com/
+
+PLANTUML.
+Class Diagram.
+[s. l.]: PlantUML, s. f.
+Disponible en: https://plantuml.com/class-diagram
+
+PLANTUML.
+Sequence Diagram.
+[s. l.]: PlantUML, s. f.
+Disponible en: https://plantuml.com/sequence-diagram
+
+PLANTUML.
+Component Diagram.
+[s. l.]: PlantUML, s. f.
+Disponible en: https://plantuml.com/component-diagram
+
+PLANTUML.
+Deployment Diagram.
+[s. l.]: PlantUML, s. f.
+Disponible en: https://plantuml.com/deployment-diagram
+

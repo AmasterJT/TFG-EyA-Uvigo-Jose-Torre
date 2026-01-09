@@ -1,0 +1,16 @@
+@startuml
+title Secuencia - Actualizar ubicación de palet
+
+actor Operario
+boundary "windowMove...Controller / almacenController" as C
+entity "PaletDAO" as PaletDAO
+database "MySQL" as DB
+
+Operario -> C : Selecciona palet + nueva ubicación
+C -> PaletDAO : updateUbicacion(id, est, balda, pos, delante)
+PaletDAO -> DB : UPDATE palets SET estanteria=?, balda=?, posicion=?, delante=? WHERE id_palet=?
+DB --> PaletDAO : OK / error (uq_ubicacion)
+PaletDAO --> C : true/false
+C --> Operario : Confirmación / error "posición ocupada"
+
+@enduml

@@ -1,0 +1,78 @@
+\newcommand{\printportada}[6]{%
+  \newgeometry{
+    left=30mm,
+    right=15mm,
+    top=25mm,
+    bottom=0mm,
+    headheight=31.1pt
+  }%
+  \setlength{\headsep}{-35pt}%
+
+  % ===== Portada 1 =====
+  \begin{titlepage}
+    \thispagestyle{empty}
+    \begin{framed}
+      \begin{center}
+        \includegraphics[scale=0.7]{FotosPlantilla/EEI - logo2.png}
+
+        \vspace{-5pt}
+        \fontsize{24pt}{12}\selectfont{\color{AzulTFG}Escuela de Ingeniería Industrial}
+
+        \vspace{2.3cm}
+        \fontsize{17.5pt}{10}\textbf{\scshape{Trabajo Fin de Grado}}
+
+        \vspace{1.7cm}
+        \fontsize{18.5pt}{10}\normalfont{\itshape{#1}}
+
+        \vspace{1.7cm}
+        \fontsize{14.5pt}{10}\textbf{Grado en Ingeniería en #2}
+
+        \vspace{3cm}
+        \begin{tabular}{l l}
+          {\hspace{0cm}}\fontsize{14pt}{10}\textbf{\scshape{Alumno:}} &
+          \fontsize{14.5pt}{10}\normalfont{#3} \\ \\
+          {\hspace{0cm}}\fontsize{14pt}{10}\textbf{\scshape{Directores:}} &
+          \fontsize{14.5pt}{10}\normalfont{#4} \\ \\
+          & \fontsize{14.5pt}{10}\normalfont{#5}
+        \end{tabular}
+
+        \vspace{3cm}
+        \includegraphics[scale=1]{FotosPlantilla/UVIGO - Logo.png}
+      \end{center}
+    \end{framed}
+  \end{titlepage}
+
+  % ===== Portada 2 =====
+  \begin{titlepage}
+    \thispagestyle{empty}
+    \begin{framed}
+      \begin{center}
+        \includegraphics[scale=0.7]{FotosPlantilla/EEI - logo2.png}
+
+        \vspace{-5pt}
+        \fontsize{24pt}{12}\selectfont{\color{AzulTFG}Escuela de Ingeniería Industrial}
+
+        \vspace{2.3cm}
+        \fontsize{17.5pt}{10}\textbf{\scshape{Trabajo Fin de Grado}}
+
+        \vspace{1.7cm}
+        \fontsize{18.5pt}{10}\normalfont{\itshape{#1}}
+
+        \vspace{1.7cm}
+        \fontsize{14.5pt}{10}\textbf{Grado en Ingeniería en #2}
+
+        \vspace{3cm}
+        \fontsize{14.5pt}{10}\textbf{Documento}
+
+        \vspace{1.1cm}
+        \fontsize{17.5pt}{10}\textbf{\scshape{#6}}
+
+        \vspace{3cm}
+        \includegraphics[scale=1]{FotosPlantilla/UVIGO - Logo.png}
+      \end{center}
+    \end{framed}
+  \end{titlepage}
+
+  \restoregeometry
+  \setcounter{page}{1}%
+}

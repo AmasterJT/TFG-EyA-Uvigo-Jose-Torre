@@ -1,0 +1,25 @@
+@startuml
+title Secuencia - Creación de pedido + exportación
+
+actor Usuario
+boundary "windowGenerarPedidoController" as C
+entity "PedidoDAO" as PedidoDAO
+entity "DetallesPedidoDAO" as DetDAO
+
+database "MySQL" as DB
+
+Usuario -> C : Crear pedido (cliente, productos, cantidades)
+C -> PedidoDAO : insert(pedido)
+PedidoDAO -> DB : INSERT pedidos (...)
+DB --> PedidoDAO : id_pedido
+
+C -> DetDAO : insertDetalle(id_pedido, ProductoPedido)
+loop por cada producto
+  DetDAO -> DB : INSERT detalles_pedido (...)
+  DB --> DetDAO : OK
+end
+
+
+C --> Usuario : Pedido creado
+
+@enduml

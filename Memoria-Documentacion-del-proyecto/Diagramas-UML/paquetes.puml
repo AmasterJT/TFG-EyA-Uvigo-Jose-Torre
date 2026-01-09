@@ -1,0 +1,122 @@
+@startuml
+title Diagrama de clases (Dominio + Persistencia)
+
+' ==== Dominio ====
+class Producto {
+  +identificador: String
+  +nombre: String
+  +tipo: Tipo
+}
+
+class Tipo {
+  +id: int
+  +nombre: String
+}
+
+class Palet {
+  +id_palet: int
+  +identificador: String
+  +alto: int
+  +ancho: int
+  +largo: int
+  +cantidad_de_producto: int
+  +estanteria: int
+  +balda: int
+  +posicion: int
+  +delante: boolean
+}
+
+class Pedido {
+  +id_pedido: int
+  +estado: String
+  +enviado: boolean
+  +fecha: Date
+}
+
+class ProductoPedido {
+  +cantidad: int
+}
+
+class Proveedor {
+  +id: int
+  +nombre: String
+}
+
+class Cliente {
+  +id: int
+  +nombre: String
+}
+
+class Transportista {
+  +id: int
+  +nombre: String
+}
+
+class User {
+  +id: int
+  +username: String
+  +role: String
+}
+
+class PaletSalida {
+  +id: int
+  +fecha: Date
+}
+
+class OrdenCompra {
+  +id: int
+  +fecha: Date
+}
+
+' ==== Relaciones dominio (aproximación coherente con tu proyecto) ====
+Tipo "1" <-- "0..*" Producto
+Producto "1" <-- "0..*" Palet : almacenado_en
+Pedido "1" o-- "1..*" ProductoPedido
+ProductoPedido "*"-- "1" Producto
+Pedido "*"-- "1" Cliente
+Pedido "*"-- "0..1" Transportista
+Proveedor "1" <-- "0..*" Producto : suministra
+
+' ==== Persistencia (DAO) ====
+class DatabaseConnection
+class ProductoDAO {
+  +findById(id:String): Producto
+  +findAll(): List<Producto>
+  +insert(p:Producto): boolean
+  +update(p:Producto): boolean
+  +delete(id:String): boolean
+}
+class PaletDAO {
+  +findByIdentificador(id:String): Palet
+  +findAll(): List<Palet>
+  +updateUbicacion(paletId:int, est:int, balda:int, pos:int, delante:boolean): boolean
+  +updateCantidad(paletId:int, cantidad:int): boolean
+}
+class PedidoDAO {
+  +findAll(): List<Pedido>
+  +insert(p:Pedido): int
+  +updateEstado(id:int, estado:String): boolean
+  +marcarEnviado(id:int, transportistaId:int): boolean
+}
+class DetallesPedidoDAO {
+  +findByPedido(id:int): List<ProductoPedido>
+  +insertDetalle(idPedido:int, det:ProductoPedido): boolean
+}
+class UsuarioDAO {
+  +login(user:String, passHash:String): User
+  +findAll(): List<User>
+}
+
+ProductoDAO ..> DatabaseConnection
+PaletDAO ..> DatabaseConnection
+PedidoDAO ..> DatabaseConnection
+DetallesPedidoDAO ..> DatabaseConnection
+UsuarioDAO ..> DatabaseConnection
+
+ProductoDAO ..> Producto
+PaletDAO ..> Palet
+PedidoDAO ..> Pedido
+DetallesPedidoDAO ..> ProductoPedido
+UsuarioDAO ..> User
+
+@enduml

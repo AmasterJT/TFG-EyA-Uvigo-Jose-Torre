@@ -1,0 +1,111 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+skinparam defaultFontName Arial
+skinparam defaultFontSize 48
+skinparam classAttributeFontSize 136
+skinparam classMethodFontSize 136
+skinparam titleFontSize 48
+skinparam padding 80
+
+skinparam LineThickness 10
+skinparam classLineThickness 10
+skinparam classBorderThickness 10
+skinparam ArrowThickness 10
+
+skinparam nodesep 200
+skinparam ranksep 200
+
+class node20 as "com.calendarfx.view"
+class node28 as "com.sun.jna"
+class node11 as "de.mkammerer.argon2.nolibs"
+class itextpdf
+class node14 as "java.datatransfer"
+class node0 as "java.desktop"
+class node17 as "java.logging"
+class node27 as "java.prefs"
+class node7 as "java.scripting"
+class node6 as "java.sql"
+class node26 as "java.transaction.xa"
+class node1 as "java.xml"
+class node18 as "javafx.base"
+class node10 as "javafx.controls"
+class node3 as "javafx.fxml"
+class node19 as "javafx.graphics"
+class node13 as "javafx.swing"
+class node23 as "jdk.jfr"
+class node2 as "jdk.unsupported"
+class node25 as "jdk.unsupported.desktop"
+class node21 as "org.apache.pdfbox"
+class node24 as "org.apache.poi.ooxml"
+class node12 as "org.apache.poi.poi"
+class node9 as "org.controlsfx.controls"
+class node15 as "org.jetbrains.annotations"
+class node4 as "org.kordamp.ikonli.core"
+class node8 as "org.kordamp.ikonli.fontawesome"
+class node22 as "org.kordamp.ikonli.javafx"
+class node5 as "org.mnode.ical4j.core"
+class node29 as "uvigo.tfgalmacen"
+
+node20    -[#595959,plain]->  node29   
+node28    -[#595959,plain]->  node11   
+node11    -[#595959,plain]->  node29   
+itextpdf  -[#595959,plain]->  node29   
+node14    -[#595959,plain]->  node0    
+node14    -[#595959,plain]->  node13   
+node0     -[#595959,plain]->  node18   
+node0     -[#595959,plain]->  node19   
+node0     -[#595959,plain]->  node13   
+node0     -[#595959,plain]->  node25   
+node0     -[#595959,plain]->  node9    
+node0     -[#595959,dashed]->  node15   
+node0     -[#595959,plain]->  node29   
+node17    -[#595959,plain]->  node20   
+node17    -[#595959,plain]->  node6    
+node17    -[#595959,plain]->  node9    
+node17    -[#595959,plain]->  node4    
+node17    -[#595959,plain]->  node29   
+node27    -[#595959,plain]->  node0    
+node7     -[#595959,plain]->  node3    
+node6     -[#595959,plain]->  node29   
+node26    -[#595959,plain]->  node6    
+node1     -[#595959,plain]->  node0    
+node1     -[#595959,plain]->  node27   
+node1     -[#595959,plain]->  node6    
+node1     -[#595959,plain]->  node3    
+node1     -[#595959,plain]->  node19   
+node18    -[#595959,plain]->  node10   
+node18    -[#595959,plain]->  node3    
+node18    -[#595959,plain]->  node19   
+node18    -[#595959,plain]->  node13   
+node18    -[#595959,plain]->  node9    
+node18    -[#595959,plain]->  node22   
+node18    -[#595959,plain]->  node29   
+node10    -[#595959,plain]->  node20   
+node10    -[#595959,plain]->  node9    
+node10    -[#595959,plain]->  node22   
+node10    -[#595959,plain]->  node29   
+node3     -[#595959,plain]->  node29   
+node19    -[#595959,plain]->  node10   
+node19    -[#595959,plain]->  node3    
+node19    -[#595959,plain]->  node13   
+node19    -[#595959,plain]->  node22   
+node19    -[#595959,plain]->  node29   
+node13    -[#595959,plain]->  node29   
+node23    -[#595959,dashed]->  node18   
+node2     -[#595959,plain]->  node19   
+node25    -[#595959,plain]->  node13   
+node21    -[#595959,plain]->  node29   
+node24    -[#595959,plain]->  node29   
+node12    -[#595959,plain]->  node29   
+node9     -[#595959,plain]->  node20   
+node15    -[#595959,plain]->  node29   
+node4     -[#595959,plain]->  node8    
+node4     -[#595959,plain]->  node22   
+node8     -[#595959,plain]->  node20   
+node22    -[#595959,plain]->  node20   
+node5     -[#595959,plain]->  node20   
+node5     -[#595959,plain]->  node29   
+@enduml

@@ -92,7 +92,7 @@ public class EditPaletActivity extends AppCompatActivity {
             });
         }
     }
-
+    
     private void cargarPalets() {
         paletsApi.getPalets().enqueue(new Callback<List<PaletDto>>() {
             @Override
