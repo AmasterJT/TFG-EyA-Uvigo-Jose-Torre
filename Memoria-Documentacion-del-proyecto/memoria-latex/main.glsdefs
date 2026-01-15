@@ -1,12 +1,12 @@
-\glsdefs@newdocentry{Backend}%
+\glsdefs@newdocentry{backend}%
 {%
-name={backend},%
-sort={backend},%
+name={Backend},%
+sort={Backend},%
 type={main},%
-first={backend},%
-firstplural={backends},%
-text={backend},%
-plural={backends},%
+first={Backend},%
+firstplural={Backends},%
+text={Backend},%
+plural={Backends},%
 description={Conjunto de servidores y componentes software encargados de proporcionar servicios, gestionar la lógica de negocio y permitir el acceso a recursos y datos desde aplicaciones cliente},%
 descriptionplural={Conjunto de servidores y componentes software encargados de proporcionar servicios, gestionar la lógica de negocio y permitir el acceso a recursos y datos desde aplicaciones cliente},%
 symbol={\relax },%
@@ -26,15 +26,15 @@ parent={},%
 %
 }%
 
-\glsdefs@newdocentry{Framework}%
+\glsdefs@newdocentry{framework}%
 {%
-name={framework},%
-sort={framework},%
+name={Framework},%
+sort={Framework},%
 type={main},%
-first={framework},%
-firstplural={frameworks},%
-text={framework},%
-plural={frameworks},%
+first={Framework},%
+firstplural={Frameworks},%
+text={Framework},%
+plural={Frameworks},%
 description={Estructura de desarrollo compuesta por componentes de software reutilizables, librerías y convenciones que facilitan la creación de aplicaciones de forma estandarizada y eficiente},%
 descriptionplural={Estructura de desarrollo compuesta por componentes de software reutilizables, librerías y convenciones que facilitan la creación de aplicaciones de forma estandarizada y eficiente},%
 symbol={\relax },%

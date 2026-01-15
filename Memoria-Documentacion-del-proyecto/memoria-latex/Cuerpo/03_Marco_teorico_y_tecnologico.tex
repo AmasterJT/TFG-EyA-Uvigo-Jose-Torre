@@ -8,25 +8,27 @@ En este capítulo se presentan los fundamentos teóricos y tecnológicos que sus
 
 Las aplicaciones multiplataforma permiten ofrecer funcionalidades similares a través de diferentes dispositivos y entornos de ejecución, compartiendo una lógica común del sistema. Este enfoque resulta especialmente relevante en entornos industriales y logísticos, donde coexisten estaciones de trabajo fijas y dispositivos móviles utilizados directamente en planta.
 
-Desde un punto de vista funcional, la adopción de soluciones multiplataforma facilita la reutilización de la lógica de negocio y la centralización de la información, reduciendo los costes de mantenimiento y mejorando la coherencia del sistema. En el ámbito de la gestión de almacenes, este enfoque permite que distintos perfiles de usuario accedan al sistema desde interfaces adaptadas a sus necesidades, manteniendo una única fuente de datos consistente \cite{wms_overview}.
+Desde un punto de vista funcional, la adopción de soluciones multiplataforma facilita la reutilización de la lógica de negocio y la centralización de la información, reduciendo los costes de mantenimiento y mejorando la coherencia del sistema. En el ámbito de la gestión de almacenes, este enfoque permite que distintos perfiles de usuario accedan al sistema desde interfaces adaptadas a sus necesidades, manteniendo una única fuente de datos consistente.
 
 No obstante, el desarrollo multiplataforma también plantea retos, como la adaptación de la interfaz de usuario a diferentes dispositivos o la necesidad de garantizar un comportamiento homogéneo del sistema en entornos con capacidades técnicas diversas. Por este motivo, resulta habitual separar la lógica de negocio de las interfaces, delegando el procesamiento principal en un sistema centralizado.
 
 \subsection{Arquitecturas cliente-servidor}
 \label{subsec:cliente-servidor}
 
-La arquitectura cliente-servidor es un modelo ampliamente utilizado en sistemas distribuidos, en el que las funciones del sistema se reparten entre componentes cliente y un servidor central. Los clientes se encargan de la interacción con el usuario, mientras que el servidor gestiona la lógica de negocio y la persistencia de los datos.
-
-Este modelo resulta especialmente adecuado para sistemas de gestión en entornos industriales, ya que permite centralizar la información, facilitar el acceso concurrente y mejorar el control sobre la integridad de los datos. En el contexto de la gestión de almacenes, una arquitectura cliente-servidor permite que múltiples usuarios y dispositivos accedan simultáneamente al sistema sin duplicar información ni introducir inconsistencias \cite{wms_overview}.
-
-Además, este tipo de arquitectura favorece la escalabilidad del sistema y su posible integración futura con otros sistemas, como plataformas empresariales o sistemas de automatización industrial, al proporcionar un punto centralizado de acceso a los servicios y a los datos.
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{Imagenes/cliente-servidor.png}
+    \includegraphics[width=0.4\textwidth]{Imagenes/cliente-servidor.png}
     \caption{Arquitectura cliente-servidor}
     \label{fig:cliente-servidor}
 \end{figure}
+
+
+La arquitectura cliente-servidor es un modelo ampliamente utilizado en sistemas distribuidos, en el que las funciones del sistema se reparten entre componentes cliente y un servidor central. Los clientes se encargan de la interacción con el usuario, mientras que el servidor gestiona la lógica de negocio y la persistencia de los datos.
+
+Este modelo resulta especialmente adecuado para sistemas de gestión en entornos industriales, ya que permite centralizar la información, facilitar el acceso concurrente y mejorar el control sobre la integridad de los datos. En el contexto de la gestión de almacenes, una arquitectura cliente-servidor permite que múltiples usuarios y dispositivos accedan simultáneamente al sistema sin duplicar información ni introducir inconsistencias.
+
+Además, este tipo de arquitectura favorece la escalabilidad del sistema y su posible integración futura con otros sistemas, como plataformas empresariales o sistemas de automatización industrial, al proporcionar un punto centralizado de acceso a los servicios y a los datos.
+
 
 
 \subsection{Aplicaciones móviles Android}
@@ -79,7 +81,7 @@ En el sistema desarrollado, el uso de una API \gls{rest} se aplica específicame
 \subsection{Backend y framework Spring Boot}
 \label{subsec:spring-boot}
 
-Spring Boot es un \gls{Framework} de desarrollo basado en el lenguaje Java que facilita la creación de aplicaciones de tipo \gls{Backend} y servicios web. Está diseñado para simplificar la configuración y el despliegue de aplicaciones, proporcionando una estructura predefinida y mecanismos de autoconfiguración que reducen la necesidad de configuraciones manuales \cite{aws_framework,oracle_backend,spring_boot_reference}.
+Spring Boot es un \gls{framework} de desarrollo basado en el lenguaje Java que facilita la creación de aplicaciones de tipo \gls{backend} y servicios web. Está diseñado para simplificar la configuración y el despliegue de aplicaciones, proporcionando una estructura predefinida y mecanismos de autoconfiguración que reducen la necesidad de configuraciones manuales \cite{aws_framework,oracle_backend,spring_boot_reference}.
 
-En el contexto de sistemas distribuidos, Spring Boot se utiliza habitualmente para implementar \glspl{api} de tipo \gls{rest}, permitiendo exponer la lógica de negocio y el acceso a los datos mediante servicios accesibles por distintos clientes. Su integración con el ecosistema Java y su compatibilidad con tecnologías de persistencia lo convierten en una opción adecuada para el desarrollo de \glspl{Backend} en entornos industriales y empresariales.
+En el contexto de sistemas distribuidos, Spring Boot se utiliza habitualmente para implementar \glspl{api} de tipo \gls{rest}, permitiendo exponer la lógica de negocio y el acceso a los datos mediante servicios accesibles por distintos clientes. Su integración con el ecosistema Java y su compatibilidad con tecnologías de persistencia lo convierten en una opción adecuada para el desarrollo de \glspl{backend} en entornos industriales y empresariales.
 

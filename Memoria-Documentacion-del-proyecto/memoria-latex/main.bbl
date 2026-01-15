@@ -21,11 +21,6 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{wms_overview}
-J.~Gu, M.~Goetschalckx, and L.~McGinnis, ``Research on warehouse design and
-  performance evaluation: A comprehensive review,'' \emph{European Journal of
-  Operational Research}, vol. 203, no.~3, pp. 539--549, 2010.
-
 \bibitem{android_developers}
 {Google}, ``Android developers documentation,''
   \url{https://developer.android.com}, 2024, Último acceso: enero 2026.
