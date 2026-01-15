@@ -3,7 +3,13 @@
 %Cabecera y pie de página
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[LH]{\fontsize{14pt}{12} \selectfont\textsc{Título de trabajo} \\[6pt]  \textsc{Nombre y Apellidos}}
+
+\fancyhfoffset[L]{0pt} % sin desplazamiento a la izquierda
+\fancyhfoffset[R]{0pt} % sin desplazamiento a la derecha
+\setlength{\headwidth}{\textwidth} % que la cabecera use el ancho del texto
+
+
+\fancyhead[L]{\fontsize{14pt}{12} \selectfont\textsc{Diseño de una aplicación informática para la gestión de un almacén sin automatización con distintas interfaces para los operarios} \\[6pt]  \textsc{José Tomás Torre Pedroarena}}
 \cfoot{\thepage}
 
 %Estilo seccion

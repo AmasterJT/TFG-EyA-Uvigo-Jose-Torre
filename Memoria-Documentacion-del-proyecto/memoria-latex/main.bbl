@@ -35,6 +35,16 @@ J.~Gu, M.~Goetschalckx, and L.~McGinnis, ``Research on warehouse design and
   \url{https://datos.gob.es/elearning/Unidades_Didacticas/Unidad_8/contenidos/descargas/unidad_imprimible.pdf},
   2020, gobierno de España.
 
+\bibitem{aws_framework}
+{Amazon Web Services}, ``¿qué es un marco en programación e ingeniería?''
+  \url{https://aws.amazon.com/what-is/framework/}, 2024, documentación oficial
+  de AWS. Último acceso: enero 2026.
+
+\bibitem{oracle_backend}
+{Oracle}, ``What are backends?''
+  \url{https://docs.oracle.com/en/cloud/paas/app-builder-cloud/visual-builder-developer/what-are-backends.html},
+  2024, documentación oficial de Oracle. Último acceso: enero 2026.
+
 \bibitem{spring_boot_reference}
 {VMware}, ``Spring boot reference documentation,''
   \url{https://docs.spring.io/spring-boot/docs/current/reference/html/}, 2024,
