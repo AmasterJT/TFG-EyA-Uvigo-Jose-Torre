@@ -1,0 +1,55 @@
+% =========================
+% Glosario de términos
+% =========================
+
+\newglossaryentry{Backend}{
+    name=backend,
+    description={Parte de un sistema software encargada de la lógica de negocio, el acceso a los datos y la comunicación con otros sistemas o aplicaciones cliente}
+}
+
+\newglossaryentry{Framework}{
+    name=framework,
+    description={Conjunto de herramientas, librerías y convenciones que proporcionan una estructura base para el desarrollo de aplicaciones software}
+}
+
+\newglossaryentry{sku}{
+    name=SKU,
+    description={Stock Keeping Unit, identificador único de un producto en el inventario}
+}
+
+
+
+% =========================
+% Glosario de siglas
+% =========================
+
+\newacronym
+  [plural=WMS,
+   longplural={Sistemas de Gestión de Almacenes}]
+  {wms}{WMS}{Sistema de Gestión de Almacenes}
+
+\newacronym{api}{API}{Interfaz de Programación de Aplicaciones}
+\newacronym{rest}{REST}{Transferencia de Estado Representacional}
+\newacronym{erp}{ERP}{Planificación de Recursos Empresariales}
+\newacronym{gui}{GUI}{Interfaz Gráfica de Usuario}
+\newacronym{sql}{SQL}{Lenguaje de Consulta Estructurado}
+\newacronym{http}{HTTP}{Hypertext Transfer Protocol}
+\newacronym{https}{HTTPS}{Hypertext Transfer Protocol Secure}
+\newacronym{json}{JSON}{JavaScript Object Notation}
+\newacronym{xml}{XML}{Extensible Markup Language}
+
+% =========================
+% Impresión del glosario
+% =========================
+
+\section*{Glosario de siglas}
+\label{sec:glosario-siglas}
+\vspace{-1.3cm}
+
+\printglossary[type=\acronymtype, title={}, toctitle={}]
+
+\section*{Definiciones}
+\label{sec:glosario-terminos}
+\vspace{-1.3cm}
+
+\printglossary[title={}, toctitle={}]

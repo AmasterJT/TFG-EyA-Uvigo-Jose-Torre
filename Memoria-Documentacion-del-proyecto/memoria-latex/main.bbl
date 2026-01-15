@@ -21,9 +21,23 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{pressman_software_engineering}
-R.~S. Pressman and B.~R. Maxim, \emph{Software Engineering: A Practitioner's
-  Approach}, 9th~ed.\hskip 1em plus 0.5em minus 0.4em\relax New York:
-  McGraw-Hill Education, 2020.
+\bibitem{wms_overview}
+J.~Gu, M.~Goetschalckx, and L.~McGinnis, ``Research on warehouse design and
+  performance evaluation: A comprehensive review,'' \emph{European Journal of
+  Operational Research}, vol. 203, no.~3, pp. 539--549, 2010.
+
+\bibitem{android_developers}
+{Google}, ``Android developers documentation,''
+  \url{https://developer.android.com}, 2024, Último acceso: enero 2026.
+
+\bibitem{redes_api_rest}
+{Iniciativa Aporta}, ``Buenas prÁcticas en el diseÑo de apis y linked data,''
+  \url{https://datos.gob.es/elearning/Unidades_Didacticas/Unidad_8/contenidos/descargas/unidad_imprimible.pdf},
+  2020, gobierno de España.
+
+\bibitem{spring_boot_reference}
+{VMware}, ``Spring boot reference documentation,''
+  \url{https://docs.spring.io/spring-boot/docs/current/reference/html/}, 2024,
+  Último acceso: enero 2026.
 
 \end{thebibliography}

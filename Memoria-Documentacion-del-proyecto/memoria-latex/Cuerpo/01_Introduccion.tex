@@ -1,21 +1,53 @@
 \section{Introducción}
 \label{sec:introduccion}
+\cite{pressman_software_engineering}
+La optimización de los procesos industriales y logísticos es un objetivo fundamental en entornos productivos modernos, donde la eficiencia operativa, la trazabilidad de los materiales y la reducción de errores tienen un impacto directo en los costes y en la calidad del servicio. En este contexto, el almacén desempeña un papel clave dentro de la cadena de suministro, actuando como punto de enlace entre la producción, el transporte y la distribución.
+
+Dentro de los distintos tipos de almacenes existentes, los almacenes de consolidación cumplen una función específica: agrupar, organizar y preparar mercancía procedente de diferentes orígenes para su posterior expedición conjunta. Este tipo de instalaciones presenta particularidades operativas propias, como un elevado volumen de movimientos, una alta rotación de productos y la necesidad de una trazabilidad precisa de palets, ubicaciones y pedidos.
+
+La digitalización de la gestión de este tipo de almacenes permite mejorar el control de inventario, la localización de materiales y la coordinación de los procesos de entrada y salida de mercancía, reduciendo la dependencia de procedimientos manuales. Este Trabajo Fin de Grado se centra en el desarrollo de una solución técnica orientada específicamente a la gestión de almacenes de consolidación, concebida como un sistema de apoyo a la operativa industrial e integrando diferentes plataformas de uso.
+
+El proyecto consiste en el diseño e implementación de un sistema compuesto por una aplicación de escritorio, una aplicación móvil Android y un backend encargado de la gestión y persistencia de los datos. La solución se plantea desde un enfoque práctico, alineado con los conocimientos adquiridos en la titulación de Ingeniería en Electrónica Industrial y Automática, y orientado a la mejora de procesos reales mediante el uso de tecnologías software como herramienta de soporte.
 
 \subsection{Contexto y motivación del proyecto}
 \label{subsec:contexto-motivacion}
-% TODO: Escribe aquí el contexto, la motivación y por qué es relevante.
+
+En entornos industriales y logísticos, la correcta gestión del almacén resulta esencial para garantizar la continuidad de la producción y el cumplimiento de los plazos de entrega. En el caso de los almacenes de consolidación, una gestión ineficiente puede provocar desajustes en el inventario, tiempos muertos en los procesos de preparación de pedidos, errores en la agrupación de mercancía y dificultades en la trazabilidad de los materiales, afectando directamente a la eficiencia operativa de la instalación.
+
+Aunque existen soluciones comerciales para la gestión de almacenes, estas suelen estar orientadas a grandes centros logísticos generalistas o presentan un elevado grado de complejidad, lo que dificulta su implantación en almacenes de consolidación de menor escala o con flujos de trabajo específicos. En muchos casos, estas soluciones requieren una inversión considerable en infraestructura, formación o consultoría, lo que limita su adopción en determinados entornos industriales.
+
+La motivación de este proyecto surge de la necesidad de disponer de una herramienta accesible y fácil de utilizar, orientada a instalaciones que no cuentan con soluciones informáticas específicas para la gestión de almacenes de consolidación. La solución propuesta permite gestionar los elementos fundamentales de este tipo de almacenes e integrarse de forma natural en la operativa diaria mediante una interfaz intuitiva. La combinación de una aplicación de escritorio, orientada a tareas de gestión y planificación, junto con una aplicación móvil para la operativa en planta, responde a escenarios reales presentes en entornos industriales y automatizados.
+
+Desde el punto de vista formativo, este proyecto permite aplicar conocimientos relacionados con sistemas de información, arquitectura de sistemas, gestión de datos y diseño de interfaces, complementando la formación técnica en automatización y electrónica industrial con el desarrollo de soluciones digitales orientadas a la mejora y optimización de procesos logísticos.
 
 \subsection{Problema a resolver}
 \label{subsec:problema}
-% TODO: Describe el problema concreto, alcance y por qué hay que resolverlo.
+
+El problema que aborda este Trabajo Fin de Grado es la ausencia de un sistema integrado, accesible y adaptado a almacenes de consolidación en entornos industriales, que permita gestionar de forma eficaz la información asociada a productos, palets, ubicaciones, movimientos y pedidos.
+
+En muchas instalaciones de este tipo, estas tareas se realizan mediante herramientas no especializadas, soluciones parciales o procesos manuales, lo que incrementa la probabilidad de errores y dificulta el acceso a información actualizada y consistente. Esta situación puede dar lugar a ineficiencias operativas, pérdidas de material, desajustes en el inventario y una trazabilidad limitada, especialmente en entornos caracterizados por un elevado volumen de movimientos y una alta rotación de mercancía.
+
+El sistema propuesto pretende resolver este problema proporcionando una solución que:
+\begin{itemize}
+    \item Centralice la información del almacén de consolidación en una base de datos única y coherente.
+    \item Permita el control del inventario y la gestión de ubicaciones de forma estructurada y sistemática.
+    \item Facilite la gestión de pedidos y el registro de movimientos de mercancía durante los procesos de consolidación.
+    \item Ofrezca acceso a la información tanto desde un entorno de escritorio, orientado a tareas de gestión, como desde dispositivos móviles utilizados en la operativa diaria en planta.
+\end{itemize}
+
+El alcance del proyecto se centra en el diseño e implementación de un sistema de apoyo a la gestión de almacenes de consolidación, sin abordar directamente el control físico de equipos automatizados. No obstante, la arquitectura planteada se concibe de forma que permita una posible integración futura con sistemas de automatización industrial o de control de planta.
 
 \subsection{Objetivos del TFG}
 \label{subsec:objetivos}
 
-Según Pressman \cite{pressman_software_engineering}, la ingeniería del software
+El objetivo general de este Trabajo Fin de Grado es desarrollar un sistema de gestión orientado a almacenes de consolidación en entornos industriales, que permita mejorar el control, la organización y la trazabilidad de los materiales mediante el uso de aplicaciones software integradas.
 
-% TODO: Enumera objetivos generales y específicos. Puedes usar itemize.
-% \begin{itemize}
-%   \item Objetivo general...
-%   \item Objetivo específico...
-% \end{itemize}
+Para alcanzar este objetivo general, se plantean los siguientes objetivos específicos:
+\begin{itemize}
+    \item Analizar las necesidades operativas de un almacén de consolidación en un entorno industrial.
+    \item Diseñar una arquitectura de sistema que integre aplicaciones de escritorio y móviles mediante un backend común.
+    \item Implementar la gestión de productos, palets, ubicaciones y pedidos asociados a los procesos de consolidación.
+    \item Desarrollar un sistema de persistencia de datos que garantice la integridad y disponibilidad de la información.
+    \item Diseñar interfaces orientadas a facilitar la operativa diaria del personal del almacén.
+    \item Evaluar el funcionamiento del sistema mediante pruebas que validen su utilidad como herramienta de apoyo a la gestión de almacenes de consolidación.
+\end{itemize}

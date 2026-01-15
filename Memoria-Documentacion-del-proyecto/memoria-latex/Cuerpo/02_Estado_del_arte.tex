@@ -1,18 +1,50 @@
 \section{Estado del arte}
 \label{sec:estado-arte}
 
-\subsection{Sistemas de gestión de almacenes (WMS)}
+En este capítulo se presenta el estado del arte relacionado con los sistemas de gestión de almacenes, con especial atención a los almacenes de consolidación. Se describen los conceptos generales asociados a los \glspl{wms}, las funcionalidades habituales que incorporan este tipo de aplicaciones y algunas de las soluciones comerciales existentes, con el objetivo de contextualizar la solución propuesta en este Trabajo Fin de Grado.
+
+\subsection{Sistemas de gestión de almacenes (\gls{wms})}
 \label{subsec:wms}
-% TODO: Explica qué es un WMS, propósito, componentes, etc.
+
+Un Sistema de Gestión de Almacenes, conocido como \gls{wms} (\textit{Warehouse Management System}), es una herramienta software diseñada para apoyar y optimizar las operaciones que se llevan a cabo en un almacén. Su principal función es gestionar de forma estructurada la información relacionada con el inventario, las ubicaciones, los movimientos de mercancía y los procesos de entrada y salida de materiales.
+
+Los sistemas \gls{wms} actúan como un elemento central dentro de la cadena logística, proporcionando visibilidad sobre el estado del almacén y facilitando la toma de decisiones operativas. En entornos industriales, estos sistemas permiten reducir errores asociados a la gestión manual, mejorar la trazabilidad de los productos y optimizar el uso del espacio y de los recursos disponibles.
+
+En función del tipo de instalación, los \gls{wms} pueden adaptarse a diferentes escenarios, como almacenes de producción, centros de distribución o almacenes de consolidación. En este último caso, el sistema debe gestionar un elevado volumen de movimientos, coordinar la agrupación de mercancía procedente de diferentes orígenes y garantizar una correcta trazabilidad de palets y pedidos hasta su expedición.
+
+Desde un punto de vista funcional, un \gls{wms} suele estructurarse en distintos módulos que cubren aspectos como la gestión de inventario, el control de ubicaciones, la planificación de operaciones y la generación de informes. Asimismo, estos sistemas pueden integrarse con otros sistemas de información, como sistemas de planificación de recursos empresariales (ERP) o sistemas de control industrial, dependiendo del nivel de automatización de la instalación.
 
 \subsection{Funcionalidades habituales en aplicaciones de gestión de almacenes}
 \label{subsec:funcionalidades-wms}
-% TODO: Recepción, ubicación, picking, inventario, expedición, trazabilidad, etc.
+
+Las aplicaciones de gestión de almacenes incorporan un conjunto de funcionalidades orientadas a cubrir las necesidades operativas básicas de una instalación logística o industrial. Aunque estas funcionalidades pueden variar en función del tipo de almacén y del sector, existen una serie de características comunes ampliamente presentes en los sistemas \gls{wms}.
+
+Entre las funcionalidades más habituales se encuentran la gestión de la recepción de mercancía, que permite registrar la entrada de productos en el almacén y asociarlos a ubicaciones específicas. Asimismo, la gestión de ubicaciones resulta fundamental para organizar el espacio disponible y facilitar la localización de materiales durante las operaciones diarias.
+
+Otra funcionalidad clave es la gestión del inventario, que proporciona información actualizada sobre las existencias disponibles y permite detectar desajustes o incidencias. En el caso de los almacenes de consolidación, esta funcionalidad adquiere especial relevancia debido a la alta rotación de productos y a la necesidad de coordinar múltiples movimientos de entrada y salida.
+
+Las aplicaciones \gls{wms} también suelen incluir herramientas para la gestión de pedidos y la preparación de expediciones, facilitando la agrupación de mercancía y el seguimiento de los envíos. La trazabilidad de los materiales, especialmente a nivel de palet, constituye otro aspecto esencial, ya que permite conocer el historial de movimientos y garantizar un control adecuado de la mercancía.
+
+Finalmente, muchas aplicaciones incorporan funcionalidades de apoyo como la generación de informes, el control de usuarios y permisos, y la integración con dispositivos móviles, lo que resulta especialmente útil para la operativa en planta y para la reducción de errores en tareas repetitivas.
 
 \subsection{Aplicaciones comerciales de gestión de almacenes}
 \label{subsec:aplicaciones-comerciales}
-% TODO: Presenta ejemplos de soluciones comerciales y características comparables.
+
+En el mercado existen numerosas soluciones comerciales orientadas a la gestión de almacenes, que ofrecen un amplio abanico de funcionalidades y niveles de complejidad. Estas soluciones suelen formar parte de plataformas logísticas o sistemas empresariales más amplios, y están diseñadas para adaptarse a diferentes tipos de instalaciones y volúmenes de operación.
+
+Algunas de estas aplicaciones están orientadas a grandes centros logísticos o a entornos altamente automatizados, incorporando funcionalidades avanzadas de optimización y control. Sin embargo, este enfoque puede suponer una barrera para su adopción en instalaciones de menor escala o en almacenes de consolidación con procesos específicos, debido a la complejidad de configuración y a los costes asociados a su implantación y mantenimiento.
+
+Otras soluciones comerciales ofrecen versiones más simplificadas, pero aun así suelen estar basadas en flujos de trabajo genéricos que no siempre se ajustan de forma óptima a las particularidades de cada instalación. En muchos casos, la adaptación a procesos concretos requiere desarrollos adicionales o modificaciones en la operativa existente, lo que reduce la flexibilidad del sistema.
+
+En este contexto, se observa una brecha entre las soluciones altamente especializadas y complejas, y la necesidad de herramientas más accesibles y adaptables a entornos industriales concretos, como los almacenes de consolidación que no cuentan con sistemas de gestión avanzados.
 
 \subsection{Justificación de la solución propuesta}
 \label{subsec:justificacion}
-% TODO: Conecta el estado del arte con tu propuesta: por qué tu solución tiene sentido.
+
+A partir del análisis del estado del arte, se pone de manifiesto la necesidad de disponer de soluciones de gestión de almacenes que, sin alcanzar la complejidad de los grandes sistemas comerciales, permitan cubrir de forma eficaz las necesidades operativas de instalaciones concretas, como los almacenes de consolidación.
+
+La solución propuesta en este Trabajo Fin de Grado se justifica por su enfoque específico hacia este tipo de almacenes, priorizando la simplicidad de uso, la adaptación a flujos de trabajo reales y la integración de distintas plataformas de acceso. El sistema se concibe como una herramienta de apoyo a la operativa industrial, facilitando la gestión de inventario, la trazabilidad de palets y la coordinación de pedidos sin imponer una reestructuración completa de los procesos existentes.
+
+Además, la combinación de una aplicación de escritorio para tareas de gestión y planificación, junto con una aplicación móvil para la operativa en planta, permite cubrir distintos escenarios de uso habituales en entornos industriales. Este enfoque contribuye a mejorar la accesibilidad a la información y a reducir errores derivados de la introducción manual de datos.
+
+En conjunto, la propuesta se sitúa como una alternativa intermedia entre soluciones comerciales complejas y la ausencia de herramientas específicas, ofreciendo una base flexible que puede evolucionar e integrarse en el futuro con otros sistemas de automatización industrial.

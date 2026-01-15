@@ -1,22 +1,85 @@
 \section{Marco teórico y tecnológico}
 \label{sec:marco-teorico}
 
+En este capítulo se presentan los fundamentos teóricos y tecnológicos que sustentan el desarrollo del sistema propuesto. Se abordan los conceptos relacionados con los sistemas de gestión de almacenes, las arquitecturas cliente-servidor, el desarrollo de aplicaciones multiplataforma, las aplicaciones móviles Android, las aplicaciones de escritorio y los mecanismos de comunicación entre aplicaciones, incluyendo el uso de \glspl{api} de tipo \gls{rest} en determinados componentes del sistema.
+
 \subsection{Aplicaciones multiplataforma}
 \label{subsec:multiplataforma}
-% TODO: Explica conceptos, ventajas/inconvenientes, enfoques, etc.
+
+Las aplicaciones multiplataforma permiten ofrecer funcionalidades similares a través de diferentes dispositivos y entornos de ejecución, compartiendo una lógica común del sistema. Este enfoque resulta especialmente relevante en entornos industriales y logísticos, donde coexisten estaciones de trabajo fijas y dispositivos móviles utilizados directamente en planta.
+
+Desde un punto de vista funcional, la adopción de soluciones multiplataforma facilita la reutilización de la lógica de negocio y la centralización de la información, reduciendo los costes de mantenimiento y mejorando la coherencia del sistema. En el ámbito de la gestión de almacenes, este enfoque permite que distintos perfiles de usuario accedan al sistema desde interfaces adaptadas a sus necesidades, manteniendo una única fuente de datos consistente \cite{wms_overview}.
+
+No obstante, el desarrollo multiplataforma también plantea retos, como la adaptación de la interfaz de usuario a diferentes dispositivos o la necesidad de garantizar un comportamiento homogéneo del sistema en entornos con capacidades técnicas diversas. Por este motivo, resulta habitual separar la lógica de negocio de las interfaces, delegando el procesamiento principal en un sistema centralizado.
 
 \subsection{Arquitecturas cliente-servidor}
 \label{subsec:cliente-servidor}
-% TODO: Describe el patrón, responsabilidades, escalabilidad, etc.
+
+La arquitectura cliente-servidor es un modelo ampliamente utilizado en sistemas distribuidos, en el que las funciones del sistema se reparten entre componentes cliente y un servidor central. Los clientes se encargan de la interacción con el usuario, mientras que el servidor gestiona la lógica de negocio y la persistencia de los datos.
+
+Este modelo resulta especialmente adecuado para sistemas de gestión en entornos industriales, ya que permite centralizar la información, facilitar el acceso concurrente y mejorar el control sobre la integridad de los datos. En el contexto de la gestión de almacenes, una arquitectura cliente-servidor permite que múltiples usuarios y dispositivos accedan simultáneamente al sistema sin duplicar información ni introducir inconsistencias \cite{wms_overview}.
+
+Además, este tipo de arquitectura favorece la escalabilidad del sistema y su posible integración futura con otros sistemas, como plataformas empresariales o sistemas de automatización industrial, al proporcionar un punto centralizado de acceso a los servicios y a los datos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Imagenes/cliente-servidor.png}
+    \caption{Arquitectura cliente-servidor}
+    \label{fig:cliente-servidor}
+\end{figure}
+
 
 \subsection{Aplicaciones móviles Android}
 \label{subsec:android}
-% TODO: Componentes, Activities/Fragments, ciclo de vida, arquitectura, etc.
+
+Android es uno de los sistemas operativos más extendidos en dispositivos móviles y terminales industriales, lo que lo convierte en una plataforma adecuada para aplicaciones destinadas a la operativa en planta. La documentación oficial de Android describe una arquitectura basada en componentes como actividades y fragmentos, que permiten gestionar la interfaz de usuario y el ciclo de vida de la aplicación \cite{android_developers}.
+
+En entornos industriales y logísticos, el uso de aplicaciones móviles facilita el acceso a la información en tiempo real y reduce la necesidad de desplazamientos innecesarios o registros manuales. En particular, en almacenes de consolidación, las aplicaciones Android permiten registrar movimientos, consultar inventario o identificar palets directamente en el punto de operación.
+
+Desde un punto de vista arquitectónico, las aplicaciones móviles suelen actuar como clientes ligeros que se comunican con un servidor central mediante servicios web. Este enfoque permite simplificar el desarrollo de la aplicación móvil y mantener la coherencia de la lógica del sistema, delegando en el servidor la gestión principal de los datos.
 
 \subsection{Aplicaciones de escritorio}
 \label{subsec:desktop}
-% TODO: Tecnologías usadas en tu caso, patrones, UI, distribución, etc.
+
+Las aplicaciones de escritorio continúan desempeñando un papel fundamental en entornos industriales para tareas de gestión, supervisión y planificación. Estas aplicaciones suelen ejecutarse en estaciones de trabajo fijas y permiten ofrecer interfaces más completas para la visualización y administración de grandes volúmenes de información.
+
+En el sistema desarrollado, la aplicación de escritorio se concibe como la herramienta principal para la gestión del almacén de consolidación, permitiendo la administración de productos, ubicaciones, pedidos y usuarios. Este tipo de aplicación resulta especialmente adecuada para tareas que requieren una visión global del sistema y un mayor nivel de detalle en la información presentada.
+
+El uso combinado de aplicaciones de escritorio y móviles permite adaptar la interacción con el sistema a distintos contextos de uso, mejorando la eficiencia operativa y reduciendo errores derivados de la introducción manual de datos.
 
 \subsection{Comunicación entre aplicaciones (APIs REST)}
 \label{subsec:apis-rest}
-% TODO: REST, endpoints, JSON, métodos HTTP, estados, autenticación básica, etc.
+
+La comunicación entre los distintos componentes del sistema puede realizarse mediante interfaces de programación de aplicaciones (APIs). Una \gls{api} puede definirse como el conjunto de funciones, procedimientos o métodos que un sistema de información pone a disposición de otros sistemas para permitir su interacción de forma estructurada y controlada \cite{redes_api_rest}. Este mecanismo resulta especialmente adecuado en escenarios donde existen clientes heterogéneos que requieren acceso controlado a la información del sistema.
+
+
+En este contexto, las APIs de tipo \gls{rest} constituyen uno de los enfoques más utilizados para la comunicación entre sistemas distribuidos. \gls{rest} es un conjunto de principios arquitectónicos orientados al diseño de interfaces entre sistemas, basado en el uso del protocolo \gls{http}, o bien \gls{https} como medio de comunicación, sin añadir capas adicionales de abstracción \cite{redes_api_rest}.
+
+Entre las principales características de las arquitecturas \gls{rest} se encuentra el empleo de \gls{http} para la realización de operaciones sobre los recursos del sistema, así como el intercambio de datos mediante formatos estructurados, siendo \gls{json} y \gls{xml} los más habituales. Los sistemas que implementan estos principios se denominan sistemas RESTful \cite{redes_api_rest}.
+
+Una API \gls{rest}, o \gls{api} RESTful, es por tanto una interfaz que expone los recursos de un sistema siguiendo los principios \gls{rest}, permitiendo que los clientes accedan a dichos recursos mediante peticiones \gls{http} estandarizadas y reciban las respuestas en formatos estructurados. Este enfoque favorece la interoperabilidad, el desacoplamiento entre clientes y servidor y la evolución independiente de los distintos componentes del sistema.
+
+En entornos industriales y logísticos, el uso de APIs REST permite integrar aplicaciones de escritorio, aplicaciones móviles y sistemas externos, garantizando un acceso coherente y controlado a la información del sistema. Además, este tipo de interfaces facilita la escalabilidad de la solución y su posible integración futura con otros sistemas de información o plataformas de automatización industrial.
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Imagenes/api.png}
+    \caption{Comunicación mediante APIs REST}
+    \label{fig:cliente-servidor}
+\end{figure}
+
+
+
+En el sistema desarrollado, el uso de una API \gls{rest} se aplica específicamente en la comunicación entre la aplicación móvil Android y el backend del sistema, implementado mediante Spring Boot. La aplicación de escritorio, por su parte, se conecta directamente al servidor de base de datos, actuando como un cliente especializado para tareas de gestión y administración. Esta aproximación permite adaptar el mecanismo de comunicación a las necesidades y características de cada tipo de cliente.
+
+
+
+\subsection{Backend y framework Spring Boot}
+\label{subsec:spring-boot}
+
+Spring Boot es un \gls{Framework} de desarrollo basado en el lenguaje Java que facilita la creación de aplicaciones de tipo \gls{Backend} y servicios web. Está diseñado para simplificar la configuración y el despliegue de aplicaciones, proporcionando una estructura predefinida y mecanismos de autoconfiguración que reducen la necesidad de configuraciones manuales \cite{spring_boot_reference}.
+
+En el contexto de sistemas distribuidos, Spring Boot se utiliza habitualmente para implementar \glspl{api} de tipo \gls{rest}, permitiendo exponer la lógica de negocio y el acceso a los datos mediante servicios accesibles por distintos clientes. Su integración con el ecosistema Java y su compatibilidad con tecnologías de persistencia lo convierten en una opción adecuada para el desarrollo de \glspl{Backend} en entornos industriales y empresariales.
+

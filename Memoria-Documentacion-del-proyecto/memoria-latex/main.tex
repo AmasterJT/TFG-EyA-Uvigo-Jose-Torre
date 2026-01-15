@@ -14,6 +14,9 @@
 \usepackage{amsmath}
 \usepackage{float}
 \usepackage{booktabs}
+\usepackage{svg}
+\usepackage[acronym]{glossaries}
+\makeglossaries
 
 % --- Márgenes y geometría ---
 \usepackage{geometry}
@@ -52,6 +55,11 @@
 \addto\captionsgalician{\renewcommand{\contentsname}{Contenido}}
 \usepackage{tocloft}
 
+% --- Bibliografía ---
+\addto\captionsspanish{%
+  \renewcommand{\refname}{Bibliografía}
+}
+
 % --- Portada ---
 \usepackage{framed}
 \input{Portada/Portada}
@@ -76,11 +84,19 @@
 \listoftables
 \clearpage
 
+% estilo de títulos (titlesec)
+\input{Formatos/Cuerpo}
+
+\glsaddall
+\vspace{-1cm}
+\input{Glosario/glosario}
+\clearpage
+
 % =========================================================
 % CUERPO DEL TRABAJO (estructura solicitada)
 % =========================================================
 
-\input{Formatos/Cuerpo}
+
 
 % 1 Introducción
 \include{Cuerpo/01_Introduccion}
