@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -143,6 +145,7 @@ public class UsuarioDAO {
         return false;
     }
 
+
     // Eliminar un usuario
 
     private static final String CHECK_USER_SQL =
@@ -165,6 +168,7 @@ public class UsuarioDAO {
 
             // 2️⃣ Obtener hash almacenado
             String hash = rs.getString("contraseña");
+
 
             System.out.println("🔐 Hash almacenado: " + hash);
             if (hash == null) {

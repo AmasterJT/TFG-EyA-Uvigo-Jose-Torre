@@ -87,7 +87,7 @@ public class windowLoginController implements Initializable {
         final String user = username.getText();
         final String pass = password.getText();
 
-        /*List<String> lista = Arrays.asList("Admin",
+        List<String> lista = Arrays.asList("Admin",
                 "juan123",
                 "maria123",
                 "carlos123",
@@ -109,7 +109,7 @@ public class windowLoginController implements Initializable {
         hashes.forEach((plain, hash) -> {
                     System.out.println(plain + " -> " + hash);
                 }
-        );*/
+        );
 
 
         if (SQLcheckUser(Main.connection, user, pass)) {

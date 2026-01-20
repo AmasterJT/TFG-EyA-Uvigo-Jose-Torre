@@ -96,6 +96,7 @@ public class ClientesDAO {
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error al obtener la lista de clientes", e);
+            e.printStackTrace();
         }
 
         return clientes;

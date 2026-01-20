@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import uvigo.tfgalmacen.models.User;
 import uvigo.tfgalmacen.utils.ColorFormatter;
 
+import uvigo.tfgalmacen.utils.GestionRoles;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;

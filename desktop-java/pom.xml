@@ -93,6 +93,12 @@
             <version>11.10.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.25</version>
+        </dependency>
+
 
     </dependencies>
 

@@ -100,16 +100,8 @@ VALUES
         'Responsable de la gestión del inventario y almacenes.'
     ),
     (
-        'Supervisor',
-        'Encargado de supervisar las operaciones y los equipos.'
-    ),
-    (
         'Operario',
         'Trabajador encargado de tareas específicas operativas.'
-    ),
-    (
-        'Mantenimiento',
-        'Responsable del mantenimiento y reparaciones.'
     ),
     (
         'Administración',
@@ -136,14 +128,10 @@ VALUES
     (1, 1, 'activo'),
     -- Gestor Almacén
     (2, 1, 'inactivo'),
-    -- Supervisor
-    (3, 1, 'inactivo'),
     -- Operario
-    (4, 1, 'inactivo'),
-    -- Mantenimiento
-    (5, 1, 'inactivo'),
+    (3, 1, 'inactivo'),
     -- Administración
-    (6, 1, 'inactivo');
+    (4, 1, 'inactivo');
 
 -- Para "Gestión de Productos (CRUD)"
 INSERT INTO
@@ -153,14 +141,10 @@ VALUES
     (1, 2, 'activo'),
     -- Gestor Almacén
     (2, 2, 'activo'),
-    -- Supervisor
-    (3, 2, 'activo'),
     -- Operario
-    (4, 2, 'inactivo'),
-    -- Mantenimiento
-    (5, 2, 'inactivo'),
+    (3, 2, 'inactivo'),
     -- Administración
-    (6, 2, 'inactivo');
+    (4, 2, 'inactivo');
 
 -- Para "Gestión de Inventario (stock, ubicación)"
 INSERT INTO
@@ -170,14 +154,10 @@ VALUES
     (1, 3, 'activo'),
     -- Gestor Almacén
     (2, 3, 'activo'),
-    -- Supervisor
-    (3, 3, 'activo'),
     -- Operario
-    (4, 3, 'ver'),
-    -- Mantenimiento
-    (5, 3, 'inactivo'),
+    (3, 3, 'ver'),
     -- Administración
-    (6, 3, 'ver');
+    (4, 3, 'ver');
 
 -- Para "Registro de Entradas/Salidas de Productos"
 INSERT INTO
@@ -187,14 +167,10 @@ VALUES
     (1, 4, 'activo'),
     -- Gestor Almacén
     (2, 4, 'activo'),
-    -- Supervisor
-    (3, 4, 'activo'),
     -- Operario
-    (4, 4, 'activo'),
-    -- Mantenimiento
-    (5, 4, 'inactivo'),
+    (3, 4, 'activo'),
     -- Administración
-    (6, 4, 'inactivo');
+    (4, 4, 'inactivo');
 
 -- Para "Gestión de Pedidos"
 INSERT INTO
@@ -204,14 +180,10 @@ VALUES
     (1, 5, 'activo'),
     -- Gestor Almacén
     (2, 5, 'activo'),
-    -- Supervisor
-    (3, 5, 'activo'),
     -- Operario
-    (4, 5, 'activo'),
-    -- Mantenimiento
-    (5, 5, 'inactivo'),
+    (3, 5, 'activo'),
     -- Administración
-    (6, 5, 'ver');
+    (4, 5, 'ver');
 
 -- Para "Generación de Reportes (inventario, ventas)"
 INSERT INTO
@@ -221,14 +193,10 @@ VALUES
     (1, 6, 'activo'),
     -- Gestor Almacén
     (2, 6, 'activo'),
-    -- Supervisor
-    (3, 6, 'activo'),
     -- Operario
-    (4, 6, 'inactivo'),
-    -- Mantenimiento
-    (5, 6, 'inactivo'),
+    (3, 6, 'inactivo'),
     -- Administración
-    (6, 6, 'activo');
+    (4, 6, 'activo');
 
 -- Para "Asignación de Tareas (Picking/Packing)"
 INSERT INTO
@@ -238,14 +206,10 @@ VALUES
     (1, 7, 'activo'),
     -- Gestor Almacén
     (2, 7, 'activo'),
-    -- Supervisor
-    (3, 7, 'activo'),
     -- Operario
-    (4, 7, 'inactivo'),
-    -- Mantenimiento
-    (5, 7, 'inactivo'),
+    (3, 7, 'inactivo'),
     -- Administración
-    (6, 7, 'inactivo');
+    (4, 7, 'inactivo');
 
 -- Para "Acceso al Historial de Movimientos"
 INSERT INTO
@@ -255,14 +219,10 @@ VALUES
     (1, 8, 'activo'),
     -- Gestor Almacén
     (2, 8, 'activo'),
-    -- Supervisor
-    (3, 8, 'activo'),
     -- Operario
-    (4, 8, 'ver'),
-    -- Mantenimiento
-    (5, 8, 'ver'),
+    (3, 8, 'ver'),
     -- Administración
-    (6, 8, 'ver');
+    (4, 8, 'ver');
 
 -- Para "Mantenimiento de Infraestructura"
 INSERT INTO
@@ -272,14 +232,10 @@ VALUES
     (1, 9, 'activo'),
     -- Gestor Almacén
     (2, 9, 'inactivo'),
-    -- Supervisor
-    (3, 9, 'ver'),
     -- Operario
-    (4, 9, 'inactivo'),
-    -- Mantenimiento
-    (5, 9, 'activo'),
+    (3, 9, 'inactivo'),
     -- Administración
-    (6, 9, 'inactivo');
+    (4, 9, 'inactivo');
 
 -- Para "Gestión Financiera (compras/ventas)"
 INSERT INTO
@@ -289,14 +245,10 @@ VALUES
     (1, 10, 'activo'),
     -- Gestor Almacén
     (2, 10, 'inactivo'),
-    -- Supervisor
-    (3, 10, 'inactivo'),
     -- Operario
-    (4, 10, 'inactivo'),
-    -- Mantenimiento
-    (5, 10, 'inactivo'),
+    (3, 10, 'inactivo'),
     -- Administración
-    (6, 10, 'activo');
+    (4, 10, 'activo');
 
 -- Para "Gestión de Incidencias"
 INSERT INTO
@@ -306,14 +258,10 @@ VALUES
     (1, 11, 'activo'),
     -- Gestor Almacén
     (2, 11, 'inactivo'),
-    -- Supervisor
-    (3, 11, 'ver'),
     -- Operario
-    (4, 11, 'ver'),
-    -- Mantenimiento
-    (5, 11, 'ver'),
+    (3, 11, 'ver'),
     -- Administración
-    (6, 11, 'inactivo');
+    (4, 11, 'inactivo');
 
 -- Creación de la tabla estanterias
 CREATE TABLE
@@ -677,25 +625,23 @@ VALUES
 
 -- Insertamos usuarios para tener todos los roles (con activo)
 INSERT INTO usuarios (user_name, nombre, apellido1, apellido2, email, contraseña, id_rol, activo) VALUES
-('AdLo', 'Admin', 'Lopez', 'Lopez', 'admin@almacen.com', 'admin', 1, 1), -- SysAdmin (dentro)
-('JuPe', 'Juan', 'Perez', 'Gomez', 'juan.perez@almacen.com', 'juan123', 2, 1), -- Gestor Almacén (dentro)
-('MaLo', 'Maria', 'Lopez', 'Lopez', 'maria.lopez@almacen.com', 'maria123', 3, 1), -- Supervisor (dentro)
-('CaDi', 'Carlos', 'Diaz', 'Gomez', 'carlos.diaz@almacen.com', 'carlos123', 4, 1), -- Operario (dentro)
-('LuGo', 'Luisa', 'Gomez', 'Lopez', 'luisa.gomez@almacen.com', 'luisa123', 5, 0), -- Mantenimiento (fuera)
-('AnTo', 'Ana', 'Torres','Ortega', 'ana.torres@almacen.com', 'ana123', 6, 0);   -- Administración (fuera)
+('AdLo', 'Admin', 'Lopez', 'Lopez', 'admin@almacen.com', '$argon2id$v=19$m=65536,t=3,p=2$QEDOe2PgDApE2yYgaRdKYA$hKFkP579PBhZDQpxsdg21/nlGSUh3JzKho9mrxoCtDE', 1, 1), -- SysAdmin (admin)(dentro)
+('JuPe', 'Juan', 'Perez', 'Gomez', 'juan.perez@almacen.com', '$argon2id$v=19$m=65536,t=3,p=2$z+EAPyjhUS57ke8m5Xp9tA$Ho9IdCwJ2xMyk4MygqEGyyuQr/bBA7T699gwhpakKFY', 2, 1), -- Gestor Almacén (juan123)(dentro)
+('CaDi', 'Carlos', 'Diaz', 'Gomez', 'carlos.diaz@almacen.com', '$argon2id$v=19$m=65536,t=3,p=2$g7VyhzV6bgMLYllIBNs6PQ$aclPDExXFBOUTvHiFRw4LAJI0PbIB37C4l2TA5y00nw', 3, 1), -- Operario (carlos123) (dentro)
+('AnTo', 'Ana', 'Torres','Ortega', 'ana.torres@almacen.com', '$argon2id$v=19$m=65536,t=3,p=2$jdftwDoiOvg/jjT2kobFOQ$RviNxXvidpEnKofQdfhI7qWQzmSCHteHUhmIdthNPJc', 4, 0);   -- Administración (ana123)(fuera)
 
 -- Insertamos operarios (el trigger sigue generando user_name); añadimos activo al final
 INSERT INTO usuarios (nombre, apellido1, apellido2, email, contraseña, id_rol, activo) VALUES
-('Luis',   'Fernandez', 'Gomez', 'luis.fernandez@almacen.com',   'luis123',   4, 1),
-('Sofia',  'Martinez', 'Gomez',  'sofia.martinez@almacen.com',   'sofia123',  4, 0),
-('Javier', 'Romero', 'Castro',    'javier.romero@almacen.com',    'javier123', 4, 1),
-('Claudia','Hernandez', 'Castro', 'claudia.hernandez@almacen.com','claudia123',4, 0),
-('Pablo',  'Ruiz','Ortega',      'pablo.ruiz@almacen.com',       'pablo123',  4, 1),
-('Andrea', 'Castro', 'Rogriguez',    'andrea.castro@almacen.com',    'andrea123', 4, 0),
-('Diego',  'Navarro','Ortega',   'diego.navarro@almacen.com',    'diego123',  4, 1),
-('Valeria','Ortega', 'Rogriguez',    'valeria.ortega@almacen.com',   'valeria123',4, 0),
-('Miguel', 'Ramos', 'Gomez',     'miguel.ramos@almacen.com',     'miguel123', 4, 1),
-('Isabel', 'Vargas', 'Castro',    'isabel.vargas@almacen.com',    'isabel123', 4, 0);
+('Luis',   'Fernandez', 'Gomez', 'luis.fernandez@almacen.com',   'luis123',   3, 1),
+('Sofia',  'Martinez', 'Gomez',  'sofia.martinez@almacen.com',   'sofia123',  3, 0),
+('Javier', 'Romero', 'Castro',    'javier.romero@almacen.com',    'javier123', 3, 1),
+('Claudia','Hernandez', 'Castro', 'claudia.hernandez@almacen.com','claudia123',3, 0),
+('Pablo',  'Ruiz','Ortega',      'pablo.ruiz@almacen.com',       'pablo123',  3, 1),
+('Andrea', 'Castro', 'Rogriguez',    'andrea.castro@almacen.com',    'andrea123', 3, 0),
+('Diego',  'Navarro','Ortega',   'diego.navarro@almacen.com',    'diego123',  3, 1),
+('Valeria','Ortega', 'Rogriguez',    'valeria.ortega@almacen.com',   'valeria123',3, 0),
+('Miguel', 'Ramos', 'Gomez',     'miguel.ramos@almacen.com',     'miguel123', 3, 1),
+('Isabel', 'Vargas', 'Castro',    'isabel.vargas@almacen.com',    'isabel123', 3, 0);
 
 
 INSERT INTO tipos (id_tipo, color) VALUES ('Tensoactivo', '0.8,0,0');

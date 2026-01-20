@@ -19,6 +19,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import uvigo.tfgalmacen.Main;
 import uvigo.tfgalmacen.utils.ColorFormatter;
+import uvigo.tfgalmacen.utils.GestionRoles;
 
 import java.io.File;
 import java.io.IOException;
@@ -226,6 +227,46 @@ public class mainController implements Initializable {
         } else {
             roleLabel.setText("NO ROL");
         }
+
+
+        GestionRoles.Ui ui = new GestionRoles.Ui();
+
+        // Navegación
+        ui.almacenButton = almacenButton;
+        ui.inventarioButton = inventarioButton;
+        ui.pedidosButton = pedidosButton;
+        ui.paletizarButton = paletizarButton;
+        ui.envioButton = envioButton;
+        ui.calendarioButton = calendarioButton;
+
+        // Acciones/ajustes
+        ui.orden_compra_btn = orden_compra_btn;
+        ui.export_data_btn = export_data_btn;
+
+        ui.movimiento_btn = movimiento_btn;
+        ui.actualizar_palet_btn = actualizar_palet_btn;
+
+        ui.ajustes_crear_usuario_btn = ajustes_crear_usuario_btn;
+        ui.ajustes_editar_usuario_btn = ajustes_editar_usuario_btn;
+        ui.ajustes_eliminar_usuario_btn = ajustes_eliminar_usuario_btn;
+
+        ui.ajustes_crear_pedido_btn = ajustes_crear_pedido_btn;
+        ui.ajustes_editar_pedido_btn = ajustes_editar_pedido_btn;
+        ui.ajustes_eliminar_pedido_btn = ajustes_eliminar_pedido_btn;
+
+        ui.ajustes_crear_producto_btn = ajustes_crear_producto_btn;
+        ui.ajustes_crear_tipo_btn = ajustes_crear_tipo_btn;
+
+        // Siempre disponibles
+        ui.MenuButton = MenuButton;
+        ui.cerrarSesionBtn = cerrarSesionBtn;
+        ui.minimizeButton = minimizeButton;
+        ui.ExitButton = ExitButton;
+        ui.esconder_ajustes_btn = esconder_ajustes_btn;
+
+        // Aplica permisos
+        GestionRoles.aplicarPermisos(Main.currentUser, ui);
+
 
         // Permitir que el root capture teclas
         Platform.runLater(() -> root.requestFocus());
