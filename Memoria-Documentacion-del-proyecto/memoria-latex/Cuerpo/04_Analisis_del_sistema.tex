@@ -3,30 +3,75 @@
 
 \subsection{Descripción general del sistema}
 \label{subsec:descripcion-general}
-% TODO: Visión global del sistema, módulos y flujo principal.
+
+El sistema desarrollado tiene como objetivo servir de herramienta de apoyo para la gestión de un almacén de consolidación en un entorno industrial. La aplicación permite centralizar la información relacionada con productos, palets, ubicaciones, movimientos y pedidos, facilitando la operativa diaria del almacén y el seguimiento de la mercancía a lo largo de los distintos procesos internos.
+
+La solución se concibe como un sistema distribuido que da soporte a distintos perfiles de usuario mediante interfaces diferenciadas. Por un lado, una aplicación de escritorio orientada a tareas de gestión, planificación y supervisión; por otro, una aplicación móvil destinada a la operativa en planta, permitiendo el acceso a la información y el registro de acciones directamente en el entorno de trabajo.
+
+El sistema está específicamente diseñado para almacenes de consolidación, donde se agrupan mercancías procedentes de distintos proveedores con el fin de preparar envíos conjuntos a clientes. En consecuencia, el alcance funcional se centra en procesos como la gestión de inventario, la consolidación de pedidos y la trazabilidad de los movimientos internos, sin abordar otros tipos de almacén ni el control directo de sistemas automatizados.
+
 
 \subsection{Identificación de usuarios}
 \label{subsec:usuarios}
-% TODO: Roles (p.ej. administrador, operario, transportista, etc.) y permisos.
+
+El sistema contempla distintos tipos de usuarios, definidos en función de su rol dentro del almacén y de las tareas que realizan en la operativa diaria.
+
+En primer lugar, se identifican los \textbf{operarios de almacén}, responsables de ejecutar las actividades relacionadas con la manipulación y movimiento de mercancías. Estos usuarios utilizan principalmente la aplicación móvil para consultar información, registrar movimientos de palets y apoyar los procesos de consolidación de pedidos.
+
+En segundo lugar, se encuentran los \textbf{gestores o administradores del almacén}, encargados de la planificación, supervisión y control del sistema. Este perfil utiliza la aplicación de escritorio para gestionar productos, ubicaciones, pedidos y usuarios, así como para consultar el estado general del almacén.
+
+Esta diferenciación de usuarios permite adaptar las interfaces y funcionalidades del sistema a las necesidades específicas de cada rol, mejorando la eficiencia operativa y reduciendo la probabilidad de errores.
+
 
 \subsection{Requisitos del sistema}
 \label{subsec:requisitos}
 
+
 \subsubsection{Requisitos funcionales}
 \label{subsubsec:requisitos-funcionales}
-% TODO: Lista de requisitos funcionales numerados o en viñetas.
-% \begin{itemize}
-%   \item RF-01 ...
-% \end{itemize}
+
+El sistema debe cumplir los siguientes requisitos funcionales:
+
+\begin{itemize}
+    \item Permitir la gestión de productos y sus características asociadas.
+    \item Gestionar palets y su ubicación dentro del almacén.
+    \item Registrar movimientos internos de mercancía y cambios de ubicación.
+    \item Facilitar la preparación y consolidación de pedidos.
+    \item Permitir el acceso al sistema a distintos perfiles de usuario.
+    \item Proporcionar interfaces diferenciadas para tareas de gestión y operativa en planta.
+    \item Consultar el estado del inventario y la trazabilidad de los productos.
+\end{itemize}
+
 
 \subsubsection{Requisitos no funcionales}
 \label{subsubsec:requisitos-no-funcionales}
-% TODO: Rendimiento, seguridad, usabilidad, disponibilidad, mantenibilidad, etc.
+
+Además de los requisitos funcionales, el sistema debe cumplir una serie de requisitos no funcionales:
+
+\begin{itemize}
+    \item El sistema debe ser fácil de usar por personal con distintos niveles de experiencia.
+    \item La información debe mantenerse consistente y actualizada en todo momento.
+    \item El acceso a los datos debe estar controlado según el perfil de usuario.
+    \item El sistema debe ser mantenible y permitir futuras ampliaciones funcionales.
+    \item La solución debe ser compatible con entornos industriales habituales.
+\end{itemize}
 
 \subsection{Casos de uso}
 \label{subsec:casos-uso}
-% TODO: Describe casos de uso principales. Puedes añadir diagramas o tablas.
+
+Para describir de forma estructurada la interacción entre los usuarios y el sistema, se han definido una serie de casos de uso que representan las funcionalidades principales. Estos casos de uso permiten identificar las acciones que pueden realizar los distintos perfiles de usuario y las respuestas esperadas del sistema.
+
+Los casos de uso definidos sirven como base para el diseño funcional y para la posterior implementación del sistema, y se representan mediante diagramas UML que facilitan su comprensión.
+
 
 \subsection{Restricciones técnicas}
 \label{subsec:restricciones}
-% TODO: Limitaciones de tecnologías, hardware, red, normativa, plazos, etc.
+
+El desarrollo del sistema ha estado condicionado por una serie de restricciones técnicas y de alcance propias de un Trabajo Fin de Grado.
+
+En primer lugar, la solución no contempla el control directo de maquinaria ni de sistemas de automatización industrial, centrándose exclusivamente en la gestión de la información asociada al almacén. Asimismo, el sistema ha sido diseñado específicamente para un entorno de almacén de consolidación, por lo que no resulta aplicable de forma directa a otros tipos de almacén con procesos logísticos diferentes.
+
+Por último, se han considerado las limitaciones temporales y de recursos inherentes a un Trabajo Fin de Grado, desarrollado por un único autor y dentro de un periodo de tiempo acotado. Como consecuencia, se ha priorizado la implementación de las funcionalidades esenciales para la gestión del almacén de consolidación, quedando fuera del alcance del proyecto aspectos como la integración con sistemas externos, el control directo de equipos automatizados o el desarrollo de funcionalidades avanzadas de optimización.
+
+
+

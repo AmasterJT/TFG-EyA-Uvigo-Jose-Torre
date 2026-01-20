@@ -60,6 +60,37 @@
   \renewcommand{\refname}{Bibliografía}
 }
 
+\usepackage[
+  backend=biber,
+  style=ieee,
+  sorting=none,
+  autolang=other,
+  bibencoding=utf8,
+  url=true,
+  doi=true,
+  isbn=true
+]{biblatex}
+
+\addbibresource{Bibliografia/bibliografia.bib}
+
+% Título de la bibliografía (equivalente a \refname)
+\DefineBibliographyStrings{spanish}{%
+  bibliography = {Bibliografía},
+}
+\newcommand{\footcitepage}[3]{%
+  ``#1''\footnote{%
+    \fullcite{#2}, p.~#3%
+  }%
+}
+
+\newcommand{\footbibliographypage}[2]{%
+  \footnote{%
+    \fullcite{#1}, p.~#2%
+  }%
+}
+
+
+
 % --- Glosario ---
 \renewcommand*{\glossaryentrynumbers}[1]{}
 
@@ -67,10 +98,6 @@
 \usepackage{framed}
 \input{Portada/Portada}
 
-% --- Bibliografía ---
-\usepackage[numbers]{natbib}
-\nocite{*}
-\bibliographystyle{Bibliografia/IEEEtraN}
 
 \begin{document}
 
@@ -130,6 +157,6 @@
 % =========================================================
 \clearpage
 \input{Formatos/Contenido}
-\bibliography{Bibliografia/bibliografia}
+\printbibliography
 
 \end{document}

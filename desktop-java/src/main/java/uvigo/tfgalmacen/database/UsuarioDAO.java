@@ -191,23 +191,27 @@ public class UsuarioDAO {
 
 
     // Obtener el rol del usuario a partir del nombre y la contraseña
-    private static final String GET_USER_ROLE_SQL = "SELECT id_rol FROM usuarios WHERE nombre = ? AND contraseña = ?";
+    private static final String GET_USER_ROLE_SQL =
+            "SELECT id_rol FROM usuarios WHERE nombre = ?";
 
-    public static int getUserRole(Connection connection, String username, String password) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_ROLE_SQL)) {
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+    public static int getUserRole(Connection connection, String username) {
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+        if (connection == null) return -1;
 
-            if (resultSet.next()) {
-                return resultSet.getInt("id_rol");
+        try (PreparedStatement ps = connection.prepareStatement(GET_USER_ROLE_SQL)) {
+
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id_rol");
             } else {
-                return -1; // Usuario no encontrado o contraseña incorrecta
+                return -1; // usuario no existe
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
-            return -1; // Error en la base de datos
+            return -1;
         }
     }
 

@@ -117,6 +117,8 @@ public class windowLoginController implements Initializable {
 
             Main.currentUser = new User(user, pass, Main.connection);
 
+            System.out.println("Usuario activo tras login: " + Main.currentUser);
+
             try {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource(MAIN_FXML));
                 Parent newRoot = loader.load();

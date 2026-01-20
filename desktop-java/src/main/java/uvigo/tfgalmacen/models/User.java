@@ -24,7 +24,9 @@ public class User {
 
     public User(String name, String password, Connection conection) {
         this.name = name;
-        this.idRol = UsuarioDAO.getUserRole(conection, name, password);
+        this.idRol = UsuarioDAO.getUserRole(conection, name);
+
+        System.out.println("ID ROL EN USER: " + idRol);
         this.role = RolePermissionDAO.getRoleNameById(conection, idRol);
     }
 

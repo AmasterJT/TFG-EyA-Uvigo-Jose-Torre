@@ -52,12 +52,14 @@ El uso combinado de aplicaciones de escritorio y móviles permite adaptar la int
 \subsection{Comunicación entre aplicaciones (APIs REST)}
 \label{subsec:apis-rest}
 
-La comunicación entre los distintos componentes del sistema puede realizarse mediante interfaces de programación de aplicaciones (APIs). Una \gls{api} puede definirse como el conjunto de funciones, procedimientos o métodos que un sistema de información pone a disposición de otros sistemas para permitir su interacción de forma estructurada y controlada \cite{redes_api_rest}. Este mecanismo resulta especialmente adecuado en escenarios donde existen clientes heterogéneos que requieren acceso controlado a la información del sistema.
+La comunicación entre los distintos componentes del sistema puede realizarse mediante interfaces de programación de aplicaciones (APIs). Una \gls{api} puede definirse como un \footcitepage{conjunto de comandos, funciones y
+protocolos informáticos que permiten crear programas que interactúen con otras
+aplicaciones}{aeb_apis}{1}. Este mecanismo resulta especialmente adecuado en escenarios donde existen clientes heterogéneos que requieren acceso controlado a la información del sistema.
 
 
-En este contexto, las APIs de tipo \gls{rest} constituyen uno de los enfoques más utilizados para la comunicación entre sistemas distribuidos. \gls{rest} es un conjunto de principios arquitectónicos orientados al diseño de interfaces entre sistemas, basado en el uso del protocolo \gls{http}, o bien \gls{https} como medio de comunicación, sin añadir capas adicionales de abstracción \cite{redes_api_rest}.
+En este contexto, las APIs de tipo \gls{rest} constituyen uno de los enfoques más utilizados para la comunicación entre sistemas distribuidos. \gls{rest} es un conjunto de principios arquitectónicos orientados al diseño de interfaces entre sistemas, basado en el uso del protocolo \gls{http}, o bien \gls{https} como medio de comunicación, sin añadir capas adicionales de abstracción \footbibliographypage{redes_api_rest}{10}.
 
-Entre las principales características de las arquitecturas \gls{rest} se encuentra el empleo de \gls{http} para la realización de operaciones sobre los recursos del sistema, así como el intercambio de datos mediante formatos estructurados, siendo \gls{json} y \gls{xml} los más habituales. Los sistemas que implementan estos principios se denominan sistemas RESTful \cite{redes_api_rest}.
+Entre las principales características de las arquitecturas \gls{rest} se encuentra el empleo de \gls{http} para la realización de operaciones sobre los recursos del sistema, así como el intercambio de datos mediante formatos estructurados, siendo \gls{json} y \gls{xml} los más habituales. Los sistemas que implementan estos principios se denominan sistemas RESTful.
 
 Una API \gls{rest}, o \gls{api} RESTful, es por tanto una interfaz que expone los recursos de un sistema siguiendo los principios \gls{rest}, permitiendo que los clientes accedan a dichos recursos mediante peticiones \gls{http} estandarizadas y reciban las respuestas en formatos estructurados. Este enfoque favorece la interoperabilidad, el desacoplamiento entre clientes y servidor y la evolución independiente de los distintos componentes del sistema.
 
