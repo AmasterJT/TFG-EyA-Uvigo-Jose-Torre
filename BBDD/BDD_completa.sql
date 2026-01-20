@@ -6,6 +6,82 @@ create database  tfg_almacenDB;
 
 use tfg_almacenDB;
 
+CREATE TABLE transportistas (
+    id_transportista INT PRIMARY KEY AUTO_INCREMENT,
+
+    nombre_empresa     VARCHAR(150) NOT NULL,
+    nombre_conductor   VARCHAR(150) NOT NULL,
+
+    telefono           VARCHAR(20),
+    email              VARCHAR(120),
+
+    matricula          VARCHAR(15),
+    tipo_transporte    VARCHAR(50),   -- camión, furgón, tráiler, etc.
+
+    direccion          VARCHAR(200),
+    nif_cif            VARCHAR(20),
+
+    notas              TEXT,
+
+    fecha_registro     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+INSERT INTO transportistas
+(nombre_empresa, nombre_conductor, telefono, email, matricula,
+ tipo_transporte, direccion, nif_cif, notas)
+VALUES
+('Transporte Norte S.L.', 'Juan Pérez', '600111111', 'juan@transnorte.es',
+ '1234-ABC', 'Camión rígido',
+ 'Polígono Industrial Asipo, Oviedo', 'B12345678',
+ 'Transporte regional Asturias'),
+
+('Logística Atlántica', 'María López', '600222222', 'maria@logiatlantica.com',
+ '2345-BCD', 'Tráiler',
+ 'Puerto de Vigo, Vigo', 'A23456789',
+ 'Especializada en transporte marítimo'),
+
+('Rápidos del Sur', 'Antonio García', '600333333', 'antonio@rapidosur.es',
+ '3456-CDE', 'Furgón',
+ 'Av. Andalucía 45, Sevilla', 'B34567890',
+ 'Reparto urgente'),
+
+('Cargo Express Levante', 'Laura Martínez', '600444444', 'laura@cargoexpress.es',
+ '4567-DEF', 'Camión frigorífico',
+ 'C/ Puerto 12, Valencia', 'A45678901',
+ 'Transporte refrigerado'),
+
+('Transportes Meseta', 'Carlos Sánchez', '600555555', 'carlos@tmeseta.com',
+ '5678-EFG', 'Camión lona',
+ 'Polígono Industrial, Valladolid', 'B56789012',
+ 'Carga general'),
+
+('Distribuciones Costa', 'Elena Ruiz', '600666666', 'elena@distcosta.es',
+ '6789-FGH', 'Furgón',
+ 'Av. del Mediterráneo 3, Málaga', 'A67890123',
+ 'Distribución local'),
+
+('Logística Central', 'Pedro Gómez', '600777777', 'pedro@logicentral.com',
+ '7890-GHI', 'Tráiler',
+ 'Calle Mayor 50, Madrid', 'B78901234',
+ 'Rutas nacionales'),
+
+('TransAlpes Europa', 'Sergio Navarro', '600888888', 'sergio@transalpes.eu',
+ '8901-HIJ', 'Tráiler',
+ 'Zona Franca, Barcelona', 'A89012345',
+ 'Transporte internacional'),
+
+('EcoTrans Galicia', 'Ana Varela', '600999999', 'ana@ecotransgalicia.es',
+ '9012-IJK', 'Camión eléctrico',
+ 'Polígono do Tambre, Santiago', 'B90123456',
+ 'Transporte sostenible'),
+
+('FastDelivery Norte', 'Miguel Castro', '601000000', 'miguel@fastnorth.com',
+ '0123-JKL', 'Furgón',
+ 'Parque Empresarial, Santander', 'A01234567',
+ 'Última milla');
+
+
 
 -- =======================================
 -- TABLA DE PROVEEDORES
@@ -294,14 +370,17 @@ CREATE TABLE usuarios (
 
 -- Creación de la tabla clientes
 CREATE TABLE clientes (
-	id_cliente INT PRIMARY KEY AUTO_INCREMENT,
-	nombre VARCHAR(100),
-	direccion VARCHAR(200),
-	telefono VARCHAR(20),
-	email VARCHAR(100) UNIQUE,
-	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(100),
+  direccion VARCHAR(200),
+  telefono VARCHAR(20),
+  email VARCHAR(100) UNIQUE,
+  latitud  DECIMAL(9,6),
+  longitud DECIMAL(9,6),
+  fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 
 -- Creación de la tabla tipos
 CREATE TABLE tipos (
@@ -375,27 +454,43 @@ CREATE TABLE
 
 CREATE TABLE pedidos (
     id_pedido INT PRIMARY KEY AUTO_INCREMENT,
-    codigo_referencia VARCHAR(50) UNIQUE,
-    id_usuario INT NULL,
+
+    codigo_referencia VARCHAR(30) NOT NULL UNIQUE,
+
     id_cliente INT NOT NULL,
-    fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INT NULL,
+    id_transportista INT NULL,
+
+    estado VARCHAR(20) NOT NULL DEFAULT 'Pendiente',
+
+    fecha_pedido TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     fecha_entrega DATE NOT NULL,
-    estado ENUM (
-        'Pendiente',
-        'Completado',
-        'En proceso',
-        'Cancelado',
-        'Enviado'
-    ) NOT NULL,
-    hora_salida ENUM (
-        'primera_hora',
-        'segunda_hora'
-    ),
-    palets_del_pedido INT,
-    enviado BOOLEAN DEFAULT 0,
-    FOREIGN KEY (id_cliente) REFERENCES clientes (id_cliente),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario)
+
+    hora_salida ENUM('primera_hora', 'segunda_hora') NULL,
+
+    palets_del_pedido INT NOT NULL DEFAULT 0,
+
+    enviado TINYINT(1) NOT NULL DEFAULT 0,
+
+    CONSTRAINT fk_pedidos_clientes
+        FOREIGN KEY (id_cliente)
+        REFERENCES clientes(id_cliente)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_pedidos_usuarios
+        FOREIGN KEY (id_usuario)
+        REFERENCES usuarios(id_usuario)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+
+    CONSTRAINT fk_pedidos_transportistas
+        FOREIGN KEY (id_transportista)
+        REFERENCES transportistas(id_transportista)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
 );
+
 
 
 
@@ -2027,37 +2122,19 @@ INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_
 
 
     
-INSERT INTO clientes (nombre, direccion, telefono, email) VALUES
-('Cliente A', 'Calle Falsa 123, Madrid', '600111222', 'cliente.a@example.com'),
-('Cliente B', 'Av. Siempre Viva 456, Barcelona', '600333444', 'cliente.b@example.com'),
-('Cliente C', 'Paseo Marítimo 789, Valencia', '600555666', 'cliente.c@example.com'),
-('Cliente D', 'Rúa Central 10, Vigo', '600777888', 'cliente.d@example.com'),
-('Cliente E', 'Calle Mayor 20, Sevilla', '600999000', 'cliente.e@example.com'),
-('Cliente F', 'C/ de la Luna 1, Granada', '601111222', 'cliente.f@example.com'),
-('Cliente G', 'Plaza Mayor 2, Oviedo', '601333444', 'cliente.g@example.com'),
-('Cliente H', 'Av. de la Reina 3, Toledo', '601555666', 'cliente.h@example.com'),
-('Cliente I', 'Camino Real 4, Bilbao', '601777888', 'cliente.i@example.com'),
-('Cliente J', 'Calle Nueva 5, Málaga', '601999000', 'cliente.j@example.com'),
-('Cliente K', 'C/ del Sol 6, Zaragoza', '602111222', 'cliente.k@example.com'),
-('Cliente L', 'Av. de América 7, Murcia', '602333444', 'cliente.l@example.com'),
-('Cliente M', 'Plaza del Pilar 8, Córdoba', '602555666', 'cliente.m@example.com'),
-('Cliente N', 'Calle del Río 9, Valladolid', '602777888', 'cliente.n@example.com'),
-('Cliente O', 'Gran Vía 11, Salamanca', '602999000', 'cliente.o@example.com'),
-('Cliente P', 'Av. Libertad 12, Pamplona', '603111222', 'cliente.p@example.com'),
-('Cliente Q', 'C/ Cartagena 13, Alicante', '603333444', 'cliente.q@example.com'),
-('Cliente R', 'Plaza de España 14, Albacete', '603555666', 'cliente.r@example.com'),
-('Cliente S', 'Calle las Flores 15, Cádiz', '603777888', 'cliente.s@example.com'),
-('Cliente T', 'Av. Andalucía 16, Almería', '603999000', 'cliente.t@example.com'),
-('Cliente U', 'Rúa do Sol 17, Lugo', '604111222', 'cliente.u@example.com'),
-('Cliente V', 'Calle La Paz 18, Logroño', '604333444', 'cliente.v@example.com'),
-('Cliente W', 'Av. Cataluña 19, Pamplona', '604555666', 'cliente.w@example.com'),
-('Cliente X', 'Plaza Constitución 21, Santander', '604777888', 'cliente.x@example.com'),
-('Cliente Y', 'C/ Nueva 22, Burgos', '604999000', 'cliente.y@example.com'),
-('Cliente Z', 'Av. Goya 23, San Sebastián', '605111222', 'cliente.z@example.com'),
-('Cliente AA', 'Calle Real 24, León', '605333444', 'cliente.aa@example.com'),
-('Cliente AB', 'Av. Asturias 25, Oviedo', '605555666', 'cliente.ab@example.com'),
-('Cliente AC', 'Plaza del Mercado 26, Toledo', '605777888', 'cliente.ac@example.com'),
-('Cliente AD', 'Calle Sorolla 27, Valencia', '605999000', 'cliente.ad@example.com');
+
+INSERT INTO clientes (nombre, direccion, telefono, email, latitud, longitud) VALUES
+('Cliente A', 'Calle de Alcalá 123, Madrid', '600111222', 'cliente.a@example.com', 40.420300, -3.688350),
+('Cliente B', 'Carrer de Mallorca 401, Barcelona', '600333444', 'cliente.b@example.com', 41.403629,  2.174356),
+('Cliente C', 'Carrer de Xàtiva 24, Valencia', '600555666', 'cliente.c@example.com', 39.466667, -0.377000),
+('Cliente D', 'Rúa do Príncipe 10, Vigo', '600777888', 'cliente.d@example.com', 42.236300, -8.722600),
+('Cliente E', 'Calle Sierpes 20, Sevilla', '600999000', 'cliente.e@example.com', 37.392500, -5.995600),
+('Cliente F', 'Calle Gran Vía de Colón 1, Granada', '601111222', 'cliente.f@example.com', 37.176487, -3.597929),
+('Cliente G', 'Plaza de la Catedral 2, Oviedo', '601333444', 'cliente.g@example.com', 43.361400, -5.849200),
+('Cliente H', 'Plaza de Zocodover 3, Toledo', '601555666', 'cliente.h@example.com', 39.858100, -4.022600),
+('Cliente I', 'Gran Vía de Don Diego López de Haro 4, Bilbao', '601777888', 'cliente.i@example.com', 43.263000, -2.935000),
+('Cliente J', 'Calle Larios 5, Málaga', '601999000', 'cliente.j@example.com', 36.721300, -4.421700);
+
 
 INSERT INTO pedidos (id_usuario, id_cliente, estado, fecha_entrega, hora_salida, palets_del_pedido) VALUES
 (NULL, 1, 'Pendiente', '2025-08-10', NULL, 0),
