@@ -20,35 +20,35 @@
 \contentsline {section}{\numberline {4}Análisis del sistema}{14}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Descripción general del sistema}{14}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Identificación de usuarios}{14}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Requisitos del sistema}{14}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Requisitos funcionales}{14}{subsubsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3}Requisitos del sistema}{15}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Requisitos funcionales}{15}{subsubsection.4.3.1}%
 \contentsline {subsubsection}{\numberline {4.3.2}Requisitos no funcionales}{15}{subsubsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.4}Casos de uso}{15}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Restricciones técnicas}{15}{subsection.4.5}%
-\contentsline {section}{\numberline {5}Diseño del sistema}{16}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Arquitectura general del sistema}{16}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Diseño de la aplicación Desktop}{16}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Diseño de la aplicación Android}{16}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Diseño de la base de datos}{16}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Diseño de la API}{16}{subsection.5.5}%
-\contentsline {subsection}{\numberline {5.6}Diagramas UML}{16}{subsection.5.6}%
-\contentsline {subsubsection}{\numberline {5.6.1}Diagrama de clases}{16}{subsubsection.5.6.1}%
-\contentsline {subsubsection}{\numberline {5.6.2}Diagrama de secuencia}{16}{subsubsection.5.6.2}%
-\contentsline {subsubsection}{\numberline {5.6.3}Diagrama de despliegue}{16}{subsubsection.5.6.3}%
-\contentsline {subsection}{\numberline {5.7}Diseño de la interfaz de usuario}{16}{subsection.5.7}%
-\contentsline {section}{\numberline {6}Implementación}{17}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Herramientas y tecnologías utilizadas}{17}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Implementación de la aplicación Desktop}{17}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Implementación de la aplicación Android}{17}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}Implementación del backend / servidor}{17}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5}Implementación de la base de datos}{17}{subsection.6.5}%
-\contentsline {subsection}{\numberline {6.6}Seguridad y gestión de errores}{17}{subsection.6.6}%
-\contentsline {subsection}{\numberline {6.7}Control de versiones y gestión del proyecto}{17}{subsection.6.7}%
-\contentsline {section}{\numberline {7}Resultados y discusión}{18}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Resultados del desarrollo}{18}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Evaluación del cumplimiento de objetivos}{18}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Ventajas de la solución propuesta}{18}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Limitaciones detectadas}{18}{subsection.7.4}%
-\contentsline {section}{\numberline {8}Conclusiones y trabajos futuros}{19}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Conclusiones}{19}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Líneas de mejora y trabajos futuros}{19}{subsection.8.2}%
+\contentsline {subsection}{\numberline {4.4}Casos de uso}{16}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Restricciones técnicas}{16}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Diseño del sistema}{17}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Arquitectura general del sistema}{17}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Diseño de la aplicación Desktop}{17}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Diseño de la aplicación Android}{18}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Diseño de la base de datos}{18}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Diseño de la API}{18}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Diagramas UML}{18}{subsection.5.6}%
+\contentsline {subsubsection}{\numberline {5.6.1}Diagrama de clases}{18}{subsubsection.5.6.1}%
+\contentsline {subsubsection}{\numberline {5.6.2}Diagrama de secuencia}{18}{subsubsection.5.6.2}%
+\contentsline {subsubsection}{\numberline {5.6.3}Diagrama de despliegue}{18}{subsubsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.7}Diseño de la interfaz de usuario}{18}{subsection.5.7}%
+\contentsline {section}{\numberline {6}Implementación}{19}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Herramientas y tecnologías utilizadas}{19}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Implementación de la aplicación Desktop}{19}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Implementación de la aplicación Android}{19}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Implementación del backend / servidor}{19}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Implementación de la base de datos}{19}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Seguridad y gestión de errores}{19}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}Control de versiones y gestión del proyecto}{19}{subsection.6.7}%
+\contentsline {section}{\numberline {7}Resultados y discusión}{20}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Resultados del desarrollo}{20}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Evaluación del cumplimiento de objetivos}{20}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Ventajas de la solución propuesta}{20}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Limitaciones detectadas}{20}{subsection.7.4}%
+\contentsline {section}{\numberline {8}Conclusiones y trabajos futuros}{21}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Conclusiones}{21}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Líneas de mejora y trabajos futuros}{21}{subsection.8.2}%

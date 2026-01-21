@@ -14,13 +14,50 @@ El sistema está específicamente diseñado para almacenes de consolidación, do
 \subsection{Identificación de usuarios}
 \label{subsec:usuarios}
 
-El sistema contempla distintos tipos de usuarios, definidos en función de su rol dentro del almacén y de las tareas que realizan en la operativa diaria.
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{p{6.2cm}cccc}
+\toprule
+\textbf{Funcionalidad} & \textbf{SysAdmin} & \textbf{Gestor Almacén} & \textbf{Operario} & \textbf{Administración} \\
+\midrule
+Acceso a la gestión general del almacén & \permits & \permits & \permits & \denies \\
+Consulta y gestión del inventario & \permits & \permits & \permits & \denies \\
+Gestión de pedidos & \permits & \permits & \denies & \permits \\
+Paletización de mercancía & \permits & \permits & \permits & \denies \\
+Gestión de envíos & \permits & \permits & \permits & \denies \\
+Consulta del calendario de operaciones & \permits & \permits & \permits & \permits \\
+Registro de movimientos de mercancía & \permits & \permits & \permits & \denies \\
+Actualización de información de palets & \permits & \permits & \denies & \denies \\
+Gestión de órdenes de compra & \permits & \permits & \denies & \permits \\
+Exportación de datos del sistema & \permits & \denies & \denies & \permits \\
+Creación de pedidos & \permits & \permits & \denies & \permits \\
+Edición de pedidos & \permits & \permits & \denies & \permits \\
+Eliminación de pedidos & \permits & \permits & \denies & \permits \\
+Creación de productos & \permits & \permits & \denies & \denies \\
+Creación de tipos de producto & \permits & \permits & \denies & \denies \\
+Creación de usuarios & \permits & \denies & \denies & \permits \\
+Edición de usuarios & \permits & \denies & \denies & \permits \\
+Eliminación de usuarios & \permits & \denies & \denies & \permits \\
+\bottomrule
+\end{tabular}
+\caption{Permisos de acceso a funcionalidades del sistema según rol de usuario.}
+\label{tab:permisos-funcionalidades-rol}
+\end{table}
 
-En primer lugar, se identifican los \textbf{operarios de almacén}, responsables de ejecutar las actividades relacionadas con la manipulación y movimiento de mercancías. Estos usuarios utilizan principalmente la aplicación móvil para consultar información, registrar movimientos de palets y apoyar los procesos de consolidación de pedidos.
+El sistema contempla distintos tipos de usuarios, definidos en función de su rol dentro del almacén. La aplicación de los roles se aplica exclusivamente a la aplicación de escritorio, donde se concentran las funcionalidades de gestión, administración y supervisión del sistema. En la aplicación móvil Android, orientada a la operativa en planta, todos los usuarios actúan bajo un perfil funcional equivalente al de operario, independientemente de su rol dentro de la organización.
 
-En segundo lugar, se encuentran los \textbf{gestores o administradores del almacén}, encargados de la planificación, supervisión y control del sistema. Este perfil utiliza la aplicación de escritorio para gestionar productos, ubicaciones, pedidos y usuarios, así como para consultar el estado general del almacén.
+En la aplicación de escritorio se han definido cuatro roles principales: Administrador del sistema (SysAdmin), Gestor de almacén, Operario y Administración. Cada uno de estos roles dispone de un conjunto específico de permisos que determinan el acceso a las distintas funcionalidades del sistema. La Tabla~\ref{tab:permisos-funcionalidades-rol} recoge de forma resumida los permisos asignados a cada rol en relación con las funcionalidades disponibles. Por ejemplo: Un SysAdmin puede crear, editar y eliminar usuarios, mientras que un Operario no tiene acceso a estas funciones.
 
-Esta diferenciación de usuarios permite adaptar las interfaces y funcionalidades del sistema a las necesidades específicas de cada rol, mejorando la eficiencia operativa y reduciendo la probabilidad de errores.
+El rol de SysAdmin dispone de acceso completo a todas las funcionalidades del sistema, incluyendo la gestión de usuarios, la configuración general, la administración de productos, pedidos y la exportación de datos. Este perfil está orientado a tareas de administración avanzada y mantenimiento del sistema.
+
+El Gestor de almacén es responsable de la planificación y supervisión de la operativa diaria. Este rol puede gestionar inventario, pedidos, palets, envíos y órdenes de compra, así como realizar tareas relacionadas con la organización del almacén, pero no dispone de permisos para la gestión de usuarios ni para la exportación de datos del sistema.
+
+El rol de Administración está orientado a tareas de carácter administrativo y documental. Este perfil puede gestionar pedidos, órdenes de compra, usuarios y exportar información del sistema, pero no interviene directamente en la operativa física del almacén ni en la gestión de movimientos de mercancía.
+
+Por último, el Operario de almacén se encarga de ejecutar las tareas operativas relacionadas con la manipulación y movimiento de mercancías. En la aplicación de escritorio, su acceso se limita a funcionalidades operativas como la consulta de información, la paletización, el registro de movimientos y la gestión de envíos, sin permisos para tareas de administración o gestión avanzada. En la aplicación móvil Android, este rol constituye el único perfil de uso, permitiendo registrar movimientos, consultar inventario y apoyar los procesos de consolidación directamente en planta.
+
+Esta estructura de roles y permisos permite limitar las funcionalidades y las interfaces del sistema a las responsabilidades de cada tipo de usuario, mejorando la eficiencia operativa, reforzando el control de acceso y reduciendo la probabilidad de errores derivados del uso indebido de funcionalidades no autorizadas.
 
 
 \subsection{Requisitos del sistema}

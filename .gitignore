@@ -28,4 +28,35 @@ replay_pid*
 *.drawio.bkp
 .codegpt
 
+
+# =========================
+# LaTeX temporary files
+# =========================
+
+# Core LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.synctex.gz
+
+# BibTeX / Biber
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+
+# Glossaries / Acronyms
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.ist
+
+
 TFG-almacen/output_files/
