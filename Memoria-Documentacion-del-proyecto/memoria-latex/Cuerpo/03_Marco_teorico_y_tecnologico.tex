@@ -1,31 +1,32 @@
 \section{Marco teórico y tecnológico}
 \label{sec:marco-teorico}
 
-En este capítulo se presentan los fundamentos teóricos y tecnológicos que sustentan el desarrollo del sistema propuesto. Se abordan los conceptos relacionados con los sistemas de gestión de almacenes, las arquitecturas cliente-servidor, el desarrollo de aplicaciones multiplataforma, las aplicaciones móviles Android, las aplicaciones de escritorio y los mecanismos de comunicación entre aplicaciones, incluyendo el uso de \glspl{api} de tipo \gls{rest} en determinados componentes del sistema.
+En este capítulo se presentan los fundamentos teóricos y tecnológicos que se emplearon en el desarrollo del sistema propuesto. Se abordan los conceptos relacionados con los sistemas de gestión de almacenes, las arquitecturas cliente-servidor, el desarrollo de aplicaciones multiplataforma, las aplicaciones móviles Android, las aplicaciones de escritorio y los mecanismos de comunicación entre aplicaciones, incluyendo el uso de \glspl{api} de tipo \gls{rest} en determinados componentes del sistema.
 
 \subsection{Aplicaciones multiplataforma}
 \label{subsec:multiplataforma}
 
-Las aplicaciones multiplataforma permiten ofrecer funcionalidades similares a través de diferentes dispositivos y entornos de ejecución, compartiendo una lógica común del sistema. Este enfoque resulta especialmente relevante en entornos industriales y logísticos, donde coexisten estaciones de trabajo fijas y dispositivos móviles utilizados directamente en planta.
+¿Cómo logramos que el jefe de almacén y el operario empleen el mismo sistema e interactúen con los mismos datos? La respuesta está en el desarrollo multiplataforma. En un entorno donde conviven ordenadores de oficina y terminales móviles, es vital que la lógica del sistema no se fragmente. Al compartir una base común (base de datos) ambos dispositivos deben interactuar entre sí y con el servidor de manera coherente.
 
-Desde un punto de vista funcional, la adopción de soluciones multiplataforma facilita la reutilización de la lógica de negocio y la centralización de la información, reduciendo los costes de mantenimiento y mejorando la coherencia del sistema. En el ámbito de la gestión de almacenes, este enfoque permite que distintos perfiles de usuario accedan al sistema desde interfaces adaptadas a sus necesidades, manteniendo una única fuente de datos consistente.
+Desde un punto de vista funcional, la adopción de soluciones multiplataforma facilita la reutilización de la lógica de negocio y la centralización de la información, reduciendo los costes de mantenimiento y mejorando la coherencia del sistema. En el ámbito de la gestión de almacenes, este enfoque permite que distintos perfiles de usuario accedan al sistema desde interfaces adaptadas a sus necesidades manteniendo una única fuente de datos consistente, por ejemplo: un operario necesita una dispositivo movil para poder realizar sus actividades, por tanto, usará un dispositivo móvil mientras que el jefe de almacén, que requiere una interfaz más completa, accederá desde un ordenador de oficina.
 
-No obstante, el desarrollo multiplataforma también plantea retos, como la adaptación de la interfaz de usuario a diferentes dispositivos o la necesidad de garantizar un comportamiento homogéneo del sistema en entornos con capacidades técnicas diversas. Por este motivo, resulta habitual separar la lógica de negocio de las interfaces, delegando el procesamiento principal en un sistema centralizado.
+No obstante, el desarrollo multiplataforma también plantea retos, como la adaptación de la interfaz de usuario a diferentes dispositivos o la necesidad de garantizar un comportamiento homogéneo, es decir, que las operaciones realizadas desde un dispositivo se reflejen correctamente en el otro. Estos aspectos deben ser considerados cuidadosamente durante el diseño y la implementación del sistema.
+
 
 \subsection{Arquitecturas cliente-servidor}
 \label{subsec:cliente-servidor}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Imagenes/cliente-servidor.png}
+    \includegraphics[width=0.7\textwidth]{Imagenes/cliente-servidor.png}
     \caption{Arquitectura cliente-servidor}
     \label{fig:cliente-servidor}
 \end{figure}
 
 
-La arquitectura cliente-servidor es un modelo ampliamente utilizado en sistemas distribuidos, en el que las funciones del sistema se reparten entre componentes cliente y un servidor central. Los clientes se encargan de la interacción con el usuario, mientras que el servidor gestiona la lógica de negocio y la persistencia de los datos.
+La arquitectura cliente-servidor es un modelo ampliamente utilizado en \footcitedefinition{sistemas distribuidos}{uvigo_cliente_servidor}{1}, en el que las funciones del sistema se reparten entre componentes cliente y un servidor central. Los clientes se encargan de la interacción con el usuario, mientras que el servidor gestiona la lógica de negocio y la persistencia de los datos.
 
-Este modelo resulta especialmente adecuado para sistemas de gestión en entornos industriales, ya que permite centralizar la información, facilitar el acceso concurrente y mejorar el control sobre la integridad de los datos. En el contexto de la gestión de almacenes, una arquitectura cliente-servidor permite que múltiples usuarios y dispositivos accedan simultáneamente al sistema sin duplicar información ni introducir inconsistencias.
+Este modelo resulta adecuado y conveniente para sistemas de gestión en entornos industriales, dado que permite centralizar la información y garantizar el acceso concurrente desde múltiples dispositivos. El sistema desarrollado se despliega en una red interna privada, prescindiendo del acceso a Internet, donde tanto la aplicación de escritorio como las dispositivos móviles Android funcionan como clientes que se comunican con el servidor central.
 
 Además, este tipo de arquitectura favorece la escalabilidad del sistema y su posible integración futura con otros sistemas, como plataformas empresariales o sistemas de automatización industrial, al proporcionar un punto centralizado de acceso a los servicios y a los datos.
 
@@ -34,11 +35,13 @@ Además, este tipo de arquitectura favorece la escalabilidad del sistema y su po
 \subsection{Aplicaciones móviles Android}
 \label{subsec:android}
 
-Android es uno de los sistemas operativos más extendidos en dispositivos móviles y terminales industriales, lo que lo convierte en una plataforma adecuada para aplicaciones destinadas a la operativa en planta. La documentación oficial de Android describe una arquitectura basada en componentes como actividades y fragmentos, que permiten gestionar la interfaz de usuario y el ciclo de vida de la aplicación \cite{android_developers}.
+Android es uno de los sistemas operativos más extendidos en dispositivos móviles,  \footwebcite{un 78,8\,\% de los españoles con smartphone tuvieron Android como sistema operativo}{cnmc_android_uso_2023}{gráfica ``Sistema operativo del smartphone''}. 
+
+Según la documentación oficial de Android este es una arquitectura basada en componentes como actividades,  servicios, entre otros, que permiten gestionar la interfaz de usuario y el ciclo de vida de la aplicación \cite{android_developers_architectures}.
 
 En entornos industriales y logísticos, el uso de aplicaciones móviles facilita el acceso a la información en tiempo real y reduce la necesidad de desplazamientos innecesarios o registros manuales. En particular, en almacenes de consolidación, las aplicaciones Android permiten registrar movimientos, consultar inventario o identificar palets directamente en el punto de operación.
 
-Desde un punto de vista arquitectónico, las aplicaciones móviles suelen actuar como clientes ligeros que se comunican con un servidor central mediante servicios web. Este enfoque permite simplificar el desarrollo de la aplicación móvil y mantener la coherencia de la lógica del sistema, delegando en el servidor la gestión principal de los datos.
+Dentro del sistema desarrollado, la aplicación android pretende ser una herramienta de apoyo para los operarios del almacén, proporcionando una interfaz sencilla para el registro de las operaciones que estos realizan en planta.
 
 \subsection{Aplicaciones de escritorio}
 \label{subsec:desktop}
@@ -47,14 +50,14 @@ Las aplicaciones de escritorio continúan desempeñando un papel fundamental en 
 
 En el sistema desarrollado, la aplicación de escritorio se concibe como la herramienta principal para la gestión del almacén de consolidación, permitiendo la administración de productos, ubicaciones, pedidos y usuarios. Este tipo de aplicación resulta especialmente adecuada para tareas que requieren una visión global del sistema y un mayor nivel de detalle en la información presentada.
 
-El uso combinado de aplicaciones de escritorio y móviles permite adaptar la interacción con el sistema a distintos contextos de uso, mejorando la eficiencia operativa y reduciendo errores derivados de la introducción manual de datos.
+Asimismo, la aplicación integra todas las funcionalidades de gestión y administración y está destinada principalmente a usuarios con privilegios elevados (SysAdmin, Gestor Almacén, Administración). La gestión de roles y permisos se detalla en la sección \ref{subsec:usuarios}. La aplicación de escritorio también puede ser usada por operarios en caso de ser necesario.
+
+La combinación de aplicaciones de escritorio y móviles permite adaptar la interacción con el sistema a distintos contextos de trabajo, teniendo en cuenta que los perfiles de operario y gestor de almacén presentan necesidades diferenciadas. Esta aproximación contribuye a una experiencia de uso más ajustada y a un desarrollo más ordenado de la actividad dentro del almacén.
 
 \subsection{Comunicación entre aplicaciones (APIs REST)}
 \label{subsec:apis-rest}
 
-La comunicación entre los distintos componentes del sistema puede realizarse mediante interfaces de programación de aplicaciones (APIs). Una \gls{api} puede definirse como un \footcitepage{conjunto de comandos, funciones y
-protocolos informáticos que permiten crear programas que interactúen con otras
-aplicaciones}{aeb_apis}{1}. Este mecanismo resulta especialmente adecuado en escenarios donde existen clientes heterogéneos que requieren acceso controlado a la información del sistema.
+La comunicación entre los distintos componentes del sistema puede realizarse mediante interfaces de programación de aplicaciones (APIs). Una \gls{api} puede definirse como un \footcitepage{ [...] conjunto de comandos, funciones y protocolos informáticos que permiten crear programas que interactúen con otras aplicaciones [...]}{aeb_apis}{1}. Este mecanismo resulta especialmente adecuado en escenarios donde existen clientes heterogéneos que requieren acceso controlado a la información del sistema.
 
 
 En este contexto, las APIs de tipo \gls{rest} constituyen uno de los enfoques más utilizados para la comunicación entre sistemas distribuidos. \gls{rest} es un conjunto de principios arquitectónicos orientados al diseño de interfaces entre sistemas, basado en el uso del protocolo \gls{http}, o bien \gls{https} como medio de comunicación, sin añadir capas adicionales de abstracción \footbibliographypage{redes_api_rest}{10}.
@@ -87,3 +90,25 @@ Spring Boot es un \gls{framework} de desarrollo basado en el lenguaje Java que f
 
 En el contexto de sistemas distribuidos, Spring Boot se utiliza habitualmente para implementar \glspl{api} de tipo \gls{rest}, permitiendo exponer la lógica de negocio y el acceso a los datos mediante servicios accesibles por distintos clientes. Su integración con el ecosistema Java y su compatibilidad con tecnologías de persistencia lo convierten en una opción adecuada para el desarrollo de \glspl{backend} en entornos industriales y empresariales.
 
+
+
+\subsection{Acceso a la base de datos en la aplicación de escritorio}
+\label{subsec:desktop-db-access}
+
+En el sistema desarrollado se ha adoptado una estrategia diferenciada para el acceso a los datos en función del tipo de aplicación cliente. Mientras que la aplicación móvil Android accede a la información del sistema a través de una \gls{api} de tipo \gls{rest}, la aplicación de escritorio establece una conexión directa con el servidor de base de datos.
+
+Esta decisión se fundamenta en el contexto de uso de la aplicación de escritorio, concebida como una herramienta de gestión interna destinada a tareas de administración, planificación y supervisión del almacén. Dicha aplicación se ejecuta en ordenadores de escritorio dentro de la red interna de la instalación y es utilizada por perfiles de usuario con permisos elevados (SysAdmin, Gestor Almacén, Administración), lo que permite asumir un entorno controlado desde el punto de vista de seguridad y acceso.
+
+El acceso directo a la base de datos, implementado mediante tecnologías estándar de conectividad en Java, \gls{jdbc}, permite simplificar la arquitectura del sistema para este tipo de cliente y reducir la latencia asociada a la comunicación a través de servicios intermedios.
+
+No obstante, esta arquitectura implica un mayor grado de acoplamiento entre la aplicación de escritorio y el modelo de datos, lo que puede limitar la flexibilidad ante modificaciones en el esquema de la base de datos. Por este motivo, el acceso directo se ha restringido exclusivamente a la aplicación de escritorio y a un entorno controlado, evitando su uso en clientes móviles o en escenarios con mayores requisitos de interoperabilidad.
+
+En conjunto, la implementación de ambos mecanismos de acceso a los datos, conexión directa a la base de datos para la aplicación de escritorio y \gls{api} \gls{rest} para la aplicación móvil, permite adaptar la arquitectura del sistema a las necesidades específicas de cada tipo de cliente. Esta estrategia, combinada con la gestión de roles y permisos, contribuye a reforzar la integridad, la eficiencia y la coherencia global del sistema.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{Imagenes/interaccion-base-datos-desktop.png}
+    \caption{Comunicación directa entre la aplicación de escritorio y la base de datos}
+    \label{fig:cliente-servidor}
+\end{figure}

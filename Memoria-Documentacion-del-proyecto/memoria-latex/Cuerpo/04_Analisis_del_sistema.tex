@@ -45,7 +45,7 @@ Eliminación de usuarios & \permits & \denies & \denies & \permits \\
 \label{tab:permisos-funcionalidades-rol}
 \end{table}
 
-El sistema contempla distintos tipos de usuarios, definidos en función de su rol dentro del almacén. La aplicación de los roles se aplica exclusivamente a la aplicación de escritorio, donde se concentran las funcionalidades de gestión, administración y supervisión del sistema. En la aplicación móvil Android, orientada a la operativa en planta, todos los usuarios actúan bajo un perfil funcional equivalente al de operario, independientemente de su rol dentro de la organización.
+El sistema contempla distintos tipos de usuarios o roles, definidos en función de su rol dentro del almacén. La aplicación de los roles se aplica exclusivamente a la aplicación de escritorio, donde se concentran las funcionalidades de gestión, administración y supervisión del sistema. En la aplicación móvil Android, orientada a la operativa en planta, todos los usuarios actúan bajo un perfil funcional equivalente al de operario, independientemente de su rol dentro de la organización.
 
 En la aplicación de escritorio se han definido cuatro roles principales: Administrador del sistema (SysAdmin), Gestor de almacén, Operario y Administración. Cada uno de estos roles dispone de un conjunto específico de permisos que determinan el acceso a las distintas funcionalidades del sistema. La Tabla~\ref{tab:permisos-funcionalidades-rol} recoge de forma resumida los permisos asignados a cada rol en relación con las funcionalidades disponibles. Por ejemplo: Un SysAdmin puede crear, editar y eliminar usuarios, mientras que un Operario no tiene acceso a estas funciones.
 
@@ -92,13 +92,6 @@ Además de los requisitos funcionales, el sistema debe cumplir una serie de requ
     \item El sistema debe ser mantenible y permitir futuras ampliaciones funcionales.
     \item La solución debe ser compatible con entornos industriales habituales.
 \end{itemize}
-
-\subsection{Casos de uso}
-\label{subsec:casos-uso}
-
-Para describir de forma estructurada la interacción entre los usuarios y el sistema, se han definido una serie de casos de uso que representan las funcionalidades principales. Estos casos de uso permiten identificar las acciones que pueden realizar los distintos perfiles de usuario y las respuestas esperadas del sistema.
-
-Los casos de uso definidos sirven como base para el diseño funcional y para la posterior implementación del sistema, y se representan mediante diagramas UML que facilitan su comprensión.
 
 
 \subsection{Restricciones técnicas}

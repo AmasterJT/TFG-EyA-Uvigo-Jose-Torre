@@ -1,30 +1,35 @@
 @startuml
-title Diagrama de despliegue - Sistema completo
-
-node "PC Usuario\n(Windows)" as PC {
+' =========================
+' PC Usuario - AZUL
+' =========================
+node "PC Usuario\n(Windows)" as PC #ADD8E6 {
   artifact "Desktop App (Java)" as Desktop
   folder "Ficheros:\n\t-PDF (etiquetas)\n\t-Excel" as Files
 }
 
-node "Servidor BD" as Server {
+' =========================
+' Servidor BD - GRIS
+' =========================
+node "Servidor BD" as Server #DDDDDD {
   database "MySQL" as MySQL
 }
 
-component "Gestion de roles" as RolesManager
+component "Gestión de roles" as RolesManager
 
-node "Impresora" as Printer
 
 Desktop --> RolesManager : JDBC / SQL
-RolesManager --> MySQL: JDBC / SQL
+RolesManager --> MySQL : JDBC / SQL
 MySQL --> Desktop
 Desktop --> Files : Exporta PDF/Excel
-Files --> Printer : Imprime etiquetas
 
-' (Opcional si tu arquitectura real incluye Android + API)
-node "Móvil Android" as Phone {
+' =========================
+' Móvil Android - VERDE
+' =========================
+node "Móvil Android" as Phone #C8E6C9 {
   artifact "Android App" as Android
 }
-node "Servidor API" as ApiServer {
+
+node "API" as ApiServer {
   artifact "Backend REST (Spring Boot)" as API
 }
 

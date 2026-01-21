@@ -1,4 +1,5 @@
 \documentclass[11pt]{article}
+%\documentclass[11pt, twoside]{article}
 
 % --- Codificación y fuentes ---
 \usepackage[T1]{fontenc}
@@ -20,15 +21,15 @@
 
 % --- Márgenes y geometría ---
 \usepackage{geometry}
- \geometry{
- a4paper,
- left=30mm,
- right=15mm,
- top=25mm,
- bottom=25mm,
- headheight=45pt,
- headsep=8pt
- }
+\geometry{
+  a4paper,
+  inner=30mm,    % margen interior (encuadernación)
+  outer=15mm,    % margen exterior
+  top=25mm,
+  bottom=25mm,
+  headheight=45pt,
+  headsep=8pt
+}
 
 % --- Encabezado y pie de página ---
 \usepackage{fancyhdr}
@@ -89,7 +90,23 @@
   }%
 }
 
+\newcommand{\footwebfragment}[2]{%
+  \footnote{%
+    \fullcite{#1}. Fragmento: #2%
+  }%
+}
 
+\newcommand{\footwebcite}[3]{%
+  ``#1''\footnote{%
+    \fullcite{#2}. Fragmento: #3%
+  }%
+}
+
+\newcommand{\footcitedefinition}[3]{%
+  #1\footnote{%
+    \fullcite{#2}, p.~#3%
+  }%
+}
 
 % --- Glosario ---
 \renewcommand*{\glossaryentrynumbers}[1]{}
@@ -97,6 +114,20 @@
 % --- Portada ---
 \usepackage{framed}
 \input{Portada/Portada}
+
+
+% \pagestyle{fancy}
+% \fancyhf{}
+
+% % Página impar (derecha)
+% \fancyhead[RO]{\thepage}
+% \fancyhead[LO]{\nouppercase{\rightmark}}
+
+% % Página par (izquierda)
+% \fancyhead[LE]{\thepage}
+% \fancyhead[RE]{\nouppercase{\leftmark}}
+
+% \renewcommand{\headrulewidth}{0.4pt}
 
 
 \newcommand{\permits}{\textcolor{green!60!black}{Sí}}

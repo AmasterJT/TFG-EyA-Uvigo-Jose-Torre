@@ -1,16 +1,36 @@
 
-
-
 \section{Diseño del sistema}
 \label{sec:diseno}
 
+En este capítulo se describe el diseño del sistema desarrollado, detallando la estructura general del sistema, la estructura de sus distintos componentes y clases, asi como las decisiones adoptadas para implementar cada una de las funcionalidades. El objetivo de este capítulo es definir cómo se materializan, desde un punto de vista técnico, los requisitos identificados en la sección \ref{subsec:requisitos}, sirviendo de base para la posterior fase de implementación.
+
 \subsection{Arquitectura general del sistema}
 \label{subsec:arquitectura-general}
-% TODO: Explica capas, componentes, despliegue conceptual, etc.
+
+El sistema ha sido diseñado siguiendo una arquitectura distribuida de tipo cliente-servidor, en la que los estaciones de trabajo fijas y telefonos móviles (clientes) interactúan con el servidor central.
+
+La solución está compuesta por tres elementos principales: una aplicación de escritorio, una aplicación móvil Android y un servidor central MySQL que contiene la base de datos. Ambos clientes operan dentro de una red interna privada del almacén, lo que permite un entorno controlado desde el punto de vista de seguridad y acceso.
+
+La aplicación de escritorio está destinada a la gestión y administración del sistema. En ella se podrá generar algunos fiheros necesarios para la realización de los envíos (Etiquetas de los palets) o bien para la gestion administrativa (información del sistema en formato excel) que podrán ser tratados posteriormente por otros sistemas externos.
+
+La aplicación móvil Android se comunica con el servidor mediante una API de tipo REST, mientras que la aplicación de escritorio establece una conexión directa con la base de datos. Esta separación responde a criterios de simplicidad, rendimiento y adecuación al entorno operativo de cada dispositivo que empleamos como cliente.
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.6\textwidth]{../out/Diagramas-UML/despliegue/despliegue.png}
+  \caption{Arquitectura general del sistema cliente-servidor}
+  \label{fig:arquitectura-general}
+\end{figure}
 
 
 \subsection{Diseño de la aplicación Desktop}
 \label{subsec:diseno-desktop}
+
+La aplicación de escritorio ha sido diseñada como la herramienta principal de gestión y administración del sistema. Su diseño está orientado a usuarios con privilegios elevados, como administradores del sistema, gestores de almacén y personal administrativo.
+
+Desde un punto de vista estructural, la aplicación se organiza en una ventana principal desde la cual se accede a las distintas funcionalidades mediante botones y menús. Algunas acciones se realizan dentro de la propia ventana principal, mientras que otras abren ventanas secundarias especializadas para tareas concretas, como la gestión de productos, pedidos o usuarios.
+
+La lógica de la aplicación se estructura siguiendo una separación entre la capa de presentación, encargada de la interfaz gráfica, y la capa de acceso a datos, responsable de la interacción con la base de datos.
 
 \begin{figure}[H]
 \centering
@@ -26,25 +46,44 @@
   \label{fig:arquitectura-general}
 \end{figure}
 
-% TODO: Arquitectura interna, UI, módulos, patrones (MVC/MVVM), etc.
+
 
 \subsection{Diseño de la aplicación Android}
 \label{subsec:diseno-android}
-% TODO: Arquitectura, navegación, pantallas, persistencia, etc.
+
+La aplicación móvil Android ha sido diseñada como una herramienta de apoyo a la operativa en planta, orientada principalmente a los operarios del almacén. Su diseño prioriza la simplicidad de uso y el acceso rápido a la información relevante durante la ejecución de tareas.
+
+La aplicación actúa como un cliente ligero que delega la lógica de negocio en el servidor, comunicándose con este mediante una API REST. De este modo, la aplicación móvil se limita a gestionar la interfaz de usuario y el envío y recepción de datos.
+
+Las distintas pantallas de la aplicación se organizan en torno a las tareas habituales del operario, como la consulta de inventario, el registro de movimientos o la gestión de palets.
+
 
 \subsection{Diseño de la base de datos}
 \label{subsec:diseno-bd}
-% TODO: Modelo entidad-relación, tablas, claves, índices, restricciones.
+
+La base de datos ha sido diseñada para almacenar de forma estructurada la información necesaria para la gestión del almacén de consolidación. El modelo de datos contempla entidades como productos, palets, ubicaciones, pedidos, movimientos y usuarios.
+
+El diseño sigue un enfoque relacional, garantizando la integridad referencial y evitando redundancias innecesarias. Se han definido claves primarias y foráneas para representar las relaciones entre las distintas entidades, así como restricciones que aseguran la coherencia de los datos almacenados.
 
 \subsection{Diseño de la API}
 \label{subsec:diseno-api}
-% TODO: Endpoints, contratos, seguridad, paginación, códigos de estado.
+
+La API REST ha sido diseñada para permitir la comunicación entre la aplicación móvil Android y el backend del sistema. Esta API expone un conjunto de recursos que representan las entidades principales del sistema, como productos, palets, pedidos y movimientos.
+
+Cada recurso se gestiona mediante operaciones HTTP estándar, permitiendo realizar consultas, inserciones y actualizaciones de forma controlada. El diseño de la API busca mantener una estructura clara y coherente, facilitando su mantenimiento y posible ampliación futura.
 
 \subsection{Diagramas UML}
 \label{subsec:uml}
 
+Para representar de forma gráfica la estructura y el comportamiento del sistema, se han empleado distintos diagramas UML. Estos diagramas permiten visualizar las relaciones entre clases, la interacción entre componentes y el despliegue físico del sistema.
+
+
 \subsubsection{Diagrama de clases}
 \label{subsubsec:uml-clases}
+
+El diagrama de clases representa las principales entidades del sistema, sus atributos y las relaciones existentes entre ellas. Este diagrama sirve como referencia para el diseño del modelo de datos y para la implementación de la lógica del sistema.
+
+
 % TODO: Inserta figura UML de clases.
 % \begin{figure}[H]
 %   \centering
@@ -55,12 +94,19 @@
 
 \subsubsection{Diagrama de secuencia}
 \label{subsubsec:uml-secuencia}
-% TODO: Inserta figura UML de secuencia.
+
+El diagrama de secuencia describe la interacción entre los distintos componentes del sistema durante la ejecución de casos de uso representativos, como el registro de un movimiento o la creación de un pedido.
+
 
 \subsubsection{Diagrama de despliegue}
 \label{subsubsec:uml-despliegue}
-% TODO: Inserta figura UML de despliegue.
+
+El diagrama de despliegue muestra la distribución física de los componentes del sistema, incluyendo clientes, servidor y base de datos, así como los canales de comunicación entre ellos.
+
 
 \subsection{Diseño de la interfaz de usuario}
 \label{subsec:diseno-ui}
-% TODO: Mockups, guías de estilo, flujo de pantallas y decisiones UX.
+
+El diseño de la interfaz de usuario se ha planteado teniendo en cuenta los distintos perfiles de usuario y los contextos de uso del sistema. En la aplicación de escritorio se prioriza la claridad en la presentación de la información y el acceso estructurado a las funcionalidades de gestión.
+
+En la aplicación móvil, el diseño se orienta a la rapidez de uso y a la reducción de acciones necesarias para completar una tarea. Para definir la estructura visual de ambas aplicaciones se han utilizado bocetos y esquemas previos, que han servido como guía durante la implementación.
