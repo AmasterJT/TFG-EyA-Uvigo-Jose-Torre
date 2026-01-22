@@ -35,7 +35,7 @@ public class EditPaletActivity extends AppCompatActivity {
 
     // TextViews
     private TextView tvCantidadOriginal, tvNuevaCantidad;
-
+    
     // API
     private PaletsApi paletsApi;
 

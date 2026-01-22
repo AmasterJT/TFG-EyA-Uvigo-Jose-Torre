@@ -1,0 +1,79 @@
+@startuml
+
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+
+package "UI (Activities)" {
+  class LoginActivity
+  class MainActivity
+  class PedidosActivity
+  class EditPaletActivity
+}
+
+package "Networking (Retrofit)" {
+  class ApiClient {
+    +getClient()
+  }
+
+  interface AuthApi
+  interface PedidosApi
+  interface PaletsApi
+}
+
+package "DTOs (Modelos de intercambio)" {
+  class LoginRequest {
+    +String usuario
+    +String password
+  }
+
+  class LoginResponse {
+    +String token
+    +String refreshToken
+  }
+
+  class PedidoDto {
+    +int idPedido
+    +String estado
+  }
+
+  class DetallePedidoDto {
+    +int idDetalle
+    +int cantidad
+  }
+
+  class ProductoIdentificadorDto {
+    +int idProducto
+    +String nombre
+  }
+
+  class PaletDto {
+    +int idPalet
+    +int cantidadDeProducto
+    +int alto
+    +int ancho
+    +int profundo
+  }
+}
+
+' --- Relaciones principales ---
+LoginActivity --> AuthApi : login()
+AuthApi ..> LoginRequest
+AuthApi ..> LoginResponse
+
+PedidosActivity --> PedidosApi : consultar/actualizar
+PedidosApi ..> PedidoDto
+PedidoDto "1" o-- "0..*" DetallePedidoDto
+DetallePedidoDto --> ProductoIdentificadorDto
+
+EditPaletActivity --> PaletsApi : consultar/actualizar
+PaletsApi ..> PaletDto
+
+ApiClient --> AuthApi : crea (Retrofit)
+ApiClient --> PedidosApi : crea (Retrofit)
+ApiClient --> PaletsApi : crea (Retrofit)
+
+MainActivity --> PedidosActivity : navegación
+MainActivity --> EditPaletActivity : navegación
+
+@enduml

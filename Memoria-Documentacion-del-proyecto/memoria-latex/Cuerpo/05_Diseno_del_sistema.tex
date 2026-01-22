@@ -161,8 +161,8 @@ Este diseño permite que la \gls{api} actúe como un componente independiente, r
 
 \begin{figure}[H]
 \centering
-\rotatebox{90}{%
-  \includegraphics[height=0.33\textheight]{../Diagramas-UML/api-componentes-capas/api-componentes-capas.png}%
+\rotatebox{0}{%
+  \includegraphics[width=0.8\textwidth]{../Diagramas-UML/api-componentes-capas/api-componentes-capas.png}%
 }
 \caption{Arquitectura en capas de la API REST}
 \label{fig:arquitectura-api}
@@ -187,8 +187,7 @@ Este diseño permite que la \gls{api} actúe como un componente independiente, r
 \subsection{Diagramas UML}
 \label{subsec:uml}
 
-Para representar de forma gráfica la estructura y el comportamiento del sistema, se han empleado distintos diagramas UML. Estos diagramas permiten visualizar las relaciones entre clases, la interacción entre componentes y el despliegue físico del sistema.
-
+Para representar de forma gráfica la estructura y el comportamiento del sistema, se han empleado distintos diagramas UML.
 
 
 \subsubsection{Diagrama de clases}
@@ -197,23 +196,38 @@ Para representar de forma gráfica la estructura y el comportamiento del sistema
 El diagrama de clases representa las principales entidades del sistema, sus atributos y las relaciones existentes entre ellas. Este diagrama sirve como referencia para el diseño del modelo de datos y para la implementación de la lógica del sistema.
 
 
+En la Figura~\ref{fig:diagrama-clases-dektop} se representa el diagrama de clases correspondiente a la aplicación de escritorio. Este diagrama se centra en las entidades del dominio del almacén, como productos, palets, pedidos, movimientos y usuarios, así como en las relaciones que reflejan los procesos operativos del sistema. 
+
+
 \begin{figure}[H]
 \centering
 \rotatebox{0}{%
-  \includegraphics[width=1\textwidth]{../Diagramas-UML/diagrama-clases-desktop/diagrama-clases-desktop.png}%
+  \includegraphics[width=0.9\textwidth]{../Diagramas-UML/diagrama-clases-desktop/diagrama-clases-desktop.png}%
 }
-\caption{Diagrama de clases del sistema }
-\label{fig:diagrama-clases}
+\caption{Diagrama de clases del sistema desktop}
+\label{fig:diagrama-clases-dektop}
 \end{figure}
 
+
+Por otra parte, la Figura~\ref{fig:diagrama-clases-android} muestra una vista del diagrama de clases de la aplicación Android. Se muestra la estructura de la capa cliente, destacando las actividades principales de la interfaz, los clientes de comunicación con la API REST y los objetos de transferencia de datos (DTOs).
+
+
+\begin{figure}[H]
+\centering
+\rotatebox{0}{%
+  \includegraphics[width=1\textwidth]{../Diagramas-UML/diagrama-clases-android/diagrama-clases-android.png}%
+}
+\caption{Diagrama de clases del sistema android}
+\label{fig:diagrama-clases-android}
+\end{figure}
 
 
 \subsubsection{Diagrama de secuencia}
 \label{subsubsec:uml-secuencia}
 
-Los diagramas de secuencia permiten representar de forma temporal y ordenada las interacciones entre los distintos componentes del sistema durante la ejecución de determinados casos de uso. Este tipo de diagramas resulta especialmente útil para describir el flujo de mensajes entre interfaces de usuario, servicios de aplicación y componentes de persistencia, así como para identificar responsabilidades y dependencias entre ellos.
+Los diagramas de secuencia permiten representar de forma temporal y ordenada las interacciones entre los distintos componentes del sistema durante la ejecución de determinados casos de uso.
 
-En este trabajo se han seleccionado dos diagramas de secuencia representativos, que ilustran procesos clave del sistema y permiten comprender su funcionamiento interno sin necesidad de detallar todas las posibles interacciones existentes.
+En este trabajo se han seleccionado algunos diagramas de secuencia representativos, que ilustran procesos clave del sistema, se reprsentan un porceso interno de la aplicación (login), el proceso principal de gestión de pedidos y un proceso interno del almacen de modificación de cantidad de palet.
 
 El primer diagrama de secuencia describe el proceso de autenticación de usuarios, haciendo especial énfasis en el tratamiento seguro de las credenciales. En este flujo se representa cómo la aplicación cliente envía los datos de acceso, cómo el sistema verifica la contraseña mediante su comparación con el valor almacenado en forma de hash utilizando el algoritmo Argon2, y cómo se gestiona la respuesta de autenticación en función del resultado de la validación.
 
@@ -231,7 +245,7 @@ El segundo diagrama de secuencia muestra el flujo completo asociado a la gestió
 \begin{figure}[H]
 \centering
 \rotatebox{0}{%
-  \includegraphics[width=0.9\textwidth]{../Diagramas-UML/diagrama-gestion-pedidos/diagrama-gestion-pedidos.png}%
+  \includegraphics[width=1\textwidth]{../Diagramas-UML/diagrama-gestion-pedidos/diagrama-gestion-pedidos.png}%
 }
 \caption{Diagrama de secuencia de gestión de pedidos}
 \label{fig:diagrama-gestion-pedidos}
@@ -242,7 +256,7 @@ A continuación se presenta un diagrama de secuencia que describe el flujo de in
 \begin{figure}[H]
 \centering
 \rotatebox{0}{%
-  \includegraphics[width=1\textwidth]{../Diagramas-UML/diagrama-modificar-cantidad-palet/diagrama-modificar-cantidad-palet.png}%
+  \includegraphics[width=0.9\textwidth]{../Diagramas-UML/diagrama-modificar-cantidad-palet/diagrama-modificar-cantidad-palet.png}%
 }
 \caption{Diagrama de secuencia de modificación de cantidad de palet}
 \label{fig:diagrama-modificar-cantidad-palet}
@@ -277,6 +291,117 @@ El sistema está diseñado para operar dentro de la red interna del almacén, si
 \subsection{Diseño de la interfaz de usuario}
 \label{subsec:diseno-ui}
 
-El diseño de la interfaz de usuario se ha planteado teniendo en cuenta los distintos perfiles de usuario y los contextos de uso del sistema. En la aplicación de escritorio se prioriza la claridad en la presentación de la información y el acceso estructurado a las funcionalidades de gestión.
+El diseño de la interfaz de usuario se ha definido a partir de los requisitos funcionales del sistema y de los distintos perfiles de usuario identificados en el análisis. El objetivo principal ha sido garantizar una interacción clara, consistente y alineada con el contexto operativo de un almacén de consolidación.
 
-En la aplicación móvil, el diseño se orienta a la rapidez de uso y a la reducción de acciones necesarias para completar una tarea. Para definir la estructura visual de ambas aplicaciones se han utilizado bocetos y esquemas previos, que han servido como guía durante la implementación.
+En la aplicación de escritorio, orientada a usuarios con funciones de supervisión y administración, la interfaz se estructura en torno a una ventana principal que centraliza el acceso a las funcionalidades del sistema. La disposición de menús y botones responde a una organización funcional, agrupando las operaciones relacionadas con inventario, pedidos, movimientos y administración. Se prioriza la visualización estructurada de grandes volúmenes de información mediante tablas, vistas detalladas y paneles específicos, permitiendo al usuario mantener una visión global del estado del almacén y acceder a operaciones avanzadas.
+
+Las ventanas secundarias se utilizan para acciones que requieren un flujo de trabajo independiente, como la creación y edición de pedidos, la gestión de usuarios o la actualización de información de palets. Esta separación evita la sobrecarga de la vista principal y reduce el riesgo de errores derivados de la ejecución simultánea de tareas no relacionadas.
+
+A continuación se muestra la ventana principal de la aplicación de escritorio en la Figura~\ref{fig:ventana-principal-desktop}.
+
+
+\begin{figure}[H]
+\centering
+\rotatebox{0}{%
+  \includegraphics[width=1\textwidth]{Imagenes/ventana-principal-desktop.png}%
+}
+\caption{Ventana principal de la aplicación de escritorio}
+\label{fig:ventana-principal-desktop}
+\end{figure}
+
+
+
+% \begin{figure}[H]
+% \centering
+% \rotatebox{0}{%
+%   \includegraphics[width=1\textwidth]{Imagenes/ventana-secundaria-movimiento-palets.jpg}
+% }
+% \caption{Ventana secundaria de movimiento de palets en la aplicación de escritorio}
+% \label{fig:ventana-secundaria-movimiento-palets}
+% \end{figure}
+
+
+% \begin{figure}[H]
+% \centering
+% \rotatebox{0}{%
+%   \includegraphics[width=1\textwidth]{Imagenes/ventana-secundaria-orden-compra.jpg}
+% }
+% \caption{Ventana secundaria de orden de compra en la aplicación de escritorio}
+% \label{fig:ventana-secundaria-orden-compra}
+% \end{figure}
+
+
+% \begin{figure}[H]
+% \centering
+% \rotatebox{0}{%
+%   \includegraphics[width=1\textwidth]{Imagenes/ventana-secundaria-export-data.jpg}
+% }
+% \caption{Ventana secundaria de exportación de datos en la aplicación de escritorio}
+% \label{fig:ventana-secundaria-export-data}
+% \end{figure}
+
+la Figura~\ref{fig:ventanas-secundarias-desktop} muestra algunas de las ventanas secundarias de la aplicación de escritorio, mostrando las diversas de tareas que pueden gestionarse desde estas ventanas especializadas.
+
+
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}[t]{0.32\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Imagenes/ventana-secundaria-movimiento-palets.jpg}
+  \caption{Movimiento de palets}
+  \label{fig:ui-movimiento-palets}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Imagenes/ventana-secundaria-orden-compra.jpg}
+  \caption{Orden de compra}
+  \label{fig:ui-orden-compra}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Imagenes/ventana-secundaria-export-data.jpg}
+  \caption{Exportación de datos}
+  \label{fig:ui-export-data}
+\end{subfigure}
+
+\caption{Ventanas secundarias de la aplicación de escritorio}
+\label{fig:ventanas-secundarias-desktop}
+\end{figure}
+
+
+
+
+En la aplicación móvil Android, destinada principalmente a operarios, el diseño de la interfaz se ha orientado a la ejecución rápida y directa de acciones en el entorno del almacén. La navegación se basa en pantallas específicas para cada tarea, con un número reducido de elementos visibles y controles intuitivos. Las operaciones más frecuentes, como la actualización de las cantidades de los palets que se están manipulando, la consulta de pedidos asignados o el registro del contenido de los palets generados para el envío, se han diseñado para completarse con el mínimo número de interacciones posibles.
+
+
+
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}[t]{0.32\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Imagenes/ventana-principal-android.jpg}
+  \caption{Ventana principal android}
+  \label{fig:ui-ventana-principal-android}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Imagenes/ventana-actualizar-palet-android.jpg}
+  \caption{Actualizar palet}
+  \label{fig:ui-actualizar-palet-android}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Imagenes/ventana-paletizar-android.jpg}
+  \caption{Paletización}
+  \label{fig:ui-paletizar-android}
+\end{subfigure}
+
+\caption{Ventanas principales de la aplicación Android}
+\label{fig:ventanas-secundarias-android}
+\end{figure}
