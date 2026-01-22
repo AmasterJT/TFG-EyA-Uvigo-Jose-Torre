@@ -1,6 +1,4 @@
 @startuml
-title Secuencia - Inicio de sesión (Desktop)
-skinparam padding 15
 actor Usuario
 boundary "windowLoginController" as C
 control "PasswordUtils" as P
@@ -15,5 +13,4 @@ DAO -> DB : SELECT user WHERE username=? AND pass_hash=?
 DB --> DAO : datos usuario/rol
 DAO --> C : User (ok) / null (error)
 C --> Usuario : Acceso o mensaje de error
-
 @enduml

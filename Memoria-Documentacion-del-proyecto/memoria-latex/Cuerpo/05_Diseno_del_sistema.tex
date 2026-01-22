@@ -9,7 +9,7 @@ En este capítulo se describe el diseño del sistema desarrollado, detallando la
 
 El sistema ha sido diseñado siguiendo una arquitectura distribuida de tipo cliente-servidor, en la que los estaciones de trabajo fijas y telefonos móviles (clientes) interactúan con el servidor central.
 
-La solución está compuesta por tres elementos principales: una aplicación de escritorio, una aplicación móvil Android y un servidor central MySQL que contiene la base de datos. Ambos clientes operan dentro de una red interna privada del almacén, lo que permite un entorno controlado desde el punto de vista de seguridad y acceso.
+La aplicación está compuesta por tres elementos principales: una aplicación de escritorio, una aplicación móvil Android y un servidor central MySQL que contiene la base de datos. Ambos clientes operan dentro de una red interna privada del almacén, lo que permite un entorno controlado desde el punto de vista de seguridad y acceso.
 
 La aplicación de escritorio está destinada a la gestión y administración del sistema. En ella se podrá generar algunos fiheros necesarios para la realización de los envíos (Etiquetas de los palets) o bien para la gestion administrativa (información del sistema en formato excel) que podrán ser tratados posteriormente por otros sistemas externos.
 
@@ -17,7 +17,7 @@ La aplicación móvil Android se comunica con el servidor mediante una API de ti
 
 \begin{figure}[H]
 \centering
-  \includegraphics[width=0.6\textwidth]{../out/Diagramas-UML/despliegue/despliegue.png}
+  \includegraphics[width=0.6\textwidth]{../Diagramas-UML/despliegue/despliegue.png}
   \caption{Arquitectura general del sistema cliente-servidor}
   \label{fig:arquitectura-general}
 \end{figure}
@@ -26,24 +26,56 @@ La aplicación móvil Android se comunica con el servidor mediante una API de ti
 \subsection{Diseño de la aplicación Desktop}
 \label{subsec:diseno-desktop}
 
-La aplicación de escritorio ha sido diseñada como la herramienta principal de gestión y administración del sistema. Su diseño está orientado a usuarios con privilegios elevados, como administradores del sistema, gestores de almacén y personal administrativo.
+La aplicación de escritorio se ha diseñado en torno a una ventana principal que actúa como punto central de interacción con el sistema. Desde esta vista principal se proporciona acceso a las diferentes funcionalidades operativas y de gestión mediante. Las funcionalidades accesibles desde la ventana principal son las siguientes:
 
-Desde un punto de vista estructural, la aplicación se organiza en una ventana principal desde la cual se accede a las distintas funcionalidades mediante botones y menús. Algunas acciones se realizan dentro de la propia ventana principal, mientras que otras abren ventanas secundarias especializadas para tareas concretas, como la gestión de productos, pedidos o usuarios.
+\begin{itemize}
+    \item \textbf{Almacén}: Representación visual 3D del almacén con filtros aplicables (pestaña por defecto).
+    \item \textbf{Inventario}: Consulta del inventario de palets.
+    \item \textbf{Ver pedidos}: Asignación de pedidos a los diferentes usuarios.
+    \item \textbf{Paletizar}: Ejecución de los pedidos en curso asignados a los usuarios.
+    \item \textbf{Envíos}: Gestión de envíos de pedidos.
+    \item \textbf{Calendario}: Visualización del calendario de operaciones y eventos. 
+\end{itemize}
 
-La lógica de la aplicación se estructura siguiendo una separación entre la capa de presentación, encargada de la interfaz gráfica, y la capa de acceso a datos, responsable de la interacción con la base de datos.
+Determinadas acciones se ejecutan directamente dentro de la ventana principal, mientras que otras se gestionan a través de ventanas secundarias específicas. Estas ventanas emergentes están orientadas a tareas concretas que requieren un flujo de trabajo independiente, como la generación de órdenes de compra o la administración de usuarios (creación, modificación y eliminación), entre otros. Esta organización permite mantener una interfaz clara y evitar la sobrecarga de información en la vista principal. Estas ventanas son:
+
+\begin{itemize}
+    \item \textbf{Movimiento de palets}: Pertmite tanto transladar un palet de un aubicación a otra como registrar la entrada o salida de un palet del almacén.
+    \item \textbf{Actualizar palets}: Modifica la cantidad de producto dentro de un palet existente, así como sus dimensiones físicas.
+    \item \textbf{Orden compra}: Crea una solicitud de compra de productos en la base de datos.
+     \item \textbf{Export}: Exporta la información del inventario o de los pedidos a un fichero Excel.
+    \item \textbf{Crear pedido}: Genera un nuevo pedido en la base de datos.
+    \item \textbf{Editar pedido}: Modifica un pedido existente.
+    \item \textbf{Eliminar pedido}: Elimina un pedido existente.
+    \item \textbf{Crear usuario}: Genera un nuevo usuario en la base de datos.
+    \item \textbf{Editar usuario}: Modifica un usuario existente.
+    \item \textbf{Eliminar usuario}: Elimina un usuario existente.
+    \item \textbf{Crear tipo}: Crea un nuevo tipo de producto en la base de datos.
+    \item \textbf{Crear producto}: Genera un nuevo producto en la base de datos, con la información por defecto proveniente del proveedor.
+    \item \textbf{Enviar pedidos}: Selección del transportista para el envio.
+    \item \textbf{Detalle pedidos}: Visualización detallada de los pedidos a realizar.
+\end{itemize}
+
+Desde el punto de vista estructural, la aplicación se ha diseñado siguiendo una separación clara de responsabilidades entre la capa de presentación y la capa de acceso a datos. La capa de presentación, implementada mediante JavaFX, se encarga de la gestión de la interfaz gráfica y de la interacción con el usuario, mientras que la capa de acceso a datos centraliza la comunicación con la base de datos mediante el uso del conector MySQL.
+
+\textbf{Nota}: La aplicación de escritorio no realiza compras a proveedores externos, sino que se limita a la generación de órdenes de compra que deben ser gestionadas posteriormente por el departamento correspondiente.
+
+
 
 \begin{figure}[H]
 \centering
   \includegraphics[width=1\textwidth]{Imagenes/diagrama-navegacion-ventanas.png}
   \caption{Diagrama de navegación entre ventanas de la aplicación Desktop}
-  \label{fig:arquitectura-general}
+  \label{fig:diagrama-navegacion-ventanas}
 \end{figure}
+
+A continuación, en la Figura~\ref{fig:ejemplo-arquitectura-general} se muestra un ejemplo de navegación entre ventanas de la aplicación Desktop, desde la ventana de \textit{Login} hasta la ventana de \textit{Orden Compras} pasando por la ventana principal \textit{Almacén}.
 
 \begin{figure}[H]
 \centering
   \includegraphics[width=1\textwidth]{Imagenes/ejemplo-navegacion-ventanas.png}
   \caption{Ejemplo de navegación entre ventanas de la aplicación Desktop (desde \textit{Login} hasta \textit{Orden Compras})}
-  \label{fig:arquitectura-general}
+  \label{fig:ejemplo-navegacion-ventanas}
 \end{figure}
 
 
@@ -51,31 +83,112 @@ La lógica de la aplicación se estructura siguiendo una separación entre la ca
 \subsection{Diseño de la aplicación Android}
 \label{subsec:diseno-android}
 
-La aplicación móvil Android ha sido diseñada como una herramienta de apoyo a la operativa en planta, orientada principalmente a los operarios del almacén. Su diseño prioriza la simplicidad de uso y el acceso rápido a la información relevante durante la ejecución de tareas.
+La aplicación móvil Android ha sido diseñada como una herramienta de apoyo a la operativa en planta, orientada principalmente a los operarios del almacén. Su diseño prioriza la simplicidad de uso y el acceso rápido a la información relevante durante la ejecución de los pedidos por parte de los operarios.
 
-La aplicación actúa como un cliente ligero que delega la lógica de negocio en el servidor, comunicándose con este mediante una API REST. De este modo, la aplicación móvil se limita a gestionar la interfaz de usuario y el envío y recepción de datos.
+La aplicación actúa como un cliente que delega la lógica de negocio en el servidor, comunicándose con este mediante una API REST. De este modo, la aplicación móvil se limita a gestionar la interfaz de usuario y el envío y recepción de datos.
 
-Las distintas pantallas de la aplicación se organizan en torno a las tareas habituales del operario, como la consulta de inventario, el registro de movimientos o la gestión de palets.
+La función de esta aplicación es la de permitir a los operarios ejecutar movimientos de palets y apoyar en la ejecución de pedidos, todo ello desde dispositivos móviles que facilitan su uso en el entorno del almacén. En particular, esta aplicación es un subapartado de la aplicación de escritorio combinando las funcionalidades de las pestañas de \textit{Paletizar} y \textit{Actualizar de palets}, permitiendo asi la correcta ejecución de los pedidos.
+
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.6\textwidth]{Imagenes/diagrama-navegacion-ventanas-android.png}
+  \caption{Diagrama de navegación entre ventanas de la aplicación Android}
+  \label{fig:adiagrama-navegacion-android}
+\end{figure}
+
+
+% A continuación, en la Figura~\ref{fig:ejemplo-navegacion-ventanas-android} se muestra un ejemplo de navegación entre ventanas de la aplicación Android, desde la activity de \textit{Login} hasta la activity de \textit{Paletizar} pasando por la ventana activity \textit{Ventana principal} y la activity \textit{Gestióin Pedidos}.
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Imagenes/ejemplo-navegacion-ventanas-android.png}
+  \caption{Ejemplo de navegación entre ventanas de la aplicación Android (desde \textit{Login} hasta \textit{Paletizar})}
+  \label{fig:ejemplo-navegacion-ventanas-android}
+\end{figure}
+
+
 
 
 \subsection{Diseño de la base de datos}
 \label{subsec:diseno-bd}
 
-La base de datos ha sido diseñada para almacenar de forma estructurada la información necesaria para la gestión del almacén de consolidación. El modelo de datos contempla entidades como productos, palets, ubicaciones, pedidos, movimientos y usuarios.
+La base de datos constituye el núcleo de persistencia del sistema y ha sido diseñada para dar soporte directo a las operaciones propias de un almacén de consolidación. El modelo de datos representa de forma explícita los principales elementos del dominio, incluyendo productos, tipos de producto, palets, ubicaciones, pedidos, detalles del pedido, usuarios y roles, entre otros.
 
-El diseño sigue un enfoque relacional, garantizando la integridad referencial y evitando redundancias innecesarias. Se han definido claves primarias y foráneas para representar las relaciones entre las distintas entidades, así como restricciones que aseguran la coherencia de los datos almacenados.
+El diseño se ha basado en un modelo relacional normalizado (\gls{base de datos relacional}). Cada entidad se implementa mediante una tabla independiente identificada por una clave primaria, lo que permite un acceso unívoco a los registros y facilita su referenciación desde otras tablas. Las relaciones entre entidades se modelan mediante claves foráneas, reflejando dependencias como la asignación de palets a ubicaciones concretas, la composición de los pedidos mediante líneas asociadas a productos o el registro de movimientos vinculados a palets específicos. Este enfoque garantiza la integridad referencial y evita la duplicación innecesaria de información.
+
+A nivel de esquema se han definido restricciones explícitas para reforzar la coherencia de los datos almacenados. En primer lugar, se han establecido campos obligatorios (\texttt{NOT NULL}) en atributos críticos del sistema, como el código SKU y la descripción de los productos, la ubicación asociada a cada palet, el estado de los pedidos o el identificador del usuario responsable de determinadas operaciones. Estas restricciones impiden la inserción de registros incompletos que podrían comprometer la operativa del almacén.
+
+Asimismo, se han aplicado restricciones de unicidad (\texttt{UNIQUE}) en aquellos atributos que deben identificar de forma inequívoca una entidad dentro del sistema. Entre estos se incluyen el nombre de usuario utilizado para la autenticación, el código SKU de los productos y determinados identificadores internos de pedidos y palets. De este modo se evitan duplicidades que podrían generar inconsistencias, errores en los procesos de gestión o ambigüedad en la identificación de los elementos del almacén.
+
+Las relaciones de dependencia entre entidades se controlan mediante claves foráneas (\texttt{FOREIGN KEY}), asegurando, por ejemplo, que un palet solo pueda estar asociado a una ubicación existente, que las líneas de pedido referencien productos previamente registrados o que los movimientos de almacén correspondan a palets válidos. Estas restricciones impiden la eliminación o modificación de registros que estén siendo utilizados por otras tablas, evitando la aparición de estados inconsistentes dentro de la base de datos.
+
+En lo relativo a la seguridad, el diseño de la base de datos contempla específicamente la protección de las credenciales de los usuarios. Las contraseñas no se almacenan en texto claro, sino como valores derivados mediante un algoritmo de hash criptográfico. Para ello se ha empleado Argon2, un algoritmo de derivación de claves diseñado específicamente para el almacenamiento seguro de contraseñas. Este algoritmo permite configurar parámetros de coste en memoria y tiempo de cómputo, proporcionando resistencia frente a ataques de fuerza bruta y ataques basados en hardware especializado, y alineando el sistema con las buenas prácticas de seguridad en aplicaciones de gestión.
+
+El script completo de creación del esquema se incluye en el Anexo \ref{anexo:sql-esquema}.
+
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.95\textwidth]{Imagenes/diagrama-EER.png}
+  \caption{Diagrama Entidad-Relación (EER) del sistema de gestión de almacén}
+  \label{fig:diagrama-eer}
+\end{figure}
+
+
 
 \subsection{Diseño de la API}
 \label{subsec:diseno-api}
 
-La API REST ha sido diseñada para permitir la comunicación entre la aplicación móvil Android y el backend del sistema. Esta API expone un conjunto de recursos que representan las entidades principales del sistema, como productos, palets, pedidos y movimientos.
+La \gls{api} del sistema se ha diseñado como una aplicación REST, actuando como capa intermedia entre la aplicación móvil Android y el sistema de persistencia. Su objetivo principal es exponer de forma controlada el modelo de datos del almacén y encapsular la lógica de negocio asociada a la gestión de palets, ubicaciones y demás elementos operativos.
 
-Cada recurso se gestiona mediante operaciones HTTP estándar, permitiendo realizar consultas, inserciones y actualizaciones de forma controlada. El diseño de la API busca mantener una estructura clara y coherente, facilitando su mantenimiento y posible ampliación futura.
+Desde el punto de vista arquitectónico, la \gls{api} sigue una estructura en capas claramente diferenciadas, compuesta por una capa de controladores, una capa de servicios y una capa de acceso a datos. Esta organización permite separar responsabilidades, reducir el acoplamiento entre componentes y facilitar tanto el mantenimiento como la evolución del sistema.
+
+La \textbf{capa de presentación} está formada por controladores REST que exponen los distintos endpoints \gls{http} y gestionan la entrada y salida de datos en formato JSON. Estos controladores se encargan de validar las peticiones recibidas, delegar el procesamiento en la capa de servicios y devolver respuestas con códigos \gls{http} adecuados según el resultado de la operación, como respuestas de éxito, errores de validación, recursos no encontrados o conflictos de estado.
+
+La \textbf{capa de servicio} concentra la lógica de negocio del sistema. En ella se implementan las reglas que gobiernan el funcionamiento del almacén, como la validación de ubicaciones disponibles, la prevención de colisiones entre palets o la coherencia de los movimientos registrados. Los servicios orquestan el acceso a los repositorios y gestionan operaciones que pueden implicar varias acciones sobre la base de datos, utilizando transacciones para garantizar la consistencia de los datos.
+
+La \textbf{capa de acceso a datos} se apoya en Spring Data JPA y está compuesta por repositorios que extienden interfaces del tipo \texttt{JpaRepository}. Esta capa proporciona las operaciones básicas de persistencia y permite definir consultas adicionales mediante el uso de métodos derivados por nombre. Por ejemplo, se emplean métodos específicos para comprobar si una ubicación ya está ocupada por otro palet antes de permitir su creación o movimiento, evitando estados inconsistentes en la base de datos.
+
+El modelo de datos expuesto por la \gls{api} se basa en entidades JPA que representan los elementos principales del almacén, como palets, estanterías, baldas y ubicaciones. Para desacoplar la representación interna del sistema de la información intercambiada con los clientes, se utilizan objetos de transferencia de datos (DTOs). Estos DTOs permiten controlar los campos expuestos en cada operación y facilitan la validación de los datos recibidos.
+
+La \gls{api} hace uso de validaciones declarativas mediante anotaciones estándar, garantizando que los datos recibidos cumplan los requisitos definidos antes de ser procesados. Los errores y excepciones generados durante la ejecución se gestionan de forma centralizada, transformándolos en respuestas estructuradas que incluyen información clara sobre la causa del fallo.
+
+En cuanto a la interacción con los telefonos Android, la \gls{api} define endpoints REST semánticos que siguen las convenciones habituales del protocolo \gls{http}, incluyendo operaciones de consulta, creación, actualización y eliminación de recursos. Se emplean códigos de estado \gls{http} para reflejar correctamente el resultado de cada operación y, cuando es necesario, se admite el uso de paginación y filtrado mediante parámetros de consulta.
+
+Este diseño permite que la \gls{api} actúe como un componente independiente, reutilizable y fácilmente ampliable, proporcionando un punto de acceso controlado a la información del almacén y garantizando la coherencia de las operaciones realizadas desde la aplicación móvil Android.
+
+
+\begin{figure}[H]
+\centering
+\rotatebox{90}{%
+  \includegraphics[height=0.33\textheight]{../Diagramas-UML/api-componentes-capas/api-componentes-capas.png}%
+}
+\caption{Arquitectura en capas de la API REST}
+\label{fig:arquitectura-api}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Diagramas UML}
 \label{subsec:uml}
 
 Para representar de forma gráfica la estructura y el comportamiento del sistema, se han empleado distintos diagramas UML. Estos diagramas permiten visualizar las relaciones entre clases, la interacción entre componentes y el despliegue físico del sistema.
+
 
 
 \subsubsection{Diagrama de clases}
@@ -84,24 +197,81 @@ Para representar de forma gráfica la estructura y el comportamiento del sistema
 El diagrama de clases representa las principales entidades del sistema, sus atributos y las relaciones existentes entre ellas. Este diagrama sirve como referencia para el diseño del modelo de datos y para la implementación de la lógica del sistema.
 
 
-% TODO: Inserta figura UML de clases.
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=\textwidth]{ruta/diagrama_clases.png}
-%   \caption{Diagrama de clases}
-%   \label{fig:uml-clases}
-% \end{figure}
+\begin{figure}[H]
+\centering
+\rotatebox{0}{%
+  \includegraphics[width=1\textwidth]{../Diagramas-UML/diagrama-clases-desktop/diagrama-clases-desktop.png}%
+}
+\caption{Diagrama de clases del sistema }
+\label{fig:diagrama-clases}
+\end{figure}
+
+
 
 \subsubsection{Diagrama de secuencia}
 \label{subsubsec:uml-secuencia}
 
-El diagrama de secuencia describe la interacción entre los distintos componentes del sistema durante la ejecución de casos de uso representativos, como el registro de un movimiento o la creación de un pedido.
+Los diagramas de secuencia permiten representar de forma temporal y ordenada las interacciones entre los distintos componentes del sistema durante la ejecución de determinados casos de uso. Este tipo de diagramas resulta especialmente útil para describir el flujo de mensajes entre interfaces de usuario, servicios de aplicación y componentes de persistencia, así como para identificar responsabilidades y dependencias entre ellos.
+
+En este trabajo se han seleccionado dos diagramas de secuencia representativos, que ilustran procesos clave del sistema y permiten comprender su funcionamiento interno sin necesidad de detallar todas las posibles interacciones existentes.
+
+El primer diagrama de secuencia describe el proceso de autenticación de usuarios, haciendo especial énfasis en el tratamiento seguro de las credenciales. En este flujo se representa cómo la aplicación cliente envía los datos de acceso, cómo el sistema verifica la contraseña mediante su comparación con el valor almacenado en forma de hash utilizando el algoritmo Argon2, y cómo se gestiona la respuesta de autenticación en función del resultado de la validación.
+
+\begin{figure}[H]
+\centering
+\rotatebox{0}{%
+  \includegraphics[width=0.9\textwidth]{../Diagramas-UML/login/login.png}%
+}
+\caption{Diagrama de secuencia de inicio de sesión}
+\label{fig:diagrama-login}
+\end{figure}
+
+El segundo diagrama de secuencia muestra el flujo completo asociado a la gestión de un pedido, desde su asignación inicial hasta su envío. Este diagrama refleja las interacciones entre los distintos componentes del sistema durante la consulta del pedido, su preparación, la actualización de su estado y la confirmación final del envío, proporcionando una visión clara del ciclo de vida de un pedido dentro del sistema.
+
+\begin{figure}[H]
+\centering
+\rotatebox{0}{%
+  \includegraphics[width=0.9\textwidth]{../Diagramas-UML/diagrama-gestion-pedidos/diagrama-gestion-pedidos.png}%
+}
+\caption{Diagrama de secuencia de gestión de pedidos}
+\label{fig:diagrama-gestion-pedidos}
+\end{figure}
+
+A continuación se presenta un diagrama de secuencia que describe el flujo de interacción necesario para modificar la cantidad de producto asociada a un palet existente.
+
+\begin{figure}[H]
+\centering
+\rotatebox{0}{%
+  \includegraphics[width=1\textwidth]{../Diagramas-UML/diagrama-modificar-cantidad-palet/diagrama-modificar-cantidad-palet.png}%
+}
+\caption{Diagrama de secuencia de modificación de cantidad de palet}
+\label{fig:diagrama-modificar-cantidad-palet}
+\end{figure}
+
 
 
 \subsubsection{Diagrama de despliegue}
 \label{subsubsec:uml-despliegue}
 
-El diagrama de despliegue muestra la distribución física de los componentes del sistema, incluyendo clientes, servidor y base de datos, así como los canales de comunicación entre ellos.
+El diagrama de despliegue describe la distribución física de los componentes del sistema en tiempo de ejecución y su asignación a los distintos nodos de la infraestructura. En él se representan las estaciones de trabajo que ejecutan la aplicación de escritorio, los dispositivos móviles que ejecutan la aplicación Android, el servidor que aloja el backend y el servidor de base de datos. Asimismo, se especifican los enlaces de comunicación entre estos nodos, indicando el protocolo utilizado y el formato de los datos intercambiados.
+
+En el sistema desarrollado se distinguen dos tipos de acceso a la información en función del tipo de cliente. Por un lado, la aplicación de escritorio, instalada en equipos ubicados dentro de la red interna del almacén, establece una conexión directa con el servidor de base de datos MySQL mediante JDBC. Por otro lado, la aplicación Android se comunica exclusivamente con el backend implementado con Spring Boot a través de una API REST sobre HTTPS, intercambiando mensajes en formato JSON. El backend actúa como intermediario entre la aplicación móvil y la base de datos, accediendo a esta última también mediante JDBC.
+
+Este diagrama permite justificar decisiones arquitectónicas relevantes, como la separación del backend para los clientes móviles, el uso de distintos canales de comunicación según el entorno de ejecución y la limitación del acceso directo a la base de datos a un conjunto reducido de aplicaciones en un entorno controlado. Además, se reflejan elementos auxiliares del sistema, como la generación de ficheros de exportación y el envío de documentos que serán consumidos por dispositivos exrternos como impresoras..
+
+\paragraph{Supuestos de red}
+El sistema está diseñado para operar dentro de la red interna del almacén, sin necesidad de acceso desde redes externas.
+
+
+\begin{figure}[H]
+\centering
+\rotatebox{0}{%
+  \includegraphics[width=0.8\textwidth]{../Diagramas-UML/diagrama-despliegue/diagrama-despliegue.png}%
+}
+\caption{Diagrama de despliegue del sistema}
+\label{fig:diagrama-despliegue}
+\end{figure}
+
 
 
 \subsection{Diseño de la interfaz de usuario}

@@ -1,0 +1,22 @@
+@startuml
+actor Usuario
+participant "Vista (UI)\napartadoMovimientosController" as UI
+participant "MovimientoService\n/ MovimientoDAO" as MS
+participant "PaletDAO" as PD
+database "Base de datos\n(RDBMS via JDBC)" as DB
+
+Usuario -> UI : solicitarRegistroMovimiento(datos)
+UI -> MS : validarDatos(datos)
+MS -> DB : insertar Movimiento
+activate DB
+DB --> MS : idMovimiento
+deactivate DB
+MS -> PD : actualizarCantidad(paletId, nuevaCantidad)
+PD -> DB : update palet.cantidad
+activate DB
+DB --> PD : OK
+deactivate DB
+PD --> MS : OK
+MS --> UI : resultado(OK / error)
+UI --> Usuario : mostrarConfirmacion
+@enduml

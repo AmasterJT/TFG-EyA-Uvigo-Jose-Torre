@@ -1,0 +1,61 @@
+@startuml
+
+skinparam defaultFontSize 24
+skinparam ArrowThickness 4
+skinparam sequenceMessageSpacing 50
+
+' Opcional: fuentes más legibles
+skinparam sequence {
+  ArrowFontSize 24
+  ParticipantFontSize 24
+  ActorFontSize 24
+}
+
+
+actor Jefe
+actor Operario
+participant "UI Jefe\n(Escritorio)" as UIJ
+participant "Sistema\n(Controller / Service)" as S
+participant "App Operario\n(Móvil)" as AO
+participant "AlmacenService\n/ PickingService" as AS
+participant "PedidoDAO" as PD
+participant "TransporteService" as T
+database "Base de datos" as DB
+
+Jefe -> UIJ : asignarPedido(pedidoId, operarioId)
+UIJ -> S : asignarPedido(pedidoId, operarioId)
+S -> PD : setAsignado(pedidoId, operarioId, estado=ASIGNADO)
+PD -> DB : UPDATE Pedido
+DB --> PD : OK
+PD --> S : OK
+S --> UIJ : resultado(ASIGNADO)
+
+Operario -> S: seleccionarPedido(pedidoId)
+S -> PD : setEstado(pedidoId, EN_PROCESO)
+PD -> DB : UPDATE Pedido
+DB --> PD : OK
+PD --> S : OK
+
+AO -> AS : iniciarPicking(pedidoId)
+AS -> DB : reservarPalets / decrementarStock
+DB --> AS : OK 
+
+AS --> S : pickingCompletado(pedidoId, detallesPicking)
+S -> PD : setEstado(pedidoId, completado)
+PD -> DB : UPDATE Pedido
+DB --> PD : OK
+
+
+S -> T : solicitarEtiqueta(pedidoId)
+T --> S : confirmarEtiqueta(pedidoId)
+S -> T : setTransportista
+T --> S : confirmarTransportista
+
+S -> PD : setEstado(pedidoId, ENVIADO)
+PD -> DB : UPDATE Pedido
+PD -> DB : UPDATE Transportista
+DB --> PD : OK
+ PD ->S : notificar(pedidoId, estado=ENVIADO)
+S -> UIJ : notificar(pedidoId, estado=ENVIADO)
+
+@enduml

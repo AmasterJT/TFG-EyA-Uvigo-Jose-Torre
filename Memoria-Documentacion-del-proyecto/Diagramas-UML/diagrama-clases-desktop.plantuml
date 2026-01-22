@@ -1,0 +1,96 @@
+@startuml
+' Clases principales
+class Almacen {
+  +Long id
+  +String ubicacion
+  +int capacidad
+}
+
+class Producto {
+  +Long id
+  +String nombre
+  +String referencia
+  +Tipo tipo
+  +int stockTotal
+  +BigDecimal precio
+}
+
+class Tipo {
+  +Long id
+  +String nombre
+}
+
+class Palet {
+  +Long id
+  +String codigo
+  +Producto producto
+  +int cantidad
+  +String ubicacion
+  +String estado
+}
+
+class Pedido {
+  +Long id
+  +Date fechaCreacion
+  +Cliente cliente
+  +String estado
+  +BigDecimal total
+}
+
+class ProductoPedido {
+  +Long id
+  +Producto producto
+  +int cantidad
+  +BigDecimal precioUnitario
+}
+
+class Movimiento {
+  +Long id
+  +Date fecha
+  +String tipoMovimiento
+  +Palet palet
+  +int cantidad
+  +Usuario realizadoPor
+}
+
+class Usuario {
+  +Long id
+  +String username
+  +String nombre
+  +String role
+}
+
+class Cliente {
+  +Long id
+  +String nombre
+  +String nif
+  +String direccion
+  +String telefono
+}
+
+class Proveedor {
+  +Long id
+  +String nombre
+  +String contacto
+}
+
+class OrdenCompra {
+  +Long id
+  +Date fecha
+  +Proveedor proveedor
+  +String estado
+}
+
+' Relaciones
+Almacen "1" o-- "*" Palet : contiene
+Producto "1" o-- "*" Palet : almacenado_en
+Tipo "1" o-- "*" Producto : clasifica
+Pedido "1" o-- "*" ProductoPedido : contiene
+Producto "1" o-- "*" ProductoPedido : referencia
+Pedido "1" o-- "1" Cliente : pertenece_a
+Movimiento "*" o-- "1" Palet : afecta
+Movimiento "*" o-- "1" Usuario : realizado_por
+OrdenCompra "1" o-- "*" ProductoPedido : genera
+Proveedor "1" o-- "*" OrdenCompra : suministra
+
+@enduml

@@ -1,27 +1,35 @@
 
 
--- Insertamos usarios para tener todos los roles
-INSERT INTO usuarios (user_name, nombre, apellido, email, contraseña, id_rol) VALUES
-('AdLo', 'Admin', 'Lopez', 'admin@almacen.com', 'admin', 1), -- Usuario SysAdmin
-('JuPe', 'Juan', 'Perez', 'juan.perez@almacen.com', 'juan123', 2), -- Usuario Gestor Almacén
-('MaLo', 'Maria', 'Lopez', 'maria.lopez@almacen.com', 'maria123', 3), -- Usuario Supervisor
-('CaDi', 'Carlos', 'Diaz', 'carlos.diaz@almacen.com', 'carlos123', 4), -- Usuario Operario
-('LuGo', 'Luisa', 'Gomez', 'luisa.gomez@almacen.com', 'luisa123', 5), -- Usuario Mantenimiento
-('AnTo', 'Ana', 'Torres', 'ana.torres@almacen.com', 'ana123', 6); -- Usuario Administración
+-- Insertar algunos proveedores de ejemplo
+INSERT INTO proveedores (nombre, direccion, telefono, email, nif_cif, contacto)
+VALUES
+('Distribuciones ACME S.L.', 'Calle Mayor 45, Madrid', '910000111', 'contacto@acme.com', 'B12345678', 'Laura Gómez'),
+('Logística Central S.A.', 'Polígono Industrial Sur, Valencia', '963000222', 'info@logisticacentral.es', 'A87654321', 'Mario Ruiz'),
+('Frutas del Campo', 'Camino Viejo 12, Sevilla', '955001122', 'ventas@frutascampo.es', 'C44556677', 'Ana Torres');
 
--- Insertamos operarios sin user_name para usar el trigger
-INSERT INTO usuarios (nombre, apellido, email, contraseña, id_rol) VALUES
-('Luis', 'Fernandez', 'luis.fernandez@almacen.com', 'luis123', 4),
-('Sofia', 'Martinez', 'sofia.martinez@almacen.com', 'sofia123', 4),
-('Javier', 'Romero', 'javier.romero@almacen.com', 'javier123', 4),
-('Claudia', 'Hernandez', 'claudia.hernandez@almacen.com', 'claudia123', 4),
-('Pablo', 'Ruiz', 'pablo.ruiz@almacen.com', 'pablo123', 4),
-('Andrea', 'Castro', 'andrea.castro@almacen.com', 'andrea123', 4),
-('Diego', 'Navarro', 'diego.navarro@almacen.com', 'diego123', 4),
-('Valeria', 'Ortega', 'valeria.ortega@almacen.com', 'valeria123', 4),
-('Miguel', 'Ramos', 'miguel.ramos@almacen.com', 'miguel123', 4),
-('Isabel', 'Vargas', 'isabel.vargas@almacen.com', 'isabel123', 4);
 
+
+
+
+-- Insertamos usuarios para tener todos los roles (con activo)
+INSERT INTO usuarios (user_name, nombre, apellido1, apellido2, email, contraseña, id_rol, activo) VALUES
+('AdLo', 'Admin', 'Lopez', 'Lopez', 'admin@almacen.com', '$argon2id$v=19$m=65536,t=3,p=2$QEDOe2PgDApE2yYgaRdKYA$hKFkP579PBhZDQpxsdg21/nlGSUh3JzKho9mrxoCtDE', 1, 1), -- SysAdmin (admin)(dentro)
+('JuPe', 'Juan', 'Perez', 'Gomez', 'juan.perez@almacen.com', '$argon2id$v=19$m=65536,t=3,p=2$z+EAPyjhUS57ke8m5Xp9tA$Ho9IdCwJ2xMyk4MygqEGyyuQr/bBA7T699gwhpakKFY', 2, 1), -- Gestor Almacén (juan123)(dentro)
+('CaDi', 'Carlos', 'Diaz', 'Gomez', 'carlos.diaz@almacen.com', '$argon2id$v=19$m=65536,t=3,p=2$g7VyhzV6bgMLYllIBNs6PQ$aclPDExXFBOUTvHiFRw4LAJI0PbIB37C4l2TA5y00nw', 3, 1), -- Operario (carlos123) (dentro)
+('AnTo', 'Ana', 'Torres','Ortega', 'ana.torres@almacen.com', '$argon2id$v=19$m=65536,t=3,p=2$jdftwDoiOvg/jjT2kobFOQ$RviNxXvidpEnKofQdfhI7qWQzmSCHteHUhmIdthNPJc', 4, 0);   -- Administración (ana123)(fuera)
+
+-- Insertamos operarios (el trigger sigue generando user_name); añadimos activo al final
+INSERT INTO usuarios (nombre, apellido1, apellido2, email, contraseña, id_rol, activo) VALUES
+('Luis',   'Fernandez', 'Gomez', 'luis.fernandez@almacen.com',   'luis123',   3, 1),
+('Sofia',  'Martinez', 'Gomez',  'sofia.martinez@almacen.com',   'sofia123',  3, 0),
+('Javier', 'Romero', 'Castro',    'javier.romero@almacen.com',    'javier123', 3, 1),
+('Claudia','Hernandez', 'Castro', 'claudia.hernandez@almacen.com','claudia123',3, 0),
+('Pablo',  'Ruiz','Ortega',      'pablo.ruiz@almacen.com',       'pablo123',  3, 1),
+('Andrea', 'Castro', 'Rogriguez',    'andrea.castro@almacen.com',    'andrea123', 3, 0),
+('Diego',  'Navarro','Ortega',   'diego.navarro@almacen.com',    'diego123',  3, 1),
+('Valeria','Ortega', 'Rogriguez',    'valeria.ortega@almacen.com',   'valeria123',3, 0),
+('Miguel', 'Ramos', 'Gomez',     'miguel.ramos@almacen.com',     'miguel123', 3, 1),
+('Isabel', 'Vargas', 'Castro',    'isabel.vargas@almacen.com',    'isabel123', 3, 0);
 
 
 INSERT INTO tipos (id_tipo, color) VALUES ('Tensoactivo', '0.8,0,0');
@@ -122,6 +130,370 @@ INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('TRUPOCRYL
 INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('TRUPOFIN CERA A', 'Cera');
 INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('TRUPOCRYL K-U-327', 'Resina');
 INSERT INTO productos (identificador_producto, tipo_producto) VALUES ('TRUPOZYM CH', 'Rindente');
+
+
+
+
+
+
+
+
+
+
+
+
+-- ==============================
+-- DISTRIBUCIONES ACME S.L.
+-- ==============================
+INSERT INTO proveedor_producto
+  (id_proveedor, id_producto, alto, ancho, largo, precio, unidades_por_palet_default)
+SELECT
+  (SELECT id_proveedor FROM proveedores WHERE nombre = 'Distribuciones ACME S.L.') AS id_proveedor,
+  p.id_producto,
+
+  -- Dimensiones por round-robin usando MOD(id_producto,3)
+  CASE MOD(p.id_producto, 3)
+    WHEN 1 THEN 646
+    WHEN 2 THEN 619
+    ELSE 1358
+  END AS alto,
+  CASE MOD(p.id_producto, 3)
+    WHEN 1 THEN 901
+    WHEN 2 THEN 645
+    ELSE 723
+  END AS ancho,
+  CASE MOD(p.id_producto, 3)
+    WHEN 1 THEN 910
+    WHEN 2 THEN 829
+    ELSE 638
+  END AS largo,
+
+  NULL AS precio,
+  CASE p.identificador_producto
+    WHEN 'TRUPOSEPT FP'        THEN 112
+    WHEN 'TRUPOSEPT BA'        THEN 118
+    WHEN 'TRUPONAT NF'         THEN 96
+    WHEN 'TRUPOFIN CERA HF'    THEN 125
+    WHEN 'TRUPOFIN CERA HS'    THEN 110
+    WHEN 'TRUPOFIN CERA HP'    THEN 130
+    WHEN 'TRUPOFIN CERA PW'    THEN 108
+    WHEN 'TRUPOFIN CERA PV'    THEN 99
+    WHEN 'TRUPOCRYL K-U-10'    THEN 115
+    WHEN 'TRUPOFIN CERA DP'    THEN 104
+    WHEN 'TRUPOCRYL AB'        THEN 120
+    WHEN 'TRUPOCRYL A-10'      THEN 134
+    WHEN 'TRUPOFIN CERA 3A'    THEN 92
+    WHEN 'TRUPOCRYL A-18'      THEN 138
+    WHEN 'TRUPONAT LA'         THEN 101
+    WHEN 'TRUPOFIN CERA E'     THEN 124
+    WHEN 'TRUPOFIN CERA P'     THEN 99
+    WHEN 'TRUPOFIN CERA FP'    THEN 113
+    WHEN 'TRUPOFIN CERA M'     THEN 89
+    WHEN 'TRUPOFIN CERA K-A'   THEN 126
+    WHEN 'TRUPOFIN CERA BT'    THEN 132
+    WHEN 'TRUPOCRYL A-20'      THEN 106
+    WHEN 'TRUPOFIN CERA KT 09' THEN 98
+    WHEN 'TRUPOFIN CERA KT 08' THEN 141
+    WHEN 'TRUPOFIN CERA W'     THEN 107
+    WHEN 'TRUPOCRYL A-28'      THEN 139
+    WHEN 'TRUPOCRYL K-U-310'   THEN 95
+    WHEN 'TRUPOTAN MOW'        THEN 122
+    WHEN 'TRUPOCRYL K-A-30'    THEN 118
+    WHEN 'TRUPOCRYL A–90'      THEN 127
+    WHEN 'TRUPOTAN OM'         THEN 91
+    WHEN 'TRUPOCRYL A-30'      THEN 135
+    WHEN 'TRUPOCRYL K-U-27'    THEN 97
+    WHEN 'TRUPOCRYL A-32'      THEN 121
+    WHEN 'TRUPOFIN CERA D-80'  THEN 105
+    WHEN 'TRUPOCRYL A-35'      THEN 138
+    WHEN 'TRUPOFIN CERA A'     THEN 102
+    WHEN 'TRUPOCRYL K-U-327'   THEN 129
+    WHEN 'TRUPOTAN MON'        THEN 100
+    ELSE 111111
+  END AS unidades_por_palet_default
+FROM productos p
+WHERE p.identificador_producto IN (
+  'TRUPOSEPT FP','TRUPOSEPT BA','TRUPONAT NF','TRUPOFIN CERA HF','TRUPOFIN CERA HS','TRUPOFIN CERA HP',
+  'TRUPOFIN CERA PW','TRUPOFIN CERA PV','TRUPOCRYL K-U-10','TRUPOFIN CERA DP','TRUPOCRYL AB','TRUPOCRYL A-10',
+  'TRUPOFIN CERA 3A','TRUPOCRYL A-18','TRUPONAT LA','TRUPOFIN CERA E','TRUPOFIN CERA P','TRUPOFIN CERA FP',
+  'TRUPOFIN CERA M','TRUPOFIN CERA K-A','TRUPOFIN CERA BT','TRUPOCRYL A-20','TRUPOFIN CERA KT 09',
+  'TRUPOFIN CERA KT 08','TRUPOFIN CERA W','TRUPOCRYL A-28','TRUPOCRYL K-U-310','TRUPOTAN MOW',
+  'TRUPOCRYL K-A-30','TRUPOCRYL A–90','TRUPOTAN OM','TRUPOCRYL A-30','TRUPOCRYL K-U-27','TRUPOCRYL A-32',
+  'TRUPOFIN CERA D-80','TRUPOCRYL A-35','TRUPOFIN CERA A','TRUPOCRYL K-U-327','TRUPOTAN MON'
+);
+
+-- ==============================
+-- LOGÍSTICA CENTRAL S.A.
+-- ==============================
+INSERT INTO proveedor_producto
+  (id_proveedor, id_producto, alto, ancho, largo, precio, unidades_por_palet_default)
+SELECT
+  (SELECT id_proveedor FROM proveedores WHERE nombre = 'Logística Central S.A.') AS id_proveedor,
+  p.id_producto,
+
+  CASE MOD(p.id_producto, 3)
+    WHEN 1 THEN 646
+    WHEN 2 THEN 619
+    ELSE 1358
+  END AS alto,
+  CASE MOD(p.id_producto, 3)
+    WHEN 1 THEN 901
+    WHEN 2 THEN 645
+    ELSE 723
+  END AS ancho,
+  CASE MOD(p.id_producto, 3)
+    WHEN 1 THEN 910
+    WHEN 2 THEN 829
+    ELSE 638
+  END AS largo,
+
+  NULL AS precio,
+  CASE p.identificador_producto
+    WHEN 'TRUPOSEPT FP'       THEN 172
+    WHEN 'SOLVOTAN XS'        THEN 153
+    WHEN 'TRUPONAT NF'        THEN 190
+    WHEN 'TRUPOFIN CERA HF'   THEN 188
+    WHEN 'TRUPOFIN CERA HS'   THEN 170
+    WHEN 'TRUPOFIN CERA HP'   THEN 133
+    WHEN 'TRUPOSEPT BA'       THEN 68
+    WHEN 'TRUPOFIN CERA PW'   THEN 69
+    WHEN 'TRUPOSYL TBK-E'     THEN 34
+    WHEN 'TRUPOFIN CERA PV'   THEN 68
+    WHEN 'TRUPON AP'          THEN 171
+    WHEN 'TRUPOCAL AF'        THEN 176
+    WHEN 'TRUPOSYL TBA'       THEN 24
+    WHEN 'TRUPOSOL WBF'       THEN 137
+    WHEN 'TRUPOSYL TBD'       THEN 188
+    WHEN 'TRUPON BMF'         THEN 130
+    WHEN 'TRUPOCRYL K-U-10'   THEN 120
+    WHEN 'TRUPOFIN CERA DP'   THEN 176
+    WHEN 'TRUPON CST'         THEN 155
+    WHEN 'TRUPON COL'         THEN 29
+    WHEN 'TRUPOSIST S-BO'     THEN 160
+    WHEN 'TRUPOSYL TBK'       THEN 24
+    WHEN 'PASTOSOL KC'        THEN 141
+    WHEN 'ANTIFOAM NSP'       THEN 76
+    WHEN 'TRUPOWET SA'        THEN 25
+    WHEN 'TRUPOFIN CERA CA'   THEN 152
+    WHEN 'TRUPOFIN CERA SP'   THEN 73
+    WHEN 'PASTOSOL HW'        THEN 138
+    WHEN 'TRUPOTAN MON'       THEN 134
+    WHEN 'PASTOSOL DG'        THEN 92
+    WHEN 'TRUPOCRYL AB'       THEN 115
+    WHEN 'TRUPOZYM AX'        THEN 144
+    WHEN 'TRUPOCRYL A-10'     THEN 146
+    WHEN 'TRUPOFIN CERA 3A'   THEN 188
+    WHEN 'TRUPOCAL DE'        THEN 28
+    WHEN 'TRUKALIN K'         THEN 160
+    WHEN 'TRUPOZYM AB'        THEN 35
+    WHEN 'TRUPOCRYL A-18'     THEN 130
+    WHEN 'SOLVOTAN TACTO'     THEN 57
+    WHEN 'TRUPONAT LA'        THEN 60
+    WHEN 'TRUPOTEC S'         THEN 164
+    WHEN 'TRUPOFIN CERA E'    THEN 86
+    WHEN 'TRUPOFIN CERA P'    THEN 65
+    WHEN 'TRUPON DBS'         THEN 30
+    WHEN 'TRUPOFIN CERA FP'   THEN 74
+    WHEN 'TRUPOFIN CERA M'    THEN 32
+    WHEN 'TRUPOFIN CERA K-A'  THEN 102
+    WHEN 'TRUPOFIN CERA BT'   THEN 34
+    WHEN 'TRUPOSYL ABS'       THEN 84
+    WHEN 'TRUPOCRYL A-20'     THEN 31
+    WHEN 'TRUPOFIN CERA KT 09' THEN 20
+    WHEN 'TRUPON DB-80'       THEN 63
+    WHEN 'TRUPOFIN CERA KT 08' THEN 186
+    WHEN 'TRUPON CM'          THEN 169
+    WHEN 'TRUPOFIN CERA W'    THEN 105
+    WHEN 'TRUPOTEC T'         THEN 89
+    WHEN 'TRUPOCRYL A-28'     THEN 40
+    WHEN 'TRUPOCRYL K-U-310'  THEN 75
+    WHEN 'TRUPOTAN MOW'       THEN 38
+    WHEN 'TRUPOCRYL K-A-30'   THEN 86
+    WHEN 'PASTOSOL F'         THEN 123
+    WHEN 'PASTOSOL MD'        THEN 200
+    WHEN 'TRUPOZYM CL'        THEN 163
+    WHEN 'TRUPOSLIP P'        THEN 113
+    WHEN 'TRUPOZYM CN'        THEN 166
+    WHEN 'TRUPOL RK'          THEN 124
+    WHEN 'PASTOSOL BCN'       THEN 91
+    WHEN 'TRUPOCRYL A–90'     THEN 94
+    WHEN 'TRUPOSYL HBD'       THEN 172
+    WHEN 'TRUPOTAN OM'        THEN 153
+    WHEN 'TRUPOSIST D'        THEN 141
+    WHEN 'TRUPOCRYL A-30'     THEN 20
+    WHEN 'TRUPOCRYL K-U-27'   THEN 144
+    WHEN 'TRUPOCRYL A-32'     THEN 120
+    WHEN 'TRUPOFIN CERA D-80' THEN 87
+    WHEN 'TRUPOWET PH'        THEN 56
+    WHEN 'TRUPON PEM'         THEN 62
+    WHEN 'TRUPOZYM CB'        THEN 138
+    WHEN 'TRUPOCRYL A-35'     THEN 170
+    WHEN 'TRUPOFIN CERA A'    THEN 51
+    WHEN 'TRUPOCRYL K-U-327'  THEN 166
+    WHEN 'TRUPOZYM CH'        THEN 72
+    ELSE 22222
+  END AS unidades_por_palet_default
+FROM productos p
+WHERE p.identificador_producto IN (
+  'TRUPOSEPT FP','SOLVOTAN XS','TRUPONAT NF','TRUPOFIN CERA HF','TRUPOFIN CERA HS','TRUPOFIN CERA HP',
+  'TRUPOSEPT BA','TRUPOFIN CERA PW','TRUPOSYL TBK-E','TRUPOFIN CERA PV','TRUPON AP','TRUPOCAL AF',
+  'TRUPOSYL TBA','TRUPOSOL WBF','TRUPOSYL TBD','TRUPON BMF','TRUPOCRYL K-U-10','TRUPOFIN CERA DP',
+  'TRUPON CST','TRUPON COL','TRUPOSIST S-BO','TRUPOSYL TBK','PASTOSOL KC','ANTIFOAM NSP','TRUPOWET SA',
+  'TRUPOFIN CERA CA','TRUPOFIN CERA SP','PASTOSOL HW','TRUPOTAN MON','PASTOSOL DG','TRUPOCRYL AB',
+  'TRUPOZYM AX','TRUPOCRYL A-10','TRUPOFIN CERA 3A','TRUPOCAL DE','TRUKALIN K','TRUPOZYM AB',
+  'TRUPOCRYL A-18','SOLVOTAN TACTO','TRUPONAT LA','TRUPOTEC S','TRUPOFIN CERA E','TRUPOFIN CERA P',
+  'TRUPON DBS','TRUPOFIN CERA FP','TRUPOFIN CERA M','TRUPOFIN CERA K-A','TRUPOFIN CERA BT','TRUPOSYL ABS',
+  'TRUPOCRYL A-20','TRUPOFIN CERA KT 09','TRUPON DB-80','TRUPOFIN CERA KT 08','TRUPON CM','TRUPOFIN CERA W',
+  'TRUPOTEC T','TRUPOCRYL A-28','TRUPOCRYL K-U-310','TRUPOTAN MOW','TRUPOCRYL K-A-30','PASTOSOL F',
+  'PASTOSOL MD','TRUPOZYM CL','TRUPOSLIP P','TRUPOZYM CN','TRUPOL RK','PASTOSOL BCN','TRUPOCRYL A–90',
+  'TRUPOSYL HBD','TRUPOTAN OM','TRUPOSIST D','TRUPOCRYL A-30','TRUPOCRYL K-U-27','TRUPOCRYL A-32',
+  'TRUPOFIN CERA D-80','TRUPOWET PH','TRUPON PEM','TRUPOZYM CB','TRUPOCRYL A-35','TRUPOFIN CERA A',
+  'TRUPOCRYL K-U-327','TRUPOZYM CH'
+);
+
+-- ==============================
+-- FRUTAS DEL CAMPO
+-- ==============================
+INSERT INTO proveedor_producto
+  (id_proveedor, id_producto, alto, ancho, largo, precio, unidades_por_palet_default)
+SELECT
+  (SELECT id_proveedor FROM proveedores WHERE nombre = 'Frutas del Campo') AS id_proveedor,
+  p.id_producto,
+
+  CASE MOD(p.id_producto, 3)
+    WHEN 1 THEN 646
+    WHEN 2 THEN 619
+    ELSE 1358
+  END AS alto,
+  CASE MOD(p.id_producto, 3)
+    WHEN 1 THEN 901
+    WHEN 2 THEN 645
+    ELSE 723
+  END AS ancho,
+  CASE MOD(p.id_producto, 3)
+    WHEN 1 THEN 910
+    WHEN 2 THEN 829
+    ELSE 638
+  END AS largo,
+
+  NULL AS precio,
+  CASE p.identificador_producto
+    WHEN 'TRUPOSEPT FP'       THEN 128
+    WHEN 'SOLVOTAN XS'        THEN 53
+    WHEN 'TRUPONAT NF'        THEN 183
+    WHEN 'TRUPOFIN CERA HF'   THEN 171
+    WHEN 'TRUPOFIN CERA HS'   THEN 171
+    WHEN 'TRUPOFIN CERA HP'   THEN 106
+    WHEN 'TRUPOSEPT BA'       THEN 104
+    WHEN 'TRUPOFIN CERA PW'   THEN 193
+    WHEN 'TRUPOSYL TBK-E'     THEN 188
+    WHEN 'TRUPOFIN CERA PV'   THEN 57
+    WHEN 'TRUPON AP'          THEN 33
+    WHEN 'TRUPOCAL AF'        THEN 148
+    WHEN 'TRUPOSYL TBA'       THEN 21
+    WHEN 'TRUPOSOL WBF'       THEN 88
+    WHEN 'TRUPOSYL TBD'       THEN 174
+    WHEN 'TRUPON BMF'         THEN 162
+    WHEN 'TRUPOCRYL K-U-10'   THEN 73
+    WHEN 'TRUPOFIN CERA DP'   THEN 175
+    WHEN 'TRUPON CST'         THEN 89
+    WHEN 'TRUPON COL'         THEN 64
+    WHEN 'TRUPOSIST S-BO'     THEN 122
+    WHEN 'TRUPOSYL TBK'       THEN 165
+    WHEN 'PASTOSOL KC'        THEN 74
+    WHEN 'ANTIFOAM NSP'       THEN 129
+    WHEN 'TRUPOWET SA'        THEN 197
+    WHEN 'TRUPOFIN CERA CA'   THEN 180
+    WHEN 'TRUPOFIN CERA SP'   THEN 117
+    WHEN 'PASTOSOL HW'        THEN 92
+    WHEN 'TRUPOTAN MON'       THEN 151
+    WHEN 'PASTOSOL DG'        THEN 147
+    WHEN 'TRUPOCRYL AB'       THEN 169
+    WHEN 'TRUPOZYM AX'        THEN 151
+    WHEN 'TRUPOCRYL A-10'     THEN 152
+    WHEN 'TRUPOFIN CERA 3A'   THEN 108
+    WHEN 'TRUPOCAL DE'        THEN 105
+    WHEN 'TRUKALIN K'         THEN 97
+    WHEN 'TRUPOZYM AB'        THEN 116
+    WHEN 'TRUPOCRYL A-18'     THEN 86
+    WHEN 'SOLVOTAN TACTO'     THEN 180
+    WHEN 'TRUPONAT LA'        THEN 158
+    WHEN 'TRUPOTEC S'         THEN 36
+    WHEN 'TRUPOFIN CERA E'    THEN 153
+    WHEN 'TRUPOFIN CERA P'    THEN 129
+    WHEN 'TRUPON DBS'         THEN 190
+    WHEN 'TRUPOFIN CERA FP'   THEN 98
+    WHEN 'TRUPOFIN CERA M'    THEN 101
+    WHEN 'TRUPOFIN CERA K-A'  THEN 23
+    WHEN 'TRUPOFIN CERA BT'   THEN 84
+    WHEN 'TRUPOSYL ABS'       THEN 171
+    WHEN 'TRUPOCRYL A-20'     THEN 107
+    WHEN 'TRUPOFIN CERA KT 09' THEN 126
+    WHEN 'TRUPON DB-80'       THEN 147
+    WHEN 'TRUPOFIN CERA KT 08' THEN 82
+    WHEN 'TRUPON CM'          THEN 79
+    WHEN 'TRUPOFIN CERA W'    THEN 84
+    WHEN 'TRUPOTEC T'         THEN 158
+    WHEN 'TRUPOCRYL A-28'     THEN 43
+    WHEN 'TRUPOCRYL K-U-310'  THEN 47
+    WHEN 'TRUPOTAN MOW'       THEN 108
+    WHEN 'TRUPOCRYL K-A-30'   THEN 142
+    WHEN 'PASTOSOL F'         THEN 200
+    WHEN 'PASTOSOL MD'        THEN 127
+    WHEN 'TRUPOZYM CL'        THEN 199
+    WHEN 'TRUPOSLIP P'        THEN 142
+    WHEN 'TRUPOZYM CN'        THEN 146
+    WHEN 'TRUPOL RK'          THEN 186
+    WHEN 'PASTOSOL BCN'       THEN 74
+    WHEN 'TRUPOCRYL A–90'     THEN 127
+    WHEN 'TRUPOSYL HBD'       THEN 195
+    WHEN 'TRUPOTAN OM'        THEN 171
+    WHEN 'TRUPOSIST D'        THEN 96
+    WHEN 'TRUPOCRYL A-30'     THEN 155
+    WHEN 'TRUPOCRYL K-U-27'   THEN 144
+    WHEN 'TRUPOCRYL A-32'     THEN 20
+    WHEN 'TRUPOFIN CERA D-80' THEN 138
+    WHEN 'TRUPOWET PH'        THEN 42
+    WHEN 'TRUPON PEM'         THEN 62
+    WHEN 'TRUPOZYM CB'        THEN 102
+    WHEN 'TRUPOCRYL A-35'     THEN 72
+    WHEN 'TRUPOFIN CERA A'    THEN 145
+    WHEN 'TRUPOCRYL K-U-327'  THEN 61
+    WHEN 'TRUPOZYM CH'        THEN 42
+    ELSE 3333333
+  END AS unidades_por_palet_default
+FROM productos p
+WHERE p.identificador_producto IN (
+  'TRUPOSEPT FP','SOLVOTAN XS','TRUPONAT NF','TRUPOFIN CERA HF','TRUPOFIN CERA HS','TRUPOFIN CERA HP',
+  'TRUPOSEPT BA','TRUPOFIN CERA PW','TRUPOSYL TBK-E','TRUPOFIN CERA PV','TRUPON AP','TRUPOCAL AF',
+  'TRUPOSYL TBA','TRUPOSOL WBF','TRUPOSYL TBD','TRUPON BMF','TRUPOCRYL K-U-10','TRUPOFIN CERA DP',
+  'TRUPON CST','TRUPON COL','TRUPOSIST S-BO','TRUPOSYL TBK','PASTOSOL KC','ANTIFOAM NSP','TRUPOWET SA',
+  'TRUPOFIN CERA CA','TRUPOFIN CERA SP','PASTOSOL HW','TRUPOTAN MON','PASTOSOL DG','TRUPOCRYL AB',
+  'TRUPOZYM AX','TRUPOCRYL A-10','TRUPOFIN CERA 3A','TRUPOCAL DE','TRUKALIN K','TRUPOZYM AB',
+  'TRUPOCRYL A-18','SOLVOTAN TACTO','TRUPONAT LA','TRUPOTEC S','TRUPOFIN CERA E','TRUPOFIN CERA P',
+  'TRUPON DBS','TRUPOFIN CERA FP','TRUPOFIN CERA M','TRUPOFIN CERA K-A','TRUPOFIN CERA BT','TRUPOSYL ABS',
+  'TRUPOCRYL A-20','TRUPOFIN CERA KT 09','TRUPON DB-80','TRUPOFIN CERA KT 08','TRUPON CM','TRUPOFIN CERA W',
+  'TRUPOTEC T','TRUPOCRYL A-28','TRUPOCRYL K-U-310','TRUPOTAN MOW','TRUPOCRYL K-A-30','PASTOSOL F',
+  'PASTOSOL MD','TRUPOZYM CL','TRUPOSLIP P','TRUPOZYM CN','TRUPOL RK','PASTOSOL BCN','TRUPOCRYL A–90',
+  'TRUPOSYL HBD','TRUPOTAN OM','TRUPOSIST D','TRUPOCRYL A-30','TRUPOCRYL K-U-27','TRUPOCRYL A-32',
+  'TRUPOFIN CERA D-80','TRUPOWET PH','TRUPON PEM','TRUPOZYM CB','TRUPOCRYL A-35','TRUPOFIN CERA A',
+  'TRUPOCRYL K-U-327','TRUPOZYM CH'
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1043,94 +1415,74 @@ INSERT INTO palets (identificador, id_producto, alto, ancho, largo, cantidad_de_
 
 
     
-INSERT INTO clientes (nombre, direccion, telefono, email) VALUES
-('Cliente A', 'Calle Falsa 123, Madrid', '600111222', 'cliente.a@example.com'),
-('Cliente B', 'Av. Siempre Viva 456, Barcelona', '600333444', 'cliente.b@example.com'),
-('Cliente C', 'Paseo Marítimo 789, Valencia', '600555666', 'cliente.c@example.com'),
-('Cliente D', 'Rúa Central 10, Vigo', '600777888', 'cliente.d@example.com'),
-('Cliente E', 'Calle Mayor 20, Sevilla', '600999000', 'cliente.e@example.com'),
-('Cliente F', 'C/ de la Luna 1, Granada', '601111222', 'cliente.f@example.com'),
-('Cliente G', 'Plaza Mayor 2, Oviedo', '601333444', 'cliente.g@example.com'),
-('Cliente H', 'Av. de la Reina 3, Toledo', '601555666', 'cliente.h@example.com'),
-('Cliente I', 'Camino Real 4, Bilbao', '601777888', 'cliente.i@example.com'),
-('Cliente J', 'Calle Nueva 5, Málaga', '601999000', 'cliente.j@example.com'),
-('Cliente K', 'C/ del Sol 6, Zaragoza', '602111222', 'cliente.k@example.com'),
-('Cliente L', 'Av. de América 7, Murcia', '602333444', 'cliente.l@example.com'),
-('Cliente M', 'Plaza del Pilar 8, Córdoba', '602555666', 'cliente.m@example.com'),
-('Cliente N', 'Calle del Río 9, Valladolid', '602777888', 'cliente.n@example.com'),
-('Cliente O', 'Gran Vía 11, Salamanca', '602999000', 'cliente.o@example.com'),
-('Cliente P', 'Av. Libertad 12, Pamplona', '603111222', 'cliente.p@example.com'),
-('Cliente Q', 'C/ Cartagena 13, Alicante', '603333444', 'cliente.q@example.com'),
-('Cliente R', 'Plaza de España 14, Albacete', '603555666', 'cliente.r@example.com'),
-('Cliente S', 'Calle las Flores 15, Cádiz', '603777888', 'cliente.s@example.com'),
-('Cliente T', 'Av. Andalucía 16, Almería', '603999000', 'cliente.t@example.com'),
-('Cliente U', 'Rúa do Sol 17, Lugo', '604111222', 'cliente.u@example.com'),
-('Cliente V', 'Calle La Paz 18, Logroño', '604333444', 'cliente.v@example.com'),
-('Cliente W', 'Av. Cataluña 19, Pamplona', '604555666', 'cliente.w@example.com'),
-('Cliente X', 'Plaza Constitución 21, Santander', '604777888', 'cliente.x@example.com'),
-('Cliente Y', 'C/ Nueva 22, Burgos', '604999000', 'cliente.y@example.com'),
-('Cliente Z', 'Av. Goya 23, San Sebastián', '605111222', 'cliente.z@example.com'),
-('Cliente AA', 'Calle Real 24, León', '605333444', 'cliente.aa@example.com'),
-('Cliente AB', 'Av. Asturias 25, Oviedo', '605555666', 'cliente.ab@example.com'),
-('Cliente AC', 'Plaza del Mercado 26, Toledo', '605777888', 'cliente.ac@example.com'),
-('Cliente AD', 'Calle Sorolla 27, Valencia', '605999000', 'cliente.ad@example.com');
+
+INSERT INTO clientes (nombre, direccion, telefono, email, latitud, longitud) VALUES
+('Cliente A', 'Calle de Alcalá 123, Madrid', '600111222', 'cliente.a@example.com', 40.420300, -3.688350),
+('Cliente B', 'Carrer de Mallorca 401, Barcelona', '600333444', 'cliente.b@example.com', 41.403629,  2.174356),
+('Cliente C', 'Carrer de Xàtiva 24, Valencia', '600555666', 'cliente.c@example.com', 39.466667, -0.377000),
+('Cliente D', 'Rúa do Príncipe 10, Vigo', '600777888', 'cliente.d@example.com', 42.236300, -8.722600),
+('Cliente E', 'Calle Sierpes 20, Sevilla', '600999000', 'cliente.e@example.com', 37.392500, -5.995600),
+('Cliente F', 'Calle Gran Vía de Colón 1, Granada', '601111222', 'cliente.f@example.com', 37.176487, -3.597929),
+('Cliente G', 'Plaza de la Catedral 2, Oviedo', '601333444', 'cliente.g@example.com', 43.361400, -5.849200),
+('Cliente H', 'Plaza de Zocodover 3, Toledo', '601555666', 'cliente.h@example.com', 39.858100, -4.022600),
+('Cliente I', 'Gran Vía de Don Diego López de Haro 4, Bilbao', '601777888', 'cliente.i@example.com', 43.263000, -2.935000),
+('Cliente J', 'Calle Larios 5, Málaga', '601999000', 'cliente.j@example.com', 36.721300, -4.421700);
 
 
+INSERT INTO pedidos (id_usuario, id_cliente, estado, fecha_entrega, hora_salida, palets_del_pedido) VALUES
+(NULL, 1, 'Pendiente', '2025-08-10', NULL, 0),
+(NULL, 2, 'Pendiente', '2025-08-12', NULL, 0),
+(NULL, 3, 'Pendiente', '2025-08-14', NULL, 0),
+(NULL, 4, 'Pendiente', '2025-08-16', NULL, 0),
+(NULL, 5, 'Pendiente', '2025-08-18', NULL, 0),
 
-INSERT INTO pedidos (id_usuario, id_cliente, estado) VALUES
-(NULL, 1, 'Pendiente'),
-(NULL, 2, 'Pendiente'),
-(NULL, 3, 'Pendiente'),
-(NULL, 4, 'Pendiente'),
-(NULL, 5, 'Pendiente'),
+(1, 1, 'En proceso', '2025-08-11', 'primera_hora', 0),
+(2, 2, 'En proceso', '2025-08-13', 'segunda_hora', 0),
+(3, 3, 'En proceso', '2025-08-15', 'primera_hora', 0),
+(4, 4, 'En proceso', '2025-08-17', 'segunda_hora', 0),
+(5, 5, 'En proceso', '2025-08-19', 'primera_hora', 0),
 
-(1, 1, 'En proceso'),
-(2, 2, 'En proceso'),
-(3, 3, 'En proceso'),
-(4, 4, 'En proceso'),
-(5, 5, 'En proceso'),
+(NULL, 1, 'Pendiente', '2025-07-01', NULL, 0),
+(NULL, 2, 'Pendiente', '2025-07-02', NULL, 0),
+(NULL, 3, 'Pendiente', '2025-07-03', NULL, 0),
+(NULL, 4, 'Pendiente', '2025-07-04', NULL, 0),
+(NULL, 5, 'Pendiente', '2025-07-05', NULL, 0),
 
-(1, 1, 'Completado'),
-(2, 2, 'Completado'),
-(3, 3, 'Completado'),
-(4, 4, 'Completado'),
-(5, 5, 'Completado'),
+(1, 1, 'Cancelado', '2025-06-01', NULL, 0),
+(2, 2, 'Cancelado', '2025-06-02', NULL, 0),
+(3, 3, 'Cancelado', '2025-06-03', NULL, 0),
+(4, 4, 'Cancelado', '2025-06-04', NULL, 0),
+(5, 5, 'Cancelado', '2025-06-05', NULL, 0),
 
-(1, 1, 'Cancelado'),
-(2, 2, 'Cancelado'),
-(3, 3, 'Cancelado'),
-(4, 4, 'Cancelado'),
-(5, 5, 'Cancelado'),
+(NULL, 1, 'Pendiente', '2025-08-20', NULL, 0),
+(NULL, 2, 'Pendiente', '2025-08-21', NULL, 0),
+(NULL, 3, 'Pendiente', '2025-08-22', NULL, 0),
+(NULL, 4, 'Pendiente', '2025-08-23', NULL, 0),
+(NULL, 5, 'Pendiente', '2025-08-24', NULL, 0),
 
-(NULL, 1, 'Pendiente'),
-(NULL, 2, 'Pendiente'),
-(NULL, 3, 'Pendiente'),
-(NULL, 4, 'Pendiente'),
-(NULL, 5, 'Pendiente'),
+(2, 1, 'En proceso', '2025-08-25', 'segunda_hora', 0),
+(3, 2, 'En proceso', '2025-08-26', 'primera_hora', 0),
+(4, 3, 'En proceso', '2025-08-27', 'segunda_hora', 0),
+(5, 4, 'En proceso', '2025-08-28', 'primera_hora', 0),
+(1, 5, 'En proceso', '2025-08-29', 'segunda_hora', 0),
 
-(2, 1, 'En proceso'),
-(3, 2, 'En proceso'),
-(4, 3, 'En proceso'),
-(5, 4, 'En proceso'),
-(1, 5, 'En proceso'),
+(NULL, 1, 'Pendiente', '2025-07-10', NULL, 0),
+(NULL, 2, 'Pendiente', '2025-07-11', NULL, 0),
+(NULL, 3, 'Pendiente', '2025-07-12', NULL, 0),
+(NULL, 4, 'Pendiente', '2025-07-13', NULL, 0),
+(NULL, 5, 'Pendiente', '2025-07-14', NULL, 0),
 
-(2, 1, 'Completado'),
-(3, 2, 'Completado'),
-(4, 3, 'Completado'),
-(5, 4, 'Completado'),
-(1, 5, 'Completado'),
+(2, 1, 'Cancelado', '2025-06-10', NULL, 0),
+(3, 2, 'Cancelado', '2025-06-11', NULL, 0),
+(4, 3, 'Cancelado', '2025-06-12', NULL, 0),
+(5, 4, 'Cancelado', '2025-06-13', NULL, 0),
+(1, 5, 'Cancelado', '2025-06-14', NULL, 0),
 
-(2, 1, 'Cancelado'),
-(3, 2, 'Cancelado'),
-(4, 3, 'Cancelado'),
-(5, 4, 'Cancelado'),
-(1, 5, 'Cancelado'),
-
-(NULL, 1, 'Pendiente'),
-(NULL, 2, 'Pendiente'),
-(NULL, 3, 'Pendiente'),
-(NULL, 4, 'Pendiente'),
-(NULL, 5, 'Pendiente');
+(NULL, 1, 'Pendiente', '2025-08-30', NULL, 0),
+(NULL, 2, 'Pendiente', '2025-08-31', NULL, 0),
+(NULL, 3, 'Pendiente', '2025-09-01', NULL, 0),
+(NULL, 4, 'Pendiente', '2025-09-02', NULL, 0),
+(NULL, 5, 'Pendiente', '2025-09-03', NULL, 0);
 
 
 
@@ -1187,33 +1539,33 @@ INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_p
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (5, 63, 43, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (5, 51, 17, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (5, 71, 87, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 41, 53, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 41, 53, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 64, 26, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 49, 88, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 49, 88, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 48, 25, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 28, 48, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 28, 48, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 50, 44, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 78, 80, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 31, 94, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 30, 64, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 45, 66, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 45, 66, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 20, 60, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (6, 73, 77, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 65, 57, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 67, 91, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 3, 68, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 3, 68, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 12, 16, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 71, 38, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 63, 37, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 54, 13, TRUE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 11, 14, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 54, 13, FALSE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (7, 11, 14, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 78, 89, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 80, 38, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 49, 57, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 39, 67, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 12, 78, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 12, 78, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 21, 76, FALSE);
-INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 55, 69, TRUE);
+INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 55, 69, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (8, 1, 36, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (9, 15, 92, FALSE);
 INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, estado_producto_pedido) VALUES (9, 42, 76, FALSE);

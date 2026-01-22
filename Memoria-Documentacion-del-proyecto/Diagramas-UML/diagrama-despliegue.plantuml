@@ -1,0 +1,45 @@
+@startuml
+' --- Ajustes visuales ---
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+skinparam defaultFontSize 16
+skinparam ArrowThickness 2
+skinparam nodesep 60
+skinparam ranksep 50
+
+' --- Red interna ---
+cloud "Red interna del almacén (LAN)" as LAN {
+
+  node "PC de gestión\n(Windows/Linux)" as PC #D6E9FF {
+    artifact "Aplicación Desktop\n(Java + JavaFX)" as Desktop
+    component "MySQL Connector/J\n(JDBC Driver)" as JDBC
+    folder "Ficheros locales\n(PDF etiquetas / Excel)" as Files
+  }
+
+  node "Servidor de base de datos" as DBServer #E6E6E6 {
+    database "MySQL" as MySQL
+  }
+
+  node "Dispositivo móvil\n(Android)" as Phone #D9FAD9 {
+    artifact "Aplicación Android" as Android
+  }
+
+  node "Servidor de API" as ApiServer #FFF2CC {
+    artifact "Backend REST\n(Spring Boot)" as API
+  }
+
+  node "Impresora de etiquetas" as Printer #F2F2F2
+}
+
+' --- Conexiones (canales) ---
+Desktop --> JDBC : Invocación driver
+JDBC --> MySQL : JDBC / SQL
+
+Android --> API : HTTPS / JSON (REST)
+API --> MySQL : JDBC / SQL
+
+Desktop --> Files : Exporta PDF/Excel
+Files --> Printer : Impresión etiquetas
+
+@enduml

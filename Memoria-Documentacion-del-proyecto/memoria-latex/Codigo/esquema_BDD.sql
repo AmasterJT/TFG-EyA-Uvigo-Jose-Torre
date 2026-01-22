@@ -1,7 +1,3 @@
--- Si queremos volver a crear toda la base de datos desde cero primero la borramos ejecutando
- DROP DATABASE IF EXISTS tfg_almacenDB;
-
--- Creación de la base de datos
 create database  tfg_almacenDB;
 
 use tfg_almacenDB;

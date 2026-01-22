@@ -1,0 +1,92 @@
+@startuml
+
+
+skinparam defaultFontSize 24
+skinparam classFontSize 24
+skinparam packageFontSize 26
+skinparam titleFontSize 28
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam packageStyle rectangle
+
+package "REST API (Spring Boot)" {
+
+  package "Controller (presentation)" {
+    class PaletController <<RestController>>
+    class UbicacionController <<RestController>>
+    class PedidoController <<RestController>>
+  }
+
+  package "Service (business)" {
+    class PaletService <<Service>>
+    class UbicacionService <<Service>>
+    class PedidoService <<Service>>
+  }
+
+  package "Repository (data)" {
+    interface PaletRepository <<JpaRepository>>
+    interface UbicacionRepository <<JpaRepository>>
+    interface PedidoRepository <<JpaRepository>>
+  }
+
+  package "DTOs (API contracts)" {
+    class PaletRequestDTO <<DTO>>
+    class PaletResponseDTO <<DTO>>
+    class UbicacionDTO <<DTO>>
+    class PedidoDTO <<DTO>>
+  }
+
+  package "Domain / JPA Entities" {
+    class Palet <<Entity>>
+    class Ubicacion <<Entity>>
+    class Estanteria <<Entity>>
+    class Pedido <<Entity>>
+    class LineaPedido <<Entity>>
+    class Producto <<Entity>>
+  }
+
+  package "Validation & Error handling" {
+    class ApiExceptionHandler <<ControllerAdvice>>
+    class UbicacionOcupadaException <<Exception>>
+    class NotFoundException <<Exception>>
+    class BadRequestException <<Exception>>
+  }
+}
+
+' --- dependencias entre capas ---
+PaletController --> PaletService
+UbicacionController --> UbicacionService
+PedidoController --> PedidoService
+
+PaletService --> PaletRepository
+UbicacionService --> UbicacionRepository
+PedidoService --> PedidoRepository
+
+' --- DTOs usados por controladores ---
+PaletController --> PaletRequestDTO
+PaletController --> PaletResponseDTO
+UbicacionController --> UbicacionDTO
+PedidoController --> PedidoDTO
+
+' --- mapeo (conceptual) DTO <-> Entity ---
+PaletService ..> PaletRequestDTO : map
+PaletService ..> PaletResponseDTO : map
+PaletService --> Palet
+
+' --- entidades y relaciones de dominio (resumen) ---
+Palet --> Ubicacion : ocupa
+Ubicacion --> Estanteria : pertenece a
+Pedido "1" o-- "1..*" LineaPedido
+LineaPedido --> Producto : referencia
+
+' --- control de errores ---
+ApiExceptionHandler ..> UbicacionOcupadaException
+ApiExceptionHandler ..> NotFoundException
+ApiExceptionHandler ..> BadRequestException
+
+PaletService ..> UbicacionOcupadaException : lanza
+PaletService ..> NotFoundException : lanza
+PaletController ..> BadRequestException : valida/lanza
+
+@enduml

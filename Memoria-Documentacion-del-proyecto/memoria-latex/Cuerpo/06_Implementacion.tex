@@ -40,7 +40,11 @@ La utilización de un lenguaje común en todos los componentes de la solución f
 
 \subsection{Seguridad y gestión de errores}
 \label{subsec:seguridad-errores}
-% TODO: Autenticación, autorización, validación, manejo de excepciones, logs.
+
+En el diseño del sistema se ha tenido en cuenta la protección de las credenciales de los usuarios. Las contraseñas no se almacenan en texto claro en la base de datos, sino que se guardan en forma de valores hash generados mediante un algoritmo de derivación de claves seguro.
+
+Para este propósito se ha optado por el uso de Argon2, un algoritmo específicamente diseñado para el almacenamiento seguro de contraseñas, que ofrece resistencia frente a ataques de fuerza bruta y ataques mediante hardware especializado.
+
 
 \subsection{Control de versiones y gestión del proyecto}
 \label{subsec:control-versiones}

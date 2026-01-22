@@ -1,0 +1,38 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class ActualizarDimensionesPaletRequest
+class ActualizarEstadoPedidoRequest
+class ActualizarEstadoProductoPedidoRequest
+class ActualizarPaletRequest
+class ActualizarPaletizadoRequest
+class ActualizarPaletsPedidoRequest
+class ActualizarUbicacionPaletRequest
+class AlmacenApiApplication
+class AuthController
+class AuthService
+class DetallePedido
+class DetallePedidoController
+interface DetallePedidoRepository << interface >>
+class HolaController
+class IdentificadorProductoResponse
+class LoginRequest
+class LoginResponse
+class Palet
+class PaletController
+interface PaletRepository << interface >>
+class Pedido
+class PedidoController
+interface PedidoRepository << interface >>
+class Producto
+class ProductoController
+interface ProductoRepository << interface >>
+class UserIdResponse
+class Usuario
+class UsuarioController
+interface UsuarioRepository << interface >>
+
+@enduml
