@@ -1,0 +1,20 @@
+@startuml
+actor Usuario
+participant "App Android" as App
+participant "Backend" as BE
+
+Usuario -> App : Introduce credenciales (usuario + contraseña)
+App -> BE : POST /login\n{username, password}
+BE -> BE : Validar credenciales
+alt Credenciales válidas
+    BE -> App : 200 OK\n{tokenSesion}
+    App -> App : Guardar token en memoria
+else Credenciales inválidas
+    BE -> App : 401 Unauthorized\n{error}
+end
+
+note right of App
+Token solo en memoria
+(no se guarda en disco)
+end note
+@enduml

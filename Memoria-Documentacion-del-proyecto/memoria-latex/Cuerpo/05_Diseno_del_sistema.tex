@@ -135,8 +135,117 @@ El script completo de creación del esquema se incluye en el Anexo \ref{anexo:sq
   \label{fig:diagrama-eer}
 \end{figure}
 
+\begingroup
+\sloppy
+\subsubsection{Gestión de usuarios, roles y permisos}
+
+\paragraph{Tabla \texttt{roles}.}
+Define los perfiles de acceso del sistema. Su clave primaria es \texttt{id\_rol}. Se referencia desde \texttt{usuarios} mediante \texttt{id\_rol}.
+
+\paragraph{Tabla \texttt{permisos\_usuarios}.}
+Catálogo de permisos/funcionalidades controladas por rol. La clave primaria es \texttt{id\_permiso}. El campo \texttt{nombre\_permiso} es \texttt{UNIQUE}, evitando duplicidades en el identificador lógico del permiso.
+
+\paragraph{Tabla \texttt{rol\_permiso}.}
+Tabla de asociación rol--permiso. Implementa una relación N:M entre \texttt{roles} y \texttt{permisos\_usuarios}. Su clave primaria es compuesta: \texttt{(id\_rol, id\_permiso)}. Incluye el campo \texttt{estado} (p.\,ej. \texttt{activo}, \texttt{inactivo}, \texttt{ver}) para modelar el nivel de acceso concedido por cada rol a cada permiso.
+Define dos claves foráneas:
+\texttt{id\_rol} $\rightarrow$ \texttt{roles(id\_rol)} y
+\texttt{id\_permiso} $\rightarrow$ \texttt{permisos\_usuarios(id\_permiso)}.
+
+\paragraph{Tabla \texttt{usuarios}.}
+Almacena la identidad y credenciales de acceso. La clave primaria es \texttt{id\_usuario}. Los campos \texttt{nombre}, \texttt{apellido1}, \texttt{apellido2} y \texttt{email} están definidos como \texttt{NOT NULL}; \texttt{email} es \texttt{UNIQUE}. El campo \texttt{contraseña} (\texttt{VARCHAR(255)}) almacena el \emph{hash} de contraseña (Argon2), evitando el almacenamiento en texto plano.
+La relación con roles se implementa mediante \texttt{id\_rol} como clave foránea a \texttt{roles(id\_rol)} con \texttt{ON DELETE CASCADE} y \texttt{ON UPDATE CASCADE}.
+Incluye \texttt{fecha\_registro} con \texttt{DEFAULT CURRENT\_TIMESTAMP}.
+
+\paragraph{Trigger \texttt{generar\_user\_name}.}
+Trigger \texttt{BEFORE INSERT} sobre \texttt{usuarios}. Genera automáticamente \texttt{user\_name} concatenando la inicial del nombre y fragmentos de apellidos, y añade un sufijo hexadecimal en función del número de coincidencias existentes; también inicializa \texttt{activo=1}. Este trigger evita dependencias del cliente para construir el identificador de usuario.
+
+\subsubsection{Catálogo de productos y proveedores}
+
+\paragraph{Tabla \texttt{tipos}.}
+Catálogo de tipos de producto. Clave primaria \texttt{id\_tipo}. El campo \texttt{nombre} es \texttt{UNIQUE}, imponiendo unicidad del tipo a nivel de esquema.
+
+\paragraph{Tabla \texttt{proveedores}.}
+Almacena proveedores. Clave primaria \texttt{id\_proveedor}. El campo \texttt{nombre\_proveedor} es \texttt{UNIQUE} para evitar duplicidades de proveedor en el catálogo.
+
+\paragraph{Tabla \texttt{productos}.}
+Define el maestro de producto. Clave primaria \texttt{id\_producto}.
+Incluye \texttt{identificador\_producto} como clave lógica \texttt{UNIQUE} (referencia interna/externa estable para integraciones y trazabilidad). \texttt{nombre} y \texttt{cantidad\_por\_palet} están marcados como \texttt{NOT NULL}.
+Relaciona el producto con su tipo mediante la clave foránea \texttt{id\_tipo} $\rightarrow$ \texttt{tipos(id\_tipo)}.
+
+\paragraph{Tabla \texttt{proveedor\_producto}.}
+Materializa la relación N:M entre \texttt{proveedores} y \texttt{productos}, permitiendo registrar la asociación de un proveedor con un producto concreto. Clave primaria compuesta \texttt{(id\_proveedor, id\_producto)}. Define dos claves foráneas:
+\texttt{id\_proveedor} $\rightarrow$ \texttt{proveedores(id\_proveedor)} y
+\texttt{id\_producto} $\rightarrow$ \texttt{productos(id\_producto)}.
+
+\subsubsection{Estructura física del almacén, ubicaciones y palets}
+
+\paragraph{Tabla \texttt{estanterias}.}
+Representa una estantería física. Clave primaria \texttt{id\_estanteria}. Incluye \texttt{nombre\_estanteria} y parámetros geométricos/capacidad: \texttt{num\_baldas}, \texttt{num\_posiciones\_balda}, \texttt{posiciones\_total}, \texttt{posiciones\_disponibles}. El campo \texttt{nombre\_estanteria} es \texttt{UNIQUE}.
+
+\paragraph{Trigger \texttt{calcular\_posiciones\_disponibles}.}
+Trigger \texttt{BEFORE INSERT} sobre \texttt{estanterias}. Calcula \texttt{posiciones\_total} y \texttt{posiciones\_disponibles} como producto de \texttt{num\_baldas} por \texttt{num\_posiciones\_balda}. Con ello se evita inconsistencia entre capacidad declarada y capacidad derivada.
+
+\paragraph{Tabla \texttt{ubicaciones}.}
+Modela la ubicación física concreta dentro de una estantería. Clave primaria \texttt{id\_ubicacion}. Incluye \texttt{balda}, \texttt{posicion} y \texttt{delante} (profundidad/posición frontal-trasera). Se asocia a una estantería mediante la clave foránea \texttt{id\_estanteria} $\rightarrow$ \texttt{estanterias(id\_estanteria)} con \texttt{ON DELETE CASCADE} y \texttt{ON UPDATE CASCADE}.
+Impone unicidad lógica de la coordenada física mediante \texttt{UNIQUE(id\_estanteria, balda, posicion, delante)}, evitando crear dos ubicaciones idénticas dentro de la misma estantería.
+
+\paragraph{Tabla \texttt{palets}.}
+Entidad central de inventario: cada registro representa un palet identificado por \texttt{id\_palet}. Contiene datos dimensionales (\texttt{alto}, \texttt{ancho}, \texttt{profundo}), \texttt{peso} y \texttt{cantidad\_producto}.
+Se asocia a producto mediante \texttt{identificador\_producto} como clave foránea a \texttt{productos(identificador\_producto)} y a ubicación mediante \texttt{id\_ubicacion} como clave foránea a \texttt{ubicaciones(id\_ubicacion)}.
+La restricción \texttt{UNIQUE(id\_ubicacion)} garantiza ocupación 1:1 (una ubicación no puede contener más de un palet simultáneamente en el modelo).
+
+\subsubsection{Pedidos, detalle y expedición}
+
+\paragraph{Tabla \texttt{clientes}.}
+Datos del cliente destinatario de pedidos. Clave primaria \texttt{id\_cliente}. Los campos \texttt{nif} y \texttt{nombre\_cliente} están definidos como \texttt{NOT NULL}.
+
+\paragraph{Tabla \texttt{transportistas}.}
+Catálogo de transportistas. Clave primaria \texttt{id\_transportista}. El campo \texttt{nombre\_transportista} es \texttt{NOT NULL}.
+
+\paragraph{Tabla \texttt{pedidos}.}
+Cabecera de pedido. Clave primaria \texttt{id\_pedido}. Incluye \texttt{fecha\_creacion} con \texttt{DEFAULT CURRENT\_TIMESTAMP} y el campo \texttt{estado} como \texttt{ENUM('pendiente','en\_proceso','completado','enviado','cancelado')} para restringir estados válidos.
+Relaciona el pedido con:
+\texttt{usuarios(id\_usuario)} (usuario responsable/asignado),
+\texttt{clientes(id\_cliente)} (destinatario),
+\texttt{transportistas(id\_transportista)} (expedición; admite \texttt{NULL} hasta asignación).
+Incluye \texttt{codigo\_referencia} como identificador operativo \texttt{UNIQUE}.
+
+\paragraph{Trigger \texttt{generar\_codigo\_referencia}.}
+Trigger \texttt{BEFORE INSERT} sobre \texttt{pedidos}. Genera \texttt{codigo\_referencia} con formato \texttt{YYYYMMDD-XXX}, donde \texttt{XXX} es un contador diario en hexadecimal (\texttt{LPAD(HEX(...),3,'0')}). Asegura unicidad por día sin depender del cliente.
+
+\paragraph{Tabla \texttt{detalles\_pedido}.}
+Líneas de pedido. Clave primaria \texttt{id\_detalle\_pedido}. Define \texttt{cantidad} como \texttt{NOT NULL}.
+Implementa la composición del pedido mediante dos claves foráneas:
+\texttt{id\_pedido} $\rightarrow$ \texttt{pedidos(id\_pedido)} y
+\texttt{id\_producto} $\rightarrow$ \texttt{productos(id\_producto)}.
+
+\paragraph{Tabla \texttt{palet\_salida}.}
+Tabla de enlace entre \texttt{palets} y \texttt{pedidos} para registrar qué palets se asocian a la expedición de un pedido. Clave primaria \texttt{id\_palet\_salida}.
+Define claves foráneas:
+\texttt{id\_palet} $\rightarrow$ \texttt{palets(id\_palet)} y
+\texttt{id\_pedido} $\rightarrow$ \texttt{pedidos(id\_pedido)}.
 
 
+
+\subsubsection{Órdenes de compra}
+
+\paragraph{Tabla \texttt{orden\_compra}.}
+Cabecera de orden de compra. Clave primaria \texttt{id\_oc}. Incluye \texttt{fecha\_creacion} con \texttt{DEFAULT CURRENT\_TIMESTAMP}, \texttt{estado} como \texttt{ENUM} \texttt{(`pendiente',`tramitada',`cancelada')} y \texttt{codigo\_oc} como identificador \texttt{UNIQUE}.
+Cabecera de orden de compra. Clave primaria \texttt{id\_oc}. Incluye \texttt{fecha\_creacion} con \texttt{DEFAULT CURRENT\_TIMESTAMP}, \texttt{estado} como \texttt{ENUM('pendiente','tramitada','cancelada')} y \texttt{codigo\_oc} como identificador \texttt{UNIQUE}.
+Asocia la orden con un proveedor mediante \texttt{id\_proveedor} como clave foránea a \texttt{proveedores(id\_proveedor)}.
+
+\paragraph{Trigger \texttt{generar\_codigo\_orden\_compra}.}
+Trigger \texttt{BEFORE INSERT} sobre \texttt{orden\_compra}. Genera \texttt{codigo\_oc} con formato \texttt{OC-YYYYMMDD-XXX}, usando un contador diario en hexadecimal para garantizar unicidad operativa.
+
+\paragraph{Tabla \texttt{detalle\_orden\_compra}.}
+Líneas de una orden de compra. Clave primaria \texttt{id\_detalle}. Contiene \texttt{cantidad} como \texttt{NOT NULL}.
+Define claves foráneas:
+\texttt{id\_oc} $\rightarrow$ \texttt{orden\_compra(id\_oc)} y
+\texttt{id\_producto} $\rightarrow$ \texttt{productos(id\_producto)}.
+\endgroup
+
+
+\clearpage
 \subsection{Diseño de la API}
 \label{subsec:diseno-api}
 

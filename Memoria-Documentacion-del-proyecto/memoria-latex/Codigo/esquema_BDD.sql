@@ -425,19 +425,6 @@ CREATE TABLE palets (
     FOREIGN KEY (id_producto) REFERENCES productos(identificador_producto)
 );
 
--- Creación de la tabla movimientos
-CREATE TABLE
-    movimientos (
-        id_movimiento INT PRIMARY KEY AUTO_INCREMENT,
-        id_usuario INT,
-        id_palet INT,
-        tipo_movimiento ENUM ('Cambio de locacion del palet', 'Registrar nuevo Palet', 'Eliminar Palet') NOT NULL,
-        fecha_movimiento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        observaciones TEXT,
-        FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario),
-        FOREIGN KEY (id_palet) REFERENCES palets (id_palet)
-    );
-
 CREATE TABLE pedidos (
     id_pedido INT PRIMARY KEY AUTO_INCREMENT,
 

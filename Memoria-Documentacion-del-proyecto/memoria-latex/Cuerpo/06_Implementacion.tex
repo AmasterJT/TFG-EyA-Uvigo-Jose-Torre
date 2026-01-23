@@ -24,19 +24,329 @@ La utilización de un lenguaje común en todos los componentes de la solución f
 
 \subsection{Implementación de la aplicación Desktop}
 \label{subsec:impl-desktop}
-% TODO: Estructura del proyecto, módulos, pantallas principales, etc.
+
+La aplicación de escritorio se ha implementado en Java utilizando JavaFX para la construcción de la interfaz gráfica y \gls{jdbc}, mediante el conector oficial \textit{MySQL Connector}, para la comunicación directa con la base de datos relacional.
+
+La estructura del proyecto se organiza en paquetes diferenciados según su función. La capa de interfaz de usuario agrupa los controladores JavaFX asociados a cada ventana o diálogo, encargados de gestionar los eventos de usuario y la actualización de la vista. La capa de acceso a datos encapsula las consultas \gls{sql} mediante clases \gls{dao}, responsables de ejecutar consultas parametrizadas y gestionar los resultados obtenidos a través de \gls{resultset}. Esta separación permite aislar la lógica de persistencia de la interfaz gráfica y facilita el mantenimiento del código.
+
+La ventana principal constituye el punto de acceso a las funcionalidades del sistema y centraliza la navegación entre los distintos módulos de la aplicación, tales como la gestión del almacén, el inventario, los pedidos, la paletización, los envíos y el calendario de operaciones. Cada módulo se estructura a nivel de interfaz mediante ficheros \gls{fxml} específicos.
+
+Para evitar la sobrecarga de visual de la ventana principal, se utilizan ventanas secundarias para determinadas operaciones (orden de compra, exportacion de datos, entre otras), cargadas dinámicamente a partir de ficheros \gls{fxml} independientes, así podemos realizar una interfaz gráfica más clara e intuitiva.
+
+
+El control de acceso a funcionalidades se implementa en el cliente mediante comprobaciones del rol del usuario autenticado, habilitando o deshabilitando botones y opciones de menú en función de los permisos asignados. Las operaciones críticas se validan adicionalmente a nivel de base de datos, garantizando coherencia ante usos incorrectos de la interfaz, por ejemplo, la base de datos imposibilita introducir un palet en una posicion ya acupada o inexistente.
+
+Finalmente, la aplicación incorpora mecanismos de exportación de datos a ficheros Excel y generación de documentos PDF para etiquetas y listados operativos, integrados directamente en el flujo de trabajo del usuario.
+
+Las tecnologías empleadas en la implementación de la aplicación de escritorio, la Tabla~\ref{tab:deps-desktop-principales} recoge las dependencias principales utilizadas, junto con su versión y su función dentro del proyecto.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{m{4.2cm} m{2.2cm} m{7.6cm}}
+\toprule
+\rowcolor{gray!15}
+\multicolumn{1}{c}{\textbf{Componente}} &
+\multicolumn{1}{c}{\textbf{Versión}} &
+\multicolumn{1}{c}{\textbf{Uso en el proyecto}} \\
+\midrule
+JavaFX (controls, fxml, graphics) & 23.0.1 & Interfaz gráfica de la aplicación de escritorio (escenas, controles y carga de vistas FXML). \\
+\hline
+MySQL Connector & 9.5.0 & Conectividad JDBC con MySQL desde la aplicación desktop. \\
+\hline
+Argon2 JVM & 2.11 & Hash/verificación de contraseñas (almacenamiento seguro de credenciales). \\
+\hline
+Apache POI (poi, poi-ooxml) & 5.5.0 & Exportación de datos a ficheros Excel (XLSX). \\
+\hline
+Apache PDFBox & 2.0.30 & Generación/gestión de documentos PDF (p.\,ej., etiquetas o informes). \\
+\hline
+iText (itextpdf) & 5.5.13.3 & Generación de PDF (si se emplea en alguna parte del flujo documental). \\
+\hline
+ControlsFX & 11.1.0 & Controles UI adicionales para JavaFX (diálogos, validaciones visuales, etc.). \\
+\hline
+Ikonli (core, javafx, fontawesome-pack) & 12.2.0 & Iconografía en la interfaz JavaFX. \\
+\hline
+CalendarFX (view) & 11.10.1 & Vista de calendario para planificación/consulta de operaciones. \\
+\bottomrule
+\end{tabular}
+\caption{Dependencias principales empleadas en la aplicación de escritorio.}
+\label{tab:deps-desktop-principales}
+\end{table}
+
+La Figura~\ref{fig:arbol-directorio-logico-app-desktop} muestra el árbol de directorios correspondiente a la lógica principal de la aplicación situado en el paquete ``main''. En él se pueden observar los distintos paquetes que organizan las clases según su funcionalidad, tales como controladores de la intefaz gráfica \textit{controller}, modelos, acceso a datos y utilidades.
+
+
+\DefineVerbatimEnvironment{Tree}{Verbatim}{
+    fontsize=\small,
+    baselinestretch=1,
+    showspaces=false,
+    showtabs=false
+}
+
+\begin{figure}[H]
+    \centering
+    \begin{Tree}
+    └─── uvigo
+        └─── tfgalmacen
+            │    Main.java
+            │    RutasFicheros.java
+            │
+            ├─── almacenManagement
+            │        Almacen.java
+            │        MisElementoGraficos.java
+            │       ...
+            ├─── controllers
+            │   │    ajustesController.java
+            │   │    almacenController.java
+            │   │   ...
+            │   │
+            │   └─── apartadosAjustesControllers
+            │            ItemEditarPedidoController.java
+            │            ItemOrdenCrearPedidoController.java
+            │           ...
+            ├─── database
+            │        ClientesDAO.java
+            │        DatabaseConnection.java
+            │      ...
+            │
+            ├─── gs1
+            │        EtiquetaGS1.java
+            │        GS1Utils.java
+            │
+            ├─── models
+            │        Cliente.java
+            │        OrdenCompra.java
+            |       ...   
+            │
+            └─── utils
+                     ClipboardUtils.java
+                     ColorFormatter.java
+                    ...
+    \end{Tree}
+    \caption{Árbol de directorios de la lógica de la app desktop}
+    \label{fig:arbol-directorio-logico-app-desktop}
+\end{figure}
+
+
+Por otra parte, los recursos de interfaz se organizan en un paquete específico ``resources'' que agrupa los ficheros \gls{fxml}, junto con subdirectorios destinados a iconos e imágenes utilizados por las distintas vistas.
+
+La Figura~\ref{fig:arbol-directorio-gui} muestra el árbol de directorios correspondiente a la interfaz gráfica de la aplicación, aquí tenemos todos los recursos gráficos como iconos, imagenes, que se emplearon en el diseño de la interfaz gráfica.
+
+\begin{figure}[H]
+    \centering
+    \begin{Tree}
+    ├─── icons
+    │   │   󰸭 active-eye-24.png
+    │   │   󰸭 add.png
+    │   │   ...
+    │   │
+    │   ├─── arrows
+    │   │       󰸭 icons8-arrow-left-30 (1).png
+    │   │       󰸭 icons8-arrow-left-30.png
+    │   │       ...
+    │   │
+    │   └─── barcodes
+    │           󰸭 icons8-barcode-24 (1).png
+    │           󰸭 icons8-barcode-24.png
+    │           ...
+    ├─── img
+    │       󰸭dimensiones-pallet.png
+    │       󰈥palet.jpg
+    │       󰸭palet.PNG
+    │
+    └─── uvigo
+        └─── tfgalmacen
+            │   󰗀 apartadoAlmacen.fxml
+            │   󰗀 apartadoCalendario.fxml
+            │   ...
+            │
+            ├─── css
+            │       buttons.css
+            │       Colors.css
+            │       ...
+            │
+            ├─── items
+            │       󰗀 itemDetallesPedido.fxml
+            │       󰗀 itemInventario.fxml
+            │       ...
+            │
+            └─── ventanasAjustes
+                ├─── ajustesPedidos
+                │       󰗀 itemCrearPedido.fxml
+                │       󰗀 itemEditarPedido.fxml
+                │       ...
+                │
+                └─── ajustesUsuarios
+                        󰗀 windowActualizarPedidoDeUsuarioEliminado.fxml
+                        󰗀 windowAjustesCambiarContrasenaUsuarios.fxml
+                        ...
+    \end{Tree}
+    \caption{Árbol de directorios de la interfaz gráfica}
+    \label{fig:arbol-directorio-gui}
+\end{figure}
+
+
+
 
 \subsection{Implementación de la aplicación Android}
 \label{subsec:impl-android}
-% TODO: Componentes, pantallas, consumo API, gestión de estado, etc.
+
+La aplicación Android se ha desarrollado siguiendo el modelo de cliente ligero, delegando la lógica de negocio y la persistencia de datos en el backend del sistema. La implementación se basa en el uso de actividades para la gestión de las distintas pantallas y en el consumo de servicios REST mediante la librería Retrofit.
+
+Las actividades principales gestionan flujos bien definidos, como la autenticación del usuario, la consulta de pedidos asignados y la modificación de información asociada a palets. El intercambio de información con el backend se realiza exclusivamente mediante objetos DTO, que representan contratos de datos desacoplados del modelo interno del servidor.
+
+La autenticación se implementa mediante el envío de credenciales al backend, que valida el acceso y devuelve un token de sesión utilizado en las peticiones posteriores. Este token se gestiona en memoria durante la ejecución de la aplicación, evitando el almacenamiento persistente de información sensible en el dispositivo.
+
+
+\begin{figure}[H]
+\centering
+\rotatebox{0}{%
+  \includegraphics[width=0.8\textwidth]{../Diagramas-UML/login-android/login-android.png}%
+}
+\caption{Secuencia de autenticación en la aplicación Android}
+\label{fig:login-android}
+\end{figure}
+
+
+El diseño de la interfaz prioriza la reducción de interacciones necesarias para completar una tarea. Las acciones más frecuentes, como actualización de cantidades, se implementan mediante formularios simplificados y selección asistida de datos, adaptados al uso en entornos operativos.
+
+La aplicación Android restringe su funcionalidad al rol de operario, garantizando que únicamente se expongan operaciones relacionadas con la ejecución de pedidos y la gestión física de palets.
+
+Las tecnologías empleadas en la implementación de la aplicación Android, la Tabla~\ref{tab:deps-android} recoge las dependencias principales utilizadas, junto con su versión y su función dentro del proyecto.
+
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{m{4.6cm} m{2.2cm} m{7.2cm}}
+\hline
+\rowcolor{gray!15}
+\multicolumn{1}{c}{\textbf{Componente}} &
+\multicolumn{1}{c}{\textbf{Versión}} &
+\multicolumn{1}{c}{\textbf{Uso en el proyecto}} \\
+\hline
+AndroidX AppCompat & 1.7.1 &
+Compatibilidad con versiones modernas de Android y soporte de componentes base de interfaz. \\
+\hline
+Material Components & 1.13.0 &
+Implementación de elementos de interfaz siguiendo las guías de diseño Material Design. \\
+\hline
+AndroidX Activity & 1.12.0 &
+Gestión del ciclo de vida de las \emph{activities} y comunicación con la interfaz. \\
+\hline
+ConstraintLayout & 2.2.1 &
+Diseño flexible y eficiente de las pantallas mediante restricciones entre componentes. \\
+\hline
+Retrofit & 3.0.0 &
+Cliente HTTP para el consumo de la API REST desde la aplicación Android. \\
+\hline
+Retrofit Gson Converter & 3.0.0 &
+Serialización y deserialización automática de mensajes JSON intercambiados con la API. \\
+\hline
+\end{tabular}
+\caption{Dependencias principales y versiones de la aplicación Android.}
+\label{tab:deps-android}
+\end{table}
+
+El código se organiza en cuatro bloques: activities'' controla la interfaz y el flujo inicial, incluyendo validaciones y acciones; api'' gestiona la comunicación externa con Retrofit para enviar y recibir datos de palets y pedidos; models'' define los DTO para estructurar la información; y adapters'' convierte esos modelos en elementos de las listas dinámicas de la interfaz, cerrando el ciclo de visualización y respuesta a eventos. La Figura~\ref{fig:arbol-directorio-app-android} muestra el árbol de directorios de la aplicación.
+
+
+
+\begin{figure}[H]
+    \centering
+    \begin{Tree}
+         java        
+        │    LoginRequest.java
+        │    LoginResponse.java
+        │
+        ├─── activities
+        │        EditPaletActivity.java
+        │        LoginActivity.java
+        │       ...
+        │
+        ├─── adapters
+        │        OnProductoActionListener.java
+        │        PedidosAdapter.java
+        │        ProductosAdapter.java
+        │
+        ├─── api
+        │        ApiClient.java
+        │        AuthApi.java
+        │       ...
+        │
+        └─── models
+                 CambiarEstadoPedidoDto.java
+                 CambiarEstadoProductoDto.java
+                ...
+    \end{Tree}
+    \caption{Árbol de directorios del paquete de la app Android}
+    \label{fig:arbol-directorio-app-android}
+\end{figure}
+
+
+
+
+
+
 
 \subsection{Implementación del backend / servidor}
 \label{subsec:impl-backend}
-% TODO: Controladores, servicios, repositorios, validaciones, etc.
+
+El backend del sistema se ha implementado como una API REST utilizando Spring Boot, siguiendo una arquitectura en capas claramente definida. La capa de controladores expone los endpoints HTTP y se encarga de la validación inicial de las peticiones, la conversión de datos y la generación de respuestas con códigos de estado adecuados.
+
+La capa de servicios concentra la lógica de negocio del sistema, coordinando las operaciones entre repositorios y aplicando las reglas de integridad del dominio. En esta capa se implementan validaciones específicas, como la detección de colisiones de ubicación de palets o la verificación del estado de los pedidos antes de su modificación.
+
+El acceso a datos se realiza mediante Spring Data JPA, utilizando repositorios que extienden \texttt{JpaRepository}. Este enfoque permite disponer de operaciones CRUD estándar y de consultas derivadas por nombre, empleadas, por ejemplo, para comprobar la existencia de palets en una ubicación determinada antes de realizar una operación de inserción o actualización.
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{m{4.2cm} m{2.2cm} m{7.6cm}}
+\hline
+\rowcolor{gray!15}
+\multicolumn{1}{c}{\textbf{Componente}} &
+\multicolumn{1}{c}{\textbf{Versión}} &
+\multicolumn{1}{c}{\textbf{Uso en el proyecto}} \\
+\hline
+Framework backend & 4.0.0 & Estructura base del backend y gestión del ciclo de vida de la aplicación \\
+\hline
+API REST (Web MVC) & 4.0.0 & Exposición de endpoints HTTP y controladores REST \\
+\hline
+Persistencia (JPA) & 4.0.0 & Abstracción del acceso a datos mediante repositorios \\
+\hline
+ORM & 7.1.8 & Mapeo objeto-relacional entre entidades Java y tablas MySQL \\
+\hline
+Pool de conexiones JDBC & 7.0.2 & Gestión eficiente de conexiones a la base de datos \\
+\hline
+Driver MySQL & 9.5.0 & Comunicación JDBC entre la aplicación y MySQL \\
+\hline
+Hash de contraseñas (Argon2) & 2.11 & Almacenamiento seguro de credenciales de usuario \\
+\hline
+Servidor embebido & 4.0.0 & Ejecución autónoma de la API sin servidor externo \\
+\hline
+Servlet container (Tomcat) & 11.0.14 & Gestión de peticiones HTTP y ciclo de servlets \\
+\hline
+
+\end{tabular}
+\caption{Dependencias principales, versiones y uso en el backend (API REST).}
+\label{tab:deps-backend}
+\end{table}
+
 
 \subsection{Implementación de la base de datos}
 \label{subsec:impl-bd}
-% TODO: Scripts, migraciones, constraints, índices, datos de prueba.
+
+La base de datos del sistema se ha implementado sobre un sistema gestor relacional MySQL. El esquema se define mediante scripts \gls{sql} que crean las tablas, claves primarias, claves foráneas y restricciones necesarias para garantizar la integridad de los datos.
+
+Las relaciones entre entidades se refuerzan mediante restricciones \texttt{FOREIGN KEY}, que controlan dependencias como la asociación entre palets y ubicaciones o entre pedidos y productos. Se han definido índices sobre campos de búsqueda frecuente, como identificadores de usuario, códigos de palet y estados de pedido, con el objetivo de optimizar las consultas más habituales.
+
+La gestión de usuarios incluye el almacenamiento seguro de credenciales. Las contraseñas no se guardan en texto plano, sino como valores derivados mediante el algoritmo Argon2, configurado con parámetros de coste adecuados para entornos de servidor. Esta implementación protege las credenciales frente a ataques de fuerza bruta y accesos no autorizados.
+
+Para facilitar la puesta en marcha y las pruebas del sistema, el esquema incluye datos iniciales, como roles, permisos y configuraciones básicas del almacén, que permiten validar el funcionamiento completo de la aplicación desde las primeras fases de ejecución.
+
 
 \subsection{Seguridad y gestión de errores}
 \label{subsec:seguridad-errores}
