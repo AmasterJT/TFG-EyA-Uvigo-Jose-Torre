@@ -285,20 +285,54 @@ El código se organiza en cuatro bloques: activities'' controla la interfaz y el
     \label{fig:arbol-directorio-app-android}
 \end{figure}
 
+Para la intefaz gráfica, se utilizan ficheros XML que definen la estructura visual de cada pantalla, así como los diferentes iconos e imagenes implementadas en la aplicación. La Figura~\ref{fig:arbol-directorio-interfaz-android} muestra el árbol de directorios correspondiente a los recursos gráficos de la aplicación Android.
 
-
-
-
-
+\begin{figure}[H]
+    \centering
+    \begin{Tree}
+         res
+        ├─── drawable
+        │ 		󰗀 borde_blanco.xml
+        │		󰗀 button_orange.xml
+        │ 		...
+        │
+        ├─── layout
+        │ 		󰗀 activity_edit_palet.xml
+        │ 		󰗀 activity_login.xml
+        │ 		󰗀 activity_main.xml
+        │ 		󰗀 activity_pedido.xml
+        │ 		󰗀 activity_select_options.xml
+        │ 		󰗀 item_pedidos.xml
+        │ 		󰗀 item_productos_pendientes.xml
+        │
+        ├─── values
+        │ 		󰗀 colors.xml
+        │ 		󰗀 strings.xml
+        │ 		󰗀 themes.xml
+        │
+        ├─── values-night
+        │ 		󰗀 themes.xml
+        │
+        └─── ...
+    \end{Tree}
+    \caption{Árbol de directorios de los recursos gráficos de la app Android}
+    \label{fig:arbol-directorio-interfaz-android}
+\end{figure}
 
 \subsection{Implementación del backend / servidor}
 \label{subsec:impl-backend}
 
-El backend del sistema se ha implementado como una API REST utilizando Spring Boot, siguiendo una arquitectura en capas claramente definida. La capa de controladores expone los endpoints HTTP y se encarga de la validación inicial de las peticiones, la conversión de datos y la generación de respuestas con códigos de estado adecuados.
+El backend del sistema se ha desarrollado como una API REST basada en Spring Boot, estructurada en capas bien definidas que separan la exposición de servicios, la lógica de negocio y el acceso a datos. Esta organización facilita el mantenimiento del código, la evolución funcional y la validación de reglas de negocio de forma centralizada.
 
-La capa de servicios concentra la lógica de negocio del sistema, coordinando las operaciones entre repositorios y aplicando las reglas de integridad del dominio. En esta capa se implementan validaciones específicas, como la detección de colisiones de ubicación de palets o la verificación del estado de los pedidos antes de su modificación.
+La capa de controladores, define los endpoints HTTP de la API y actúa como punto de entrada para las peticiones de los clientes. En esta capa se realiza la validación inicial de los datos recibidos y la conversión entre los objetos de transferencia (DTOs) y el modelo interno del sistema. Asimismo, los controladores construyen las respuestas HTTP, devolviendo códigos de estado coherentes con el resultado de cada operación (por ejemplo, éxito, error de validación o recurso no encontrado).
 
-El acceso a datos se realiza mediante Spring Data JPA, utilizando repositorios que extienden \texttt{JpaRepository}. Este enfoque permite disponer de operaciones CRUD estándar y de consultas derivadas por nombre, empleadas, por ejemplo, para comprobar la existencia de palets en una ubicación determinada antes de realizar una operación de inserción o actualización.
+La lógica de negocio se concentra en la capa de servicios, donde se implementan las reglas funcionales del sistema. Esta capa coordina las operaciones sobre los repositorios y garantiza la coherencia del dominio, aplicando comprobaciones como la validez del estado de un pedido antes de su modificación o la detección de conflictos en la asignación de ubicaciones de palets. Las operaciones que implican cambios persistentes se ejecutan dentro de transacciones para asegurar la consistencia de los datos ante fallos o accesos concurrentes.
+
+El acceso a la base de datos se realiza mediante Spring Data JPA. Este enfoque permite disponer de operaciones CRUD estándar y de consultas derivadas por nombre o personalizadas, empleadas para validar condiciones específicas, como la existencia previa de registros o la verificación de restricciones operativas antes de una actualización.
+
+De forma transversal, el backend incorpora mecanismos de seguridad y control de errores. La autenticación de usuarios se apoya en credenciales almacenadas de forma segura y en la validación centralizada de accesos a los endpoints. El tratamiento de excepciones se unifica mediante un componente global que traduce errores de dominio y validación en respuestas HTTP normalizadas, garantizando un comportamiento consistente frente a situaciones anómalas para la aplicación móvil.
+
+En la implementación del backend se emplearon diversas tecnologías; la Tabla~\ref{tab:deps-backend} recoge las dependencias principales utilizadas, junto con su versión y su función dentro del proyecto.
 
 \begin{table}[H]
 \centering
@@ -351,11 +385,11 @@ Para facilitar la puesta en marcha y las pruebas del sistema, el esquema incluye
 \subsection{Seguridad y gestión de errores}
 \label{subsec:seguridad-errores}
 
-En el diseño del sistema se ha tenido en cuenta la protección de las credenciales de los usuarios. Las contraseñas no se almacenan en texto claro en la base de datos, sino que se guardan en forma de valores hash generados mediante un algoritmo de derivación de claves seguro.
+El sistema incorpora mecanismos específicos para la protección de las credenciales de los usuarios y la gestión controlada de errores. Las contraseñas no se almacenan en texto claro en la base de datos, sino que se transforman mediante un algoritmo de derivación de claves diseñado para entornos de autenticación, evitando que la exposición de la base de datos implique la divulgación
+directa de credenciales.
 
-Para este propósito se ha optado por el uso de Argon2, un algoritmo específicamente diseñado para el almacenamiento seguro de contraseñas, que ofrece resistencia frente a ataques de fuerza bruta y ataques mediante hardware especializado.
+Para este propósito se ha utilizado Argon2, un algoritmo moderno orientado al almacenamiento seguro de contraseñas. Este algoritmo permite incrementar el coste computacional del proceso de verificación, dificultando ataques de fuerza bruta. Su diseño prioriza el consumo controlado de recursos, lo que refuerza la seguridad sin afectar de forma significativa al uso normal del sistema.
 
+La verificación de credenciales se realiza siempre comparando el valor derivado de la contraseña introducida con el hash almacenado, sin necesidad de revertir el proceso. De este modo, la lógica de autenticación mantiene una separación clara entre los datos sensibles y el resto de la aplicación, reduciendo la superficie de ataque y alineándose con buenas prácticas de seguridad en
+sistemas de información.
 
-\subsection{Control de versiones y gestión del proyecto}
-\label{subsec:control-versiones}
-% TODO: Git, ramas, issues, milestones, metodología (Scrum/Kanban), etc.
