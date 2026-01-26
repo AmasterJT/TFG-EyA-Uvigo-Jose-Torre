@@ -292,26 +292,26 @@ Para la intefaz gráfica, se utilizan ficheros XML que definen la estructura vis
     \begin{Tree}
          res
         ├─── drawable
-        │ 		󰗀 borde_blanco.xml
-        │		󰗀 button_orange.xml
-        │ 		...
+        │       󰗀 borde_blanco.xml
+        │       󰗀 button_orange.xml
+        │       ...
         │
         ├─── layout
-        │ 		󰗀 activity_edit_palet.xml
-        │ 		󰗀 activity_login.xml
-        │ 		󰗀 activity_main.xml
-        │ 		󰗀 activity_pedido.xml
-        │ 		󰗀 activity_select_options.xml
-        │ 		󰗀 item_pedidos.xml
-        │ 		󰗀 item_productos_pendientes.xml
+        │       󰗀 activity_edit_palet.xml
+        │       󰗀 activity_login.xml
+        │       󰗀 activity_main.xml
+        │       󰗀 activity_pedido.xml
+        │       󰗀 activity_select_options.xml
+        │       󰗀 item_pedidos.xml
+        │       󰗀 item_productos_pendientes.xml
         │
         ├─── values
-        │ 		󰗀 colors.xml
-        │ 		󰗀 strings.xml
-        │ 		󰗀 themes.xml
+        │       󰗀 colors.xml
+        │       󰗀 strings.xml
+        │       󰗀 themes.xml
         │
         ├─── values-night
-        │ 		󰗀 themes.xml
+        │       󰗀 themes.xml
         │
         └─── ...
     \end{Tree}
@@ -322,7 +322,9 @@ Para la intefaz gráfica, se utilizan ficheros XML que definen la estructura vis
 \subsection{Implementación del backend / servidor}
 \label{subsec:impl-backend}
 
-El backend del sistema se ha desarrollado como una API REST basada en Spring Boot, estructurada en capas bien definidas que separan la exposición de servicios, la lógica de negocio y el acceso a datos. Esta organización facilita el mantenimiento del código, la evolución funcional y la validación de reglas de negocio de forma centralizada.
+El backend del sistema se ha desarrollado como una API REST basada en Spring Boot. Esta tecnologia ha sido seleccionada por ser el framework más popular en el ecosistema Java, ofreciendo una amplia gama de funcionalidades integradas y una comunidad activa que facilita la resolución de problemas y la incorporación de buenas prácticas.
+
+La \gls{api} Spring Boot desarrollada está estructurada en capas bien definidas que separan la exposición de servicios, la lógica de negocio y el acceso a datos. Esta organización facilita el mantenimiento del código, la evolución funcional y la validación de reglas de negocio de forma centralizada.
 
 La capa de controladores, define los endpoints HTTP de la API y actúa como punto de entrada para las peticiones de los clientes. En esta capa se realiza la validación inicial de los datos recibidos y la conversión entre los objetos de transferencia (DTOs) y el modelo interno del sistema. Asimismo, los controladores construyen las respuestas HTTP, devolviendo códigos de estado coherentes con el resultado de cada operación (por ejemplo, éxito, error de validación o recurso no encontrado).
 
@@ -330,7 +332,7 @@ La lógica de negocio se concentra en la capa de servicios, donde se implementan
 
 El acceso a la base de datos se realiza mediante Spring Data JPA. Este enfoque permite disponer de operaciones CRUD estándar y de consultas derivadas por nombre o personalizadas, empleadas para validar condiciones específicas, como la existencia previa de registros o la verificación de restricciones operativas antes de una actualización.
 
-De forma transversal, el backend incorpora mecanismos de seguridad y control de errores. La autenticación de usuarios se apoya en credenciales almacenadas de forma segura y en la validación centralizada de accesos a los endpoints. El tratamiento de excepciones se unifica mediante un componente global que traduce errores de dominio y validación en respuestas HTTP normalizadas, garantizando un comportamiento consistente frente a situaciones anómalas para la aplicación móvil.
+El backend incorpora también mecanismos de seguridad y control de errores. La autenticación de usuarios se apoya en credenciales almacenadas de forma segura y en la validación centralizada de accesos a los endpoints. El tratamiento de excepciones se unifica mediante un componente global que traduce errores de dominio y validación en respuestas HTTP normalizadas, garantizando un comportamiento consistente frente a situaciones anómalas para la aplicación móvil.
 
 En la implementación del backend se emplearon diversas tecnologías; la Tabla~\ref{tab:deps-backend} recoge las dependencias principales utilizadas, junto con su versión y su función dentro del proyecto.
 
@@ -373,20 +375,29 @@ Servlet container (Tomcat) & 11.0.14 & Gestión de peticiones HTTP y ciclo de se
 \subsection{Implementación de la base de datos}
 \label{subsec:impl-bd}
 
-La base de datos del sistema se ha implementado sobre un sistema gestor relacional MySQL. El esquema se define mediante scripts \gls{sql} que crean las tablas, claves primarias, claves foráneas y restricciones necesarias para garantizar la integridad de los datos.
+La base de datos del sistema se ha implementado sobre un sistema gestor relacional MySQL, seleccionado por su madurez, estabilidad y compatibilidad con entornos de producción y herramientas de desarrollo ampliamente utilizadas como \textit{MySQL Workbench}. El esquema se define mediante scripts \gls{sql} que crean las tablas, claves primarias, claves foráneas y restricciones necesarias para garantizar la integridad de los datos. Ver el Anexo~\ref{anexo:sql-esquema} para consultar el script completo de creación de la base de datos.
 
 Las relaciones entre entidades se refuerzan mediante restricciones \texttt{FOREIGN KEY}, que controlan dependencias como la asociación entre palets y ubicaciones o entre pedidos y productos. Se han definido índices sobre campos de búsqueda frecuente, como identificadores de usuario, códigos de palet y estados de pedido, con el objetivo de optimizar las consultas más habituales.
 
-La gestión de usuarios incluye el almacenamiento seguro de credenciales. Las contraseñas no se guardan en texto plano, sino como valores derivados mediante el algoritmo Argon2, configurado con parámetros de coste adecuados para entornos de servidor. Esta implementación protege las credenciales frente a ataques de fuerza bruta y accesos no autorizados.
+También se han automatizado ciertas operaciones mediante \texttt{TRIGGERS} que garantizan la coherencia de datos y su trazabilidad. Uno de estos  \texttt{TRIGGERS} lo implemntamos para la generación automática de códigos para nuevos pedidos. El siguiente código (Figura~\ref{fig:trigger-ejemplo}) muestra un trigger que asigna un código único a cada nuevo pedido insertado en la base de datos:
 
-Para facilitar la puesta en marcha y las pruebas del sistema, el esquema incluye datos iniciales, como roles, permisos y configuraciones básicas del almacén, que permiten validar el funcionamiento completo de la aplicación desde las primeras fases de ejecución.
+\begin{figure}[H]
+    \centering
+    \lstinputlisting[language=SQL]{Codigo/trigger-ejemplo.sql}
+    \caption{Trigger para asignar código único a nuevos pedidos}
+    \label{fig:trigger-ejemplo}
+\end{figure}
+
+
+La gestión de usuarios incluye el almacenamiento seguro de credenciales, la seguridad de las credenciales se detalla en la sección siguiente. Las contraseñas no se guardan en texto plano, sino como valores ilegibles. Esta implementación protege las credenciales frente a ataques de fuerza bruta y accesos no autorizados.
+
+Para facilitar la puesta en marcha y las pruebas del sistema, el esquema incluye datos iniciales, como roles, permisos y configuraciones básicas del almacén (información obtenida del cliente), que permiten validar el funcionamiento completo de la aplicación desde las primeras fases de ejecución.
 
 
 \subsection{Seguridad y gestión de errores}
 \label{subsec:seguridad-errores}
 
-El sistema incorpora mecanismos específicos para la protección de las credenciales de los usuarios y la gestión controlada de errores. Las contraseñas no se almacenan en texto claro en la base de datos, sino que se transforman mediante un algoritmo de derivación de claves diseñado para entornos de autenticación, evitando que la exposición de la base de datos implique la divulgación
-directa de credenciales.
+El sistema incorpora mecanismos específicos para la protección de las credenciales de los usuarios y la gestión controlada de errores. Las contraseñas no se almacenan en texto claro en la base de datos, sino que se transforman mediante un algoritmo de derivación de claves diseñado para entornos de autenticación, evitando que la exposición de la base de datos implique la divulgación directa de credenciales.
 
 Para este propósito se ha utilizado Argon2, un algoritmo moderno orientado al almacenamiento seguro de contraseñas. Este algoritmo permite incrementar el coste computacional del proceso de verificación, dificultando ataques de fuerza bruta. Su diseño prioriza el consumo controlado de recursos, lo que refuerza la seguridad sin afectar de forma significativa al uso normal del sistema.
 

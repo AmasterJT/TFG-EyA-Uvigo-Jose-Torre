@@ -3,8 +3,24 @@
 
 \subsection{Conclusiones}
 \label{subsec:conclusiones}
-% TODO: Resumen final: qué se hizo, qué aporta, qué aprendiste, resultados clave.
+
+El presente Trabajo Fin de Grado ha abordado el diseño y la implementación de un sistema software orientado a la gestión de almacenes de consolidación en entornos industriales. Partiendo del análisis de las necesidades operativas propias de este tipo de instalaciones, se ha desarrollado una solución técnica compuesta por una aplicación de escritorio, una aplicación móvil para dispositivos Android y un backend común encargado del tratamiento y persistencia de la información.
+
+El sistema desarrollado permite gestionar de forma estructurada los elementos fundamentales del almacén —productos, palets, ubicaciones, movimientos y pedidos— proporcionando trazabilidad completa de las operaciones realizadas y reduciendo la dependencia de procedimientos manuales o herramientas genéricas no adaptadas a este contexto. La centralización de la información en una base de datos relacional, junto con las validaciones implementadas tanto a nivel de lógica de negocio como de esquema, contribuye a mejorar la coherencia y fiabilidad de los datos.
+
+Desde el punto de vista arquitectónico, la separación entre planificación y operativa, materializada mediante la combinación de una aplicación de escritorio y una aplicación móvil, se ajusta a la realidad de los entornos industriales analizados. Este enfoque facilita que cada perfil de usuario disponga de una interfaz adaptada a su contexto de uso, mejorando la eficiencia durante la ejecución de tareas diarias en el almacén.
+
+En el ámbito académico, el desarrollo del proyecto ha permitido aplicar de forma integrada conocimientos relacionados con arquitectura de software, diseño de bases de datos, desarrollo de interfaces gráficas y comunicación entre sistemas distribuidos. Asimismo, ha supuesto una aproximación práctica a problemas reales de gestión logística, reforzando la capacidad de análisis, diseño y toma de decisiones técnicas propias de la ingeniería industrial.
+
+En conjunto, los objetivos planteados al inicio del proyecto han sido alcanzados, obteniendo un sistema funcional y coherente que puede servir como base para su aplicación o ampliación en entornos reales de almacenes de consolidación.
 
 \subsection{Líneas de mejora y trabajos futuros}
 \label{subsec:trabajos-futuros}
-% TODO: Mejoras posibles, nuevas funcionalidades, refactorización, despliegue, etc.
+
+A partir del trabajo realizado, se identifican diversas líneas de mejora y posibles extensiones que permitirían ampliar las capacidades del sistema y adaptarlo a escenarios más exigentes. Una primera línea de evolución consistiría en la integración con sistemas de automatización industrial o dispositivos de captura automática de datos, como lectores de códigos de barras, lo que permitiría reducir aún más la intervención manual, como la búsqueda por el codigo de identificación del palets, durante la operativa en planta.
+
+Otra posible mejora se centra en la ampliación de la aplicación móvil, incorporando funcionalidades avanzadas de planificación o supervisión que actualmente se concentran en la aplicación de escritorio. Asimismo, podría evaluarse el desarrollo de una interfaz web adicional, dado que tenemos un backend implementado, que facilitase el acceso al sistema desde distintos dispositivos sin necesidad de instalación específica donde se puedan ejecutar operaciones de consulta u otras que convenga implementar.
+
+En cuanto a la base de datos, futuras ampliaciones podrían incluir optimizaciones adicionales mediante particionado, replicación o análisis histórico de datos para la obtención de indicadores de rendimiento del almacén. Estas mejoras resultarían especialmente relevantes en instalaciones con un volumen elevado de movimientos o una rotación intensa de mercancía.
+
+Finalmente, el sistema desarrollado puede considerarse una base sólida sobre la que continuar investigando y desarrollando soluciones software aplicadas a la gestión logística industrial, manteniendo la orientación práctica y el enfoque ingenieril que ha guiado este Trabajo Fin de Grado.

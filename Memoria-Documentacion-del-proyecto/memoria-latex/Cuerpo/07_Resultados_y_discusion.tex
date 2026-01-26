@@ -3,16 +3,33 @@
 
 \subsection{Resultados del desarrollo}
 \label{subsec:resultados-desarrollo}
-% TODO: Qué se ha logrado: funcionalidades implementadas, capturas, métricas, etc.
+
+El desarrollo del sistema ha permitido materializar una solución funcional orientada a la gestión de un almacén de consolidación en un entorno industrial, dando respuesta directa a las necesidades operativas descritas en el capítulo de introducción. El sistema resultante integra una aplicación de escritorio, una aplicación móvil para dispositivos Android y un backend este último, todos ellos conectados mediante una base de datos relacional centralizada.
+
+La aplicación de escritorio cubre las tareas de planificación, control y gestión estructurada del almacén. En ella se han implementado funcionalidades para la gestión de productos, palets, ubicaciones, pedidos y órdenes de compra. Esta aplicación actúa como herramienta principal del sistema, facilita una visión global y actualizada del estado del inventario y de los procesos de consolidación.
+
+La aplicación móvil se orienta a la operativa en planta, permitiendo a los operarios consultar pedidos y actualizar cantidades de producto de forma inmediata durante la ejecución de tareas físicas. Este enfoque reduce el uso de registros manuales y minimiza el desfase entre la operación real y su reflejo en el sistema, uno de los problemas identificados en el análisis inicial.
+
+El backend implementado en la aplicación móvil centraliza la lógica de negocio y el acceso a datos, garantizando la coherencia de la información compartida por ambas aplicaciones. Las validaciones implementadas, junto con las restricciones definidas a nivel de base de datos, evitan situaciones inconsistentes como la ocupación simultánea de una ubicación por varios palets o la modificación de pedidos en estados no permitidos.
+
+En conjunto, el sistema desarrollado permite cubrir el flujo completo de trabajo de un almacén de consolidación, desde la entrada de mercancía y su ubicación física hasta la preparación y expedición de pedidos, manteniendo la trazabilidad de palets, ubicaciones, movimientos y usuarios.
 
 \subsection{Evaluación del cumplimiento de objetivos}
 \label{subsec:evaluacion-objetivos}
-% TODO: Relaciona objetivos del apartado 1.3 con resultados concretos.
 
-\subsection{Ventajas de la solución propuesta}
-\label{subsec:ventajas}
-% TODO: Beneficios frente a alternativas, mejoras operativas, escalabilidad, etc.
+Los resultados obtenidos permiten afirmar que el objetivo general del proyecto, consistente en desarrollar un sistema de gestión orientado a almacenes de consolidación en entornos industriales, ha sido alcanzado de forma satisfactoria.
+
+En relación con los objetivos específicos definidos en el apartado~\ref{subsec:objetivos}, el sistema desarrollado responde a las necesidades operativas identificadas mediante la digitalización de los procesos clave del almacén. La arquitectura adoptada, basada en la comunicación entre aplicaciones cliente y un backend común, permite separar claramente la operativa en planta de las tareas de planificación y control, cumpliendo el objetivo de adaptar la solución a distintos perfiles de usuario.
+
+La gestión de productos, palets, ubicaciones y pedidos se ha implementado de forma estructurada mediante un modelo de datos relacional coherente, reforzado por validaciones tanto en la lógica de negocio como en la base de datos. Este enfoque contribuye a mejorar la trazabilidad y el control del inventario, aspectos críticos señalados en la definición del problema.
+
+Asimismo, el diseño de interfaces diferenciadas para escritorio y dispositivos móviles facilita la integración del sistema en la rutina diaria del almacén, reduciendo la complejidad percibida por el usuario final y favoreciendo su adopción en un entorno industrial real.
+
 
 \subsection{Limitaciones detectadas}
 \label{subsec:limitaciones}
-% TODO: Limitaciones técnicas, de alcance, recursos, tiempo, etc.
+
+A pesar de los resultados obtenidos, el sistema presenta limitaciones derivadas del alcance definido para el proyecto. En primer lugar, la solución se centra exclusivamente en el apoyo a la gestión del almacén, sin intervenir en el control directo de maquinaria o sistemas automatizados, tal como se estableció en la definición del problema.
+
+La operativa está pensada para un entorno de red interna controlada, por lo que aspectos como la alta disponibilidad, el acceso remoto o la escalabilidad a gran escala no se han abordado en profundidad. Del mismo modo, la aplicación móvil cubre las tareas operativas esenciales, pero no sustituye completamente a la aplicación de escritorio en labores de planificación o gestión avanzada.
+
