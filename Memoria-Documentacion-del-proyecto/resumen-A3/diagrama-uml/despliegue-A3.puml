@@ -1,0 +1,41 @@
+@startuml
+' =========================
+' PC Usuario - AZUL
+' =========================
+node "PC Usuario\n(Windows)" as PC #ADD8E6 {
+  artifact "Desktop App (Java)" as Desktop
+  folder "Ficheros:\n\t-PDF (etiquetas)\n\t-Excel" as Files
+}
+
+' =========================
+' Servidor BD - GRIS
+' =========================
+node "Servidor BD" as Server #DDDDDD {
+  database "MySQL" as MySQL
+}
+
+component "Gestión de roles" as RolesManager
+
+
+Desktop --> RolesManager : JDBC / SQL
+RolesManager --> MySQL : JDBC / SQL
+MySQL --> Desktop
+Desktop --> Files : Exporta PDF/Excel
+
+' =========================
+' Móvil Android - VERDE
+' =========================
+node "Móvil Android" as Phone #C8E6C9 {
+  artifact "Android App" as Android
+}
+
+node "API" as ApiServer {
+  artifact "Backend REST (Spring Boot)" as API
+}
+
+Android --> API : HTTPS / JSON
+API --> MySQL : JDBC / SQL
+MySQL --> API
+API --> Android
+
+@enduml

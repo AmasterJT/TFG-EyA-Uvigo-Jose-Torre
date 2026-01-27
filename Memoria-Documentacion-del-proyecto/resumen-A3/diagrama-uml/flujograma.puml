@@ -1,0 +1,44 @@
+@startuml
+
+start
+
+:Recepción de mercancía;
+:Descarga de palets;
+
+:Identificación del palet;
+note right
+Identificación manual
+(etiqueta física o anotación)
+end note
+
+:Asignación de ubicación;
+note right
+Decisión manual del operario
+sin validación automática
+end note
+
+:Registro de la información;
+note right
+Registro en papel o Excel
+Datos no centralizados
+end note
+
+:Almacenamiento del palet;
+
+:Recepción de pedido;
+:Consulta de inventario;
+note right
+Inventario no actualizado
+en tiempo real
+end note
+
+:Localización del palet;
+
+:Preparación del pedido;
+
+:Registro de salida;
+
+:Expedición;
+
+stop
+@enduml
