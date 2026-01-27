@@ -515,3 +515,26 @@ En la aplicación móvil Android, destinada principalmente a operarios, el dise�
 \caption{Ventanas principales de la aplicación Android}
 \label{fig:ventanas-secundarias-android}
 \end{figure}
+
+
+\subsubsection{Flujo de la gestión de pedidos}
+\label{subsubsec:diseno-pedido}
+
+El sistema modela el pedido como una entidad con un ciclo de vida bien definido, orientado a reflejar el flujo operativo real de un almacén de consolidación. Cada pedido se asocia a un cliente, a un usuario responsable de su creación y gestión, y dispone de un identificador de referencia único que permite su trazabilidad durante todo el proceso.
+
+La creación del pedido se inicia en el área administrativa (rol de Administración), el pedido se registra en estado \texttt{pendiente}, indicando que aún no ha comenzado su ejecución operativa.
+
+A partir de este punto, el pedido puede seguir dos caminos excluyentes: su cancelación o su ejecución. Si el pedido es cancelado antes de iniciar su preparación, su estado pasa a \texttt{cancelado} y no se realizan operaciones adicionales sobre inventario o palets. En caso contrario, el pedido entra en estado \texttt{en\_curso}, lo que habilita su preparación en el almacén.
+
+Durante la fase de ejecución, el sistema controla la disponibilidad de los productos, la asignación de palets y el registro de los movimientos necesarios para completar la preparación. Finalizada esta fase, el pedido se asocia a un transportista y se marca como \texttt{completado} tras su expedición, quedando cerrado desde el punto de vista operativo.
+
+Este modelo de estados permite controlar de forma explícita las transiciones válidas del pedido y evita situaciones inconsistentes, como la modificación de pedidos ya expedidos o la preparación de pedidos cancelados.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=0.55\textheight]{../Diagramas-UML/flujo-pedidos/flujo-pedidos.png}
+\caption{Gestión de pedidos}
+\label{fig:gestion-pedidos}
+\end{figure}
+

@@ -393,6 +393,21 @@ La gestión de usuarios incluye el almacenamiento seguro de credenciales, la seg
 
 Para facilitar la puesta en marcha y las pruebas del sistema, el esquema incluye datos iniciales, como roles, permisos y configuraciones básicas del almacén (información obtenida del cliente), que permiten validar el funcionamiento completo de la aplicación desde las primeras fases de ejecución.
 
+\subsubsection{Generación de códigos de referencia automáticos}
+
+En la base de datos se ha implementado un mecanismo automático para la generación de códigos únicos de referencia para los pedidos y para las ordenes de compra. Este sistema asegura que cada elemento recibe un identificador distinto, que proporciona informacion acerca de este, en particular este código permite identificar el tipo de operación mediante un prefijo y cuando fue creado.
+
+\begin{center}
+\texttt{PREFIX-YYYYMMDD-HHHHHH}
+\end{center}
+
+Para los pedidos, el prefijo utilizado es \texttt{PED}, mientras que para las ordenes de compra se emplea el prefijo \texttt{OC}.
+
+El campo \texttt{YYYYMMDD} corresponde a la fecha de creación del pedido y \texttt{HHHHHH} es un contador secuencial diario expresado en formato hexadecimal. Este mecanismo permite generar hasta $16^6$ identificadores únicos por día, garantizando unicidad sin depender de la intervención del cliente y facilitando la trazabilidad temporal de los pedidos.
+
+Como se ha mencionado anteriormente, este sistema de generación automática de códigos se implementa mediante un \texttt{TRIGGER} en la base de datos que se activa al insertar un nuevo registro en la tabla correspondiente.
+
+Un ejemplo de esto lo encontramos en la Figura~\ref{fig:trigger-ejemplo}, donde se genera el codigo de los pedidos PED-YYYYMMDD-HHHHHH.
 
 \subsection{Seguridad y gestión de errores}
 \label{subsec:seguridad-errores}

@@ -1,0 +1,25 @@
+@startuml
+skinparam DefaultFontSize 26
+skinparam ActivityFontSize 24
+skinparam ArrowFontSize 20
+
+start
+:Nuevo Pedido;
+:Generar Pedido;
+:Estado: 'Pendiente';
+
+if (¿Ejecutar?) then (Sí)
+    :Preparar Pedido;
+    :Estado: 'En curso';
+    :Empacar;
+    :Estado: 'Completado';
+    :Enviar;
+    :Estado: 'Enviado';
+else (No)
+    :Cancelar Pedido;
+    :Estado: 'Cancelado';
+endif
+
+:Fin del Pedido;
+stop
+@enduml
