@@ -60,8 +60,6 @@
         \midrule
         \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/primary-key.png} & \textbf{Primary Key (PK)} & Identificador único de la fila. Por defecto es Not Null y Unique. \\
         \midrule
-        \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/primary-key-relacionada.png} & \textbf{PK + FK} & Indica que el campo es, al mismo tiempo, Llave Primaria y Llave Foránea. Común en relaciones identificativas. \\
-        \midrule
         \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/not-null.png} & \textbf{Not Null (NN)} & El campo es obligatorio. No permite guardar registros con este valor vacío. \\
         \midrule
         \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/foreing-key.png} & \textbf{Foreign Key (FK)} & Llave Foránea "pura". Vincula la tabla con la Llave Primaria de otra entidad para mantener la integridad referencial. \\
@@ -69,6 +67,8 @@
         \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/foreing-key-not-null.png} & \textbf{Nullable FK} & Una Llave Foránea que permite valores nulos; es decir, la relación con la otra tabla es opcional. \\
         \midrule
         \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/null.png} & \textbf{Null / Optional} & Un campo estándar (no es llave) que es opcional y permite valores nulos. \\
+        \midrule
+        \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/primary-key-relacionada.png} & \textbf{PK + FK} & Indica que el campo es, al mismo tiempo, Llave Primaria y Llave Foránea. Común en relaciones identificativas. \\
         \bottomrule
     \end{tabular}
     \caption{Significado de los iconos de columna en MySQL Workbench.}
