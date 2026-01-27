@@ -414,7 +414,7 @@ Un ejemplo de esto lo encontramos en la Figura~\ref{fig:trigger-ejemplo}, donde 
 \subsection{Generación de etiquetas GS1}
 \label{subsec:impl-gs1}
 
-El sistema incorpora un mecanismo de generación de etiquetas normalizadas para la identificación de palets y productos, basado en el estándar GS1. Este estándar se emplea de forma habitual en entornos logísticos e industriales para garantizar la interoperabilidad, la trazabilidad de los materiales y la lectura automatizada mediante códigos de barras.
+El sistema incorpora un mecanismo de generación de etiquetas normalizadas para la identificación de palets y productos, basado en el estándar GS1. Este estándar se emplea de forma habitual en entornos logísticos e industriales para garantizar la interoperabilidad, la trazabilidad de los materiales y la lectura automatizada mediante códigos de barras \footweb{gs1_general}.
 
 La generación de etiquetas se implementa en la aplicación de escritorio, integrándose dentro del flujo operativo del almacén. Las etiquetas se producen en formato PDF y se almacenan localmente en el ordenador donde se generan.
 
@@ -423,13 +423,16 @@ Desde el punto de vista técnico, la generación de la etiqueta se encapsula en 
 Como mecanismos de seguridad el sistema no permite marcar un pedido como \texttt{ENVIADO} si la etiqueta no ha sido generada previamente.
 
 \begin{figure}[H]
-\centering
-\setlength{\fboxsep}{0pt} % Elimina el espacio entre el borde y la imagen
-\setlength{\fboxrule}{0.2pt} % Ajusta el grosor del borde
-\fbox{\includegraphics[width=0.7\textwidth]{Imagenes/etiqueta-gs1-ejemplo.pdf}}
-\caption{Ejemplo de etiqueta GS1 generada por el sistema}
-\label{fig:etiqueta-gs1}
+    \centering
+    \setlength{\fboxsep}{0pt} % Elimina el espacio entre el borde y la imagen
+    \setlength{\fboxrule}{0.2pt} % Ajusta el grosor del borde
+    \fbox{\includegraphics[width=0.7\textwidth]{Imagenes/etiqueta-gs1-ejemplo.pdf}}
+    \caption{Ejemplo de etiqueta GS1 generada por el sistema}
+    \label{fig:etiqueta-gs1}
 \end{figure}
+
+La generación del codigo de barras se realiza mediante identificadores de aplicación definidos por el sistema GS1 \footweb{gs1_application_identifiers}, estos identificadores dependen de los productos que contenga el palet a enviar, por tanto, dependiendo de las necesidades del cliente habrá que adaptarlos.
+
 
 \textbf{NOTA}: El objetivo de este proyecto no es la generación completa de etiquetas GS1, sino la integración de un mecanismo que permita su creación siguiendo el estándar. La Figura~\ref{fig:etiqueta-gs1} muestra un ejemplo de etiqueta generada por el sistema, que incluye los elementos básicos definidos por GS1, como el código de barras, el identificador del producto y la información relevante para la gestión logística. La configuración de la etiqueta deberá adaptarse a las necesidades específicas del cliente.
 
