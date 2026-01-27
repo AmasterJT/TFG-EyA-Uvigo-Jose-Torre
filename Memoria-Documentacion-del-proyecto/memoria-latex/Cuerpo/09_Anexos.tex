@@ -3,3 +3,74 @@
 \label{anexo:sql-esquema}
 
 \lstinputlisting[language=SQL]{Codigo/esquema_BDD_sin_comentarios.sql} 
+
+
+
+
+
+% ---------------------------------------------------------
+\subsection{Guía de símbolos del diagrama Entidad-Relación}
+\label{anexo:simbolos-eer}
+
+
+\subsubsection{Tipos de Relaciones}
+\label{tipos-relacion}
+
+
+\begin{table}[H]
+    \centering
+
+    \begin{tabular}{m{1.5cm} m{3.5cm} m{9.5cm}}
+        \toprule
+        \textbf{Símbolos} & \textbf{Nombre} & \textbf{Explicación Corta} \\
+        \midrule
+        \includegraphics[width=1cm]{Imagenes/leyenda-diagrama-EER/Relacion-1_1-No-Identificativa.png} & 1:1 No Identificativa & Tablas independientes. Ej: Usuario y su Perfil opcional. \\
+        \midrule
+        \includegraphics[width=1cm]{Imagenes/leyenda-diagrama-EER/Relacion-1_N-No-Identificativa.png} & 1:N No Identificativa & Un padre, muchos hijos independientes. Ej: Departamento y Empleado. \\
+        \midrule
+        \includegraphics[width=1cm]{Imagenes/leyenda-diagrama-EER/Relacion-1_1-Identificativa.png} & 1:1 Identificativa & Relación fuerte; el hijo no existe sin el padre. Ej: Venta y Factura. \\
+        \midrule
+        \includegraphics[width=1cm]{Imagenes/leyenda-diagrama-EER/Relacion-1_N-Identificativa.png} & 1:N Identificativa & Relación de dependencia total. Ej: Libro y sus Capítulos. \\
+        \midrule
+        \includegraphics[width=1cm]{Imagenes/leyenda-diagrama-EER/Relacion-N_M.png} & N:M (Muchos a Muchos) & Crea una tabla intermedia. Ej: Estudiantes y Cursos. \\
+        \bottomrule
+    \end{tabular}
+    \caption{Simbología de relaciones en diagramas EER.}
+    \label{tab:simbolos-relaciones}
+\end{table}
+
+\subsubsection{Símbolos de Campos (Columnas)}
+\label{simbolos-campos}
+
+\textbf{Convenciones de color y forma:}
+\begin{enumerate}
+    \item Forma de Llave: Siempre indica una Primary Key.
+    \item Color Rojo: Siempre indica una relación o Foreign Key.
+    \item Color Azul: Indica un Atributo Simple (datos normales).
+    \item Relleno Sólido: El campo es NOT NULL (obligatorio).
+    \item Relleno Blanco (Vacío): El campo es NULLABLE (opcional).
+\end{enumerate}
+
+\begin{table}[H]
+    \centering
+
+    \begin{tabular}{m{1.5cm} m{3.5cm} m{9.5cm}}
+        \toprule
+        \textbf{Icono} & \textbf{Nombre} & \textbf{Descripción Técnica} \\
+        \midrule
+        \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/primary-key.png} & \textbf{Primary Key (PK)} & Identificador único de la fila. Por defecto es Not Null y Unique. \\
+        \midrule
+        \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/primary-key-relacionada.png} & \textbf{PK + FK} & Indica que el campo es, al mismo tiempo, Llave Primaria y Llave Foránea. Común en relaciones identificativas. \\
+        \midrule
+        \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/not-null.png} & \textbf{Not Null (NN)} & El campo es obligatorio. No permite guardar registros con este valor vacío. \\
+        \midrule
+        \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/foreing-key.png} & \textbf{Foreign Key (FK)} & Llave Foránea "pura". Vincula la tabla con la Llave Primaria de otra entidad para mantener la integridad referencial. \\
+        \midrule
+        \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/foreing-key-not-null.png} & \textbf{Nullable FK} & Una Llave Foránea que permite valores nulos; es decir, la relación con la otra tabla es opcional. \\
+        \midrule
+        \includegraphics[width=0.4cm]{Imagenes/leyenda-diagrama-EER/null.png} & \textbf{Null / Optional} & Un campo estándar (no es llave) que es opcional y permite valores nulos. \\
+        \bottomrule
+    \end{tabular}
+    \caption{Significado de los iconos de columna en MySQL Workbench.}
+    \label{tab:simbolos-campos}
+\end{table}
